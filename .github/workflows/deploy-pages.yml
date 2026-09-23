@@ -1,0 +1,50 @@
+name: Deploy RegTech Nexus AI site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: "17 2 * * *"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout root site
+        uses: actions/checkout@v4
+        with:
+          path: root-site
+
+      - name: Checkout TradeGuard
+        uses: actions/checkout@v4
+        with:
+          repository: regtechnexusai/tradeguard
+          ref: main
+          path: site/tradeguard
+
+      - name: Assemble site
+        run: |
+          cp root-site/index.html site/index.html
+          touch site/.nojekyll
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
