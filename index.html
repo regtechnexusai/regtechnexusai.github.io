@@ -1,41 +1,99 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RegTech Nexus AI</title>
-  <meta name="description" content="Regulatory intelligence, compliance analysis and decision support by RegTech Nexus AI.">
-  <style>
-    :root{color-scheme:light;--red:#8f1d2c;--ink:#18212b;--muted:#5b6672;--line:#e7ebef}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:linear-gradient(135deg,#fff 0%,#f8fafc 55%,#f2f6f8 100%);min-height:100vh}
-    header{max-width:1100px;margin:auto;padding:28px 24px;display:flex;align-items:center;justify-content:space-between}
-    .brand{font-weight:800;letter-spacing:-.02em;font-size:1.15rem}
-    .brand span{color:var(--red)}
-    main{max-width:1100px;margin:auto;padding:9vh 24px 16vh}
-    .eyebrow{color:var(--red);font-weight:750;letter-spacing:.12em;text-transform:uppercase;font-size:.78rem}
-    h1{font-size:clamp(2.7rem,7vw,5.8rem);line-height:.98;letter-spacing:-.065em;max-width:850px;margin:20px 0}
-    p{max-width:680px;color:var(--muted);font-size:1.1rem;line-height:1.7}
-    .actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
-    a{display:inline-flex;align-items:center;justify-content:center;border-radius:14px;padding:14px 20px;text-decoration:none;font-weight:750}
-    .primary{background:var(--red);color:white;box-shadow:0 12px 25px #8f1d2c2e}
-    .secondary{border:1px solid var(--line);background:white;color:var(--ink)}
-    footer{max-width:1100px;margin:auto;padding:24px;color:#77818c;border-top:1px solid var(--line);font-size:.9rem}
-  </style>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RegTech Nexus AI — Intelligence for a Regulated World</title>
+<meta name="description" content="Audit, regulatory intelligence, compliance, risk and technology-enabled decision support.">
+<link rel="canonical" href="https://regtechnexusai.com/">
+<meta name="theme-color" content="#790d1a">
+<style>*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:#171717;background:#fff;font-family:Inter,Arial,sans-serif}a{color:inherit;text-decoration:none}.nav{height:78px;display:flex;align-items:center;padding:0 5vw;border-bottom:1px solid #e8e8e8;position:sticky;top:0;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);z-index:10}.brand{display:flex;align-items:center;gap:12px;font-family:Manrope;font-weight:700}.mark{display:grid;place-items:center;width:38px;height:38px;background:#790d1a;color:#fff;font-size:13px}.nav nav{display:flex;gap:25px;margin-left:auto;font-size:13px}.nav nav a:hover{color:#790d1a}.nav-cta{margin-left:28px;background:#171717;color:#fff;padding:13px 17px;font-size:12px}.menu{display:none;margin-left:auto;border:0;background:none;font-size:22px}.hero{min-height:720px;padding:110px 8vw 60px;background:radial-gradient(circle at 85% 25%,#f3e9eb 0,transparent 28%),linear-gradient(135deg,#fff 60%,#f7f7f7);position:relative}.eyebrow,.kicker{font-size:11px;font-weight:700;letter-spacing:.16em;color:#790d1a;margin-bottom:22px}.hero h1,.section h2,.thinking h2,.principles h2,.responsible h2,.closing h2{font-family:Manrope;margin:0;font-weight:600;letter-spacing:-.045em}.hero h1{font-size:clamp(54px,7.2vw,105px);line-height:.95;max-width:1000px}.hero h1 span,.closing h2 span{color:#790d1a}.hero>p{font-size:19px;line-height:1.65;max-width:720px;color:#555;margin:36px 0}.actions{display:flex;gap:12px}.btn{padding:15px 20px;font-size:13px;font-weight:600;border:1px solid #222}.primary{background:#790d1a;color:#fff;border-color:#790d1a}.ghost{background:#fff}.signal{display:grid;grid-template-columns:repeat(3,1fr);max-width:700px;margin-top:85px;border-top:1px solid #d8d8d8;padding-top:22px}.signal div{display:flex;gap:14px;font-size:12px}.signal b{color:#790d1a}.section{padding:110px 8vw}.intro{display:grid;grid-template-columns:1fr 1fr;gap:8vw}.section h2,.thinking h2,.principles h2,.responsible h2{font-size:clamp(38px,4.3vw,66px);line-height:1.05}.lead{font-size:22px;line-height:1.5}.intro p:not(.lead){color:#666;line-height:1.7}.capabilities{display:grid;grid-template-columns:repeat(4,1fr);padding:0 8vw 110px}.capabilities article{padding:34px 28px;border:1px solid #ddd;border-right:0;min-height:340px}.capabilities article:last-child{border-right:1px solid #ddd}.capabilities span,.category,.tag{font-size:10px;letter-spacing:.13em;color:#790d1a;font-weight:700}.capabilities h3{font-family:Manrope;font-size:22px;margin:50px 0 18px}.capabilities p{color:#666;line-height:1.6;font-size:14px}.capabilities a,.article-grid a,.responsible a{display:inline-block;margin-top:24px;font-size:12px;font-weight:700}.dark{background:#171717;color:#fff}.dark .kicker{color:#d88690}.dark h2{font-size:clamp(42px,5vw,72px)}.solution-grid{display:grid;grid-template-columns:2fr 1fr;gap:1px;background:#444;margin-top:60px}.solution-grid article{background:#202020;padding:55px}.feature h3,.side h3{font-family:Manrope;font-size:48px;margin:28px 0 5px}.feature h4{font-size:18px;font-weight:500;color:#ccc}.feature p,.side p{color:#aaa;line-height:1.7;max-width:650px}.chips{display:flex;flex-wrap:wrap;gap:8px;margin:30px 0}.chips span{border:1px solid #555;padding:9px 12px;font-size:11px}.light-btn{display:inline-block;background:#fff;color:#111;padding:14px 18px;font-size:12px;font-weight:700}.side a{color:#fff;font-size:12px;font-weight:700}.thinking{padding:120px 8vw;text-align:center}.flow{display:flex;align-items:center;justify-content:center;gap:22px;margin:70px auto;flex-wrap:wrap}.flow span{border:1px solid #ccc;padding:16px 19px;font-size:11px;font-weight:700;letter-spacing:.08em}.flow i{font-style:normal;color:#790d1a}.manifesto{max-width:700px;margin:auto;border-top:1px solid #ddd;padding-top:35px}.manifesto p{color:#666;line-height:1.7}.manifesto strong{font-family:Manrope;font-size:25px}.insights{background:#f4f4f2}.section-head{display:flex;align-items:end;justify-content:space-between}.section-head>a{font-size:12px;font-weight:700}.article-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#ccc;margin-top:55px}.article-grid article{background:#fff;padding:35px;min-height:330px}.article-grid h3{font-family:Manrope;font-size:26px;line-height:1.2;margin:38px 0 15px}.article-grid p{color:#666;line-height:1.6}.knowledge{display:grid;grid-template-columns:1fr 1.25fr;gap:9vw}.knowledge>div>p{color:#666;max-width:430px;line-height:1.7}.knowledge-list a{display:grid;grid-template-columns:1fr 1.5fr auto;gap:20px;padding:25px 0;border-top:1px solid #ddd;align-items:center}.knowledge-list a:last-child{border-bottom:1px solid #ddd}.knowledge-list b{font-family:Manrope}.knowledge-list span{font-size:12px;color:#777}.knowledge-list i{font-style:normal;color:#790d1a}.principles{padding:110px 8vw;background:#790d1a;color:#fff}.principles .kicker{color:#f0bcc2}.principle-grid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:65px;border-top:1px solid #a54d57}.principle-grid div{padding:30px 30px 0 0}.principle-grid b{font-family:Manrope;font-size:19px}.principle-grid p{font-size:13px;line-height:1.6;color:#e5c9cc}.responsible{padding:110px 8vw;display:grid;grid-template-columns:1fr 1fr;gap:9vw}.responsible p{font-size:18px;line-height:1.7;color:#555}.closing{padding:130px 8vw;background:#f3f3f1}.closing h2{font-size:clamp(46px,6vw,88px);line-height:1}.closing p{font-size:18px;color:#666;margin:30px 0}footer{background:#111;color:#fff;padding:70px 6vw 30px;display:grid;grid-template-columns:1.5fr repeat(4,1fr);gap:35px}footer>div:not(.footer-brand):not(.legal){display:flex;flex-direction:column;gap:13px}footer b{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#aaa;margin-bottom:8px}footer a{font-size:12px;color:#ddd}.footer-brand p{color:#999;font-size:12px;line-height:1.6;max-width:250px}.legal{grid-column:1/-1;border-top:1px solid #333;margin-top:35px;padding-top:25px;display:flex;gap:25px;color:#777;font-size:10px}
+@media(max-width:900px){.nav nav,.nav-cta{display:none}.menu{display:block}.nav.open nav{display:flex;position:absolute;top:78px;left:0;right:0;background:#fff;padding:25px 5vw;flex-direction:column;border-bottom:1px solid #ddd}.hero{padding-top:80px;min-height:auto}.signal,.intro,.solution-grid,.knowledge,.responsible{grid-template-columns:1fr}.capabilities,.principle-grid{grid-template-columns:1fr 1fr}.article-grid{grid-template-columns:1fr}.knowledge-list{margin-top:35px}footer{grid-template-columns:1fr 1fr}.footer-brand,.legal{grid-column:1/-1}}@media(max-width:560px){.hero,.section,.thinking,.principles,.responsible,.closing{padding-left:6vw;padding-right:6vw}.hero h1{font-size:52px}.signal{grid-template-columns:1fr;gap:15px;margin-top:55px}.capabilities{grid-template-columns:1fr;padding-left:6vw;padding-right:6vw}.capabilities article{border-right:1px solid #ddd;border-bottom:0}.capabilities article:last-child{border-bottom:1px solid #ddd}.solution-grid article{padding:35px}.feature h3,.side h3{font-size:37px}.section-head{align-items:start;gap:25px;flex-direction:column}.principle-grid{grid-template-columns:1fr}.knowledge-list a{grid-template-columns:1fr auto}.knowledge-list span{grid-column:1/-1;grid-row:2}.actions{flex-direction:column;align-items:flex-start}footer{grid-template-columns:1fr}.footer-brand,.legal{grid-column:auto}.legal{flex-wrap:wrap}}
+:focus-visible{outline:3px solid #bb5665;outline-offset:3px} .nav nav a,.btn,footer a,.knowledge-list a{transition:color .2s,background .2s,transform .2s}.btn:hover,.light-btn:hover{transform:translateY(-2px)}footer span{font-size:12px;color:#999} .menu{cursor:pointer;color:#171717} @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+</style>
 </head>
 <body>
-  <header>
-    <div class="brand">RegTech <span>Nexus AI</span></div>
-  </header>
-  <main>
-    <div class="eyebrow">Regulatory intelligence · Compliance analysis · Decision support</div>
-    <h1>Technology that keeps human judgment at the centre.</h1>
-    <p>RegTech Nexus AI develops practical, explainable tools for regulatory and financial-crime risk review. Explore TradeGuard as a browser-based demonstration using transparent, rule-based indicators.</p>
-    <div class="actions">
-      <a class="primary" href="/tradeguard/">Open TradeGuard</a>
-      <a class="secondary" href="https://regtechnexusai.github.io/tradeguard/">GitHub Pages fallback</a>
-    </div>
-  </main>
-  <footer>© 2026 RegTech Nexus AI. Demonstrations support analyst review; final decisions remain with the responsible officer.</footer>
-</body>
-</html>
+<header class="nav">
+  <a class="brand" href="#work"><span class="mark">RN</span><span>RegTech Nexus AI</span></a>
+  <button class="menu" aria-label="Open menu" aria-expanded="false" aria-controls="main-nav">☰</button>
+  <nav id="main-nav" aria-label="Main navigation"><a href="#work">What we do</a><a href="#solutions">Solutions</a><a href="#insights">Insights</a><a href="#knowledge">Knowledge</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+  <a class="nav-cta" href="#solutions">Explore solutions ↗</a>
+</header>
+
+<main>
+<section class="hero">
+  <div class="eyebrow">AUDIT · REGULATORY INTELLIGENCE · COMPLIANCE · RISK · TECHNOLOGY</div>
+  <h1>Intelligence for a<br><span>regulated world.</span></h1>
+  <p>We connect regulatory knowledge, analytical thinking and technology to turn complex requirements and emerging risks into practical intelligence, research and digital solutions.</p>
+  <div class="actions"><a class="btn primary" href="#work">Explore our work →</a><a class="btn ghost" href="#solutions">Discover solutions →</a></div>
+  <div class="signal">
+    <div><b>01</b><span>Understand complexity</span></div><div><b>02</b><span>Identify signals</span></div><div><b>03</b><span>Support judgment</span></div>
+  </div>
+</section>
+
+<section id="work" class="section intro">
+  <div><div class="kicker">WHAT WE DO</div><h2>Turning complexity<br>into clarity.</h2></div>
+  <div><p class="lead">Regulation, risk and technological change are increasingly interconnected. RegTech Nexus AI develops structured intelligence and practical tools for professionals operating in regulated environments.</p>
+  <p>Our work is governance-led, evidence-aware and designed to support—not replace—responsible human judgment.</p></div>
+</section>
+
+<section id="capabilities" class="capabilities" aria-label="Areas of expertise">
+  <article><span>01</span><h3>Audit & Regulatory Intelligence</h3><p>Regulatory developments, control environments, assurance perspectives and structured intelligence for informed review.</p><a href="#contact">Contact us →</a></article>
+  <article><span>02</span><h3>Compliance & Financial Crime</h3><p>AML/CFT, TBML, transaction monitoring, financial-crime typologies and compliance frameworks.</p><a href="#contact">Contact us →</a></article>
+  <article><span>03</span><h3>Risk, Governance & Regulatory Oversight</h3><p>Risk management, governance frameworks, internal controls, regulatory oversight and technology-enabled assurance.</p><a href="#contact">Contact us →</a></article>
+  <article><span>04</span><h3>RegTech, SupTech & Responsible AI</h3><p>Practical applications of technology and AI in regulation, compliance, supervision and professional decision support.</p><a href="#contact">Contact us →</a></article>
+</section>
+
+<section id="solutions" class="section dark">
+  <div class="kicker">FEATURED SOLUTIONS</div><h2>Technology built around<br>real-world problems.</h2>
+  <div class="solution-grid">
+    <article class="feature"><div class="tag">FEATURED SOLUTION</div><h3>TradeGuard<span>™</span></h3><h4>Financial Crime & Transaction Risk Intelligence</h4><p>An analytical workspace supporting the identification and review of potential risk indicators across transactions, trade activity and documents.</p><div class="chips"><span>TBML Review</span><span>Transaction Monitoring</span><span>Document Assessment</span></div><a class="light-btn" href="/tradeguard/">Explore TradeGuard →</a></article>
+    <article class="side"><div class="tag">DIGITAL TOOL</div><h3>Pay Scale 2026<br>Calculator</h3><p>Regulatory provisions translated into a clear, accessible and step-by-step calculation experience.</p><a href="https://regtechnexusai.github.io/PayScale-2026-calculator/">Open calculator →</a></article>
+  </div>
+</section>
+
+<section class="thinking">
+ <div class="kicker">HOW WE THINK</div><h2>Intelligence before automation.</h2>
+ <div class="flow"><span>REGULATION</span><i>→</i><span>DATA</span><i>→</i><span>INTELLIGENCE</span><i>→</i><span>TECHNOLOGY</span><i>→</i><span>HUMAN JUDGMENT</span></div>
+ <div class="manifesto"><p>Technology can accelerate analysis.<br>Data can reveal patterns.<br>AI can identify signals.</p><strong>Accountability remains human.</strong></div>
+</section>
+
+<section id="insights" class="section insights">
+ <div class="section-head"><div><div class="kicker">INSIGHTS</div><h2>Ideas that make<br>regulation actionable.</h2></div><a href="#knowledge">Explore knowledge →</a></div>
+ <div class="article-grid">
+  <article><div class="category">RESPONSIBLE AI</div><h3>AI-Ready Banking™ — Beyond Technology Adoption</h3><p>A governance-first view of capability, human judgment, data and responsible AI.</p><a href="#knowledge">Explore this topic →</a></article>
+  <article><div class="category">FINANCIAL CRIME</div><h3>TBML Through Over-Invoicing</h3><p>Following value, evidence and transaction context—not documents alone.</p><a href="#knowledge">Explore this topic →</a></article>
+  <article><div class="category">REGTECH & SUPTECH</div><h3>From Manual to Intelligent Supervision</h3><p>How connected data and supervisory technology can reshape oversight.</p><a href="#knowledge">Explore this topic →</a></article>
+ </div>
+</section>
+
+<section id="knowledge" class="section knowledge">
+ <div><div class="kicker">KNOWLEDGE</div><h2>Knowledge built<br>for practice.</h2><p>Research, explainers and practical resources designed to make complex topics usable.</p></div>
+ <div class="knowledge-list">
+  <a href="#insights"><b>Research & Insights</b><span>Evidence-based analysis and emerging developments</span><i>↗</i></a>
+  <a href="#knowledge"><b>Blog</b><span>Perspectives on professional practice and technology</span><i>↗</i></a>
+  <a href="#insights"><b>Regulatory Explainers</b><span>Complex requirements, structured clearly</span><i>↗</i></a>
+  <a href="#capabilities"><b>Frameworks & Toolkits</b><span>Practical models and methodologies</span><i>↗</i></a>
+  <a href="#knowledge"><b>Publications</b><span>Research papers, reports and specialist publications</span><i>↗</i></a>
+ </div>
+</section>
+
+<section class="principles">
+ <div class="kicker">OUR APPROACH</div><h2>Technology with governance<br>at its core.</h2>
+ <div class="principle-grid"><div><b>Evidence-led</b><p>Structured analysis grounded in evidence and authoritative sources.</p></div><div><b>Governance-first</b><p>Technology designed around accountability, controls and responsible use.</p></div><div><b>Human-centred</b><p>AI supports professional judgment rather than replacing it.</p></div><div><b>Practical by design</b><p>Knowledge translated into usable tools, frameworks and workflows.</p></div></div>
+</section>
+
+<section id="about" class="responsible"><div><div class="kicker">RESPONSIBLE TECHNOLOGY</div><h2>Human judgment<br>remains at the centre.</h2></div><div><p>RegTech Nexus AI develops tools for research, analysis and professional decision support. Technology-generated signals, assessments and insights should be evaluated against available evidence, applicable requirements and professional judgment.</p><a href="mailto:regtechnexusai@gmail.com?subject=Responsible%20use%20of%20RegTech%20Nexus%20AI">Ask about responsible use →</a></div></section>
+
+<section class="closing"><h2>Regulation is evolving.<br><span>Intelligence must evolve with it.</span></h2><p>Explore how RegTech Nexus AI connects regulatory knowledge, technology and human judgment.</p><div class="actions"><a class="btn primary" href="#solutions">Explore solutions →</a><a class="btn ghost" href="#insights">Read our insights →</a></div></section>
+</main>
+
+<footer id="contact">
+ <div class="footer-brand"><div class="brand"><span class="mark">RN</span><span>RegTech Nexus AI</span></div><p>Audit · Regulatory Intelligence · Compliance · Risk · Technology</p></div>
+ <div><b>Solutions</b><a href="/tradeguard/">TradeGuard</a><a href="https://regtechnexusai.github.io/PayScale-2026-calculator/">Pay Scale 2026 Calculator</a><a href="#solutions">All Solutions</a></div>
+ <div><b>Expertise</b><a href="#capabilities">Audit & Regulatory Intelligence</a><a href="#capabilities">Compliance & Financial Crime</a><a href="#capabilities">Risk & Governance</a><a href="#capabilities">RegTech & SupTech</a><a href="#about">Responsible AI</a></div>
+ <div><b>Knowledge</b><a href="#insights">Research & Insights</a><a href="#knowledge">Blog</a><a href="#insights">Regulatory Explainers</a><a href="#capabilities">Frameworks & Toolkits</a><a href="#knowledge">Publications</a></div>
+ <div><b>Connect</b><span>LinkedIn</span><span>Facebook</span><span>YouTube</span><span>X</span><a href="mailto:regtechnexusai@gmail.com">Email</a></div>
+ <div class="legal"><span>© 2026 RegTech Nexus AI</span><a href="mailto:regtechnexusai@gmail.com?subject=Privacy%20inquiry">Privacy inquiries</a><a href="#about">Responsible use</a></div>
+</footer>
+<script>const menu=document.querySelector('.menu'),nav=document.querySelector('.nav');menu.addEventListener('click',()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Close menu':'Open menu')});document.querySelectorAll('#main-nav a').forEach(link=>link.addEventListener('click',()=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false')}));</script>
+</body></html>
