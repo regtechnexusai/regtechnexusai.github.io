@@ -34,7 +34,7 @@ jobs:
 
       - name: Assemble site
         run: |
-          cp root-site/index.html site/index.html
+          cp root-site/index.html root-site/styles.css root-site/script.js root-site/regtech-nexus-ai-logo.png root-site/privacy.html root-site/terms.html site/
           touch site/.nojekyll
 
       - name: Configure Pages
