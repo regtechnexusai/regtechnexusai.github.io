@@ -1,62 +1,16 @@
-name: Deploy RegTech Nexus AI site
-
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
-  schedule:
-    - cron: "17 2 * * *"
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout root site
-        uses: actions/checkout@v4
-        with:
-          path: root-site
-
-      - name: Checkout TradeGuard
-        uses: actions/checkout@v4
-        with:
-          repository: regtechnexusai/tradeguard
-          ref: main
-          path: site/tradeguard
-
       - name: Assemble site
         run: |
           mkdir -p site
-          rsync -a --exclude='.git' --exclude='.github' --exclude='payscale-2026' --exclude='*.md' root-site/ site/
-          rsync -a root-site/payscale-2026/ site/payscale-2026/
+
+          rsync -a \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='*.md' \
+            --exclude='payscale-2026' \
+            --exclude='PayScale-2026-calculator' \
+            root-site/ site/
+
+          mkdir -p site/payscale-2026
+          rsync -a root-site/PayScale-2026-calculator/ site/payscale-2026/
+
           touch site/.nojekyll
-
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: site
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
