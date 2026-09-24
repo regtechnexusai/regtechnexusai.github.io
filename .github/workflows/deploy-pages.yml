@@ -32,6 +32,13 @@ jobs:
           ref: main
           path: site/tradeguard
 
+      - name: Checkout original PayScale calculator
+        uses: actions/checkout@v4
+        with:
+          repository: regtechnexusai/PayScale-2026-calculator
+          ref: main
+          path: payscale-source
+
       - name: Assemble site
         run: |
           mkdir -p site
@@ -47,7 +54,10 @@ jobs:
           mkdir -p site/payscale-2026
 
           rsync -a \
-            root-site/PayScale-2026-calculator/ \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='*.md' \
+            payscale-source/ \
             site/payscale-2026/
 
           touch site/.nojekyll
