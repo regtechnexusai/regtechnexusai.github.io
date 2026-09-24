@@ -2,8 +2,7 @@ name: Deploy RegTech Nexus AI site
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
   schedule:
     - cron: "17 2 * * *"
@@ -37,15 +36,27 @@ jobs:
       - name: Assemble site
         run: |
           mkdir -p site
+          rsync -a --exclude='.git' --exclude='.github' --exclude='payscale-2026' --exclude='*.md' root-site/ site/
+          rsync -a root-site/payscale-2026/ site/payscale-2026/
+          touch site/.nojekyll
 
-          find root-site -maxdepth 1 -type f \
-            \( -name '*.html' \
-            -o -name '*.css' \
-            -o -name '*.js' \
-            -o -name '*.jpg' \
-            -o -name '*.jpeg' \
-            -o -name '*.png' \
-            -o -name '*.svg' \
-            -o -name '*.webp' \
-            -o -name '*.ico' \
-           
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
