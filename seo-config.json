@@ -1,0 +1,77 @@
+{
+  "site": {
+    "name": "RegTech Nexus AI",
+    "canonicalUrl": "https://regtechnexusai.com/",
+    "defaultLanguage": "en",
+    "publisher": "RegTech Nexus AI",
+    "logo": "https://regtechnexusai.com/regtech-nexus-ai-logo.jpg",
+    "approvedDescription": "AI platform for Banking Regulation, AML/CFT, Financial Crime, Basel III/IV, IFRS 9, Risk Management, Internal Audit, Compliance, and AI Governance."
+  },
+  "pages": {
+    "index.html": {
+      "title": "RegTech Nexus AI | Regulation, Risk & Responsible AI",
+      "description": "AI platform for Banking Regulation, AML/CFT, Financial Crime, Basel III/IV, IFRS 9, Risk Management, Internal Audit, Compliance, and AI Governance.",
+      "canonical": "https://regtechnexusai.com/"
+    },
+    "insights.html": {
+      "title": "Insights & Updates | RegTech Nexus AI",
+      "description": "RegTech Nexus AI launch updates, regulatory explainers, research and practical perspectives on banking regulation, risk, compliance and responsible AI.",
+      "canonical": "https://regtechnexusai.com/insights.html"
+    },
+    "blog.html": {
+      "title": "Blog | RegTech Nexus AI",
+      "description": "Perspectives on professional practice, technology, risk, compliance and responsible AI from RegTech Nexus AI.",
+      "canonical": "https://regtechnexusai.com/blog.html"
+    },
+    "regulatory-explainers.html": {
+      "title": "Regulatory Explainers | RegTech Nexus AI",
+      "description": "Clear, evidence-aware explainers for regulatory intelligence, financial crime, risk governance and responsible AI.",
+      "canonical": "https://regtechnexusai.com/regulatory-explainers.html"
+    },
+    "frameworks-toolkit.html": {
+      "title": "Frameworks & Toolkits | RegTech Nexus AI",
+      "description": "Practical governance, review and decision-support frameworks for regulated institutions and professionals.",
+      "canonical": "https://regtechnexusai.com/frameworks-toolkit.html"
+    },
+    "publications.html": {
+      "title": "Publications | RegTech Nexus AI",
+      "description": "Research papers, launch updates and specialist publications from RegTech Nexus AI.",
+      "canonical": "https://regtechnexusai.com/publications.html"
+    },
+    "contact.html": {
+      "title": "Contact | RegTech Nexus AI",
+      "description": "Contact RegTech Nexus AI about regulatory intelligence, compliance, risk governance, responsible AI and digital tools.",
+      "canonical": "https://regtechnexusai.com/contact.html"
+    },
+    "payscale-2026/index.html": {
+      "title": "PayScale 2026 Calculator | RegTech Nexus AI",
+      "description": "A live, rule-transparent PayScale 2026 planning calculator using user-entered official inputs.",
+      "canonical": "https://regtechnexusai.com/payscale-2026/"
+    },
+    "ai-ready-banking.html": {"title": "AI-Ready Banking | Responsible AI | RegTech Nexus AI", "canonical": "https://regtechnexusai.com/ai-ready-banking.html"},
+    "tbml-over-invoicing.html": {"title": "TBML Through Over-Invoicing | RegTech Nexus AI", "canonical": "https://regtechnexusai.com/tbml-over-invoicing.html"},
+    "intelligent-supervision.html": {"title": "From Manual to Intelligent Supervision | RegTech Nexus AI", "canonical": "https://regtechnexusai.com/intelligent-supervision.html"},
+    "privacy.html": {"robots": "noindex,follow"},
+    "terms.html": {"robots": "noindex,follow"}
+  },
+  "topicClusters": [
+    "Banking Regulation",
+    "AML/CFT",
+    "Financial Crime",
+    "Basel III/IV",
+    "IFRS 9",
+    "Risk Management",
+    "Internal Audit",
+    "Compliance",
+    "AI Governance",
+    "RegTech",
+    "SupTech",
+    "Responsible AI"
+  ],
+  "socialProfiles": {
+    "linkedin": "https://www.linkedin.com/company/regtech-nexus-ai/",
+    "facebook": "https://www.facebook.com/regtechnexusai",
+    "youtube": "https://youtube.com/@regtechnexusai"
+  },
+  "lastReviewed": "2026-09-24"
+}
