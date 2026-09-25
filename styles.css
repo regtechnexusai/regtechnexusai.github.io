@@ -192,3 +192,17 @@ body.legal-page-shell .nav .brand-logo{display:block;width:180px;height:58px;bac
   .icms-page .nav .brand-logo{width:170px !important}
   .icms-page .footer-brand .brand{width:min(100%,330px) !important}
 }
+
+/* Keep printed reports readable across page breaks. */
+@media print{
+  .icms-page .assessment-group,
+  .icms-page .assessment-item,
+  .icms-page .sample-report-header,
+  .icms-page .sample-report-grid,
+  .icms-page .sample-report-columns,
+  .icms-page .sample-report-footer{
+    break-inside:avoid;
+    page-break-inside:avoid;
+  }
+  .icms-page .sample-report-card{break-inside:auto;page-break-inside:auto}
+}
