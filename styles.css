@@ -193,6 +193,32 @@ body.legal-page-shell .nav .brand-logo{display:block;width:180px;height:58px;bac
   .icms-page .footer-brand .brand{width:min(100%,330px) !important}
 }
 
+/* ICMS control-tool suite: keep the source-guideline tools scannable and review-ready. */
+.icms-tools-section{padding:94px 8vw;background:#f7fafb}
+.control-tool-note{display:flex;align-items:flex-start;gap:18px;max-width:1280px;margin:0 auto 24px;padding:18px 22px;border:1px solid #c8dfe2;border-left:4px solid #15939f;background:#eef9fa;color:#40536a}
+.control-tool-note strong{flex:none;font-family:Manrope;font-size:15px;color:#102b49}
+.control-tool-note span{font-size:14px;line-height:1.6}
+.control-tool-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;max-width:1280px;margin:0 auto}
+.control-tool-card{display:flex;flex-direction:column;min-width:0;min-height:300px;padding:23px;border:1px solid #d5e2e6;background:#fff;box-shadow:0 10px 28px rgba(16,32,59,.05);transition:transform .18s,box-shadow .18s,border-color .18s}
+.control-tool-card:hover{transform:translateY(-3px);border-color:#8fbfc7;box-shadow:0 16px 34px rgba(16,32,59,.09)}
+.control-tool-card--reporting{background:linear-gradient(160deg,#fffaf0,#fff)}
+.control-tool-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;min-height:42px}
+.control-tool-code{font-size:11px;line-height:1.3;letter-spacing:.11em;font-weight:800;color:#0956a8}
+.control-tool-frequency{display:inline-flex;max-width:58%;padding:5px 7px;border:1px solid #cfe3e6;background:#f3fbfb;color:#5d7182;font-size:10px;line-height:1.3;text-align:right}
+.control-tool-card h3{font-family:Manrope;font-size:22px;line-height:1.16;letter-spacing:-.02em;color:#10203b;margin:18px 0 10px}
+.control-tool-card>p{font-size:14px;line-height:1.62;color:#596477;margin:0}
+.control-tool-output{margin-top:auto;padding-top:20px}
+.control-tool-output strong{display:block;margin-bottom:5px;color:#102b49;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+.control-tool-output span{display:block;padding-top:10px;border-top:1px solid #e0eaec;color:#607187;font-size:12px;line-height:1.55}
+.control-tool-bridge{display:flex;align-items:center;gap:16px;max-width:1280px;margin:28px auto 0;padding:22px 24px;border:1px solid #315d7c;background:#102b49;color:#fff}
+.control-tool-bridge strong{font-family:Manrope;font-size:18px;color:#a4f0e7;white-space:nowrap}
+.control-tool-bridge span{color:#c5d8e1;font-size:14px;line-height:1.55}
+.control-tool-bridge a{flex:none;color:#10203b;background:#a4f0e7;border:1px solid #b4f5e9;padding:11px 13px;font-size:11px;font-weight:800;white-space:nowrap}
+.control-tool-bridge a:hover{background:#fff}
+@media(max-width:900px){.control-tool-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.control-tool-bridge{align-items:flex-start;flex-direction:column}.control-tool-bridge a{width:100%;text-align:center}}
+@media(max-width:620px){.icms-tools-section{padding-left:6vw;padding-right:6vw}.control-tool-note{display:block}.control-tool-note strong{display:block;margin-bottom:8px}.control-tool-grid{grid-template-columns:1fr}.control-tool-card{min-height:0;padding:21px}.control-tool-card h3{font-size:21px}.control-tool-frequency{max-width:55%}.control-tool-bridge{padding:20px 18px}}
+@media print{.icms-page .icms-tools-section{display:none!important}}
+
 /* Keep printed reports readable across page breaks. */
 @media print{
   .icms-page .assessment-group,
