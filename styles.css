@@ -70,3 +70,49 @@ body.legal-page-shell .nav .brand-logo{display:block;width:180px;height:58px;bac
 @media(max-width:900px){.icms-control-grid{grid-template-columns:repeat(2,1fr)}.three-lines-grid,.method-grid{grid-template-columns:1fr 1fr}.assessment-toolbar{flex-direction:column}.assessment-scale{justify-content:flex-start;max-width:none}.icms-home-callout{align-items:flex-start;flex-direction:column}.icms-home-callout>a{width:100%;text-align:center}.sample-report-columns{gap:24px}}
 @media(max-width:620px){.icms-overview,.icms-assessment-section,.icms-cap-section,.icms-report-section,.icms-method-section,.icms-dark-section{padding-left:6vw;padding-right:6vw}.icms-notice-wrap{padding-left:6vw;padding-right:6vw}.icms-hero-meta{display:grid;grid-template-columns:1fr}.icms-control-grid,.three-lines-grid,.method-grid,.sample-report-grid,.sample-report-columns,.result-grid{grid-template-columns:1fr}.assessment-shell{padding:18px}.assessment-item{grid-template-columns:1fr;gap:12px}.assessment-group{padding-left:10px;padding-right:10px}.assessment-group legend{font-size:17px}.result-heading,.sample-report-header{align-items:flex-start;flex-direction:column}.score-ring{align-self:flex-start}.cap-toolbar{align-items:flex-start;flex-direction:column}.cap-toolbar>div{width:100%}.small-action{flex:1}.icms-home-callout{padding:26px 22px}.icms-home-callout h3{font-size:29px}.sample-report-header h3{font-size:26px}}
 @media print{.nav,footer,.article-links,.icms-notice-wrap,.icms-overview,.icms-dark-section,.icms-cap-section,.icms-method-section,.icms-form-actions,.result-actions{display:none!important}.icms-page{background:#fff}.icms-assessment-section,.icms-report-section{padding:20px}.assessment-result{display:block!important;box-shadow:none}.assessment-shell{box-shadow:none;border:0}.result-disclaimer{color:#333}}
+
+/* ICMS mobile refinement: keep every control readable and prevent inline collapse. */
+.icms-page .icms-control-grid > a{display:flex!important;min-width:0;white-space:normal;overflow-wrap:anywhere}
+.icms-page .assessment-toolbar > div{min-width:0}
+.icms-page .assessment-toolbar strong,.icms-page .assessment-toolbar span{white-space:normal}
+.icms-page .assessment-item{display:grid!important;min-width:0}
+.icms-page .assessment-item > span{min-width:0;overflow-wrap:anywhere}
+.icms-page .assessment-item select{display:block;min-width:0;min-height:46px;border-radius:4px;appearance:auto}
+.icms-page .footer-brand .brand{width:min(100%,370px);max-width:100%;padding:0;overflow:hidden;line-height:0;background:#fff}
+.icms-page .footer-brand .brand-logo{display:block!important;width:100%!important;max-width:100%!important;height:auto!important;aspect-ratio:1371 / 449;object-fit:contain!important;background:#fff}
+.icms-page .cap-table-wrap select,.icms-page .cap-table-wrap input{width:100%;min-height:38px;max-width:none;border-radius:4px}
+
+@media(max-width:620px){
+  .icms-page .icms-control-grid{display:grid!important;grid-template-columns:1fr!important;gap:12px!important;background:transparent!important}
+  .icms-page .icms-control-grid > a{min-height:0!important;padding:20px!important;border:1px solid #d5e2e6!important;box-shadow:0 8px 18px rgba(16,32,59,.05)}
+  .icms-page .icms-control-grid > a strong{font-size:19px;line-height:1.25}
+  .icms-page .icms-control-grid > a small{font-size:13px;line-height:1.5}
+  .icms-page .assessment-shell{padding:14px!important;border-radius:2px}
+  .icms-page .assessment-toolbar{display:block!important;padding-bottom:18px;margin-bottom:18px}
+  .icms-page .assessment-toolbar > div:first-child{margin-bottom:16px}
+  .icms-page .assessment-scale{display:grid!important;grid-template-columns:1fr 1fr;gap:7px!important;max-width:none!important}
+  .icms-page .assessment-scale span{display:block!important;padding:9px 10px!important;font-size:11px!important;line-height:1.3}
+  .icms-page .assessment-group{display:block!important;margin-bottom:14px;padding:0 10px 8px!important;min-width:0}
+  .icms-page .assessment-group legend{display:flex!important;align-items:flex-start!important;gap:9px!important;max-width:100%;padding:0 5px!important;font-size:16px!important;line-height:1.3!important}
+  .icms-page .assessment-group legend span{flex:0 0 28px;width:28px;height:28px}
+  .icms-page .assessment-item{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:9px!important;padding:16px 4px!important;font-size:15px!important;line-height:1.5!important}
+  .icms-page .assessment-item select{width:100%!important;font-size:14px!important;padding:11px 12px!important}
+  .icms-page .icms-form-actions,.icms-page .result-actions{display:grid!important;grid-template-columns:1fr!important;gap:9px!important}
+  .icms-page .icms-form-actions .btn,.icms-page .result-actions .btn{width:100%!important;text-align:center}
+  .icms-page .result-heading{display:flex!important;align-items:flex-start!important;flex-direction:column!important}
+  .icms-page .result-grid{display:grid!important;grid-template-columns:1fr!important}
+  .icms-page .cap-toolbar{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:13px!important}
+  .icms-page .cap-toolbar > div{display:grid!important;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+  .icms-page .small-action{width:100%;min-height:42px}
+  .icms-page .cap-table-wrap{overflow:visible!important}
+  .icms-page .cap-table-wrap table{display:block!important;width:100%!important;min-width:0!important}
+  .icms-page .cap-table-wrap thead{display:none!important}
+  .icms-page .cap-table-wrap tbody{display:grid!important;gap:12px}
+  .icms-page .cap-table-wrap tr{display:grid!important;grid-template-columns:1fr!important;border:1px solid #d8e3e6;background:#fff;padding:8px 12px!important}
+  .icms-page .cap-table-wrap td{display:grid!important;grid-template-columns:105px minmax(0,1fr);gap:10px;align-items:center;border-bottom:1px solid #edf1f2;padding:10px 0!important;min-width:0!important;font-size:13px!important}
+  .icms-page .cap-table-wrap td:last-child{border-bottom:0}
+  .icms-page .cap-table-wrap td::before{content:attr(data-label);font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#607187}
+  .icms-page .cap-table-wrap td.cap-remove-cell{display:flex!important;justify-content:flex-end;border-bottom:0;padding-top:5px!important}
+  .icms-page .cap-table-wrap td.cap-remove-cell::before{display:none}
+  .icms-page .footer-brand .brand{width:min(100%,340px)}
+}

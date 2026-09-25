@@ -108,7 +108,7 @@
   const capTable = document.querySelector('#cap-table tbody');
   const capRow = () => {
     const row = document.createElement('tr');
-    row.innerHTML = '<td contenteditable="true">New corrective action</td><td contenteditable="true">Assign owner</td><td><select><option>High</option><option>Medium</option><option>Low</option></select></td><td><input type="date"></td><td><select><option>Open</option><option>Planned</option><option>In progress</option><option>Closed</option></select></td><td contenteditable="true">Required evidence</td><td><button class="remove-cap" type="button" aria-label="Remove action">×</button></td>';
+    row.innerHTML = '<td data-label="Issue / action" contenteditable="true">New corrective action</td><td data-label="Owner" contenteditable="true">Assign owner</td><td data-label="Priority"><select><option>High</option><option>Medium</option><option>Low</option></select></td><td data-label="Due date"><input type="date"></td><td data-label="Status"><select><option>Open</option><option>Planned</option><option>In progress</option><option>Closed</option></select></td><td data-label="Evidence / notes" contenteditable="true">Required evidence</td><td data-label="" class="cap-remove-cell"><button class="remove-cap" type="button" aria-label="Remove action">×</button></td>';
     return row;
   };
   document.getElementById('add-cap-row').addEventListener('click', () => capTable.appendChild(capRow()));
