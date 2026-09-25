@@ -219,6 +219,14 @@ body.legal-page-shell .nav .brand-logo{display:block;width:180px;height:58px;bac
 @media(max-width:620px){.icms-tools-section{padding-left:6vw;padding-right:6vw}.control-tool-note{display:block}.control-tool-note strong{display:block;margin-bottom:8px}.control-tool-grid{grid-template-columns:1fr}.control-tool-card{min-height:0;padding:21px}.control-tool-card h3{font-size:21px}.control-tool-frequency{max-width:55%}.control-tool-bridge{padding:20px 18px}}
 @media print{.icms-page .icms-tools-section{display:none!important}}
 
+/* Keep action-plan export controls at the end of the register. */
+.cap-export{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 22px;border-top:1px solid #dce6e8;background:#f7fbfb}
+.cap-export>div{min-width:0}
+.cap-export strong{display:block;font-family:Manrope;font-size:16px;color:#102b49}
+.cap-export span{display:block;margin-top:4px;color:#718094;font-size:12px;line-height:1.55}
+.cap-export .small-action{flex:none;min-width:148px}
+@media(max-width:620px){.cap-export{align-items:stretch;flex-direction:column;padding:18px}.cap-export .small-action{width:100%;min-height:42px}}
+
 /* Keep printed reports readable across page breaks. */
 @media print{
   .icms-page .assessment-group,
