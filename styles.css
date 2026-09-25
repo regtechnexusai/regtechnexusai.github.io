@@ -50,3 +50,9 @@ body{overflow-x:hidden}
 .wide-logo-page .footer-brand .brand-logo{width:300px;height:86px;object-fit:cover;object-position:center;background:#fff;border-radius:2px}
 .wide-logo-page .footer-brand .brand{display:inline-flex;align-items:center;max-width:100%;background:#fff;padding:2px}
 @media(max-width:560px){.wide-logo-page .nav .brand-logo{width:170px;height:54px}.wide-logo-page .footer-brand .brand-logo{width:280px;height:80px}}
+
+/* Apply the same wide treatment across all secondary pages using the shared shell. */
+body.article-page .nav .brand-logo,body.insights-page .nav .brand-logo,body.contact-page .nav .brand-logo,body.calculator-page .nav .brand-logo{content:url("regtech-nexus-ai-wide.jpg");width:180px;height:58px;object-fit:cover;object-position:center;background:#fff;border-radius:2px}
+body.article-page .footer-brand .brand-logo,body.insights-page .footer-brand .brand-logo,body.contact-page .footer-brand .brand-logo,body.calculator-page .footer-brand .brand-logo{content:url("regtech-nexus-ai-wide.jpg");width:300px;height:86px;object-fit:cover;object-position:center;background:#fff;border-radius:2px}
+body.legal-page-shell .nav .brand-logo{display:block;width:180px;height:58px;background:#fff url("regtech-nexus-ai-wide.jpg") center/cover no-repeat!important;border-radius:2px}
+@media(max-width:560px){body.article-page .nav .brand-logo,body.insights-page .nav .brand-logo,body.contact-page .nav .brand-logo,body.calculator-page .nav .brand-logo{width:170px;height:54px}body.article-page .footer-brand .brand-logo,body.insights-page .footer-brand .brand-logo,body.contact-page .footer-brand .brand-logo,body.calculator-page .footer-brand .brand-logo{width:280px;height:80px}body.legal-page-shell .nav .brand-logo{width:170px;height:54px}}
