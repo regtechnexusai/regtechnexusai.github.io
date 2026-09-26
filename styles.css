@@ -290,6 +290,17 @@ body.calculator-page .footer-brand .brand-logo,
 .icms-page .footer-brand .brand{width:min(100%,260px) !important}
 .icms-page .footer-brand .brand-logo{max-width:260px !important;height:auto !important;aspect-ratio:1391 / 476}
 .icms-page .icms-control-grid > a i{width:44px;height:44px;border:2px solid #4fa6ae;background:#eaf7f6;color:#0956a8;font-size:26px;font-weight:800;box-shadow:0 4px 10px rgba(9,86,168,.10)}
+.icms-shariah-section{padding:94px 8vw;background:linear-gradient(135deg,#fbfaf4 0%,#f8fbfc 62%,#f1faf8 100%)}
+.shariah-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;max-width:1280px;margin:0 auto}
+.shariah-card{min-width:0;padding:28px;border:1px solid #d5e2e6;border-top:4px solid #b99a4a;background:rgba(255,255,255,.92);box-shadow:0 14px 34px rgba(16,32,59,.06)}
+.shariah-card--gold{border-top-color:#b99a4a;background:linear-gradient(145deg,#fff 0%,#fcfaf3 100%)}
+.shariah-card--blue{border-top-color:#0956a8;background:linear-gradient(145deg,#fff 0%,#f2f8fb 100%)}
+.shariah-card>span{display:block;color:#0956a8;font-size:10px;letter-spacing:.13em;font-weight:800}
+.shariah-card h3{font-family:Manrope;font-size:26px;line-height:1.15;margin:19px 0 12px}
+.shariah-card p{color:#596477;font-size:15px;line-height:1.65;margin:0 0 22px}
+.shariah-card>strong{display:block;color:#102b49;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.shariah-card>small{display:block;color:#607187;font-size:13px;line-height:1.55}
+.icms-shariah-section .article-callout{max-width:1280px;margin:28px auto 0}
 .icms-specialist-section{padding:94px 8vw;background:linear-gradient(135deg,#f7fafb 0%,#eef7f8 58%,#fbfaf4 100%)}
 .specialist-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;max-width:1280px;margin:0 auto}
 .specialist-card{min-width:0;padding:28px;border:1px solid #d5e2e6;border-top:4px solid #0956a8;background:rgba(255,255,255,.92);box-shadow:0 14px 34px rgba(16,32,59,.06)}
@@ -324,6 +335,9 @@ body.calculator-page .footer-brand .brand-logo,
   .flow span{padding:15px 17px}
   .flow i{width:42px;height:42px}
   .manifesto{padding:24px 20px}
+  .icms-shariah-section{padding-left:6vw;padding-right:6vw}
+  .shariah-grid{grid-template-columns:1fr}
+  .shariah-card{padding:24px 21px}
   .icms-specialist-section{padding-left:6vw;padding-right:6vw}
   .specialist-grid{grid-template-columns:1fr}
   .specialist-card{padding:24px 21px}
