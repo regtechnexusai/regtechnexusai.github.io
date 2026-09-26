@@ -2,8 +2,9 @@
   const tabs = [...document.querySelectorAll('.jurisdiction-tab')];
   const panels = [...document.querySelectorAll('.assessment-panel')];
   const storagePrefix = 'regtech-nexus-readiness-';
-  const statusValues = new Set(['not-assessed', 'ready', 'partial', 'missing', 'na']);
+  const allowedStatuses = new Set(['not-assessed', 'ready', 'partial', 'missing', 'na']);
   const scoreValues = { ready: 1, partial: 0.5, missing: 0, 'not-assessed': 0, na: null };
+  const statusLabels = { ready: 'Meets / evidence reported', partial: 'Partially meets', missing: 'Does not meet', 'not-assessed': 'Not assessed', na: 'Not applicable' };
 
   const today = () => {
     const date = new Date();
@@ -26,14 +27,14 @@
     if (updateHash) history.replaceState(null, '', `#${name}`);
   };
 
-  const getState = (panel) => ({
-    label: panel.querySelector('[data-field="label"]')?.value || '',
-    date: panel.querySelector('[data-field="date"]')?.value || today(),
-    statuses: [...panel.querySelectorAll('[data-status]')].map((select) => statusValues.has(select.value) ? select.value : 'not-assessed')
-  });
-
   const saveState = (panel) => {
-    try { localStorage.setItem(`${storagePrefix}${panel.dataset.panel}`, JSON.stringify(getState(panel))); } catch (error) { /* Local persistence is optional. */ }
+    try {
+      localStorage.setItem(`${storagePrefix}${panel.dataset.panel}`, JSON.stringify({
+        label: panel.querySelector('[data-field="label"]')?.value || '',
+        date: panel.querySelector('[data-field="date"]')?.value || today(),
+        statuses: [...panel.querySelectorAll('[data-status]')].map((select) => select.value)
+      }));
+    } catch (error) { /* Optional local persistence. */ }
   };
 
   const loadState = (panel) => {
@@ -46,26 +47,40 @@
       if (labelInput && typeof saved.label === 'string') labelInput.value = saved.label;
       if (dateInput && typeof saved.date === 'string') dateInput.value = saved.date;
       panel.querySelectorAll('[data-status]').forEach((select, index) => {
-        if (statusValues.has(saved.statuses?.[index])) select.value = saved.statuses[index];
+        if (allowedStatuses.has(saved.statuses?.[index])) select.value = saved.statuses[index];
       });
     } catch (error) { /* Ignore unavailable or malformed local storage. */ }
   };
 
-  const listItem = (text, tone = '') => {
-    const item = document.createElement('li');
-    if (tone) item.className = tone;
-    item.textContent = text;
-    return item;
+  const setVisibleStatusLabels = (panel) => {
+    panel.querySelectorAll('[data-status] option').forEach((option) => {
+      if (statusLabels[option.value]) option.textContent = statusLabels[option.value];
+    });
+  };
+
+  const riskFor = (row) => {
+    if (row.status === 'na') return 'Excluded';
+    if (row.status === 'missing') return row.critical ? 'Critical' : 'High';
+    if (row.status === 'not-assessed') return row.critical ? 'Critical' : 'Medium';
+    if (row.status === 'partial') return row.critical ? 'High' : 'Medium';
+    return 'Controlled';
+  };
+
+  const readableStatus = (status) => statusLabels[status] || 'Not assessed';
+
+  const clearMatrixResult = (panel) => {
+    panel.querySelectorAll('[data-matrix-result]').forEach((item) => { item.textContent = 'Awaiting assessment'; });
+    panel.querySelectorAll('[data-matrix-risk]').forEach((item) => { item.textContent = 'Not rated'; item.removeAttribute('data-risk'); });
   };
 
   const evaluate = (panel) => {
-    const items = [...panel.querySelectorAll('.assessment-item')];
-    const rows = items.map((item) => ({
+    const rows = [...panel.querySelectorAll('.assessment-item')].map((item, index) => ({
+      index,
       item,
       title: item.querySelector('h4')?.textContent.trim() || 'Control area',
       domain: item.dataset.domain || 'Control',
       action: item.dataset.action || 'Assign an owner and document the next review step.',
-      status: item.querySelector('[data-status]')?.value || 'not-assessed',
+      status: allowedStatuses.has(item.querySelector('[data-status]')?.value) ? item.querySelector('[data-status]').value : 'not-assessed',
       weight: Number(item.dataset.weight || 1),
       critical: item.dataset.critical === 'true'
     }));
@@ -73,98 +88,120 @@
     const denominator = applicable.reduce((total, row) => total + row.weight, 0);
     const achieved = applicable.reduce((total, row) => total + ((scoreValues[row.status] ?? 0) * row.weight), 0);
     const percentage = denominator ? Math.round((achieved / denominator) * 100) : 100;
-    const ready = rows.filter((row) => row.status === 'ready').length;
+    const meets = rows.filter((row) => row.status === 'ready').length;
     const partial = rows.filter((row) => row.status === 'partial').length;
     const openRows = rows.filter((row) => ['not-assessed', 'missing'].includes(row.status));
     const critical = openRows.filter((row) => row.critical).length;
+    const matrixRows = [...panel.querySelectorAll('.matrix-row')];
+    rows.forEach((row) => {
+      const matrix = matrixRows.find((candidate) => Number(candidate.dataset.matrixIndex) === row.index);
+      if (!matrix) return;
+      const result = matrix.querySelector('[data-matrix-result]');
+      const risk = matrix.querySelector('[data-matrix-risk]');
+      if (result) result.textContent = readableStatus(row.status);
+      if (risk) {
+        risk.textContent = riskFor(row);
+        risk.dataset.risk = riskFor(row).toLowerCase();
+      }
+    });
+    panel.querySelector('[data-score]').textContent = `${percentage}%`;
+    panel.querySelector('[data-progress]').style.width = `${percentage}%`;
+    panel.querySelector('[data-count="ready"]').textContent = String(meets);
+    panel.querySelector('[data-count="partial"]').textContent = String(partial);
+    panel.querySelector('[data-count="open"]').textContent = String(openRows.length);
+    panel.querySelector('[data-count="critical"]').textContent = String(critical);
+    const title = panel.querySelector('[data-result-title]');
+    const message = panel.querySelector('[data-result-message]');
+    if (title) title.textContent = critical ? `${critical} critical gap${critical > 1 ? 's' : ''} need attention.` : (openRows.length ? 'Your control-level actions are ready.' : 'All rated controls are covered.');
+    if (message) message.textContent = `${meets} control${meets === 1 ? '' : 's'} meet, ${partial} partial and ${openRows.length} open. The matrix shows the reason for each risk label.`;
     const gaps = panel.querySelector('[data-gaps]');
+    gaps.replaceChildren();
+    if (!openRows.length) {
+      const item = document.createElement('li');
+      item.className = 'is-good';
+      item.textContent = 'No open gaps recorded. Validate the evidence and source version before relying on the result.';
+      gaps.append(item);
+    } else {
+      openRows.forEach((row) => {
+        const item = document.createElement('li');
+        if (row.critical) item.className = 'is-critical';
+        item.textContent = `${row.domain}: ${row.title} · ${riskFor(row)}`;
+        gaps.append(item);
+      });
+    }
     const actions = panel.querySelector('[data-actions]');
-    const score = panel.querySelector('[data-score]');
-    const progress = panel.querySelector('[data-progress]');
-    const resultTitle = panel.querySelector('[data-result-title]');
-    const resultMessage = panel.querySelector('[data-result-message]');
-    if (score) score.textContent = `${percentage}%`;
-    if (progress) progress.style.width = `${percentage}%`;
-    panel.querySelector('[data-count="ready"]')?.replaceChildren(String(ready));
-    panel.querySelector('[data-count="partial"]')?.replaceChildren(String(partial));
-    panel.querySelector('[data-count="open"]')?.replaceChildren(String(openRows.length));
-    panel.querySelector('[data-count="critical"]')?.replaceChildren(String(critical));
-    if (resultTitle) resultTitle.textContent = critical ? `${critical} critical gap${critical > 1 ? 's' : ''} need attention.` : (openRows.length ? 'Your next actions are ready.' : 'All rated controls are covered.');
-    if (resultMessage) resultMessage.textContent = openRows.length ? `${ready} ready, ${partial} partial and ${openRows.length} open control area${openRows.length > 1 ? 's' : ''}.` : 'Every applicable control is marked ready. Validate the evidence with an authorised reviewer.';
-    if (gaps) {
-      gaps.replaceChildren();
-      if (!openRows.length) gaps.append(listItem('No open gaps recorded. Validate the evidence and source version before relying on the result.', 'is-good'));
-      openRows.forEach((row) => gaps.append(listItem(`${row.domain}: ${row.title}${row.critical ? ' · critical' : ''}`, row.critical ? 'is-critical' : '')));
+    actions.replaceChildren();
+    const actionRows = openRows.length ? openRows : rows.filter((row) => row.status === 'partial');
+    if (!actionRows.length) {
+      const item = document.createElement('li');
+      item.className = 'is-good';
+      item.textContent = 'Maintain the evidence, review date and accountable owner.';
+      actions.append(item);
+    } else {
+      [...new Map(actionRows.map((row) => [row.action, row])).values()].slice(0, 6).forEach((row) => {
+        const item = document.createElement('li');
+        item.textContent = row.action;
+        actions.append(item);
+      });
     }
-    if (actions) {
-      actions.replaceChildren();
-      const actionRows = openRows.length ? openRows : rows.filter((row) => row.status === 'partial');
-      if (!actionRows.length) actions.append(listItem('Maintain the evidence, review date and accountable owner.', 'is-good'));
-      [...new Map(actionRows.map((row) => [row.action, row])).values()].slice(0, 6).forEach((row) => actions.append(listItem(row.action)));
-    }
-    rows.forEach((row) => row.item.dataset.status = row.status);
-    return { rows, percentage, ready, partial, openRows, critical };
+    return { rows, percentage, meets, partial, openRows, critical };
   };
 
-  const reportText = (panel, result) => {
-    const label = panel.querySelector('[data-field="label"]')?.value.trim() || 'Unnamed review';
-    const date = panel.querySelector('[data-field="date"]')?.value || today();
-    const title = panel.dataset.title || panel.dataset.panel;
-    const lines = [
-      'REGTECH NEXUS AI · INTERNATIONAL READINESS SNAPSHOT',
-      'Independent browser-based review aid — not a regulatory conclusion',
-      '',
-      `Assessment: ${title}`,
-      `Project label: ${label}`,
-      `Assessment date: ${date}`,
-      `Indicative evidence readiness: ${result.percentage}%`,
-      `Ready: ${result.ready} | Partial: ${result.partial} | Open: ${result.openRows.length} | Critical gaps: ${result.critical}`,
-      '',
-      'CONTROL RESULTS'
-    ];
-    result.rows.forEach((row, index) => lines.push(`${String(index + 1).padStart(2, '0')}. ${row.title} — ${row.status.replace('-', ' ')}`));
-    lines.push('', 'PRIORITY GAPS');
-    if (result.openRows.length) result.openRows.forEach((row) => lines.push(`- ${row.domain}: ${row.title}${row.critical ? ' [critical]' : ''}`));
-    else lines.push('- No open gaps recorded.');
-    lines.push('', 'NEXT ACTIONS');
-    const actionRows = result.openRows.length ? result.openRows : result.rows.filter((row) => row.status === 'partial');
-    if (actionRows.length) [...new Map(actionRows.map((row) => [row.action, row])).values()].slice(0, 6).forEach((row) => lines.push(`- ${row.action}`));
-    else lines.push('- Maintain evidence, review date and accountable owner.');
-    lines.push('', 'BOUNDARY', 'Do not treat this output as legal advice, compliance certification, filing instruction or regulator approval.', 'Do not enter or share customer, transaction, personal or confidential data in the public tool.', 'Verify current primary sources and obtain qualified human review before relying on any result.');
-    return lines.join('\n');
-  };
-
-  const downloadReport = (panel, result) => {
-    const blob = new Blob([reportText(panel, result)], { type: 'text/plain;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    const date = panel.querySelector('[data-field="date"]')?.value || today();
-    link.href = url;
-    link.download = `${panel.dataset.panel}-readiness-summary-${date}.txt`;
-    document.body.append(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(url);
+  const requestAssessment = (panel) => {
+    const label = panel.querySelector('[data-field="label"]');
+    const date = panel.querySelector('[data-field="date"]');
+    const statuses = [...panel.querySelectorAll('[data-status]')];
+    const message = panel.querySelector('[data-assessment-message]');
+    const incomplete = statuses.filter((select) => select.value === 'not-assessed');
+    label?.classList.remove('field-error');
+    statuses.forEach((select) => select.classList.remove('field-error'));
+    if (!label?.value.trim()) {
+      label?.classList.add('field-error');
+      message.textContent = 'Add a non-sensitive project label before assessing.';
+      label?.focus();
+      return;
+    }
+    if (incomplete.length) {
+      incomplete.forEach((select) => select.classList.add('field-error'));
+      message.textContent = `Select a status for all ${statuses.length} control areas, then press Assess this matrix.`;
+      incomplete[0].focus();
+      return;
+    }
+    if (date && !date.value) date.value = today();
+    saveState(panel);
+    evaluate(panel);
+    panel.querySelector('.assessment-result').hidden = false;
+    message.textContent = 'Assessment complete. Review the source-to-control matrix and open actions above.';
+    panel.querySelector('.assessment-result').scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   const resetPanel = (panel) => {
     panel.querySelector('[data-field="label"]').value = '';
     panel.querySelector('[data-field="date"]').value = today();
     panel.querySelectorAll('[data-status]').forEach((select) => { select.value = 'not-assessed'; });
+    panel.querySelectorAll('[data-status]').forEach((select) => select.classList.remove('field-error'));
+    panel.querySelector('[data-assessment-message]').textContent = 'Complete all control statuses, then press Assess this matrix.';
+    panel.querySelector('.assessment-result').hidden = true;
+    panel.querySelectorAll('[data-matrix-result]').forEach((item) => { item.textContent = 'Awaiting assessment'; });
+    panel.querySelectorAll('[data-matrix-risk]').forEach((item) => { item.textContent = 'Not rated'; item.removeAttribute('data-risk'); });
     try { localStorage.removeItem(`${storagePrefix}${panel.dataset.panel}`); } catch (error) { /* Optional persistence. */ }
-    evaluate(panel);
   };
 
   const initialisePanel = (panel) => {
     loadState(panel);
-    panel.querySelectorAll('[data-status], [data-field]').forEach((input) => input.addEventListener('input', () => { saveState(panel); evaluate(panel); }));
+    setVisibleStatusLabels(panel);
+    panel.querySelectorAll('[data-status], [data-field]').forEach((input) => {
+      ['input', 'change'].forEach((eventName) => input.addEventListener(eventName, () => {
+        saveState(panel);
+        clearMatrixResult(panel);
+        panel.querySelector('.assessment-result').hidden = true;
+        panel.querySelector('[data-assessment-message]').textContent = 'Changes made. Press Assess this matrix to refresh the result.';
+      }));
+    });
     panel.querySelectorAll('[data-action]').forEach((button) => button.addEventListener('click', () => {
-      const result = evaluate(panel);
-      if (button.dataset.action === 'download') downloadReport(panel, result);
-      if (button.dataset.action === 'print') window.print();
+      if (button.dataset.action === 'assess') requestAssessment(panel);
       if (button.dataset.action === 'reset') resetPanel(panel);
     }));
-    evaluate(panel);
   };
 
   tabs.forEach((tab, index) => {
