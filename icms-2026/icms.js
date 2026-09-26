@@ -27,6 +27,69 @@
     progress.textContent = `${answered} of ${questionCount} answered`;
   };
 
+  const boundedNumber = (input, maximum) => {
+    const value = Number(input.value);
+    if (!Number.isFinite(value)) return null;
+    return Math.min(maximum, Math.max(0, value));
+  };
+
+  const businessUnitBandFor = (score) => {
+    if (score <= 40) return ['Low', 'Yearly'];
+    if (score <= 60) return ['Moderate', 'Yearly'];
+    if (score <= 80) return ['Above Average', 'Half-yearly'];
+    return ['High', 'Quarterly'];
+  };
+
+  const healthBandFor = (score) => {
+    if (score >= 90) return ['Excellent', 'Strong / full compliance'];
+    if (score >= 80) return ['Very Good', 'Generally compliant; minor gaps'];
+    if (score >= 70) return ['Good', 'Minor weaknesses or gaps'];
+    if (score >= 60) return ['Satisfactory', 'Corrective action needed'];
+    return ['Marginal', 'High risk / ineffective controls'];
+  };
+
+  const shariahBandFor = (score) => {
+    if (score >= 50) return ['High Shariah non-compliance risk', 'Twice a year'];
+    if (score >= 30) return ['Above Average Non-Compliance Risk', 'At least once a year'];
+    if (score >= 15) return ['Moderate Shariah Non-Compliance Risk', 'As decided by Shariah Board / SSC / ICMS'];
+    return ['Low Shariah Non-Compliance Risk', 'As decided by Shariah Board / SSC / ICMS'];
+  };
+
+  const renderOfficialFrameworks = () => {
+    const businessInput = document.getElementById('business-unit-score');
+    const businessOutput = document.getElementById('business-unit-output');
+    const ahrInputs = ['ahr-financial', 'ahr-icms', 'ahr-reputation'].map((id) => document.getElementById(id));
+    const ahrOutput = document.getElementById('ahr-output');
+    const shariahInput = document.getElementById('shariah-score');
+    const shariahOutput = document.getElementById('shariah-output');
+    if (!businessInput || !businessOutput || !ahrOutput || !shariahInput || !shariahOutput || ahrInputs.some((input) => !input)) return;
+
+    const businessScore = boundedNumber(businessInput, 100);
+    if (businessScore === null) {
+      businessOutput.textContent = 'Enter a score from 0 to 100.';
+    } else {
+      const [riskLevel, frequency] = businessUnitBandFor(businessScore);
+      businessOutput.innerHTML = `<strong>${businessScore.toFixed(2)}%</strong><span>${riskLevel} risk · ${frequency} audit</span>`;
+    }
+
+    const healthScores = ahrInputs.map((input) => boundedNumber(input, 100));
+    if (healthScores.some((score) => score === null)) {
+      ahrOutput.textContent = 'Enter all three component scores from 0 to 100.';
+    } else {
+      const composite = (healthScores[0] * 0.40) + (healthScores[1] * 0.35) + (healthScores[2] * 0.25);
+      const [rating, interpretation] = healthBandFor(composite);
+      ahrOutput.innerHTML = `<strong>${composite.toFixed(1)} / 100</strong><span>${rating} · ${interpretation}</span><small>Weights applied: 40% + 35% + 25%</small>`;
+    }
+
+    const shariahScore = boundedNumber(shariahInput, 100);
+    if (shariahScore === null) {
+      shariahOutput.textContent = 'Enter an Annexure-G score from 0 to 100.';
+    } else {
+      const [riskCategory, frequency] = shariahBandFor(shariahScore);
+      shariahOutput.innerHTML = `<strong>${shariahScore.toFixed(2)} / 100</strong><span>${riskCategory}</span><small>Audit frequency: ${frequency}</small>`;
+    }
+  };
+
   const calculate = () => {
     const fields = [...form.querySelectorAll('select[name^="q"]')];
     const unanswered = fields.filter((field) => field.value === '');
@@ -180,6 +243,8 @@
     URL.revokeObjectURL(link.href);
   });
 
+  document.querySelectorAll('#official-ratings input').forEach((input) => input.addEventListener('input', renderOfficialFrameworks));
   normaliseRemoveButtons();
   updateProgress();
+  renderOfficialFrameworks();
 })();

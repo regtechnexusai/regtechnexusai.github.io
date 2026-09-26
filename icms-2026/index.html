@@ -76,6 +76,7 @@
         <a href="#specialist-controls"><span>10</span><strong>Progressive &amp; contemporary controls</strong><small>Concurrent, IS, remote, whistleblower and forensic audit controls</small><i>↘</i></a>
         <a href="#shariah-audit"><span>11</span><strong>Shariah Audit &amp; Islamic Banking</strong><small>Risk-based review, rating, monitoring and follow-up</small><i>↘</i></a>
         <a href="#risk-matrix"><span>12</span><strong>Guideline coverage risk matrix</strong><small>Full-chapter coverage, exclusions and escalation lenses</small><i>↘</i></a>
+        <a href="#official-ratings"><span>13</span><strong>Official scoring &amp; rating references</strong><small>Annexures A, B and G plus Chapters 3.5 and 6.4</small><i>↘</i></a>
       </div>
     </section>
 
@@ -122,6 +123,48 @@
         </article>
       </div>
       <div class="article-callout"><p><strong>Coverage correction:</strong> These rows make exclusions visible and reviewable. The supplemental entries do not turn the 24-question core score into an official Bangladesh Bank rating; they identify where a bank should perform additional risk assessment, evidence review, specialist testing or escalation.</p></div>
+    </section>
+
+    <section id="official-ratings" class="icms-framework-section">
+      <div class="icms-section-intro"><div class="kicker">OFFICIAL FRAMEWORK REFERENCES</div><h2>Use the circular’s rating logic<br>in the right place.</h2><p>These working-paper aids reproduce the thresholds, weights and rating logic stated or sampled in the July 2026 Guideline. They are separate from the site’s 24-question/72-point diagnostic and do not create an official Bangladesh Bank rating.</p></div>
+      <div class="framework-grid">
+        <article class="framework-card framework-card--blue">
+          <span>CHAPTER 3.5 · BUSINESS-UNIT RISK GRADING</span>
+          <h3>Audit-frequency selector</h3>
+          <p>Enter the combined business-unit score from the bank’s documented risk-grading work. The circular lists branch rating, pre-audit control functions, AML testing, RBIA and post-audit compliance as inputs.</p>
+          <label class="framework-field">Overall score (%)<input id="business-unit-score" type="number" min="0" max="100" step="0.01" value="50" inputmode="decimal"></label>
+          <div id="business-unit-output" class="framework-output" aria-live="polite"></div>
+          <div class="framework-table-wrap"><table class="framework-table"><caption>Chapter 3.5 risk bands</caption><thead><tr><th>Score</th><th>Risk level</th><th>Audit frequency</th></tr></thead><tbody><tr><td>0.00–40.00%</td><td>Low</td><td>Yearly</td></tr><tr><td>40.01–60.00%</td><td>Moderate</td><td>Yearly</td></tr><tr><td>60.01–80.00%</td><td>Above Average</td><td>Half-yearly</td></tr><tr><td>80.01–100.00%</td><td>High</td><td>Quarterly</td></tr></tbody></table></div>
+        </article>
+
+        <article class="framework-card framework-card--teal">
+          <span>CHAPTER 6.4 · ANNEXURE-F SAMPLE</span>
+          <h3>Annual Health Report score</h3>
+          <p>Enter component scores out of 100. The sample composite uses Financial Health 40%, ICMS Health 35% and Image &amp; Reputation 25%; higher scores indicate stronger health.</p>
+          <div class="framework-input-grid"><label class="framework-field">Financial Health<input id="ahr-financial" type="number" min="0" max="100" step="0.01" value="80" inputmode="decimal"></label><label class="framework-field">ICMS Health<input id="ahr-icms" type="number" min="0" max="100" step="0.01" value="80" inputmode="decimal"></label><label class="framework-field">Image &amp; Reputation<input id="ahr-reputation" type="number" min="0" max="100" step="0.01" value="80" inputmode="decimal"></label></div>
+          <div id="ahr-output" class="framework-output" aria-live="polite"></div>
+          <div class="framework-table-wrap"><table class="framework-table"><caption>Chapter 6.4 sample health bands</caption><thead><tr><th>Score</th><th>Rating</th><th>Interpretation</th></tr></thead><tbody><tr><td>90+</td><td>Excellent</td><td>Strong / full compliance</td></tr><tr><td>80–89</td><td>Very Good</td><td>Generally compliant; minor gaps</td></tr><tr><td>70–79</td><td>Good</td><td>Minor weaknesses or gaps</td></tr><tr><td>60–69</td><td>Satisfactory</td><td>Corrective action needed</td></tr><tr><td>Below 60</td><td>Marginal</td><td>High risk / ineffective controls</td></tr></tbody></table></div>
+        </article>
+
+        <article class="framework-card framework-card--gold">
+          <span>CHAPTER 7.5 · ANNEXURE-G</span>
+          <h3>Shariah non-compliance risk</h3>
+          <p>Enter the branch, window or unit score out of 100 using the Annexure-G scoring sheet. Unlike the Health Report, a higher score here means greater Shariah non-compliance risk.</p>
+          <label class="framework-field">Annexure-G score (marks)<input id="shariah-score" type="number" min="0" max="100" step="0.01" value="25" inputmode="decimal"></label>
+          <div id="shariah-output" class="framework-output" aria-live="polite"></div>
+          <div class="framework-table-wrap"><table class="framework-table"><caption>Chapter 7.5 Shariah risk bands</caption><thead><tr><th>Score</th><th>Risk category</th><th>Audit frequency</th></tr></thead><tbody><tr><td>50.00–100.00</td><td>High</td><td>Twice a year</td></tr><tr><td>30.00–49.99</td><td>Above Average</td><td>At least once a year</td></tr><tr><td>15.00–29.99</td><td>Moderate</td><td>As decided by Shariah Board / SSC / ICMS</td></tr><tr><td>0.00–14.99</td><td>Low</td><td>As decided by Shariah Board / SSC / ICMS</td></tr></tbody></table></div>
+          <small class="framework-note">Annexure-G allocates 100 marks across major violations, minor violations and other Shariah activity gaps.</small>
+        </article>
+
+        <article class="framework-card framework-card--slate">
+          <span>ANNEXURES A &amp; B · BRANCH RATING BASIS</span>
+          <h3>Evidence and branch-rating basis</h3>
+          <p>Annexure-A supplies the 3×3 probability × impact matrix shown above. Annexure-B supplies the branch audit line-item scoring sheet; complete that sheet with branch evidence before using its result in the Chapter 3.5 business-unit grading.</p>
+          <div class="framework-reference-list"><div><strong>Annexure-A</strong><span>Probability after mitigation × impact before mitigation; banks may customise for their risk profile.</span></div><div><strong>Annexure-B</strong><span>Branch audit rating based on compliance, implementation of policies and branch-level controls.</span></div><div><strong>Important</strong><span>No invented Annexure-B weights or shortcut score are applied here; use the circular’s line-item sheet and approved bank methodology.</span></div></div>
+          <a class="framework-source-link" href="https://www.bb.org.bd/mediaroom/circulars/brpd-2/jul212026brpd-203.pdf" target="_blank" rel="noopener noreferrer">Open the official guideline ↗</a>
+        </article>
+      </div>
+      <div class="article-callout"><p><strong>Framework boundary:</strong> The calculators above are browser-only aids for applying the circular’s published/sample thresholds. Keep the 24-question/72-point score separate, retain the bank’s evidence and approvals, and validate every conclusion against the full circular and applicable instructions.</p></div>
     </section>
 
     <section id="control-tools" class="icms-tools-section">
@@ -343,7 +386,7 @@
 
     <section id="methodology" class="icms-method-section">
       <div class="icms-section-intro"><div class="kicker">METHODOLOGY &amp; BOUNDARIES</div><h2>Useful structure.<br>Professional judgment.</h2></div>
-      <div class="method-grid"><div><h3>Scoring logic</h3><p>Each prompt is scored from 0 to 3. The 24-question instrument has a maximum indicative score of 72. The bands are designed for internal prioritisation only and are not official ICMS ratings.</p></div><div><h3>Evidence discipline</h3><p>Use the strongest available evidence: approved documents, meeting records, reports, system extracts, testing results, issue registers and closure validation. A “3” should be supported by evidence, not intention.</p></div><div><h3>Data boundary</h3><p>This static page processes assessment answers in the browser. Do not enter customer names, account data, transaction details, confidential documents or regulated personal information.</p></div><div><h3>Source and update</h3><p>Primary source: Bangladesh Bank, Guidelines on Internal Control Management System in Banks, July 2026. Toolkit version: 1.1 · Last reviewed: 26 September 2026.</p><a href="https://www.bb.org.bd/mediaroom/circulars/brpd-2/jul212026brpd-203.pdf" target="_blank" rel="noopener noreferrer">Verify against the official guideline ↗</a></div></div>
+      <div class="method-grid"><div><h3>Scoring logic</h3><p>Each prompt is scored from 0 to 3. The 24-question instrument has a maximum indicative score of 72. This composite score is an independently created RegTech Nexus AI diagnostic for internal prioritisation—not a Bangladesh Bank rating. The circular contains separate official scoring and risk-rating frameworks, including Chapters 3.5, 6.4 and 7.5 and Annexures A, B and G; see the framework references above.</p></div><div><h3>Evidence discipline</h3><p>Use the strongest available evidence: approved documents, meeting records, reports, system extracts, testing results, issue registers and closure validation. A “3” should be supported by evidence, not intention.</p></div><div><h3>Data boundary</h3><p>This static page processes assessment answers in the browser. Do not enter customer names, account data, transaction details, confidential documents or regulated personal information.</p></div><div><h3>Source and update</h3><p>Primary source: Bangladesh Bank, Guidelines on Internal Control Management System in Banks, July 2026. Toolkit version: 1.1 · Last reviewed: 26 September 2026.</p><a href="https://www.bb.org.bd/mediaroom/circulars/brpd-2/jul212026brpd-203.pdf" target="_blank" rel="noopener noreferrer">Verify against the official guideline ↗</a></div></div>
       <div class="article-callout"><p><strong>Responsible use:</strong> This toolkit supports professional analysis and internal discussion. It does not provide legal advice, regulatory approval, an audit opinion, an official Bangladesh Bank interpretation or an automatic compliance determination.</p></div>
     </section>
   </main>
