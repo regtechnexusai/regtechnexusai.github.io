@@ -5,6 +5,20 @@
   const allowedStatuses = new Set(['not-assessed', 'ready', 'partial', 'missing', 'na']);
   const scoreValues = { ready: 1, partial: 0.5, missing: 0, 'not-assessed': 0, na: null };
   const statusLabels = { ready: 'Meets / evidence reported', partial: 'Partially meets', missing: 'Does not meet', 'not-assessed': 'Not assessed', na: 'Not applicable' };
+  const sampleCases = {
+    singapore: {
+      label: 'Synthetic Singapore bank AI/AML case',
+      statuses: ['ready', 'partial', 'partial', 'missing', 'partial', 'ready']
+    },
+    dubai: {
+      label: 'Synthetic Dubai VASP perimeter case',
+      statuses: ['ready', 'partial', 'partial', 'missing', 'partial', 'ready']
+    },
+    australia: {
+      label: 'Synthetic Australia fintech AML case',
+      statuses: ['ready', 'partial', 'missing', 'ready', 'partial', 'missing']
+    }
+  };
 
   const today = () => {
     const date = new Date();
@@ -87,7 +101,7 @@
     const applicable = rows.filter((row) => row.status !== 'na');
     const denominator = applicable.reduce((total, row) => total + row.weight, 0);
     const achieved = applicable.reduce((total, row) => total + ((scoreValues[row.status] ?? 0) * row.weight), 0);
-    const percentage = denominator ? Math.round((achieved / denominator) * 100) : 100;
+    const percentage = denominator ? Math.round((achieved / denominator) * 100) : null;
     const meets = rows.filter((row) => row.status === 'ready').length;
     const partial = rows.filter((row) => row.status === 'partial').length;
     const openRows = rows.filter((row) => ['not-assessed', 'missing'].includes(row.status));
@@ -104,16 +118,16 @@
         risk.dataset.risk = riskFor(row).toLowerCase();
       }
     });
-    panel.querySelector('[data-score]').textContent = `${percentage}%`;
-    panel.querySelector('[data-progress]').style.width = `${percentage}%`;
+    panel.querySelector('[data-score]').textContent = percentage === null ? 'N/A' : `${percentage}%`;
+    panel.querySelector('[data-progress]').style.width = `${percentage ?? 0}%`;
     panel.querySelector('[data-count="ready"]').textContent = String(meets);
     panel.querySelector('[data-count="partial"]').textContent = String(partial);
     panel.querySelector('[data-count="open"]').textContent = String(openRows.length);
     panel.querySelector('[data-count="critical"]').textContent = String(critical);
     const title = panel.querySelector('[data-result-title]');
     const message = panel.querySelector('[data-result-message]');
-    if (title) title.textContent = critical ? `${critical} critical gap${critical > 1 ? 's' : ''} need attention.` : (openRows.length ? 'Your control-level actions are ready.' : 'All rated controls are covered.');
-    if (message) message.textContent = `${meets} control${meets === 1 ? '' : 's'} meet, ${partial} partial and ${openRows.length} open. The matrix shows the reason for each risk label.`;
+    if (title) title.textContent = percentage === null ? 'No applicable controls selected.' : (critical ? `${critical} critical gap${critical > 1 ? 's' : ''} need attention.` : (openRows.length ? 'Your control-level actions are ready.' : 'All rated controls are covered.'));
+    if (message) message.textContent = percentage === null ? 'Every control was marked Not applicable. Confirm the perimeter before relying on this result.' : `${meets} control${meets === 1 ? '' : 's'} meet, ${partial} partial and ${openRows.length} open. The matrix shows the reason for each risk label.`;
     const gaps = panel.querySelector('[data-gaps]');
     gaps.replaceChildren();
     if (!openRows.length) {
@@ -145,6 +159,24 @@
       });
     }
     return { rows, percentage, meets, partial, openRows, critical };
+  };
+
+  const loadSampleCase = (panel, name) => {
+    const sample = sampleCases[name];
+    if (!sample) return;
+    const label = panel.querySelector('[data-field="label"]');
+    const date = panel.querySelector('[data-field="date"]');
+    if (label) label.value = sample.label;
+    if (date) date.value = today();
+    panel.querySelectorAll('[data-status]').forEach((select, index) => {
+      select.value = allowedStatuses.has(sample.statuses[index]) ? sample.statuses[index] : 'not-assessed';
+      select.classList.remove('field-error');
+    });
+    saveState(panel);
+    clearMatrixResult(panel);
+    panel.querySelector('.assessment-result').hidden = true;
+    panel.querySelector('[data-assessment-message]').textContent = 'Sample loaded. Review the populated controls, then press Assess this matrix.';
+    panel.querySelector('[data-action="assess"]')?.focus();
   };
 
   const requestAssessment = (panel) => {
@@ -202,6 +234,7 @@
       if (button.dataset.action === 'assess') requestAssessment(panel);
       if (button.dataset.action === 'reset') resetPanel(panel);
     }));
+    panel.querySelectorAll('[data-sample]').forEach((button) => button.addEventListener('click', () => loadSampleCase(panel, button.dataset.sample)));
   };
 
   tabs.forEach((tab, index) => {
