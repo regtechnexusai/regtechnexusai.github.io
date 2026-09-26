@@ -48,11 +48,29 @@
       "description": "A live, rule-transparent PayScale 2026 planning calculator using user-entered official inputs.",
       "canonical": "https://regtechnexusai.com/payscale-2026/"
     },
-    "ai-ready-banking.html": {"title": "AI-Ready Banking | Responsible AI | RegTech Nexus AI", "canonical": "https://regtechnexusai.com/ai-ready-banking.html"},
-    "tbml-over-invoicing.html": {"title": "TBML Through Over-Invoicing | RegTech Nexus AI", "canonical": "https://regtechnexusai.com/tbml-over-invoicing.html"},
-    "intelligent-supervision.html": {"title": "From Manual to Intelligent Supervision | RegTech Nexus AI", "canonical": "https://regtechnexusai.com/intelligent-supervision.html"},
-    "privacy.html": {"robots": "noindex,follow"},
-    "terms.html": {"robots": "noindex,follow"}
+    "ai-ready-banking.html": {
+      "title": "AI-Ready Banking | Responsible AI | RegTech Nexus AI",
+      "canonical": "https://regtechnexusai.com/ai-ready-banking.html"
+    },
+    "tbml-over-invoicing.html": {
+      "title": "TBML Through Over-Invoicing | RegTech Nexus AI",
+      "canonical": "https://regtechnexusai.com/tbml-over-invoicing.html"
+    },
+    "intelligent-supervision.html": {
+      "title": "From Manual to Intelligent Supervision | RegTech Nexus AI",
+      "canonical": "https://regtechnexusai.com/intelligent-supervision.html"
+    },
+    "privacy.html": {
+      "robots": "noindex,follow"
+    },
+    "terms.html": {
+      "robots": "noindex,follow"
+    },
+    "md-ceo-performance-calculator/index.html": {
+      "title": "MD/CEO Performance Measurement Calculator | RegTech Nexus AI",
+      "description": "An independent, transparent calculation aid based on Bangladesh Bank BRPD-2 Circular No. 5 dated 13 September 2026.",
+      "canonical": "https://regtechnexusai.com/md-ceo-performance-calculator/"
+    }
   },
   "topicClusters": [
     "Banking Regulation",
@@ -73,5 +91,5 @@
     "facebook": "https://www.facebook.com/regtechnexusai",
     "youtube": "https://youtube.com/@regtechnexusai"
   },
-  "lastReviewed": "2026-09-24"
+  "lastReviewed": "2026-09-26"
 }
