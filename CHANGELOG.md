@@ -3,6 +3,7 @@
 This package combines the main RegTech Nexus AI website update with the launch communications discussed today.
 
 ## Included
+- Added `bank-use-review.html` as a portfolio-level, bank-facing register separating use boundaries and pilot conditions for all public tools and knowledge materials.
 
 - `index.html` — refreshed homepage with an **Insights & Updates** section.
 - `insights.html` — website-native archive page containing the supplied Facebook and LinkedIn launch posts, with links back to the website and official social pages.
