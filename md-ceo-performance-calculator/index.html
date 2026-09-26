@@ -48,13 +48,7 @@
     <div class="mdceo-control"><label for="bank-select">Bank / Bangladesh operation</label><select id="bank-select"></select></div>
     <div class="mdceo-control"><label for="period-select">Assessment period</label><select id="period-select"><option value="2026-10-01/2027-03-31">01 Oct 2026 – 31 Mar 2027</option><option value="2027-01-01/2027-06-30">01 Jan 2027 – 30 Jun 2027</option><option value="2027-04-01/2027-09-30">01 Apr 2027 – 30 Sep 2027</option><option value="custom">Custom Board assessment period</option></select><div class="mdceo-custom-period" id="custom-period" hidden><label for="custom-start">Custom start date</label><input id="custom-start" type="date"><label for="custom-end">Custom end date</label><input id="custom-end" type="date"><small id="custom-period-note">Use the Board-approved assessment dates.</small></div></div>
     <div class="mdceo-control"><label for="mode-select">Calculation mode</label><select id="mode-select"><option value="board">Board / full KPI assessment</option><option value="public">Public-data preview</option></select></div>
-    <div class="mdceo-actions"><button class="btn primary" id="load-public" type="button">Load public profile</button><button class="btn ghost" id="clear-form" type="button">Clear inputs</button></div>
-  </div>
-
-  <div class="mdceo-exportbar" aria-label="Result export actions">
-    <div class="mdceo-export-copy"><span class="profile-label">Output actions</span><strong>Save or share this review-support result</strong><small>Use after entering verified inputs. PDF uses your browser’s print dialog.</small></div>
-    <div class="mdceo-export-actions"><button class="btn ghost" id="copy-results" type="button">Copy CSV</button><button class="btn ghost" id="download-csv" type="button">Download CSV</button><button class="btn ghost" id="print-report" type="button">Print / Save PDF</button></div>
-    <span class="mdceo-copy-status" id="copy-status" role="status" aria-live="polite"></span>
+    <div class="mdceo-actions"><button class="btn primary" id="load-public" type="button">Load public profile</button><button class="btn ghost" id="clear-form" type="button">Clear inputs</button><button class="btn primary process-btn" id="process-assessment" type="button">Process assessment</button></div>
   </div>
 
   <details class="mdceo-case-study">
@@ -83,7 +77,13 @@
   <div class="mdceo-lens-summary" id="lens-summary" aria-label="Lens score summary"></div>
   <div id="kpi-lenses"></div>
 
-  <div class="mdceo-output-note" id="output-note" aria-live="polite"><strong>How to use:</strong> Enter baseline, Board-approved target and actual performance for each KPI. The calculator uses the circular’s proportionate-achievement approach and applies the 50% threshold.</div>
+  <div class="mdceo-output-note" id="output-note" aria-live="polite"><strong>How to use:</strong> Enter baseline, Board-approved target and actual performance for each KPI, then select <strong>Process assessment</strong>. The calculator uses the circular’s proportionate-achievement approach and applies the 50% threshold.</div>
+
+  <div class="mdceo-exportbar" id="result-actions" aria-label="Processed result actions" hidden>
+    <div class="mdceo-export-copy"><span class="profile-label">Processed result actions</span><strong>Save or share this review-support result</strong><small>Available after processing the entered data. PDF uses your browser’s print dialog.</small></div>
+    <div class="mdceo-export-actions"><button class="btn ghost" id="copy-results" type="button">Copy CSV</button><button class="btn ghost" id="download-csv" type="button">Download CSV</button><button class="btn ghost" id="print-report" type="button">Print / Save PDF</button><button class="btn primary" id="share-email" type="button">Share by Email</button></div>
+    <span class="mdceo-copy-status" id="copy-status" role="status" aria-live="polite"></span>
+  </div>
 </section>
 
 <section class="mdceo-concept" id="concept-note">
