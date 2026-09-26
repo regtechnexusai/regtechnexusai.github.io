@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MD/CEO Performance Measurement Calculator | RegTech Nexus AI</title>
+<meta name="description" content="An independent, transparent calculation aid based on Bangladesh Bank BRPD-2 Circular No. 5 dated 13 September 2026: KPIs Framework for MD/CEO of Banks.">
+<link rel="canonical" href="https://regtechnexusai.com/md-ceo-performance-calculator/">
+<meta name="robots" content="index,follow">
+<meta name="author" content="RegTech Nexus AI">
+<meta name="theme-color" content="#0956a8">
+<link rel="icon" type="image/png" href="../regtech-nexus-ai-logo-2026.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="RegTech Nexus AI">
+<meta property="og:title" content="MD/CEO Performance Measurement Calculator">
+<meta property="og:description" content="A transparent, non-official calculation aid based on Bangladesh Bank's 2026 KPIs Framework for bank MDs and CEOs.">
+<meta property="og:url" content="https://regtechnexusai.com/md-ceo-performance-calculator/">
+<meta property="og:image" content="https://regtechnexusai.com/regtech-nexus-ai-logo-2026.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"MD/CEO Performance Measurement Calculator","url":"https://regtechnexusai.com/md-ceo-performance-calculator/","applicationCategory":"BusinessApplication","operatingSystem":"Any","description":"An independent calculation aid based on Bangladesh Bank BRPD-2 Circular No. 5 dated 13 September 2026.","publisher":{"@type":"Organization","name":"RegTech Nexus AI","url":"https://regtechnexusai.com/"}}
+</script>
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="calculator-page mdceo-page">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="nav">
+  <a class="brand" href="../index.html#work" aria-label="RegTech Nexus AI home"><img class="brand-logo" src="../regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="228" height="72"></a>
+  <button class="menu" aria-label="Open menu" aria-expanded="false" aria-controls="main-nav">☰</button>
+  <nav id="main-nav" aria-label="Main navigation"><a href="../index.html#work">What we do</a><a href="../index.html#solutions">Solutions</a><a href="../insights.html">Insights</a><a href="../blog.html">Blog</a><a href="../index.html#knowledge">Knowledge</a><a href="../index.html#about">About</a><a href="../contact.html">Contact</a><a href="../index.html#ai-assistant">AI Assistant ↗</a></nav>
+  <a class="nav-cta" href="../index.html#solutions">Explore solutions ↗</a>
+</header>
+
+<main id="main-content">
+<section class="mdceo-hero">
+  <div class="kicker">BOARD DECISION SUPPORT · REGULATORY INTELLIGENCE</div>
+  <h1>MD/CEO Performance<br><span>Measurement Calculator.</span></h1>
+  <p>Explore a transparent 100-point calculation model aligned to Bangladesh Bank’s Key Performance Indicators (KPIs) Framework for Managing Director (MD)/Chief Executive Officer (CEO) of Banks.</p>
+  <div class="mdceo-hero-meta"><span>BRPD-2 Circular No. 5 · 13 September 2026</span><a href="https://www.bb.org.bd/mediaroom/circulars/brpd-2/sep132026brpd-25.pdf" target="_blank" rel="noopener noreferrer">Read the official circular ↗</a></div>
+</section>
+
+<section class="mdceo-alert" aria-label="Important limitation">
+  <strong>Independent calculation aid.</strong> The official assessment must use Board-approved targets, the bank’s immediate previous-quarter baseline, verified internal/regulatory evidence and Bangladesh Bank’s prescribed Excel template. Public web data alone cannot complete all 30 KPIs.
+</section>
+
+<section class="mdceo-workspace" aria-label="MD/CEO performance calculator">
+  <div class="mdceo-toolbar">
+    <div class="mdceo-control"><label for="bank-select">Bank / Bangladesh operation</label><select id="bank-select"></select></div>
+    <div class="mdceo-control"><label for="period-select">Assessment period</label><select id="period-select"><option value="2026-10-01/2027-03-31">01 Oct 2026 – 31 Mar 2027</option><option value="2027-01-01/2027-06-30">01 Jan 2027 – 30 Jun 2027</option><option value="2027-04-01/2027-09-30">01 Apr 2027 – 30 Sep 2027</option><option value="custom">Custom Board assessment period</option></select></div>
+    <div class="mdceo-control"><label for="mode-select">Calculation mode</label><select id="mode-select"><option value="board">Board / full KPI assessment</option><option value="public">Public-data preview</option></select></div>
+    <div class="mdceo-actions"><button class="btn primary" id="load-public" type="button">Load public profile</button><button class="btn ghost" id="clear-form" type="button">Clear inputs</button></div>
+  </div>
+
+  <div class="mdceo-profile" id="profile-panel" aria-live="polite">
+    <div><span class="profile-label">Selected bank</span><strong id="profile-bank">Choose a bank</strong><span id="profile-category">—</span></div>
+    <div><span class="profile-label">Public-data status</span><strong id="profile-status">No profile loaded</strong><span id="profile-period">—</span></div>
+    <div><span class="profile-label">Source</span><a id="profile-source" href="#public-data">Public source register</a><span id="profile-source-note">Use verified disclosures only.</span></div>
+  </div>
+
+  <div class="mdceo-scoreboard">
+    <div class="score-card score-card-primary"><span>Indicative / final score</span><strong id="grand-score">—</strong><small id="score-label">Complete the inputs to calculate</small></div>
+    <div class="score-card"><span>Regulatory interpretation</span><strong id="rating">—</strong><small id="rating-note">75+ Above Average · 65–&lt;75 Average · &lt;65 Below Average</small></div>
+    <div class="score-card"><span>KPI coverage</span><strong id="coverage">0 / 30</strong><small id="coverage-note">Full assessment requires all KPI rows</small></div>
+    <div class="score-card"><span>Critical-KPI penalty</span><strong id="penalty">—</strong><small>Applied only when a completed critical KPI is below the circular’s 50% threshold</small></div>
+  </div>
+
+  <div class="mdceo-lens-summary" id="lens-summary" aria-label="Lens score summary"></div>
+  <div id="kpi-lenses"></div>
+
+  <div class="mdceo-output-note" id="output-note" aria-live="polite"><strong>How to use:</strong> Enter baseline, Board-approved target and actual performance for each KPI. The calculator uses the circular’s proportionate-achievement approach and applies the 50% threshold.</div>
+</section>
+
+<section class="mdceo-concept" id="concept-note">
+  <div class="kicker">CONCEPT NOTE</div>
+  <h2>RegTech Nexus AI MD/CEO Performance Measurement Calculator</h2>
+  <p class="concept-lead">Proposed as a transparent review-support layer for bank Boards, Board committees, governance professionals, researchers and supervisors. It is designed to organise evidence and make the arithmetic reviewable—not to replace the Board’s appraisal judgment or Bangladesh Bank’s regulatory review.</p>
+  <div class="concept-grid">
+    <article><span>01</span><h3>Purpose</h3><p>Translate the 2026 BB KPI framework into a readable, auditable and reusable calculation interface for the five performance lenses.</p></article>
+    <article><span>02</span><h3>Core method</h3><p>Each KPI is scored against the bank-specific baseline and target. Achievement below 50% receives zero for that KPI; completed critical KPIs may trigger the prescribed penalty.</p></article>
+    <article><span>03</span><h3>Public-data layer</h3><p>Bank websites, annual reports, half-yearly reports, quarterly disclosures and BB publications can prefill selected observable metrics with a source and period label.</p></article>
+    <article><span>04</span><h3>Evidence boundary</h3><p>Board targets, RBS ratings, AML/CFT ratings, inspection observations, internal controls, regulatory reporting quality and legal-risk evidence are not reliably public and remain manual inputs.</p></article>
+  </div>
+
+  <div class="concept-table-wrap"><table class="concept-table"><caption>Bangladesh Bank’s five performance lenses</caption><thead><tr><th>Lens</th><th>Weight</th><th>Primary themes</th><th>Public-data feasibility</th></tr></thead><tbody><tr><td>Bank Solvency and Liquidity</td><td>25%</td><td>CRAR, CET1, adjusted CRAR, LCR, NSFR, ADR</td><td>Partial</td></tr><tr><td>Asset Quality</td><td>25%</td><td>NPL, stressed assets, provision coverage, concentration, recovery</td><td>Partial</td></tr><tr><td>Profitability</td><td>10%</td><td>ROA, ROE, NIM, efficiency, non-interest income, deposit mix</td><td>Moderate</td></tr><tr><td>Governance and Internal Control</td><td>25%</td><td>Compliance, AML/CFT, CRR, reporting, ICT risk, leadership</td><td>Low / evidence-sensitive</td></tr><tr><td>Inclusion, Customer and Market Conduct</td><td>15%</td><td>Digital adoption, service quality, CMSME/agriculture/green finance, fraud, legal risk</td><td>Partial</td></tr></tbody></table></div>
+
+  <div class="concept-steps"><div><b>Phase 1 · Live calculator</b><span>Manual Board inputs, bank dropdown, 30 KPI rows, transparent scoring and export-ready result view.</span></div><div><b>Phase 2 · Verified public data registry</b><span>Period-tagged extraction from bank disclosures and BB publications, with source links and confidence labels.</span></div><div><b>Phase 3 · Governance workflow</b><span>Evidence attachments, reviewer sign-off, version history, Board approval trail and Excel-template mapping.</span></div></div>
+</section>
+
+<section class="mdceo-sources" id="public-data">
+  <div class="kicker">SOURCE REGISTER</div><h2>Public sources and evidence discipline.</h2>
+  <div class="source-grid"><a href="https://www.bb.org.bd/mediaroom/circulars/brpd-2/sep132026brpd-25.pdf" target="_blank" rel="noopener noreferrer"><b>Bangladesh Bank BRPD-2 Circular No. 5</b><span>KPIs Framework for MD/CEO of Banks · 13 September 2026</span>↗</a><a href="https://www.bb.org.bd/en/index.php/links/links/9" target="_blank" rel="noopener noreferrer"><b>Bangladesh Bank scheduled-bank directory</b><span>Official bank names and bank website links</span>↗</a><a href="https://www.bb.org.bd/en/index.php/publication/publictn/2/14" target="_blank" rel="noopener noreferrer"><b>Bangladesh Bank Scheduled Banks Statistics</b><span>Quarterly source family for sector and bank disclosures</span>↗</a><a href="https://bracbank.com/en/company-profile" target="_blank" rel="noopener noreferrer"><b>Illustrative public profile · BRAC Bank</b><span>Selected published ratios are loaded only as reference actuals</span>↗</a><a href="https://www.ebl.com.bd/news/ebl-posts-20-profit-growth-in-2025" target="_blank" rel="noopener noreferrer"><b>Illustrative public profile · Eastern Bank</b><span>Selected 2025 ratios are loaded only as reference actuals</span>↗</a></div>
+  <p class="source-disclaimer">Publicly disclosed figures may use different dates, solo/consolidated bases, definitions or accounting scopes. A public-data preview must not be described as an official MD/CEO appraisal, Board-approved assessment or Bangladesh Bank rating.</p>
+</section>
+</main>
+
+<footer id="contact">
+ <div class="footer-brand"><div class="brand"><img class="brand-logo" src="../regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="248" height="80"></div><p>Audit · Regulatory Intelligence · Compliance · Risk · Technology</p></div>
+ <div><b>Solutions</b><a href="../tradeguard/">TradeGuard</a><a href="../icms-2026/">ICMS Toolkit</a><a href="./">MD/CEO KPI Calculator</a><a href="../payscale-2026/">PayScale 2026 Calculator</a></div>
+ <div><b>Knowledge</b><a href="../insights.html">Research &amp; Insights</a><a href="../blog.html">Blog</a><a href="../regulatory-explainers.html">Regulatory Explainers</a><a href="../frameworks-toolkit.html">Frameworks &amp; Toolkits</a><a href="../publications.html">Publications</a></div>
+ <div><b>Connect</b><a href="https://www.linkedin.com/company/regtech-nexus-ai/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://www.facebook.com/regtechnexusai" target="_blank" rel="noopener noreferrer">Facebook</a><a href="../contact.html">Contact</a></div>
+ <p class="footer-note">Independent review-support calculator. Verify every input and output against the official circular, Board-approved targets, authoritative disclosures and professional judgment.</p>
+ <div class="legal"><span>© 2026 RegTech Nexus AI</span><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></div>
+</footer>
+<script src="../script.js" defer></script>
+<script src="calculator.js" defer></script>
+</body>
+</html>
