@@ -2,6 +2,7 @@
   const BB_CIRCULAR = 'https://www.bb.org.bd/mediaroom/circulars/brpd-2/sep132026brpd-25.pdf';
   const BB_BANK_DIRECTORY = 'https://www.bb.org.bd/en/index.php/links/links/9';
   const BB_STATS = 'https://www.bb.org.bd/en/index.php/publication/publictn/2/14';
+  const CRITICAL_PENALTY_RATE = 0.25;
 
   const lenses = [
     {id:'solvency', number:'1', title:'Bank Solvency and Liquidity', weight:25, description:'Capital strength, solvency, stability and resilience to shocks.', kpis:[
@@ -127,6 +128,7 @@
       ['Assessment period', assessmentPeriodLabel()],
       ['Calculation mode', modeSelect.options[modeSelect.selectedIndex]?.textContent.trim() || ''],
       ['Generated', new Date().toISOString()],
+      ['Critical-KPI penalty model', 'Illustrative site model: 25% of the completed KPI available contribution below 50%; verify against official sources'],
       [],
       ['Lens', 'KPI', 'Direction', 'Weight %', 'Baseline', 'Board target', 'Actual', 'Achievement %', 'Weighted contribution', 'Evidence / source', 'Status']
     ];
@@ -278,7 +280,7 @@
         availableMax += maxContribution;
         contribution = ratio >= .5 ? ratio * maxContribution : 0;
         earned += contribution;
-        if (criticalIds.has(kpi.id) && ratio < .5) penalty += maxContribution * .25;
+        if (criticalIds.has(kpi.id) && ratio < .5) penalty += maxContribution * CRITICAL_PENALTY_RATE;
       }
       const achievement = document.querySelector(`[data-output="${kpi.id}-achievement"]`);
       const weighted = document.querySelector(`[data-output="${kpi.id}-weighted"]`);
