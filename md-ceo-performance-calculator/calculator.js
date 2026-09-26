@@ -114,10 +114,13 @@
     let penalty = 0;
     const lensResults = {};
     allKpis().forEach(kpi => {
-      const baseline = Number(getValue(kpi.id,'baseline'));
-      const target = Number(getValue(kpi.id,'target'));
-      const actual = Number(getValue(kpi.id,'actual'));
-      const complete = [baseline,target,actual].every(Number.isFinite);
+      const baselineRaw = getValue(kpi.id,'baseline');
+      const targetRaw = getValue(kpi.id,'target');
+      const actualRaw = getValue(kpi.id,'actual');
+      const baseline = Number(baselineRaw);
+      const target = Number(targetRaw);
+      const actual = Number(actualRaw);
+      const complete = [baselineRaw,targetRaw,actualRaw].every(value => value !== '' && Number.isFinite(Number(value)));
       const ratio = scoreRatio(kpi,baseline,target,actual);
       const maxContribution = kpi.lensWeight * kpi.weight / 100;
       let contribution = null;
