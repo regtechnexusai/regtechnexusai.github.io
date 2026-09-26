@@ -240,3 +240,91 @@ body.legal-page-shell .nav .brand-logo{display:block;width:180px;height:58px;bac
   }
   .icms-page .sample-report-card{break-inside:auto;page-break-inside:auto}
 }
+
+/* 2026-09-26 visual refinement: smaller brand lock-up, calmer consulting surfaces and clearer touch targets. */
+.brand-logo{width:190px;height:auto;aspect-ratio:1391 / 476;object-fit:contain}
+.footer-brand .brand-logo{width:230px;height:auto;aspect-ratio:1391 / 476;object-fit:contain}
+body.article-page .nav .brand-logo,
+body.insights-page .nav .brand-logo,
+body.contact-page .nav .brand-logo,
+body.calculator-page .nav .brand-logo,
+.wide-logo-page .nav .brand-logo{width:160px;height:51px}
+body.article-page .footer-brand .brand-logo,
+body.insights-page .footer-brand .brand-logo,
+body.contact-page .footer-brand .brand-logo,
+body.calculator-page .footer-brand .brand-logo,
+.wide-logo-page .footer-brand .brand-logo{width:260px;height:75px}
+
+.focus-section{background:linear-gradient(135deg,#f7fbfc 0%,#f2f8fa 60%,#f5faf7 100%)}
+.focus-grid{gap:12px;background:transparent}
+.focus-grid a{border:1px solid #d7e3e6;border-top:3px solid #0956a8;border-radius:2px;background:linear-gradient(145deg,#fff 0%,#f4fafb 100%);box-shadow:0 12px 28px rgba(16,32,59,.06);min-height:175px}
+.focus-grid a:nth-child(2){border-top-color:#15939f;background:linear-gradient(145deg,#fff 0%,#f1faf8 100%)}
+.focus-grid a:nth-child(3){border-top-color:#b99a4a;background:linear-gradient(145deg,#fff 0%,#fcfaf3 100%)}
+.focus-grid a:nth-child(4){border-top-color:#315d7c;background:linear-gradient(145deg,#fff 0%,#f3f7fb 100%)}
+.focus-grid i,
+.knowledge-list i{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:2px solid #4fa6ae;border-radius:50%;background:#eaf7f6;color:#0956a8;font-size:24px;font-weight:800;line-height:1;box-shadow:0 4px 10px rgba(9,86,168,.10);transition:transform .18s ease,background .18s ease}
+.focus-grid a:hover i,
+.knowledge-list a:hover i{background:#d7efed;transform:translateY(-1px)}
+
+.knowledge{background:linear-gradient(135deg,#fff 0%,#f7fafb 65%,#f4f9f7 100%)}
+.knowledge-list{display:grid;gap:12px}
+.knowledge-list a{margin:0;padding:22px 20px;border:1px solid #d8e3e7;border-left:3px solid #0956a8;background:linear-gradient(120deg,#fff 0%,#f5fafb 100%);box-shadow:0 10px 25px rgba(16,32,59,.045);transition:transform .18s ease,box-shadow .18s ease,background .18s ease}
+.knowledge-list a:nth-child(2){border-left-color:#15939f;background:linear-gradient(120deg,#fff 0%,#f2faf8 100%)}
+.knowledge-list a:nth-child(3){border-left-color:#b99a4a;background:linear-gradient(120deg,#fff 0%,#fcfaf3 100%)}
+.knowledge-list a:nth-child(4){border-left-color:#315d7c;background:linear-gradient(120deg,#fff 0%,#f3f7fb 100%)}
+.knowledge-list a:nth-child(5){border-left-color:#0956a8}
+.knowledge-list a:nth-child(6){border-left-color:#15939f}
+.knowledge-list a:hover{background:#fff;transform:translateY(-2px);box-shadow:0 14px 30px rgba(16,32,59,.08)}
+
+.thinking{background:linear-gradient(135deg,#f7fbfc 0%,#eef7fa 56%,#f6faf7 100%)}
+.flow{gap:14px;max-width:920px}
+.flow span{display:inline-flex;align-items:center;justify-content:center;min-height:52px;border:1px solid #d3e0e4;border-top:3px solid #0956a8;border-radius:2px;background:rgba(255,255,255,.9);box-shadow:0 9px 22px rgba(16,32,59,.05)}
+.flow span:nth-of-type(2){border-top-color:#15939f}
+.flow span:nth-of-type(3){border-top-color:#b99a4a}
+.flow span:nth-of-type(4){border-top-color:#315d7c}
+.flow span:nth-of-type(5){border-top-color:#0956a8}
+.flow i{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:2px solid #4fa6ae;border-radius:50%;background:#eaf7f6;color:#0956a8;font-size:25px;font-weight:800;line-height:1;box-shadow:0 4px 10px rgba(9,86,168,.10)}
+.manifesto{padding:28px 32px;border:1px solid #d8e3e7;border-top:3px solid #b99a4a;background:rgba(255,255,255,.78);box-shadow:0 12px 28px rgba(16,32,59,.05)}
+
+.icms-page .nav .brand-logo{width:160px !important;height:auto !important;aspect-ratio:1391 / 476}
+.icms-page .footer-brand .brand{width:min(100%,260px) !important}
+.icms-page .footer-brand .brand-logo{max-width:260px !important;height:auto !important;aspect-ratio:1391 / 476}
+.icms-page .icms-control-grid > a i{width:44px;height:44px;border:2px solid #4fa6ae;background:#eaf7f6;color:#0956a8;font-size:26px;font-weight:800;box-shadow:0 4px 10px rgba(9,86,168,.10)}
+.icms-specialist-section{padding:94px 8vw;background:linear-gradient(135deg,#f7fafb 0%,#eef7f8 58%,#fbfaf4 100%)}
+.specialist-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;max-width:1280px;margin:0 auto}
+.specialist-card{min-width:0;padding:28px;border:1px solid #d5e2e6;border-top:4px solid #0956a8;background:rgba(255,255,255,.92);box-shadow:0 14px 34px rgba(16,32,59,.06)}
+.specialist-card--contemporary{border-top-color:#15939f;background:linear-gradient(145deg,#fff 0%,#f1faf8 100%)}
+.specialist-grid--single{grid-template-columns:minmax(0,900px)}
+.specialist-card>span{display:block;color:#0956a8;font-size:10px;letter-spacing:.13em;font-weight:800}
+.specialist-card h3{font-family:Manrope;font-size:26px;line-height:1.15;margin:19px 0 12px}
+.specialist-card p{color:#596477;font-size:15px;line-height:1.65;margin:0 0 22px}
+.specialist-card>strong{display:block;color:#102b49;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.specialist-card>small{display:block;color:#607187;font-size:13px;line-height:1.55}
+.icms-specialist-section .article-callout{max-width:1280px;margin:28px auto 0}
+
+@media(max-width:560px){
+  .brand-logo{width:160px;height:auto}
+  .footer-brand .brand-logo{width:220px;height:auto}
+  body.article-page .nav .brand-logo,
+  body.insights-page .nav .brand-logo,
+  body.contact-page .nav .brand-logo,
+  body.calculator-page .nav .brand-logo,
+  .wide-logo-page .nav .brand-logo{width:150px;height:48px}
+  body.article-page .footer-brand .brand-logo,
+  body.insights-page .footer-brand .brand-logo,
+  body.contact-page .footer-brand .brand-logo,
+  body.calculator-page .footer-brand .brand-logo,
+  .wide-logo-page .footer-brand .brand-logo{width:235px;height:68px}
+  .icms-page .nav .brand-logo{width:150px !important}
+  .icms-page .footer-brand .brand{width:min(100%,240px) !important}
+  .icms-page .footer-brand .brand-logo{max-width:240px !important}
+  .focus-grid a{min-height:0;padding:24px 22px}
+  .knowledge-list a{padding:20px 18px}
+  .flow{gap:12px}
+  .flow span{padding:15px 17px}
+  .flow i{width:42px;height:42px}
+  .manifesto{padding:24px 20px}
+  .icms-specialist-section{padding-left:6vw;padding-right:6vw}
+  .specialist-grid{grid-template-columns:1fr}
+  .specialist-card{padding:24px 21px}
+}
