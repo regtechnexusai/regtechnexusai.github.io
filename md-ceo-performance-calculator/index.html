@@ -46,10 +46,26 @@
 <section class="mdceo-workspace" aria-label="MD/CEO performance calculator">
   <div class="mdceo-toolbar">
     <div class="mdceo-control"><label for="bank-select">Bank / Bangladesh operation</label><select id="bank-select"></select></div>
-    <div class="mdceo-control"><label for="period-select">Assessment period</label><select id="period-select"><option value="2026-10-01/2027-03-31">01 Oct 2026 – 31 Mar 2027</option><option value="2027-01-01/2027-06-30">01 Jan 2027 – 30 Jun 2027</option><option value="2027-04-01/2027-09-30">01 Apr 2027 – 30 Sep 2027</option><option value="custom">Custom Board assessment period</option></select></div>
+    <div class="mdceo-control"><label for="period-select">Assessment period</label><select id="period-select"><option value="2026-10-01/2027-03-31">01 Oct 2026 – 31 Mar 2027</option><option value="2027-01-01/2027-06-30">01 Jan 2027 – 30 Jun 2027</option><option value="2027-04-01/2027-09-30">01 Apr 2027 – 30 Sep 2027</option><option value="custom">Custom Board assessment period</option></select><div class="mdceo-custom-period" id="custom-period" hidden><label for="custom-start">Custom start date</label><input id="custom-start" type="date"><label for="custom-end">Custom end date</label><input id="custom-end" type="date"><small id="custom-period-note">Use the Board-approved assessment dates.</small></div></div>
     <div class="mdceo-control"><label for="mode-select">Calculation mode</label><select id="mode-select"><option value="board">Board / full KPI assessment</option><option value="public">Public-data preview</option></select></div>
     <div class="mdceo-actions"><button class="btn primary" id="load-public" type="button">Load public profile</button><button class="btn ghost" id="clear-form" type="button">Clear inputs</button></div>
   </div>
+
+  <div class="mdceo-exportbar" aria-label="Result export actions">
+    <div class="mdceo-export-copy"><span class="profile-label">Output actions</span><strong>Save or share this review-support result</strong><small>Use after entering verified inputs. PDF uses your browser’s print dialog.</small></div>
+    <div class="mdceo-export-actions"><button class="btn ghost" id="copy-results" type="button">Copy CSV</button><button class="btn ghost" id="download-csv" type="button">Download CSV</button><button class="btn ghost" id="print-report" type="button">Print / Save PDF</button></div>
+    <span class="mdceo-copy-status" id="copy-status" role="status" aria-live="polite"></span>
+  </div>
+
+  <details class="mdceo-case-study">
+    <summary>Sample case study: see how the calculation works</summary>
+    <div class="case-study-body">
+      <p class="case-study-disclaimer"><strong>Illustrative example only.</strong> This fictional case does not represent a real bank, an official appraisal or a Bangladesh Bank rating.</p>
+      <div class="case-study-table-wrap"><table class="case-study-table"><thead><tr><th>KPI</th><th>Direction</th><th>Baseline</th><th>Target</th><th>Actual</th><th>Achievement</th><th>Contribution</th></tr></thead><tbody><tr><td>CRAR</td><td>Higher is better</td><td>12.5%</td><td>13.5%</td><td>13.0%</td><td>50.0%</td><td>3.13 / 6.25</td></tr><tr><td>Gross NPL</td><td>Lower is better</td><td>6.0%</td><td>5.0%</td><td>5.5%</td><td>50.0%</td><td>3.13 / 6.25</td></tr><tr><td>ROE</td><td>Higher is better</td><td>12.0%</td><td>15.0%</td><td>14.0%</td><td>66.7%</td><td>1.33 / 2.00</td></tr></tbody></table></div>
+      <div class="case-study-formula"><strong>Process:</strong> Achievement = (Actual − Baseline) ÷ (Target − Baseline) for higher-is-better KPIs. For lower-is-better KPIs, reverse the direction. Achievement below 50% receives zero for that KPI. The contribution then equals achievement × lens weight × KPI weight.</div>
+      <p class="case-study-note">In the live calculator, the Board must approve the target, the bank must retain evidence, and all 30 KPI rows should be reconciled with the prescribed Excel template.</p>
+    </div>
+  </details>
 
   <div class="mdceo-profile" id="profile-panel" aria-live="polite">
     <div><span class="profile-label">Selected bank</span><strong id="profile-bank">Choose a bank</strong><span id="profile-category">—</span></div>
@@ -88,7 +104,7 @@
 
 <section class="mdceo-sources" id="public-data">
   <div class="kicker">SOURCE REGISTER</div><h2>Public sources and evidence discipline.</h2>
-  <div class="source-grid"><a href="https://www.bb.org.bd/mediaroom/circulars/brpd-2/sep132026brpd-25.pdf" target="_blank" rel="noopener noreferrer"><b>Bangladesh Bank BRPD-2 Circular No. 5</b><span>KPIs Framework for MD/CEO of Banks · 13 September 2026</span>↗</a><a href="https://www.bb.org.bd/en/index.php/links/links/9" target="_blank" rel="noopener noreferrer"><b>Bangladesh Bank scheduled-bank directory</b><span>Official bank names and bank website links</span>↗</a><a href="https://www.bb.org.bd/en/index.php/publication/publictn/2/14" target="_blank" rel="noopener noreferrer"><b>Bangladesh Bank Scheduled Banks Statistics</b><span>Quarterly source family for sector and bank disclosures</span>↗</a><a href="https://bracbank.com/en/company-profile" target="_blank" rel="noopener noreferrer"><b>Illustrative public profile · BRAC Bank</b><span>Selected published ratios are loaded only as reference actuals</span>↗</a><a href="https://www.ebl.com.bd/news/ebl-posts-20-profit-growth-in-2025" target="_blank" rel="noopener noreferrer"><b>Illustrative public profile · Eastern Bank</b><span>Selected 2025 ratios are loaded only as reference actuals</span>↗</a></div>
+  <div class="source-grid"><a href="https://www.bb.org.bd/mediaroom/circulars/brpd-2/sep132026brpd-25.pdf" target="_blank" rel="noopener noreferrer"><b>Bangladesh Bank BRPD-2 Circular No. 5</b><span>KPIs Framework for MD/CEO of Banks · 13 September 2026</span>↗</a><a href="https://www.bb.org.bd/en/index.php/links/links/9" target="_blank" rel="noopener noreferrer"><b>Bangladesh Bank scheduled-bank directory</b><span>Official bank names and bank website links</span>↗</a><a href="https://www.bb.org.bd/en/index.php/publication/publictn/2/14" target="_blank" rel="noopener noreferrer"><b>Bangladesh Bank Scheduled Banks Statistics</b><span>Quarterly source family for sector and bank disclosures</span>↗</a></div>
   <p class="source-disclaimer">Publicly disclosed figures may use different dates, solo/consolidated bases, definitions or accounting scopes. A public-data preview must not be described as an official MD/CEO appraisal, Board-approved assessment or Bangladesh Bank rating.</p>
 </section>
 </main>
