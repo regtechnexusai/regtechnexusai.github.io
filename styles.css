@@ -463,5 +463,5 @@ body.calculator-page .footer-brand .brand-logo,
   .framework-output{min-height:70px}
 }
 @media(min-width:901px){
-  .icms-home-callout>a{width:min(100%,calc(42vw - 110px))}
+  .icms-home-callout>a{width:min(100%,calc(42vw - 118px))}
 }
