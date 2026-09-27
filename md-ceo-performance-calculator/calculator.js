@@ -58,9 +58,17 @@
     'Eastern Bank PLC': {period:'31 December 2025', source:'EBL 2025 performance release', sourceUrl:'https://www.ebl.com.bd/news/ebl-posts-20-profit-growth-in-2025', note:'Published 2025 figures; use as reference actuals only.', metrics:{crar:15.49,grossNpl:2.24,roe:19.13}}
   };
 
+  const sampleCaseData = {
+    crar:[12.00,13.50,13.10], cet1:[7.00,8.00,7.70], adjustedCrar:[10.50,11.50,11.10], lcr:[120,130,126], nsfr:[105,110,108], adr:[82,85,84],
+    grossNpl:[6.00,4.50,5.00], netNpl:[2.50,1.50,2.00], stressedAssets:[10.00,8.00,8.60], provisionCoverage:[70,90,82], largeLoan:[42,35,38], recovery:[18,30,25],
+    roa:[0.80,1.20,1.05], roe:[10.00,15.00,13.00], nim:[3.00,3.80,3.50], opexOperatingProfit:[75,65,69], nonInterestIncome:[18,22,20], depositMix:[50,60,56],
+    regCompliance:[70,90,82], amlCft:[65,90,80], crr:[3.00,1.00,2.00], regReporting:[75,95,86], ictRisk:[65,90,78], leadership:[65,80,75],
+    digitalAdoption:[40,60,52], serviceInnovation:[70,90,82], cmsmeAgricultureGreen:[20,35,29], geographicalDistribution:[25,40,34], fraudForgery:[70,90,84], legalRisk:[60,80,72]
+  };
+
   const criticalIds = new Set(lenses.flatMap(lens => lens.kpis.filter(kpi => kpi.critical).map(kpi => kpi.id)));
   const kpiMap = new Map(lenses.flatMap(lens => lens.kpis.map(kpi => [kpi.id,{...kpi,lensId:lens.id,lensWeight:lens.weight,lensTitle:lens.title}])));
-  const formState = {lastLoadedBank:null,processed:false};
+  const formState = {lastLoadedBank:null,processed:false,sampleLoaded:false};
 
   const bankSelect = document.querySelector('#bank-select');
   const bankLabelInput = document.querySelector('#bank-label');
@@ -107,6 +115,7 @@
 
   function invalidateProcessedState() {
     formState.processed = false;
+    formState.sampleLoaded = false;
     resultActions.hidden = true;
   }
 
@@ -324,6 +333,41 @@
     return {filled, total:allKpis().length, complete, finalScore};
   }
 
+  function loadSampleCase() {
+    invalidateProcessedState();
+    bankSelect.value = '';
+    bankLabelInput.value = 'Illustrative Sample Bank';
+    modeSelect.value = 'board';
+    Object.entries(sampleCaseData).forEach(([id,values]) => {
+      setValue(id,'baseline',values[0]);
+      setValue(id,'target',values[1]);
+      setValue(id,'actual',values[2]);
+      setValue(id,'source','Illustrative sample case');
+    });
+    document.querySelector('#profile-bank').textContent = 'Illustrative Sample Bank';
+    document.querySelector('#profile-category').textContent = 'Fictional / illustrative';
+    document.querySelector('#profile-status').textContent = '30 sample KPI rows loaded';
+    document.querySelector('#profile-period').textContent = 'Illustrative sample dataset';
+    document.querySelector('#profile-source').textContent = 'Sample case study';
+    document.querySelector('#profile-source').href = '#concept-note';
+    document.querySelector('#profile-source-note').textContent = 'Fictional values only; not a bank disclosure or official assessment.';
+    const sampleDetails = document.querySelector('.mdceo-case-study');
+    if (sampleDetails) sampleDetails.open = true;
+    formState.sampleLoaded = true;
+    calculate();
+    document.querySelector('#output-note').innerHTML = '<strong>Full sample case loaded:</strong> All 30 KPI rows contain fictional baseline, Board target, actual and evidence-label values. Review the pattern, then use <strong>Process assessment</strong> or <strong>Print sample case</strong>.';
+  }
+
+  function printSampleCase() {
+    if (!formState.sampleLoaded) loadSampleCase();
+    const sampleDetails = document.querySelector('.mdceo-case-study');
+    if (sampleDetails) sampleDetails.open = true;
+    document.body.classList.add('mdceo-sample-print');
+    const cleanPrintClass = () => document.body.classList.remove('mdceo-sample-print');
+    window.addEventListener('afterprint', cleanPrintClass, {once:true});
+    window.print();
+  }
+
   function loadPublicProfile() {
     invalidateProcessedState();
     if (bankLabelInput.value.trim()) {
@@ -370,6 +414,8 @@
 
   buildBankOptions(); buildLensSummary(); buildTables();
   document.querySelector('#load-public').addEventListener('click',loadPublicProfile);
+  document.querySelector('#load-sample-case').addEventListener('click',loadSampleCase);
+  document.querySelector('#print-sample-case').addEventListener('click',printSampleCase);
   document.querySelectorAll('[data-clear-form]').forEach(button => button.addEventListener('click',clearInputs));
   document.querySelector('#process-assessment').addEventListener('click',processAssessment);
   document.querySelector('#copy-results').addEventListener('click',copyResults);
