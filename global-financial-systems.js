@@ -5,7 +5,7 @@
   const storagePrefix = 'regtech-nexus-signal-lab-';
   const allowedStatuses = new Set(['not-assessed', 'ready', 'partial', 'missing', 'na']);
   const scoreValues = { ready: 1, partial: 0.5, missing: 0, 'not-assessed': 0, na: null };
-  const statusLabels = { ready: 'Meets / evidence reported', partial: 'Partially meets', missing: 'Does not meet', 'not-assessed': 'Not assessed', na: 'Not applicable' };
+  const statusLabels = { ready: 'Meets', partial: 'Partial', missing: 'Does not meet', 'not-assessed': 'Not assessed', na: 'Not applicable' };
   const modelConfig = {
     's-trace': { id: 'RNX-SIG-SG-01', tracks: { ai: 'AI evidence', aml: 'AML/CFT evidence', cosmic: 'Information-sharing' } },
     'u-perimeter': { id: 'RNX-SIG-UAE-01', tracks: { perimeter: 'Regulatory route', aml: 'AML/CFT', va: 'Virtual-asset risk', tbml: 'TBML', token: 'Token/service controls', reporting: 'Reporting' } },
@@ -43,10 +43,14 @@
 
   const saveState = (panel) => {
     try {
+      const fields = {};
+      panel.querySelectorAll('[data-field]').forEach((field) => { fields[field.dataset.field] = field.value || ''; });
       localStorage.setItem(`${storagePrefix}${panel.dataset.panel}`, JSON.stringify({
-        label: panel.querySelector('[data-field="label"]')?.value || '',
-        date: panel.querySelector('[data-field="date"]')?.value || today(),
-        route: panel.querySelector('[data-field="route"]')?.value || '',
+        fields,
+        label: fields.label || '',
+        date: fields.date || today(),
+        route: fields.route || '',
+        evidenceRefs: [...panel.querySelectorAll('[data-evidence-ref]')].map((input) => input.value || ''),
         statuses: [...panel.querySelectorAll('[data-status]')].map((select) => select.value)
       }));
     } catch (error) { /* Optional local persistence. */ }
@@ -58,13 +62,15 @@
     try {
       const saved = JSON.parse(localStorage.getItem(`${storagePrefix}${panel.dataset.panel}`) || 'null');
       if (!saved) return;
-      const labelInput = panel.querySelector('[data-field="label"]');
-      const routeInput = panel.querySelector('[data-field="route"]');
-      if (labelInput && typeof saved.label === 'string') labelInput.value = saved.label;
-      if (dateInput && typeof saved.date === 'string') dateInput.value = saved.date;
-      if (routeInput && typeof saved.route === 'string') routeInput.value = saved.route;
+      const savedFields = saved.fields && typeof saved.fields === 'object' ? saved.fields : { label: saved.label, date: saved.date, route: saved.route };
+      panel.querySelectorAll('[data-field]').forEach((field) => {
+        if (typeof savedFields[field.dataset.field] === 'string') field.value = savedFields[field.dataset.field];
+      });
       panel.querySelectorAll('[data-status]').forEach((select, index) => {
         if (allowedStatuses.has(saved.statuses?.[index])) select.value = saved.statuses[index];
+      });
+      panel.querySelectorAll('[data-evidence-ref]').forEach((input, index) => {
+        if (typeof saved.evidenceRefs?.[index] === 'string') input.value = saved.evidenceRefs[index];
       });
     } catch (error) { /* Ignore unavailable or malformed local storage. */ }
   };
@@ -161,6 +167,8 @@
 
   const exportSnapshot = (panel) => {
     const config = configFor(panel);
+    const metadata = {};
+    panel.querySelectorAll('[data-field]').forEach((field) => { metadata[field.dataset.field] = field.value.trim(); });
     const label = panel.querySelector('[data-field="label"]')?.value.trim() || 'Untitled assessment';
     const date = panel.querySelector('[data-field="date"]')?.value || today();
     const route = panel.querySelector('[data-field="route"]')?.value || 'Not specified';
@@ -177,6 +185,7 @@
         risk: riskFor({ status, critical }),
         weight: item.dataset.weight || '1',
         critical: critical ? 'Yes' : 'No',
+        evidenceReference: item.querySelector('[data-evidence-ref]')?.value.trim() || '',
         action: item.dataset.action || ''
       };
     });
@@ -188,6 +197,7 @@
       route,
       decision: panel.querySelector('[data-result-title]')?.textContent.trim() || 'Assessment result',
       coverage: panel.querySelector('[data-score]')?.textContent.trim() || 'N/A',
+      metadata,
       rows
     };
   };
@@ -195,11 +205,12 @@
   const csvEscape = (value) => '"' + String(value ?? '').replace(/"/g, '""') + '"';
 
   const buildCsv = (snapshot) => {
-    const headings = ['module_id', 'country', 'project_label', 'assessment_date', 'route', 'decision_signal', 'coverage', 'lane', 'source', 'control', 'evidence_status', 'risk', 'weight', 'critical', 'next_action'];
+    const headings = ['module_id', 'country', 'project_label', 'assessment_date', 'route', 'assessment_evidence_reference', 'reviewer_role', 'action_owner', 'target_date', 'limitations', 'decision_signal', 'coverage', 'lane', 'source', 'control', 'evidence_status', 'risk', 'weight', 'critical', 'control_evidence_reference', 'next_action'];
     const lines = [headings, ...snapshot.rows.map((row) => [
       snapshot.moduleId, snapshot.country, snapshot.label, snapshot.date, snapshot.route,
+      snapshot.metadata['evidence-reference'] || '', snapshot.metadata.reviewer || '', snapshot.metadata['action-owner'] || '', snapshot.metadata['target-date'] || '', snapshot.metadata.limitations || '',
       snapshot.decision, snapshot.coverage, row.track, row.source, row.control,
-      row.status, row.risk, row.weight, row.critical, row.action
+      row.status, row.risk, row.weight, row.critical, row.evidenceReference, row.action
     ])];
     return '\ufeff' + lines.map((line) => line.map(csvEscape).join(',')).join('\r\n');
   };
@@ -212,6 +223,11 @@
       'Project: ' + snapshot.label,
       'Assessment date: ' + snapshot.date,
       'Route: ' + snapshot.route,
+      'Evidence reference: ' + (snapshot.metadata['evidence-reference'] || 'Not recorded'),
+      'Reviewer / role: ' + (snapshot.metadata.reviewer || 'Not recorded'),
+      'Action owner: ' + (snapshot.metadata['action-owner'] || 'Not recorded'),
+      'Target date: ' + (snapshot.metadata['target-date'] || 'Not recorded'),
+      'Limitations / assumptions: ' + (snapshot.metadata.limitations || 'Not recorded'),
       'Decision signal: ' + snapshot.decision,
       'Weighted evidence coverage: ' + snapshot.coverage,
       '',
@@ -220,9 +236,10 @@
     snapshot.rows.forEach((row, index) => {
       lines.push((index + 1) + '. ' + row.control + ' | ' + row.status + ' | ' + row.risk + ' | ' + row.track);
       lines.push('   Source: ' + row.source);
+      lines.push('   Evidence reference: ' + (row.evidenceReference || 'Not recorded'));
       lines.push('   Next action: ' + row.action);
     });
-    lines.push('', 'Independent browser-based review support only. Not a regulatory conclusion or certification.');
+    lines.push('', 'Independent browser-based review support only. This signal identifies evidence gaps against the selected review method; it does not determine legal compliance, regulatory breach or filing obligation, and it is not certification.');
     return lines.join('\n');
   };
 
@@ -337,7 +354,7 @@
     const message = panel.querySelector('[data-result-message]');
     const config = configFor(panel);
     if (title) title.textContent = `${config.id} signal · ${gate.code}`;
-    if (message) message.textContent = `${gate.reason} ${meets} control${meets === 1 ? '' : 's'} meet, ${partial} partial and ${openRows.length} open. Lane coverage is supporting context, not a legal conclusion.`;
+    if (message) message.textContent = `${gate.reason} ${meets} control${meets === 1 ? '' : 's'} meet, ${partial} partial and ${openRows.length} open. This signal identifies evidence gaps against the selected review method; it does not determine legal compliance, regulatory breach or filing obligation.`;
     renderLaneScores(panel, rows);
     const exportActions = panel.querySelector('[data-export-actions]');
     if (exportActions) exportActions.hidden = false;
@@ -383,6 +400,10 @@
     if (label) label.value = sample.label;
     if (date) date.value = today();
     if (route) route.value = sample.route || '';
+    panel.querySelectorAll('[data-field]').forEach((field) => {
+      if (!['label', 'date', 'route'].includes(field.dataset.field)) field.value = '';
+    });
+    panel.querySelectorAll('[data-evidence-ref]').forEach((input) => { input.value = ''; });
     panel.querySelectorAll('[data-status]').forEach((select, index) => {
       select.value = allowedStatuses.has(sample.statuses[index]) ? sample.statuses[index] : 'not-assessed';
       select.classList.remove('field-error');
@@ -432,10 +453,9 @@
   };
 
   const resetPanel = (panel) => {
-    panel.querySelector('[data-field="label"]').value = '';
-    panel.querySelector('[data-field="date"]').value = today();
+    panel.querySelectorAll('[data-field]').forEach((field) => { field.value = field.dataset.field === 'date' ? today() : ''; });
     const route = panel.querySelector('[data-field="route"]');
-    if (route) route.value = '';
+    panel.querySelectorAll('[data-evidence-ref]').forEach((input) => { input.value = ''; });
     panel.querySelectorAll('[data-status]').forEach((select) => { select.value = 'not-assessed'; });
     panel.querySelectorAll('[data-status], [data-field="route"]').forEach((input) => input.classList.remove('field-error'));
     panel.querySelector('[data-assessment-message]').textContent = 'Complete all control statuses, then press Assess this matrix.';
@@ -444,10 +464,28 @@
     try { localStorage.removeItem(`${storagePrefix}${panel.dataset.panel}`); } catch (error) { /* Optional persistence. */ }
   };
 
+  const addEvidenceReferenceFields = (panel) => {
+    panel.querySelectorAll('.assessment-item').forEach((item, index) => {
+      const content = item.firstElementChild;
+      if (!content || content.querySelector('[data-evidence-ref]')) return;
+      const label = document.createElement('label');
+      label.className = 'assessment-evidence-ref';
+      label.textContent = 'Evidence reference';
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.dataset.evidenceRef = '';
+      input.placeholder = 'Non-sensitive ID';
+      input.setAttribute('aria-label', `Evidence reference for control ${index + 1}`);
+      label.append(input);
+      content.append(label);
+    });
+  };
+
   const initialisePanel = (panel) => {
+    addEvidenceReferenceFields(panel);
     loadState(panel);
     setVisibleStatusLabels(panel);
-    panel.querySelectorAll('[data-status], [data-field]').forEach((input) => {
+    panel.querySelectorAll('[data-status], [data-field], [data-evidence-ref]').forEach((input) => {
       ['input', 'change'].forEach((eventName) => input.addEventListener(eventName, () => {
         saveState(panel);
         clearMatrixResult(panel);
