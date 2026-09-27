@@ -281,7 +281,13 @@
     if (type === 'email') {
       const pdfContent = buildPdf(snapshot);
       downloadFile(pdfContent, stem + '.pdf', 'application/pdf');
-      window.location.href = 'mailto:regtechnexusai@gmail.com?subject=' + encodeURIComponent(snapshot.moduleId + ' assessment result') + '&body=' + encodeURIComponent('The PDF report was downloaded. Please attach it before sending.\n\n' + reportText(snapshot));
+      const subject = snapshot.moduleId + ' assessment result';
+      const body = 'The PDF report was downloaded. Please attach it before sending.\\n\\n' + reportText(snapshot);
+      if (window.RegTechEmail?.open) {
+        window.RegTechEmail.open(subject, body);
+      } else {
+        window.location.href = 'mailto:?from=regtechnexusai%40gmail.com&subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      }
     }
     if (type === 'print') window.print();
   };
