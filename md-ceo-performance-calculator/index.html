@@ -48,11 +48,11 @@
     <div class="mdceo-control"><label for="bank-select">Bank / Bangladesh operation <span>(optional)</span></label><select id="bank-select" aria-describedby="bank-label-note"></select><label for="bank-label" class="bank-label-option">Or use an anonymous / custom label <span>(optional)</span></label><input id="bank-label" type="text" maxlength="120" placeholder="e.g. Bank Alpha or Institution X" autocomplete="organization" aria-describedby="bank-label-note"><small id="bank-label-note">The dropdown is optional. If a custom label is entered, it will be used in the result, CSV, PDF and email.</small></div>
     <div class="mdceo-control"><label for="period-select">Assessment period</label><select id="period-select"><option value="2026-10-01/2027-03-31">01 Oct 2026 – 31 Mar 2027</option><option value="2027-01-01/2027-06-30">01 Jan 2027 – 30 Jun 2027</option><option value="2027-04-01/2027-09-30">01 Apr 2027 – 30 Sep 2027</option><option value="custom">Custom Board assessment period</option></select><div class="mdceo-custom-period" id="custom-period" hidden><label for="custom-start">Custom start date</label><input id="custom-start" type="date"><label for="custom-end">Custom end date</label><input id="custom-end" type="date"><small id="custom-period-note">Use the Board-approved assessment dates.</small></div></div>
     <div class="mdceo-control"><label for="mode-select">Calculation mode</label><select id="mode-select"><option value="board">Board / full KPI assessment</option><option value="public">Public-data preview</option></select></div>
-    <div class="mdceo-actions input-actions"><button class="btn primary" id="load-public" type="button">Load public profile</button><button class="btn ghost" id="clear-form" type="button">Clear inputs</button></div>
-    <div class="mdceo-process-row"><button class="btn primary process-btn" id="process-assessment" type="button" hidden>Process assessment</button><small id="process-hint">Enter at least one complete KPI row to enable processing.</small></div>
+    <div class="mdceo-actions input-actions"><button class="btn primary" id="load-public" type="button">Load public profile</button></div>
+    <div class="mdceo-process-row"><button class="btn primary process-btn" id="process-assessment" type="button" hidden>Process assessment</button><button class="btn ghost process-clear" type="button" data-clear-form>Clear inputs</button><small id="process-hint">Enter at least one complete KPI row to enable processing.</small></div>
   </div>
 
-  <details class="mdceo-case-study">
+  <div class="mdceo-case-study-row"><details class="mdceo-case-study">
     <summary>Sample case study: see how the calculation works</summary>
     <div class="case-study-body">
       <p class="case-study-disclaimer"><strong>Illustrative example only.</strong> This fictional case does not represent a real bank, an official appraisal or a Bangladesh Bank rating.</p>
@@ -60,7 +60,7 @@
       <div class="case-study-formula"><strong>Process:</strong> Achievement = (Actual − Baseline) ÷ (Target − Baseline) for higher-is-better KPIs. For lower-is-better KPIs, reverse the direction. Achievement below 50% receives zero for that KPI. The contribution then equals achievement × lens weight × KPI weight.</div>
       <p class="case-study-note">In the live calculator, the Board must approve the target, the bank must retain evidence, and all 30 KPI rows should be reconciled with the prescribed Excel template.</p>
     </div>
-  </details>
+  </details><button class="btn ghost case-clear" type="button" data-clear-form>Clear inputs</button></div>
 
   <div class="mdceo-profile" id="profile-panel" aria-live="polite">
     <div><span class="profile-label">Selected bank / operation label</span><strong id="profile-bank">Choose a bank</strong><span id="profile-category">—</span></div>
