@@ -20,7 +20,7 @@
 {"@context":"https://schema.org","@type":"WebApplication","name":"MD/CEO Performance Measurement Calculator","url":"https://regtechnexusai.com/md-ceo-performance-calculator/","applicationCategory":"BusinessApplication","operatingSystem":"Any","description":"An independent calculation aid based on Bangladesh Bank BRPD-2 Circular No. 5 dated 13 September 2026.","publisher":{"@type":"Organization","name":"RegTech Nexus AI","url":"https://regtechnexusai.com/"}}
 </script>
 <link rel="stylesheet" href="../styles.css">
-<link rel="stylesheet" href="styles.css?v=20260927-report8">
+<link rel="stylesheet" href="styles.css?v=20260927-report10-audit">
 </head>
 <body class="calculator-page mdceo-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -71,7 +71,9 @@
   </div>
 
   <div class="mdceo-scoreboard">
-    <div class="score-card score-card-primary"><span>Indicative / final score</span><strong id="grand-score">—</strong><small id="score-label">Complete the inputs to calculate</small></div>
+     <div class="score-card score-card-primary"><span>Final score</span><strong id="grand-score">—</strong><small id="score-label">Complete the inputs to calculate</small></div>
+     <div class="score-card"><span>Gross score</span><strong id="gross-score">—</strong><small>Before critical-KPI deductions</small></div>
+     <div class="score-card"><span>Regulatory interpretation</span><strong id="rating">—</strong><small id="rating-note">75+ Above Average · 65–&lt;75 Average · &lt;65 Below Average</small></div>
     <div class="score-card"><span>Regulatory interpretation</span><strong id="rating">—</strong><small id="rating-note">75+ Above Average · 65–&lt;75 Average · &lt;65 Below Average</small></div>
     <div class="score-card"><span>KPI coverage</span><strong id="coverage">0 / 30</strong><small id="coverage-note">Full assessment requires all KPI rows</small></div>
     <div class="score-card"><span>Critical-KPI penalty</span><strong id="penalty">—</strong><small>Circular rule: 25% of that KPI’s maximum achievable weighted score when achievement is below 50% or zero.</small></div>
@@ -85,7 +87,7 @@
     <div class="concept-table-wrap"><table class="concept-table" id="report-components-table"><caption>Bangladesh Bank’s five performance components</caption><thead><tr><th>Component</th><th>Weight</th><th>Component score</th><th>Weighted score / maximum</th><th>KPI coverage</th></tr></thead><tbody></tbody></table></div>
   </div>
 
-  <div class="mdceo-output-note" id="output-note" aria-live="polite"><strong>How to use:</strong> Enter baseline, Board-approved target and actual performance for each KPI, then select <strong>Process assessment</strong>. Each lens is calculated out of 100% and converted to its assigned lens weight; the grand score is out of 100. The calculator uses the circular’s proportionate-achievement approach and applies the 50% threshold.</div>
+   <div class="mdceo-output-note" id="output-note" aria-live="polite"><strong>How to use:</strong> Enter the verified baseline, Board-approved target and actual performance for each KPI, then select <strong>Process assessment</strong>. The report separates gross score, critical-KPI deduction and final score. Invalid target directions are not scored. Each lens is calculated out of 100% and converted to its assigned lens weight.</div>
 
   <div class="mdceo-exportbar" id="result-actions" aria-label="Processed result actions" hidden>
     <div class="mdceo-export-copy"><span class="profile-label">Processed result actions</span><strong>Save or share this review-support result</strong><small>Available after processing the entered data. Print / Save PDF creates the attachment; Share by Email opens Gmail with From set to regtechnexusai@gmail.com and To left blank.</small></div>
@@ -131,6 +133,7 @@
  <div class="legal"><span>© 2026 RegTech Nexus AI</span><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></div>
 </footer>
 <script src="../script.js" defer></script>
-<script src="calculator.js?v=20260927-report9-email" defer></script>
+<script src="calculator.js?v=20260927-report10-audit" defer></script>
+<script src="../site-email.js?v=20260927-greeting" defer></script></body>
 <script src="../site-email.js" defer></script></body>
 </html>
