@@ -20,7 +20,7 @@
 {"@context":"https://schema.org","@type":"WebApplication","name":"MD/CEO Performance Measurement Calculator","url":"https://regtechnexusai.com/md-ceo-performance-calculator/","applicationCategory":"BusinessApplication","operatingSystem":"Any","description":"An independent calculation aid based on Bangladesh Bank BRPD-2 Circular No. 5 dated 13 September 2026.","publisher":{"@type":"Organization","name":"RegTech Nexus AI","url":"https://regtechnexusai.com/"}}
 </script>
 <link rel="stylesheet" href="../styles.css">
-<link rel="stylesheet" href="styles.css?v=20260927-actions2">
+<link rel="stylesheet" href="styles.css?v=20260927-sample3">
 </head>
 <body class="calculator-page mdceo-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -56,6 +56,7 @@
     <summary>Sample case study: see how the calculation works</summary>
     <div class="case-study-body">
       <p class="case-study-disclaimer"><strong>Illustrative example only.</strong> This fictional case does not represent a real bank, an official appraisal or a Bangladesh Bank rating.</p>
+      <div class="sample-case-actions"><button class="btn sample-load" id="load-sample-case" type="button">Load full sample case</button><button class="btn sample-print" id="print-sample-case" type="button">Print sample case</button><small>Loads illustrative values into all 30 KPI rows so the input pattern and calculation process can be reviewed.</small></div>
       <div class="case-study-table-wrap"><table class="case-study-table"><thead><tr><th>KPI</th><th>Direction</th><th>Baseline</th><th>Target</th><th>Actual</th><th>Achievement</th><th>Contribution</th></tr></thead><tbody><tr><td>CRAR</td><td>Higher is better</td><td>12.5%</td><td>13.5%</td><td>13.0%</td><td>50.0%</td><td>3.13 / 6.25</td></tr><tr><td>Gross NPL</td><td>Lower is better</td><td>6.0%</td><td>5.0%</td><td>5.5%</td><td>50.0%</td><td>3.13 / 6.25</td></tr><tr><td>ROE</td><td>Higher is better</td><td>12.0%</td><td>15.0%</td><td>14.0%</td><td>66.7%</td><td>1.33 / 2.00</td></tr></tbody></table></div>
       <div class="case-study-formula"><strong>Process:</strong> Achievement = (Actual − Baseline) ÷ (Target − Baseline) for higher-is-better KPIs. For lower-is-better KPIs, reverse the direction. Achievement below 50% receives zero for that KPI. The contribution then equals achievement × lens weight × KPI weight.</div>
       <p class="case-study-note">In the live calculator, the Board must approve the target, the bank must retain evidence, and all 30 KPI rows should be reconciled with the prescribed Excel template.</p>
@@ -119,6 +120,6 @@
  <div class="legal"><span>© 2026 RegTech Nexus AI</span><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></div>
 </footer>
 <script src="../script.js" defer></script>
-<script src="calculator.js?v=20260927-actions2" defer></script>
+<script src="calculator.js?v=20260927-sample3" defer></script>
 </body>
 </html>
