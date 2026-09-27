@@ -63,6 +63,7 @@
   const formState = {lastLoadedBank:null,processed:false};
 
   const bankSelect = document.querySelector('#bank-select');
+  const bankLabelInput = document.querySelector('#bank-label');
   const periodSelect = document.querySelector('#period-select');
   const customPeriod = document.querySelector('#custom-period');
   const customStart = document.querySelector('#custom-start');
@@ -78,6 +79,7 @@
   const esc = (value) => String(value).replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
   const fmt = (value, digits=2) => Number.isFinite(value) ? value.toLocaleString('en-US',{minimumFractionDigits:digits,maximumFractionDigits:digits}) : '—';
   const allKpis = () => lenses.flatMap(lens => lens.kpis);
+  const bankLabel = () => bankLabelInput.value.trim() || bankSelect.value || 'Not selected';
 
   function assessmentPeriodLabel() {
     if (periodSelect.value === 'custom') {
@@ -126,11 +128,11 @@
   function buildCsv() {
     const rows = [
       ['MD/CEO Performance Measurement Calculator', 'Indicative self-assessment report', 'NOT OFFICIAL'],
-      ['Bank', bankSelect.value || 'Not selected'],
+      ['Bank / operation label', bankLabel()],
       ['Assessment period', assessmentPeriodLabel()],
       ['Calculation mode', modeSelect.options[modeSelect.selectedIndex]?.textContent.trim() || ''],
       ['Generated', new Date().toISOString()],
-      ['Critical-KPI penalty model', 'Illustrative site model: 25% of the completed KPI available contribution below 50%; verify against official sources'],
+      ['Critical-KPI penalty model', 'Circular rule: 25% of the maximum achievable weighted score for a listed critical KPI when achievement is below 50% or receives zero'],
       [],
       ['Lens', 'KPI', 'Direction', 'Weight %', 'Baseline', 'Board target', 'Actual', 'Achievement %', 'Weighted contribution', 'Evidence / source', 'Status']
     ];
@@ -213,7 +215,7 @@
       'MD/CEO Performance Measurement Calculator',
       'Indicative self-assessment report — NOT OFFICIAL',
       '',
-      `Bank: ${bankSelect.value || 'Not selected'}`,
+      `Bank / operation label: ${bankLabel()}`,
       `Assessment period: ${assessmentPeriodLabel()}`,
       `Indicative / final score: ${document.querySelector('#grand-score').textContent}`,
       `KPI coverage: ${document.querySelector('#coverage').textContent}`,
@@ -221,7 +223,7 @@
       '',
       'This is an independent review-support output. Verify all inputs against Board-approved targets, authoritative disclosures, evidence and the official Bangladesh Bank framework.'
     ].join('\n'));
-    window.location.href = `mailto:regtechnexusai@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
   }
 
   function buildBankOptions() {
@@ -295,7 +297,7 @@
       const lensFilled = lensKpis.filter(kpi => [getValue(kpi.id,'baseline'),getValue(kpi.id,'target'),getValue(kpi.id,'actual')].every(value => value !== '' && Number.isFinite(Number(value))));
       const lensMax = lensKpis.reduce((sum,kpi) => sum + lens.weight*kpi.weight/100,0);
       const lensEarned = lensKpis.reduce((sum,kpi) => {
-        const b=Number(getValue(kpi.id,'baseline')),t=Number(getValue(kpi.id,'target')),a=Number(getValue(kpi.id,'actual')); const ratio=scoreRatio(kpi,b,t,a); return sum + (ratio === null ? 0 : ratio >= .5 ? ratio*kpi.weight : 0);
+        const b=Number(getValue(kpi.id,'baseline')),t=Number(getValue(kpi.id,'target')),a=Number(getValue(kpi.id,'actual')); const ratio=scoreRatio(kpi,b,t,a); const weightedMax = lens.weight*kpi.weight/100; return sum + (ratio === null ? 0 : ratio >= .5 ? ratio*weightedMax : 0);
       },0);
       const lensAvailableMax = lensKpis.filter(kpi => [getValue(kpi.id,'baseline'),getValue(kpi.id,'target'),getValue(kpi.id,'actual')].every(value => value !== '' && Number.isFinite(Number(value)))).reduce((sum,kpi)=>sum+lens.weight*kpi.weight/100,0);
       const lensPercent = lensAvailableMax ? (lensEarned/lensAvailableMax)*100 : 0;
@@ -324,6 +326,19 @@
 
   function loadPublicProfile() {
     invalidateProcessedState();
+    if (bankLabelInput.value.trim()) {
+      document.querySelector('#profile-bank').textContent = bankLabel();
+      document.querySelector('#profile-category').textContent = 'Custom / anonymous label';
+      document.querySelector('#profile-status').textContent = 'Manual profile only';
+      document.querySelector('#profile-period').textContent = 'Enter verified figures manually';
+      document.querySelector('#profile-source').textContent = 'Public source register';
+      document.querySelector('#profile-source').href = '#public-data';
+      document.querySelector('#profile-source-note').textContent = 'Public-profile loading is bypassed when a custom label is used, to avoid mixing an anonymous label with another bank’s disclosure.';
+      formState.lastLoadedBank = null;
+      document.querySelector('#output-note').innerHTML = '<strong>Custom / anonymous label:</strong> Enter verified baseline, Board target, actuals and evidence manually. No bank-specific public profile has been auto-loaded.';
+      calculate();
+      return;
+    }
     const bank = bankSelect.value;
     const profile = publicBankData[bank];
     const bankMeta = banks.find(item => item.name === bank);
@@ -351,7 +366,7 @@
     calculate();
   }
 
-  function clearInputs() { invalidateProcessedState(); lensHost.querySelectorAll('input').forEach(input => { input.value=''; }); bankSelect.value=''; periodSelect.value='2026-10-01/2027-03-31'; customStart.value=''; customEnd.value=''; updateCustomPeriodFields(); formState.lastLoadedBank=null; document.querySelector('#profile-bank').textContent='Choose a bank'; document.querySelector('#profile-category').textContent='—'; document.querySelector('#profile-status').textContent='No profile loaded'; document.querySelector('#profile-period').textContent='—'; document.querySelector('#profile-source').textContent='Public source register'; document.querySelector('#profile-source').href='#public-data'; document.querySelector('#profile-source-note').textContent='Use verified disclosures only.'; document.querySelector('#copy-status').textContent=''; calculate(); }
+  function clearInputs() { invalidateProcessedState(); lensHost.querySelectorAll('input').forEach(input => { input.value=''; }); bankSelect.value=''; bankLabelInput.value=''; periodSelect.value='2026-10-01/2027-03-31'; customStart.value=''; customEnd.value=''; updateCustomPeriodFields(); formState.lastLoadedBank=null; document.querySelector('#profile-bank').textContent='Choose a bank'; document.querySelector('#profile-category').textContent='—'; document.querySelector('#profile-status').textContent='No profile loaded'; document.querySelector('#profile-period').textContent='—'; document.querySelector('#profile-source').textContent='Public source register'; document.querySelector('#profile-source').href='#public-data'; document.querySelector('#profile-source-note').textContent='Use verified disclosures only.'; document.querySelector('#copy-status').textContent=''; calculate(); }
 
   buildBankOptions(); buildLensSummary(); buildTables();
   document.querySelector('#load-public').addEventListener('click',loadPublicProfile);
@@ -361,7 +376,8 @@
   document.querySelector('#download-csv').addEventListener('click',downloadCsv);
   document.querySelector('#print-report').addEventListener('click',() => { if (!formState.processed) return; calculate(); window.print(); });
   document.querySelector('#share-email').addEventListener('click',shareByEmail);
-  bankSelect.addEventListener('change',() => { invalidateProcessedState(); const meta=banks.find(item=>item.name===bankSelect.value); document.querySelector('#profile-bank').textContent=bankSelect.value||'Choose a bank'; document.querySelector('#profile-category').textContent=meta?meta.category:'—'; });
+  bankSelect.addEventListener('change',() => { invalidateProcessedState(); const meta=banks.find(item=>item.name===bankSelect.value); document.querySelector('#profile-bank').textContent=bankLabelInput.value.trim() || bankSelect.value || 'Choose a bank'; document.querySelector('#profile-category').textContent=bankLabelInput.value.trim() ? 'Custom / anonymous label' : (meta?meta.category:'—'); });
+  bankLabelInput.addEventListener('input',() => { invalidateProcessedState(); const meta=banks.find(item=>item.name===bankSelect.value); const custom=bankLabelInput.value.trim(); document.querySelector('#profile-bank').textContent=custom || bankSelect.value || 'Choose a bank'; document.querySelector('#profile-category').textContent=custom ? 'Custom / anonymous label' : (meta?meta.category:'—'); });
   modeSelect.addEventListener('change',() => { invalidateProcessedState(); document.querySelector('#output-note').innerHTML = modeSelect.value === 'public' ? '<strong>Public-data preview:</strong> Use only period-tagged, source-linked disclosures. Missing internal or supervisory evidence is intentionally not imputed.' : '<strong>Board / full KPI assessment:</strong> Enter the Board-approved targets, verified baseline and actual performance for all 30 KPIs.'; calculate(); });
   periodSelect.addEventListener('change',() => { invalidateProcessedState(); updateCustomPeriodFields(); });
   customStart.addEventListener('change',() => { invalidateProcessedState(); updateCustomPeriodFields(); });
