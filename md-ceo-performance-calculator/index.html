@@ -20,7 +20,7 @@
 {"@context":"https://schema.org","@type":"WebApplication","name":"MD/CEO Performance Measurement Calculator","url":"https://regtechnexusai.com/md-ceo-performance-calculator/","applicationCategory":"BusinessApplication","operatingSystem":"Any","description":"An independent calculation aid based on Bangladesh Bank BRPD-2 Circular No. 5 dated 13 September 2026.","publisher":{"@type":"Organization","name":"RegTech Nexus AI","url":"https://regtechnexusai.com/"}}
 </script>
 <link rel="stylesheet" href="../styles.css">
-<link rel="stylesheet" href="styles.css?v=20260927-process1">
+<link rel="stylesheet" href="styles.css?v=20260927-circularfix1">
 </head>
 <body class="calculator-page mdceo-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -40,12 +40,12 @@
 </section>
 
 <section class="mdceo-alert" aria-label="Important limitation">
-  <strong>Independent calculation aid.</strong> The official assessment must use Board-approved targets, the bank’s immediate previous-quarter baseline, verified internal/regulatory evidence and Bangladesh Bank’s prescribed Excel template. Public web data alone cannot complete all 30 KPIs. This Phase 1 public build runs in the browser and has no backend, login, RBAC, case database or server-side audit trail. Its critical-KPI penalty is an explicit site calculation aid—25% of the completed KPI’s available contribution when the achievement is below 50%—and must be reconciled with the circular and official template before reliance.
+  <strong>Independent calculation aid.</strong> The official assessment must use Board-approved targets, the bank’s immediate previous-quarter baseline, verified internal/regulatory evidence and Bangladesh Bank’s prescribed Excel template. Public web data alone cannot complete all 30 KPIs. This Phase 1 public build runs in the browser and has no backend, login, RBAC, case database or server-side audit trail. The calculator implements the circular’s critical-KPI deduction: 25% of the maximum achievable weighted score for a listed critical KPI when its achievement is below 50% or receives zero. It remains a review-support aid—not an official Bangladesh Bank rating—and must be reconciled with the official template before reliance.
 </section>
 
 <section class="mdceo-workspace" aria-label="MD/CEO performance calculator">
   <div class="mdceo-toolbar">
-    <div class="mdceo-control"><label for="bank-select">Bank / Bangladesh operation</label><select id="bank-select"></select></div>
+    <div class="mdceo-control"><label for="bank-select">Bank / Bangladesh operation</label><select id="bank-select" aria-describedby="bank-label-note"></select><label for="bank-label" class="bank-label-option">Or use an anonymous / custom label <span>(optional)</span></label><input id="bank-label" type="text" maxlength="120" placeholder="e.g. Bank Alpha or Institution X" autocomplete="organization" aria-describedby="bank-label-note"><small id="bank-label-note">The dropdown is optional. If a custom label is entered, it will be used in the result, CSV, PDF and email.</small></div>
     <div class="mdceo-control"><label for="period-select">Assessment period</label><select id="period-select"><option value="2026-10-01/2027-03-31">01 Oct 2026 – 31 Mar 2027</option><option value="2027-01-01/2027-06-30">01 Jan 2027 – 30 Jun 2027</option><option value="2027-04-01/2027-09-30">01 Apr 2027 – 30 Sep 2027</option><option value="custom">Custom Board assessment period</option></select><div class="mdceo-custom-period" id="custom-period" hidden><label for="custom-start">Custom start date</label><input id="custom-start" type="date"><label for="custom-end">Custom end date</label><input id="custom-end" type="date"><small id="custom-period-note">Use the Board-approved assessment dates.</small></div></div>
     <div class="mdceo-control"><label for="mode-select">Calculation mode</label><select id="mode-select"><option value="board">Board / full KPI assessment</option><option value="public">Public-data preview</option></select></div>
     <div class="mdceo-actions input-actions"><button class="btn primary" id="load-public" type="button">Load public profile</button><button class="btn ghost" id="clear-form" type="button">Clear inputs</button></div>
@@ -72,13 +72,13 @@
     <div class="score-card score-card-primary"><span>Indicative / final score</span><strong id="grand-score">—</strong><small id="score-label">Complete the inputs to calculate</small></div>
     <div class="score-card"><span>Regulatory interpretation</span><strong id="rating">—</strong><small id="rating-note">75+ Above Average · 65–&lt;75 Average · &lt;65 Below Average</small></div>
     <div class="score-card"><span>KPI coverage</span><strong id="coverage">0 / 30</strong><small id="coverage-note">Full assessment requires all KPI rows</small></div>
-    <div class="score-card"><span>Critical-KPI penalty</span><strong id="penalty">—</strong><small>Site model: 25% of that KPI’s available contribution when achievement is below 50%; verify against the circular.</small></div>
+    <div class="score-card"><span>Critical-KPI penalty</span><strong id="penalty">—</strong><small>Circular rule: 25% of that KPI’s maximum achievable weighted score when achievement is below 50% or zero.</small></div>
   </div>
 
   <div class="mdceo-lens-summary" id="lens-summary" aria-label="Lens score summary"></div>
   <div id="kpi-lenses"></div>
 
-  <div class="mdceo-output-note" id="output-note" aria-live="polite"><strong>How to use:</strong> Enter baseline, Board-approved target and actual performance for each KPI, then select <strong>Process assessment</strong>. The calculator uses the circular’s proportionate-achievement approach and applies the 50% threshold.</div>
+  <div class="mdceo-output-note" id="output-note" aria-live="polite"><strong>How to use:</strong> Enter baseline, Board-approved target and actual performance for each KPI, then select <strong>Process assessment</strong>. Each lens is calculated out of 100% and converted to its assigned lens weight; the grand score is out of 100. The calculator uses the circular’s proportionate-achievement approach and applies the 50% threshold.</div>
 
   <div class="mdceo-exportbar" id="result-actions" aria-label="Processed result actions" hidden>
     <div class="mdceo-export-copy"><span class="profile-label">Processed result actions</span><strong>Save or share this review-support result</strong><small>Available after processing the entered data. PDF uses your browser’s print dialog.</small></div>
@@ -93,7 +93,7 @@
   <p class="concept-lead">Proposed as a transparent review-support layer for bank Boards, Board committees, governance professionals, researchers and supervisors. It is designed to organise evidence and make the arithmetic reviewable—not to replace the Board’s appraisal judgment or Bangladesh Bank’s regulatory review.</p>
   <div class="concept-grid">
     <article><span>01</span><h3>Purpose</h3><p>Translate the 2026 BB KPI framework into a readable, auditable and reusable calculation interface for the five performance lenses.</p></article>
-    <article><span>02</span><h3>Core method</h3><p>Each KPI is scored against the bank-specific baseline and target. Achievement below 50% receives zero for that KPI; the displayed critical-KPI penalty is an illustrative site model and is not presented as a Bangladesh Bank rating.</p></article>
+    <article><span>02</span><h3>Core method</h3><p>Each KPI is scored against the bank-specific baseline and target. The five lens allocations are 25%, 25%, 10%, 25% and 15%; each lens is normalised to 100% before its weight is applied. Achievement below 50% receives zero for that KPI, and the listed critical-KPI deduction follows paragraph 2.5(ii) of the circular. The result remains a review-support aid, not a Bangladesh Bank rating.</p></article>
     <article><span>03</span><h3>Public-data layer</h3><p>Bank websites, annual reports, half-yearly reports, quarterly disclosures and BB publications can prefill selected observable metrics with a source and period label.</p></article>
     <article><span>04</span><h3>Evidence boundary</h3><p>Board targets, RBS ratings, AML/CFT ratings, inspection observations, internal controls, regulatory reporting quality and legal-risk evidence are not reliably public and remain manual inputs.</p></article>
   </div>
@@ -119,6 +119,6 @@
  <div class="legal"><span>© 2026 RegTech Nexus AI</span><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></div>
 </footer>
 <script src="../script.js" defer></script>
-<script src="calculator.js?v=20260927-process1" defer></script>
+<script src="calculator.js?v=20260927-circularfix1" defer></script>
 </body>
 </html>
