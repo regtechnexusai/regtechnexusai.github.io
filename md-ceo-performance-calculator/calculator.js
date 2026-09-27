@@ -390,10 +390,6 @@
     document.querySelector('#gross-score').textContent = grossScore === null ? '—' : `${fmt(grossScore,2)} / 100`;
     document.querySelector('#grand-score').textContent = finalScore === null ? '—' : `${fmt(finalScore,2)} / 100`;
     document.querySelector('#score-label').textContent = complete ? 'Final calculation view' : (filled ? 'Provisional score — not final' : 'Complete the inputs to calculate');
-    const finalScore = complete ? Math.max(0,earned-penalty) : (availableMax ? Math.max(0,(earned/availableMax)*100 - penalty) : null);
-    formState.latest = {lensResults,complete,finalScore,filled,penalty};
-    document.querySelector('#grand-score').textContent = finalScore === null ? '—' : `${fmt(finalScore,2)} / 100`;
-    document.querySelector('#score-label').textContent = complete ? 'Final calculation view' : (filled ? 'Provisional public / partial-input view' : 'Complete the inputs to calculate');
     document.querySelector('#coverage').textContent = `${filled} / ${allKpis().length}`;
     document.querySelector('#coverage-note').textContent = complete ? 'All 30 KPI rows completed' : 'Full assessment requires all KPI rows';
     document.querySelector('#penalty').textContent = complete || penalty ? `−${fmt(penalty,2)}` : '—';
@@ -407,7 +403,6 @@
     note.innerHTML = complete
       ? `<strong>Calculation complete:</strong> Gross score ${fmt(grossScore,2)} less critical-KPI deduction ${fmt(penalty,2)} equals final score ${fmt(finalScore,2)}. Reconcile the result with the Board-approved Excel template and evidence.`
       : `<strong>Partial view:</strong> ${filled} of ${allKpis().length} KPI rows have valid baseline, target and actual inputs. The provisional score is normalised over completed rows and must not be treated as an official appraisal.${validationNote}`;
-    note.innerHTML = complete ? `<strong>Calculation complete:</strong> The displayed final score includes the 50% threshold and critical-KPI penalty rule. It remains a review-support result and must be reconciled with the Board-approved Excel template and evidence.` : `<strong>Partial view:</strong> ${filled} of ${allKpis().length} KPI rows have complete baseline, target and actual inputs. The score is normalised over completed rows and must not be treated as an official appraisal.`;
     const processReady = filled > 0;
     processButton.hidden = !processReady;
     if (processHint) processHint.hidden = processReady;
