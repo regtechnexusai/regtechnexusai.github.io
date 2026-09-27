@@ -716,3 +716,32 @@ body.calculator-page .footer-brand .brand-logo,
 .sample-case-actions{display:flex;flex-wrap:wrap;gap:8px;flex:none}
 .sample-case-actions button{min-width:120px}
 @media(max-width:620px){.global-jurisdiction-chooser{max-width:none}.sample-case-actions{display:grid;grid-template-columns:1fr;width:100%}.sample-case-actions button{width:100%;min-height:44px}.sample-case{align-items:stretch;flex-direction:column}}
+
+/* 2026-09-27: evidence-first review pass for Regulatory Signal Labs. */
+.assessment-flow-note{display:flex;align-items:center;justify-content:center;gap:10px;max-width:1280px;margin:0 auto 18px;padding:13px 16px;border:1px solid #d5e2e6;background:#f7fafb;color:#526176;font-size:11px;font-weight:800;letter-spacing:.04em;text-align:center}
+.assessment-flow-note i{color:#15939f;font-style:normal;font-size:18px;line-height:1}
+.source-trace-strip{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.9fr);gap:20px;align-items:center;margin:0 0 22px;padding:18px 19px;border:1px solid #cfe0e4;border-left:4px solid #0956a8;background:linear-gradient(135deg,#f3fafb,#fff)}
+.source-trace-strip strong{display:block;color:#10203b;font-family:Manrope;font-size:16px;line-height:1.25;margin:7px 0 5px}
+.source-trace-strip span{display:block;color:#607187;font-size:12px;line-height:1.55}
+.source-trace-links{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}
+.source-trace-links a,.source-inline{color:#0956a8;font-weight:800;text-decoration:none;border-bottom:1px solid #9bcdd1}
+.source-trace-links a{padding:8px 9px;border:1px solid #b8d8dc;background:#fff;font-size:11px;line-height:1.25}
+.source-trace-links a:hover,.source-inline:hover{background:#eaf7f7;color:#073f7f}
+.assessment-evidence-register{margin:0 0 24px;padding:18px 19px;border:1px solid #d8e3e6;background:#fcfdfd}
+.assessment-evidence-register-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
+.assessment-evidence-register-head strong{display:block;color:#10203b;font-family:Manrope;font-size:17px;margin:7px 0 5px}
+.assessment-evidence-register-head span{display:block;color:#607187;font-size:12px;line-height:1.5}
+.assessment-evidence-register-head>b{flex:none;color:#876519;border:1px solid #d9c58d;background:#fffaf0;padding:8px 9px;font-size:9px;letter-spacing:.1em}
+.assessment-meta-primary{margin:28px 0 18px}
+.assessment-meta-secondary{grid-template-columns:repeat(4,minmax(0,1fr));margin:18px 0 0}
+.assessment-meta-secondary .assessment-meta-wide{grid-column:1/-1}
+.assessment-meta textarea{width:100%;min-height:64px;padding:11px 13px;border:1px solid #b8c9d3;border-radius:2px;background:#fff;color:#20324b;font:inherit;font-size:13px;line-height:1.45;resize:vertical}
+.assessment-meta textarea:focus{border-color:#0956a8;outline:3px solid rgba(9,86,168,.13)}
+.assessment-evidence-ref{display:block;margin-top:14px;color:#20324b;font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+.assessment-evidence-ref input{display:block;width:100%;max-width:320px;margin-top:6px;padding:9px 10px;border:1px solid #c5d6da;border-radius:2px;background:#fff;color:#20324b;font:inherit;font-size:12px;letter-spacing:0;text-transform:none}
+.assessment-evidence-ref input:focus{border-color:#0956a8;outline:3px solid rgba(9,86,168,.13)}
+.route-field small{color:#a35a32}
+.assessment-result-note{border-left:3px solid #b99a4a;padding-left:12px}
+.jurisdiction-tab:focus-visible,.global-jurisdiction-chooser select:focus-visible,.source-trace-links a:focus-visible,.source-inline:focus-visible,.assessment-export-buttons button:focus-visible,.sample-case button:focus-visible,.assessment-submit-row button:focus-visible{outline:3px solid rgba(9,86,168,.28);outline-offset:2px}
+@media(max-width:900px){.source-trace-strip{grid-template-columns:1fr}.source-trace-links{justify-content:flex-start}.assessment-meta-secondary{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.assessment-flow-note{align-items:flex-start;justify-content:flex-start;flex-wrap:wrap;text-align:left}.assessment-flow-note i{display:none}.assessment-evidence-register-head{display:block}.assessment-evidence-register-head>b{display:inline-block;margin-top:13px}.assessment-meta-secondary{grid-template-columns:1fr}.assessment-meta-secondary .assessment-meta-wide{grid-column:auto}.source-trace-strip{padding:16px}.source-trace-links{display:grid;grid-template-columns:1fr}.source-trace-links a{width:100%}}
