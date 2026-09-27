@@ -223,7 +223,7 @@
       '',
       'This is an independent review-support output. Verify all inputs against Board-approved targets, authoritative disclosures, evidence and the official Bangladesh Bank framework.'
     ].join('\n'));
-    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:regtechnexusai@gmail.com?subject=${subject}&body=${body}`;
   }
 
   function buildBankOptions() {
@@ -370,7 +370,7 @@
 
   buildBankOptions(); buildLensSummary(); buildTables();
   document.querySelector('#load-public').addEventListener('click',loadPublicProfile);
-  document.querySelector('#clear-form').addEventListener('click',clearInputs);
+  document.querySelectorAll('[data-clear-form]').forEach(button => button.addEventListener('click',clearInputs));
   document.querySelector('#process-assessment').addEventListener('click',processAssessment);
   document.querySelector('#copy-results').addEventListener('click',copyResults);
   document.querySelector('#download-csv').addEventListener('click',downloadCsv);
