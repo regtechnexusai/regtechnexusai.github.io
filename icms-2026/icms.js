@@ -192,7 +192,7 @@
       `Result band: ${latestResult.band}`,
       '',
       'This is independent, self-reported review support and not a regulatory rating, audit opinion, certification or compliance determination.'
-    ].join('\\n');
+    ].join('\n');
     if (window.RegTechEmail?.open) {
       window.RegTechEmail.open(subject, body);
     } else {
