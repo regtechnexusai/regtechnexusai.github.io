@@ -273,18 +273,13 @@
     return pdf;
   };
 
-  const handleExport = async (panel, type) => {
+  const handleExport = (panel, type) => {
     const snapshot = exportSnapshot(panel);
     const stem = fileStem(snapshot);
     if (type === 'csv') downloadFile(buildCsv(snapshot), stem + '.csv', 'text/csv;charset=utf-8');
     if (type === 'pdf') downloadFile(buildPdf(snapshot), stem + '.pdf', 'application/pdf');
     if (type === 'email') {
       const pdfContent = buildPdf(snapshot);
-      const pdfFile = new File([pdfContent], stem + '.pdf', { type: 'application/pdf' });
-      const shareData = { title: snapshot.moduleId + ' assessment result', text: reportText(snapshot), files: [pdfFile] };
-      if (navigator.share && navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
-        try { await navigator.share(shareData); return; } catch (error) { if (error?.name === 'AbortError') return; }
-      }
       downloadFile(pdfContent, stem + '.pdf', 'application/pdf');
       window.location.href = 'mailto:regtechnexusai@gmail.com?subject=' + encodeURIComponent(snapshot.moduleId + ' assessment result') + '&body=' + encodeURIComponent('The PDF report was downloaded. Please attach it before sending.\n\n' + reportText(snapshot));
     }

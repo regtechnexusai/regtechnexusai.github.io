@@ -125,7 +125,7 @@ body{overflow-x:hidden}
 .global-source-grid a:hover{border-color:#8fbfc7;background:#f0f8fa}
 .global-source-grid b{font-family:Manrope;color:#10203b}
 .global-source-grid span{grid-column:1;color:#68788b;font-size:12px;line-height:1.5}
-.global-source-grid i{grid-column:2;grid-row:1 / span 2;align-self:center;color:#0956a8;font-style:normal;font-size:20px}
+.global-source-grid i{grid-column:2;grid-row:1 / span 2;align-self:center;color:#0956a8;font-style:normal;font-size:28px;font-weight:800;line-height:1;padding:4px 2px}
 .global-last-reviewed{max-width:1280px;margin:25px auto 0;color:#718094;font-size:12px}
 @media(max-width:900px){.global-hero-meta,.global-decision-grid,.global-roadmap-grid,.global-source-grid{grid-template-columns:1fr 1fr}.jurisdiction-panel-head{flex-direction:column}.jurisdiction-badge{align-self:flex-start}}
 @media(max-width:620px){.global-notice-wrap,.global-executive-summary,.global-tools-section,.global-comparison-section,.global-roadmap-section,.global-sources-section{padding-left:6vw;padding-right:6vw}.global-hero-meta,.global-decision-grid,.global-roadmap-grid,.global-source-grid,.jurisdiction-tabs,.evidence-checklist{grid-template-columns:1fr}.global-section-intro h2{font-size:38px}.jurisdiction-panel{padding:22px}.jurisdiction-panel-head h3{font-size:31px}.scope-warning{display:block}.scope-warning strong{display:block;margin-bottom:7px}.readiness-meter{align-items:flex-start;flex-direction:column}.small-reset{width:100%}}
