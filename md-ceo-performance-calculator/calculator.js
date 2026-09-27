@@ -72,6 +72,8 @@
   const lensHost = document.querySelector('#kpi-lenses');
   const lensSummary = document.querySelector('#lens-summary');
   const resultActions = document.querySelector('#result-actions');
+  const processButton = document.querySelector('#process-assessment');
+  const processHint = document.querySelector('#process-hint');
 
   const esc = (value) => String(value).replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
   const fmt = (value, digits=2) => Number.isFinite(value) ? value.toLocaleString('en-US',{minimumFractionDigits:digits,maximumFractionDigits:digits}) : '—';
@@ -314,6 +316,9 @@
     else { ratingEl.textContent = complete ? 'Below Average' : 'Indicative: Below Average'; ratingNote.textContent = complete ? 'Needs immediate improvement in performance level.' : 'Indicative only because the dataset is incomplete.'; }
     const note = document.querySelector('#output-note');
     note.innerHTML = complete ? `<strong>Calculation complete:</strong> The displayed final score includes the 50% threshold and critical-KPI penalty rule. It remains a review-support result and must be reconciled with the Board-approved Excel template and evidence.` : `<strong>Partial view:</strong> ${filled} of ${allKpis().length} KPI rows have complete baseline, target and actual inputs. The score is normalised over completed rows and must not be treated as an official appraisal.`;
+    const processReady = filled > 0;
+    processButton.hidden = !processReady;
+    if (processHint) processHint.hidden = processReady;
     return {filled, total:allKpis().length, complete, finalScore};
   }
 
