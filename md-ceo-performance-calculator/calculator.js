@@ -11,7 +11,7 @@
       {id:'adjustedCrar', label:'Adjusted CRAR / CRAR with deferral', short:'Adjusted CRAR', weight:15, direction:'higher', expectation:'≥ regulatory minimum'},
       {id:'lcr', label:'Liquidity Coverage Ratio (LCR)', short:'LCR', weight:15, direction:'higher', expectation:'≥ regulatory threshold'},
       {id:'nsfr', label:'Net Stable Funding Ratio (NSFR)', short:'NSFR', weight:15, direction:'higher', expectation:'Sustainable funding profile'},
-      {id:'adr', label:'Advance to Deposit Ratio (ADR)', short:'ADR', weight:15, direction:'higher', expectation:'Compliance with regulatory limits', critical:true}
+      {id:'adr', label:'Advance to Deposit Ratio (ADR)', short:'ADR', weight:15, direction:'target', displayDirection:'Target / limit alignment', expectation:'Compliance with regulatory limits', inputNote:'Use the Board-approved target or compliance index; a higher raw ADR is not automatically better.', critical:true}
     ]},
     {id:'assetQuality', number:'2', title:'Asset Quality', weight:25, description:'Loan portfolio quality, concentration and recovery performance.', kpis:[
       {id:'grossNpl', label:'NPL ratio (Gross)', short:'Gross NPL', weight:25, direction:'lower', expectation:'Below industry/peer average; declining trend', critical:true},
@@ -26,16 +26,16 @@
       {id:'roe', label:'Return on Equity (ROE)', short:'ROE', weight:20, direction:'higher', expectation:'Increasing; above industry/peer average'},
       {id:'nim', label:'Net Interest Margin (NIM)', short:'NIM', weight:20, direction:'higher', expectation:'Increasing; above industry/peer average'},
       {id:'opexOperatingProfit', label:'Operating expenses / Operating profit', short:'Opex / operating profit', weight:15, direction:'lower', expectation:'Decreasing trend'},
-      {id:'nonInterestIncome', label:'Non-interest income / Total income', short:'Non-interest income', weight:10, direction:'higher', expectation:'Increasing; around 20% of total income'},
-      {id:'depositMix', label:'Deposit mix', short:'Deposit mix', weight:15, direction:'higher', expectation:'High-cost ≤45%; low-cost ≤40%; no-cost ≤15%'}
+      {id:'nonInterestIncome', label:'Non-interest income / Total income', short:'Non-interest income', weight:10, direction:'target', displayDirection:'Target-aligned', expectation:'Target-aligned; around 20% of total income', inputNote:'Use a Board-approved target-aligned ratio or score; do not treat unlimited growth as the objective.'},
+      {id:'depositMix', label:'Deposit mix', short:'Deposit mix', weight:15, direction:'target', displayDirection:'Target / threshold alignment', expectation:'High-cost ≤45%; low-cost ≤40%; no-cost ≤15%', inputNote:'Map the high-, low- and no-cost deposit thresholds to one approved score before entry; a single raw mix figure is insufficient.'}
     ]},
     {id:'governance', number:'4', title:'Governance and Internal Control', weight:25, description:'Governance, compliance, reporting, technology risk and leadership.', kpis:[
-      {id:'regCompliance', label:'Regulatory compliance', short:'Regulatory compliance', weight:15, direction:'higher', expectation:'No serious unsettled non-compliance or violations'},
-      {id:'amlCft', label:'AML/CFT compliance', short:'AML/CFT', weight:15, direction:'higher', expectation:'Strong/Satisfactory or Low/Moderate RBS rating'},
-      {id:'crr', label:'Composite risk rating (CRR)', short:'CRR', weight:30, direction:'lower', expectation:'Improvement; Low or Moderate'},
+      {id:'regCompliance', label:'Regulatory compliance', short:'Regulatory compliance', weight:15, direction:'lower', expectation:'No serious unsettled non-compliance or violations', inputNote:'Enter verified unsettled irregularities, high-risk observations and penalties, or the approved mapping—not a self-declared percentage.'},
+      {id:'amlCft', label:'AML/CFT compliance', short:'AML/CFT', weight:15, direction:'lower', expectation:'Strong/Satisfactory or Low/Moderate RBS rating', inputNote:'Map the official rating to the approved scale: Strong/Low is better than Unsatisfactory/High.'},
+      {id:'crr', label:'Composite risk rating (CRR)', short:'CRR', weight:30, direction:'lower', expectation:'Improvement; Low or Moderate', inputNote:'Use the circular’s mapped rating scale: Low=1, Moderate=2, Above Average=3, High=4.'},
       {id:'regReporting', label:'Regulatory reporting', short:'Regulatory reporting', weight:15, direction:'higher', expectation:'Timely, accurate and improving reporting'},
-      {id:'ictRisk', label:'ICT and technology risk mitigation', short:'ICT risk', weight:10, direction:'higher', expectation:'Strong/Satisfactory or Low/Moderate RBS rating'},
-      {id:'leadership', label:'Leadership', short:'Leadership', weight:15, direction:'higher', expectation:'Weighted average of other KPIs; 75% and above'}
+      {id:'ictRisk', label:'ICT and technology risk mitigation', short:'ICT risk', weight:10, direction:'lower', expectation:'Strong/Satisfactory or Low/Moderate RBS rating', inputNote:'Map the official rating to the approved scale: Strong/Low is better than Unsatisfactory/High.'},
+      {id:'leadership', label:'Leadership', short:'Leadership', weight:15, direction:'higher', expectation:'Weighted average of other KPIs; 75% and above', inputNote:'In the official assessment, reconcile this value to the weighted average of the other KPI scores.'}
     ]},
     {id:'inclusion', number:'5', title:'Inclusion, Customer and Market Conduct', weight:15, description:'Financial inclusion, service quality and fair customer treatment.', kpis:[
       {id:'digitalAdoption', label:'Digital services adoption', short:'Digital adoption', weight:20, direction:'higher', expectation:'Increasing trend; notable improvement'},
@@ -59,10 +59,10 @@
   };
 
   const sampleCaseData = {
-    crar:[12.00,13.50,13.10], cet1:[7.00,8.00,7.70], adjustedCrar:[10.50,11.50,11.10], lcr:[120,130,126], nsfr:[105,110,108], adr:[82,85,84],
+    crar:[12.50,13.50,13.00], cet1:[7.00,8.00,7.70], adjustedCrar:[10.50,11.50,11.10], lcr:[120,130,126], nsfr:[105,110,108], adr:[82,85,84],
     grossNpl:[6.00,4.50,5.00], netNpl:[2.50,1.50,2.00], stressedAssets:[10.00,8.00,8.60], provisionCoverage:[70,90,82], largeLoan:[42,35,38], recovery:[18,30,25],
-    roa:[0.80,1.20,1.05], roe:[10.00,15.00,13.00], nim:[3.00,3.80,3.50], opexOperatingProfit:[75,65,69], nonInterestIncome:[18,22,20], depositMix:[50,60,56],
-    regCompliance:[70,90,82], amlCft:[65,90,80], crr:[3.00,1.00,2.00], regReporting:[75,95,86], ictRisk:[65,90,78], leadership:[65,80,75],
+    roa:[0.80,1.20,1.05], roe:[10.00,15.00,13.00], nim:[3.00,3.80,3.50], opexOperatingProfit:[75,65,69], nonInterestIncome:[18,20,19], depositMix:[50,60,56],
+    regCompliance:[8,2,4], amlCft:[3,1,2], crr:[3.00,1.00,2.00], regReporting:[75,95,86], ictRisk:[3,1,2], leadership:[65,80,75],
     digitalAdoption:[40,60,52], serviceInnovation:[70,90,82], cmsmeAgricultureGreen:[20,35,29], geographicalDistribution:[25,40,34], fraudForgery:[70,90,84], legalRisk:[60,80,72]
   };
 
@@ -144,6 +144,8 @@
       ['Bank / operation label', bankLabel()],
       ['Assessment period', assessmentPeriodLabel()],
       ['Calculation mode', modeSelect.options[modeSelect.selectedIndex]?.textContent.trim() || ''],
+      ['Sample-case status', formState.sampleLoaded ? 'Fictional teaching case; composite/categorical values use the mapping note below' : 'User-entered case'],
+      ['Parameter-mapping note', 'Actual assessment must use the circular/Excel parameter, Board-approved target, rating/count mapping and supporting evidence. Sample values are not bank disclosures.'],
       ['Generated', new Date().toISOString()],
       ['Critical-KPI penalty model', 'Circular rule: 25% of the maximum achievable weighted score for a listed critical KPI when achievement is below 50% or receives zero'],
       [],
@@ -167,7 +169,7 @@
       const ratio = scoreRatio(kpi,baseline,target,actual);
       const contribution = complete && ratio !== null && ratio >= .5 ? ratio * (kpi.lensWeight * kpi.weight / 100) : complete && ratio !== null ? 0 : '';
       const status = !complete || ratio === null ? 'Awaiting inputs' : ratio < .5 ? 'Below 50% — zero score' : ratio < .75 ? 'Partial achievement' : 'Scored';
-      rows.push([kpi.lensTitle,kpi.label,kpi.direction === 'higher' ? 'Higher is better' : 'Lower is better',kpi.weight,baselineRaw,targetRaw,actualRaw,complete && ratio !== null ? fmt(ratio*100,1) : '',contribution === '' ? '' : fmt(contribution,2),getValue(kpi.id,'source'),status]);
+      rows.push([kpi.lensTitle,kpi.label,directionLabel(kpi),kpi.weight,baselineRaw,targetRaw,actualRaw,complete && ratio !== null ? fmt(ratio*100,1) : '',contribution === '' ? '' : fmt(contribution,2),getValue(kpi.id,'source'),status]);
     });
     rows.push([],['Indicative / final score',document.querySelector('#grand-score').textContent],['KPI coverage',document.querySelector('#coverage').textContent],['Critical-KPI penalty',document.querySelector('#penalty').textContent],['Regulatory interpretation',document.querySelector('#rating').textContent]);
     return '\uFEFF' + rows.map(row => row.map(csvEscape).join(',')).join('\r\n');
@@ -241,6 +243,7 @@
       `Indicative / final score: ${document.querySelector('#grand-score').textContent}`,
       `KPI coverage: ${document.querySelector('#coverage').textContent}`,
       `Regulatory interpretation: ${document.querySelector('#rating').textContent}`,
+      'Parameter mapping note: Actual assessment must use the circular/Excel parameter, Board-approved target, rating/count mapping and supporting evidence. Sample values are not bank disclosures.',
       '',
       'Bangladesh Bank five performance components:',
       ...componentSummaryLines(),
@@ -259,10 +262,14 @@
     lensSummary.innerHTML = lenses.map(lens => `<div class="lens-chip" data-summary="${lens.id}"><div class="lens-chip-top"><span>Lens ${lens.number} · ${esc(lens.title)}</span><span>${lens.weight}%</span></div><strong id="summary-score-${lens.id}">—</strong><div class="lens-meter"><span id="summary-meter-${lens.id}"></span></div></div>`).join('');
   }
 
+  function directionLabel(kpi) {
+    return kpi.displayDirection || (kpi.direction === 'higher' ? 'Higher is better' : kpi.direction === 'lower' ? 'Lower is better' : 'Target-aligned');
+  }
+
   function buildTables() {
     lensHost.innerHTML = lenses.map(lens => `<section class="kpi-lens" data-lens="${lens.id}">
       <div class="kpi-lens-header"><div class="kpi-lens-title"><span class="lens-number">${lens.number}</span><div><h3>${esc(lens.title)}</h3><p>${esc(lens.description)}</p></div></div><span class="lens-weight">Lens weight: ${lens.weight}%</span></div>
-      <div class="kpi-table-wrap"><table class="kpi-table"><thead><tr><th>KPI / parameter</th><th>Weight</th><th>Direction</th><th>Baseline<br><small>previous quarter</small></th><th>Board target</th><th>Actual</th><th>Evidence / source</th><th>Achievement</th></tr></thead><tbody>${lens.kpis.map(kpi => `<tr data-kpi-row="${kpi.id}"><td class="kpi-name"><strong>${esc(kpi.label)}</strong><small>${esc(kpi.expectation)}</small>${kpi.critical ? '<span class="kpi-public-note">Critical KPI · penalty rule applies</span>' : ''}</td><td class="kpi-weight">${kpi.weight}%</td><td>${kpi.direction === 'higher' ? '↑ Higher' : '↓ Lower'}</td><td><input class="kpi-input" data-kpi="${kpi.id}" data-field="baseline" type="number" step="any" inputmode="decimal" aria-label="${esc(kpi.short)} baseline"></td><td><input class="kpi-input" data-kpi="${kpi.id}" data-field="target" type="number" step="any" inputmode="decimal" aria-label="${esc(kpi.short)} target"></td><td><input class="kpi-input" data-kpi="${kpi.id}" data-field="actual" type="number" step="any" inputmode="decimal" aria-label="${esc(kpi.short)} actual"></td><td><input class="kpi-source" data-kpi="${kpi.id}" data-field="source" type="text" placeholder="e.g. AR 2025" aria-label="${esc(kpi.short)} source"></td><td class="kpi-score-cell"><div class="kpi-achievement" data-output="${kpi.id}-achievement">—</div><div class="kpi-weighted" data-output="${kpi.id}-weighted">Weighted: —</div><div class="kpi-status" data-output="${kpi.id}-status">Awaiting inputs</div></td></tr>`).join('')}</tbody></table></div>
+      <div class="kpi-table-wrap"><table class="kpi-table"><thead><tr><th>KPI / parameter</th><th>Weight</th><th>Direction</th><th>Baseline<br><small>previous quarter</small></th><th>Board target</th><th>Actual</th><th>Evidence / source</th><th>Achievement</th></tr></thead><tbody>${lens.kpis.map(kpi => `<tr data-kpi-row="${kpi.id}"><td class="kpi-name"><strong>${esc(kpi.label)}</strong><small>${esc(kpi.expectation)}</small>${kpi.inputNote ? `<span class="kpi-input-note">Input mapping · ${esc(kpi.inputNote)}</span>` : ''}${kpi.critical ? '<span class="kpi-public-note">Critical KPI · penalty rule applies</span>' : ''}</td><td class="kpi-weight">${kpi.weight}%</td><td>${kpi.direction === 'higher' ? '↑ Higher' : kpi.direction === 'lower' ? '↓ Lower' : '◎ Target-aligned'}</td><td><input class="kpi-input" data-kpi="${kpi.id}" data-field="baseline" type="number" step="any" inputmode="decimal" aria-label="${esc(kpi.short)} baseline"></td><td><input class="kpi-input" data-kpi="${kpi.id}" data-field="target" type="number" step="any" inputmode="decimal" aria-label="${esc(kpi.short)} target"></td><td><input class="kpi-input" data-kpi="${kpi.id}" data-field="actual" type="number" step="any" inputmode="decimal" aria-label="${esc(kpi.short)} actual"></td><td><input class="kpi-source" data-kpi="${kpi.id}" data-field="source" type="text" placeholder="e.g. AR 2025" aria-label="${esc(kpi.short)} source"></td><td class="kpi-score-cell"><div class="kpi-achievement" data-output="${kpi.id}-achievement">—</div><div class="kpi-weighted" data-output="${kpi.id}-weighted">Weighted: —</div><div class="kpi-status" data-output="${kpi.id}-status">Awaiting inputs</div></td></tr>`).join('')}</tbody></table></div>
     </section>`).join('');
     lensHost.querySelectorAll('input').forEach(input => input.addEventListener('input', () => { invalidateProcessedState(); calculate(); }));
   }
@@ -279,6 +286,11 @@
 
   function scoreRatio(kpi, baseline, target, actual) {
     if (![baseline,target,actual].every(Number.isFinite)) return null;
+    if (kpi.direction === 'target') {
+      const baselineDistance = Math.abs(target - baseline);
+      if (baselineDistance === 0) return actual === target ? 1 : 0;
+      return Math.max(0, Math.min(1, 1 - (Math.abs(actual - target) / baselineDistance)));
+    }
     if (kpi.direction === 'higher') {
       if (target === baseline) return actual >= target ? 1 : Math.max(0, actual / (Math.abs(target) || 1));
       return Math.max(0, Math.min(1, (actual - baseline) / (target - baseline)));
@@ -377,7 +389,7 @@
       setValue(id,'baseline',values[0]);
       setValue(id,'target',values[1]);
       setValue(id,'actual',values[2]);
-      setValue(id,'source','Illustrative sample case');
+      setValue(id,'source','Fictional teaching value · see sample mapping note');
     });
     document.querySelector('#profile-bank').textContent = 'Illustrative Sample Bank';
     document.querySelector('#profile-category').textContent = 'Fictional / illustrative';
@@ -390,7 +402,7 @@
     if (sampleDetails) sampleDetails.open = true;
     formState.sampleLoaded = true;
     calculate();
-    document.querySelector('#output-note').innerHTML = '<strong>Full sample case loaded:</strong> All 30 KPI rows contain fictional baseline, Board target, actual and evidence-label values. Review the pattern, then use <strong>Process assessment</strong> or <strong>Print sample case</strong>.';
+    document.querySelector('#output-note').innerHTML = '<strong>Full sample case loaded:</strong> All 30 KPI rows are populated. Raw-style ratios and fictional mapped/index values are clearly identified in the sample note; they are not actual bank disclosures. Review the pattern, then use <strong>Process assessment</strong> or <strong>Print sample case</strong>.';
   }
 
   function printSampleCase() {
