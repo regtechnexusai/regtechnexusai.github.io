@@ -59,6 +59,29 @@ jobs:
             --exclude='*.md' \
             payscale-source/ \
             site/payscale-2026/
+      - name: Apply site-wide email composer to assembled PayScale pages
+        run: |
+          cp root-site/site-email.js site/payscale-2026/site-email.js
+          python3 - <<'PY'
+          from pathlib import Path
+
+          for page in Path("site/payscale-2026").glob("*.html"):
+              content = page.read_text(encoding="utf-8")
+              content = content.replace(
+                  "mailto:regtechnexusai@gmail.com?",
+                  "mailto:?from=regtechnexusai%40gmail.com&",
+              ).replace(
+                  'mailto:regtechnexusai@gmail.com"',
+                  'mailto:?from=regtechnexusai%40gmail.com"',
+              )
+              if "site-email.js" not in content:
+                  content = content.replace(
+                      "</body>",
+                      '<script src="./site-email.js" defer></script></body>',
+                  )
+              page.write_text(content, encoding="utf-8")
+          PY
+
 
           touch site/.nojekyll
 
