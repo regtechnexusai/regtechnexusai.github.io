@@ -20,7 +20,7 @@
 {"@context":"https://schema.org","@type":"WebApplication","name":"MD/CEO Performance Measurement Calculator","url":"https://regtechnexusai.com/md-ceo-performance-calculator/","applicationCategory":"BusinessApplication","operatingSystem":"Any","description":"An independent calculation aid based on Bangladesh Bank BRPD-2 Circular No. 5 dated 13 September 2026.","publisher":{"@type":"Organization","name":"RegTech Nexus AI","url":"https://regtechnexusai.com/"}}
 </script>
 <link rel="stylesheet" href="../styles.css">
-<link rel="stylesheet" href="styles.css?v=20260927-sample3">
+<link rel="stylesheet" href="styles.css?v=20260927-report4">
 </head>
 <body class="calculator-page mdceo-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -79,6 +79,11 @@
   <div class="mdceo-lens-summary" id="lens-summary" aria-label="Lens score summary"></div>
   <div id="kpi-lenses"></div>
 
+  <div class="mdceo-report-components" id="report-components" aria-live="polite" hidden>
+    <div class="report-components-heading"><span class="profile-label">Bangladesh Bank framework</span><strong>Five performance components</strong><small>This component summary is included in the processed screen report, print/PDF, CSV and email summary.</small></div>
+    <div class="concept-table-wrap"><table class="concept-table" id="report-components-table"><caption>Bangladesh Bank’s five performance components</caption><thead><tr><th>Component</th><th>Weight</th><th>Component score</th><th>Weighted score / maximum</th><th>KPI coverage</th></tr></thead><tbody></tbody></table></div>
+  </div>
+
   <div class="mdceo-output-note" id="output-note" aria-live="polite"><strong>How to use:</strong> Enter baseline, Board-approved target and actual performance for each KPI, then select <strong>Process assessment</strong>. Each lens is calculated out of 100% and converted to its assigned lens weight; the grand score is out of 100. The calculator uses the circular’s proportionate-achievement approach and applies the 50% threshold.</div>
 
   <div class="mdceo-exportbar" id="result-actions" aria-label="Processed result actions" hidden>
@@ -86,6 +91,13 @@
     <div class="mdceo-export-actions"><button class="btn ghost" id="copy-results" type="button">Copy CSV</button><button class="btn ghost" id="download-csv" type="button">Download CSV</button><button class="btn ghost" id="print-report" type="button">Print / Save PDF</button><button class="btn primary" id="share-email" type="button">Share by Email</button></div>
     <span class="mdceo-copy-status" id="copy-status" role="status" aria-live="polite"></span>
   </div>
+</section>
+
+<section class="mdceo-components" id="bb-components">
+  <div class="kicker">BANGLADESH BANK FRAMEWORK</div>
+  <h2>Five performance components</h2>
+  <p class="concept-lead">The official framework allocates the MD/CEO assessment across five weighted components. The processed report reproduces this component structure together with the overall score and regulatory interpretation.</p>
+  <div class="concept-table-wrap"><table class="concept-table"><caption>Bangladesh Bank’s five performance components</caption><thead><tr><th>Component</th><th>Weight</th><th>Primary themes</th><th>Public-data feasibility</th></tr></thead><tbody><tr><td>Bank Solvency and Liquidity</td><td>25%</td><td>CRAR, CET1, adjusted CRAR, LCR, NSFR, ADR</td><td>Partial</td></tr><tr><td>Asset Quality</td><td>25%</td><td>NPL, stressed assets, provision coverage, concentration, recovery</td><td>Partial</td></tr><tr><td>Profitability</td><td>10%</td><td>ROA, ROE, NIM, efficiency, non-interest income, deposit mix</td><td>Moderate</td></tr><tr><td>Governance and Internal Control</td><td>25%</td><td>Compliance, AML/CFT, CRR, reporting, ICT risk, leadership</td><td>Low / evidence-sensitive</td></tr><tr><td>Inclusion, Customer and Market Conduct</td><td>15%</td><td>Digital adoption, service quality, CMSME/agriculture/green finance, fraud, legal risk</td><td>Partial</td></tr></tbody></table></div>
 </section>
 
 <section class="mdceo-concept" id="concept-note">
@@ -98,8 +110,6 @@
     <article><span>03</span><h3>Public-data layer</h3><p>Bank websites, annual reports, half-yearly reports, quarterly disclosures and BB publications can prefill selected observable metrics with a source and period label.</p></article>
     <article><span>04</span><h3>Evidence boundary</h3><p>Board targets, RBS ratings, AML/CFT ratings, inspection observations, internal controls, regulatory reporting quality and legal-risk evidence are not reliably public and remain manual inputs.</p></article>
   </div>
-
-  <div class="concept-table-wrap"><table class="concept-table"><caption>Bangladesh Bank’s five performance lenses</caption><thead><tr><th>Lens</th><th>Weight</th><th>Primary themes</th><th>Public-data feasibility</th></tr></thead><tbody><tr><td>Bank Solvency and Liquidity</td><td>25%</td><td>CRAR, CET1, adjusted CRAR, LCR, NSFR, ADR</td><td>Partial</td></tr><tr><td>Asset Quality</td><td>25%</td><td>NPL, stressed assets, provision coverage, concentration, recovery</td><td>Partial</td></tr><tr><td>Profitability</td><td>10%</td><td>ROA, ROE, NIM, efficiency, non-interest income, deposit mix</td><td>Moderate</td></tr><tr><td>Governance and Internal Control</td><td>25%</td><td>Compliance, AML/CFT, CRR, reporting, ICT risk, leadership</td><td>Low / evidence-sensitive</td></tr><tr><td>Inclusion, Customer and Market Conduct</td><td>15%</td><td>Digital adoption, service quality, CMSME/agriculture/green finance, fraud, legal risk</td><td>Partial</td></tr></tbody></table></div>
 
   <div class="concept-steps"><div><b>Phase 1 · Live calculator</b><span>Manual Board inputs, optional bank dropdown or anonymous label, 30 KPI rows, transparent scoring and export-ready result view.</span></div><div><b>Phase 2 · Verified public data registry</b><span>Period-tagged extraction from bank disclosures and BB publications, with source links and confidence labels.</span></div><div><b>Phase 3 · Governance workflow</b><span>Evidence attachments, reviewer sign-off, version history, Board approval trail and Excel-template mapping.</span></div></div>
 </section>
@@ -120,6 +130,6 @@
  <div class="legal"><span>© 2026 RegTech Nexus AI</span><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></div>
 </footer>
 <script src="../script.js" defer></script>
-<script src="calculator.js?v=20260927-sample3" defer></script>
+<script src="calculator.js?v=20260927-report4" defer></script>
 </body>
 </html>
