@@ -233,8 +233,8 @@
 
   function shareByEmail() {
     if (!formState.processed) return;
-    const subject = encodeURIComponent('MD/CEO Performance Measurement Calculator — Processed Result');
-    const body = encodeURIComponent([
+    const subject = 'MD/CEO Performance Measurement Calculator — Processed Result';
+    const body = [
       'MD/CEO Performance Measurement Calculator',
       'Indicative self-assessment report — NOT OFFICIAL',
       '',
@@ -250,8 +250,12 @@
       `Critical-KPI penalty: ${document.querySelector('#penalty').textContent}`,
       '',
       'This is an independent review-support output. Verify all inputs against Board-approved targets, authoritative disclosures, evidence and the official Bangladesh Bank framework.'
-    ].join('\n'));
-    window.location.href = `mailto:regtechnexusai@gmail.com?subject=${subject}&body=${body}`;
+    ].join('\n');
+    if (window.RegTechEmail?.open) {
+      window.RegTechEmail.open(subject, body);
+    } else {
+      window.location.href = 'mailto:?from=regtechnexusai%40gmail.com&subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    }
   }
 
   function buildBankOptions() {
