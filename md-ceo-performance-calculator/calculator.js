@@ -407,6 +407,9 @@
 
   function printSampleCase() {
     if (!formState.sampleLoaded) loadSampleCase();
+    calculate();
+    formState.processed = true;
+    reportComponents.hidden = false;
     const sampleDetails = document.querySelector('.mdceo-case-study');
     if (sampleDetails) sampleDetails.open = true;
     document.body.classList.add('mdceo-sample-print');
