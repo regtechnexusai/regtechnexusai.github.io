@@ -180,6 +180,26 @@
     URL.revokeObjectURL(link.href);
   };
 
+  const emailReport = async () => {
+    if (!latestResult) return;
+    await makeReport();
+    const subject = 'ICMS Readiness Review — Indicative result';
+    const body = [
+      'The formatted ICMS readiness report was downloaded from RegTech Nexus AI.',
+      'If a PDF is required, use Print / save as PDF first, then attach it before sending.',
+      '',
+      `Indicative score: ${latestResult.score} / 72`,
+      `Result band: ${latestResult.band}`,
+      '',
+      'This is independent, self-reported review support and not a regulatory rating, audit opinion, certification or compliance determination.'
+    ].join('\\n');
+    if (window.RegTechEmail?.open) {
+      window.RegTechEmail.open(subject, body);
+    } else {
+      window.location.href = 'mailto:?from=regtechnexusai%40gmail.com&subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    }
+  };
+
   const normaliseRemoveButtons = () => {
     document.querySelectorAll('.remove-cap').forEach((button) => {
       button.textContent = 'Remove action';
@@ -212,6 +232,7 @@
   });
   document.getElementById('download-report').addEventListener('click', makeReport);
   document.getElementById('print-report').addEventListener('click', () => window.print());
+  document.getElementById('email-report').addEventListener('click', emailReport);
 
   const capTable = document.querySelector('#cap-table tbody');
   const capRow = () => {
