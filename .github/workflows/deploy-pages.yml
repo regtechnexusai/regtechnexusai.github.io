@@ -67,13 +67,6 @@ jobs:
 
           for page in Path("site/payscale-2026").glob("*.html"):
               content = page.read_text(encoding="utf-8")
-              content = content.replace(
-                  "mailto:regtechnexusai@gmail.com?",
-                  "mailto:?from=regtechnexusai%40gmail.com&",
-              ).replace(
-                  'mailto:regtechnexusai@gmail.com"',
-                  'mailto:?from=regtechnexusai%40gmail.com"',
-              )
               if "site-email.js" not in content:
                   content = content.replace(
                       "</body>",
