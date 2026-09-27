@@ -293,17 +293,25 @@
   const handleExport = (panel, type) => {
     const snapshot = exportSnapshot(panel);
     const stem = fileStem(snapshot);
+    const hasUnicodeInput = [snapshot.label, ...Object.values(snapshot.metadata), ...snapshot.rows.map(row => row.evidenceReference)].some(value => /[^\x00-\x7F]/.test(String(value ?? '')));
     if (type === 'csv') downloadFile(buildCsv(snapshot), stem + '.csv', 'text/csv;charset=utf-8');
-    if (type === 'pdf') downloadFile(buildPdf(snapshot), stem + '.pdf', 'application/pdf');
+    if (type === 'pdf') {
+      if (hasUnicodeInput) {
+        window.alert('This report contains non-English text. Choose Save as PDF in the print dialog to preserve it.');
+        window.print();
+      } else downloadFile(buildPdf(snapshot), stem + '.pdf', 'application/pdf');
+    }
     if (type === 'email') {
-      const pdfContent = buildPdf(snapshot);
-      downloadFile(pdfContent, stem + '.pdf', 'application/pdf');
+      if (hasUnicodeInput) {
+        window.alert('This report contains non-English text. Save it as PDF from the print dialog, then attach it to your email draft.');
+        window.print();
+      } else downloadFile(buildPdf(snapshot), stem + '.pdf', 'application/pdf');
       const subject = snapshot.moduleId + ' assessment result';
-      const body = 'The PDF report was downloaded. Please attach it before sending.\n\n' + reportText(snapshot);
+      const body = 'Please attach the PDF report saved from RegTech Nexus AI before sending. No file is attached automatically.\n\nThis is independent review support, not a regulatory determination.';
       if (window.RegTechEmail?.open) {
         window.RegTechEmail.open(subject, body);
       } else {
-        window.location.href = 'mailto:?from=regtechnexusai%40gmail.com&subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        window.location.href = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
       }
     }
     if (type === 'print') window.print();

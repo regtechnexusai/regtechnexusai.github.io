@@ -40,7 +40,7 @@
 </section>
 
 <section class="mdceo-alert" aria-label="Important limitation">
-  <strong>Independent calculation aid.</strong> The official assessment must use Board-approved targets, the bank’s immediate previous-quarter baseline, verified internal/regulatory evidence and Bangladesh Bank’s prescribed Excel template. Public web data alone cannot complete all 30 KPIs. This Phase 1 public build runs in the browser and has no backend, login, RBAC, case database or server-side audit trail. The calculator implements the circular’s critical-KPI deduction: 25% of the maximum achievable weighted score for a listed critical KPI when its achievement is below 50% or receives zero. It remains a review-support aid—not an official Bangladesh Bank rating—and must be reconciled with the official template before reliance.
+  <strong>Independent calculation aid.</strong> The official assessment must use Board-approved targets, the bank’s immediate previous-quarter baseline, verified internal/regulatory evidence and Bangladesh Bank’s prescribed Excel template. Public web data alone cannot complete all 30 KPIs. This Phase 1 public build runs in the browser and has no backend, login, RBAC, case database or server-side audit trail. This is an independent baseline-to-target progress model, not a validated reproduction of the prescribed Excel scoring formula. The calculator implements the circular’s critical-KPI deduction: 25% of the maximum achievable weighted score for a listed critical KPI when its achievement is below 50% or receives zero. It remains a review-support aid—not an official Bangladesh Bank rating—and must be reconciled with the official template before reliance.
 </section>
 
 <section class="mdceo-workspace" aria-label="MD/CEO performance calculator">
@@ -60,6 +60,7 @@
       <p class="sample-case-mapping"><strong>Sample parameter-mapping check:</strong> This complete case is fictional and is not an actual bank posting or disclosure. CRAR, NPL, ROA, ROE, NIM and similar ratio examples are raw-style teaching values. ADR, deposit mix, non-interest income, regulatory compliance, AML/CFT, CRR, ICT risk, leadership, fraud/forgery and legal-risk rows use either a Board-targeted value, an official rating/count mapping or a fictional normalized index so the baseline → Board target → actual process can be demonstrated. For an actual assessment, replace every sample number with the circular/Excel parameter, approved mapping, evidence and Board-approved target.</p>
       <div class="case-study-table-wrap"><table class="case-study-table"><thead><tr><th>KPI</th><th>Direction</th><th>Baseline</th><th>Target</th><th>Actual</th><th>Achievement</th><th>Contribution</th></tr></thead><tbody><tr><td>CRAR</td><td>Higher is better</td><td>12.5%</td><td>13.5%</td><td>13.0%</td><td>50.0%</td><td>3.13 / 6.25</td></tr><tr><td>Gross NPL</td><td>Lower is better</td><td>6.0%</td><td>5.0%</td><td>5.5%</td><td>50.0%</td><td>3.13 / 6.25</td></tr><tr><td>ROE</td><td>Higher is better</td><td>12.0%</td><td>15.0%</td><td>14.0%</td><td>66.7%</td><td>1.33 / 2.00</td></tr></tbody></table></div>
       <div class="case-study-formula"><strong>Process:</strong> Higher-is-better and lower-is-better KPIs use proportionate movement from baseline toward the Board target. Target/limit-aligned KPIs are scored by how close the actual is to the Board target relative to the baseline gap. Achievement below 50% receives zero for that KPI. The contribution then equals achievement × lens weight × KPI weight, subject to the circular’s critical-KPI deduction rule.</div>
+      <p class="case-study-note"><strong>Critical-KPI example:</strong> Gross NPL has a maximum weighted contribution of 25% × 25% = 6.25 points. If its achievement is below 50%, its contribution is zero and the additional critical deduction is 25% × 6.25 = 1.5625 points. This arithmetic follows paragraph 2.5(ii); the achievement mapping itself still requires reconciliation with the official Excel template.</p>
       <p class="case-study-note">In the live calculator, the Board must approve the target, the bank must retain evidence, and all 30 KPI rows should be reconciled with the prescribed Excel template.</p>
     </div>
   </details><button class="btn ghost case-clear" type="button" data-clear-form>Clear inputs</button></div>
@@ -73,7 +74,7 @@
   <div class="mdceo-scoreboard">
      <div class="score-card score-card-primary"><span>Final score</span><strong id="grand-score">—</strong><small id="score-label">Complete the inputs to calculate</small></div>
      <div class="score-card"><span>Gross score</span><strong id="gross-score">—</strong><small>Before critical-KPI deductions</small></div>
-    <div class="score-card"><span>Regulatory interpretation</span><strong id="rating">—</strong><small id="rating-note">75+ Above Average · 65–&lt;75 Average · &lt;65 Below Average</small></div>
+    <div class="score-card"><span>Illustrative score band</span><strong id="rating">—</strong><small id="rating-note">75+ Above Average · 65–&lt;75 Average · &lt;65 Below Average</small></div>
     <div class="score-card"><span>KPI coverage</span><strong id="coverage">0 / 30</strong><small id="coverage-note">Full assessment requires all KPI rows</small></div>
     <div class="score-card"><span>Critical-KPI penalty</span><strong id="penalty">—</strong><small>Circular rule: 25% of that KPI’s maximum achievable weighted score when achievement is below 50% or zero.</small></div>
   </div>
@@ -89,7 +90,7 @@
    <div class="mdceo-output-note" id="output-note" aria-live="polite"><strong>How to use:</strong> Enter the verified baseline, Board-approved target and actual performance for each KPI, then select <strong>Process assessment</strong>. The report separates gross score, critical-KPI deduction and final score. Invalid target directions are not scored. Each lens is calculated out of 100% and converted to its assigned lens weight.</div>
 
   <div class="mdceo-exportbar" id="result-actions" aria-label="Processed result actions" hidden>
-    <div class="mdceo-export-copy"><span class="profile-label">Processed result actions</span><strong>Save or share this review-support result</strong><small>Available after processing the entered data. Print / Save PDF creates the attachment; Share by Email opens Gmail with From set to regtechnexusai@gmail.com and To left blank.</small></div>
+    <div class="mdceo-export-copy"><span class="profile-label">Processed result actions</span><strong>Save or share this review-support result</strong><small>Available after processing the entered data. Print / Save PDF creates the attachment; Share by Email opens a Gmail draft. The sender depends on the account signed in to Gmail; add a recipient and attach the saved PDF manually.</small></div>
     <div class="mdceo-export-actions"><button class="btn ghost" id="copy-results" type="button">Copy CSV</button><button class="btn ghost" id="download-csv" type="button">Download CSV</button><button class="btn ghost" id="print-report" type="button">Print / Save PDF</button><button class="btn primary" id="share-email" type="button">Share by Email</button></div>
     <span class="mdceo-copy-status" id="copy-status" role="status" aria-live="polite"></span>
   </div>
@@ -108,7 +109,7 @@
   <p class="concept-lead">Proposed as a transparent review-support layer for bank Boards, Board committees, governance professionals, researchers and supervisors. It is designed to organise evidence and make the arithmetic reviewable—not to replace the Board’s appraisal judgment or Bangladesh Bank’s regulatory review.</p>
   <div class="concept-grid">
     <article><span>01</span><h3>Purpose</h3><p>Translate the 2026 BB KPI framework into a readable, auditable and reusable calculation interface for the five performance lenses.</p></article>
-    <article><span>02</span><h3>Core method</h3><p>Each KPI is scored against the bank-specific baseline and target. Higher, lower and target/limit-aligned directions are shown separately; categorical, count-based and composite parameters must first be mapped to an approved numeric scale. The five lens allocations are 25%, 25%, 10%, 25% and 15%; each lens is normalised to 100% before its weight is applied. Achievement below 50% receives zero for that KPI, and the listed critical-KPI deduction follows paragraph 2.5(ii) of the circular.</p></article>
+    <article><span>02</span><h3>Core method</h3><p>Each KPI receives an illustrative baseline-to-target progress score; this mapping must be checked against the prescribed Excel template before any regulatory use. Higher, lower and target/limit-aligned directions are shown separately; categorical, count-based and composite parameters must first be mapped to an approved numeric scale. The five lens allocations are 25%, 25%, 10%, 25% and 15%; each lens is normalised to 100% before its weight is applied. Achievement below 50% receives zero for that KPI, and the listed critical-KPI deduction follows paragraph 2.5(ii) of the circular.</p></article>
     <article><span>03</span><h3>Public-data layer</h3><p>Bank websites, annual reports, half-yearly reports, quarterly disclosures and BB publications can prefill selected observable metrics with a source and period label.</p></article>
     <article><span>04</span><h3>Evidence boundary</h3><p>Board targets, RBS ratings, AML/CFT ratings, inspection observations, internal controls, regulatory reporting quality and legal-risk evidence are not reliably public and remain manual inputs.</p></article>
   </div>
@@ -132,7 +133,6 @@
  <div class="legal"><span>© 2026 RegTech Nexus AI</span><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></div>
 </footer>
 <script src="../script.js" defer></script>
-<script src="calculator.js?v=20260927-report11-audit" defer></script>
-<script src="../site-email.js?v=20260927-greeting" defer></script></body>
-<script src="../site-email.js" defer></script></body>
+<script src="calculator.js?v=20260928-score-audit" defer></script>
+<script src="../site-email.js?v=20260928-email-routing" defer></script></body>
 </html>

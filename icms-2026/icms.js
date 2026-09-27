@@ -28,9 +28,10 @@
   };
 
   const boundedNumber = (input, maximum) => {
+    if (input.value.trim() === '') return null;
     const value = Number(input.value);
-    if (!Number.isFinite(value)) return null;
-    return Math.min(maximum, Math.max(0, value));
+    if (!Number.isFinite(value) || value < 0 || value > maximum) return null;
+    return value;
   };
 
   const businessUnitBandFor = (score) => {
@@ -196,7 +197,7 @@
     if (window.RegTechEmail?.open) {
       window.RegTechEmail.open(subject, body);
     } else {
-      window.location.href = 'mailto:?from=regtechnexusai%40gmail.com&subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      window.location.href = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
     }
   };
 

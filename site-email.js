@@ -23,25 +23,25 @@
     return { subject: resolvedSubject, body: bodyWithGreeting };
   };
 
-  const fallbackMailto = (subject = '', body = '') =>
-    'mailto:?from=' + encodeURIComponent(FROM)
-    + '&subject=' + encodeURIComponent(subject)
+  const fallbackMailto = (subject = '', body = '', to = '') =>
+    'mailto:' + encodeURIComponent(to)
+    + '?subject=' + encodeURIComponent(subject)
     + '&body=' + encodeURIComponent(body);
 
-  const open = (subject = '', body = '') => {
+  const open = (subject = '', body = '', to = '') => {
     const prepared = prepareEmail(subject, body);
     const params = new URLSearchParams({
       view: 'cm',
       fs: '1',
       tf: '1',
       authuser: FROM,
-      to: '',
+      to,
       su: prepared.subject,
       body: prepared.body
     });
     const gmailUrl = 'https://mail.google.com/mail/?' + params.toString();
     const popup = window.open(gmailUrl, '_blank', 'noopener,noreferrer');
-    if (!popup) window.location.href = fallbackMailto(prepared.subject, prepared.body);
+    if (!popup) window.location.href = fallbackMailto(prepared.subject, prepared.body, to);
   };
 
   window.RegTechEmail = Object.freeze({
@@ -55,14 +55,16 @@
       const rawHref = link.getAttribute('href') || '';
       let subject = link.dataset.subject || '';
       let body = link.dataset.body || '';
+      let to = '';
       try {
         const parsed = new URL(rawHref, window.location.href);
+        to = decodeURIComponent(parsed.pathname || '');
         subject = parsed.searchParams.get('subject') || subject;
         body = parsed.searchParams.get('body') || body;
       } catch {
         // Use the explicit data attributes when a legacy mailto value cannot be parsed.
       }
-      open(subject, body);
+      open(subject, body, to);
     });
   });
 })();

@@ -134,7 +134,9 @@
   }
 
   function csvEscape(value) {
-    const text = value === null || value === undefined ? '' : String(value);
+    let text = value === null || value === undefined ? '' : String(value);
+    // Quoting a CSV cell does not stop spreadsheet programs evaluating formulas.
+    if (/^[\s\uFEFF]*[=+@\-]/.test(text) && typeof value === 'string' && !/^-?\d+(?:\.\d+)?$/.test(text.trim())) text = "'" + text;
     return /[",\r\n]/.test(text) ? `"${text.replace(/"/g,'""')}"` : text;
   }
 
@@ -153,7 +155,7 @@
       ['Component', 'Weight %', 'Component score %', 'Weighted score / maximum', 'KPI coverage'],
       ...lenses.map(lens => {
         const result = formState.latest?.lensResults?.[lens.id] || {percent:0,lensEarned:0,lensMax:lens.weight,filled:0,total:lens.kpis.length};
-        return [lens.title,lens.weight,fmt(result.percent,1),`${fmt(result.lensEarned,2)} / ${fmt(result.lensMax,2)}`,`${result.filled} / ${result.total}`];
+        return [lens.title,lens.weight,result.filled ? fmt(result.percent,1) : '',`${fmt(result.lensEarned,2)} / ${fmt(result.lensMax,2)}`,`${result.filled} / ${result.total}`];
       }),
       [],
       ['Lens', 'KPI', 'Direction', 'Weight %', 'Baseline', 'Board target', 'Actual', 'Achievement %', 'Weighted contribution', 'Evidence / source', 'Status']
@@ -167,20 +169,19 @@
       const actual = Number(actualRaw);
       const complete = [baselineRaw,targetRaw,actualRaw].every(value => value !== '' && Number.isFinite(Number(value)));
       const ratio = scoreRatio(kpi,baseline,target,actual);
-      if (complete && ratio === null) invalid += 1;
       const contribution = complete && ratio !== null && ratio >= .5 ? ratio * (kpi.lensWeight * kpi.weight / 100) : complete && ratio !== null ? 0 : '';
       const status = !complete ? 'Awaiting inputs' : ratio === null ? (validationMessage(kpi, baseline, target) || 'Invalid mapping') : ratio < .5 ? 'Below 50% — zero score' : ratio < .75 ? 'Partial achievement' : 'Scored';
       rows.push([kpi.lensTitle,kpi.label,directionLabel(kpi),kpi.weight,baselineRaw,targetRaw,actualRaw,complete && ratio !== null ? fmt(ratio*100,1) : '',contribution === '' ? '' : fmt(contribution,2),getValue(kpi.id,'source'),status]);
     });
-    rows.push([],['Gross score before critical-KPI deduction',document.querySelector('#gross-score').textContent],['Critical-KPI deduction',document.querySelector('#penalty').textContent],['Final score',document.querySelector('#grand-score').textContent],['KPI coverage',document.querySelector('#coverage').textContent],['Regulatory interpretation',document.querySelector('#rating').textContent]);
+    rows.push([],['Gross scenario score before critical-KPI deduction',document.querySelector('#gross-score').textContent],['Critical-KPI deduction',document.querySelector('#penalty').textContent],['Final scenario score',document.querySelector('#grand-score').textContent],['KPI coverage',document.querySelector('#coverage').textContent],['Illustrative score band',document.querySelector('#rating').textContent]);
     return '\uFEFF' + rows.map(row => row.map(csvEscape).join(',')).join('\r\n');
   }
 
   async function copyResults() {
     if (!formState.processed) return;
     const status = document.querySelector('#copy-status');
-    const csv = buildCsv();
     try {
+      const csv = buildCsv();
       if (navigator.clipboard && window.isSecureContext) {
         await navigator.clipboard.writeText(csv);
       } else {
@@ -245,7 +246,7 @@
       `Critical-KPI deduction: ${document.querySelector('#penalty').textContent}`,
       `Final score: ${document.querySelector('#grand-score').textContent}`,
       `KPI coverage: ${document.querySelector('#coverage').textContent}`,
-      `Regulatory interpretation: ${document.querySelector('#rating').textContent}`,
+      `Illustrative score band: ${document.querySelector('#rating').textContent}`,
       'Parameter mapping note: Actual assessment must use the circular/Excel parameter, Board-approved target, rating/count mapping and supporting evidence. Sample values are not bank disclosures.',
       '',
       'Bangladesh Bank five performance components:',
@@ -257,7 +258,7 @@
     if (window.RegTechEmail?.open) {
       window.RegTechEmail.open(subject, body);
     } else {
-      window.location.href = 'mailto:?from=regtechnexusai%40gmail.com&subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      window.location.href = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
     }
   }
 
@@ -318,7 +319,7 @@
     const tbody = reportComponentsTable.querySelector('tbody');
     tbody.innerHTML = lenses.map(lens => {
       const result = lensResults[lens.id] || {percent:0,lensEarned:0,lensMax:lens.weight,filled:0,total:lens.kpis.length};
-      return `<tr><td>${esc(lens.title)}</td><td>${lens.weight}%</td><td>${fmt(result.percent,1)}%</td><td>${fmt(result.lensEarned,2)} / ${fmt(result.lensMax,2)}</td><td>${result.filled} / ${result.total}</td></tr>`;
+      return `<tr><td>${esc(lens.title)}</td><td>${lens.weight}%</td><td>${result.filled ? `${fmt(result.percent,1)}%` : '—'}</td><td>${fmt(result.lensEarned,2)} / ${fmt(result.lensMax,2)}</td><td>${result.filled} / ${result.total}</td></tr>`;
     }).join('');
   }
 
@@ -326,7 +327,7 @@
     const latest = formState.latest?.lensResults || {};
     return lenses.map(lens => {
       const result = latest[lens.id] || {percent:0,lensEarned:0,lensMax:lens.weight,filled:0,total:lens.kpis.length};
-      return `${lens.title} (${lens.weight}%): ${fmt(result.percent,1)}% component score; weighted ${fmt(result.lensEarned,2)} / ${fmt(result.lensMax,2)}; coverage ${result.filled}/${result.total}`;
+      return `${lens.title} (${lens.weight}%): ${result.filled ? `${fmt(result.percent,1)}%` : 'not assessed'} component score; weighted ${fmt(result.lensEarned,2)} / ${fmt(result.lensMax,2)}; coverage ${result.filled}/${result.total}`;
     });
   }
 
@@ -348,6 +349,7 @@
       const ratio = scoreRatio(kpi,baseline,target,actual);
       const maxContribution = kpi.lensWeight * kpi.weight / 100;
       let contribution = null;
+      if (complete && ratio === null) invalid += 1;
       if (complete && ratio !== null) {
         filled += 1;
         availableMax += maxContribution;
@@ -372,15 +374,18 @@
     });
     lenses.forEach(lens => {
       const lensKpis = lens.kpis;
-      const lensFilled = lensKpis.filter(kpi => [getValue(kpi.id,'baseline'),getValue(kpi.id,'target'),getValue(kpi.id,'actual')].every(value => value !== '' && Number.isFinite(Number(value))));
+      const validRows = lensKpis.map(kpi => {
+        const raw = ['baseline','target','actual'].map(field => getValue(kpi.id,field));
+        if (!raw.every(value => value !== '' && Number.isFinite(Number(value)))) return null;
+        const ratio = scoreRatio(kpi,...raw.map(Number));
+        return ratio === null ? null : {kpi,ratio};
+      }).filter(Boolean);
       const lensMax = lensKpis.reduce((sum,kpi) => sum + lens.weight*kpi.weight/100,0);
-      const lensEarned = lensKpis.reduce((sum,kpi) => {
-        const b=Number(getValue(kpi.id,'baseline')),t=Number(getValue(kpi.id,'target')),a=Number(getValue(kpi.id,'actual')); const ratio=scoreRatio(kpi,b,t,a); const weightedMax = lens.weight*kpi.weight/100; return sum + (ratio === null ? 0 : ratio >= .5 ? ratio*weightedMax : 0);
-      },0);
-      const lensAvailableMax = lensKpis.filter(kpi => [getValue(kpi.id,'baseline'),getValue(kpi.id,'target'),getValue(kpi.id,'actual')].every(value => value !== '' && Number.isFinite(Number(value)))).reduce((sum,kpi)=>sum+lens.weight*kpi.weight/100,0);
+      const lensEarned = validRows.reduce((sum,{kpi,ratio}) => sum + (ratio >= .5 ? ratio*lens.weight*kpi.weight/100 : 0),0);
+      const lensAvailableMax = validRows.reduce((sum,{kpi})=>sum+lens.weight*kpi.weight/100,0);
       const lensPercent = lensAvailableMax ? (lensEarned/lensAvailableMax)*100 : 0;
-      lensResults[lens.id] = {filled:lensFilled.length,total:lensKpis.length,percent:lensPercent,lensEarned,lensMax};
-      const score = document.querySelector(`#summary-score-${lens.id}`); const meter = document.querySelector(`#summary-meter-${lens.id}`); if (score) score.textContent = lensFilled.length ? `${fmt(lensPercent,1)}% · ${lensFilled.length}/${lensKpis.length}` : '—'; if (meter) meter.style.width = `${Math.min(100,lensPercent)}%`;
+      lensResults[lens.id] = {filled:validRows.length,total:lensKpis.length,percent:lensPercent,lensEarned,lensMax};
+      const score = document.querySelector(`#summary-score-${lens.id}`); const meter = document.querySelector(`#summary-meter-${lens.id}`); if (score) score.textContent = validRows.length ? `${fmt(lensPercent,1)}% · ${validRows.length}/${lensKpis.length}` : '—'; if (meter) meter.style.width = `${Math.min(100,lensPercent)}%`;
     });
     renderReportComponents(lensResults);
     const complete = filled === allKpis().length;
@@ -394,10 +399,10 @@
     document.querySelector('#coverage-note').textContent = complete ? 'All 30 KPI rows completed' : 'Full assessment requires all KPI rows';
     document.querySelector('#penalty').textContent = complete || penalty ? `−${fmt(penalty,2)}` : '—';
     const ratingEl = document.querySelector('#rating'); const ratingNote = document.querySelector('#rating-note');
-    if (finalScore === null) { ratingEl.textContent = '—'; ratingNote.textContent = '75+ Above Average · 65–<75 Average · <65 Below Average'; }
-    else if (finalScore >= 75) { ratingEl.textContent = complete ? 'Above Average' : 'Indicative: Above Average'; ratingNote.textContent = complete ? 'Standard performance interpretation under the circular.' : 'Indicative only because the dataset is incomplete.'; }
-    else if (finalScore >= 65) { ratingEl.textContent = complete ? 'Average' : 'Indicative: Average'; ratingNote.textContent = complete ? 'Needs improvement in performance level.' : 'Indicative only because the dataset is incomplete.'; }
-    else { ratingEl.textContent = complete ? 'Below Average' : 'Indicative: Below Average'; ratingNote.textContent = complete ? 'Needs immediate improvement in performance level.' : 'Indicative only because the dataset is incomplete.'; }
+    if (!complete) { ratingEl.textContent = 'Not rated'; ratingNote.textContent = 'Complete all 30 valid KPI rows before interpreting a rating.'; }
+    else if (finalScore >= 75) { ratingEl.textContent = 'Illustrative: Above Average'; ratingNote.textContent = 'Validate the scoring method against the prescribed Excel template before using this band.'; }
+    else if (finalScore >= 65) { ratingEl.textContent = 'Illustrative: Average'; ratingNote.textContent = 'Validate the scoring method against the prescribed Excel template before using this band.'; }
+    else { ratingEl.textContent = 'Illustrative: Below Average'; ratingNote.textContent = 'Validate the scoring method against the prescribed Excel template before using this band.'; }
     const note = document.querySelector('#output-note');
     const validationNote = invalid ? ` ${invalid} complete row${invalid === 1 ? '' : 's'} cannot be scored until the target direction is corrected.` : '';
     note.innerHTML = complete
