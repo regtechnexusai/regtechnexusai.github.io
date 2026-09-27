@@ -167,8 +167,9 @@
       const actual = Number(actualRaw);
       const complete = [baselineRaw,targetRaw,actualRaw].every(value => value !== '' && Number.isFinite(Number(value)));
       const ratio = scoreRatio(kpi,baseline,target,actual);
+      if (complete && ratio === null) invalid += 1;
       const contribution = complete && ratio !== null && ratio >= .5 ? ratio * (kpi.lensWeight * kpi.weight / 100) : complete && ratio !== null ? 0 : '';
-      const status = !complete || ratio === null ? 'Awaiting inputs' : ratio < .5 ? 'Below 50% — zero score' : ratio < .75 ? 'Partial achievement' : 'Scored';
+      const status = !complete ? 'Awaiting inputs' : ratio === null ? (validationMessage(kpi, baseline, target) || 'Invalid mapping') : ratio < .5 ? 'Below 50% — zero score' : ratio < .75 ? 'Partial achievement' : 'Scored';
       rows.push([kpi.lensTitle,kpi.label,directionLabel(kpi),kpi.weight,baselineRaw,targetRaw,actualRaw,complete && ratio !== null ? fmt(ratio*100,1) : '',contribution === '' ? '' : fmt(contribution,2),getValue(kpi.id,'source'),status]);
     });
     rows.push([],['Indicative / final score',document.querySelector('#grand-score').textContent],['KPI coverage',document.querySelector('#coverage').textContent],['Critical-KPI penalty',document.querySelector('#penalty').textContent],['Regulatory interpretation',document.querySelector('#rating').textContent]);
@@ -240,7 +241,9 @@
       '',
       `Bank / operation label: ${bankLabel()}`,
       `Assessment period: ${assessmentPeriodLabel()}`,
-      `Indicative / final score: ${document.querySelector('#grand-score').textContent}`,
+      `Gross score before critical-KPI deduction: ${document.querySelector('#gross-score').textContent}`,
+      `Critical-KPI deduction: ${document.querySelector('#penalty').textContent}`,
+      `Final score: ${document.querySelector('#grand-score').textContent}`,
       `KPI coverage: ${document.querySelector('#coverage').textContent}`,
       `Regulatory interpretation: ${document.querySelector('#rating').textContent}`,
       'Parameter mapping note: Actual assessment must use the circular/Excel parameter, Board-approved target, rating/count mapping and supporting evidence. Sample values are not bank disclosures.',
@@ -288,6 +291,13 @@
     if (input && value !== undefined && value !== null) input.value = value;
   }
 
+  function validationMessage(kpi, baseline, target) {
+    if (![baseline, target].every(Number.isFinite)) return '';
+    if (kpi.direction === 'higher' && target <= baseline) return 'Target must be above baseline for a higher-is-better KPI.';
+    if (kpi.direction === 'lower' && target >= baseline) return 'Target must be below baseline for a lower-is-better KPI.';
+    return '';
+  }
+
   function scoreRatio(kpi, baseline, target, actual) {
     if (![baseline,target,actual].every(Number.isFinite)) return null;
     if (kpi.direction === 'target') {
@@ -296,10 +306,10 @@
       return Math.max(0, Math.min(1, 1 - (Math.abs(actual - target) / baselineDistance)));
     }
     if (kpi.direction === 'higher') {
-      if (target === baseline) return actual >= target ? 1 : Math.max(0, actual / (Math.abs(target) || 1));
+      if (target <= baseline) return null;
       return Math.max(0, Math.min(1, (actual - baseline) / (target - baseline)));
     }
-    if (target === baseline) return actual <= target ? 1 : Math.max(0, target / (Math.abs(actual) || 1));
+    if (target >= baseline) return null;
     return Math.max(0, Math.min(1, (baseline - actual) / (baseline - target)));
   }
 
@@ -325,6 +335,7 @@
     let earned = 0;
     let availableMax = 0;
     let penalty = 0;
+    let invalid = 0;
     const lensResults = {};
     allKpis().forEach(kpi => {
       const baselineRaw = getValue(kpi.id,'baseline');
@@ -347,8 +358,17 @@
       const achievement = document.querySelector(`[data-output="${kpi.id}-achievement"]`);
       const weighted = document.querySelector(`[data-output="${kpi.id}-weighted"]`);
       const status = document.querySelector(`[data-output="${kpi.id}-status"]`);
-      if (!complete || ratio === null) { achievement.textContent = '—'; weighted.textContent = 'Weighted: —'; status.textContent = 'Awaiting inputs'; status.className = 'kpi-status'; }
-      else { achievement.textContent = `${fmt(ratio*100,1)}%`; weighted.textContent = `Weighted: ${fmt(contribution,2)}`; status.textContent = ratio < .5 ? 'Below 50% → zero score' : (ratio < .75 ? 'Partial achievement' : 'Scored'); status.className = `kpi-status ${ratio < .5 ? 'bad' : ratio < .75 ? 'warn' : 'good'}`; }
+      if (!complete || ratio === null) {
+        achievement.textContent = '—';
+        weighted.textContent = 'Weighted: —';
+        status.textContent = !complete ? 'Awaiting inputs' : (validationMessage(kpi, baseline, target) || 'Invalid target direction');
+        status.className = `kpi-status ${complete ? 'bad' : ''}`;
+      } else {
+        achievement.textContent = `${fmt(ratio*100,1)}%`;
+        weighted.textContent = `Weighted: ${fmt(contribution,2)}`;
+        status.textContent = ratio < .5 ? 'Below 50% → zero score' : (ratio < .75 ? 'Partial achievement' : 'Scored');
+        status.className = `kpi-status ${ratio < .5 ? 'bad' : ratio < .75 ? 'warn' : 'good'}`;
+      }
     });
     lenses.forEach(lens => {
       const lensKpis = lens.kpis;
@@ -364,6 +384,12 @@
     });
     renderReportComponents(lensResults);
     const complete = filled === allKpis().length;
+    const grossScore = availableMax ? (earned / availableMax) * 100 : null;
+    const finalScore = grossScore === null ? null : Math.max(0, grossScore - penalty);
+    formState.latest = {lensResults,complete,grossScore,finalScore,filled,penalty,invalid};
+    document.querySelector('#gross-score').textContent = grossScore === null ? '—' : `${fmt(grossScore,2)} / 100`;
+    document.querySelector('#grand-score').textContent = finalScore === null ? '—' : `${fmt(finalScore,2)} / 100`;
+    document.querySelector('#score-label').textContent = complete ? 'Final calculation view' : (filled ? 'Provisional score — not final' : 'Complete the inputs to calculate');
     const finalScore = complete ? Math.max(0,earned-penalty) : (availableMax ? Math.max(0,(earned/availableMax)*100 - penalty) : null);
     formState.latest = {lensResults,complete,finalScore,filled,penalty};
     document.querySelector('#grand-score').textContent = finalScore === null ? '—' : `${fmt(finalScore,2)} / 100`;
@@ -377,6 +403,10 @@
     else if (finalScore >= 65) { ratingEl.textContent = complete ? 'Average' : 'Indicative: Average'; ratingNote.textContent = complete ? 'Needs improvement in performance level.' : 'Indicative only because the dataset is incomplete.'; }
     else { ratingEl.textContent = complete ? 'Below Average' : 'Indicative: Below Average'; ratingNote.textContent = complete ? 'Needs immediate improvement in performance level.' : 'Indicative only because the dataset is incomplete.'; }
     const note = document.querySelector('#output-note');
+    const validationNote = invalid ? ` ${invalid} complete row${invalid === 1 ? '' : 's'} cannot be scored until the target direction is corrected.` : '';
+    note.innerHTML = complete
+      ? `<strong>Calculation complete:</strong> Gross score ${fmt(grossScore,2)} less critical-KPI deduction ${fmt(penalty,2)} equals final score ${fmt(finalScore,2)}. Reconcile the result with the Board-approved Excel template and evidence.`
+      : `<strong>Partial view:</strong> ${filled} of ${allKpis().length} KPI rows have valid baseline, target and actual inputs. The provisional score is normalised over completed rows and must not be treated as an official appraisal.${validationNote}`;
     note.innerHTML = complete ? `<strong>Calculation complete:</strong> The displayed final score includes the 50% threshold and critical-KPI penalty rule. It remains a review-support result and must be reconciled with the Board-approved Excel template and evidence.` : `<strong>Partial view:</strong> ${filled} of ${allKpis().length} KPI rows have complete baseline, target and actual inputs. The score is normalised over completed rows and must not be treated as an official appraisal.`;
     const processReady = filled > 0;
     processButton.hidden = !processReady;
