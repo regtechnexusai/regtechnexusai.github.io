@@ -692,3 +692,16 @@ body.calculator-page .footer-brand .brand-logo,
 @media print{
   .readiness-tools-page .assessment-export-actions{display:none!important}
 }
+
+
+/* Plain-language glossary for the public Regulatory Signal Labs entry point. */
+.signal-glossary-section{padding:94px 8vw;background:linear-gradient(135deg,#f7fafb 0%,#eef7f8 58%,#fbfaf4 100%)}
+.signal-glossary-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;max-width:1280px;margin:0 auto}
+.signal-glossary-card{min-width:0;padding:22px 20px;border:1px solid #d6e2e5;border-top:3px solid #15939f;background:#fff;box-shadow:0 10px 26px rgba(16,32,59,.05)}
+.signal-glossary-term{color:#0956a8;font-family:Manrope;font-size:11px;font-weight:800;letter-spacing:.14em}
+.signal-glossary-card h3{font-family:Manrope;font-size:19px;line-height:1.2;margin:17px 0 10px;color:#10203b}
+.signal-glossary-card p{margin:0;color:#607187;font-size:13px;line-height:1.6}
+.signal-glossary-note{max-width:1280px;margin:24px auto 0;color:#607187;font-size:12px;line-height:1.6}
+.signal-glossary-note strong{color:#102b49}
+@media(max-width:1100px){.signal-glossary-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:620px){.signal-glossary-section{padding-left:6vw;padding-right:6vw}.signal-glossary-grid{grid-template-columns:1fr}.signal-glossary-card{padding:21px}}
