@@ -88,7 +88,7 @@
 
   const esc = (value) => String(value).replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
   const fmt = (value, digits=2) => Number.isFinite(value) ? value.toLocaleString('en-US',{minimumFractionDigits:digits,maximumFractionDigits:digits}) : '—';
-  const allKpis = () => lenses.flatMap(lens => lens.kpis);
+  const allKpis = () => lenses.flatMap(lens => lens.kpis.map(kpi => ({...kpi,lensId:lens.id,lensWeight:lens.weight,lensTitle:lens.title})));
   const bankLabel = () => bankLabelInput.value.trim() || bankSelect.value || 'Not selected';
 
   function assessmentPeriodLabel() {
