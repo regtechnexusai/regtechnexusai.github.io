@@ -172,7 +172,7 @@
       const status = !complete ? 'Awaiting inputs' : ratio === null ? (validationMessage(kpi, baseline, target) || 'Invalid mapping') : ratio < .5 ? 'Below 50% — zero score' : ratio < .75 ? 'Partial achievement' : 'Scored';
       rows.push([kpi.lensTitle,kpi.label,directionLabel(kpi),kpi.weight,baselineRaw,targetRaw,actualRaw,complete && ratio !== null ? fmt(ratio*100,1) : '',contribution === '' ? '' : fmt(contribution,2),getValue(kpi.id,'source'),status]);
     });
-    rows.push([],['Indicative / final score',document.querySelector('#grand-score').textContent],['KPI coverage',document.querySelector('#coverage').textContent],['Critical-KPI penalty',document.querySelector('#penalty').textContent],['Regulatory interpretation',document.querySelector('#rating').textContent]);
+    rows.push([],['Gross score before critical-KPI deduction',document.querySelector('#gross-score').textContent],['Critical-KPI deduction',document.querySelector('#penalty').textContent],['Final score',document.querySelector('#grand-score').textContent],['KPI coverage',document.querySelector('#coverage').textContent],['Regulatory interpretation',document.querySelector('#rating').textContent]);
     return '\uFEFF' + rows.map(row => row.map(csvEscape).join(',')).join('\r\n');
   }
 
