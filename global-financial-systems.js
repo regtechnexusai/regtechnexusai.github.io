@@ -1,23 +1,19 @@
 (() => {
   const tabs = [...document.querySelectorAll('.jurisdiction-tab')];
   const panels = [...document.querySelectorAll('.assessment-panel')];
-  const storagePrefix = 'regtech-nexus-readiness-';
+  const storagePrefix = 'regtech-nexus-signal-lab-';
   const allowedStatuses = new Set(['not-assessed', 'ready', 'partial', 'missing', 'na']);
   const scoreValues = { ready: 1, partial: 0.5, missing: 0, 'not-assessed': 0, na: null };
   const statusLabels = { ready: 'Meets / evidence reported', partial: 'Partially meets', missing: 'Does not meet', 'not-assessed': 'Not assessed', na: 'Not applicable' };
+  const modelConfig = {
+    's-trace': { id: 'RNX-SIG-SG-01', tracks: { ai: 'AI evidence', aml: 'AML/CFT evidence', cosmic: 'Information-sharing' } },
+    'u-perimeter': { id: 'RNX-SIG-UAE-01', tracks: { perimeter: 'Regulatory route', aml: 'AML/CFT', va: 'Virtual-asset risk', tbml: 'TBML', token: 'Token/service controls', reporting: 'Reporting' } },
+    'a-resolve': { id: 'RNX-SIG-AU-01', tracks: { aml: 'AML/CTF lane', resilience: 'Resilience lane' } }
+  };
   const sampleCases = {
-    singapore: {
-      label: 'Synthetic Singapore bank AI/AML case',
-      statuses: ['ready', 'partial', 'partial', 'missing', 'partial', 'ready']
-    },
-    dubai: {
-      label: 'Synthetic Dubai VASP perimeter case',
-      statuses: ['ready', 'partial', 'partial', 'missing', 'partial', 'ready']
-    },
-    australia: {
-      label: 'Synthetic Australia fintech AML case',
-      statuses: ['ready', 'partial', 'missing', 'ready', 'partial', 'missing']
-    }
+    singapore: { label: 'Synthetic RNX-SIG-SG-01 control case', statuses: ['ready', 'partial', 'partial', 'missing', 'partial', 'ready'] },
+    dubai: { label: 'Synthetic RNX-SIG-UAE-01 mainland virtual-asset case', route: 'mainland', statuses: ['ready', 'partial', 'partial', 'missing', 'partial', 'ready'] },
+    australia: { label: 'Synthetic RNX-SIG-AU-01 AML and resilience case', statuses: ['ready', 'partial', 'missing', 'ready', 'partial', 'missing'] }
   };
 
   const today = () => {
@@ -25,6 +21,8 @@
     const offset = date.getTimezoneOffset() * 60000;
     return new Date(date.getTime() - offset).toISOString().slice(0, 10);
   };
+
+  const configFor = (panel) => modelConfig[panel.dataset.model] || modelConfig['s-trace'];
 
   const showPanel = (name, updateHash = true) => {
     tabs.forEach((tab) => {
@@ -46,6 +44,7 @@
       localStorage.setItem(`${storagePrefix}${panel.dataset.panel}`, JSON.stringify({
         label: panel.querySelector('[data-field="label"]')?.value || '',
         date: panel.querySelector('[data-field="date"]')?.value || today(),
+        route: panel.querySelector('[data-field="route"]')?.value || '',
         statuses: [...panel.querySelectorAll('[data-status]')].map((select) => select.value)
       }));
     } catch (error) { /* Optional local persistence. */ }
@@ -58,8 +57,10 @@
       const saved = JSON.parse(localStorage.getItem(`${storagePrefix}${panel.dataset.panel}`) || 'null');
       if (!saved) return;
       const labelInput = panel.querySelector('[data-field="label"]');
+      const routeInput = panel.querySelector('[data-field="route"]');
       if (labelInput && typeof saved.label === 'string') labelInput.value = saved.label;
       if (dateInput && typeof saved.date === 'string') dateInput.value = saved.date;
+      if (routeInput && typeof saved.route === 'string') routeInput.value = saved.route;
       panel.querySelectorAll('[data-status]').forEach((select, index) => {
         if (allowedStatuses.has(saved.statuses?.[index])) select.value = saved.statuses[index];
       });
@@ -85,6 +86,73 @@
   const clearMatrixResult = (panel) => {
     panel.querySelectorAll('[data-matrix-result]').forEach((item) => { item.textContent = 'Awaiting assessment'; });
     panel.querySelectorAll('[data-matrix-risk]').forEach((item) => { item.textContent = 'Not rated'; item.removeAttribute('data-risk'); });
+    const trackScores = panel.querySelector('[data-track-scores]');
+    if (trackScores) trackScores.replaceChildren();
+    const score = panel.querySelector('[data-score]');
+    if (score) score.textContent = '—';
+    const progress = panel.querySelector('[data-progress]');
+    if (progress) progress.style.width = '0%';
+  };
+
+  const weightedCoverage = (rows) => {
+    const applicable = rows.filter((row) => row.status !== 'na');
+    const denominator = applicable.reduce((total, row) => total + row.weight, 0);
+    const achieved = applicable.reduce((total, row) => total + ((scoreValues[row.status] ?? 0) * row.weight), 0);
+    return { applicable, denominator, achieved, percentage: denominator ? Math.round((achieved / denominator) * 100) : null };
+  };
+
+  const gateFor = (rows, panel) => {
+    if (panel.dataset.model === 'u-perimeter') {
+      const route = panel.querySelector('[data-field="route"]')?.value || '';
+      if (!['mainland', 'difc'].includes(route)) return { code: 'ROUTE FIRST', tone: 'route', reason: 'Select Mainland / VARA or DIFC / DFSA before relying on the UAE signal.' };
+    }
+    const { applicable } = weightedCoverage(rows);
+    if (!applicable.length) return { code: 'NOT IN SCOPE', tone: 'excluded', reason: 'Every control was marked Not applicable. Confirm the perimeter before relying on this result.' };
+    if (applicable.some((row) => row.critical && ['missing', 'not-assessed'].includes(row.status))) return { code: 'BLOCKED', tone: 'critical', reason: 'At least one critical control is open. Escalate and remediate before relying on the process.' };
+    if (applicable.some((row) => row.critical && row.status === 'partial')) return { code: 'CONDITIONAL', tone: 'high', reason: 'A critical control is only partially evidenced. Assign an owner and target date.' };
+    if (applicable.some((row) => ['missing', 'not-assessed'].includes(row.status))) return { code: 'REMEDIATE', tone: 'medium', reason: 'An open control remains. Add evidence and review the control design.' };
+    if (applicable.some((row) => row.status === 'partial')) return { code: 'CONDITIONAL', tone: 'high', reason: 'Partial evidence remains. Strengthen the evidence before relying on the process.' };
+    return { code: 'REVIEWABLE', tone: 'controlled', reason: 'All applicable critical controls are evidenced and no open control remains. Validate evidence quality and source version.' };
+  };
+
+  const laneSignal = (rows) => {
+    const { applicable } = weightedCoverage(rows);
+    if (!applicable.length) return 'NOT IN SCOPE';
+    if (applicable.some((row) => row.critical && ['missing', 'not-assessed'].includes(row.status))) return 'BLOCKED';
+    if (applicable.some((row) => row.critical && row.status === 'partial')) return 'CONDITIONAL';
+    if (applicable.some((row) => ['missing', 'not-assessed'].includes(row.status))) return 'REMEDIATE';
+    if (applicable.some((row) => row.status === 'partial')) return 'CONDITIONAL';
+    return 'REVIEWABLE';
+  };
+
+  const renderLaneScores = (panel, rows) => {
+    let container = panel.querySelector('[data-track-scores]');
+    if (!container) {
+      container = document.createElement('div');
+      container.className = 'track-scores';
+      container.dataset.trackScores = '';
+      panel.querySelector('[data-progress]')?.closest('.assessment-progress')?.after(container);
+    }
+    container.replaceChildren();
+    const config = configFor(panel);
+    Object.entries(config.tracks).forEach(([track, label]) => {
+      const trackRows = rows.filter((row) => row.track === track);
+      const coverage = weightedCoverage(trackRows);
+      const signal = laneSignal(trackRows);
+      const card = document.createElement('div');
+      card.className = 'track-score-card';
+      const heading = document.createElement('strong');
+      heading.textContent = label;
+      const coverageText = document.createElement('span');
+      coverageText.textContent = coverage.percentage === null ? 'N/A coverage' : `${coverage.percentage}% coverage`;
+      const signalText = document.createElement('em');
+      signalText.textContent = signal;
+      signalText.dataset.signal = signal.toLowerCase().replaceAll(' ', '-');
+      const count = document.createElement('small');
+      count.textContent = `${coverage.applicable.length}/${trackRows.length} applicable controls`;
+      card.append(heading, coverageText, signalText, count);
+      container.append(card);
+    });
   };
 
   const evaluate = (panel) => {
@@ -93,15 +161,14 @@
       item,
       title: item.querySelector('h4')?.textContent.trim() || 'Control area',
       domain: item.dataset.domain || 'Control',
+      track: item.dataset.track || 'general',
       action: item.dataset.action || 'Assign an owner and document the next review step.',
       status: allowedStatuses.has(item.querySelector('[data-status]')?.value) ? item.querySelector('[data-status]').value : 'not-assessed',
       weight: Number(item.dataset.weight || 1),
       critical: item.dataset.critical === 'true'
     }));
-    const applicable = rows.filter((row) => row.status !== 'na');
-    const denominator = applicable.reduce((total, row) => total + row.weight, 0);
-    const achieved = applicable.reduce((total, row) => total + ((scoreValues[row.status] ?? 0) * row.weight), 0);
-    const percentage = denominator ? Math.round((achieved / denominator) * 100) : null;
+    const coverage = weightedCoverage(rows);
+    const gate = gateFor(rows, panel);
     const meets = rows.filter((row) => row.status === 'ready').length;
     const partial = rows.filter((row) => row.status === 'partial').length;
     const openRows = rows.filter((row) => ['not-assessed', 'missing'].includes(row.status));
@@ -114,20 +181,27 @@
       const risk = matrix.querySelector('[data-matrix-risk]');
       if (result) result.textContent = readableStatus(row.status);
       if (risk) {
-        risk.textContent = riskFor(row);
-        risk.dataset.risk = riskFor(row).toLowerCase();
+        const riskLabel = riskFor(row);
+        risk.textContent = riskLabel;
+        risk.dataset.risk = riskLabel.toLowerCase();
       }
     });
-    panel.querySelector('[data-score]').textContent = percentage === null ? 'N/A' : `${percentage}%`;
-    panel.querySelector('[data-progress]').style.width = `${percentage ?? 0}%`;
+    const score = panel.querySelector('[data-score]');
+    if (score) score.textContent = coverage.percentage === null ? 'N/A' : `${coverage.percentage}%`;
+    const scoreLabel = panel.querySelector('.score-display span');
+    if (scoreLabel) scoreLabel.textContent = 'weighted evidence coverage';
+    const progress = panel.querySelector('[data-progress]');
+    if (progress) progress.style.width = `${coverage.percentage ?? 0}%`;
     panel.querySelector('[data-count="ready"]').textContent = String(meets);
     panel.querySelector('[data-count="partial"]').textContent = String(partial);
     panel.querySelector('[data-count="open"]').textContent = String(openRows.length);
     panel.querySelector('[data-count="critical"]').textContent = String(critical);
     const title = panel.querySelector('[data-result-title]');
     const message = panel.querySelector('[data-result-message]');
-    if (title) title.textContent = percentage === null ? 'No applicable controls selected.' : (critical ? `${critical} critical gap${critical > 1 ? 's' : ''} need attention.` : (openRows.length ? 'Your control-level actions are ready.' : 'All rated controls are covered.'));
-    if (message) message.textContent = percentage === null ? 'Every control was marked Not applicable. Confirm the perimeter before relying on this result.' : `${meets} control${meets === 1 ? '' : 's'} meet, ${partial} partial and ${openRows.length} open. The matrix shows the reason for each risk label.`;
+    const config = configFor(panel);
+    if (title) title.textContent = `${config.id} signal · ${gate.code}`;
+    if (message) message.textContent = `${gate.reason} ${meets} control${meets === 1 ? '' : 's'} meet, ${partial} partial and ${openRows.length} open. Lane coverage is supporting context, not a legal conclusion.`;
+    renderLaneScores(panel, rows);
     const gaps = panel.querySelector('[data-gaps]');
     gaps.replaceChildren();
     if (!openRows.length) {
@@ -158,7 +232,7 @@
         actions.append(item);
       });
     }
-    return { rows, percentage, meets, partial, openRows, critical };
+    return { rows, coverage, gate, meets, partial, openRows, critical };
   };
 
   const loadSampleCase = (panel, name) => {
@@ -166,31 +240,42 @@
     if (!sample) return;
     const label = panel.querySelector('[data-field="label"]');
     const date = panel.querySelector('[data-field="date"]');
+    const route = panel.querySelector('[data-field="route"]');
     if (label) label.value = sample.label;
     if (date) date.value = today();
+    if (route) route.value = sample.route || '';
     panel.querySelectorAll('[data-status]').forEach((select, index) => {
       select.value = allowedStatuses.has(sample.statuses[index]) ? sample.statuses[index] : 'not-assessed';
       select.classList.remove('field-error');
     });
+    route?.classList.remove('field-error');
     saveState(panel);
     clearMatrixResult(panel);
     panel.querySelector('.assessment-result').hidden = true;
-    panel.querySelector('[data-assessment-message]').textContent = 'Sample loaded. Review the populated controls, then press Assess this matrix.';
+    panel.querySelector('[data-assessment-message]').textContent = 'Sample loaded. Review the source rows, then press Assess this matrix.';
     panel.querySelector('[data-action="assess"]')?.focus();
   };
 
   const requestAssessment = (panel) => {
     const label = panel.querySelector('[data-field="label"]');
     const date = panel.querySelector('[data-field="date"]');
+    const route = panel.querySelector('[data-field="route"]');
     const statuses = [...panel.querySelectorAll('[data-status]')];
     const message = panel.querySelector('[data-assessment-message]');
     const incomplete = statuses.filter((select) => select.value === 'not-assessed');
     label?.classList.remove('field-error');
+    route?.classList.remove('field-error');
     statuses.forEach((select) => select.classList.remove('field-error'));
     if (!label?.value.trim()) {
       label?.classList.add('field-error');
       message.textContent = 'Add a non-sensitive project label before assessing.';
       label?.focus();
+      return;
+    }
+    if (panel.dataset.model === 'u-perimeter' && !['mainland', 'difc'].includes(route?.value)) {
+      route?.classList.add('field-error');
+      message.textContent = 'Select Mainland / VARA or DIFC / DFSA before assessing. ADGM is a separate path.';
+      route?.focus();
       return;
     }
     if (incomplete.length) {
@@ -203,19 +288,20 @@
     saveState(panel);
     evaluate(panel);
     panel.querySelector('.assessment-result').hidden = false;
-    message.textContent = 'Assessment complete. Review the source-to-control matrix and open actions above.';
+    message.textContent = 'Signal complete. Review the source trace, lane cards and open actions above.';
     panel.querySelector('.assessment-result').scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   const resetPanel = (panel) => {
     panel.querySelector('[data-field="label"]').value = '';
     panel.querySelector('[data-field="date"]').value = today();
+    const route = panel.querySelector('[data-field="route"]');
+    if (route) route.value = '';
     panel.querySelectorAll('[data-status]').forEach((select) => { select.value = 'not-assessed'; });
-    panel.querySelectorAll('[data-status]').forEach((select) => select.classList.remove('field-error'));
+    panel.querySelectorAll('[data-status], [data-field="route"]').forEach((input) => input.classList.remove('field-error'));
     panel.querySelector('[data-assessment-message]').textContent = 'Complete all control statuses, then press Assess this matrix.';
     panel.querySelector('.assessment-result').hidden = true;
-    panel.querySelectorAll('[data-matrix-result]').forEach((item) => { item.textContent = 'Awaiting assessment'; });
-    panel.querySelectorAll('[data-matrix-risk]').forEach((item) => { item.textContent = 'Not rated'; item.removeAttribute('data-risk'); });
+    clearMatrixResult(panel);
     try { localStorage.removeItem(`${storagePrefix}${panel.dataset.panel}`); } catch (error) { /* Optional persistence. */ }
   };
 
@@ -227,7 +313,7 @@
         saveState(panel);
         clearMatrixResult(panel);
         panel.querySelector('.assessment-result').hidden = true;
-        panel.querySelector('[data-assessment-message]').textContent = 'Changes made. Press Assess this matrix to refresh the result.';
+        panel.querySelector('[data-assessment-message]').textContent = 'Changes made. Press Assess this matrix to refresh the signal.';
       }));
     });
     panel.querySelectorAll('[data-action]').forEach((button) => button.addEventListener('click', () => {
