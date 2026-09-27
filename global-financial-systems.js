@@ -1,6 +1,7 @@
 (() => {
   const tabs = [...document.querySelectorAll('.jurisdiction-tab')];
   const panels = [...document.querySelectorAll('.assessment-panel')];
+  const countrySelect = document.querySelector('#global-country-select');
   const storagePrefix = 'regtech-nexus-signal-lab-';
   const allowedStatuses = new Set(['not-assessed', 'ready', 'partial', 'missing', 'na']);
   const scoreValues = { ready: 1, partial: 0.5, missing: 0, 'not-assessed': 0, na: null };
@@ -36,6 +37,7 @@
       panel.classList.toggle('is-active', active);
       panel.hidden = !active;
     });
+    if (countrySelect) countrySelect.value = name;
     if (updateHash) history.replaceState(null, '', `#${name}`);
   };
 
@@ -271,13 +273,21 @@
     return pdf;
   };
 
-  const handleExport = (panel, type) => {
+  const handleExport = async (panel, type) => {
     const snapshot = exportSnapshot(panel);
     const stem = fileStem(snapshot);
     if (type === 'csv') downloadFile(buildCsv(snapshot), stem + '.csv', 'text/csv;charset=utf-8');
     if (type === 'pdf') downloadFile(buildPdf(snapshot), stem + '.pdf', 'application/pdf');
-    if (type === 'eml') downloadFile('X-Unsent: 1\r\nSubject: ' + snapshot.moduleId + ' assessment result\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset="UTF-8"\r\n\r\n' + reportText(snapshot), stem + '.eml', 'message/rfc822');
-    if (type === 'email') window.location.href = 'mailto:?subject=' + encodeURIComponent(snapshot.moduleId + ' assessment result') + '&body=' + encodeURIComponent(reportText(snapshot));
+    if (type === 'email') {
+      const pdfContent = buildPdf(snapshot);
+      const pdfFile = new File([pdfContent], stem + '.pdf', { type: 'application/pdf' });
+      const shareData = { title: snapshot.moduleId + ' assessment result', text: reportText(snapshot), files: [pdfFile] };
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
+        try { await navigator.share(shareData); return; } catch (error) { if (error?.name === 'AbortError') return; }
+      }
+      downloadFile(pdfContent, stem + '.pdf', 'application/pdf');
+      window.location.href = 'mailto:regtechnexusai@gmail.com?subject=' + encodeURIComponent(snapshot.moduleId + ' assessment result') + '&body=' + encodeURIComponent('The PDF report was downloaded. Please attach it before sending.\n\n' + reportText(snapshot));
+    }
     if (type === 'print') window.print();
   };
 
@@ -452,6 +462,14 @@
     panel.querySelectorAll('[data-export]').forEach((button) => button.addEventListener('click', () => handleExport(panel, button.dataset.export)));
   };
 
+
+  countrySelect?.addEventListener('change', (event) => {
+    const selected = event.target.value;
+    if (!['singapore', 'dubai', 'australia'].includes(selected)) return;
+    showPanel(selected);
+    window.setTimeout(() => document.getElementById(`panel-${selected}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 0);
+  });
+
   tabs.forEach((tab, index) => {
     tab.addEventListener('click', () => showPanel(tab.dataset.jurisdiction));
     tab.addEventListener('keydown', (event) => {
@@ -468,6 +486,7 @@
   });
 
   panels.forEach(initialisePanel);
+  if (countrySelect && !countrySelect.value) countrySelect.value = document.querySelector('.jurisdiction-tab.is-active')?.dataset.jurisdiction || 'singapore';
   const requested = window.location.hash.slice(1);
   if (['singapore', 'dubai', 'australia'].includes(requested)) {
     showPanel(requested, false);

@@ -219,7 +219,7 @@
       '',
       'This is an independent review-support output. Verify all inputs against Board-approved targets, authoritative disclosures, evidence and the official Bangladesh Bank framework.'
     ].join('\n'));
-    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:regtechnexusai@gmail.com?subject=${subject}&body=${body}`;
   }
 
   function buildBankOptions() {
