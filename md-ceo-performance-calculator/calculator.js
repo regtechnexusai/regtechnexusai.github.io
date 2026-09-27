@@ -68,7 +68,7 @@
 
   const criticalIds = new Set(lenses.flatMap(lens => lens.kpis.filter(kpi => kpi.critical).map(kpi => kpi.id)));
   const kpiMap = new Map(lenses.flatMap(lens => lens.kpis.map(kpi => [kpi.id,{...kpi,lensId:lens.id,lensWeight:lens.weight,lensTitle:lens.title}])));
-  const formState = {lastLoadedBank:null,processed:false,sampleLoaded:false};
+  const formState = {lastLoadedBank:null,processed:false,sampleLoaded:false,latest:null};
 
   const bankSelect = document.querySelector('#bank-select');
   const bankLabelInput = document.querySelector('#bank-label');
@@ -80,6 +80,8 @@
   const modeSelect = document.querySelector('#mode-select');
   const lensHost = document.querySelector('#kpi-lenses');
   const lensSummary = document.querySelector('#lens-summary');
+  const reportComponents = document.querySelector('#report-components');
+  const reportComponentsTable = document.querySelector('#report-components-table');
   const resultActions = document.querySelector('#result-actions');
   const processButton = document.querySelector('#process-assessment');
   const processHint = document.querySelector('#process-hint');
@@ -116,6 +118,8 @@
   function invalidateProcessedState() {
     formState.processed = false;
     formState.sampleLoaded = false;
+    formState.latest = null;
+    if (reportComponents) reportComponents.hidden = true;
     resultActions.hidden = true;
   }
 
@@ -142,6 +146,13 @@
       ['Calculation mode', modeSelect.options[modeSelect.selectedIndex]?.textContent.trim() || ''],
       ['Generated', new Date().toISOString()],
       ['Critical-KPI penalty model', 'Circular rule: 25% of the maximum achievable weighted score for a listed critical KPI when achievement is below 50% or receives zero'],
+      [],
+      ['Bangladesh Bank five performance components'],
+      ['Component', 'Weight %', 'Component score %', 'Weighted score / maximum', 'KPI coverage'],
+      ...lenses.map(lens => {
+        const result = formState.latest?.lensResults?.[lens.id] || {percent:0,lensEarned:0,lensMax:lens.weight,filled:0,total:lens.kpis.length};
+        return [lens.title,lens.weight,fmt(result.percent,1),`${fmt(result.lensEarned,2)} / ${fmt(result.lensMax,2)}`,`${result.filled} / ${result.total}`];
+      }),
       [],
       ['Lens', 'KPI', 'Direction', 'Weight %', 'Baseline', 'Board target', 'Actual', 'Achievement %', 'Weighted contribution', 'Evidence / source', 'Status']
     ];
@@ -210,6 +221,7 @@
       return;
     }
     formState.processed = true;
+    reportComponents.hidden = false;
     resultActions.hidden = false;
     document.querySelector('#output-note').innerHTML = result.complete
       ? '<strong>Assessment processed:</strong> All 30 KPI rows are complete. The result is indicative review-support output and remains subject to Board review, evidence verification and the prescribed Excel template.'
@@ -229,6 +241,10 @@
       `Indicative / final score: ${document.querySelector('#grand-score').textContent}`,
       `KPI coverage: ${document.querySelector('#coverage').textContent}`,
       `Regulatory interpretation: ${document.querySelector('#rating').textContent}`,
+      '',
+      'Bangladesh Bank five performance components:',
+      ...componentSummaryLines(),
+      `Critical-KPI penalty: ${document.querySelector('#penalty').textContent}`,
       '',
       'This is an independent review-support output. Verify all inputs against Board-approved targets, authoritative disclosures, evidence and the official Bangladesh Bank framework.'
     ].join('\n'));
@@ -269,6 +285,23 @@
     }
     if (target === baseline) return actual <= target ? 1 : Math.max(0, target / (Math.abs(actual) || 1));
     return Math.max(0, Math.min(1, (baseline - actual) / (baseline - target)));
+  }
+
+  function renderReportComponents(lensResults) {
+    if (!reportComponentsTable) return;
+    const tbody = reportComponentsTable.querySelector('tbody');
+    tbody.innerHTML = lenses.map(lens => {
+      const result = lensResults[lens.id] || {percent:0,lensEarned:0,lensMax:lens.weight,filled:0,total:lens.kpis.length};
+      return `<tr><td>${esc(lens.title)}</td><td>${lens.weight}%</td><td>${fmt(result.percent,1)}%</td><td>${fmt(result.lensEarned,2)} / ${fmt(result.lensMax,2)}</td><td>${result.filled} / ${result.total}</td></tr>`;
+    }).join('');
+  }
+
+  function componentSummaryLines() {
+    const latest = formState.latest?.lensResults || {};
+    return lenses.map(lens => {
+      const result = latest[lens.id] || {percent:0,lensEarned:0,lensMax:lens.weight,filled:0,total:lens.kpis.length};
+      return `${lens.title} (${lens.weight}%): ${fmt(result.percent,1)}% component score; weighted ${fmt(result.lensEarned,2)} / ${fmt(result.lensMax,2)}; coverage ${result.filled}/${result.total}`;
+    });
   }
 
   function calculate() {
@@ -313,8 +346,10 @@
       lensResults[lens.id] = {filled:lensFilled.length,total:lensKpis.length,percent:lensPercent,lensEarned,lensMax};
       const score = document.querySelector(`#summary-score-${lens.id}`); const meter = document.querySelector(`#summary-meter-${lens.id}`); if (score) score.textContent = lensFilled.length ? `${fmt(lensPercent,1)}% · ${lensFilled.length}/${lensKpis.length}` : '—'; if (meter) meter.style.width = `${Math.min(100,lensPercent)}%`;
     });
+    renderReportComponents(lensResults);
     const complete = filled === allKpis().length;
     const finalScore = complete ? Math.max(0,earned-penalty) : (availableMax ? Math.max(0,(earned/availableMax)*100 - penalty) : null);
+    formState.latest = {lensResults,complete,finalScore,filled,penalty};
     document.querySelector('#grand-score').textContent = finalScore === null ? '—' : `${fmt(finalScore,2)} / 100`;
     document.querySelector('#score-label').textContent = complete ? 'Final calculation view' : (filled ? 'Provisional public / partial-input view' : 'Complete the inputs to calculate');
     document.querySelector('#coverage').textContent = `${filled} / ${allKpis().length}`;
