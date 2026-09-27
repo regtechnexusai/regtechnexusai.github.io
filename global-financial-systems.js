@@ -282,7 +282,7 @@
       const pdfContent = buildPdf(snapshot);
       downloadFile(pdfContent, stem + '.pdf', 'application/pdf');
       const subject = snapshot.moduleId + ' assessment result';
-      const body = 'The PDF report was downloaded. Please attach it before sending.\\n\\n' + reportText(snapshot);
+      const body = 'The PDF report was downloaded. Please attach it before sending.\n\n' + reportText(snapshot);
       if (window.RegTechEmail?.open) {
         window.RegTechEmail.open(subject, body);
       } else {
