@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MD/CEO Performance Measurement Calculator | RegTech Nexus AI</title>
-<meta name="description" content="An independent, transparent calculation aid based on Bangladesh Bank BRPD-2 Circular No. 5 dated 13 September 2026: KPIs Framework for MD/CEO of Banks.">
+<meta name="description" content="An independent, transparent calculation aid structured against Bangladesh Bank BRPD-2 Circular No. 5 dated 13 September 2026: KPIs Framework for MD/CEO of Banks.">
 <link rel="canonical" href="https://regtechnexusai.com/md-ceo-performance-calculator/">
 <meta name="robots" content="index,follow">
 <meta name="author" content="RegTech Nexus AI">
@@ -13,14 +13,14 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="RegTech Nexus AI">
 <meta property="og:title" content="MD/CEO Performance Measurement Calculator">
-<meta property="og:description" content="A transparent, non-official calculation aid based on Bangladesh Bank's 2026 KPIs Framework for bank MDs and CEOs.">
+<meta property="og:description" content="A transparent, non-official calculation aid structured against Bangladesh Bank's 2026 KPIs Framework for bank MDs and CEOs.">
 <meta property="og:url" content="https://regtechnexusai.com/md-ceo-performance-calculator/">
 <meta property="og:image" content="https://regtechnexusai.com/regtech-nexus-ai-logo-2026.png">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"MD/CEO Performance Measurement Calculator","url":"https://regtechnexusai.com/md-ceo-performance-calculator/","applicationCategory":"BusinessApplication","operatingSystem":"Any","description":"An independent calculation aid based on Bangladesh Bank BRPD-2 Circular No. 5 dated 13 September 2026.","publisher":{"@type":"Organization","name":"RegTech Nexus AI","url":"https://regtechnexusai.com/"}}
+{"@context":"https://schema.org","@type":"WebApplication","name":"MD/CEO Performance Measurement Calculator","url":"https://regtechnexusai.com/md-ceo-performance-calculator/","applicationCategory":"BusinessApplication","operatingSystem":"Any","description":"An independent calculation aid structured against Bangladesh Bank BRPD-2 Circular No. 5 dated 13 September 2026.","publisher":{"@type":"Organization","name":"RegTech Nexus AI","url":"https://regtechnexusai.com/"}}
 </script>
 <link rel="stylesheet" href="../styles.css">
-<link rel="stylesheet" href="styles.css?v=20260927-report11-mobile">
+<link rel="stylesheet" href="styles.css?v=20260928-accountability-audit">
 </head>
 <body class="calculator-page mdceo-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -35,12 +35,12 @@
 <section class="mdceo-hero">
   <div class="kicker">BOARD DECISION SUPPORT · REGULATORY INTELLIGENCE</div>
   <h1>MD/CEO Performance<br><span>Measurement Calculator.</span></h1>
-  <p>Explore a transparent 100-point calculation model aligned to Bangladesh Bank’s Key Performance Indicators (KPIs) Framework for Managing Director (MD)/Chief Executive Officer (CEO) of Banks.</p>
+  <p>Explore a transparent 100-point calculation aid structured against Bangladesh Bank’s Key Performance Indicators (KPIs) Framework for Managing Director (MD)/Chief Executive Officer (CEO) of Banks.</p>
   <div class="mdceo-hero-meta"><span>BRPD-2 Circular No. 5 · 13 September 2026</span><a href="https://www.bb.org.bd/mediaroom/circulars/brpd-2/sep132026brpd-25.pdf" target="_blank" rel="noopener noreferrer">Read the official circular ↗</a></div>
 </section>
 
 <section class="mdceo-alert" aria-label="Important limitation">
-  <strong>Independent calculation aid.</strong> The official assessment must use Board-approved targets, the bank’s immediate previous-quarter baseline, verified internal/regulatory evidence and Bangladesh Bank’s prescribed Excel template. Public web data alone cannot complete all 30 KPIs. This Phase 1 public build runs in the browser and has no backend, login, RBAC, case database or server-side audit trail. This is an independent baseline-to-target progress model, not a validated reproduction of the prescribed Excel scoring formula. The calculator implements the circular’s critical-KPI deduction: 25% of the maximum achievable weighted score for a listed critical KPI when its achievement is below 50% or receives zero. It remains a review-support aid—not an official Bangladesh Bank rating—and must be reconciled with the official template before reliance.
+  <strong>Independent calculation aid.</strong> The official assessment must use Board-approved targets, the bank’s immediate previous-quarter baseline, verified internal/regulatory evidence and Bangladesh Bank’s prescribed Excel template. Public web data alone cannot complete all 30 KPIs. This Phase 1 public build runs in the browser and has no backend, login, RBAC, case database or server-side audit trail. This is an independent baseline-to-target progress model, not a validated reproduction of the prescribed Excel scoring formula. Mapped, categorical, count-based and composite parameters require an approved numeric mapping confirmation before they score. The calculator implements the circular’s critical-KPI deduction: 25% of the maximum achievable weighted score for a listed critical KPI when its achievement is below 50% or receives zero. It remains a review-support aid—not an official Bangladesh Bank rating—and must be reconciled with the official template before reliance.
 </section>
 
 <section class="mdceo-workspace" aria-label="MD/CEO performance calculator">
@@ -50,6 +50,18 @@
     <div class="mdceo-control"><label for="mode-select">Calculation mode</label><select id="mode-select"><option value="board">Board / full KPI assessment</option><option value="public">Public-data preview</option></select></div>
     <div class="mdceo-actions input-actions"><button class="btn primary" id="load-public" type="button">Load public profile</button></div>
     <div class="mdceo-process-row"><button class="btn primary process-btn" id="process-assessment" type="button" hidden>Process assessment</button><button class="btn ghost process-clear" type="button" data-clear-form>Clear inputs</button><small id="process-hint">Enter at least one complete KPI row to enable processing.</small></div>
+  </div>
+
+  <div class="mdceo-accountability" aria-label="Assessment governance and accountability">
+    <div class="accountability-heading"><span class="profile-label">ASSESSMENT GOVERNANCE</span><strong>Evidence, ownership and Board approval trail.</strong><small>For a real Board / MD/CEO assessment, identify who prepared, owns, independently reviewed and approved the inputs. These fields remain local to this browser-only public build and are included in the report and CSV.</small></div>
+    <div class="accountability-grid">
+      <label for="prepared-by">Prepared by / data owner<input id="prepared-by" type="text" maxlength="120" placeholder="Name · title / function"></label>
+      <label for="control-owner">Management / control owner<input id="control-owner" type="text" maxlength="120" placeholder="Name · responsible function"></label>
+      <label for="independent-reviewer">Independent reviewer / approver<input id="independent-reviewer" type="text" maxlength="120" placeholder="Name · risk / audit / secretariat"></label>
+      <label for="board-approval-ref">Board approval reference<input id="board-approval-ref" type="text" maxlength="160" placeholder="Board minutes / resolution reference"></label>
+      <label for="board-approval-date">Board approval date<input id="board-approval-date" type="date"></label>
+    </div>
+    <label class="accountability-declaration" for="evidence-declaration"><input id="evidence-declaration" type="checkbox"><span>I confirm that the entered targets, actuals, mappings and evidence references are supported by retained records and remain subject to independent review and Bangladesh Bank’s prescribed Excel template.</span></label>
   </div>
 
   <div class="mdceo-case-study-row"><details class="mdceo-case-study">
@@ -87,10 +99,15 @@
     <div class="concept-table-wrap"><table class="concept-table" id="report-components-table"><caption>Bangladesh Bank’s five performance components</caption><thead><tr><th>Component</th><th>Weight</th><th>Component score</th><th>Weighted score / maximum</th><th>KPI coverage</th></tr></thead><tbody></tbody></table></div>
   </div>
 
+  <div class="mdceo-report-components mdceo-kpi-audit" id="report-kpi-audit" aria-live="polite" hidden>
+    <div class="report-components-heading"><span class="profile-label">CALCULATION AUDIT TRAIL</span><strong>Annexure-style KPI reconciliation</strong><small>Difference and proportionate fields mirror the structure shown in Annexure-A. This table documents the independent model’s arithmetic; it is not the Bangladesh Bank template.</small></div>
+    <div class="concept-table-wrap"><table class="concept-table" id="report-kpi-audit-table"><caption>MD/CEO KPI calculation audit trail</caption><thead><tr><th>Lens</th><th>KPI / direction</th><th>Baseline</th><th>Target</th><th>Actual</th><th>Actual − baseline</th><th>Target − baseline</th><th>Proportionate</th><th>Weight</th><th>Score / maximum</th><th>Evidence / source</th><th>Mapping</th><th>Status</th></tr></thead><tbody></tbody></table></div>
+  </div>
+
    <div class="mdceo-output-note" id="output-note" aria-live="polite"><strong>How to use:</strong> Enter the verified baseline, Board-approved target and actual performance for each KPI, then select <strong>Process assessment</strong>. The report separates gross score, critical-KPI deduction and final score. Invalid target directions are not scored. Each lens is calculated out of 100% and converted to its assigned lens weight.</div>
 
   <div class="mdceo-exportbar" id="result-actions" aria-label="Processed result actions" hidden>
-    <div class="mdceo-export-copy"><span class="profile-label">Processed result actions</span><strong>Save or share this review-support result</strong><small>Available after processing the entered data. Print / Save PDF creates the attachment; Share by Email opens a Gmail draft. The sender depends on the account signed in to Gmail; add a recipient and attach the saved PDF manually.</small></div>
+    <div class="mdceo-export-copy"><span class="profile-label">Processed result actions</span><strong>Save or share this review-support result</strong><small>Available after processing the entered data. Print / Save PDF creates the attachment; Share by Email opens a Gmail draft addressed to regtechnexusai@gmail.com. The sender depends on the account signed in to Gmail; attach the saved PDF manually.</small></div>
     <div class="mdceo-export-actions"><button class="btn ghost" id="copy-results" type="button">Copy CSV</button><button class="btn ghost" id="download-csv" type="button">Download CSV</button><button class="btn ghost" id="print-report" type="button">Print / Save PDF</button><button class="btn primary" id="share-email" type="button">Share by Email</button></div>
     <span class="mdceo-copy-status" id="copy-status" role="status" aria-live="polite"></span>
   </div>
@@ -106,9 +123,9 @@
 <section class="mdceo-concept" id="concept-note">
   <div class="kicker">CONCEPT NOTE</div>
   <h2>RegTech Nexus AI MD/CEO Performance Measurement Calculator</h2>
-  <p class="concept-lead">Proposed as a transparent review-support layer for bank Boards, Board committees, governance professionals, researchers and supervisors. It is designed to organise evidence and make the arithmetic reviewable—not to replace the Board’s appraisal judgment or Bangladesh Bank’s regulatory review.</p>
+  <p class="concept-lead">Proposed as a transparent review-support layer for bank Boards, Board committees, governance professionals, researchers and supervisors. It is structured against the published framework to organise evidence and make the arithmetic reviewable—not to replace the Board’s appraisal judgment or Bangladesh Bank’s regulatory review.</p>
   <div class="concept-grid">
-    <article><span>01</span><h3>Purpose</h3><p>Translate the 2026 BB KPI framework into a readable, auditable and reusable calculation interface for the five performance lenses.</p></article>
+    <article><span>01</span><h3>Purpose</h3><p>Translate the 2026 BB KPI framework into a readable, auditable and reusable independent calculation interface for the five performance lenses.</p></article>
     <article><span>02</span><h3>Core method</h3><p>Each KPI receives an illustrative baseline-to-target progress score; this mapping must be checked against the prescribed Excel template before any regulatory use. Higher, lower and target/limit-aligned directions are shown separately; categorical, count-based and composite parameters must first be mapped to an approved numeric scale. The five lens allocations are 25%, 25%, 10%, 25% and 15%; each lens is normalised to 100% before its weight is applied. Achievement below 50% receives zero for that KPI, and the listed critical-KPI deduction follows paragraph 2.5(ii) of the circular.</p></article>
     <article><span>03</span><h3>Public-data layer</h3><p>Bank websites, annual reports, half-yearly reports, quarterly disclosures and BB publications can prefill selected observable metrics with a source and period label.</p></article>
     <article><span>04</span><h3>Evidence boundary</h3><p>Board targets, RBS ratings, AML/CFT ratings, inspection observations, internal controls, regulatory reporting quality and legal-risk evidence are not reliably public and remain manual inputs.</p></article>
@@ -133,6 +150,6 @@
  <div class="legal"><span>© 2026 RegTech Nexus AI</span><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></div>
 </footer>
 <script src="../script.js" defer></script>
-<script src="calculator.js?v=20260928-score-audit" defer></script>
+<script src="calculator.js?v=20260928-accountability-audit" defer></script>
 <script src="../site-email.js?v=20260928-email-routing" defer></script></body>
 </html>

@@ -2,6 +2,14 @@
 
 This package combines the main RegTech Nexus AI website update with the launch communications discussed today.
 
+## 28 September 2026 — MD/CEO KPI audit controls
+
+- Rechecked the 30-KPI structure, five lens weights, 50% threshold and six critical-KPI deduction against Bangladesh Bank BRPD-2 Circular No. 5 dated 13 September 2026.
+- Added Annexure-A-style audit fields to the processed report and CSV: actual-minus-baseline, target-minus-baseline, proportionate achievement, score/maximum, evidence and mapping status.
+- Added approved-mapping confirmations for composite, categorical, count-based and target-aligned KPI inputs.
+- Added local accountability metadata, evidence declaration and a full-assessment processing gate for preparer, control owner, independent reviewer and Board approval reference/date.
+- Kept the public build explicitly independent and non-official; no Bangladesh Bank compliance, approval or regulatory-rating claim is made.
+
 ## Included
 - Added `bank-use-review.html` as a portfolio-level, bank-facing register separating use boundaries and pilot conditions for all public tools and knowledge materials.
 

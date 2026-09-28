@@ -11,39 +11,39 @@
       {id:'adjustedCrar', label:'Adjusted CRAR / CRAR with deferral', short:'Adjusted CRAR', weight:15, direction:'higher', expectation:'≥ regulatory minimum'},
       {id:'lcr', label:'Liquidity Coverage Ratio (LCR)', short:'LCR', weight:15, direction:'higher', expectation:'≥ regulatory threshold'},
       {id:'nsfr', label:'Net Stable Funding Ratio (NSFR)', short:'NSFR', weight:15, direction:'higher', expectation:'Sustainable funding profile'},
-      {id:'adr', label:'Advance to Deposit Ratio (ADR)', short:'ADR', weight:15, direction:'target', displayDirection:'Target / limit alignment', expectation:'Compliance with regulatory limits', inputNote:'Use the Board-approved target or compliance index; a higher raw ADR is not automatically better.', critical:true}
+      {id:'adr', label:'Advance to Deposit Ratio (ADR)', short:'ADR', weight:15, direction:'target', displayDirection:'Target / limit alignment', expectation:'Compliance with regulatory limits', inputNote:'Use the Board-approved target or compliance index; a higher raw ADR is not automatically better.', mappingRequired:true, critical:true}
     ]},
     {id:'assetQuality', number:'2', title:'Asset Quality', weight:25, description:'Loan portfolio quality, concentration and recovery performance.', kpis:[
       {id:'grossNpl', label:'NPL ratio (Gross)', short:'Gross NPL', weight:25, direction:'lower', expectation:'Below industry/peer average; declining trend', critical:true},
       {id:'netNpl', label:'NPL ratio (Net)', short:'Net NPL', weight:10, direction:'lower', expectation:'Below industry/peer average; declining trend', critical:true},
-      {id:'stressedAssets', label:'Stressed assets', short:'Stressed assets', weight:15, direction:'lower', expectation:'Below industry/peer average; declining trend'},
+      {id:'stressedAssets', label:'Stressed assets', short:'Stressed assets', weight:15, direction:'lower', expectation:'Below industry/peer average; declining trend', mappingRequired:true},
       {id:'provisionCoverage', label:'Provision coverage', short:'Provision coverage', weight:15, direction:'higher', expectation:'Fully compliant with Bangladesh Bank guidelines'},
-      {id:'largeLoan', label:'Large loan and top-borrower concentration', short:'Large/top borrower', weight:15, direction:'lower', expectation:'Declining trend', critical:true},
-      {id:'recovery', label:'Recovery against classified and write-off loan', short:'Recovery', weight:20, direction:'higher', expectation:'Increasing; above industry/peer average', critical:true}
+      {id:'largeLoan', label:'Large loan and top-borrower concentration', short:'Large/top borrower', weight:15, direction:'lower', expectation:'Declining trend', mappingRequired:true, critical:true},
+      {id:'recovery', label:'Recovery against classified and write-off loan', short:'Recovery', weight:20, direction:'higher', expectation:'Increasing; above industry/peer average', mappingRequired:true, critical:true}
     ]},
     {id:'profitability', number:'3', title:'Profitability', weight:10, description:'Profitability in line with operations, risk appetite and resources.', kpis:[
       {id:'roa', label:'Return on Assets (ROA)', short:'ROA', weight:20, direction:'higher', expectation:'Increasing; above industry/peer average'},
       {id:'roe', label:'Return on Equity (ROE)', short:'ROE', weight:20, direction:'higher', expectation:'Increasing; above industry/peer average'},
       {id:'nim', label:'Net Interest Margin (NIM)', short:'NIM', weight:20, direction:'higher', expectation:'Increasing; above industry/peer average'},
       {id:'opexOperatingProfit', label:'Operating expenses / Operating profit', short:'Opex / operating profit', weight:15, direction:'lower', expectation:'Decreasing trend'},
-      {id:'nonInterestIncome', label:'Non-interest income / Total income', short:'Non-interest income', weight:10, direction:'target', displayDirection:'Target-aligned', expectation:'Target-aligned; around 20% of total income', inputNote:'Use a Board-approved target-aligned ratio or score; do not treat unlimited growth as the objective.'},
-      {id:'depositMix', label:'Deposit mix', short:'Deposit mix', weight:15, direction:'target', displayDirection:'Target / threshold alignment', expectation:'High-cost ≤45%; low-cost ≤40%; no-cost ≤15%', inputNote:'Map the high-, low- and no-cost deposit thresholds to one approved score before entry; a single raw mix figure is insufficient.'}
+      {id:'nonInterestIncome', label:'Non-interest income / Total income', short:'Non-interest income', weight:10, direction:'target', displayDirection:'Target-aligned', expectation:'Target-aligned; around 20% of total income', inputNote:'Use a Board-approved target-aligned ratio or score; do not treat unlimited growth as the objective.', mappingRequired:true},
+      {id:'depositMix', label:'Deposit mix', short:'Deposit mix', weight:15, direction:'target', displayDirection:'Target / threshold alignment', expectation:'High-cost ≤45%; low-cost ≤40%; no-cost ≤15%', inputNote:'Map the high-, low- and no-cost deposit thresholds to one approved score before entry; a single raw mix figure is insufficient.', mappingRequired:true}
     ]},
     {id:'governance', number:'4', title:'Governance and Internal Control', weight:25, description:'Governance, compliance, reporting, technology risk and leadership.', kpis:[
-      {id:'regCompliance', label:'Regulatory compliance', short:'Regulatory compliance', weight:15, direction:'lower', expectation:'No serious unsettled non-compliance or violations', inputNote:'Enter verified unsettled irregularities, high-risk observations and penalties, or the approved mapping—not a self-declared percentage.'},
-      {id:'amlCft', label:'AML/CFT compliance', short:'AML/CFT', weight:15, direction:'lower', expectation:'Strong/Satisfactory or Low/Moderate RBS rating', inputNote:'Map the official rating to the approved scale: Strong/Low is better than Unsatisfactory/High.'},
-      {id:'crr', label:'Composite risk rating (CRR)', short:'CRR', weight:30, direction:'lower', expectation:'Improvement; Low or Moderate', inputNote:'Use the circular’s mapped rating scale: Low=1, Moderate=2, Above Average=3, High=4.'},
-      {id:'regReporting', label:'Regulatory reporting', short:'Regulatory reporting', weight:15, direction:'higher', expectation:'Timely, accurate and improving reporting'},
-      {id:'ictRisk', label:'ICT and technology risk mitigation', short:'ICT risk', weight:10, direction:'lower', expectation:'Strong/Satisfactory or Low/Moderate RBS rating', inputNote:'Map the official rating to the approved scale: Strong/Low is better than Unsatisfactory/High.'},
-      {id:'leadership', label:'Leadership', short:'Leadership', weight:15, direction:'higher', expectation:'Weighted average of other KPIs; 75% and above', inputNote:'In the official assessment, reconcile this value to the weighted average of the other KPI scores.'}
+      {id:'regCompliance', label:'Regulatory compliance', short:'Regulatory compliance', weight:15, direction:'lower', expectation:'No serious unsettled non-compliance or violations', inputNote:'Enter verified unsettled irregularities, high-risk observations and penalties, or the approved mapping—not a self-declared percentage.', mappingRequired:true},
+      {id:'amlCft', label:'AML/CFT compliance', short:'AML/CFT', weight:15, direction:'lower', expectation:'Strong/Satisfactory or Low/Moderate RBS rating', inputNote:'Map the official rating to the approved scale: Strong/Low is better than Unsatisfactory/High.', mappingRequired:true},
+      {id:'crr', label:'Composite risk rating (CRR)', short:'CRR', weight:30, direction:'lower', expectation:'Improvement; Low or Moderate', inputNote:'Use the circular’s mapped rating scale: Low=1, Moderate=2, Above Average=3, High=4.', mappingRequired:true},
+      {id:'regReporting', label:'Regulatory reporting', short:'Regulatory reporting', weight:15, direction:'higher', expectation:'Timely, accurate and improving reporting', mappingRequired:true},
+      {id:'ictRisk', label:'ICT and technology risk mitigation', short:'ICT risk', weight:10, direction:'lower', expectation:'Strong/Satisfactory or Low/Moderate RBS rating', inputNote:'Map the official rating to the approved scale: Strong/Low is better than Unsatisfactory/High.', mappingRequired:true},
+      {id:'leadership', label:'Leadership', short:'Leadership', weight:15, direction:'higher', expectation:'Weighted average of other KPIs; 75% and above', inputNote:'In the official assessment, reconcile this value to the weighted average of the other KPI scores.', mappingRequired:true}
     ]},
     {id:'inclusion', number:'5', title:'Inclusion, Customer and Market Conduct', weight:15, description:'Financial inclusion, service quality and fair customer treatment.', kpis:[
       {id:'digitalAdoption', label:'Digital services adoption', short:'Digital adoption', weight:20, direction:'higher', expectation:'Increasing trend; notable improvement'},
-      {id:'serviceInnovation', label:'Service quality and innovation', short:'Service & innovation', weight:10, direction:'higher', expectation:'Higher complaint settlement and innovation'},
-      {id:'cmsmeAgricultureGreen', label:'CMSME, Agriculture, Green finance and financial inclusion outreach', short:'CMSME/agri/green/inclusion', weight:40, direction:'higher', expectation:'Alignment with BB policies', critical:true},
+      {id:'serviceInnovation', label:'Service quality and innovation', short:'Service & innovation', weight:10, direction:'higher', expectation:'Higher complaint settlement and innovation', mappingRequired:true},
+      {id:'cmsmeAgricultureGreen', label:'CMSME, Agriculture, Green finance and financial inclusion outreach', short:'CMSME/agri/green/inclusion', weight:40, direction:'higher', expectation:'Alignment with BB policies', mappingRequired:true, critical:true},
       {id:'geographicalDistribution', label:'Geographical distribution of loans / Total loans', short:'Geographical distribution', weight:10, direction:'higher', expectation:'Increasing; above industry/peer average'},
-      {id:'fraudForgery', label:'Fraud and forgery risk mitigation', short:'Fraud/forgery', weight:10, direction:'higher', expectation:'Fraud cases decreasing; detection increasing'},
-      {id:'legalRisk', label:'Legal risk mitigation', short:'Legal risk', weight:10, direction:'higher', expectation:'Outstanding litigation decreasing; settlement improving'}
+      {id:'fraudForgery', label:'Fraud and forgery risk mitigation', short:'Fraud/forgery', weight:10, direction:'higher', expectation:'Fraud cases decreasing; detection increasing', mappingRequired:true},
+      {id:'legalRisk', label:'Legal risk mitigation', short:'Legal risk', weight:10, direction:'higher', expectation:'Outstanding litigation decreasing; settlement improving', mappingRequired:true}
     ]}
   ];
 
@@ -82,9 +82,17 @@
   const lensSummary = document.querySelector('#lens-summary');
   const reportComponents = document.querySelector('#report-components');
   const reportComponentsTable = document.querySelector('#report-components-table');
+  const reportKpiAudit = document.querySelector('#report-kpi-audit');
+  const reportKpiAuditTable = document.querySelector('#report-kpi-audit-table');
   const resultActions = document.querySelector('#result-actions');
   const processButton = document.querySelector('#process-assessment');
   const processHint = document.querySelector('#process-hint');
+  const preparedByInput = document.querySelector('#prepared-by');
+  const controlOwnerInput = document.querySelector('#control-owner');
+  const reviewerInput = document.querySelector('#independent-reviewer');
+  const boardApprovalRefInput = document.querySelector('#board-approval-ref');
+  const boardApprovalDateInput = document.querySelector('#board-approval-date');
+  const evidenceDeclarationInput = document.querySelector('#evidence-declaration');
 
   const esc = (value) => String(value).replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
   const fmt = (value, digits=2) => Number.isFinite(value) ? value.toLocaleString('en-US',{minimumFractionDigits:digits,maximumFractionDigits:digits}) : '—';
@@ -120,6 +128,7 @@
     formState.sampleLoaded = false;
     formState.latest = null;
     if (reportComponents) reportComponents.hidden = true;
+    if (reportKpiAudit) reportKpiAudit.hidden = true;
     resultActions.hidden = true;
   }
 
@@ -146,6 +155,13 @@
       ['Bank / operation label', bankLabel()],
       ['Assessment period', assessmentPeriodLabel()],
       ['Calculation mode', modeSelect.options[modeSelect.selectedIndex]?.textContent.trim() || ''],
+      ['Methodology status', 'Independent baseline-to-target progress model; reconcile with Bangladesh Bank prescribed Excel template'],
+      ['Prepared by / role', preparedByInput?.value.trim() || ''],
+      ['Management / control owner', controlOwnerInput?.value.trim() || ''],
+      ['Independent reviewer / approver', reviewerInput?.value.trim() || ''],
+      ['Board approval reference', boardApprovalRefInput?.value.trim() || ''],
+      ['Board approval date', boardApprovalDateInput?.value || ''],
+      ['Evidence declaration', evidenceDeclarationInput?.checked ? 'Confirmed' : 'Not confirmed'],
       ['Sample-case status', formState.sampleLoaded ? 'Fictional teaching case; composite/categorical values use the mapping note below' : 'User-entered case'],
       ['Parameter-mapping note', 'Actual assessment must use the circular/Excel parameter, Board-approved target, rating/count mapping and supporting evidence. Sample values are not bank disclosures.'],
       ['Generated', new Date().toISOString()],
@@ -158,20 +174,12 @@
         return [lens.title,lens.weight,result.filled ? fmt(result.percent,1) : '',`${fmt(result.lensEarned,2)} / ${fmt(result.lensMax,2)}`,`${result.filled} / ${result.total}`];
       }),
       [],
-      ['Lens', 'KPI', 'Direction', 'Weight %', 'Baseline', 'Board target', 'Actual', 'Achievement %', 'Weighted contribution', 'Evidence / source', 'Status']
+      ['Lens', 'KPI', 'Direction', 'Weight %', 'Baseline', 'Board target', 'Actual', 'Actual − baseline', 'Target − baseline', 'Proportionate achievement %', 'Weighted contribution', 'Evidence / source', 'Approved mapping confirmed', 'Status']
     ];
     allKpis().forEach(kpi => {
-      const baselineRaw = getValue(kpi.id,'baseline');
-      const targetRaw = getValue(kpi.id,'target');
-      const actualRaw = getValue(kpi.id,'actual');
-      const baseline = Number(baselineRaw);
-      const target = Number(targetRaw);
-      const actual = Number(actualRaw);
-      const complete = [baselineRaw,targetRaw,actualRaw].every(value => value !== '' && Number.isFinite(Number(value)));
-      const ratio = scoreRatio(kpi,baseline,target,actual);
-      const contribution = complete && ratio !== null && ratio >= .5 ? ratio * (kpi.lensWeight * kpi.weight / 100) : complete && ratio !== null ? 0 : '';
-      const status = !complete ? 'Awaiting inputs' : ratio === null ? (validationMessage(kpi, baseline, target) || 'Invalid mapping') : ratio < .5 ? 'Below 50% — zero score' : ratio < .75 ? 'Partial achievement' : 'Scored';
-      rows.push([kpi.lensTitle,kpi.label,directionLabel(kpi),kpi.weight,baselineRaw,targetRaw,actualRaw,complete && ratio !== null ? fmt(ratio*100,1) : '',contribution === '' ? '' : fmt(contribution,2),getValue(kpi.id,'source'),status]);
+      const entry = kpiEntry(kpi);
+      const contribution = entry.complete && entry.ratio !== null && entry.ratio >= .5 ? entry.ratio * (kpi.lensWeight * kpi.weight / 100) : entry.complete && entry.ratio !== null ? 0 : '';
+      rows.push([kpi.lensTitle,kpi.label,directionLabel(kpi),kpi.weight,entry.baselineRaw,entry.targetRaw,entry.actualRaw,entry.numericComplete ? fmt(entry.actualMinusBaseline,4) : '',entry.numericComplete ? fmt(entry.targetMinusBaseline,4) : '',entry.complete && entry.ratio !== null ? fmt(entry.ratio*100,1) : '',contribution === '' ? '' : fmt(contribution,2),getValue(kpi.id,'source'),entry.approvedMapping ? 'Yes' : 'No',kpiStatus(kpi,entry)]);
     });
     rows.push([],['Gross scenario score before critical-KPI deduction',document.querySelector('#gross-score').textContent],['Critical-KPI deduction',document.querySelector('#penalty').textContent],['Final scenario score',document.querySelector('#grand-score').textContent],['KPI coverage',document.querySelector('#coverage').textContent],['Illustrative score band',document.querySelector('#rating').textContent]);
     return '\uFEFF' + rows.map(row => row.map(csvEscape).join(',')).join('\r\n');
@@ -216,6 +224,21 @@
     URL.revokeObjectURL(url);
   }
 
+  function accountabilityGaps(result) {
+    if (formState.sampleLoaded || modeSelect.value !== 'board' || !result.complete) return [];
+    const gaps = [];
+    if (!bankLabelInput.value.trim() && !bankSelect.value) gaps.push('bank / Bangladesh operation label');
+    if (!preparedByInput?.value.trim()) gaps.push('preparer / data owner');
+    if (!controlOwnerInput?.value.trim()) gaps.push('management / control owner');
+    if (!reviewerInput?.value.trim()) gaps.push('independent reviewer / approver');
+    if (!boardApprovalRefInput?.value.trim()) gaps.push('Board approval reference');
+    if (!boardApprovalDateInput?.value) gaps.push('Board approval date');
+    if (!evidenceDeclarationInput?.checked) gaps.push('evidence declaration');
+    const missingEvidence = allKpis().filter(kpi => !getValue(kpi.id,'source')).length;
+    if (missingEvidence) gaps.push(`evidence / source reference for ${missingEvidence} KPI${missingEvidence === 1 ? '' : 's'}`);
+    return gaps;
+  }
+
   function processAssessment() {
     if (!assessmentPeriodValid()) return;
     const result = calculate();
@@ -224,8 +247,16 @@
       document.querySelector('#output-note').innerHTML = '<strong>More data required:</strong> Complete at least one baseline, Board target and actual KPI row before processing. For an official-style full assessment, complete all 30 rows.';
       return;
     }
+    const gaps = accountabilityGaps(result);
+    if (gaps.length) {
+      resultActions.hidden = true;
+      document.querySelector('#output-note').innerHTML = `<strong>Accountability controls incomplete:</strong> Complete ${esc(gaps.join(', '))} before processing a full Board / MD/CEO assessment. The calculation remains available as a draft view.`;
+      return;
+    }
     formState.processed = true;
     reportComponents.hidden = false;
+    reportKpiAudit.hidden = false;
+    renderKpiAudit();
     resultActions.hidden = false;
     document.querySelector('#output-note').innerHTML = result.complete
       ? '<strong>Assessment processed:</strong> All 30 KPI rows are complete. The result is indicative review-support output and remains subject to Board review, evidence verification and the prescribed Excel template.'
@@ -256,7 +287,7 @@
       'This is an independent review-support output. Verify all inputs against Board-approved targets, authoritative disclosures, evidence and the official Bangladesh Bank framework.'
     ].join('\n');
     if (window.RegTechEmail?.open) {
-      window.RegTechEmail.open(subject, body);
+      window.RegTechEmail.open(subject, body, 'regtechnexusai@gmail.com');
     } else {
       window.location.href = 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
     }
@@ -277,7 +308,7 @@
   function buildTables() {
     lensHost.innerHTML = lenses.map(lens => `<section class="kpi-lens" data-lens="${lens.id}">
       <div class="kpi-lens-header"><div class="kpi-lens-title"><span class="lens-number">${lens.number}</span><div><h3>${esc(lens.title)}</h3><p>${esc(lens.description)}</p></div></div><span class="lens-weight">Lens weight: ${lens.weight}%</span></div>
-      <div class="kpi-table-wrap"><table class="kpi-table"><thead><tr><th>KPI / parameter</th><th>Weight</th><th>Direction</th><th>Baseline<br><small>previous quarter</small></th><th>Board target</th><th>Actual</th><th>Evidence / source</th><th>Achievement</th></tr></thead><tbody>${lens.kpis.map(kpi => `<tr data-kpi-row="${kpi.id}"><td class="kpi-name"><strong>${esc(kpi.label)}</strong><small>${esc(kpi.expectation)}</small>${kpi.inputNote ? `<span class="kpi-input-note">Input mapping · ${esc(kpi.inputNote)}</span>` : ''}${kpi.critical ? '<span class="kpi-public-note">Critical KPI · penalty rule applies</span>' : ''}</td><td class="kpi-weight">${kpi.weight}%</td><td>${kpi.direction === 'higher' ? '↑ Higher' : kpi.direction === 'lower' ? '↓ Lower' : '◎ Target-aligned'}</td><td><input class="kpi-input" data-kpi="${kpi.id}" data-field="baseline" type="number" step="any" inputmode="decimal" aria-label="${esc(kpi.short)} baseline"></td><td><input class="kpi-input" data-kpi="${kpi.id}" data-field="target" type="number" step="any" inputmode="decimal" aria-label="${esc(kpi.short)} target"></td><td><input class="kpi-input" data-kpi="${kpi.id}" data-field="actual" type="number" step="any" inputmode="decimal" aria-label="${esc(kpi.short)} actual"></td><td><input class="kpi-source" data-kpi="${kpi.id}" data-field="source" type="text" placeholder="e.g. AR 2025" aria-label="${esc(kpi.short)} source"></td><td class="kpi-score-cell"><div class="kpi-achievement" data-output="${kpi.id}-achievement">—</div><div class="kpi-weighted" data-output="${kpi.id}-weighted">Weighted: —</div><div class="kpi-status" data-output="${kpi.id}-status">Awaiting inputs</div></td></tr>`).join('')}</tbody></table></div>
+      <div class="kpi-table-wrap"><table class="kpi-table"><thead><tr><th>KPI / parameter</th><th>Weight</th><th>Direction</th><th>Baseline<br><small>previous quarter</small></th><th>Board target</th><th>Actual</th><th>Evidence / source</th><th>Mapping control</th><th>Achievement</th></tr></thead><tbody>${lens.kpis.map(kpi => `<tr data-kpi-row="${kpi.id}"><td class="kpi-name"><strong>${esc(kpi.label)}</strong><small>${esc(kpi.expectation)}</small>${kpi.inputNote ? `<span class="kpi-input-note">Input mapping · ${esc(kpi.inputNote)}</span>` : ''}${kpi.critical ? '<span class="kpi-public-note">Critical KPI · penalty rule applies</span>' : ''}</td><td class="kpi-weight">${kpi.weight}%</td><td>${kpi.direction === 'higher' ? '↑ Higher' : kpi.direction === 'lower' ? '↓ Lower' : '◎ Target-aligned'}</td><td><input class="kpi-input" data-kpi="${kpi.id}" data-field="baseline" type="number" step="any" inputmode="decimal" aria-label="${esc(kpi.short)} baseline"></td><td><input class="kpi-input" data-kpi="${kpi.id}" data-field="target" type="number" step="any" inputmode="decimal" aria-label="${esc(kpi.short)} target"></td><td><input class="kpi-input" data-kpi="${kpi.id}" data-field="actual" type="number" step="any" inputmode="decimal" aria-label="${esc(kpi.short)} actual"></td><td><input class="kpi-source" data-kpi="${kpi.id}" data-field="source" type="text" placeholder="e.g. AR 2025" aria-label="${esc(kpi.short)} source"></td><td>${kpi.mappingRequired ? `<label class="kpi-mapping-control"><input class="kpi-mapping" data-kpi="${kpi.id}" data-field="mapping" type="checkbox" aria-label="${esc(kpi.short)} approved mapping confirmed"> <span>Approved mapping confirmed</span></label>` : '<span class="mapping-not-required">Direct ratio / value</span>'}</td><td class="kpi-score-cell"><div class="kpi-achievement" data-output="${kpi.id}-achievement">—</div><div class="kpi-weighted" data-output="${kpi.id}-weighted">Weighted: —</div><div class="kpi-status" data-output="${kpi.id}-status">Awaiting inputs</div></td></tr>`).join('')}</tbody></table></div>
     </section>`).join('');
     lensHost.querySelectorAll('input').forEach(input => input.addEventListener('input', () => { invalidateProcessedState(); calculate(); }));
   }
@@ -287,9 +318,46 @@
     return input ? input.value.trim() : '';
   }
 
+  function mappingConfirmed(kpi) {
+    if (!kpi.mappingRequired) return true;
+    const input = document.querySelector(`[data-kpi="${kpi.id}"][data-field="mapping"]`);
+    return Boolean(input?.checked);
+  }
+
+  function kpiEntry(kpi) {
+    const baselineRaw = getValue(kpi.id,'baseline');
+    const targetRaw = getValue(kpi.id,'target');
+    const actualRaw = getValue(kpi.id,'actual');
+    const baseline = Number(baselineRaw);
+    const target = Number(targetRaw);
+    const actual = Number(actualRaw);
+    const numericComplete = [baselineRaw,targetRaw,actualRaw].every(value => value !== '' && Number.isFinite(Number(value)));
+    const approvedMapping = mappingConfirmed(kpi);
+    const ratio = numericComplete && approvedMapping ? scoreRatio(kpi,baseline,target,actual) : null;
+    return {
+      baselineRaw,targetRaw,actualRaw,baseline,target,actual,
+      numericComplete,approvedMapping,complete:numericComplete && approvedMapping,ratio,
+      actualMinusBaseline:numericComplete ? actual - baseline : null,
+      targetMinusBaseline:numericComplete ? target - baseline : null
+    };
+  }
+
+  function kpiStatus(kpi, entry) {
+    if (!entry.numericComplete) return 'Awaiting inputs';
+    if (!entry.approvedMapping) return 'Approved parameter mapping required';
+    if (entry.ratio === null) return validationMessage(kpi, entry.baseline, entry.target) || 'Invalid mapping';
+    if (entry.ratio < .5) return 'Below 50% — zero score';
+    return entry.ratio < .75 ? 'Partial achievement' : 'Scored';
+  }
+
   function setValue(kpiId, field, value) {
     const input = document.querySelector(`[data-kpi="${kpiId}"][data-field="${field}"]`);
     if (input && value !== undefined && value !== null) input.value = value;
+  }
+
+  function setMapping(kpiId, checked) {
+    const input = document.querySelector(`[data-kpi="${kpiId}"][data-field="mapping"]`);
+    if (input) input.checked = Boolean(checked);
   }
 
   function validationMessage(kpi, baseline, target) {
@@ -323,6 +391,22 @@
     }).join('');
   }
 
+  function renderKpiAudit() {
+    if (!reportKpiAuditTable) return;
+    const tbody = reportKpiAuditTable.querySelector('tbody');
+    tbody.innerHTML = allKpis().map(kpi => {
+      const entry = kpiEntry(kpi);
+      const maxContribution = kpi.lensWeight * kpi.weight / 100;
+      const contribution = entry.complete && entry.ratio !== null ? (entry.ratio >= .5 ? entry.ratio * maxContribution : 0) : null;
+      const ratioText = entry.complete && entry.ratio !== null ? `${fmt(entry.ratio * 100,1)}%` : '—';
+      const deltaActual = entry.numericComplete ? fmt(entry.actualMinusBaseline,4) : '—';
+      const deltaTarget = entry.numericComplete ? fmt(entry.targetMinusBaseline,4) : '—';
+      const status = kpiStatus(kpi,entry);
+      const statusClass = status === 'Scored' ? 'audit-good' : status === 'Partial achievement' ? 'audit-warn' : status === 'Below 50% — zero score' || status === 'Approved parameter mapping required' ? 'audit-bad' : '';
+      return `<tr><td>${esc(kpi.lensTitle)}</td><td><strong>${esc(kpi.label)}</strong><small>${esc(directionLabel(kpi))}</small></td><td>${entry.baselineRaw || '—'}</td><td>${entry.targetRaw || '—'}</td><td>${entry.actualRaw || '—'}</td><td>${deltaActual}</td><td>${deltaTarget}</td><td>${ratioText}</td><td>${kpi.weight}%</td><td>${contribution === null ? '—' : `${fmt(contribution,2)} / ${fmt(maxContribution,2)}`}</td><td>${esc(getValue(kpi.id,'source') || '—')}</td><td>${entry.approvedMapping ? 'Yes' : kpi.mappingRequired ? 'No' : 'N/A'}</td><td class="${statusClass}">${esc(status)}</td></tr>`;
+    }).join('');
+  }
+
   function componentSummaryLines() {
     const latest = formState.latest?.lensResults || {};
     return lenses.map(lens => {
@@ -337,18 +421,15 @@
     let availableMax = 0;
     let penalty = 0;
     let invalid = 0;
+    let unmapped = 0;
     const lensResults = {};
     allKpis().forEach(kpi => {
-      const baselineRaw = getValue(kpi.id,'baseline');
-      const targetRaw = getValue(kpi.id,'target');
-      const actualRaw = getValue(kpi.id,'actual');
-      const baseline = Number(baselineRaw);
-      const target = Number(targetRaw);
-      const actual = Number(actualRaw);
-      const complete = [baselineRaw,targetRaw,actualRaw].every(value => value !== '' && Number.isFinite(Number(value)));
-      const ratio = scoreRatio(kpi,baseline,target,actual);
+      const entry = kpiEntry(kpi);
+      const complete = entry.complete;
+      const ratio = entry.ratio;
       const maxContribution = kpi.lensWeight * kpi.weight / 100;
       let contribution = null;
+      if (entry.numericComplete && !entry.approvedMapping) unmapped += 1;
       if (complete && ratio === null) invalid += 1;
       if (complete && ratio !== null) {
         filled += 1;
@@ -363,8 +444,8 @@
       if (!complete || ratio === null) {
         achievement.textContent = '—';
         weighted.textContent = 'Weighted: —';
-        status.textContent = !complete ? 'Awaiting inputs' : (validationMessage(kpi, baseline, target) || 'Invalid target direction');
-        status.className = `kpi-status ${complete ? 'bad' : ''}`;
+        status.textContent = kpiStatus(kpi,entry);
+        status.className = `kpi-status ${entry.numericComplete ? 'bad' : ''}`;
       } else {
         achievement.textContent = `${fmt(ratio*100,1)}%`;
         weighted.textContent = `Weighted: ${fmt(contribution,2)}`;
@@ -375,9 +456,9 @@
     lenses.forEach(lens => {
       const lensKpis = lens.kpis;
       const validRows = lensKpis.map(kpi => {
-        const raw = ['baseline','target','actual'].map(field => getValue(kpi.id,field));
-        if (!raw.every(value => value !== '' && Number.isFinite(Number(value)))) return null;
-        const ratio = scoreRatio(kpi,...raw.map(Number));
+        const entry = kpiEntry(kpi);
+        if (!entry.complete) return null;
+        const ratio = entry.ratio;
         return ratio === null ? null : {kpi,ratio};
       }).filter(Boolean);
       const lensMax = lensKpis.reduce((sum,kpi) => sum + lens.weight*kpi.weight/100,0);
@@ -391,12 +472,13 @@
     const complete = filled === allKpis().length;
     const grossScore = availableMax ? (earned / availableMax) * 100 : null;
     const finalScore = grossScore === null ? null : Math.max(0, grossScore - penalty);
-    formState.latest = {lensResults,complete,grossScore,finalScore,filled,penalty,invalid};
+    const evidenceCount = allKpis().filter(kpi => getValue(kpi.id,'source')).length;
+    formState.latest = {lensResults,complete,grossScore,finalScore,filled,penalty,invalid,unmapped,evidenceCount};
     document.querySelector('#gross-score').textContent = grossScore === null ? '—' : `${fmt(grossScore,2)} / 100`;
     document.querySelector('#grand-score').textContent = finalScore === null ? '—' : `${fmt(finalScore,2)} / 100`;
     document.querySelector('#score-label').textContent = complete ? 'Final calculation view' : (filled ? 'Provisional score — not final' : 'Complete the inputs to calculate');
     document.querySelector('#coverage').textContent = `${filled} / ${allKpis().length}`;
-    document.querySelector('#coverage-note').textContent = complete ? 'All 30 KPI rows completed' : 'Full assessment requires all KPI rows';
+    document.querySelector('#coverage-note').textContent = complete ? `All 30 KPI rows completed · evidence references ${evidenceCount}/30` : `Full assessment requires all KPI rows · evidence references ${evidenceCount}/30`;
     document.querySelector('#penalty').textContent = complete || penalty ? `−${fmt(penalty,2)}` : '—';
     const ratingEl = document.querySelector('#rating'); const ratingNote = document.querySelector('#rating-note');
     if (!complete) { ratingEl.textContent = 'Not rated'; ratingNote.textContent = 'Complete all 30 valid KPI rows before interpreting a rating.'; }
@@ -405,9 +487,11 @@
     else { ratingEl.textContent = 'Illustrative: Below Average'; ratingNote.textContent = 'Validate the scoring method against the prescribed Excel template before using this band.'; }
     const note = document.querySelector('#output-note');
     const validationNote = invalid ? ` ${invalid} complete row${invalid === 1 ? '' : 's'} cannot be scored until the target direction is corrected.` : '';
+    const mappingNote = unmapped ? ` ${unmapped} row${unmapped === 1 ? '' : 's'} require approved parameter-mapping confirmation.` : '';
     note.innerHTML = complete
       ? `<strong>Calculation complete:</strong> Gross score ${fmt(grossScore,2)} less critical-KPI deduction ${fmt(penalty,2)} equals final score ${fmt(finalScore,2)}. Reconcile the result with the Board-approved Excel template and evidence.`
-      : `<strong>Partial view:</strong> ${filled} of ${allKpis().length} KPI rows have valid baseline, target and actual inputs. The provisional score is normalised over completed rows and must not be treated as an official appraisal.${validationNote}`;
+      : `<strong>Partial view:</strong> ${filled} of ${allKpis().length} KPI rows have valid baseline, target and actual inputs. The provisional score is normalised over completed rows and must not be treated as an official appraisal.${validationNote}${mappingNote}`;
+    renderKpiAudit();
     const processReady = filled > 0;
     processButton.hidden = !processReady;
     if (processHint) processHint.hidden = processReady;
@@ -424,6 +508,7 @@
       setValue(id,'target',values[1]);
       setValue(id,'actual',values[2]);
       setValue(id,'source','Fictional teaching value · see sample mapping note');
+      setMapping(id,true);
     });
     document.querySelector('#profile-bank').textContent = 'Illustrative Sample Bank';
     document.querySelector('#profile-category').textContent = 'Fictional / illustrative';
@@ -494,7 +579,7 @@
     calculate();
   }
 
-  function clearInputs() { invalidateProcessedState(); lensHost.querySelectorAll('input').forEach(input => { input.value=''; }); bankSelect.value=''; bankLabelInput.value=''; periodSelect.value='2026-10-01/2027-03-31'; customStart.value=''; customEnd.value=''; updateCustomPeriodFields(); formState.lastLoadedBank=null; document.querySelector('#profile-bank').textContent='Choose a bank'; document.querySelector('#profile-category').textContent='—'; document.querySelector('#profile-status').textContent='No profile loaded'; document.querySelector('#profile-period').textContent='—'; document.querySelector('#profile-source').textContent='Public source register'; document.querySelector('#profile-source').href='#public-data'; document.querySelector('#profile-source-note').textContent='Use verified disclosures only.'; document.querySelector('#copy-status').textContent=''; calculate(); }
+  function clearInputs() { invalidateProcessedState(); lensHost.querySelectorAll('input').forEach(input => { if (input.type === 'checkbox') input.checked=false; else input.value=''; }); [preparedByInput,controlOwnerInput,reviewerInput,boardApprovalRefInput,boardApprovalDateInput].forEach(input => { if (input) input.value=''; }); if (evidenceDeclarationInput) evidenceDeclarationInput.checked=false; bankSelect.value=''; bankLabelInput.value=''; periodSelect.value='2026-10-01/2027-03-31'; customStart.value=''; customEnd.value=''; updateCustomPeriodFields(); formState.lastLoadedBank=null; document.querySelector('#profile-bank').textContent='Choose a bank'; document.querySelector('#profile-category').textContent='—'; document.querySelector('#profile-status').textContent='No profile loaded'; document.querySelector('#profile-period').textContent='—'; document.querySelector('#profile-source').textContent='Public source register'; document.querySelector('#profile-source').href='#public-data'; document.querySelector('#profile-source-note').textContent='Use verified disclosures only.'; document.querySelector('#copy-status').textContent=''; calculate(); }
 
   buildBankOptions(); buildLensSummary(); buildTables();
   document.querySelector('#load-public').addEventListener('click',loadPublicProfile);
@@ -506,6 +591,7 @@
   document.querySelector('#download-csv').addEventListener('click',downloadCsv);
   document.querySelector('#print-report').addEventListener('click',() => { if (!formState.processed) return; calculate(); window.print(); });
   document.querySelector('#share-email').addEventListener('click',shareByEmail);
+  [preparedByInput,controlOwnerInput,reviewerInput,boardApprovalRefInput,boardApprovalDateInput,evidenceDeclarationInput].filter(Boolean).forEach(input => input.addEventListener('input', () => { invalidateProcessedState(); }));
   bankSelect.addEventListener('change',() => { invalidateProcessedState(); const meta=banks.find(item=>item.name===bankSelect.value); document.querySelector('#profile-bank').textContent=bankLabelInput.value.trim() || bankSelect.value || 'Choose a bank'; document.querySelector('#profile-category').textContent=bankLabelInput.value.trim() ? 'Custom / anonymous label' : (meta?meta.category:'—'); });
   bankLabelInput.addEventListener('input',() => { invalidateProcessedState(); const meta=banks.find(item=>item.name===bankSelect.value); const custom=bankLabelInput.value.trim(); document.querySelector('#profile-bank').textContent=custom || bankSelect.value || 'Choose a bank'; document.querySelector('#profile-category').textContent=custom ? 'Custom / anonymous label' : (meta?meta.category:'—'); });
   modeSelect.addEventListener('change',() => { invalidateProcessedState(); document.querySelector('#output-note').innerHTML = modeSelect.value === 'public' ? '<strong>Public-data preview:</strong> Use only period-tagged, source-linked disclosures. Missing internal or supervisory evidence is intentionally not imputed.' : '<strong>Board / full KPI assessment:</strong> Enter the Board-approved targets, verified baseline and actual performance for all 30 KPIs.'; calculate(); });
