@@ -1,5 +1,11 @@
 # RegTech Nexus AI website update package
 
+## 28 September 2026 — visible assessment and export actions
+
+- Added a dedicated action panel above the Bangladesh Bank framework section so Process assessment is visible after the KPI table on mobile and desktop.
+- Added always-visible Download CSV, Print / Save PDF and Share by Email controls; export actions remain disabled until an assessment is processed.
+- Added responsive 3D-style action buttons with distinct colours and synchronized them with the existing top and processed-result controls.
+
 This package combines the main RegTech Nexus AI website update with the launch communications discussed today.
 
 ## 28 September 2026 — MD/CEO KPI audit controls

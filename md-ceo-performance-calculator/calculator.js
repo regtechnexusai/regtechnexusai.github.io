@@ -87,6 +87,11 @@
   const resultActions = document.querySelector('#result-actions');
   const processButton = document.querySelector('#process-assessment');
   const processHint = document.querySelector('#process-hint');
+  const quickProcessButton = document.querySelector('#quick-process-assessment');
+  const quickDownloadButton = document.querySelector('#quick-download-csv');
+  const quickPrintButton = document.querySelector('#quick-print-report');
+  const quickEmailButton = document.querySelector('#quick-share-email');
+  const quickActionsNote = document.querySelector('#quick-actions-note');
   const preparedByInput = document.querySelector('#prepared-by');
   const controlOwnerInput = document.querySelector('#control-owner');
   const reviewerInput = document.querySelector('#independent-reviewer');
@@ -130,6 +135,22 @@
     if (reportComponents) reportComponents.hidden = true;
     if (reportKpiAudit) reportKpiAudit.hidden = true;
     resultActions.hidden = true;
+    updateQuickActions();
+  }
+
+  function updateQuickActions() {
+    const latest = formState.latest;
+    const hasRows = Boolean(latest?.filled);
+    const processed = formState.processed;
+    if (quickProcessButton) quickProcessButton.disabled = !hasRows;
+    [quickDownloadButton, quickPrintButton, quickEmailButton].filter(Boolean).forEach(button => { button.disabled = !processed; });
+    if (quickActionsNote) {
+      quickActionsNote.textContent = processed
+        ? 'Assessment processed. CSV, Print / Save PDF and email actions are ready.'
+        : hasRows
+          ? 'A draft calculation is ready. Process the assessment to enable CSV, Print / Save PDF and email actions.'
+          : 'Enter at least one complete KPI row to enable processing. Export buttons become available after processing.';
+    }
   }
 
   function assessmentPeriodValid() {
@@ -245,12 +266,14 @@
     if (!result.filled) {
       resultActions.hidden = true;
       document.querySelector('#output-note').innerHTML = '<strong>More data required:</strong> Complete at least one baseline, Board target and actual KPI row before processing. For an official-style full assessment, complete all 30 rows.';
+      updateQuickActions();
       return;
     }
     const gaps = accountabilityGaps(result);
     if (gaps.length) {
       resultActions.hidden = true;
       document.querySelector('#output-note').innerHTML = `<strong>Accountability controls incomplete:</strong> Complete ${esc(gaps.join(', '))} before processing a full Board / MD/CEO assessment. The calculation remains available as a draft view.`;
+      updateQuickActions();
       return;
     }
     formState.processed = true;
@@ -261,6 +284,7 @@
     document.querySelector('#output-note').innerHTML = result.complete
       ? '<strong>Assessment processed:</strong> All 30 KPI rows are complete. The result is indicative review-support output and remains subject to Board review, evidence verification and the prescribed Excel template.'
       : `<strong>Assessment processed:</strong> ${result.filled} of ${result.total} KPI rows are complete. Exported results are indicative only and should not be treated as an official appraisal.`;
+    updateQuickActions();
     resultActions.scrollIntoView({behavior:'smooth',block:'nearest'});
   }
 
@@ -495,6 +519,7 @@
     const processReady = filled > 0;
     processButton.hidden = !processReady;
     if (processHint) processHint.hidden = processReady;
+    updateQuickActions();
     return {filled, total:allKpis().length, complete, finalScore};
   }
 
@@ -587,9 +612,14 @@
   document.querySelector('#print-sample-case').addEventListener('click',printSampleCase);
   document.querySelectorAll('[data-clear-form]').forEach(button => button.addEventListener('click',clearInputs));
   document.querySelector('#process-assessment').addEventListener('click',processAssessment);
+  quickProcessButton?.addEventListener('click',processAssessment);
   document.querySelector('#copy-results').addEventListener('click',copyResults);
   document.querySelector('#download-csv').addEventListener('click',downloadCsv);
-  document.querySelector('#print-report').addEventListener('click',() => { if (!formState.processed) return; calculate(); window.print(); });
+  const printReport = () => { if (!formState.processed) return; calculate(); window.print(); };
+  document.querySelector('#print-report').addEventListener('click',printReport);
+  quickDownloadButton?.addEventListener('click',downloadCsv);
+  quickPrintButton?.addEventListener('click',printReport);
+  quickEmailButton?.addEventListener('click',shareByEmail);
   document.querySelector('#share-email').addEventListener('click',shareByEmail);
   [preparedByInput,controlOwnerInput,reviewerInput,boardApprovalRefInput,boardApprovalDateInput,evidenceDeclarationInput].filter(Boolean).forEach(input => input.addEventListener('input', () => { invalidateProcessedState(); }));
   bankSelect.addEventListener('change',() => { invalidateProcessedState(); const meta=banks.find(item=>item.name===bankSelect.value); document.querySelector('#profile-bank').textContent=bankLabelInput.value.trim() || bankSelect.value || 'Choose a bank'; document.querySelector('#profile-category').textContent=bankLabelInput.value.trim() ? 'Custom / anonymous label' : (meta?meta.category:'—'); });

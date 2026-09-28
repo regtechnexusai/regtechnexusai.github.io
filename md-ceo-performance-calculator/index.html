@@ -20,7 +20,7 @@
 {"@context":"https://schema.org","@type":"WebApplication","name":"MD/CEO Performance Measurement Calculator","url":"https://regtechnexusai.com/md-ceo-performance-calculator/","applicationCategory":"BusinessApplication","operatingSystem":"Any","description":"An independent calculation aid structured against Bangladesh Bank BRPD-2 Circular No. 5 dated 13 September 2026.","publisher":{"@type":"Organization","name":"RegTech Nexus AI","url":"https://regtechnexusai.com/"}}
 </script>
 <link rel="stylesheet" href="../styles.css">
-<link rel="stylesheet" href="styles.css?v=20260928-accountability-audit">
+<link rel="stylesheet" href="styles.css?v=20260928-action-controls">
 </head>
 <body class="calculator-page mdceo-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -104,7 +104,17 @@
     <div class="concept-table-wrap"><table class="concept-table" id="report-kpi-audit-table"><caption>MD/CEO KPI calculation audit trail</caption><thead><tr><th>Lens</th><th>KPI / direction</th><th>Baseline</th><th>Target</th><th>Actual</th><th>Actual − baseline</th><th>Target − baseline</th><th>Proportionate</th><th>Weight</th><th>Score / maximum</th><th>Evidence / source</th><th>Mapping</th><th>Status</th></tr></thead><tbody></tbody></table></div>
   </div>
 
-   <div class="mdceo-output-note" id="output-note" aria-live="polite"><strong>How to use:</strong> Enter the verified baseline, Board-approved target and actual performance for each KPI, then select <strong>Process assessment</strong>. The report separates gross score, critical-KPI deduction and final score. Invalid target directions are not scored. Each lens is calculated out of 100% and converted to its assigned lens weight.</div>
+  <div class="mdceo-output-note" id="output-note" aria-live="polite"><strong>How to use:</strong> Enter the verified baseline, Board-approved target and actual performance for each KPI, then select <strong>Process assessment</strong>. The report separates gross score, critical-KPI deduction and final score. Invalid target directions are not scored. Each lens is calculated out of 100% and converted to its assigned lens weight.</div>
+
+  <div class="mdceo-quick-actions" id="quick-actions" aria-label="Assessment and export actions">
+    <div class="quick-actions-copy"><span class="profile-label">Assessment actions</span><strong>Process and export the current view</strong><small id="quick-actions-note">Enter at least one complete KPI row to enable processing. Export buttons become available after processing.</small></div>
+    <div class="quick-actions-buttons">
+      <button class="btn quick-process" id="quick-process-assessment" type="button" disabled>Process assessment</button>
+      <button class="btn quick-csv" id="quick-download-csv" type="button" disabled>Download CSV</button>
+      <button class="btn quick-print" id="quick-print-report" type="button" disabled>Print / Save PDF</button>
+      <button class="btn quick-email" id="quick-share-email" type="button" disabled>Share by Email</button>
+    </div>
+  </div>
 
   <div class="mdceo-exportbar" id="result-actions" aria-label="Processed result actions" hidden>
     <div class="mdceo-export-copy"><span class="profile-label">Processed result actions</span><strong>Save or share this review-support result</strong><small>Available after processing the entered data. Print / Save PDF creates the attachment; Share by Email opens a Gmail draft addressed to regtechnexusai@gmail.com. The sender depends on the account signed in to Gmail; attach the saved PDF manually.</small></div>
