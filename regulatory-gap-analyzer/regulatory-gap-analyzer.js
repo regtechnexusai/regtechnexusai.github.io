@@ -113,7 +113,7 @@
     framework: $('#framework-select'), label: $('#review-label'), policy: $('#policy-text'), count: $('#character-count'), source: $('#source-strip'),
     load: $('#load-sample'), analyze: $('#analyze-policy'), clear: $('#clear-policy'), formStatus: $('#form-status'), results: $('#results'),
     resultsTitle: $('#results-title'), resultsSummary: $('#results-summary'), resultCount: $('#result-count'), resultStats: $('#result-stats'), resultBody: $('#results-body'), actionBody: $('#action-body'), resultModule: $('#result-module-id'), resultSource: $('#result-source-name'), resultSourceStatus: $('#result-source-status'), resultSourceLinks: $('#result-source-links'),
-    download: $('#download-csv'), copy: $('#copy-summary'), print: $('#print-report'), exportStatus: $('#export-status')
+    download: $('#download-csv'), copy: $('#copy-summary'), print: $('#print-report'), exportStatus: $('#export-status'), startReview: $('#start-review'), frameworkField: $('#framework-field')
   };
 
   const normalise = (value) => String(value || '').toLowerCase().replace(/[\u2018\u2019]/g, "'").replace(/\s+/g, ' ').trim();
@@ -225,6 +225,20 @@
   function updateCount() { elements.count.textContent = `${elements.policy.value.length.toLocaleString()} / 12,000`; }
   function clearAll() { elements.policy.value = ''; elements.label.value = ''; elements.results.hidden = true; lastRun = null; updateCount(); setStatus('Fields cleared. Choose a pack and enter a policy excerpt to begin.'); elements.exportStatus.textContent = ''; }
 
+  function guideToFramework(event) {
+    event.preventDefault();
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    elements.frameworkField.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+    const focusDelay = reducedMotion ? 0 : 450;
+    window.setTimeout(() => {
+      elements.frameworkField.classList.remove('is-guided');
+      void elements.frameworkField.offsetWidth;
+      elements.frameworkField.classList.add('is-guided');
+      elements.framework.focus({ preventScroll: true });
+      window.setTimeout(() => elements.frameworkField.classList.remove('is-guided'), 3100);
+    }, focusDelay);
+  }
+
   function actionRows() {
     return $$('#action-body tr').map((row) => ({ priority: row.cells[0]?.textContent.trim() || '', action: row.cells[1]?.querySelector('.reggap-action-title')?.textContent.trim() || row.cells[1]?.textContent.trim() || '', evidence: row.cells[2]?.querySelector('input')?.value.trim() || '', owner: row.cells[3]?.querySelector('input')?.value.trim() || '', targetDate: row.cells[4]?.querySelector('input')?.value || '' }));
   }
@@ -240,6 +254,6 @@
   async function copySummary() { if (!lastRun) return; const open = lastRun.results.filter((result) => result.status !== 'covered'); const content = [`RegTech Nexus AI · Regulatory Control & Policy Gap Analyzer`, `Review: ${lastRun.label}`, `Framework: ${lastRun.pack.label} (${lastRun.pack.id})`, `Source registry: ${lastRun.pack.sourceName}`, `Date: ${lastRun.date}`, '', `Covered: ${lastRun.results.filter((r) => r.status === 'covered').length}`, `Partial: ${lastRun.results.filter((r) => r.status === 'partial').length}`, `Open/missing/conflicting: ${open.length}`, '', ...open.map((result, index) => `${index + 1}. ${priorityLabels[result.priority]} · ${result.control.title} — ${result.control.action}`), '', 'Independent browser-local review support only; verify official sources, applicability and evidence.'].join('\n'); try { await navigator.clipboard.writeText(content); elements.exportStatus.textContent = 'Summary copied to the clipboard.'; } catch { elements.exportStatus.textContent = 'Clipboard access was unavailable. Use Download CSV or Print / Save PDF.'; } }
 
   elements.framework.addEventListener('change', () => { renderSource(); if (!elements.results.hidden) elements.results.hidden = true; setStatus('Framework changed. Review the source path and run the analysis again.'); });
-  elements.policy.addEventListener('input', updateCount); elements.load.addEventListener('click', sample); elements.analyze.addEventListener('click', analyse); elements.clear.addEventListener('click', clearAll); elements.download.addEventListener('click', downloadCsv); elements.copy.addEventListener('click', copySummary); elements.print.addEventListener('click', () => window.print());
+  elements.policy.addEventListener('input', updateCount); elements.load.addEventListener('click', sample); elements.analyze.addEventListener('click', analyse); elements.clear.addEventListener('click', clearAll); elements.download.addEventListener('click', downloadCsv); elements.copy.addEventListener('click', copySummary); elements.print.addEventListener('click', () => window.print()); elements.startReview.addEventListener('click', guideToFramework);
   renderSource(); updateCount();
 })();

@@ -22,7 +22,7 @@
 {"@context":"https://schema.org","@type":"WebApplication","name":"Regulatory Control & Policy Gap Analyzer","url":"https://regtechnexusai.com/regulatory-gap-analyzer/","applicationCategory":"BusinessApplication","operatingSystem":"Any","description":"A browser-local review-support tool that maps a user-entered policy excerpt to an original, source-mapped control pack and produces an evidence gap action plan.","publisher":{"@type":"Organization","name":"RegTech Nexus AI","url":"https://regtechnexusai.com/"}}
 </script>
 <link rel="stylesheet" href="../styles.css?v=20260928-ui8">
-<link rel="stylesheet" href="regulatory-gap-analyzer.css?v=20260928-v2">
+<link rel="stylesheet" href="regulatory-gap-analyzer.css?v=20260928-v3">
 </head>
 <body class="reggap-page wide-logo-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -39,7 +39,7 @@
     <div class="kicker">FLAGSHIP · POLICY-TO-CONTROL REVIEW</div>
     <h1>Regulatory Control<br><span>&amp; Policy Gap Analyzer.</span></h1>
     <p>Turn a policy excerpt into a structured review path: source, control question, policy signal, evidence gap and accountable next action.</p>
-    <div class="reggap-actions"><a class="site-3d-btn site-3d-btn--cobalt" href="#analyzer">Start a review →</a><a class="site-3d-btn site-3d-btn--ice" href="#method">Read the method</a></div>
+    <div class="reggap-actions"><a id="start-review" class="site-3d-btn site-3d-btn--cobalt" href="#analyzer">Start a review →</a><a class="site-3d-btn site-3d-btn--ice" href="#method">Read the method</a></div>
     <div class="reggap-hero-meta"><span><b>01</b>Source-mapped</span><span><b>02</b>Browser-local</span><span><b>03</b>Human-reviewed</span></div>
   </div>
 </section>
@@ -62,7 +62,7 @@
   <div class="reggap-workspace" aria-labelledby="workspace-title">
     <div class="reggap-workspace-head"><div><div class="tag">RNX-PCA-01 · TRANSPARENT REVIEW ENGINE</div><h3 id="workspace-title">Policy-to-control comparison</h3><p>All fields below remain in this browser until you export or clear them.</p></div><span class="reggap-build-badge">PHASE 1 · NO SERVER UPLOAD</span></div>
     <div class="reggap-input-grid">
-      <label>Framework / jurisdiction
+      <label id="framework-field" class="reggap-framework-field">Framework / jurisdiction
         <select id="framework-select" aria-describedby="framework-help">
           <option value="bb-aml">Bangladesh · AML/CFT control pack</option>
           <option value="mas-aml">Singapore · MAS AML/CFT control pack</option>
@@ -126,6 +126,6 @@
  <p class="footer-note">Independent browser-local review support. This tool does not provide legal advice, regulatory approval or an automatic compliance determination.</p>
  <div class="legal"><span>© 2026 RegTech Nexus AI</span><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></div>
 </footer>
-<script src="../script.js" defer></script><script src="regulatory-gap-analyzer.js?v=20260928-v2" defer></script>
+<script src="../script.js" defer></script><script src="regulatory-gap-analyzer.js?v=20260928-v3" defer></script>
 </body>
 </html>

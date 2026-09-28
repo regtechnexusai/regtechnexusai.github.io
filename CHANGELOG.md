@@ -1,5 +1,11 @@
 # RegTech Nexus AI website update package
 
+## 28 September 2026 — guided review start and framework focus cue
+
+- Made the hero **Start a review** action scroll directly to the Framework / jurisdiction selector position.
+- Added a temporary focus state with a premium multicolour circular glow and clear focus ring around the framework selector.
+- Preserved reduced-motion behaviour and keyboard focus for accessibility.
+
 ## 28 September 2026 — policy-gap report integrity and mobile copy refinement
 
 - Shortened the public-pilot boundary notice while retaining browser-local, non-sensitive-data and non-official-use warnings.
