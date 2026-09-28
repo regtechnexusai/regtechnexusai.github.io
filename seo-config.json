@@ -70,6 +70,11 @@
       "title": "MD/CEO Performance Measurement Calculator | RegTech Nexus AI",
       "description": "An independent, transparent calculation aid based on Bangladesh Bank BRPD-2 Circular No. 5 dated 13 September 2026.",
       "canonical": "https://regtechnexusai.com/md-ceo-performance-calculator/"
+    },
+    "regulatory-gap-analyzer/index.html": {
+      "title": "Regulatory Control & Policy Gap Analyzer | RegTech Nexus AI",
+      "description": "An original, browser-local policy-to-control review aid for source-mapped regulatory gap identification and evidence-based action planning.",
+      "canonical": "https://regtechnexusai.com/regulatory-gap-analyzer/"
     }
   },
   "topicClusters": [

@@ -841,3 +841,9 @@ body.calculator-page .footer-brand .brand-logo,
     transition:none;
   }
 }
+
+/* 2026-09-28: original policy-to-control gap analyzer launch surface. */
+.policy-gap-home-callout{background:linear-gradient(135deg,#2a225e,#102b49 72%);border-color:#5f58a4}
+.policy-gap-home-callout .tag{color:#b9b0ff}
+.policy-gap-home-callout>a{background:#b9b0ff;color:#17153b;border-color:#d5d0ff;box-shadow:0 5px 0 #50488c}
+.policy-gap-home-callout>a:hover{background:#d5d0ff}

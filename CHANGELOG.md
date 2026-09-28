@@ -1,5 +1,15 @@
 # RegTech Nexus AI website update package
 
+## 28 September 2026 — original Policy Gap Analyzer public pilot
+
+- Added `regulatory-gap-analyzer/` as the flagship Regulatory Control & Policy Gap Analyzer.
+- Added five original source-mapped control packs: Bangladesh AML/CFT, Singapore MAS AML/CFT, UAE multi-route AML/CFT, Australia AML/CTF and resilience, and international responsible-AI governance.
+- Added the browser-local Evidence Gap Action Plan output with editable owners/target dates and CSV, copy-summary and Print / Save PDF actions.
+- Added an editable evidence-reference/note field to preserve workpaper traceability in the exported action plan.
+- Kept the public pilot deterministic and transparent: no server upload, confidential document store, live screening, legal conclusion or automatic compliance certification.
+- Used original control prompts and summaries with links to official source paths; no regulator publication text or third-party application interface was copied.
+- Integrated the launch surface into the homepage, Frameworks & Toolkits, bank-use register and sitemap.
+
 ## 28 September 2026 — visible assessment and export actions
 
 - Added a dedicated action panel above the Bangladesh Bank framework section so Process assessment is visible after the KPI table on mobile and desktop.
