@@ -747,11 +747,12 @@ body.calculator-page .footer-brand .brand-logo,
 @media(max-width:620px){.assessment-flow-note{align-items:flex-start;justify-content:flex-start;flex-wrap:wrap;text-align:left}.assessment-flow-note i{display:none}.assessment-evidence-register-head{display:block}.assessment-evidence-register-head>b{display:inline-block;margin-top:13px}.assessment-meta-secondary{grid-template-columns:1fr}.assessment-meta-secondary .assessment-meta-wide{grid-column:auto}.source-trace-strip{padding:16px}.source-trace-links{display:grid;grid-template-columns:1fr}.source-trace-links a{width:100%}}
 
 /* 2026-09-28: unified 3D CTA button system. */
+/* Same geometry everywhere; colour changes only through the named accent modifier. */
 :root{
-  --rnx-btn-text:#102b49;
   --rnx-btn-radius:12px;
   --rnx-btn-min-height:76px;
-  --rnx-btn-shadow-y:6px;
+  --rnx-btn-width:420px;
+  --rnx-btn-text:#102b49;
 }
 .site-3d-btn,
 .icms-home-callout>a.site-3d-btn,
@@ -761,7 +762,7 @@ body.calculator-page .footer-brand .brand-logo,
   align-items:center;
   justify-content:center;
   flex:none;
-  width:min(100%,420px);
+  width:min(100%,var(--rnx-btn-width));
   min-height:var(--rnx-btn-min-height);
   margin-inline:auto;
   padding:16px 20px;
@@ -776,17 +777,31 @@ body.calculator-page .footer-brand .brand-logo,
   white-space:normal;
   transition:transform .2s ease,box-shadow .2s ease,filter .2s ease;
 }
-.icms-home-callout>a.site-3d-btn.site-3d-btn--teal,
-.global-systems-home-cta.site-3d-btn.site-3d-btn--teal{
+.site-3d-btn.site-3d-btn--cobalt{
+  color:#fff;
+  background:linear-gradient(145deg,#67a7ff 0%,#155eef 48%,#0b3d9d 100%);
+  border-color:#b8d9ff;
+  box-shadow:0 6px 0 #082f7b,0 17px 28px rgba(1,12,29,.34),inset 0 2px 0 rgba(255,255,255,.72),inset 0 -8px 18px rgba(3,37,112,.18);
+}
+.site-3d-btn.site-3d-btn--teal{
   background:linear-gradient(145deg,#a4f0e7 0%,#59d2cb 100%);
   border-color:#b4f5e9;
-  box-shadow:0 var(--rnx-btn-shadow-y) 0 #186b73,0 17px 28px rgba(1,12,29,.34),inset 0 2px 0 rgba(255,255,255,.65);
+  box-shadow:0 6px 0 #186b73,0 17px 28px rgba(1,12,29,.34),inset 0 2px 0 rgba(255,255,255,.65),inset 0 -8px 18px rgba(8,133,137,.14);
 }
-.icms-home-callout>a.site-3d-btn.site-3d-btn--gold,
-.global-systems-home-cta.site-3d-btn.site-3d-btn--gold{
+.site-3d-btn.site-3d-btn--ice{
+  background:linear-gradient(145deg,#fbfeff 0%,#d9f5fa 48%,#9edce8 100%);
+  border-color:#fff;
+  box-shadow:0 6px 0 #568aa0,0 17px 28px rgba(1,12,29,.28),inset 0 2px 0 rgba(255,255,255,.86),inset 0 -8px 18px rgba(72,157,177,.12);
+}
+.site-3d-btn.site-3d-btn--violet{
+  background:linear-gradient(145deg,#f1ecff 0%,#c9bdff 48%,#a99bff 100%);
+  border-color:#fff;
+  box-shadow:0 6px 0 #6652b4,0 17px 28px rgba(1,12,29,.3),inset 0 2px 0 rgba(255,255,255,.78),inset 0 -8px 18px rgba(102,82,180,.14);
+}
+.site-3d-btn.site-3d-btn--gold{
   background:linear-gradient(145deg,#ffe8a8 0%,#e5b45a 100%);
   border-color:#fff0c5;
-  box-shadow:0 var(--rnx-btn-shadow-y) 0 #95691e,0 17px 28px rgba(1,12,29,.34),inset 0 2px 0 rgba(255,255,255,.72);
+  box-shadow:0 6px 0 #95691e,0 17px 28px rgba(1,12,29,.34),inset 0 2px 0 rgba(255,255,255,.72),inset 0 -8px 18px rgba(149,105,30,.14);
 }
 .site-3d-btn:hover,
 .icms-home-callout>a.site-3d-btn:hover,
@@ -795,14 +810,11 @@ body.calculator-page .footer-brand .brand-logo,
   transform:translateY(-2px);
   filter:saturate(1.1) brightness(1.02);
 }
-.icms-home-callout>a.site-3d-btn.site-3d-btn--teal:hover,
-.global-systems-home-cta.site-3d-btn.site-3d-btn--teal:hover{
-  box-shadow:0 8px 0 #186b73,0 21px 30px rgba(1,12,29,.4),inset 0 2px 0 rgba(255,255,255,.7);
-}
-.icms-home-callout>a.site-3d-btn.site-3d-btn--gold:hover,
-.global-systems-home-cta.site-3d-btn.site-3d-btn--gold:hover{
-  box-shadow:0 8px 0 #95691e,0 21px 30px rgba(1,12,29,.4),inset 0 2px 0 rgba(255,255,255,.78);
-}
+.site-3d-btn.site-3d-btn--cobalt:hover{color:#fff;box-shadow:0 8px 0 #082f7b,0 21px 30px rgba(1,12,29,.4),inset 0 2px 0 rgba(255,255,255,.78),inset 0 -8px 18px rgba(3,37,112,.18)}
+.site-3d-btn.site-3d-btn--teal:hover{box-shadow:0 8px 0 #186b73,0 21px 30px rgba(1,12,29,.4),inset 0 2px 0 rgba(255,255,255,.7),inset 0 -8px 18px rgba(8,133,137,.16)}
+.site-3d-btn.site-3d-btn--ice:hover{box-shadow:0 8px 0 #568aa0,0 21px 30px rgba(1,12,29,.34),inset 0 2px 0 rgba(255,255,255,.92),inset 0 -8px 18px rgba(72,157,177,.15)}
+.site-3d-btn.site-3d-btn--violet:hover{box-shadow:0 8px 0 #6652b4,0 21px 30px rgba(1,12,29,.36),inset 0 2px 0 rgba(255,255,255,.84),inset 0 -8px 18px rgba(102,82,180,.17)}
+.site-3d-btn.site-3d-btn--gold:hover{box-shadow:0 8px 0 #95691e,0 21px 30px rgba(1,12,29,.4),inset 0 2px 0 rgba(255,255,255,.78),inset 0 -8px 18px rgba(149,105,30,.16)}
 .site-3d-btn:active,
 .icms-home-callout>a.site-3d-btn:active,
 .global-systems-home-cta.site-3d-btn:active{
