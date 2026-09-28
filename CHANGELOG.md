@@ -1,5 +1,13 @@
 # RegTech Nexus AI website update package
 
+## 28 September 2026 — policy-gap report integrity and mobile copy refinement
+
+- Shortened the public-pilot boundary notice while retaining browser-local, non-sensitive-data and non-official-use warnings.
+- Replaced the roadmap-style review-path paragraph with a user-facing instruction; private AI deployment language now appears only in Method & Governance with an explicit current-release boundary.
+- Added internal module identification, source-registry status, source-link verification and an evidence-validation caveat to generated review outputs and CSV exports.
+- Updated the Bangladesh AML/CFT pack to link directly to Bangladesh Bank and BFIU source libraries and to require entity, current-circular and applicability checks.
+- Improved print output for A4 landscape, report-boundary visibility, row integrity and mobile source/provenance layout.
+
 ## 28 September 2026 — original Policy Gap Analyzer public pilot
 
 - Added `regulatory-gap-analyzer/` as the flagship Regulatory Control & Policy Gap Analyzer.

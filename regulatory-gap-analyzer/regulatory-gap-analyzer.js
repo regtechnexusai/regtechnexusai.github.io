@@ -13,11 +13,11 @@
     'bb-aml': {
       label: 'Bangladesh · AML/CFT control pack',
       id: 'RNX-PCA-BD-AML-01',
-      sourceName: 'Bangladesh Bank and Bangladesh FIU source paths',
+      sourceName: 'Bangladesh Bank & BFIU AML/CFT source registry',
       sourceUrl: 'https://www.bb.org.bd/en/index.php/mediaroom/circular',
       sourceLabel: 'Open official source path ↗',
-      sourceLinks: [{ label: 'Bangladesh Bank', url: 'https://www.bb.org.bd/en/index.php/mediaroom/circular' }, { label: 'Bangladesh FIU', url: 'https://bfiu.org.bd/' }],
-      note: 'Use the current circular, guideline or instruction that applies to the institution and activity under review.',
+      sourceLinks: [{ label: 'Bangladesh Bank · AML guide', url: 'https://www.bb.org.bd/aboutus/regulationguideline/aml/20150108guidelines.pdf' }, { label: 'BFIU · guidance library', url: 'https://www.bfiu.org.bd/index.php/legislation/guidanceNote' }, { label: 'BFIU · circular library', url: 'https://www.bfiu.org.bd/index.php/legislation/circular' }],
+      note: 'Generic AML/CFT signal pack. Confirm the entity type, current circular, effective date and applicable instruction before reliance.',
       sample: 'The institution identifies and verifies customers and beneficial owners at onboarding. Customers assessed as high risk receive enhanced due diligence and additional approval. The transaction monitoring team reviews alerts and escalates suspicious activity to the MLRO. AML/CFT training is delivered annually, and relevant records are retained under the approved retention policy.',
       controls: [
         { id: 'bd-01', title: 'Risk-based AML/CFT governance', evidence: 'Board or senior-management approval, institutional risk assessment, accountable owner and review trigger.', anchors: ['risk assessment', 'ml/tf risk', 'aml/cft risk', 'board approval', 'senior management'], support: ['risk-based', 'accountable owner', 'review trigger'], critical: true, owner: 'MLRO / Compliance', action: 'Document the institution-wide ML/TF risk assessment, approval route, accountable owner and next review trigger.' },
@@ -112,7 +112,7 @@
   const elements = {
     framework: $('#framework-select'), label: $('#review-label'), policy: $('#policy-text'), count: $('#character-count'), source: $('#source-strip'),
     load: $('#load-sample'), analyze: $('#analyze-policy'), clear: $('#clear-policy'), formStatus: $('#form-status'), results: $('#results'),
-    resultsTitle: $('#results-title'), resultsSummary: $('#results-summary'), resultCount: $('#result-count'), resultStats: $('#result-stats'), resultBody: $('#results-body'), actionBody: $('#action-body'),
+    resultsTitle: $('#results-title'), resultsSummary: $('#results-summary'), resultCount: $('#result-count'), resultStats: $('#result-stats'), resultBody: $('#results-body'), actionBody: $('#action-body'), resultModule: $('#result-module-id'), resultSource: $('#result-source-name'), resultSourceStatus: $('#result-source-status'), resultSourceLinks: $('#result-source-links'),
     download: $('#download-csv'), copy: $('#copy-summary'), print: $('#print-report'), exportStatus: $('#export-status')
   };
 
@@ -131,12 +131,21 @@
     const pack = currentPack();
     elements.source.replaceChildren();
     const copy = document.createElement('div'); copy.className = 'reggap-source-copy';
-    const strong = document.createElement('strong'); strong.textContent = `${pack.id} · ${pack.sourceName}`;
-    const note = document.createElement('span'); note.textContent = `${pack.note} Source paths are for verification; this page does not reproduce protected regulatory text.`;
+    const strong = document.createElement('strong'); strong.textContent = `Internal module ID: ${pack.id} · ${pack.sourceName}`;
+    const note = document.createElement('span'); note.textContent = `${pack.note} Source paths are for verification; this page does not reproduce protected regulatory text or issue an official determination.`;
     copy.append(strong, note);
     const links = document.createElement('div'); links.className = 'reggap-source-links';
     pack.sourceLinks.slice(0, 3).forEach((item) => { const link = document.createElement('a'); link.className = 'reggap-source-link'; link.href = item.url; link.target = '_blank'; link.rel = 'noopener noreferrer'; link.textContent = `${item.label} ↗`; links.append(link); });
     elements.source.append(copy, links);
+  }
+
+  function renderReportSources(pack) {
+    elements.resultSourceLinks.replaceChildren();
+    const label = document.createElement('b'); label.textContent = 'Source links for verification'; elements.resultSourceLinks.append(label);
+    const links = document.createElement('span');
+    pack.sourceLinks.forEach((item) => { const link = document.createElement('a'); link.href = item.url; link.target = '_blank'; link.rel = 'noopener noreferrer'; link.textContent = item.label; links.append(link, document.createTextNode(' · ')); });
+    if (links.lastChild) links.lastChild.remove();
+    elements.resultSourceLinks.append(links);
   }
 
   function setStatus(message, tone = '') { elements.formStatus.textContent = message; elements.formStatus.className = `reggap-form-status${tone ? ` is-${tone}` : ''}`; }
@@ -165,7 +174,7 @@
     const stats = [
       { label: 'Covered signals', value: results.filter((item) => item.status === 'covered').length, tone: 'good' },
       { label: 'Partial signals', value: results.filter((item) => item.status === 'partial').length, tone: 'medium' },
-      { label: 'Open or conflicting', value: results.filter((item) => ['missing', 'conflict'].includes(item.status)).length, tone: 'high' },
+      { label: 'Open, missing or conflicting', value: results.filter((item) => ['missing', 'conflict'].includes(item.status)).length, tone: 'high' },
       { label: 'High-priority items', value: results.filter((item) => ['critical', 'high'].includes(item.priority)).length, tone: 'high' }
     ];
     elements.resultStats.replaceChildren();
@@ -180,7 +189,7 @@
       const controlCell = document.createElement('td'); const title = document.createElement('span'); title.className = 'reggap-control-title'; title.textContent = result.control.title; const evidence = document.createElement('span'); evidence.className = 'reggap-control-evidence'; evidence.textContent = `Evidence to look for: ${result.control.evidence}`; controlCell.append(title, evidence);
       const signalCell = document.createElement('td'); const signal = document.createElement('span'); signal.className = 'reggap-signal'; signal.dataset.status = result.status; signal.textContent = statusLabels[result.status]; const signalText = document.createElement('span'); signalText.className = 'reggap-cell-action'; signalText.textContent = result.signal; signalCell.append(signal, signalText);
       const priorityCell = document.createElement('td'); const priority = document.createElement('span'); priority.className = 'reggap-priority'; priority.dataset.priority = result.priority; priority.textContent = priorityLabels[result.priority]; priorityCell.append(priority);
-      const actionCell = document.createElement('td'); const source = document.createElement('span'); source.className = 'reggap-cell-source'; source.textContent = `${pack.id} · ${pack.sourceName}`; const action = document.createElement('span'); action.className = 'reggap-cell-action'; action.textContent = result.status === 'covered' ? 'Validate operating evidence, date and accountable owner.' : result.control.action; actionCell.append(source, action);
+      const actionCell = document.createElement('td'); const source = document.createElement('span'); source.className = 'reggap-cell-source'; source.textContent = `Internal module · ${pack.id}`; const action = document.createElement('span'); action.className = 'reggap-cell-action'; action.textContent = result.status === 'covered' ? `Source registry: ${pack.sourceName}. Validate operating evidence, date and accountable owner.` : `${pack.sourceName}. ${result.control.action}`; actionCell.append(source, action);
       row.append(controlCell, signalCell, priorityCell, actionCell); elements.resultBody.append(row);
     });
   }
@@ -195,7 +204,7 @@
       const row = document.createElement('tr');
       const priority = document.createElement('td'); const badge = document.createElement('span'); badge.className = 'reggap-priority'; badge.dataset.priority = result.priority; badge.textContent = priorityLabels[result.priority]; priority.append(badge);
       const action = document.createElement('td'); const title = document.createElement('span'); title.className = 'reggap-action-title'; title.textContent = result.control.action; const source = document.createElement('span'); source.className = 'reggap-action-source'; source.textContent = `${result.control.title} · ${statusLabels[result.status]}`; action.append(title, source);
-      const evidence = document.createElement('td'); const evidenceInput = document.createElement('input'); evidenceInput.type = 'text'; evidenceInput.placeholder = 'e.g. policy §4.2'; evidenceInput.maxLength = 160; evidenceInput.dataset.actionEvidence = result.control.id; evidenceInput.setAttribute('aria-label', `Evidence reference for ${result.control.title}`); evidence.append(evidenceInput);
+      const evidence = document.createElement('td'); const evidenceInput = document.createElement('input'); evidenceInput.type = 'text'; evidenceInput.placeholder = 'Add section, document or evidence ID'; evidenceInput.maxLength = 160; evidenceInput.dataset.actionEvidence = result.control.id; evidenceInput.setAttribute('aria-label', `Evidence reference for ${result.control.title}`); evidence.append(evidenceInput);
       const owner = document.createElement('td'); const ownerInput = document.createElement('input'); ownerInput.type = 'text'; ownerInput.value = result.control.owner; ownerInput.maxLength = 80; ownerInput.dataset.actionOwner = result.control.id; ownerInput.setAttribute('aria-label', `Action owner for ${result.control.title}`); owner.append(ownerInput);
       const date = document.createElement('td'); const dateInput = document.createElement('input'); dateInput.type = 'date'; dateInput.dataset.actionDate = result.control.id; dateInput.setAttribute('aria-label', `Target date for ${result.control.title}`); date.append(dateInput);
       row.append(priority, action, evidence, owner, date); elements.actionBody.append(row);
@@ -208,7 +217,7 @@
     const pack = currentPack();
     const results = pack.controls.map((control) => classify(policy, control));
     lastRun = { pack, results, policy, label: elements.label.value.trim() || 'Untitled policy review', date: today() };
-    elements.results.hidden = false; elements.resultsTitle.textContent = `Evidence gap review · ${pack.label}`; elements.resultsSummary.textContent = `${lastRun.label} · ${pack.id} · ${results.length} control areas reviewed in the browser.`; elements.resultCount.textContent = results.length;
+    elements.results.hidden = false; elements.resultsTitle.textContent = `Evidence gap review · ${pack.label}`; elements.resultsSummary.textContent = `${lastRun.label} · ${pack.id} · ${results.length} control areas reviewed in the browser. Input evidence was not independently validated.`; elements.resultCount.textContent = results.length; elements.resultModule.textContent = `${pack.id} · internal`; elements.resultSource.textContent = pack.sourceName; elements.resultSourceStatus.textContent = 'Verify current source and applicability before reliance'; renderReportSources(pack);
     renderStats(results); renderResults(results); renderActionPlan(results); setStatus('Analysis complete. Review each signal, add evidence references outside this public pilot and assign accountable owners.', 'success'); elements.results.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
@@ -221,14 +230,14 @@
   }
   function buildCsv() {
     if (!lastRun) return '';
-    const rows = [['RegTech Nexus AI · Regulatory Control & Policy Gap Analyzer', 'Independent review-support output', 'Not an official compliance determination'], ['Review label', lastRun.label], ['Framework', lastRun.pack.label], ['Module ID', lastRun.pack.id], ['Review date', lastRun.date], [], ['Control', 'Signal', 'Priority', 'Signal detail', 'Suggested action', 'Suggested owner']];
+    const rows = [['RegTech Nexus AI · Regulatory Control & Policy Gap Analyzer', 'Independent browser-local review-support output', 'Not an official compliance determination'], ['Review label', lastRun.label], ['Framework', lastRun.pack.label], ['Internal module ID', lastRun.pack.id], ['Source registry', lastRun.pack.sourceName], ['Review date', lastRun.date], ['Input status', 'User-entered excerpt; evidence not independently validated'], [], ['Control', 'Signal', 'Priority', 'Signal detail', 'Suggested action', 'Suggested owner']];
     lastRun.results.forEach((result) => rows.push([result.control.title, statusLabels[result.status], priorityLabels[result.priority], result.signal, result.control.action, result.control.owner]));
     rows.push([], ['Evidence Gap Action Plan', 'Priority', 'Action', 'Evidence reference / note', 'Owner', 'Target date']); actionRows().forEach((row) => rows.push(['', row.priority, row.action, row.evidence, row.owner, row.targetDate]));
     rows.push([], ['Boundary', 'Browser-local review support only. Validate current official sources, applicability, operating evidence and professional judgment before use.']);
     return '\uFEFF' + rows.map((row) => row.map(escCsv).join(',')).join('\r\n');
   }
   function downloadCsv() { const blob = new Blob([buildCsv()], { type: 'text/csv;charset=utf-8' }); const url = URL.createObjectURL(blob); const link = document.createElement('a'); link.href = url; link.download = `rnx-policy-gap-review-${today()}.csv`; document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000); elements.exportStatus.textContent = 'CSV downloaded. Keep the source version and review rationale with the exported file.'; }
-  async function copySummary() { if (!lastRun) return; const open = lastRun.results.filter((result) => result.status !== 'covered'); const content = [`RegTech Nexus AI · Regulatory Control & Policy Gap Analyzer`, `Review: ${lastRun.label}`, `Framework: ${lastRun.pack.label} (${lastRun.pack.id})`, `Date: ${lastRun.date}`, '', `Covered: ${lastRun.results.filter((r) => r.status === 'covered').length}`, `Partial: ${lastRun.results.filter((r) => r.status === 'partial').length}`, `Open/conflicting: ${open.length}`, '', ...open.map((result, index) => `${index + 1}. ${priorityLabels[result.priority]} · ${result.control.title} — ${result.control.action}`), '', 'Independent browser-local review support only; verify official sources, applicability and evidence.'].join('\n'); try { await navigator.clipboard.writeText(content); elements.exportStatus.textContent = 'Summary copied to the clipboard.'; } catch { elements.exportStatus.textContent = 'Clipboard access was unavailable. Use Download CSV or Print / Save PDF.'; } }
+  async function copySummary() { if (!lastRun) return; const open = lastRun.results.filter((result) => result.status !== 'covered'); const content = [`RegTech Nexus AI · Regulatory Control & Policy Gap Analyzer`, `Review: ${lastRun.label}`, `Framework: ${lastRun.pack.label} (${lastRun.pack.id})`, `Source registry: ${lastRun.pack.sourceName}`, `Date: ${lastRun.date}`, '', `Covered: ${lastRun.results.filter((r) => r.status === 'covered').length}`, `Partial: ${lastRun.results.filter((r) => r.status === 'partial').length}`, `Open/missing/conflicting: ${open.length}`, '', ...open.map((result, index) => `${index + 1}. ${priorityLabels[result.priority]} · ${result.control.title} — ${result.control.action}`), '', 'Independent browser-local review support only; verify official sources, applicability and evidence.'].join('\n'); try { await navigator.clipboard.writeText(content); elements.exportStatus.textContent = 'Summary copied to the clipboard.'; } catch { elements.exportStatus.textContent = 'Clipboard access was unavailable. Use Download CSV or Print / Save PDF.'; } }
 
   elements.framework.addEventListener('change', () => { renderSource(); if (!elements.results.hidden) elements.results.hidden = true; setStatus('Framework changed. Review the source path and run the analysis again.'); });
   elements.policy.addEventListener('input', updateCount); elements.load.addEventListener('click', sample); elements.analyze.addEventListener('click', analyse); elements.clear.addEventListener('click', clearAll); elements.download.addEventListener('click', downloadCsv); elements.copy.addEventListener('click', copySummary); elements.print.addEventListener('click', () => window.print());
