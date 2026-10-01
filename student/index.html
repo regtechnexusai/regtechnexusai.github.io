@@ -1101,6 +1101,23 @@ section#ai + section .card-grid .card:nth-child(6){border-top-color:#2f80ed;back
 }
 @media(max-width:650px){.site-header .nav .nav-cta{display:none}}
 </style>
+
+<style id="student-hub-learning-intelligence">
+#learning-intelligence{background:linear-gradient(180deg,#f5fbff 0%,#fff 100%);position:relative;overflow:hidden}
+#learning-intelligence:after{content:"";position:absolute;right:-100px;top:-100px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(47,128,237,.12),rgba(217,70,143,.05) 45%,transparent 70%);pointer-events:none}
+#learning-intelligence>.container{position:relative;z-index:1}
+.li-dashboard{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:20px 0 22px}
+.li-stat{background:#fff;border:1px solid #dce7f0;border-radius:16px;padding:18px;box-shadow:0 9px 22px rgba(16,39,64,.07);border-top:5px solid #2f80ed}
+.li-stat strong{display:block;font-size:1.7rem;line-height:1.1;color:#17324d}.li-stat small{color:#637487;font-weight:700}.li-icon{font-size:1.45rem;display:block;margin-bottom:8px}.li-pink{border-top-color:#d9468f}.li-green{border-top-color:#10a37f}.li-orange{border-top-color:#e58a18}
+.li-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.li-panel{background:linear-gradient(145deg,#fff,#f4f9ff);border:1px solid #d8e5ef;border-top:6px solid #2f80ed;border-radius:18px;padding:22px;box-shadow:0 12px 28px rgba(16,39,64,.08)}
+.li-panel-pink{border-top-color:#d9468f;background:linear-gradient(145deg,#fff,#fff5fa)}.li-green-panel{border-top-color:#10a37f;background:linear-gradient(145deg,#fff,#f1fcf8)}.li-orange-panel{border-top-color:#e58a18;background:linear-gradient(145deg,#fff,#fff9ef)}
+.li-panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:15px}.li-panel-head>span{font-size:1.8rem}.li-panel h3{margin:2px 0 7px;color:#17324d}.li-panel p{color:#5e6b78}.li-kicker{font-size:.68rem;font-weight:900;letter-spacing:.08em;color:#2563eb}.li-panel-pink .li-kicker{color:#c02670}.li-green-panel .li-kicker{color:#087f64}.li-orange-panel .li-kicker{color:#b56a08}
+.li-controls{display:flex;flex-wrap:wrap;gap:9px;margin-top:13px}.li-output{margin-top:14px;padding:14px;border-radius:12px;background:rgba(255,255,255,.82);border:1px solid #dce6ee;color:#41566a}.li-output p{margin:0}.li-card{background:#fff;border:1px solid #d8e5ef;border-radius:14px;padding:17px}.li-card h4{margin:0 0 8px;color:#1f4f7d}.li-answer{display:none;margin-top:12px;padding:12px;border-radius:10px;background:#eef7ff;border-left:4px solid #2f80ed}.li-answer.is-open{display:block}.li-weak-item,.li-review-item{padding:10px 0;border-top:1px solid #e5edf3}.li-weak-item:first-child,.li-review-item:first-child{border-top:0}.li-score{font-weight:900}.li-score.low{color:#b3264d}.li-score.mid{color:#a56a00}.li-score.high{color:#087f64}.li-review-due{font-size:.8rem;font-weight:800;color:#6b7280}.li-privacy{margin-top:20px}
+@media(max-width:900px){.li-dashboard{grid-template-columns:repeat(2,1fr)}.li-grid{grid-template-columns:1fr}}
+@media(max-width:650px){.li-dashboard{grid-template-columns:1fr 1fr}.li-stat{padding:14px}.li-stat strong{font-size:1.35rem}.li-controls{flex-direction:column}.li-controls .btn{width:100%}}
+</style>
+
 </head>
 
 <body>
@@ -1901,6 +1918,55 @@ section#ai + section .card-grid .card:nth-child(6){border-top-color:#2f80ed;back
 <div class="ai-link-box"><strong>Need more clarification?</strong> For more information, deeper explanation or an adaptive one-question-at-a-time study session, <a href="https://chatgpt.com/g/g-6a09920b01348191b9b1628b69367d9b-regtech-nexus-ai" target="_blank" rel="noopener">click here to open the RegTech Nexus AI GPT →</a></div>
 </div></section>
 
+
+<!-- LEARNING INTELLIGENCE — additive Phase 2 -->
+<section id="learning-intelligence">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Learning Intelligence & Revision Lab</h2>
+      <p>Turn study activity into a practical loop: topic mastery, flashcard recall, review scheduling, weak-area retesting, goals and a study streak. Progress stays on this device.</p>
+    </div>
+
+    <div class="li-dashboard" aria-live="polite">
+      <article class="li-stat li-blue"><span class="li-icon">🎯</span><strong id="liMastery">—</strong><small>Average topic score</small></article>
+      <article class="li-stat li-pink"><span class="li-icon">🔥</span><strong id="liStreak">0</strong><small>Day study streak</small></article>
+      <article class="li-stat li-green"><span class="li-icon">📝</span><strong id="liAttempts">0</strong><small>Quiz attempts</small></article>
+      <article class="li-stat li-orange"><span class="li-icon">🔁</span><strong id="liDue">0</strong><small>Reviews due</small></article>
+    </div>
+
+    <div class="li-grid">
+      <article class="li-panel li-panel-blue">
+        <div class="li-panel-head"><div><span class="li-kicker">RECALL</span><h3>Flashcards</h3></div><span>🧠</span></div>
+        <p>Use the selected subject and topic to recall the concept, study method and example before revealing the answer.</p>
+        <div class="li-controls"><button class="btn btn-primary" type="button" onclick="liStartFlashcards()">Start Flashcards</button><button class="btn btn-secondary" type="button" onclick="liMarkFlashcardComplete()">Mark recall complete</button></div>
+        <div id="liFlashcards" class="li-output"><p>Select a topic in the Interactive Subject Library, then start a flashcard set.</p></div>
+      </article>
+
+      <article class="li-panel li-panel-pink">
+        <div class="li-panel-head"><div><span class="li-kicker">DIAGNOSE</span><h3>Weak-area Retest</h3></div><span>🔎</span></div>
+        <p>The queue uses your completed quiz scores to identify lower-scoring topics. It does not claim to measure mastery beyond the recorded quiz results.</p>
+        <div id="liWeakAreas" class="li-output">Complete a quiz to build your revision queue.</div>
+        <div class="li-controls"><button class="btn btn-primary" type="button" onclick="liRetestWeak()">Retest weakest topic</button><button class="btn btn-secondary" type="button" onclick="liRefresh()">Refresh dashboard</button></div>
+      </article>
+
+      <article class="li-panel li-green-panel">
+        <div class="li-panel-head"><div><span class="li-kicker">REVIEW</span><h3>Revision Queue</h3></div><span>📚</span></div>
+        <div id="liReviewQueue" class="li-output">No review items yet.</div>
+      </article>
+
+      <article class="li-panel li-orange-panel">
+        <div class="li-panel-head"><div><span class="li-kicker">GOAL</span><h3>Study Goal</h3></div><span>🚀</span></div>
+        <input id="liGoalInput" type="text" maxlength="120" placeholder="e.g. Master Algebra before my next test">
+        <div class="li-controls"><button class="btn btn-primary" type="button" onclick="liSaveGoal()">Save goal</button><button class="btn btn-secondary" type="button" onclick="liClearGoal()">Clear</button></div>
+        <div id="liGoalStatus" class="li-output">No goal saved yet.</div>
+      </article>
+    </div>
+
+    <div class="notice li-privacy"><strong>Local learning record:</strong> quiz history, topic review data, goal and study streak are stored in your browser's local storage. There is no account or cross-device sync in this phase.</div>
+  </div>
+</section>
+
+
 <!-- RESPONSIBLE AI NOTICE -->
 
     <section>
@@ -2380,5 +2446,92 @@ document.getElementById('aiAnswerModal')?.addEventListener('click',e=>{if(e.targ
   }
 })();
 </script>
+
+<script id="student-hub-learning-intelligence-js">
+(function(){
+  const KEY='studentHubLearningIntelligence';
+  const read=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return {}}};
+  const write=(x)=>localStorage.setItem(KEY,JSON.stringify(x));
+  const history=()=>{try{return JSON.parse(localStorage.getItem('studentHubQuizHistory')||'[]')}catch(e){return []}};
+  const today=()=>new Date().toISOString().slice(0,10);
+  const dateKey=(d)=>new Date(d).toISOString().slice(0,10);
+  const escapeHtml=(v)=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const recordActivity=()=>{const s=read();s.activity=Array.isArray(s.activity)?s.activity:[];const d=today();if(!s.activity.includes(d))s.activity.unshift(d);s.activity=s.activity.slice(0,180);write(s)};
+  const scoreClass=p=>p<60?'low':p<80?'mid':'high';
+
+  window.liRefresh=function(){
+    const h=history(),s=read(),scores=h.map(x=>Number(x.pct)).filter(Number.isFinite);
+    const avg=scores.length?Math.round(scores.reduce((a,b)=>a+b,0)/scores.length):null;
+    const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
+    set('liMastery',avg===null?'—':avg+'%');set('liAttempts',h.length);
+    const days=new Set(h.map(x=>dateKey(x.date)).concat(Array.isArray(s.activity)?s.activity:[]));
+    let streak=0,d=new Date();d.setHours(0,0,0,0);
+    while(days.has(d.toISOString().slice(0,10))){streak++;d.setDate(d.getDate()-1)}
+    set('liStreak',streak);
+
+    const groups={};
+    h.forEach(x=>{const k=x.subject+'||'+x.topic;if(!groups[k])groups[k]={subject:x.subject,topic:x.topic,scores:[]};groups[k].scores.push(Number(x.pct))});
+    const weak=Object.values(groups).map(g=>({...g,avg:Math.round(g.scores.reduce((a,b)=>a+b,0)/g.scores.length),attempts:g.scores.length})).sort((a,b)=>a.avg-b.avg);
+    const weakBox=document.getElementById('liWeakAreas');
+    if(weakBox)weakBox.innerHTML=weak.length?weak.slice(0,4).map(g=>'<div class="li-weak-item"><strong>'+escapeHtml(g.subject)+' — '+escapeHtml(g.topic)+'</strong><br><span class="li-score '+scoreClass(g.avg)+'">'+g.avg+'%</span> · '+g.attempts+' attempt'+(g.attempts===1?'':'s')+'</div>').join(''):'Complete a quiz to build your revision queue.';
+
+    const due=Array.isArray(s.review)?s.review.filter(x=>x.nextReview<=today()).sort((a,b)=>a.nextReview.localeCompare(b.nextReview)):[];set('liDue',due.length);
+    const rb=document.getElementById('liReviewQueue');
+    if(rb)rb.innerHTML=due.length?due.slice(0,6).map(x=>'<div class="li-review-item"><strong>'+escapeHtml(x.subject)+' — '+escapeHtml(x.topic)+'</strong><br><span class="li-review-due">Due '+escapeHtml(x.nextReview)+' · last score '+escapeHtml(x.pct)+'%</span></div>').join(''):'No review items are due. Complete a quiz or mark a topic studied to build the queue.';
+
+    const goal=document.getElementById('liGoalStatus');if(goal){goal.textContent=s.goal?s.goal.text+' · saved '+s.goal.date:'No goal saved yet.';if(s.goal){const gi=document.getElementById('liGoalInput');if(gi&&!gi.value)gi.value=s.goal.text}}
+  };
+
+  window.liStartFlashcards=function(){
+    if(!currentSubject||!currentTopic){alert('Select a subject and topic first.');return}
+    const d=studentSubjects[currentSubject].topics[currentTopic];
+    window.liFlashSet=[
+      ['What is the core concept?',d[0]],
+      ['How should you study or apply it?',d[1]],
+      ['What example or practical takeaway is provided?',d[2]]
+    ];
+    window.liFlashIndex=0;liRenderFlash();
+    recordActivity();liRefresh();
+  };
+  function liRenderFlash(){
+    const box=document.getElementById('liFlashcards');if(!box||!window.liFlashSet)return;
+    const i=window.liFlashIndex||0,c=window.liFlashSet[i];
+    box.innerHTML='<div class="li-card"><span class="li-kicker">CARD '+(i+1)+' / '+window.liFlashSet.length+'</span><h4>'+escapeHtml(c[0])+'</h4><button class="btn btn-secondary" type="button" onclick="this.nextElementSibling.classList.toggle(\\'is-open\\')">Show answer</button><div class="li-answer">'+escapeHtml(c[1])+'</div><div class="li-controls"><button class="btn btn-primary" type="button" '+(i===window.liFlashSet.length-1?'disabled':'')+' onclick="liNextFlashcard()">Next card →</button></div></div>';
+  }
+  window.liNextFlashcard=function(){if(!window.liFlashSet)return;if(window.liFlashIndex<window.liFlashSet.length-1){window.liFlashIndex++;liRenderFlash()}else{alert('Flashcard set complete. Try a quiz or retest the topic.');recordActivity();liRefresh()}};
+  window.liMarkFlashcardComplete=function(){recordActivity();if(currentSubject&&currentTopic){const s=read();s.lastFlashcard={subject:currentSubject,topic:currentTopic,date:new Date().toISOString()};write(s)}liRefresh();alert('Recall activity saved on this device.')};
+
+  window.liRetestWeak=function(){
+    const h=history(),g={};h.forEach(x=>{const k=x.subject+'||'+x.topic;if(!g[k])g[k]={subject:x.subject,topic:x.topic,scores:[]};g[k].scores.push(Number(x.pct))});
+    const weak=Object.values(g).map(x=>({...x,avg:x.scores.reduce((a,b)=>a+b,0)/x.scores.length})).sort((a,b)=>a.avg-b.avg)[0];
+    if(!weak){alert('Complete at least one quiz first.');return}
+    currentSubject=weak.subject;currentTopic=weak.topic;
+    if(typeof selectSubject==='function')selectSubject(weak.subject);
+    if(typeof showTopic==='function')showTopic(weak.topic);
+    setTimeout(()=>{document.getElementById('interactive-study')?.scrollIntoView({behavior:'smooth',block:'start'});if(typeof startQuiz==='function')startQuiz()},80);
+  };
+
+  window.liSaveGoal=function(){const e=document.getElementById('liGoalInput');const t=(e?.value||'').trim();if(!t){alert('Enter a study goal first.');return}const s=read();s.goal={text:t,date:today()};write(s);recordActivity();liRefresh()};
+  window.liClearGoal=function(){const s=read();delete s.goal;write(s);const e=document.getElementById('liGoalInput');if(e)e.value='';liRefresh()};
+
+  const originalGrade=window.gradeQuiz;
+  if(typeof originalGrade==='function'){
+    window.gradeQuiz=function(){
+      originalGrade();
+      try{
+        const item=JSON.parse(localStorage.getItem('studentHubLastScore')||'null');if(!item)return;
+        const s=read();s.review=Array.isArray(s.review)?s.review:[];const next=new Date();next.setDate(next.getDate()+(item.pct>=80?7:item.pct>=60?3:1));const nextDate=next.toISOString().slice(0,10);
+        const k=item.subject+'||'+item.topic;s.review=s.review.filter(x=>x.subject+'||'+x.topic!==k);s.review.push({subject:item.subject,topic:item.topic,pct:item.pct,nextReview:nextDate,lastScoreDate:item.date});s.lastQuiz=item;write(s);recordActivity();liRefresh();
+      }catch(e){}
+    };
+  }
+  const originalSave=window.saveProgress;
+  if(typeof originalSave==='function'){
+    window.saveProgress=function(){originalSave();recordActivity();liRefresh()};
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',liRefresh);else liRefresh();
+})();
+</script>
+
 </body>
 </html>
