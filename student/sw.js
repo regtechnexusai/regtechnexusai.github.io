@@ -1,5 +1,5 @@
-const CACHE_NAME='regtech-student-hub-v4';
-const CORE=['./','./manifest.webmanifest','../regtech-nexus-ai-logo-2026.png','./bangla/','./aml-cft/','./ifrs/','./privacy.html','./ai-use.html'];
+const CACHE_NAME='regtech-student-hub-v5';
+const CORE=['./','./manifest.webmanifest','../regtech-nexus-ai-logo-2026.png','./bangla/','./aml-cft/','./ifrs/','./privacy.html','./ai-use.html','./knowledge-updates/'];
 
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting()));
