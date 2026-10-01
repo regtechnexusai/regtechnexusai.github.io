@@ -884,58 +884,82 @@ body.calculator-page .footer-brand .brand-logo,
 }
 
 
-/* 2026-10-02: mobile-first toolkit discovery tabs on the main homepage. */
+/* 2026-10-02: mobile-first multicolor toolkit discovery tabs on the main homepage. */
 .mobile-toolkit-tabs{
   display:none;
 }
 
 @media(max-width:760px){
   .mobile-toolkit-tabs{
-    display:flex;
-    align-items:stretch;
-    gap:10px;
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:8px;
     width:100%;
-    padding:12px 14px 13px;
+    box-sizing:border-box;
+    padding:12px 14px 14px;
     margin:0;
-    overflow-x:auto;
-    overflow-y:hidden;
-    white-space:nowrap;
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:none;
-    background:rgba(255,255,255,.98);
+    background:rgba(255,255,255,.99);
     border-bottom:1px solid #dbe4ec;
     box-shadow:0 5px 16px rgba(16,43,73,.08);
-    overscroll-behavior-x:contain;
   }
-  .mobile-toolkit-tabs::-webkit-scrollbar{display:none}
   .mobile-toolkit-tabs .tool-tab{
     box-sizing:border-box;
-    flex:0 0 auto;
-    min-height:50px;
-    display:inline-flex;
+    min-width:0;
+    min-height:68px;
+    display:flex;
+    flex-direction:column;
     align-items:center;
     justify-content:center;
-    padding:11px 17px;
+    gap:4px;
+    padding:10px 8px;
     border:1px solid #d9e2eb;
     border-left:5px solid var(--tab-accent,#0956a8);
     border-radius:15px;
     color:#20324b;
     background:var(--tab-bg,#f4f8fb);
     text-decoration:none;
-    font-family:inherit;
-    font-size:14px;
-    line-height:1.1;
-    font-weight:800;
-    box-shadow:0 4px 10px rgba(16,43,73,.08),inset 0 1px 0 rgba(255,255,255,.9);
+    text-align:center;
+    box-shadow:0 4px 10px rgba(16,43,73,.08),inset 0 1px 0 rgba(255,255,255,.92);
     transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;
   }
-  .mobile-toolkit-tabs .tool-tab:active{transform:translateY(2px);box-shadow:0 2px 6px rgba(16,43,73,.1)}
-  .mobile-toolkit-tabs .tool-tab:focus-visible{outline:3px solid rgba(9,86,168,.28);outline-offset:2px}
+  .mobile-toolkit-tabs .tool-tab b{
+    display:block;
+    color:#1d334c;
+    font-size:12px;
+    line-height:1.15;
+    font-weight:900;
+  }
+  .mobile-toolkit-tabs .tool-tab span{
+    display:block;
+    max-width:100%;
+    overflow:hidden;
+    color:#5e6b78;
+    font-size:8.5px;
+    line-height:1.15;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+  }
+  .mobile-toolkit-tabs .tool-tab:hover{
+    color:#102b49;
+    transform:translateY(-2px);
+    filter:saturate(1.06);
+    box-shadow:0 8px 16px rgba(16,43,73,.12),inset 0 1px 0 rgba(255,255,255,.96);
+  }
+  .mobile-toolkit-tabs .tool-tab:active{
+    transform:translateY(2px);
+    box-shadow:0 2px 6px rgba(16,43,73,.1);
+  }
+  .mobile-toolkit-tabs .tool-tab:focus-visible{
+    outline:3px solid rgba(9,86,168,.28);
+    outline-offset:2px;
+  }
+
   .mobile-toolkit-tabs .tool-tab--solutions{--tab-accent:#1677d2;--tab-bg:#eef6ff}
   .mobile-toolkit-tabs .tool-tab--tradeguard{--tab-accent:#10a37f;--tab-bg:#eefaf6}
   .mobile-toolkit-tabs .tool-tab--payscale{--tab-accent:#d59a1a;--tab-bg:#fff8e8}
   .mobile-toolkit-tabs .tool-tab--icms{--tab-accent:#8b5bd7;--tab-bg:#f5f0ff}
   .mobile-toolkit-tabs .tool-tab--mdceo{--tab-accent:#d43b8d;--tab-bg:#fff0f7}
+  .mobile-toolkit-tabs .tool-tab--bank{--tab-accent:#e06b4f;--tab-bg:#fff1ed}
   .mobile-toolkit-tabs .tool-tab--global{--tab-accent:#1598ad;--tab-bg:#ecfaff}
   .mobile-toolkit-tabs .tool-tab--policy{--tab-accent:#5f58b5;--tab-bg:#f2f0ff}
   .mobile-toolkit-tabs .tool-tab--student{--tab-accent:#0c9b88;--tab-bg:#ecfbf7}
@@ -944,9 +968,34 @@ body.calculator-page .footer-brand .brand-logo,
   .mobile-toolkit-tabs .tool-tab--assistant{--tab-accent:#b42f83;--tab-bg:#fff0f8}
 }
 
-@media(max-width:420px){
-  .mobile-toolkit-tabs{gap:8px;padding:10px 12px 11px}
-  .mobile-toolkit-tabs .tool-tab{min-height:47px;padding:10px 14px;font-size:13px;border-radius:14px}
+@media(max-width:560px){
+  .mobile-toolkit-tabs{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:7px;
+    padding:11px 12px 13px;
+  }
+  .mobile-toolkit-tabs .tool-tab{
+    min-height:67px;
+    padding:9px 6px;
+    border-left-width:4px;
+    border-radius:13px;
+  }
+  .mobile-toolkit-tabs .tool-tab b{font-size:11px}
+  .mobile-toolkit-tabs .tool-tab span{font-size:7.8px}
+}
+
+@media(max-width:390px){
+  .mobile-toolkit-tabs{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+    padding:10px 11px 12px;
+  }
+  .mobile-toolkit-tabs .tool-tab{
+    min-height:66px;
+    padding:10px 8px;
+  }
+  .mobile-toolkit-tabs .tool-tab b{font-size:11.5px}
+  .mobile-toolkit-tabs .tool-tab span{font-size:8.2px}
 }
 
 @media(prefers-reduced-motion:reduce){
