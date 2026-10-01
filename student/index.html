@@ -959,6 +959,72 @@ section#ai + section .card-grid .card:nth-child(6){border-top-color:#2f80ed;back
   #aiAnswerModal .ai-answer-text{border:0!important;min-height:0!important;padding:0!important}
 }
 </style>
+<style id="student-hub-crystal-ai">
+/* Crystal white CTA + multi-source AI answer reader */
+/* Hero: crystal-clear glossy white 3D button — no dark/black fill */
+.hero-actions .btn-primary,
+.hero-actions a.btn-primary,
+.hero-actions button.btn-primary{
+  color:#123e70 !important;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.99) 0%,rgba(255,255,255,.96) 24%,rgba(242,249,255,.98) 58%,rgba(218,235,250,.98) 100%) !important;
+  border:1px solid rgba(157,193,224,.92) !important;
+  border-top:2px solid rgba(255,255,255,1) !important;
+  border-radius:18px !important;
+  box-shadow:
+    inset 0 2px 3px rgba(255,255,255,1),
+    inset 0 -8px 14px rgba(135,181,222,.18),
+    0 2px 0 rgba(115,159,201,.72),
+    0 9px 0 rgba(55,111,171,.22),
+    0 16px 30px rgba(19,71,125,.22) !important;
+  text-shadow:0 1px 0 rgba(255,255,255,.95);
+  position:relative;
+  overflow:hidden;
+  transform:translateY(0);
+}
+.hero-actions .btn-primary::after,
+.hero-actions a.btn-primary::after,
+.hero-actions button.btn-primary::after{
+  content:"";
+  position:absolute;left:8%;right:8%;top:7px;height:34%;
+  border-radius:999px;
+  background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(255,255,255,0));
+  pointer-events:none;
+}
+.hero-actions .btn-primary:hover,
+.hero-actions a.btn-primary:hover,
+.hero-actions button.btn-primary:hover{
+  color:#0a3768 !important;
+  background:linear-gradient(180deg,#fff 0%,#fff 28%,#eef7ff 62%,#d6eaff 100%) !important;
+  transform:translateY(-2px);
+  box-shadow:
+    inset 0 2px 3px #fff,
+    inset 0 -8px 14px rgba(135,181,222,.16),
+    0 3px 0 rgba(115,159,201,.72),
+    0 11px 0 rgba(55,111,171,.20),
+    0 20px 34px rgba(19,71,125,.25) !important;
+}
+.hero-actions .btn-primary:active,
+.hero-actions a.btn-primary:active,
+.hero-actions button.btn-primary:active{
+  transform:translateY(5px);
+  box-shadow:inset 0 2px 3px #fff,0 2px 0 rgba(55,111,171,.45),0 7px 15px rgba(19,71,125,.18) !important;
+}
+
+/* AI Answer source cards */
+.ai-source-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+.ai-source-btn{
+  min-height:58px;border:1px solid #d4dfeb;border-radius:13px;background:linear-gradient(145deg,#fff,#f4f8fc);
+  color:#163f68;font-weight:800;cursor:pointer;box-shadow:inset 0 1px #fff,0 4px 12px rgba(31,75,115,.08);
+}
+.ai-source-btn:hover{transform:translateY(-1px);box-shadow:inset 0 1px #fff,0 7px 16px rgba(31,75,115,.13)}
+.ai-source-label{display:block;font-size:.72rem;opacity:.68;margin-top:3px}
+.ai-answer-source-note{padding:12px 14px;border-radius:12px;background:linear-gradient(135deg,#edf7ff,#fff);border:1px solid #cfe2f3;color:#315574;line-height:1.55}
+.ai-answer-text{font-family:inherit !important}
+.ai-answer-actions-grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+@media(max-width:720px){.ai-source-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:430px){.ai-source-grid{grid-template-columns:1fr}}
+</style>
 </head>
 
 <body>
@@ -1367,7 +1433,7 @@ section#ai + section .card-grid .card:nth-child(6){border-top-color:#2f80ed;back
               class="btn ai-answer-btn"
               type="button"
               onclick="openAIAnswerWorkspace()">
-              AI Answer / Report
+              Get AI Answer / Report
             </button>
 
             <span
@@ -2084,18 +2150,27 @@ renderSubjects();selectSubject(currentSubject||'Mathematics');
     </div>
 
     <div id="aiAnswerPane" class="ai-answer-pane">
-      <div class="ai-answer-note">
-        <strong>Answer workflow:</strong> Open the RegTech Nexus AI GPT with the prompt above, review/verify the response, then paste the final answer below. The report can be printed or saved as PDF from your browser.
+      <div class="ai-answer-source-note">
+        <strong>AI Answer Reader:</strong> Get an answer from the AI/source you choose below, then place the answer in this workspace. The page keeps the answer readable and lets the student copy, print, or save it as PDF.
       </div>
       <div class="ai-answer-meta">
         <div><strong>Subject</strong><br><span id="aiReportSubject2">—</span></div>
         <div><strong>Topic</strong><br><span id="aiReportTopic2">—</span></div>
       </div>
-      <textarea id="aiAnswerText" class="ai-answer-text" placeholder="Paste the verified ChatGPT answer here…"></textarea>
-      <div class="ai-answer-footer">
+
+      <div class="ai-source-grid">
+        <button class="ai-source-btn" type="button" onclick="openRegTechGPT()">RegTech Nexus AI<span class="ai-source-label">Custom GPT</span></button>
+        <button class="ai-source-btn" type="button" onclick="openExternalAI('https://gemini.google.com/')">Google Gemini<span class="ai-source-label">Open AI source</span></button>
+        <button class="ai-source-btn" type="button" onclick="openExternalAI('https://www.perplexity.ai/')">Perplexity<span class="ai-source-label">Research AI</span></button>
+        <button class="ai-source-btn" type="button" onclick="openExternalAI('https://www.google.com/search?q='+encodeURIComponent(document.getElementById('aiReportTopic2').textContent))">Google Search<span class="ai-source-label">Web sources</span></button>
+      </div>
+
+      <textarea id="aiAnswerText" class="ai-answer-text" placeholder="Paste the answer you received from ChatGPT, Gemini, Perplexity, Google or another AI/source here. You can then read, edit, copy, print or save it as PDF."></textarea>
+
+      <div class="ai-answer-actions-grid">
         <button class="btn btn-primary" type="button" onclick="printAIAnswerReport()">Print / Save as PDF</button>
         <button class="btn ai-report-btn" type="button" onclick="copyAIAnswer()">Copy Answer</button>
-        <button class="btn btn-secondary" type="button" onclick="openRegTechGPT()">Open ChatGPT Again ↗</button>
+        <button class="btn btn-secondary" type="button" onclick="clearAIAnswer()">Clear Answer</button>
       </div>
     </div>
   </div>
@@ -2141,10 +2216,18 @@ function openRegTechGPT(){
   navigator.clipboard?.writeText(prompt).catch(()=>{});
   window.open(REGTECH_GPT_URL,'_blank','noopener');
 }
+function openExternalAI(url){
+  const prompt=document.getElementById('aiAnswerPrompt').value||buildCurrentStudyPrompt();
+  navigator.clipboard?.writeText(prompt).catch(()=>{});
+  window.open(url,'_blank','noopener');
+}
 function copyAIAnswer(){
   const value=document.getElementById('aiAnswerText').value;
   navigator.clipboard?.writeText(value).catch(()=>{});
   alert(value?'Answer copied.':'There is no answer text to copy yet.');
+}
+function clearAIAnswer(){
+  document.getElementById('aiAnswerText').value='';
 }
 function printAIAnswerReport(){
   const answer=document.getElementById('aiAnswerText').value.trim();
