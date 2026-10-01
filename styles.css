@@ -847,3 +847,24 @@ body.calculator-page .footer-brand .brand-logo,
 .policy-gap-home-callout .tag{color:#b9b0ff}
 .policy-gap-home-callout>a{background:#b9b0ff;color:#17153b;border-color:#d5d0ff;box-shadow:0 5px 0 #50488c}
 .policy-gap-home-callout>a:hover{background:#d5d0ff}
+
+
+/* Student Knowledge Hub CTA — glossy white 3D treatment */
+/* Scoped only to the Student Knowledge Hub home callout; existing site CTA colours remain unchanged elsewhere. */
+.student-home-callout .site-3d-btn.site-3d-btn--cobalt{
+  color:#0956a8 !important;
+  background:linear-gradient(180deg,#ffffff 0%,#ffffff 58%,#f4f9ff 100%);
+  border:1px solid #ffffff;
+  text-shadow:0 1px 0 rgba(255,255,255,.9);
+  box-shadow:0 6px 0 #7ea7d7,0 18px 30px rgba(1,24,58,.30),inset 0 2px 0 rgba(255,255,255,1),inset 0 -8px 16px rgba(105,158,220,.10);
+}
+.student-home-callout .site-3d-btn.site-3d-btn--cobalt:hover{
+  color:#064a94 !important;
+  background:linear-gradient(180deg,#ffffff 0%,#ffffff 52%,#edf6ff 100%);
+  transform:translateY(-2px);
+  box-shadow:0 8px 0 #6f9dce,0 22px 34px rgba(1,24,58,.34),inset 0 2px 0 rgba(255,255,255,1),inset 0 -8px 16px rgba(105,158,220,.12);
+}
+.student-home-callout .site-3d-btn.site-3d-btn--cobalt:active{
+  transform:translateY(3px);
+  box-shadow:0 3px 0 #6f9dce,0 10px 18px rgba(1,24,58,.24),inset 0 2px 0 rgba(255,255,255,.95);
+}
