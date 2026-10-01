@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Student Knowledge Hub | Free Learning, AI & Career Toolkit | RegTech Nexus AI</title>
+
+  <meta name="description"
+        content="RegTech Nexus AI Student Knowledge Hub — free learning resources, AI study tools, research skills, academic skills, architecture, career preparation, financial literacy and digital literacy for students.">
+
+  <meta name="keywords"
+        content="student knowledge hub, free study resources, AI tools for students, AI study assistant, AI literacy for students, research skills, academic skills, architecture students, career preparation, financial literacy, digital literacy, free student tools, RegTech Nexus AI">
+
+  <meta name="author"
+        content="RegTech Nexus AI">
+
+  <meta name="robots"
+        content="index, follow">
+
+  <link rel="canonical"
+        href="https://regtechnexusai.com/student/">
+
+  <meta property="og:type"
+        content="website">
+
+  <meta property="og:title"
+        content="Student Knowledge Hub | RegTech Nexus AI">
+
+  <meta property="og:description"
+        content="Free learning, AI, research, academic, architecture, career and digital literacy resources for students.">
+
+  <meta property="og:url"
+        content="https://regtechnexusai.com/student/">
+
+  <meta name="twitter:card"
+        content="summary">
+
+  <meta name="twitter:title"
+        content="Student Knowledge Hub | RegTech Nexus AI">
+
+  <meta name="twitter:description"
+        content="Free learning resources, AI study tools, research guidance and career preparation for students.">
+
+  <style>
+    :root {
+      --primary: #123c69;
+      --primary-dark: #0b2948;
+      --accent: #1f7a8c;
+      --light: #f5f8fb;
+      --lighter: #fbfcfe;
+      --dark: #17212b;
+      --muted: #5e6b78;
+      --border: #dce4ec;
+      --white: #ffffff;
+      --success: #287d4b;
+      --shadow: 0 8px 25px rgba(16, 39, 64, 0.08);
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background: var(--lighter);
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      width: min(1180px, 92%);
+      margin: 0 auto;
+    }
+
+    /* Header */
+
+    .site-header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-inner {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    /* Hero */
+
+    .hero {
+      background:
+        linear-gradient(
+          135deg,
+          #eef5fb 0%,
+          #ffffff 55%,
+          #edf7f8 100%
+        );
+      padding: 72px 0 58px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 45px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: #e4eff8;
+      color: var(--primary);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-size: clamp(2.1rem, 5vw, 4rem);
+      line-height: 1.08;
+      color: var(--primary-dark);
+    }
+
+    .hero p {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 1.08rem;
+      margin-bottom: 25px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 9px;
+      border: 1px solid var(--primary);
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      text-decoration: none;
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      color: var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--light);
+      text-decoration: none;
+    }
+
+    .hero-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 25px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card h2 {
+      margin-top: 0;
+      color: var(--primary);
+      font-size: 1.25rem;
+    }
+
+    .hero-card ul {
+      padding-left: 20px;
+      margin-bottom: 0;
+    }
+
+    .hero-card li {
+      margin: 8px 0;
+    }
+
+    /* Sections */
+
+    section {
+      padding: 58px 0;
+    }
+
+    section:nth-of-type(even) {
+      background: var(--white);
+    }
+
+    .section-heading {
+      max-width: 780px;
+      margin-bottom: 30px;
+    }
+
+    .section-heading h2 {
+      margin: 0 0 9px;
+      color: var(--primary-dark);
+      font-size: clamp(1.7rem, 3vw, 2.35rem);
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* Cards */
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 23px;
+      box-shadow: 0 4px 16px rgba(16, 39, 64, 0.04);
+    }
+
+    section:nth-of-type(even) .card {
+      background: var(--lighter);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: var(--primary);
+      font-size: 1.18rem;
+    }
+
+    .card p {
+      color: var(--muted);
+    }
+
+    .card ul {
+      padding-left: 20px;
+      margin-bottom: 0;
+    }
+
+    .card li {
+      margin: 6px 0;
+    }
+
+    /* AI Study Coach */
+
+    .ai-section {
+      background:
+        linear-gradient(
+          135deg,
+          #f0f7fb,
+          #ffffff
+        );
+    }
+
+    .ai-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px 13px;
+      border: 1px solid #cbd6e0;
+      border-radius: 8px;
+      background: var(--white);
+      color: var(--dark);
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 115px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: 2px solid rgba(31, 122, 140, 0.2);
+      border-color: var(--accent);
+    }
+
+    .ai-actions {
+      margin-top: 20px;
+    }
+
+    #promptOutput {
+      display: none;
+      margin-top: 22px;
+      padding: 20px;
+      border-radius: 10px;
+      background: #f4f7fa;
+      border: 1px solid var(--border);
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace;
+      font-size: 0.88rem;
+    }
+
+    .copy-status {
+      display: inline-block;
+      margin-left: 10px;
+      color: var(--success);
+      font-weight: 700;
+    }
+
+    /* Topic lists */
+
+    .topic-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 15px;
+    }
+
+    .topic {
+      padding: 7px 11px;
+      background: #edf3f8;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--primary-dark);
+      font-size: 0.83rem;
+      font-weight: 600;
+    }
+
+    /* Tools */
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .tool {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 19px;
+    }
+
+    .tool h3 {
+      font-size: 1rem;
+      margin: 0 0 8px;
+      color: var(--primary);
+    }
+
+    .tool p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    /* Learning pathway */
+
+    .pathway {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .step {
+      position: relative;
+      padding: 22px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .step-number {
+      display: inline-flex;
+      width: 32px;
+      height: 32px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--primary);
+      color: var(--white);
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .step h3 {
+      margin: 0 0 7px;
+      font-size: 1rem;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    /* Notice */
+
+    .notice {
+      padding: 18px 20px;
+      background: #f5f8fb;
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      color: var(--muted);
+    }
+
+    /* Footer */
+
+    .footer {
+      padding: 42px 0;
+      background: var(--primary-dark);
+      color: #dfe8f0;
+    }
+
+    .footer strong {
+      color: var(--white);
+    }
+
+    .footer p {
+      max-width: 800px;
+    }
+
+    .footer a {
+      color: #ffffff;
+    }
+
+    .footer small {
+      display: block;
+      margin-top: 20px;
+      color: #b8c7d4;
+    }
+
+    /* Responsive */
+
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .tool-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .pathway {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 650px) {
+      .header-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        padding: 48px 0 42px;
+      }
+
+      section {
+        padding: 45px 0;
+      }
+
+      .card-grid,
+      .tool-grid,
+      .pathway,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        text-align: center;
+      }
+    }
+  </style>
+
+  <!-- Structured data for search engines -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "RegTech Nexus AI — Student Knowledge Hub",
+    "url": "https://regtechnexusai.com/student/",
+    "description": "Free learning, AI, research, academic skills, architecture, career preparation, financial literacy and digital literacy resources for students.",
+    "educationalUse": [
+      "Study",
+      "Research",
+      "AI Literacy",
+      "Academic Skills",
+      "Career Preparation",
+      "Financial Literacy",
+      "Digital Literacy"
+    ]
+  }
+  </script>
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+
+      <a class="brand"
+         href="../"
+         aria-label="Return to RegTech Nexus AI">
+        RegTech Nexus AI
+      </a>
+
+      <nav class="nav"
+           aria-label="Student Knowledge Hub navigation">
+        <a href="#study">Study</a>
+        <a href="#ai">AI</a>
+        <a href="#research">Research</a>
+        <a href="#career">Career</a>
+        <a href="#tools">Tools</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+
+    <section class="hero">
+      <div class="container hero-grid">
+
+        <div>
+          <span class="eyebrow">
+            Free Student Learning Initiative
+          </span>
+
+          <h1>
+            Student Knowledge Hub
+          </h1>
+
+          <p>
+            Free learning resources, AI study guidance, research skills,
+            academic skills, architecture learning, career preparation,
+            financial literacy and digital literacy for students.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary"
+               href="#ai">
+              Try the AI Study Coach
+            </a>
+
+            <a class="btn btn-secondary"
+               href="#study">
+              Explore Study Topics
+            </a>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <h2>What you can learn</h2>
+
+          <ul>
+            <li>Academic and subject knowledge</li>
+            <li>AI literacy and responsible AI use</li>
+            <li>Research and source evaluation</li>
+            <li>Architecture and design concepts</li>
+            <li>Career and professional skills</li>
+            <li>Financial and digital literacy</li>
+            <li>Practical student tools</li>
+          </ul>
+        </aside>
+
+      </div>
+    </section>
+
+
+    <!-- LEARNING PATHWAY -->
+
+    <section>
+      <div class="container">
+
+        <div class="section-heading">
+          <h2>Learn → Practice → Feedback → Test</h2>
+
+          <p>
+            The Student Knowledge Hub is designed around active learning
+            rather than simply collecting information.
+          </p>
+        </div>
+
+        <div class="pathway">
+
+          <div class="step">
+            <span class="step-number">1</span>
+            <h3>Learn</h3>
+            <p>
+              Understand the concept using clear explanations and examples.
+            </p>
+          </div>
+
+          <div class="step">
+            <span class="step-number">2</span>
+            <h3>Practice</h3>
+            <p>
+              Apply the concept through questions, examples and exercises.
+            </p>
+          </div>
+
+          <div class="step">
+            <span class="step-number">3</span>
+            <h3>Feedback</h3>
+            <p>
+              Identify mistakes and understand why an answer needs improvement.
+            </p>
+          </div>
+
+          <div class="step">
+            <span class="step-number">4</span>
+            <h3>Test</h3>
+            <p>
+              Use quizzes and self-assessment to identify areas for revision.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- STUDY -->
+
+    <section id="study">
+      <div class="container">
+
+        <div class="section-heading">
+          <h2>Study & Subject Knowledge</h2>
+
+          <p>
+            Build subject knowledge through structured explanations,
+            examples, practice questions and revision resources.
+          </p>
+        </div>
+
+        <div class="card-grid">
+
+          <article class="card">
+            <h3>Mathematics & Statistics</h3>
+
+            <div class="topic-list">
+              <span class="topic">Mathematics</span>
+              <span class="topic">Statistics</span>
+              <span class="topic">Probability</span>
+              <span class="topic">Data Analysis</span>
+              <span class="topic">Quantitative Methods</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Business, Economics & Finance</h3>
+
+            <div class="topic-list">
+              <span class="topic">Economics</span>
+              <span class="topic">Accounting</span>
+              <span class="topic">Finance</span>
+              <span class="topic">Business Studies</span>
+              <span class="topic">Management</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Technology & Computing</h3>
+
+            <div class="topic-list">
+              <span class="topic">Computer Science</span>
+              <span class="topic">Programming</span>
+              <span class="topic">Information Technology</span>
+              <span class="topic">Data Science</span>
+              <span class="topic">Cybersecurity</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>English & Communication</h3>
+
+            <div class="topic-list">
+              <span class="topic">English</span>
+              <span class="topic">Writing</span>
+              <span class="topic">Communication</span>
+              <span class="topic">Presentation</span>
+              <span class="topic">Professional Writing</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Science & Social Science</h3>
+
+            <div class="topic-list">
+              <span class="topic">General Science</span>
+              <span class="topic">Social Science</span>
+              <span class="topic">Research</span>
+              <span class="topic">Critical Thinking</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Research Methodology</h3>
+
+            <div class="topic-list">
+              <span class="topic">Research Questions</span>
+              <span class="topic">Methodology</span>
+              <span class="topic">Literature Review</span>
+              <span class="topic">Data Collection</span>
+              <span class="topic">Citation</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ARCHITECTURE -->
+
+    <section>
+      <div class="container">
+
+        <div class="section-heading">
+          <h2>Architecture & Design</h2>
+
+          <p>
+            A dedicated learning area for architecture students covering
+            design, construction, technology, sustainability and research.
+          </p>
+        </div>
+
+        <div class="card-grid">
+
+          <article class="card">
+            <h3>Architectural Design</h3>
+            <ul>
+              <li>Design principles</li>
+              <li>Concept development</li>
+              <li>Site analysis</li>
+              <li>Design studio guidance</li>
+              <li>Architectural drawing</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Construction & Structures</h3>
+            <ul>
+              <li>Building construction</li>
+              <li>Building materials</li>
+              <li>Structural concepts</li>
+              <li>Building services</li>
+              <li>Construction documentation</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Environment & Sustainability</h3>
+            <ul>
+              <li>Environmental design</li>
+              <li>Sustainable architecture</li>
+              <li>Climate-responsive design</li>
+              <li>Energy concepts</li>
+              <li>Urban design</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Digital Architecture</h3>
+            <ul>
+              <li>CAD</li>
+              <li>BIM</li>
+              <li>3D modelling</li>
+              <li>Visualization</li>
+              <li>Digital workflows</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Architecture Research</h3>
+            <ul>
+              <li>Research questions</li>
+              <li>Case studies</li>
+              <li>Literature review</li>
+              <li>Academic writing</li>
+              <li>Evidence evaluation</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>AI for Architecture</h3>
+            <ul>
+              <li>AI-assisted ideation</li>
+              <li>Research assistance</li>
+              <li>Design workflow support</li>
+              <li>Visualization concepts</li>
+              <li>Responsible AI use</li>
+            </ul>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- AI -->
+
+    <section id="ai" class="ai-section">
+      <div class="container">
+
+        <div class="section-heading">
+          <h2>AI Study Coach</h2>
+
+          <p>
+            Create a structured AI learning prompt that helps you understand,
+            practice and test a subject instead of simply generating an
+            assignment for submission.
+          </p>
+        </div>
+
+        <div class="ai-box">
+
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="subject">
+                Subject
+              </label>
+
+              <input
+                id="subject"
+                type="text"
+                placeholder="e.g. Economics, Architecture, Mathematics">
+            </div>
+
+            <div class="form-group">
+              <label for="level">
+                Study Level
+              </label>
+
+              <select id="level">
+                <option value="School">School</option>
+                <option value="College">College</option>
+                <option value="University">University</option>
+                <option value="Professional">Professional</option>
+                <option value="Beginner">Beginner</option>
+                <option value="Advanced">Advanced</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="topic">
+                Topic
+              </label>
+
+              <input
+                id="topic"
+                type="text"
+                placeholder="e.g. Inflation, Structural Design, Statistics">
+            </div>
+
+            <div class="form-group full">
+              <label for="goal">
+                What do you want to learn?
+              </label>
+
+              <textarea
+                id="goal"
+                placeholder="Describe your learning goal..."></textarea>
+            </div>
+
+          </div>
+
+          <div class="ai-actions">
+
+            <button
+              class="btn btn-primary"
+              type="button"
+              onclick="buildPrompt()">
+              Create My AI Study Prompt
+            </button>
+
+            <button
+              class="btn btn-secondary"
+              type="button"
+              onclick="copyPrompt()">
+              Copy Prompt
+            </button>
+
+            <span
+              id="copyStatus"
+              class="copy-status"
+              aria-live="polite"></span>
+
+          </div>
+
+          <pre id="promptOutput"></pre>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- AI LEARNING -->
+
+    <section>
+      <div class="container">
+
+        <div class="section-heading">
+          <h2>AI Learning & AI Literacy</h2>
+
+          <p>
+            Learn how artificial intelligence works, how to use it responsibly,
+            and how it can support study, research and professional development.
+          </p>
+        </div>
+
+        <div class="card-grid">
+
+          <article class="card">
+            <h3>AI Fundamentals</h3>
+            <p>
+              Core concepts including artificial intelligence, machine
+              learning, generative AI and large language models.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>AI for Students</h3>
+            <p>
+              Use AI for explanations, brainstorming, revision, practice,
+              research planning and productivity.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Prompt Engineering</h3>
+            <p>
+              Learn how to formulate clear prompts, provide context,
+              specify constraints and evaluate AI outputs.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>AI-Assisted Research</h3>
+            <p>
+              Use AI to support research planning while independently
+              verifying sources, evidence and factual claims.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>AI Ethics</h3>
+            <p>
+              Explore responsible use, transparency, privacy, bias,
+              academic integrity and human oversight.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>AI for Architecture</h3>
+            <p>
+              Explore AI-supported research, ideation, visualization and
+              professional workflows in architecture.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- RESEARCH -->
+
+    <section id="research">
+      <div class="container">
+
+        <div class="section-heading">
+          <h2>Research Skills</h2>
+
+          <p>
+            Learn how to find, evaluate, organize and communicate information
+            responsibly.
+          </p>
+        </div>
+
+        <div class="card-grid">
+
+          <article class="card">
+            <h3>Research Foundations</h3>
+            <ul>
+              <li>How to choose a research topic</li>
+              <li>Research questions</li>
+              <li>Research objectives</li>
+              <li>Primary and secondary sources</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Source Evaluation</h3>
+            <ul>
+              <li>Authority</li>
+              <li>Accuracy</li>
+              <li>Currency</li>
+              <li>Evidence quality</li>
+              <li>Fact checking</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Academic Writing</h3>
+            <ul>
+              <li>Essay structure</li>
+              <li>Research paper structure</li>
+              <li>Literature reviews</li>
+              <li>Citation basics</li>
+              <li>Plagiarism avoidance</li>
+            </ul>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ACADEMIC SKILLS -->
+
+    <section>
+      <div class="container">
+
+        <div class="section-heading">
+          <h2>Academic Skills</h2>
+
+          <p>
+            Practical skills for studying more effectively and communicating
+            knowledge clearly.
+          </p>
+        </div>
+
+        <div class="card-grid">
+
+          <article class="card">
+            <h3>Study Skills</h3>
+            <ul>
+              <li>Study planning</li>
+              <li>Note-taking</li>
+              <li>Revision planning</li>
+              <li>Exam preparation</li>
+              <li>Time management</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Critical Thinking</h3>
+            <ul>
+              <li>Argument analysis</li>
+              <li>Evidence evaluation</li>
+              <li>Problem solving</li>
+              <li>Logical reasoning</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Communication</h3>
+            <ul>
+              <li>Academic presentations</li>
+              <li>Professional communication</li>
+              <li>Public speaking</li>
+              <li>Professional email</li>
+            </ul>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- CAREER -->
+
+    <section id="career">
+      <div class="container">
+
+        <div class="section-heading">
+          <h2>Career Preparation</h2>
+
+          <p>
+            Build practical skills that help students transition from academic
+            study toward professional environments.
+          </p>
+        </div>
+
+        <div class="card-grid">
+
+          <article class="card">
+            <h3>CV & Resume</h3>
+            <ul>
+              <li>CV structure</li>
+              <li>Achievement statements</li>
+              <li>Skills presentation</li>
+              <li>Student CV checklist</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Interview Preparation</h3>
+            <ul>
+              <li>Interview questions</li>
+              <li>Answer structure</li>
+              <li>Professional communication</li>
+              <li>Mock interview practice</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Professional Skills</h3>
+            <ul>
+              <li>Communication</li>
+              <li>Problem solving</li>
+              <li>Critical thinking</li>
+              <li>Presentation</li>
+              <li>Workplace ethics</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>AI for Career Development</h3>
+            <ul>
+              <li>CV improvement</li>
+              <li>Interview practice</li>
+              <li>Career research</li>
+              <li>Presentation preparation</li>
+              <li>Productivity</li>
+            </ul>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- FINANCIAL + DIGITAL -->
+
+    <section>
+      <div class="container">
+
+        <div class="card-grid">
+
+          <article class="card">
+            <h2>Financial Literacy</h2>
+
+            <p>
+              Build practical financial knowledge for student and early-career
+              life.
+            </p>
+
+            <ul>
+              <li>Budgeting</li>
+              <li>Saving</li>
+              <li>Personal financial planning</li>
+              <li>Banking basics</li>
+              <li>Understanding financial products</li>
+              <li>Financial risk awareness</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h2>Digital Literacy</h2>
+
+            <p>
+              Develop practical skills for safe and effective participation
+              in the digital environment.
+            </p>
+
+            <ul>
+              <li>Online research</li>
+              <li>Information verification</li>
+              <li>Privacy awareness</li>
+              <li>Cybersecurity basics</li>
+              <li>Digital identity</li>
+              <li>Responsible technology use</li>
+            </ul>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- TOOLS -->
+
+    <section id="tools">
+      <div class="container">
+
+        <div class="section-heading">
+          <h2>Free Student Tools</h2>
+
+          <p>
+            Practical calculators, checklists, planners and learning utilities
+            can be added here as the Student Knowledge Hub grows.
+          </p>
+        </div>
+
+        <div class="tool-grid">
+
+          <div class="tool">
+            <h3>AI Study Prompt Generator</h3>
+            <p>
+              Create structured prompts for active learning.
+            </p>
+          </div>
+
+          <div class="tool">
+            <h3>Essay Planner</h3>
+            <p>
+              Organize arguments, evidence and sections.
+            </p>
+          </div>
+
+          <div class="tool">
+            <h3>Study Planner</h3>
+            <p>
+              Structure study sessions and revision goals.
+            </p>
+          </div>
+
+          <div class="tool">
+            <h3>Quiz Generator</h3>
+            <p>
+              Build practice questions around a topic.
+            </p>
+          </div>
+
+          <div class="tool">
+            <h3>GPA Calculator</h3>
+            <p>
+              Calculate academic performance using appropriate grading inputs.
+            </p>
+          </div>
+
+          <div class="tool">
+            <h3>Percentage Calculator</h3>
+            <p>
+              Perform common percentage calculations.
+            </p>
+          </div>
+
+          <div class="tool">
+            <h3>Citation Helper</h3>
+            <p>
+              Organize source information before preparing citations.
+            </p>
+          </div>
+
+          <div class="tool">
+            <h3>CV Checklist</h3>
+            <p>
+              Review key components of a student CV.
+            </p>
+          </div>
+
+          <div class="tool">
+            <h3>Source Evaluation Checklist</h3>
+            <p>
+              Assess credibility, relevance and evidence quality.
+            </p>
+          </div>
+
+          <div class="tool">
+            <h3>AI Literacy Checker</h3>
+            <p>
+              Reflect on responsible and effective AI use.
+            </p>
+          </div>
+
+          <div class="tool">
+            <h3>Career Skill Gap Checker</h3>
+            <p>
+              Identify skills that may need further development.
+            </p>
+          </div>
+
+          <div class="tool">
+            <h3>Presentation Planner</h3>
+            <p>
+              Structure presentations from introduction to conclusion.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- RESPONSIBLE AI NOTICE -->
+
+    <section>
+      <div class="container">
+
+        <div class="notice">
+
+          <strong>Responsible AI learning:</strong>
+
+          AI tools can support learning, brainstorming, explanation and
+          practice, but students should verify important information,
+          understand their institution's academic-integrity requirements,
+          protect personal information and remain responsible for submitted
+          work.
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer class="footer">
+
+    <div class="container">
+
+      <strong>
+        RegTech Nexus AI — Student Knowledge Hub
+      </strong>
+
+      <p>
+        Free learning resources for students covering AI, study, research,
+        architecture, career preparation, financial literacy and digital
+        literacy.
+      </p>
+
+      <p>
+        <a href="../">
+          ← Return to RegTech Nexus AI
+        </a>
+      </p>
+
+      <small>
+        © 2026 RegTech Nexus AI. Student learning resources are provided for
+        educational purposes and do not constitute official academic,
+        professional or regulatory advice.
+      </small>
+
+    </div>
+
+  </footer>
+
+
+  <script>
+    function buildPrompt() {
+
+      const subject =
+        document.getElementById("subject").value.trim()
+        || "the selected subject";
+
+      const level =
+        document.getElementById("level").value;
+
+      const topic =
+        document.getElementById("topic").value.trim()
+        || "the selected topic";
+
+      const goal =
+        document.getElementById("goal").value.trim()
+        || "understand the topic clearly and apply it";
+
+      const prompt = `
+You are my study coach.
+
+Subject: ${subject}
+Level: ${level}
+Topic: ${topic}
+
+My learning goal:
+${goal}
+
+Teach me using this sequence:
+
+1. Explain the concept clearly in simple language.
+2. Identify the key ideas I must understand.
+3. Give a practical example.
+4. Ask me ONE question at a time.
+5. Wait for my answer before continuing.
+6. If my answer is incorrect, explain the mistake and give me a hint.
+7. Do not immediately give me the answer unless I ask for it.
+8. After practice, give me a short quiz.
+9. Identify the areas I should revise.
+10. Finish with a concise summary.
+
+Important:
+- Distinguish facts from assumptions.
+- Tell me when information needs verification.
+- Do not fabricate sources or references.
+- If you provide factual claims that depend on current information,
+  identify what should be independently verified.
+- Help me learn rather than simply producing an assignment for submission.
+`;
+
+      const output =
+        document.getElementById("promptOutput");
+
+      output.style.display = "block";
+      output.textContent = prompt.trim();
+
+      document
+        .getElementById("copyStatus")
+        .textContent = "";
+    }
+
+
+    async function copyPrompt() {
+
+      const output =
+        document.getElementById("promptOutput");
+
+      const status =
+        document.getElementById("copyStatus");
+
+      if (!output.textContent.trim()) {
+
+        buildPrompt();
+      }
+
+      try {
+
+        await navigator.clipboard.writeText(
+          document.getElementById("promptOutput").textContent
+        );
+
+        status.textContent =
+          "Copied to clipboard.";
+
+      } catch (error) {
+
+        status.textContent =
+          "Please select and copy the prompt manually.";
+
+      }
+
+      setTimeout(function () {
+
+        status.textContent = "";
+
+      }, 3000);
+    }
+  </script>
+
+</body>
+</html>
