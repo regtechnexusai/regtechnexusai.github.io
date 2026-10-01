@@ -1,0 +1,5 @@
+Contact: mailto:regtechnexusai@gmail.com
+Expires: 2027-10-01T00:00:00Z
+Preferred-Languages: en, bn
+Canonical: https://regtechnexusai.com/.well-known/security.txt
+Policy: https://regtechnexusai.com/student/privacy.html
