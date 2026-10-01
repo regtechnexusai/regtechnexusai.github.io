@@ -1,0 +1,18 @@
+{
+  "name": "RegTech Nexus AI — Student Knowledge Hub",
+  "short_name": "Student Hub",
+  "start_url": "/student/",
+  "scope": "/student/",
+  "display": "standalone",
+  "background_color": "#f7fbff",
+  "theme_color": "#10203b",
+  "description": "Free learning, AI study tools, research skills, academic skills, architecture, career preparation, financial literacy and digital literacy.",
+  "icons": [
+    {
+      "src": "/regtech-nexus-ai-logo-2026.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
