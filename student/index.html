@@ -644,6 +644,50 @@ section[id]{scroll-margin-top:96px}
 .tool-book{border-left:10px solid var(--tool-accent)!important;border-radius:7px 18px 18px 7px;background:linear-gradient(145deg,var(--tool-bg),#fff 72%)!important;box-shadow:0 11px 25px rgba(20,45,75,.13),inset 0 0 0 1px rgba(255,255,255,.7)}.tool-book:before{width:3px!important;left:10px!important;background:rgba(255,255,255,.9)!important}.tool-book .tool-open{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.78);box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)}
 .ai-box,.study-workspace,.tool-workspace{box-shadow:0 12px 30px rgba(16,39,64,.09)}.ai-box{border-top:6px solid #d9468f}.study-workspace{border-top:6px solid #2f80ed}.tool-workspace{border-top:6px solid #10a37f}.notice{border-left-color:#e58a18!important;background:linear-gradient(90deg,#fff8eb,#fff)}
 @media(max-width:650px){.site-header .nav{width:100%;gap:7px}.site-header .nav a{flex:1 1 auto;min-width:80px}}
+
+/* Student Hub section-by-section visual polish — additive only */
+.student-personalize{position:relative;overflow:hidden}
+.student-personalize:before{content:"";position:absolute;left:0;top:0;width:100%;height:5px;background:linear-gradient(90deg,#2f80ed,#d9468f,#10a37f,#e58a18,#7c5ce6,#159bb8)}
+.hero{position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-70px;top:-80px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(47,128,237,.12),rgba(217,70,143,.06) 45%,transparent 70%);pointer-events:none}
+main>section:not(.hero):not(.student-personalize):not(.ai-handoff){position:relative}
+main>section:not(.hero):not(.student-personalize):not(.ai-handoff):before{content:"";position:absolute;left:4%;right:4%;top:0;height:3px;border-radius:99px;background:linear-gradient(90deg,rgba(47,128,237,.75),rgba(217,70,143,.45),rgba(16,163,127,.45),rgba(229,138,24,.45),rgba(124,92,230,.45),rgba(21,155,184,.45));opacity:.75}
+section[id] .section-heading{position:relative}
+section[id] .section-heading:before{display:inline-flex;align-items:center;margin-bottom:10px;padding:5px 10px;border-radius:999px;font-size:.68rem;font-weight:900;letter-spacing:.08em;color:#17324d;background:#eef5ff;border:1px solid #d8e7f6}
+section#study .section-heading:before{content:"STUDY";background:#edf5ff;color:#2563eb;border-color:#cfe0fb}
+section#ai .section-heading:before{content:"AI LEARNING";background:#fff0f7;color:#c02670;border-color:#f3c7dd}
+section#research .section-heading:before{content:"RESEARCH";background:#ecfbf5;color:#087f64;border-color:#c7eadf}
+section#career .section-heading:before{content:"CAREER";background:#fff7e8;color:#b56a08;border-color:#f1d49e}
+section#tools .section-heading:before{content:"TOOLS";background:#f3efff;color:#6844c6;border-color:#ddd1fa}
+section#interactive-study .section-heading:before{content:"PRACTICE LAB";background:#eafaff;color:#087c98;border-color:#c6eaf3}
+section#learning-briefs .section-heading:before{content:"LEARNING BRIEFS";background:#fff4eb;color:#c2410c;border-color:#f4d3bc}
+section#study{background:linear-gradient(180deg,#f7fbff 0%,#fff 100%)}
+section#ai{background:linear-gradient(180deg,#fff7fb 0%,#fff 100%)}
+section#research{background:linear-gradient(180deg,#f5fcf9 0%,#fff 100%)}
+section#career{background:linear-gradient(180deg,#fffaf0 0%,#fff 100%)}
+section#tools{background:linear-gradient(180deg,#faf8ff 0%,#fff 100%)}
+section#interactive-study{background:linear-gradient(180deg,#f2fbfd 0%,#fff 100%)}
+section#learning-briefs{background:linear-gradient(180deg,#fff8f2 0%,#fff 100%)}
+section#study .card-grid .card{background:linear-gradient(145deg,#fff,#f3f8ff);border-top:4px solid #2f80ed}
+section#ai+.section-heading{}
+section#research .card-grid .card{background:linear-gradient(145deg,#fff,#f1fbf7);border-top:4px solid #10a37f}
+section#career .card-grid .card{background:linear-gradient(145deg,#fff,#fff8ec);border-top:4px solid #e58a18}
+section#interactive-study .study-workspace{background:linear-gradient(145deg,#fff,#f2fbfd);border-color:#cfeaf0}
+section#learning-briefs .knowledge-card{transition:transform .2s ease,box-shadow .2s ease}
+section#learning-briefs .knowledge-card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(16,39,64,.12)}
+section#tools .tool-book-grid{position:relative}
+section#tools .tool-book{min-height:205px}
+section#tools .tool-book .tool-open{position:relative;z-index:2}
+section#interactive-study .subject-library .subject-btn.active{box-shadow:0 0 0 3px rgba(47,128,237,.12),0 12px 25px rgba(16,39,64,.12);transform:translateY(-3px)}
+section#interactive-study .topic-buttons button{transition:.18s ease;border-left:4px solid #159bb8}
+section#interactive-study .topic-buttons button:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(16,39,64,.08)}
+.ai-handoff{position:relative;overflow:hidden}
+.ai-handoff:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(47,128,237,.08),rgba(217,70,143,.08),rgba(16,163,127,.08));pointer-events:none}
+.ai-handoff-card{position:relative;z-index:1}
+@media(max-width:650px){
+  main>section:not(.hero):not(.student-personalize):not(.ai-handoff):before{left:3%;right:3%}
+  section[id] .section-heading:before{font-size:.62rem}
+}
 </style>
 </head>
 
