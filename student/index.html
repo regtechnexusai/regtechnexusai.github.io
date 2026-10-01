@@ -20,6 +20,11 @@
   <meta name="robots"
         content="index, follow">
 
+  <meta name="theme-color" content="#10203b">
+  <meta name="application-name" content="RegTech Nexus AI Student Knowledge Hub">
+  <link rel="manifest" href="./manifest.webmanifest">
+
+
   <link rel="canonical"
         href="https://regtechnexusai.com/student/">
 
@@ -599,19 +604,35 @@
   <!-- Structured data for search engines -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
-    "name": "RegTech Nexus AI — Student Knowledge Hub",
-    "url": "https://regtechnexusai.com/student/",
-    "description": "Free learning, AI, research, academic skills, architecture, career preparation, financial literacy and digital literacy resources for students.",
-    "educationalUse": [
-      "Study",
-      "Research",
-      "AI Literacy",
-      "Academic Skills",
-      "Career Preparation",
-      "Financial Literacy",
-      "Digital Literacy"
+    "@context":"https://schema.org",
+    "@graph":[
+      {
+        "@type":"EducationalOrganization",
+        "@id":"https://regtechnexusai.com/student/#organization",
+        "name":"RegTech Nexus AI — Student Knowledge Hub",
+        "url":"https://regtechnexusai.com/student/",
+        "logo":"https://regtechnexusai.com/regtech-nexus-ai-logo-2026.png",
+        "description":"Free learning, AI, research, academic skills, architecture, career preparation, financial literacy and digital literacy resources for students.",
+        "educationalUse":["Study","Research","AI Literacy","Academic Skills","Career Preparation","Financial Literacy","Digital Literacy"]
+      },
+      {
+        "@type":"WebPage",
+        "@id":"https://regtechnexusai.com/student/#webpage",
+        "url":"https://regtechnexusai.com/student/",
+        "name":"Student Knowledge Hub | Free Learning, AI & Career Toolkit",
+        "description":"Free learning resources, AI study tools, research skills, academic skills, architecture learning, career preparation, financial literacy and digital literacy for students.",
+        "isPartOf":{"@id":"https://regtechnexusai.com/#website"},
+        "about":{"@id":"https://regtechnexusai.com/student/#organization"},
+        "inLanguage":"en"
+      },
+      {
+        "@type":"BreadcrumbList",
+        "@id":"https://regtechnexusai.com/student/#breadcrumb",
+        "itemListElement":[
+          {"@type":"ListItem","position":1,"name":"RegTech Nexus AI","item":"https://regtechnexusai.com/"},
+          {"@type":"ListItem","position":2,"name":"Student Knowledge Hub","item":"https://regtechnexusai.com/student/"}
+        ]
+      }
     ]
   }
   </script>
@@ -1025,6 +1046,25 @@ section#ai + section .card-grid .card:nth-child(6){border-top-color:#2f80ed;back
 @media(max-width:720px){.ai-source-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:430px){.ai-source-grid{grid-template-columns:1fr}}
 </style>
+<style id="student-hub-progress-pwa">
+.student-progress-dashboard{padding:46px 0;background:linear-gradient(135deg,#f7fbff 0%,#fff 52%,#f8f3ff 100%);border-bottom:1px solid #e5edf5}
+.progress-dashboard-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:22px}
+.progress-dashboard-head h2{margin:.25rem 0 .45rem;color:#10203b}
+.progress-dashboard-head p{margin:0;color:#53657a}
+.progress-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.progress-metric{background:linear-gradient(145deg,#fff,#f4f8fc);border:1px solid #d8e4ef;border-radius:16px;padding:18px;box-shadow:0 8px 22px rgba(16,32,59,.07)}
+.progress-metric strong{display:block;font-size:1.65rem;color:#0956a8;line-height:1.1}
+.progress-metric span{display:block;margin-top:6px;color:#53657a;font-weight:700;font-size:.88rem}
+.progress-dashboard-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;margin-top:16px}
+.progress-list-card{background:#fff;border:1px solid #dce6ef;border-radius:16px;padding:18px;min-height:150px}
+.progress-list-card h3{margin-top:0;color:#173d64}
+.progress-list{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.progress-list li{padding:10px 12px;border-radius:10px;background:#f6faff;border-left:4px solid #2b7de9}
+.progress-local-note{font-size:.82rem;color:#64748b;margin:14px 0 0}
+.offline-status{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:999px;background:#edf8f0;color:#23733d;font-size:.78rem;font-weight:800}
+@media(max-width:760px){.progress-dashboard-head{align-items:start;flex-direction:column}.progress-metrics{grid-template-columns:1fr 1fr}.progress-dashboard-grid{grid-template-columns:1fr}}
+@media(max-width:420px){.progress-metrics{grid-template-columns:1fr}}
+</style>
 </head>
 
 <body>
@@ -1062,7 +1102,38 @@ section#ai + section .card-grid .card:nth-child(6){border-top-color:#2f80ed;back
   </div>
 </section>
 
-    <!-- HERO -->
+    <!-- Student progress dashboard — local device only -->
+<section class="student-progress-dashboard" id="student-progress">
+  <div class="container">
+    <div class="progress-dashboard-head">
+      <div>
+        <span class="eyebrow">MY STUDY PROGRESS</span>
+        <h2>Keep your learning moving</h2>
+        <p>Your study topics and quiz history are saved on this device. No account is required.</p>
+      </div>
+      <button class="btn btn-secondary" type="button" onclick="refreshStudentProgress()">Refresh progress</button>
+    </div>
+    <div class="progress-metrics" aria-live="polite">
+      <div class="progress-metric"><strong id="progressTopics">0</strong><span>Topics studied</span></div>
+      <div class="progress-metric"><strong id="progressQuizzes">0</strong><span>Quizzes completed</span></div>
+      <div class="progress-metric"><strong id="progressAverage">—</strong><span>Average score</span></div>
+      <div class="progress-metric"><strong id="progressBest">—</strong><span>Best score</span></div>
+    </div>
+    <div class="progress-dashboard-grid">
+      <div class="progress-list-card">
+        <h3>Recent quiz activity</h3>
+        <div id="progressRecent">No quiz attempts yet.</div>
+      </div>
+      <div class="progress-list-card">
+        <h3>What to review next</h3>
+        <div id="progressReview">Complete a quiz to receive a review suggestion.</div>
+      </div>
+    </div>
+    <p class="progress-local-note">Privacy note: this first-stage progress system uses browser local storage. It does not sync between devices yet.</p>
+  </div>
+</section>
+
+<!-- HERO -->
 
     <section class="hero">
       <div class="container hero-grid">
@@ -2241,6 +2312,37 @@ function printAIAnswerReport(){
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAIAnswerWorkspace()});
 document.getElementById('aiAnswerModal')?.addEventListener('click',e=>{if(e.target.id==='aiAnswerModal')closeAIAnswerWorkspace()});
+</script>
+<script id="student-hub-progress-pwa">
+(function(){
+  const render=()=>{
+    try{
+      const p=JSON.parse(localStorage.getItem('studentHubProgress')||'[]');
+      const h=JSON.parse(localStorage.getItem('studentHubQuizHistory')||'[]');
+      const scores=h.map(x=>Number(x.pct)).filter(Number.isFinite);
+      const avg=scores.length?Math.round(scores.reduce((a,b)=>a+b,0)/scores.length):null;
+      const best=scores.length?Math.max(...scores):null;
+      const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+      set('progressTopics',p.length);set('progressQuizzes',h.length);
+      set('progressAverage',avg===null?'—':avg+'%');set('progressBest',best===null?'—':best+'%');
+      const recent=document.getElementById('progressRecent');
+      if(recent){
+        recent.innerHTML=h.length?'<ul class="progress-list">'+h.slice(0,5).map(x=>'<li><strong>'+String(x.subject||'Study')+'</strong> · '+String(x.topic||'Topic')+' — '+String(x.pct)+'%</li>').join('')+'</ul>':'No quiz attempts yet.';
+      }
+      const review=document.getElementById('progressReview');
+      if(review){
+        const weak=h.filter(x=>Number(x.pct)<60)[0];
+        review.textContent=weak?'Retest '+(weak.topic||'this topic')+' and review the lesson before trying a new set.':h.length?'Keep practising your lowest-scoring topic and then retest.':'Complete a quiz to receive a review suggestion.';
+      }
+    }catch(e){}
+  };
+  window.refreshStudentProgress=render;
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',render);else render();
+
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('./sw.js').catch(()=>{});
+  }
+})();
 </script>
 </body>
 </html>
