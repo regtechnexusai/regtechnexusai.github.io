@@ -849,21 +849,36 @@ body.calculator-page .footer-brand .brand-logo,
 .policy-gap-home-callout>a:hover{background:#d5d0ff}
 
 
-/* Student Knowledge Hub CTA — dedicated glossy white 3D treatment */
+/* Student Knowledge Hub CTA — crystal-white 3D treatment */
 .student-home-callout .student-hub-btn{
-  color:#0757a6 !important;
-  background:linear-gradient(180deg,#ffffff 0%,#ffffff 55%,#f1f7ff 100%);
-  border:1px solid #ffffff;
+  color:#062d63 !important;
+  background:#ffffff !important;
+  background-image:linear-gradient(180deg,#ffffff 0%,#ffffff 72%,#f7f9fc 100%) !important;
+  border:1px solid #ffffff !important;
   text-shadow:0 1px 0 rgba(255,255,255,.95);
-  box-shadow:0 6px 0 #789fc9,0 18px 30px rgba(1,24,58,.30),inset 0 2px 0 rgba(255,255,255,1),inset 0 -8px 16px rgba(90,145,210,.10);
+  box-shadow:
+    0 6px 0 #c8d0dc,
+    0 18px 30px rgba(1,24,58,.26),
+    inset 0 2px 0 rgba(255,255,255,1),
+    inset 0 -8px 16px rgba(120,140,165,.08);
 }
 .student-home-callout .student-hub-btn:hover{
-  color:#043f7f !important;
-  background:linear-gradient(180deg,#ffffff 0%,#ffffff 50%,#edf5ff 100%);
+  color:#031f48 !important;
+  background:#ffffff !important;
+  background-image:linear-gradient(180deg,#ffffff 0%,#ffffff 68%,#f4f7fb 100%) !important;
   transform:translateY(-2px);
-  box-shadow:0 8px 0 #668fbe,0 22px 34px rgba(1,24,58,.34),inset 0 2px 0 rgba(255,255,255,1),inset 0 -8px 16px rgba(90,145,210,.12);
+  box-shadow:
+    0 8px 0 #b9c4d2,
+    0 22px 34px rgba(1,24,58,.30),
+    inset 0 2px 0 rgba(255,255,255,1),
+    inset 0 -8px 16px rgba(120,140,165,.09);
 }
 .student-home-callout .student-hub-btn:active{
+  color:#062d63 !important;
+  background:#ffffff !important;
   transform:translateY(3px);
-  box-shadow:0 3px 0 #668fbe,0 10px 18px rgba(1,24,58,.24),inset 0 2px 0 rgba(255,255,255,.95);
+  box-shadow:
+    0 3px 0 #b9c4d2,
+    0 10px 18px rgba(1,24,58,.20),
+    inset 0 2px 0 rgba(255,255,255,.98);
 }
