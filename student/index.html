@@ -1720,5 +1720,18 @@ function loadStudentPreferences(){
 }
 loadStudentPreferences();
 </script>
+
+<script>
+const subjectIcons={Mathematics:'📐',Statistics:'📊',Economics:'📈',Accounting:'📚',Finance:'💰','Business Studies':'💼',Architecture:'🏛️','Computer Science':'💻',Programming:'⌨️','Information Technology':'🖥️','Data Science':'🧠',Cybersecurity:'🔐','English & Communication':'🗣️','Research Methodology':'🔎','General Science':'🔬','Social Science':'🌍'};
+function renderSubjects(){
+ const box=qs('subjectButtons'); box.innerHTML='';
+ Object.keys(studentSubjects).forEach(name=>{
+  const b=document.createElement('button'); b.className='subject-btn';
+  b.innerHTML='<span style="font-size:1.5rem;display:block;margin-bottom:6px">'+(subjectIcons[name]||'📖')+'</span><span>'+name+'</span>';
+  b.onclick=()=>selectSubject(name); box.appendChild(b);
+ });
+}
+renderSubjects();selectSubject(currentSubject||'Mathematics');
+</script>
 </body>
 </html>
