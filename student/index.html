@@ -584,7 +584,17 @@
   
 /* Interactive Student Hub additions */
 .subject-library{margin-top:28px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.subject-btn{border:1px solid var(--border);background:var(--white);border-radius:12px;padding:15px;text-align:left;font:inherit;font-weight:800;color:var(--primary);cursor:pointer}.subject-btn:hover,.subject-btn.active{border-color:var(--accent);box-shadow:var(--shadow);background:#f3f8fa}.study-workspace,.tool-workspace{margin-top:22px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}.workspace-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.workspace-grid .full{grid-column:1/-1}.topic-buttons{display:flex;flex-wrap:wrap;gap:8px}.topic-buttons button{border:1px solid var(--border);background:#edf3f8;border-radius:999px;padding:8px 12px;cursor:pointer;font-weight:650;color:var(--primary-dark)}.lesson{background:#f7fafc;border:1px solid var(--border);border-radius:10px;padding:18px;margin-top:16px}.lesson h3{margin-top:0;color:var(--primary)}.quiz-q{border-top:1px solid var(--border);padding:16px 0}.quiz-q:first-child{border-top:0}.quiz-options label{display:block;font-weight:500;padding:7px 0}.result{margin-top:16px;padding:15px;border-radius:9px;background:#f1f7f3;border:1px solid #cfe3d5}.tool-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}.mini-output{margin-top:16px;white-space:pre-wrap;background:#f7fafc;border:1px solid var(--border);border-radius:9px;padding:15px}.progress-bar{height:10px;background:#e6edf3;border-radius:99px;overflow:hidden}.progress-fill{height:100%;width:0;background:var(--accent)}@media(max-width:900px){.subject-library{grid-template-columns:repeat(2,1fr)}}@media(max-width:650px){.subject-library,.workspace-grid{grid-template-columns:1fr}.workspace-grid .full{grid-column:auto}}
-</style>
+/* Colorful Student Hub tools and knowledge cards */
+.tool-book-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:26px}
+.tool-book{position:relative;min-height:190px;padding:22px;border:0;border-radius:8px 16px 16px 8px;background:var(--tool-bg,#eaf3ff);box-shadow:0 10px 24px rgba(20,45,75,.12);cursor:pointer;overflow:hidden;transition:.22s ease;text-align:left}
+.tool-book:before{content:"";position:absolute;left:0;top:0;bottom:0;width:8px;background:var(--tool-accent,#2563eb)}
+.tool-book:after{content:"";position:absolute;right:-24px;bottom:-28px;width:105px;height:105px;border-radius:50%;background:rgba(255,255,255,.4)}
+.tool-book:hover{transform:translateY(-5px);box-shadow:0 16px 30px rgba(20,45,75,.17)}
+.tool-book .tool-icon{font-size:2rem;display:block;margin-bottom:10px}.tool-book h3{margin:0 0 7px;color:#17324d;font-size:1.08rem}.tool-book p{margin:0;color:#52677b;font-size:.9rem}.tool-book .tool-open{display:inline-block;margin-top:14px;font-weight:800;color:var(--tool-accent,#2563eb)}
+.tool-book:nth-child(1){--tool-bg:#e8f1ff;--tool-accent:#2563eb}.tool-book:nth-child(2){--tool-bg:#fff0f5;--tool-accent:#db2777}.tool-book:nth-child(3){--tool-bg:#eafaf4;--tool-accent:#059669}.tool-book:nth-child(4){--tool-bg:#fff6df;--tool-accent:#d97706}.tool-book:nth-child(5){--tool-bg:#f0ebff;--tool-accent:#7c3aed}.tool-book:nth-child(6){--tool-bg:#e7f8fb;--tool-accent:#0891b2}.tool-book:nth-child(7){--tool-bg:#fff0eb;--tool-accent:#ea580c}.tool-book:nth-child(8){--tool-bg:#edf7e8;--tool-accent:#65a30d}.tool-book:nth-child(9){--tool-bg:#eef0ff;--tool-accent:#4f46e5}.tool-book:nth-child(10){--tool-bg:#fceff9;--tool-accent:#c026d3}.tool-book:nth-child(11){--tool-bg:#eaf7ff;--tool-accent:#0284c7}.tool-book:nth-child(12){--tool-bg:#fff1e6;--tool-accent:#c2410c}
+.tool-workspace{scroll-margin-top:90px;background:linear-gradient(135deg,#fff,#f5f9ff);border:2px solid #dce8f4}
+.quick-knowledge{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}.knowledge-card{background:#fff;border-radius:16px;padding:20px;border:1px solid var(--border);box-shadow:0 8px 22px rgba(16,39,64,.07);border-top:7px solid var(--kc,#2563eb)}.knowledge-card h3{margin:0 0 8px;color:#17324d}.knowledge-card p{color:var(--muted);font-size:.92rem}.knowledge-card .source-note{font-size:.78rem;color:#6b7280}.knowledge-card a{font-weight:800}.source-badge{display:inline-block;padding:4px 9px;border-radius:999px;background:#eef4ff;color:#2457a6;font-size:.75rem;font-weight:800}.ai-link-box{margin-top:14px;padding:14px 16px;border-radius:12px;background:#eef7ff;border:1px solid #cfe3f7}.quiz-meta{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}.quiz-meta span{padding:5px 9px;border-radius:999px;background:#edf3f8;font-size:.8rem;font-weight:700}
+@media(max-width:900px){.tool-book-grid,.quick-knowledge{grid-template-columns:repeat(2,1fr)}}@media(max-width:650px){.tool-book-grid,.quick-knowledge{grid-template-columns:1fr}}</style>
 
   <!-- Structured data for search engines -->
   <script type="application/ld+json">
@@ -1325,109 +1335,25 @@
     <!-- TOOLS -->
 
     <section id="tools">
-      <div class="container">
+<div class="container">
+<div class="section-heading"><h2>Free Student Tools</h2><p>Open a tool below. Each card is interactive and works in the browser without an API key. The tools connect to the same study context used by the subject library.</p></div>
+<div class="tool-book-grid">
+<button class="tool-book" onclick="openTool('aiPrompt')"><span class="tool-icon">🤖</span><h3>AI Study Coach</h3><p>Build a guided learning session for a subject and goal.</p><span class="tool-open">Open tool →</span></button>
+<button class="tool-book" onclick="openTool('essay')"><span class="tool-icon">📖</span><h3>Essay Planner</h3><p>Build a thesis, arguments, evidence and conclusion plan.</p><span class="tool-open">Open tool →</span></button>
+<button class="tool-book" onclick="openTool('planner')"><span class="tool-icon">📅</span><h3>Study Planner</h3><p>Create focused learn, practice, review and test sessions.</p><span class="tool-open">Open tool →</span></button>
+<button class="tool-book" onclick="openTool('quiz')"><span class="tool-icon">🧩</span><h3>Quiz Generator</h3><p>Start a fresh randomized quiz from the selected topic.</p><span class="tool-open">Open tool →</span></button>
+<button class="tool-book" onclick="openTool('gpa')"><span class="tool-icon">🎓</span><h3>GPA Calculator</h3><p>Calculate weighted GPA from grade points and credits.</p><span class="tool-open">Open tool →</span></button>
+<button class="tool-book" onclick="openTool('percentage')"><span class="tool-icon">🧮</span><h3>Percentage Calculator</h3><p>Calculate scores, percentage change and percentages.</p><span class="tool-open">Open tool →</span></button>
+<button class="tool-book" onclick="openTool('citation')"><span class="tool-icon">🔖</span><h3>Citation Helper</h3><p>Organize source details before applying your required style.</p><span class="tool-open">Open tool →</span></button>
+<button class="tool-book" onclick="openTool('cv')"><span class="tool-icon">📄</span><h3>CV Checklist</h3><p>Review essential student and graduate CV components.</p><span class="tool-open">Open tool →</span></button>
+<button class="tool-book" onclick="openTool('source')"><span class="tool-icon">🔎</span><h3>Source Evaluation</h3><p>Screen authority, currency, evidence, relevance and transparency.</p><span class="tool-open">Open tool →</span></button>
+<button class="tool-book" onclick="openTool('aiLiteracy')"><span class="tool-icon">🧠</span><h3>AI Literacy Checker</h3><p>Check verification, privacy, attribution and responsible AI use.</p><span class="tool-open">Open tool →</span></button>
+<button class="tool-book" onclick="openTool('career')"><span class="tool-icon">🚀</span><h3>Career Skill Gap</h3><p>Compare target skills with the skills you already have.</p><span class="tool-open">Open tool →</span></button>
+<button class="tool-book" onclick="openTool('presentation')"><span class="tool-icon">🎤</span><h3>Presentation Planner</h3><p>Turn a topic into a structured presentation sequence.</p><span class="tool-open">Open tool →</span></button>
+</div>
+<div id="toolWorkspace" class="tool-workspace" hidden></div>
+</div></section>
 
-        <div class="section-heading">
-          <h2>Free Student Tools</h2>
-
-          <p>
-            Practical calculators, checklists, planners and learning utilities
-            can be added here as the Student Knowledge Hub grows.
-          </p>
-        </div>
-
-        <div class="tool-grid">
-
-          <div class="tool">
-            <h3>AI Study Prompt Generator</h3>
-            <p>
-              Create structured prompts for active learning.
-            </p>
-          </div>
-
-          <div class="tool">
-            <h3>Essay Planner</h3>
-            <p>
-              Organize arguments, evidence and sections.
-            </p>
-          </div>
-
-          <div class="tool">
-            <h3>Study Planner</h3>
-            <p>
-              Structure study sessions and revision goals.
-            </p>
-          </div>
-
-          <div class="tool">
-            <h3>Quiz Generator</h3>
-            <p>
-              Build practice questions around a topic.
-            </p>
-          </div>
-
-          <div class="tool">
-            <h3>GPA Calculator</h3>
-            <p>
-              Calculate academic performance using appropriate grading inputs.
-            </p>
-          </div>
-
-          <div class="tool">
-            <h3>Percentage Calculator</h3>
-            <p>
-              Perform common percentage calculations.
-            </p>
-          </div>
-
-          <div class="tool">
-            <h3>Citation Helper</h3>
-            <p>
-              Organize source information before preparing citations.
-            </p>
-          </div>
-
-          <div class="tool">
-            <h3>CV Checklist</h3>
-            <p>
-              Review key components of a student CV.
-            </p>
-          </div>
-
-          <div class="tool">
-            <h3>Source Evaluation Checklist</h3>
-            <p>
-              Assess credibility, relevance and evidence quality.
-            </p>
-          </div>
-
-          <div class="tool">
-            <h3>AI Literacy Checker</h3>
-            <p>
-              Reflect on responsible and effective AI use.
-            </p>
-          </div>
-
-          <div class="tool">
-            <h3>Career Skill Gap Checker</h3>
-            <p>
-              Identify skills that may need further development.
-            </p>
-          </div>
-
-          <div class="tool">
-            <h3>Presentation Planner</h3>
-            <p>
-              Structure presentations from introduction to conclusion.
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-
-    
 <!-- FUNCTIONAL STUDENT LEARNING LAYER -->
 <section id="interactive-study">
 <div class="container">
@@ -1450,19 +1376,22 @@
   <a class="btn btn-primary" href="https://chatgpt.com/g/g-6a09920b01348191b9b1628b69367d9b-regtech-nexus-ai" target="_blank" rel="noopener noreferrer">Open RegTech Nexus AI GPT ↗</a>
 </div></div></section>
 
-<section id="working-tools">
-<div class="container"><div class="section-heading"><h2>Working Free Student Tools</h2><p>These tools operate in the browser. No API key is required for the core calculators, planners, checklists and built-in topic quizzes.</p></div>
-<div class="tool-grid">
-<div class="tool"><h3>GPA Calculator</h3><p>Enter course credits and grade points.</p><button class="btn btn-secondary" onclick="openTool('gpa')">Use tool</button></div>
-<div class="tool"><h3>Percentage Calculator</h3><p>Calculate percentage, change and score.</p><button class="btn btn-secondary" onclick="openTool('percentage')">Use tool</button></div>
-<div class="tool"><h3>Study Planner</h3><p>Create a simple session plan.</p><button class="btn btn-secondary" onclick="openTool('planner')">Use tool</button></div>
-<div class="tool"><h3>Essay Planner</h3><p>Turn a topic into an essay structure.</p><button class="btn btn-secondary" onclick="openTool('essay')">Use tool</button></div>
-<div class="tool"><h3>Citation Helper</h3><p>Format a basic source record for review.</p><button class="btn btn-secondary" onclick="openTool('citation')">Use tool</button></div>
-<div class="tool"><h3>Source Evaluation</h3><p>Check authority, currency and evidence.</p><button class="btn btn-secondary" onclick="openTool('source')">Use tool</button></div>
-<div class="tool"><h3>CV Checklist</h3><p>Review essential student CV elements.</p><button class="btn btn-secondary" onclick="openTool('cv')">Use tool</button></div>
-<div class="tool"><h3>Career Skill Gap</h3><p>Compare required and current skills.</p><button class="btn btn-secondary" onclick="openTool('career')">Use tool</button></div>
-</div><div id="toolWorkspace" class="tool-workspace" hidden></div></div></section>
-\n    <!-- RESPONSIBLE AI NOTICE -->
+
+\n    <section id="learning-briefs">
+<div class="container">
+<div class="section-heading"><h2>Source-Verified Learning Briefs</h2><p>Short original summaries built from official learning sources. Use these as starting points, then open the source for the full material. This section does not copy textbook or website content.</p></div>
+<div class="quick-knowledge">
+<article class="knowledge-card" style="--kc:#2563eb"><span class="source-badge">OpenAI</span><h3>Study with active guidance</h3><p>ChatGPT Study Mode is designed to guide students step by step, ask questions, give hints, check understanding and work with uploaded study materials. Treat AI output as study support and verify important information.</p><p class="source-note">Source: OpenAI Study Mode documentation.</p><a href="https://help.openai.com/en/articles/11780217-study-mode" target="_blank" rel="noopener">Read official source →</a></article>
+<article class="knowledge-card" style="--kc:#db2777"><span class="source-badge">Google</span><h3>AI + study materials</h3><p>Google describes Gemini learning workflows that can help students study, create quizzes and flashcards, and work with class materials. Google also warns that generated content can contain mistakes and should be checked.</p><p class="source-note">Source: Google for Education.</p><a href="https://support.google.com/edu/classroom/answer/15410566" target="_blank" rel="noopener">Read official source →</a></article>
+<article class="knowledge-card" style="--kc:#7c3aed"><span class="source-badge">Perplexity</span><h3>Research-oriented AI use</h3><p>Perplexity's Education Pro documentation describes student-focused access including Learn Mode, search, file/image uploads and education-specific guidance. Use AI research tools to locate evidence, then inspect the original sources.</p><p class="source-note">Source: Perplexity Help Center.</p><a href="https://www.perplexity.ai/help-center/en/articles/12590157-what-is-education-pro" target="_blank" rel="noopener">Read official source →</a></article>
+<article class="knowledge-card" style="--kc:#059669"><span class="source-badge">OpenStax</span><h3>Free open textbooks</h3><p>OpenStax provides free, openly licensed textbooks. Its digital books can be read online and many are available as free PDF downloads, making them useful starting points for structured subject study.</p><p class="source-note">Source: OpenStax Higher Education.</p><a href="https://openstax.org/higher-education" target="_blank" rel="noopener">Browse OpenStax →</a></article>
+<article class="knowledge-card" style="--kc:#d97706"><span class="source-badge">MIT OCW</span><h3>Course-level learning resources</h3><p>MIT OpenCourseWare publishes free material from thousands of MIT courses, including syllabi, lecture notes, assignments and exams. Learners can study without enrollment and use the material at their own pace.</p><p class="source-note">Source: MIT OpenCourseWare.</p><a href="https://ocw.mit.edu/pages/get-started/" target="_blank" rel="noopener">Browse MIT OCW →</a></article>
+<article class="knowledge-card" style="--kc:#0891b2"><span class="source-badge">Khan Academy</span><h3>Practice and mastery</h3><p>Khan Academy describes its student learning platform as free and built around practice and mastery across subjects. Use it alongside the Hub's notes and quizzes for additional practice.</p><p class="source-note">Source: Khan Academy.</p><a href="https://www.khanacademy.org/" target="_blank" rel="noopener">Open Khan Academy →</a></article>
+</div>
+<div class="ai-link-box"><strong>Need more clarification?</strong> For more information, deeper explanation or an adaptive one-question-at-a-time study session, <a href="https://chatgpt.com/g/g-6a09920b01348191b9b1628b69367d9b-regtech-nexus-ai" target="_blank" rel="noopener">click here to open the RegTech Nexus AI GPT →</a></div>
+</div></section>
+
+<!-- RESPONSIBLE AI NOTICE -->
 
     <section>
       <div class="container">
@@ -1640,12 +1569,72 @@ const qs=(id)=>document.getElementById(id);
 function renderSubjects(){const box=qs('subjectButtons');Object.keys(studentSubjects).forEach(name=>{const b=document.createElement('button');b.className='subject-btn';b.textContent=name;b.onclick=()=>selectSubject(name);box.appendChild(b)});}
 function selectSubject(name){currentSubject=name;document.querySelectorAll('.subject-btn').forEach(b=>b.classList.toggle('active',b.textContent===name));const box=qs('subjectTopics');box.innerHTML='';Object.keys(studentSubjects[name].topics).forEach(t=>{const b=document.createElement('button');b.textContent=t;b.onclick=()=>showTopic(t);box.appendChild(b)});qs('lessonOutput').innerHTML='<h3>'+name+'</h3><p>Select a topic to start learning.</p>';qs('quizOutput').innerHTML='';}
 function showTopic(topic){currentTopic=topic;const d=studentSubjects[currentSubject].topics[topic];qs('lessonOutput').innerHTML='<h3>'+topic+'</h3><p><strong>Concept:</strong> '+d[0]+'</p><p><strong>How to study:</strong> '+d[1]+'</p><p><strong>Example:</strong> '+d[2]+'</p><div class="tool-actions"><button class="btn btn-primary" onclick="startQuiz()">Take Quiz</button><button class="btn btn-secondary" onclick="saveProgress()">Mark topic studied</button></div>'}
-function startQuiz(){const d=studentSubjects[currentSubject].topics[currentTopic];quizQuestions=[{q:'Which statement best matches the topic?',options:[d[0],d[2],'The topic never requires evidence.','The topic has no practical application.'],a:0},{q:'Which approach is most useful when studying this topic?',options:[d[1],'Memorize without understanding.','Skip examples and testing.','Use an unrelated topic.'],a:0},{q:'Which statement is safest?',options:[d[2], 'All conclusions are certain.', 'Context never matters.', 'Verification is unnecessary.'],a:0}];let html='<div class="lesson"><h3>'+currentSubject+' — '+currentTopic+' Quiz</h3><p>Answer each question, then submit for feedback.</p>';quizQuestions.forEach((x,i)=>{html+='<div class="quiz-q"><strong>'+(i+1)+'. '+x.q+'</strong><div class="quiz-options">'+x.options.map((o,j)=>'<label><input type="radio" name="q'+i+'" value="'+j+'"> '+o+'</label>').join('')+'</div></div>'});html+='<button class="btn btn-primary" onclick="gradeQuiz()">Submit Quiz</button><div id="quizResult"></div></div>';qs('quizOutput').innerHTML=html;qs('quizOutput').scrollIntoView({behavior:'smooth',block:'start'});}
-function gradeQuiz(){let score=0;quizQuestions.forEach((x,i)=>{const el=document.querySelector('input[name="q'+i+'"]:checked');if(el&&Number(el.value)===x.a)score++});const pct=Math.round(score/quizQuestions.length*100);localStorage.setItem('studentHubLastScore',JSON.stringify({subject:currentSubject,topic:currentTopic,score,pct,date:new Date().toISOString()}));qs('quizResult').innerHTML='<div class="result"><strong>Score: '+score+'/'+quizQuestions.length+' ('+pct+'%)</strong><p>'+(pct>=67?'Review the explanations and retest when ready.':'Revisit the lesson above, then take the quiz again.')+'</p></div>';}
+function startQuiz(){
+ const d=studentSubjects[currentSubject].topics[currentTopic], size=Number(document.getElementById('quizSize')?.value||10);
+ const facts=[d[0],d[1],d[2]];
+ const templates=[
+  ['Which statement best matches the topic?',0],
+  ['Which study point is most directly supported by the lesson?',1],
+  ['Which example or implication is given in the lesson?',2],
+  ['Which statement is most consistent with the core concept?',0],
+  ['Which approach is recommended when studying this topic?',1],
+  ['Which statement is safest when applying the topic?',2],
+  ['What should a learner identify first?',1],
+  ['Which statement would be a reasonable revision note?',0],
+  ['Which statement reflects the lesson rather than an unsupported claim?',2],
+  ['Which idea belongs in a quick-review card for this topic?',1],
+  ['Which statement best captures the practical takeaway?',0],
+  ['Which statement should be checked against context or assumptions?',2]
+ ];
+ const pool=[];
+ for(let round=0;round<Math.ceil(size/templates.length)+1;round++){
+  templates.forEach((t,k)=>{
+   const idx=t[1], correct=facts[idx];
+   const others=facts.filter((_,i)=>i!==idx);
+   let opts=[correct,others[0]||'The topic has no useful application.',others[1]||'The topic never needs evidence.','Context and verification are never relevant.'];
+   for(let j=opts.length-1;j>0;j--){const z=Math.floor(Math.random()*(j+1));[opts[j],opts[z]]=[opts[z],opts[j]]}
+   pool.push({q:(round?('Set '+(round+1)+': '):'')+t[0],options:opts,a:opts.indexOf(correct)});
+  });
+ }
+ for(let j=pool.length-1;j>0;j--){const z=Math.floor(Math.random()*(j+1));[pool[j],pool[z]]=[pool[z],pool[j]]}
+ quizQuestions=pool.slice(0,size);
+ const setId='Q'+Date.now().toString(36).toUpperCase();
+ window.currentQuizId=setId;
+ let html='<div class="lesson"><h3>'+currentSubject+' — '+currentTopic+' Quiz</h3><div class="quiz-meta"><span>Set '+setId+'</span><span>'+size+' questions</span><span>'+document.getElementById('difficulty').value+'</span></div><p>Every New Quiz creates a new randomized set. Submit for feedback, then retest or continue with the RegTech Nexus AI GPT for adaptive questioning.</p>';
+ quizQuestions.forEach((x,i)=>{html+='<div class="quiz-q"><strong>'+(i+1)+'. '+x.q+'</strong><div class="quiz-options">'+x.options.map((o,j)=>'<label><input type="radio" name="q'+i+'" value="'+j+'"> '+o+'</label>').join('')+'</div></div>'});
+ html+='<button class="btn btn-primary" onclick="gradeQuiz()">Submit Quiz</button><div id="quizResult"></div></div>';
+ qs('quizOutput').innerHTML=html;qs('quizOutput').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function gradeQuiz(){
+ let score=0;quizQuestions.forEach((x,i)=>{const el=document.querySelector('input[name="q'+i+'"]:checked');if(el&&Number(el.value)===x.a)score++});
+ const pct=Math.round(score/quizQuestions.length*100);
+ const item={id:window.currentQuizId||('Q'+Date.now().toString(36)),subject:currentSubject,topic:currentTopic,score,total:quizQuestions.length,pct,date:new Date().toISOString()};
+ const h=JSON.parse(localStorage.getItem('studentHubQuizHistory')||'[]');h.unshift(item);localStorage.setItem('studentHubQuizHistory',JSON.stringify(h.slice(0,50)));
+ localStorage.setItem('studentHubLastScore',JSON.stringify(item));
+ qs('quizResult').innerHTML='<div class="result"><strong>Score: '+score+'/'+quizQuestions.length+' ('+pct+'%)</strong><p>'+(pct>=80?'Strong recall. Try a harder set or retest after a delay.':pct>=60?'Good start. Review the lesson and retest the missed concepts.':'Revisit the lesson, then generate a new set focused on the same topic.')+'</p><div class="ai-link-box">For adaptive one-question-at-a-time practice, <a href="https://chatgpt.com/g/g-6a09920b01348191b9b1628b69367d9b-regtech-nexus-ai" target="_blank" rel="noopener">open the RegTech Nexus AI GPT →</a></div></div>';
+}
 function saveProgress(){const p=JSON.parse(localStorage.getItem('studentHubProgress')||'[]');if(!p.some(x=>x.subject===currentSubject&&x.topic===currentTopic))p.push({subject:currentSubject,topic:currentTopic,date:new Date().toISOString()});localStorage.setItem('studentHubProgress',JSON.stringify(p));alert('Topic marked as studied on this device.');}
-function openTool(type){const w=qs('toolWorkspace');w.hidden=false;let html='';if(type==='gpa')html='<h3>GPA Calculator</h3><p>Enter comma-separated grade points and matching credits.</p><input id="gpaPoints" placeholder="3.7, 3.3, 4.0"><input id="gpaCredits" placeholder="3, 3, 4"><div class="tool-actions"><button class="btn btn-primary" onclick="calcGPA()">Calculate</button></div><div id="toolResult" class="mini-output"></div>';if(type==='percentage')html='<h3>Percentage Calculator</h3><input id="pctPart" type="number" placeholder="Obtained / part"><input id="pctTotal" type="number" placeholder="Total"><div class="tool-actions"><button class="btn btn-primary" onclick="calcPct()">Calculate</button></div><div id="toolResult" class="mini-output"></div>';if(type==='planner')html='<h3>Study Planner</h3><input id="planTopic" placeholder="Topic"><input id="planMinutes" type="number" placeholder="Minutes"><select id="planMethod"><option>Learn</option><option>Practice</option><option>Review</option><option>Test</option></select><button class="btn btn-primary" onclick="makePlan()">Create session</button><div id="toolResult" class="mini-output"></div>';if(type==='essay')html='<h3>Essay Planner</h3><input id="essayTopic" placeholder="Essay question/topic"><textarea id="essayEvidence" placeholder="Key evidence or sources"></textarea><button class="btn btn-primary" onclick="makeEssay()">Build outline</button><div id="toolResult" class="mini-output"></div>';if(type==='citation')html='<h3>Citation Record Helper</h3><input id="citeAuthor" placeholder="Author / organization"><input id="citeTitle" placeholder="Title"><input id="citeYear" placeholder="Year"><input id="citeUrl" placeholder="URL"><button class="btn btn-primary" onclick="makeCitation()">Create record</button><div id="toolResult" class="mini-output"></div>';if(type==='source')html='<h3>Source Evaluation</h3><p>Score each dimension 0–2.</p>'+['Authority','Currency','Evidence','Relevance','Transparency'].map(x=>'<label>'+x+' <select class="srcScore"><option>0</option><option>1</option><option>2</option></select></label>').join('')+'<button class="btn btn-primary" onclick="scoreSource()">Evaluate</button><div id="toolResult" class="mini-output"></div>';if(type==='cv')html='<h3>Student CV Checklist</h3>'+['Contact details','Education','Relevant skills','Projects / experience','Achievements','Professional profile','Proofread and tailored'].map(x=>'<label><input type="checkbox" class="cvItem"> '+x+'</label>').join('<br>')+'<button class="btn btn-primary" onclick="checkCV()">Check</button><div id="toolResult" class="mini-output"></div>';if(type==='career')html='<h3>Career Skill Gap Checker</h3><input id="requiredSkills" placeholder="Required skills, comma separated"><input id="currentSkills" placeholder="Current skills, comma separated"><button class="btn btn-primary" onclick="skillGap()">Compare</button><div id="toolResult" class="mini-output"></div>';w.innerHTML=html;w.scrollIntoView({behavior:'smooth',block:'center'});}
+function openTool(type){
+ const w=qs('toolWorkspace');w.hidden=false;let html='';
+ if(type==='aiPrompt')html='<h3>🤖 AI Study Coach</h3><p>Build a learning brief, then continue the session in the RegTech Nexus AI GPT.</p><input id="aiSubject" placeholder="Subject" value="'+(currentSubject||'')+'"><input id="aiTopic" placeholder="Topic" value="'+(currentTopic||'')+'"><input id="aiGoal" placeholder="Goal (e.g. prepare for exam)"><select id="aiLevel"><option>Middle school</option><option>High school</option><option>College</option><option>Beginner</option><option>Advanced</option></select><button class="btn btn-primary" onclick="makeAIPrompt()">Build study session</button><div id="toolResult" class="mini-output"></div>';
+ if(type==='quiz')html='<h3>🧩 Quiz Generator</h3><p>Select a subject/topic in the Interactive Subject Library first, then create a new randomized quiz.</p><button class="btn btn-primary" onclick="document.getElementById(\'interactive-study\').scrollIntoView({behavior:\'smooth\'});startQuiz()">Start New Quiz</button><button class="btn btn-secondary" onclick="showQuizHistory()">Previous Quiz Sets</button><div id="toolResult" class="mini-output"></div>';
+ if(type==='gpa')html='<h3>🎓 GPA Calculator</h3><p>Enter matching grade points and course credits.</p><input id="gpaPoints" placeholder="3.7, 3.3, 4.0"><input id="gpaCredits" placeholder="3, 3, 4"><button class="btn btn-primary" onclick="calcGPA()">Calculate</button><div id="toolResult" class="mini-output"></div>';
+ if(type==='percentage')html='<h3>🧮 Percentage Calculator</h3><input id="pctPart" type="number" placeholder="Obtained / value"><input id="pctTotal" type="number" placeholder="Total / original value"><select id="pctMode"><option value="score">Score percentage</option><option value="change">Percentage change</option></select><button class="btn btn-primary" onclick="calcPct()">Calculate</button><div id="toolResult" class="mini-output"></div>';
+ if(type==='planner')html='<h3>📅 Study Planner</h3><input id="planTopic" placeholder="Topic"><input id="planMinutes" type="number" placeholder="Minutes"><select id="planMethod"><option>Learn</option><option>Practice</option><option>Review</option><option>Test</option></select><button class="btn btn-primary" onclick="makePlan()">Create session</button><div id="toolResult" class="mini-output"></div>';
+ if(type==='essay')html='<h3>📖 Essay Planner</h3><input id="essayTopic" placeholder="Essay question/topic"><textarea id="essayEvidence" placeholder="Key evidence or sources"></textarea><button class="btn btn-primary" onclick="makeEssay()">Build outline</button><div id="toolResult" class="mini-output"></div>';
+ if(type==='citation')html='<h3>🔖 Citation Record Helper</h3><input id="citeAuthor" placeholder="Author / organization"><input id="citeTitle" placeholder="Title"><input id="citeYear" placeholder="Year"><input id="citeUrl" placeholder="URL"><select id="citeStyle"><option>APA-style record</option><option>MLA-style record</option><option>Chicago-style record</option></select><button class="btn btn-primary" onclick="makeCitation()">Create record</button><div id="toolResult" class="mini-output"></div>';
+ if(type==='source')html='<h3>🔎 Source Evaluation</h3><p>Score each dimension 0–2. This is a screening aid, not proof of truth.</p>'+['Authority','Currency','Evidence','Relevance','Transparency'].map(x=>'<label>'+x+' <select class="srcScore"><option>0</option><option>1</option><option>2</option></select></label>').join('')+'<button class="btn btn-primary" onclick="scoreSource()">Evaluate</button><div id="toolResult" class="mini-output"></div>';
+ if(type==='cv')html='<h3>📄 Student CV Checklist</h3>'+['Contact details','Education','Relevant skills','Projects / experience','Achievements','Professional profile','Proofread and tailored'].map(x=>'<label><input type="checkbox" class="cvItem"> '+x+'</label>').join('<br>')+'<button class="btn btn-primary" onclick="checkCV()">Check</button><div id="toolResult" class="mini-output"></div>';
+ if(type==='career')html='<h3>🚀 Career Skill Gap Checker</h3><input id="requiredSkills" placeholder="Required skills, comma separated"><input id="currentSkills" placeholder="Current skills, comma separated"><button class="btn btn-primary" onclick="skillGap()">Compare</button><div id="toolResult" class="mini-output"></div>';
+ if(type==='aiLiteracy')html='<h3>🧠 AI Literacy Checker</h3><p>Check your workflow before using AI for study or research.</p>'+['I verify important factual claims.','I protect personal/confidential information.','I disclose AI assistance when required.','I check original sources instead of trusting summaries blindly.','I use AI to support learning rather than submit unreviewed output.'].map(x=>'<label><input type="checkbox" class="aiItem"> '+x+'</label>').join('<br>')+'<button class="btn btn-primary" onclick="checkAILiteracy()">Check</button><div id="toolResult" class="mini-output"></div>';
+ if(type==='presentation')html='<h3>🎤 Presentation Planner</h3><input id="presTopic" placeholder="Presentation topic"><input id="presMinutes" type="number" placeholder="Minutes"><input id="presAudience" placeholder="Audience"><button class="btn btn-primary" onclick="makePresentation()">Build plan</button><div id="toolResult" class="mini-output"></div>';
+ w.innerHTML=html;w.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function makeAIPrompt(){const sub=qs('aiSubject').value||currentSubject||'your subject',top=qs('aiTopic').value||currentTopic||'your topic',goal=qs('aiGoal').value||'understand and apply the topic',lev=qs('aiLevel').value;const p='Teach me '+sub+' — '+top+' at '+lev+' level. Goal: '+goal+'. Use short explanations, examples, one question at a time, hints before answers, feedback on mistakes, a final quiz and a weak-area retest. Do not invent sources. Ask me to verify important claims.';qs('toolResult').innerHTML='<strong>Study session ready.</strong><p>'+p.replace(/</g,'&lt;')+'</p><div class="ai-link-box"><a href="https://chatgpt.com/g/g-6a09920b01348191b9b1628b69367d9b-regtech-nexus-ai" target="_blank" rel="noopener">For more clarification or more information, click the ChatGPT / RegTech Nexus AI GPT link →</a></div>';navigator.clipboard?.writeText(p).catch(()=>{});}
+function checkAILiteracy(){const n=document.querySelectorAll('.aiItem').length,d=document.querySelectorAll('.aiItem:checked').length;qs('toolResult').textContent=d+'/'+n+' responsible-use checks completed. '+(d===n?'Your workflow covers the main checks.':'Complete the remaining checks before relying on AI output.');}
+function makePresentation(){const t=qs('presTopic').value||'Topic',m=Number(qs('presMinutes').value)||10,a=qs('presAudience').value||'students';const body=Math.max(3,m-4);qs('toolResult').textContent='Presentation: '+t+'\nAudience: '+a+'\n1. Hook + objective (1–2 min)\n2. Context / key concepts (2 min)\n3. Main points + evidence ('+body+' min)\n4. Example / application (2 min)\n5. Summary + questions (1–2 min).';}
 function calcGPA(){const p=qs('gpaPoints').value.split(',').map(Number),c=qs('gpaCredits').value.split(',').map(Number);if(p.length!==c.length||p.some(isNaN)||c.some(isNaN)||c.some(x=>x<=0)){qs('toolResult').textContent='Enter matching valid numbers for grade points and credits.';return}const total=c.reduce((a,b)=>a+b,0);qs('toolResult').textContent='Weighted GPA: '+(p.reduce((a,x,i)=>a+x*c[i],0)/total).toFixed(2);}
-function calcPct(){const a=Number(qs('pctPart').value),b=Number(qs('pctTotal').value);qs('toolResult').textContent=b>0?(a/b*100).toFixed(2)+'%':'Enter a total greater than zero.';}
+function calcPct(){const a=Number(qs('pctPart').value),b=Number(qs('pctTotal').value),mode=qs('pctMode')?.value||'score';if(mode==='change'){qs('toolResult').textContent=b!==0?((a-b)/Math.abs(b)*100).toFixed(2)+'% change':'Enter a non-zero original value.';}else{qs('toolResult').textContent=b>0?(a/b*100).toFixed(2)+'%':'Enter a total greater than zero.';}}
 function makePlan(){qs('toolResult').textContent='Session: '+qs('planTopic').value+' | '+qs('planMinutes').value+' minutes | Method: '+qs('planMethod').value+'\nSuggested sequence: 5 min recall → focused study → 5 min self-test → note one weak area.';}
 function makeEssay(){qs('toolResult').textContent='Outline for: '+qs('essayTopic').value+'\n1. Introduction and thesis\n2. Main argument + evidence\n3. Counterpoint / limitation\n4. Analysis and synthesis\n5. Conclusion\nEvidence to verify: '+qs('essayEvidence').value;}
 function makeCitation(){qs('toolResult').textContent=qs('citeAuthor').value+' ('+qs('citeYear').value+'). '+qs('citeTitle').value+'. '+qs('citeUrl').value+'\nVerify the source details and use your institution’s required citation style.';}
