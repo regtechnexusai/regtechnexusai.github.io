@@ -688,6 +688,33 @@ section#interactive-study .topic-buttons button:hover{transform:translateY(-2px)
   main>section:not(.hero):not(.student-personalize):not(.ai-handoff):before{left:3%;right:3%}
   section[id] .section-heading:before{font-size:.62rem}
 }
+
+/* First two Student Hub pages — matching the full-color card treatment */
+section#study,section#ai{position:relative;overflow:hidden}
+section#study:after,section#ai:after{content:"";position:absolute;right:-80px;bottom:-100px;width:300px;height:300px;border-radius:50%;pointer-events:none;opacity:.65}
+section#study:after{background:radial-gradient(circle,#d9eaff 0%,rgba(217,234,255,.35) 38%,transparent 70%)}
+section#ai:after{background:radial-gradient(circle,#f8dced 0%,rgba(248,220,237,.35) 38%,transparent 70%)}
+section#study>.container,section#ai>.container{position:relative;z-index:1}
+section#study .section-heading h2,section#ai .section-heading h2{font-size:clamp(1.9rem,3.5vw,2.65rem)}
+section#study .card-grid{grid-template-columns:repeat(3,1fr);gap:22px}
+section#study .card-grid .card{min-height:185px;border-radius:16px;padding:24px;background:linear-gradient(145deg,#fff 0%,#f2f7ff 100%);border:1px solid #d9e6f5;border-top:5px solid #2f80ed;border-left:1px solid #d9e6f5;box-shadow:0 9px 22px rgba(47,128,237,.08)}
+section#study .card-grid .card:nth-child(2){border-top-color:#10a37f;background:linear-gradient(145deg,#fff,#f0fbf7)}
+section#study .card-grid .card:nth-child(3){border-top-color:#7c5ce6;background:linear-gradient(145deg,#fff,#f5f1ff)}
+section#study .card-grid .card:nth-child(4){border-top-color:#d9468f;background:linear-gradient(145deg,#fff,#fff1f7)}
+section#study .card-grid .card:nth-child(5){border-top-color:#e58a18;background:linear-gradient(145deg,#fff,#fff7e9)}
+section#study .card-grid .card h3{font-size:1.2rem}
+section#study .topic-list{gap:8px}
+section#study .topic{background:rgba(255,255,255,.82);border-color:#d9e4ef;box-shadow:0 2px 7px rgba(16,39,64,.04);transition:.18s ease}
+section#study .topic:hover{transform:translateY(-2px);box-shadow:0 6px 12px rgba(16,39,64,.08)}
+section#ai{background:linear-gradient(180deg,#fff5fa 0%,#fff 100%)}
+section#ai .ai-box{border:1px solid #f1cfe0;border-top:6px solid #d9468f;background:linear-gradient(145deg,#fff,#fff7fb);box-shadow:0 14px 32px rgba(217,70,143,.09);border-radius:18px}
+section#ai .form-group input,section#ai .form-group select,section#ai .form-group textarea{background:#fff;border-color:#e4cbd8}
+section#ai .form-group input:focus,section#ai .form-group select:focus,section#ai .form-group textarea:focus{outline:3px solid rgba(217,70,143,.12);border-color:#d9468f}
+section#ai .ai-actions .btn-primary{background:linear-gradient(135deg,#c02670,#d9468f);border-color:#c02670}
+section#ai #promptOutput{background:#fffafd;border-color:#efcfdf;border-left:5px solid #d9468f}
+section#ai .copy-status{color:#a51c5e}
+@media(max-width:900px){section#study .card-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){section#study .card-grid{grid-template-columns:1fr}section#study .card-grid .card{min-height:auto}}
 </style>
 </head>
 
