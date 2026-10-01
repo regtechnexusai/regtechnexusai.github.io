@@ -605,32 +605,56 @@
     ]
   }
   </script>
-</head>
+
+<style>
+/* Student Hub visual system — additive, responsive, aligned to the main RegTech Nexus AI brand */
+:root{--hub-accent:#0956a8;--hub-accent2:#1f7a8c;--hub-bg:#f7fbff;--hub-card:#fff;--hub-ink:#10203b}
+.site-header{background:rgba(255,255,255,.97);border-bottom:1px solid #e8e8e8;box-shadow:0 3px 18px rgba(16,32,59,.05)}
+.header-inner{min-height:78px}.brand-logo{display:block;object-fit:contain}.nav{gap:20px}.nav a{color:#10203b}.nav a:hover{color:#0956a8}.nav-cta{display:inline-block;background:#10203b;color:#fff;padding:12px 16px;border-radius:2px;font-weight:700;font-size:.82rem}.nav-cta:hover{text-decoration:none;background:#0956a8}
+.student-personalize{padding:30px 0;background:linear-gradient(120deg,#f8fbff,#fff7fb,#f4fffc);border-bottom:1px solid #e7edf3}.personalize-grid{display:grid;grid-template-columns:1.4fr .9fr;gap:25px;align-items:center}.personalize-card{background:#fff;border:1px solid #e1e8ef;border-radius:18px;padding:20px;box-shadow:0 10px 28px rgba(16,32,59,.08)}.personalize-card label{display:block;font-weight:700;margin:10px 0}.personalize-card select{width:100%;padding:11px;border:1px solid #cfd9e4;border-radius:9px;margin-top:5px;background:#fff}.personalize-card small{display:block;margin-top:8px;color:#287d4b}
+.ai-handoff{padding:28px 0;background:#10203b}.ai-handoff-card{display:flex;justify-content:space-between;align-items:center;gap:25px;color:#fff;background:linear-gradient(135deg,#123c69,#0956a8);border-radius:18px;padding:28px;box-shadow:0 12px 30px rgba(9,86,168,.2)}.ai-handoff-card h3{margin:4px 0 8px;font-size:1.55rem}.ai-handoff-card p{margin:0;color:#dbe8f5;max-width:760px}.ai-handoff .eyebrow{color:#bdeef2}
+.subject-library{grid-template-columns:repeat(4,1fr);gap:14px}.subject-btn{position:relative;min-height:82px;overflow:hidden;background:linear-gradient(145deg,#fff,#f3f8fc);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}.subject-btn:before{content:"";position:absolute;right:-16px;top:-18px;width:62px;height:62px;border-radius:50%;background:radial-gradient(circle,#d8eef5 1.5px,transparent 1.6px);background-size:9px 9px;opacity:.9}.subject-btn:hover{transform:translateY(-3px)}.subject-btn:nth-child(4n+1){border-top:4px solid #4f8cff}.subject-btn:nth-child(4n+2){border-top:4px solid #48bfa8}.subject-btn:nth-child(4n+3){border-top:4px solid #f0a83c}.subject-btn:nth-child(4n){border-top:4px solid #9b7bea}
+.study-workspace,.tool-workspace{border-radius:18px}.lesson{background:linear-gradient(145deg,#fbfdff,#f4faff);position:relative;overflow:hidden}.lesson:after{content:"";position:absolute;right:20px;bottom:12px;width:90px;height:50px;background:radial-gradient(circle,#d7e9f4 1.5px,transparent 1.6px);background-size:10px 10px;opacity:.6}.topic-buttons button{background:#fff}.topic-buttons button:hover{background:#eaf6fb}
+.site-footer{background:#10203b;color:#fff;padding:55px 0 18px}.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.35fr;gap:35px}.site-footer img{background:#fff;padding:5px;border-radius:8px}.site-footer p{color:#b9c6d4;line-height:1.65;font-size:.9rem}.site-footer b{display:block;margin-bottom:15px;color:#fff}.site-footer a{display:block;color:#dbe6f0;margin:9px 0;font-size:.88rem}.site-footer a:hover{color:#65d4df}.footer-bottom{margin-top:35px;padding-top:18px;border-top:1px solid #2c4762;display:flex;gap:20px;justify-content:space-between;color:#9fb0c0;font-size:.78rem}.footer-bottom a{display:inline}
+.theme-rose{--hub-accent:#c34f86;--hub-accent2:#df6fa3}.theme-rose .subject-btn:nth-child(4n+1){border-top-color:#df6fa3}.theme-rose .subject-btn:nth-child(4n+2){border-top-color:#b86fc4}.theme-mint{--hub-accent:#168b7a}.theme-violet{--hub-accent:#7654c7}.theme-amber{--hub-accent:#c47a13}
+@media(max-width:900px){.personalize-grid,.footer-grid{grid-template-columns:1fr 1fr}.subject-library{grid-template-columns:repeat(2,1fr)}.ai-handoff-card{flex-direction:column;align-items:flex-start}}
+@media(max-width:650px){.header-inner{flex-wrap:wrap;padding:10px 0}.nav{order:3;width:100%;overflow:auto;justify-content:flex-start}.nav-cta{display:none}.personalize-grid,.footer-grid,.subject-library{grid-template-columns:1fr}.footer-bottom{flex-direction:column;gap:7px}}
+</style></head>
 
 <body>
 
   <header class="site-header">
-    <div class="container header-inner">
+  <div class="container header-inner">
+    <a class="brand" href="../" aria-label="RegTech Nexus AI home">
+      <img src="../regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="190" height="62">
+    </a>
+    <nav class="nav" aria-label="Student Knowledge Hub navigation">
+      <a href="#study">Study</a><a href="#ai">AI</a><a href="#research">Research</a>
+      <a href="#career">Career</a><a href="#tools">Tools</a><a href="../">Main Site</a>
+    </nav>
+    <a class="nav-cta" href="https://chatgpt.com/g/g-6a09920b01348191b9b1628b69367d9b-regtech-nexus-ai" target="_blank" rel="noopener noreferrer">AI Study Coach ↗</a>
+  </div>
+</header>
 
-      <a class="brand"
-         href="../"
-         aria-label="Return to RegTech Nexus AI">
-        RegTech Nexus AI
-      </a>
-
-      <nav class="nav"
-           aria-label="Student Knowledge Hub navigation">
-        <a href="#study">Study</a>
-        <a href="#ai">AI</a>
-        <a href="#research">Research</a>
-        <a href="#career">Career</a>
-        <a href="#tools">Tools</a>
-      </nav>
-
+  <main><section class="student-personalize">
+  <div class="container personalize-grid">
+    <div>
+      <span class="eyebrow">MAKE IT YOUR STUDY SPACE</span>
+      <h2>Choose your learning style</h2>
+      <p>Pick a study level and visual theme. This changes the learning experience—not the academic content.</p>
     </div>
-  </header>
-
-  <main>
+    <div class="personalize-card">
+      <label>Study level
+        <select id="studentLevel"><option>Primary / Class 5–8</option><option>Secondary / Class 9–12</option><option>University</option><option>Professional / Lifelong Learning</option></select>
+      </label>
+      <label>Visual theme
+        <select id="studentTheme"><option value="ocean">Ocean Blue</option><option value="rose">Rose</option><option value="mint">Mint</option><option value="violet">Violet</option><option value="amber">Amber</option></select>
+      </label>
+      <button class="btn btn-primary" onclick="saveStudentPreferences()">Save my preferences</button>
+      <small id="preferenceStatus"></small>
+    </div>
+  </div>
+</section>
 
     <!-- HERO -->
 
@@ -1412,10 +1436,19 @@
 <div class="study-workspace">
 <div class="workspace-grid">
 <div><label for="subjectTopic">Topics</label><div id="subjectTopics" class="topic-buttons"></div></div>
-<div><label for="difficulty">Quiz difficulty</label><select id="difficulty"><option>Foundation</option><option>Intermediate</option><option>Challenge</option></select></div>
+<div>
+<label for="difficulty">Quiz difficulty</label><select id="difficulty"><option>Foundation</option><option>Intermediate</option><option>Challenge</option></select>
+<label for="quizSize">Questions per quiz</label><select id="quizSize"><option>5</option><option selected>10</option><option>15</option><option>20</option></select>
+<div class="tool-actions"><button class="btn btn-primary" onclick="startQuiz()">New Quiz</button><button class="btn btn-secondary" onclick="showQuizHistory()">Previous Quizzes</button></div>
+</div>
 <div class="full"><div id="lessonOutput" class="lesson"><h3>Choose a subject</h3><p>Your selected topic's learning guide will appear here.</p></div></div>
 <div class="full"><div id="quizOutput"></div></div>
 </div></div></div></section>
+
+<section class="ai-handoff"><div class="container"><div class="ai-handoff-card">
+  <div><span class="eyebrow">AI STUDY COACH</span><h3>Need a fresh, adaptive quiz?</h3><p>Open the RegTech Nexus AI GPT for a conversational quiz. Tell it your subject, topic and level; ask for one question at a time, hints, explanations and a new quiz after each round.</p></div>
+  <a class="btn btn-primary" href="https://chatgpt.com/g/g-6a09920b01348191b9b1628b69367d9b-regtech-nexus-ai" target="_blank" rel="noopener noreferrer">Open RegTech Nexus AI GPT ↗</a>
+</div></div></section>
 
 <section id="working-tools">
 <div class="container"><div class="section-heading"><h2>Working Free Student Tools</h2><p>These tools operate in the browser. No API key is required for the core calculators, planners, checklists and built-in topic quizzes.</p></div>
@@ -1452,38 +1485,38 @@
   </main>
 
 
-  <!-- FOOTER -->
-
-  <footer class="footer">
-
-    <div class="container">
-
-      <strong>
-        RegTech Nexus AI — Student Knowledge Hub
-      </strong>
-
-      <p>
-        Free learning resources for students covering AI, study, research,
-        architecture, career preparation, financial literacy and digital
-        literacy.
-      </p>
-
-      <p>
-        <a href="../">
-          ← Return to RegTech Nexus AI
-        </a>
-      </p>
-
-      <small>
-        © 2026 RegTech Nexus AI. Student learning resources are provided for
-        educational purposes and do not constitute official academic,
-        professional or regulatory advice.
-      </small>
-
+  <!-- MAIN-SITE STYLE STUDENT FOOTER -->
+  <footer class="site-footer" id="student-contact">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img src="../regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="230" height="70">
+        <p>Audit · Regulatory Intelligence · Compliance · Risk · Technology</p>
+        <p><strong>Student Knowledge Hub</strong><br>Free learning, AI, research, academic and career tools.</p>
+      </div>
+      <div>
+        <b>Student Learning</b>
+        <a href="#study">Study Subjects</a><a href="#ai">AI Learning</a><a href="#research">Research Skills</a>
+        <a href="#career">Career</a><a href="#tools">Free Student Tools</a>
+      </div>
+      <div>
+        <b>RegTech Nexus AI</b>
+        <a href="../">Main Website</a><a href="../insights.html">Insights</a><a href="../blog.html">Blog</a>
+        <a href="../contact.html">Contact</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a>
+      </div>
+      <div>
+        <b>Office &amp; Contact</b>
+        <p>Deyara, Dighalia, Khulna, Bangladesh</p>
+        <p>28/A-2, Toyenbee Circular Road, 1st Floor, Motijheel, Dhaka, Bangladesh</p>
+        <a href="mailto:regtechnexusai@gmail.com">regtechnexusai@gmail.com</a>
+        <a href="mailto:regtechnexusai@gmail.com?subject=Join%20RegTech%20Nexus%20AI%20Student%20Briefing">Join the briefing list →</a>
+      </div>
     </div>
-
+    <div class="container footer-bottom">
+      <span>© 2026 RegTech Nexus AI</span>
+      <span>Student resources are for educational purposes.</span>
+      <a href="../">Return to RegTech Nexus AI ↗</a>
+    </div>
   </footer>
-
 
   <script>
     function buildPrompt() {
@@ -1622,6 +1655,70 @@ function scoreSource(){const total=[...document.querySelectorAll('.srcScore')].r
 function checkCV(){const n=document.querySelectorAll('.cvItem').length,d=[...document.querySelectorAll('.cvItem')].filter(x=>x.checked).length;qs('toolResult').textContent=d+'/'+n+' checklist items completed.';}
 function skillGap(){const r=qs('requiredSkills').value.split(',').map(x=>x.trim().toLowerCase()).filter(Boolean),c=qs('currentSkills').value.split(',').map(x=>x.trim().toLowerCase()).filter(Boolean),g=r.filter(x=>!c.includes(x));qs('toolResult').textContent=g.length?'Skills to develop: '+g.join(', '):'No missing skills detected from the lists provided.';}
 renderSubjects();selectSubject('Mathematics');
+</script>
+
+<script>
+/* Adaptive quiz engine: randomized sets, local history, retest and GPT hand-off */
+const QUIZ_TEMPLATES=[
+  (d,t)=>({q:'Which statement best explains '+t+'?',correct:d[0],wrong:['It is unrelated to evidence or context.','It has no practical application.','It should always be treated as certain.']}),
+  (d,t)=>({q:'Which study approach is most appropriate for '+t+'?',correct:d[1],wrong:['Skip examples and rely only on rereading.','Memorize the label without understanding the concept.','Use an unrelated topic as the main evidence.']}),
+  (d,t)=>({q:'Which example is most consistent with '+t+'?',correct:d[2],wrong:['Ignore the assumptions and context.','Treat every result as universally certain.','Avoid checking how the concept applies.']}),
+  (d,t)=>({q:'A student is revising '+t+'. What should the student do first?',correct:'Identify the concept, assumptions and evidence before drawing a conclusion.',wrong:['Guess the answer before reading the question.','Assume the first source is always correct.','Skip the example and memorize the heading.']}),
+  (d,t)=>({q:'What is a useful self-test for '+t+'?',correct:'Explain the concept in your own words and apply it to a new example.',wrong:['Copy the definition without understanding it.','Read the same paragraph repeatedly without recall.','Avoid answering questions until the exam.']}),
+  (d,t)=>({q:'Which statement should a careful learner make about '+t+'?',correct:'The answer should be checked against the relevant context, evidence and assumptions.',wrong:['Context never changes interpretation.','Verification is unnecessary.','Every textbook example applies to every situation.']}),
+  (d,t)=>({q:'If your first answer about '+t+' is wrong, what is the best next step?',correct:'Review the reasoning, identify the error, then attempt a similar question again.',wrong:['Memorize the option letter only.','Stop practicing the topic.','Change the subject without reviewing the error.']}),
+  (d,t)=>({q:'Which learning cycle supports retention of '+t+'?',correct:'Learn → recall → practice → feedback → review → retest.',wrong:['Read once → close the book → never revisit.','Copy notes → skip practice → wait for the exam.','Guess → submit → ignore feedback.']})
+];
+function shuffle(a){return a.map(x=>[Math.random(),x]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);}
+function makeQuizSet(count){
+  const d=studentSubjects[currentSubject].topics[currentTopic], all=[];
+  for(let round=0;round<Math.ceil(count/QUIZ_TEMPLATES.length);round++){
+    shuffle(QUIZ_TEMPLATES).forEach((fn)=>{if(all.length<count){const z=fn(d,currentTopic);const opts=shuffle([{t:z.correct,c:true},...z.wrong.map(t=>({t,c:false}))]);all.push({q:z.q,options:opts.map(o=>o.t),a:opts.findIndex(o=>o.c),explanation:d[0]});}});
+  }
+  return all;
+}
+function startQuiz(){
+  if(!currentSubject||!currentTopic){alert('Select a subject and topic first.');return;}
+  const count=Number(document.getElementById('quizSize')?.value||10);
+  quizQuestions=makeQuizSet(count);
+  const setId=Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7);
+  window.currentQuizSetId=setId;
+  let html='<div class="lesson quiz-card"><div class="quiz-head"><div><span class="eyebrow">QUIZ SET '+setId.toUpperCase()+'</span><h3>'+currentSubject+' — '+currentTopic+'</h3><p>'+count+' questions · '+document.getElementById('difficulty').value+' · New randomized set</p></div><button class="btn btn-secondary" onclick="openGPTQuiz()">AI New Quiz ↗</button></div>';
+  quizQuestions.forEach((x,i)=>{html+='<div class="quiz-q"><strong>'+(i+1)+'. '+x.q+'</strong><div class="quiz-options">'+x.options.map((o,j)=>'<label><input type="radio" name="q'+i+'" value="'+j+'"> '+o+'</label>').join('')+'</div></div>';});
+  html+='<div class="tool-actions"><button class="btn btn-primary" onclick="gradeQuiz()">Submit Quiz</button><button class="btn btn-secondary" onclick="startQuiz()">New Quiz</button></div><div id="quizResult"></div></div>';
+  qs('quizOutput').innerHTML=html;qs('quizOutput').scrollIntoView({behavior:'smooth',block:'start');
+}
+function gradeQuiz(){
+  let score=0,answered=0;
+  quizQuestions.forEach((x,i)=>{const el=document.querySelector('input[name="q'+i+'"]:checked');if(el){answered++;if(Number(el.value)===x.a)score++;}});
+  const pct=quizQuestions.length?Math.round(score/quizQuestions.length*100):0;
+  const history=JSON.parse(localStorage.getItem('studentHubQuizHistory')||'[]');
+  history.unshift({id:window.currentQuizSetId,subject:currentSubject,topic:currentTopic,score,pct,answered,total:quizQuestions.length,date:new Date().toISOString()});
+  localStorage.setItem('studentHubQuizHistory',JSON.stringify(history.slice(0,30)));
+  qs('quizResult').innerHTML='<div class="result"><strong>Score: '+score+'/'+quizQuestions.length+' ('+pct+'%)</strong><p>Answered: '+answered+'/'+quizQuestions.length+'. '+(pct>=80?'Strong recall. Try a new randomized set or move to a harder level.':pct>=60?'Review the lesson and retest with a new set.':'Revisit the topic, then retest with a fresh set.')+'</p><p><strong>Feedback:</strong> '+quizQuestions.map((x,i)=>((document.querySelector('input[name="q'+i+'"]:checked')?.value==x.a)?'Q'+(i+1)+' ✓':'Q'+(i+1)+' → review')).join(' · ')+'</p><div class="tool-actions"><button class="btn btn-primary" onclick="startQuiz()">Retest with New Questions</button><button class="btn btn-secondary" onclick="showQuizHistory()">View Previous Quizzes</button></div></div>';
+}
+function showQuizHistory(){
+  const h=JSON.parse(localStorage.getItem('studentHubQuizHistory')||'[]');
+  const out=qs('quizOutput');out.innerHTML='<div class="lesson"><h3>Previous Quiz Sets</h3>'+(h.length?h.map((x,i)=>'<p><strong>'+x.subject+' — '+x.topic+'</strong><br>'+new Date(x.date).toLocaleString()+' · '+x.score+'/'+x.total+' ('+x.pct+'%) · Set '+x.id+'</p>').join(''):'<p>No completed quizzes on this device yet.</p>')+'</div>';
+  out.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function openGPTQuiz(){
+  const d=studentSubjects[currentSubject].topics[currentTopic];
+  const prompt='Create a fresh '+(document.getElementById('quizSize')?.value||10)+'-question quiz for '+currentSubject+' — '+currentTopic+'. Level: '+(document.getElementById('difficulty')?.value||'Foundation')+'. Ask one question at a time. Do not repeat previous questions. Give a hint after a wrong answer, explain the reasoning, track weak areas, and finish with a retest focused on weak areas. Use the following study context: '+d.join(' ');
+  navigator.clipboard?.writeText(prompt).catch(()=>{});
+  window.open('https://chatgpt.com/g/g-6a09920b01348191b9b1628b69367d9b-regtech-nexus-ai','_blank','noopener');
+  alert('A study prompt for the selected topic was copied. Paste it into the RegTech Nexus AI GPT to start an adaptive quiz.');
+}
+function saveStudentPreferences(){
+  const level=document.getElementById('studentLevel').value,theme=document.getElementById('studentTheme').value;
+  localStorage.setItem('studentHubPreferences',JSON.stringify({level,theme}));
+  document.body.classList.remove('theme-rose','theme-mint','theme-violet','theme-amber');if(theme!=='ocean')document.body.classList.add('theme-'+theme);
+  document.getElementById('preferenceStatus').textContent='Saved on this device.';
+}
+function loadStudentPreferences(){
+  try{const p=JSON.parse(localStorage.getItem('studentHubPreferences')||'{}');if(p.level)document.getElementById('studentLevel').value=p.level;if(p.theme){document.getElementById('studentTheme').value=p.theme;document.body.classList.add(p.theme==='ocean'?'':'theme-'+p.theme);}}catch(e){}
+}
+loadStudentPreferences();
 </script>
 </body>
 </html>
