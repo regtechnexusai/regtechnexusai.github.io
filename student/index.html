@@ -1686,7 +1686,7 @@ function startQuiz(){
   let html='<div class="lesson quiz-card"><div class="quiz-head"><div><span class="eyebrow">QUIZ SET '+setId.toUpperCase()+'</span><h3>'+currentSubject+' — '+currentTopic+'</h3><p>'+count+' questions · '+document.getElementById('difficulty').value+' · New randomized set</p></div><button class="btn btn-secondary" onclick="openGPTQuiz()">AI New Quiz ↗</button></div>';
   quizQuestions.forEach((x,i)=>{html+='<div class="quiz-q"><strong>'+(i+1)+'. '+x.q+'</strong><div class="quiz-options">'+x.options.map((o,j)=>'<label><input type="radio" name="q'+i+'" value="'+j+'"> '+o+'</label>').join('')+'</div></div>';});
   html+='<div class="tool-actions"><button class="btn btn-primary" onclick="gradeQuiz()">Submit Quiz</button><button class="btn btn-secondary" onclick="startQuiz()">New Quiz</button></div><div id="quizResult"></div></div>';
-  qs('quizOutput').innerHTML=html;qs('quizOutput').scrollIntoView({behavior:'smooth',block:'start');
+  qs('quizOutput').innerHTML=html;qs('quizOutput').scrollIntoView({behavior:'smooth',block:'start'});
 }
 function gradeQuiz(){
   let score=0,answered=0;
