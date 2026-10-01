@@ -1065,6 +1065,40 @@ section#ai + section .card-grid .card:nth-child(6){border-top-color:#2f80ed;back
 @media(max-width:760px){.progress-dashboard-head{align-items:start;flex-direction:column}.progress-metrics{grid-template-columns:1fr 1fr}.progress-dashboard-grid{grid-template-columns:1fr}}
 @media(max-width:420px){.progress-metrics{grid-template-columns:1fr}}
 </style>
+
+<style id="student-hub-cta-contrast">
+/* AI Study Coach CTA — high-contrast glossy white 3D button */
+.site-header .nav .nav-cta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:46px;
+  padding:11px 16px;
+  border:1px solid #ffffff !important;
+  border-left:4px solid #0956a8 !important;
+  border-radius:13px !important;
+  background:linear-gradient(180deg,#ffffff 0%,#ffffff 58%,#f3f8ff 100%) !important;
+  color:#0956a8 !important;
+  font-weight:900 !important;
+  letter-spacing:.01em;
+  text-shadow:0 1px 0 rgba(255,255,255,.95);
+  box-shadow:0 5px 0 #7ea7d7,0 12px 24px rgba(16,32,59,.18),inset 0 2px 0 #ffffff,inset 0 -7px 14px rgba(9,86,168,.08);
+  transition:transform .2s ease,box-shadow .2s ease,filter .2s ease;
+}
+.site-header .nav .nav-cta:hover{
+  color:#064a94 !important;
+  background:linear-gradient(180deg,#ffffff 0%,#ffffff 52%,#edf6ff 100%) !important;
+  text-decoration:none;
+  transform:translateY(-2px);
+  filter:saturate(1.06) brightness(1.01);
+  box-shadow:0 7px 0 #6f9dce,0 16px 28px rgba(16,32,59,.22),inset 0 2px 0 #ffffff,inset 0 -7px 14px rgba(9,86,168,.10);
+}
+.site-header .nav .nav-cta:active{
+  transform:translateY(3px);
+  box-shadow:0 2px 0 #6f9dce,0 8px 16px rgba(16,32,59,.18),inset 0 2px 0 #ffffff;
+}
+@media(max-width:650px){.site-header .nav .nav-cta{display:none}}
+</style>
 </head>
 
 <body>
