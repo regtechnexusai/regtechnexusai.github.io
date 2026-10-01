@@ -858,6 +858,107 @@ section#ai + section .card-grid .card:nth-child(6){border-top-color:#2f80ed;back
   .personalize-card{border-top-width:5px}
 }
 </style>
+<style id="student-hub-ai-answer-report">
+/* AI Answer Report + glossy hero CTA */
+/* Photo 1 — premium 3D white glossy CTA */
+.hero-actions .btn-primary{
+  color:#0b3f86 !important;
+  background:linear-gradient(180deg,#ffffff 0%,#f8fbff 38%,#dcecff 100%) !important;
+  border:1px solid #a9c9ee !important;
+  border-top-color:#ffffff !important;
+  border-radius:16px !important;
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,.98),
+    inset 0 -5px 0 rgba(93,145,205,.16),
+    0 3px 0 #7da7d6,
+    0 10px 22px rgba(30,91,160,.20) !important;
+  text-shadow:0 1px 0 #fff;
+  transform:translateY(0);
+}
+.hero-actions .btn-primary:hover{
+  background:linear-gradient(180deg,#ffffff 0%,#ffffff 34%,#e8f3ff 100%) !important;
+  transform:translateY(-2px);
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,.98),
+    inset 0 -5px 0 rgba(93,145,205,.14),
+    0 5px 0 #719bc9,
+    0 14px 26px rgba(30,91,160,.24) !important;
+}
+.hero-actions .btn-primary:active{
+  transform:translateY(2px);
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.9),0 2px 0 #719bc9,0 5px 12px rgba(30,91,160,.18) !important;
+}
+
+/* AI output workspace */
+.ai-output-actions{
+  display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;
+}
+.ai-output-actions .btn{
+  min-height:46px;border-radius:12px;
+}
+.ai-answer-btn{
+  background:linear-gradient(135deg,#fff 0%,#eef6ff 55%,#dfeeff 100%) !important;
+  color:#114d96 !important;border:1px solid #a9c9ee !important;
+  box-shadow:inset 0 1px 0 #fff,0 4px 10px rgba(30,91,160,.12);
+}
+.ai-report-btn{
+  background:linear-gradient(135deg,#fff 0%,#fff2f8 55%,#f4e7ff 100%) !important;
+  color:#9b2761 !important;border:1px solid #e3bfd2 !important;
+  box-shadow:inset 0 1px 0 #fff,0 4px 10px rgba(180,54,115,.10);
+}
+.ai-answer-modal{
+  position:fixed;inset:0;z-index:9999;display:none;padding:24px;
+  background:rgba(8,27,53,.58);backdrop-filter:blur(5px);
+}
+.ai-answer-modal.is-open{display:flex;align-items:center;justify-content:center}
+.ai-answer-panel{
+  width:min(960px,100%);max-height:90vh;overflow:auto;
+  background:linear-gradient(145deg,#fff 0%,#f7fbff 58%,#fff6fa 100%);
+  border:1px solid #cbdbea;border-top:7px solid #2f80ed;border-radius:20px;
+  box-shadow:0 25px 70px rgba(0,0,0,.25);padding:24px;
+}
+.ai-answer-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.ai-answer-head h2{margin:0;color:#123f73}
+.ai-answer-close{
+  border:0;background:#eef5fb;color:#163d67;width:40px;height:40px;border-radius:50%;
+  font-size:24px;cursor:pointer;
+}
+.ai-answer-tabs{display:flex;gap:8px;margin:20px 0 14px}
+.ai-answer-tab{
+  border:1px solid #cad9e8;background:#fff;color:#34536f;border-radius:11px;padding:10px 16px;
+  font-weight:800;cursor:pointer;
+}
+.ai-answer-tab.active{background:linear-gradient(135deg,#1769d2,#4b91f1);color:#fff;border-color:#1769d2}
+.ai-answer-pane{display:none}
+.ai-answer-pane.active{display:block}
+.ai-answer-prompt,.ai-answer-text{
+  width:100%;box-sizing:border-box;border:1px solid #ccdce9;border-radius:13px;
+  background:#fff;padding:16px;font:inherit;line-height:1.6;
+}
+.ai-answer-prompt{min-height:240px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9rem}
+.ai-answer-text{min-height:300px;resize:vertical}
+.ai-answer-note{
+  margin:0 0 12px;padding:12px 14px;border-radius:11px;background:#fff4d9;border:1px solid #f0d58d;color:#765a19;
+}
+.ai-answer-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.ai-answer-meta div{padding:10px 12px;background:#fff;border:1px solid #d9e5ef;border-radius:10px}
+.ai-answer-footer{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+@media(max-width:650px){
+  .ai-answer-modal{padding:10px}
+  .ai-answer-panel{padding:16px;border-radius:16px;max-height:94vh}
+  .ai-answer-meta{grid-template-columns:1fr}
+  .ai-output-actions .btn,.ai-answer-footer .btn{width:100%}
+}
+@media print{
+  body>*:not(#aiAnswerModal){display:none !important}
+  #aiAnswerModal{position:static!important;display:block!important;background:#fff!important;padding:0!important}
+  #aiAnswerModal .ai-answer-panel{display:block!important;max-height:none!important;overflow:visible!important;box-shadow:none!important;border:0!important;padding:0!important}
+  #aiAnswerModal .ai-answer-close,#aiAnswerModal .ai-answer-tabs,#aiAnswerModal .ai-answer-footer,#aiAnswerModal .ai-answer-note{display:none!important}
+  #aiAnswerModal .ai-answer-pane{display:none!important}
+  #aiAnswerModal #aiAnswerPane{display:block!important}
+  #aiAnswerModal .ai-answer-text{border:0!important;min-height:0!important;padding:0!important}
+}
+</style>
 </head>
 
 <body>
@@ -1260,6 +1361,13 @@ section#ai + section .card-grid .card:nth-child(6){border-top-color:#2f80ed;back
               type="button"
               onclick="copyPrompt()">
               Copy Prompt
+            </button>
+
+            <button
+              class="btn ai-answer-btn"
+              type="button"
+              onclick="openAIAnswerWorkspace()">
+              AI Answer / Report
             </button>
 
             <span
@@ -1944,6 +2052,112 @@ function renderSubjects(){
  });
 }
 renderSubjects();selectSubject(currentSubject||'Mathematics');
+</script>
+<!-- AI Answer / Printable Report workspace -->
+<div id="aiAnswerModal" class="ai-answer-modal" aria-hidden="true">
+  <div class="ai-answer-panel" role="dialog" aria-modal="true" aria-labelledby="aiAnswerTitle">
+    <div class="ai-answer-head">
+      <div>
+        <div class="eyebrow">REGTECH NEXUS AI · STUDY OUTPUT</div>
+        <h2 id="aiAnswerTitle">AI Study Answer & Report</h2>
+        <p>Build the prompt, continue with the RegTech Nexus AI GPT, then place the verified answer here for a clean printable report.</p>
+      </div>
+      <button class="ai-answer-close" type="button" onclick="closeAIAnswerWorkspace()" aria-label="Close">×</button>
+    </div>
+
+    <div class="ai-answer-tabs">
+      <button class="ai-answer-tab active" type="button" onclick="switchAIAnswerTab('prompt',this)">① Study Prompt</button>
+      <button class="ai-answer-tab" type="button" onclick="switchAIAnswerTab('answer',this)">② AI Answer Report</button>
+    </div>
+
+    <div id="aiPromptPane" class="ai-answer-pane active">
+      <div class="ai-answer-meta">
+        <div><strong>Subject</strong><br><span id="aiReportSubject">—</span></div>
+        <div><strong>Topic</strong><br><span id="aiReportTopic">—</span></div>
+      </div>
+      <textarea id="aiAnswerPrompt" class="ai-answer-prompt" readonly></textarea>
+      <div class="ai-answer-footer">
+        <button class="btn btn-primary" type="button" onclick="copyAIAnswerPrompt()">Copy Prompt</button>
+        <button class="btn ai-report-btn" type="button" onclick="openRegTechGPT()">Open RegTech Nexus AI GPT ↗</button>
+        <button class="btn btn-secondary" type="button" onclick="switchAIAnswerTab('answer')">Go to Answer Report →</button>
+      </div>
+    </div>
+
+    <div id="aiAnswerPane" class="ai-answer-pane">
+      <div class="ai-answer-note">
+        <strong>Answer workflow:</strong> Open the RegTech Nexus AI GPT with the prompt above, review/verify the response, then paste the final answer below. The report can be printed or saved as PDF from your browser.
+      </div>
+      <div class="ai-answer-meta">
+        <div><strong>Subject</strong><br><span id="aiReportSubject2">—</span></div>
+        <div><strong>Topic</strong><br><span id="aiReportTopic2">—</span></div>
+      </div>
+      <textarea id="aiAnswerText" class="ai-answer-text" placeholder="Paste the verified ChatGPT answer here…"></textarea>
+      <div class="ai-answer-footer">
+        <button class="btn btn-primary" type="button" onclick="printAIAnswerReport()">Print / Save as PDF</button>
+        <button class="btn ai-report-btn" type="button" onclick="copyAIAnswer()">Copy Answer</button>
+        <button class="btn btn-secondary" type="button" onclick="openRegTechGPT()">Open ChatGPT Again ↗</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+/* AI Answer Report + ChatGPT hand-off */
+const REGTECH_GPT_URL='https://chatgpt.com/g/g-6a09920b01348191b9b1628b69367d9b-regtech-nexus-ai';
+
+function buildCurrentStudyPrompt(){
+  const subject=(document.getElementById('subject')?.value||currentSubject||'General Study').trim();
+  const level=(document.getElementById('level')?.value||'University').trim();
+  const topic=(document.getElementById('topic')?.value||currentTopic||subject).trim();
+  const goal=(document.getElementById('goal')?.value||'Understand the topic, apply it and prepare for assessment.').trim();
+  return 'You are the RegTech Nexus AI Study Coach. Teach '+subject+' — '+topic+' at '+level+' level. Learning goal: '+goal+'. Provide a clear, original, evidence-aware study answer with: 1) concise explanation, 2) key concepts/definitions, 3) worked or practical example where relevant, 4) common mistakes, 5) short self-test questions with answers/explanations, and 6) sources or source-verification guidance where factual claims require support. Do not invent citations. Help the student learn rather than submit unreviewed work.';
+}
+function openAIAnswerWorkspace(){
+  const prompt=buildCurrentStudyPrompt();
+  const subject=(document.getElementById('subject')?.value||currentSubject||'General Study').trim();
+  const topic=(document.getElementById('topic')?.value||currentTopic||subject).trim();
+  document.getElementById('aiAnswerPrompt').value=prompt;
+  ['aiReportSubject','aiReportSubject2'].forEach(id=>document.getElementById(id).textContent=subject);
+  ['aiReportTopic','aiReportTopic2'].forEach(id=>document.getElementById(id).textContent=topic);
+  document.getElementById('aiAnswerModal').classList.add('is-open');
+  document.getElementById('aiAnswerModal').setAttribute('aria-hidden','false');
+}
+function closeAIAnswerWorkspace(){
+  document.getElementById('aiAnswerModal').classList.remove('is-open');
+  document.getElementById('aiAnswerModal').setAttribute('aria-hidden','true');
+}
+function switchAIAnswerTab(which,btn){
+  document.querySelectorAll('.ai-answer-tab').forEach(x=>x.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  document.querySelectorAll('.ai-answer-pane').forEach(x=>x.classList.remove('active'));
+  document.getElementById(which==='answer'?'aiAnswerPane':'aiPromptPane').classList.add('active');
+}
+function copyAIAnswerPrompt(){
+  const value=document.getElementById('aiAnswerPrompt').value;
+  navigator.clipboard?.writeText(value).catch(()=>{});
+  alert('Study prompt copied. Open the RegTech Nexus AI GPT and paste it there.');
+}
+function openRegTechGPT(){
+  const prompt=document.getElementById('aiAnswerPrompt').value||buildCurrentStudyPrompt();
+  navigator.clipboard?.writeText(prompt).catch(()=>{});
+  window.open(REGTECH_GPT_URL,'_blank','noopener');
+}
+function copyAIAnswer(){
+  const value=document.getElementById('aiAnswerText').value;
+  navigator.clipboard?.writeText(value).catch(()=>{});
+  alert(value?'Answer copied.':'There is no answer text to copy yet.');
+}
+function printAIAnswerReport(){
+  const answer=document.getElementById('aiAnswerText').value.trim();
+  if(!answer){alert('Please paste or enter the verified AI answer first.');return;}
+  const subject=document.getElementById('aiReportSubject2').textContent;
+  const topic=document.getElementById('aiReportTopic2').textContent;
+  const title=document.getElementById('aiAnswerTitle');
+  document.title='RegTech Nexus AI — '+subject+' — '+topic;
+  window.print();
+  setTimeout(()=>{document.title='Student Knowledge Hub | Free Learning & AI Toolkit';},1000);
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAIAnswerWorkspace()});
+document.getElementById('aiAnswerModal')?.addEventListener('click',e=>{if(e.target.id==='aiAnswerModal')closeAIAnswerWorkspace()});
 </script>
 </body>
 </html>
