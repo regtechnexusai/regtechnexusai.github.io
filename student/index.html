@@ -2006,7 +2006,7 @@ section#ai + section .card-grid .card:nth-child(6){border-top-color:#2f80ed;back
       <div>
         <b>RegTech Nexus AI</b>
         <a href="../">Main Website</a><a href="../insights.html">Insights</a><a href="../blog.html">Blog</a>
-        <a href="../contact.html">Contact</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a>
+        <a href="../contact.html">Contact</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="privacy.html">Student Privacy</a><a href="ai-use.html">AI Use & Integrity</a>
       </div>
       
     </div>
@@ -2134,6 +2134,8 @@ Cybersecurity:{topics:{'CIA Triad':['Confidentiality, integrity and availability
 'English & Communication':{topics:{'Academic Writing':['Academic writing makes a clear claim and supports it with relevant evidence.','Plan the argument before polishing sentences.','A topic sentence states the main focus of a paragraph.'],'Professional Email':['Professional email should make purpose, action and context easy to identify.','Use a concise subject, clear request and appropriate closing.','Proofread names, dates, attachments and recipients.']}},
 'Research Methodology':{topics:{'Research Questions':['A research question defines what the study seeks to understand or explain.','Make the question specific enough to investigate with available evidence.','The method should be capable of answering the question.'],'Literature Review':['A literature review synthesizes relevant research rather than merely listing sources.','Compare findings, methods, limitations and gaps.','Keep source details traceable while drafting.']}},
 'General Science':{topics:{'Scientific Method':['Scientific inquiry uses questions, evidence, testing and revision.','State a testable hypothesis and identify variables and controls.','Conclusions should reflect evidence and limitations.'],'Climate Science':['Climate describes long-term patterns; weather describes short-term conditions.','Separate observations, mechanisms and model projections.','Time scale and uncertainty matter when interpreting climate evidence.']}},
+'AML/CFT & Financial Crime':{topics:{'AML/CFT Foundations':['Anti-money laundering and countering the financing of terrorism are core financial-crime control disciplines.','Start with money laundering, terrorist financing, the risk-based approach, customer due diligence and reporting concepts.','A red flag is an indicator for review, not proof of criminal conduct.'],'KYC & CDD':['KYC and customer due diligence help institutions understand who the customer is, the purpose of the relationship and relevant risk factors.','Study identification, verification, beneficial ownership, purpose and ongoing due diligence.','Higher-risk relationships may require enhanced measures under applicable rules.'],'Transaction Monitoring':['Transaction monitoring uses rules, scenarios or analytics to identify potentially unusual activity for investigation.','Separate an alert from an investigation finding and a legal conclusion.','Context, customer profile and transaction behaviour matter when assessing an alert.'],'Sanctions Awareness':['Sanctions controls help institutions identify and manage exposure to applicable sanctions restrictions.','Study screening concepts, alert handling, escalation and the distinction between a potential match and a confirmed match.','Always verify current sanctions requirements against the applicable official source.'],'Risk-Based Approach':['The risk-based approach focuses resources and controls according to identified money-laundering and terrorist-financing risks.','Study risk identification, assessment, mitigation, monitoring and governance.','FATF describes the risk-based approach as central to its standards.']}},
+IFRS:{topics:{'IFRS Foundations':['IFRS Accounting Standards provide a framework for financial reporting and related disclosures.','Start with the Conceptual Framework, recognition, measurement, presentation and disclosure.','Accounting conclusions depend on the applicable current standard and facts.'],'IFRS 9':['IFRS 9 addresses financial instruments, including classification and measurement, impairment and hedge accounting.','Learn the business-model and cash-flow characteristics concepts before detailed classification questions.','Always check the current IFRS Foundation material for amendments and effective dates.'],'IFRS 15':['IFRS 15 addresses revenue from contracts with customers and uses a five-step model.','Study identifying the contract, performance obligations, transaction price, allocation and recognition.','The substance of contract terms and performance obligations drives the analysis.'],'IFRS 16':['IFRS 16 addresses leases and introduced a lessee accounting model with important recognition and measurement requirements.','Start by understanding what constitutes a lease and the related right-of-use and lease-liability concepts.','Specific exemptions and measurement requirements must be checked in the current standard.'],'IAS 2 Inventories':['IAS 2 addresses inventories and their measurement, including cost and net realisable value concepts.','Study what costs are included and how write-downs and reversals operate under the standard.','Inventory measurement is not simply a choice between any two amounts; the applicable rule matters.'],'IAS 7 Cash Flows':['IAS 7 addresses cash flow statements and classification of cash flows into operating, investing and financing activities.','Learn the purpose of the cash flow statement and the classification principles.','Classification can depend on the nature of the transaction and applicable requirements.']}},
 'Social Science':{topics:{'Social Research':['Social research studies people, groups and institutions using systematic evidence.','Define the population, variables and method clearly.','Sampling choices affect how far findings can be generalized.'],'Correlation & Causation':['Correlation indicates association between variables; it does not by itself prove causation.','Consider alternative explanations, confounding and research design.','Causal claims require appropriate evidence and assumptions.']}}
 };
 let currentSubject=null,currentTopic=null,quizQuestions=[];
@@ -2144,46 +2146,21 @@ function showTopic(topic){currentTopic=topic;const d=studentSubjects[currentSubj
 function startQuiz(){
  const d=studentSubjects[currentSubject].topics[currentTopic], size=Number(document.getElementById('quizSize')?.value||10);
  const facts=[d[0],d[1],d[2]];
- const templates=[
-  ['Which statement best matches the topic?',0],
-  ['Which study point is most directly supported by the lesson?',1],
-  ['Which example or implication is given in the lesson?',2],
-  ['Which statement is most consistent with the core concept?',0],
-  ['Which approach is recommended when studying this topic?',1],
-  ['Which statement is safest when applying the topic?',2],
-  ['What should a learner identify first?',1],
-  ['Which statement would be a reasonable revision note?',0],
-  ['Which statement reflects the lesson rather than an unsupported claim?',2],
-  ['Which idea belongs in a quick-review card for this topic?',1],
-  ['Which statement best captures the practical takeaway?',0],
-  ['Which statement should be checked against context or assumptions?',2]
- ];
+ const templates=[['Which statement best matches the topic?',0,'core concept'],['Which study point is most directly supported by the lesson?',1,'method'],['Which example or implication is given in the lesson?',2,'application/example'],['Which statement is most consistent with the core concept?',0,'core concept'],['Which approach is recommended when studying this topic?',1,'method'],['Which statement is safest when applying the topic?',2,'application/example'],['What should a learner identify first?',1,'method'],['Which statement would be a reasonable revision note?',0,'core concept'],['Which statement reflects the lesson rather than an unsupported claim?',2,'application/example'],['Which idea belongs in a quick-review card for this topic?',1,'method'],['Which statement best captures the practical takeaway?',0,'core concept'],['Which statement should be checked against context or assumptions?',2,'application/example']];
  const pool=[];
- for(let round=0;round<Math.ceil(size/templates.length)+1;round++){
-  templates.forEach((t,k)=>{
-   const idx=t[1], correct=facts[idx];
-   const others=facts.filter((_,i)=>i!==idx);
-   let opts=[correct,others[0]||'The topic has no useful application.',others[1]||'The topic never needs evidence.','Context and verification are never relevant.'];
-   for(let j=opts.length-1;j>0;j--){const z=Math.floor(Math.random()*(j+1));[opts[j],opts[z]]=[opts[z],opts[j]]}
-   pool.push({q:(round?('Set '+(round+1)+': '):'')+t[0],options:opts,a:opts.indexOf(correct)});
-  });
- }
+ for(let round=0;round<Math.ceil(size/templates.length)+1;round++){templates.forEach(t=>{const idx=t[1],correct=facts[idx],others=facts.filter((_,i)=>i!==idx);let opts=[correct,others[0]||'The topic has no useful application.',others[1]||'The topic never needs evidence.','Context and verification are never relevant.'];for(let j=opts.length-1;j>0;j--){const z=Math.floor(Math.random()*(j+1));[opts[j],opts[z]]=[opts[z],opts[j]]}pool.push({q:(round?('Set '+(round+1)+': '):'')+t[0],options:opts,a:opts.indexOf(correct),skill:t[2]})})}
  for(let j=pool.length-1;j>0;j--){const z=Math.floor(Math.random()*(j+1));[pool[j],pool[z]]=[pool[z],pool[j]]}
- quizQuestions=pool.slice(0,size);
- const setId='Q'+Date.now().toString(36).toUpperCase();
- window.currentQuizId=setId;
+ quizQuestions=pool.slice(0,size);const setId='Q'+Date.now().toString(36).toUpperCase();window.currentQuizId=setId;
  let html='<div class="lesson"><h3>'+currentSubject+' — '+currentTopic+' Quiz</h3><div class="quiz-meta"><span>Set '+setId+'</span><span>'+size+' questions</span><span>'+document.getElementById('difficulty').value+'</span></div><p>Every New Quiz creates a new randomized set. Submit for feedback, then retest or continue with the RegTech Nexus AI GPT for adaptive questioning.</p>';
  quizQuestions.forEach((x,i)=>{html+='<div class="quiz-q"><strong>'+(i+1)+'. '+x.q+'</strong><div class="quiz-options">'+x.options.map((o,j)=>'<label><input type="radio" name="q'+i+'" value="'+j+'"> '+o+'</label>').join('')+'</div></div>'});
- html+='<button class="btn btn-primary" onclick="gradeQuiz()">Submit Quiz</button><div id="quizResult"></div></div>';
- qs('quizOutput').innerHTML=html;qs('quizOutput').scrollIntoView({behavior:'smooth',block:'start'});
+ html+='<button class="btn btn-primary" onclick="gradeQuiz()">Submit Quiz</button><div id="quizResult"></div></div>';qs('quizOutput').innerHTML=html;qs('quizOutput').scrollIntoView({behavior:'smooth',block:'start'});
 }
 function gradeQuiz(){
- let score=0;quizQuestions.forEach((x,i)=>{const el=document.querySelector('input[name="q'+i+'"]:checked');if(el&&Number(el.value)===x.a)score++});
- const pct=Math.round(score/quizQuestions.length*100);
- const item={id:window.currentQuizId||('Q'+Date.now().toString(36)),subject:currentSubject,topic:currentTopic,score,total:quizQuestions.length,pct,date:new Date().toISOString()};
- const h=JSON.parse(localStorage.getItem('studentHubQuizHistory')||'[]');h.unshift(item);localStorage.setItem('studentHubQuizHistory',JSON.stringify(h.slice(0,50)));
- localStorage.setItem('studentHubLastScore',JSON.stringify(item));
- qs('quizResult').innerHTML='<div class="result"><strong>Score: '+score+'/'+quizQuestions.length+' ('+pct+'%)</strong><p>'+(pct>=80?'Strong recall. Try a harder set or retest after a delay.':pct>=60?'Good start. Review the lesson and retest the missed concepts.':'Revisit the lesson, then generate a new set focused on the same topic.')+'</p><div class="ai-link-box">For adaptive one-question-at-a-time practice, <a href="https://chatgpt.com/g/g-6a09920b01348191b9b1628b69367d9b-regtech-nexus-ai" target="_blank" rel="noopener">open the RegTech Nexus AI GPT →</a></div></div>';
+ let score=0;const diagnostics=[];quizQuestions.forEach((x,i)=>{const el=document.querySelector('input[name="q'+i+'"]:checked');const selected=el?Number(el.value):null;const correct=selected===x.a;if(correct)score++;diagnostics.push({question:x.q,skill:x.skill,selected,correctAnswer:x.a,correct})});
+ const pct=Math.round(score/quizQuestions.length*100);const item={id:window.currentQuizId||('Q'+Date.now().toString(36)),subject:currentSubject,topic:currentTopic,score,total:quizQuestions.length,pct,date:new Date().toISOString(),diagnostics};
+ const h=JSON.parse(localStorage.getItem('studentHubQuizHistory')||'[]');h.unshift(item);localStorage.setItem('studentHubQuizHistory',JSON.stringify(h.slice(0,50)));localStorage.setItem('studentHubLastScore',JSON.stringify(item));
+ const missed=diagnostics.filter(x=>!x.correct).map(x=>x.skill),counts={};missed.forEach(x=>counts[x]=(counts[x]||0)+1);const diagnosis=Object.entries(counts).sort((a,b)=>b[1]-a[1]).map(([k,v])=>k+' ('+v+' missed)').join(', ');
+ qs('quizResult').innerHTML='<div class="result"><strong>Score: '+score+'/'+quizQuestions.length+' ('+pct+'%)</strong><p>'+(pct>=80?'Strong recall. Try a harder set or retest after a delay.':pct>=60?'Good start. Review the lesson and retest the missed concepts.':'Revisit the lesson, then generate a new set focused on the same topic.')+'</p>'+(diagnosis?'<p><strong>Concept diagnosis:</strong> '+diagnosis+'</p>':'<p><strong>Concept diagnosis:</strong> No missed concepts.</p>')+'<div class="ai-link-box">For adaptive one-question-at-a-time practice, <a href="https://chatgpt.com/g/g-6a09920b01348191b9b1628b69367d9b-regtech-nexus-ai" target="_blank" rel="noopener">open the RegTech Nexus AI GPT →</a></div></div>';
 }
 function saveProgress(){const p=JSON.parse(localStorage.getItem('studentHubProgress')||'[]');if(!p.some(x=>x.subject===currentSubject&&x.topic===currentTopic))p.push({subject:currentSubject,topic:currentTopic,date:new Date().toISOString()});localStorage.setItem('studentHubProgress',JSON.stringify(p));alert('Topic marked as studied on this device.');}
 function openTool(type){
@@ -2429,7 +2406,7 @@ document.getElementById('aiAnswerModal')?.addEventListener('click',e=>{if(e.targ
       set('progressAverage',avg===null?'—':avg+'%');set('progressBest',best===null?'—':best+'%');
       const recent=document.getElementById('progressRecent');
       if(recent){
-        recent.innerHTML=h.length?'<ul class="progress-list">'+h.slice(0,5).map(x=>'<li><strong>'+String(x.subject||'Study')+'</strong> · '+String(x.topic||'Topic')+' — '+String(x.pct)+'%</li>').join('')+'</ul>':'No quiz attempts yet.';
+        recent.textContent='';if(h.length){const ul=document.createElement('ul');ul.className='progress-list';h.slice(0,5).forEach(x=>{const li=document.createElement('li');const strong=document.createElement('strong');strong.textContent=String(x.subject||'Study');li.append(strong,document.createTextNode(' · '+String(x.topic||'Topic')+' — '+String(x.pct)+'%'));ul.appendChild(li)});recent.appendChild(ul)}else{recent.textContent='No quiz attempts yet.'}
       }
       const review=document.getElementById('progressReview');
       if(review){
