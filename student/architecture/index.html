@@ -19,7 +19,79 @@ section{padding:50px 0}.heading{max-width:900px;margin-bottom:25px}.heading h2{m
 footer{background:var(--pd);color:#dfe8f0;padding:35px 0}footer a{color:#fff}
 @media(max-width:760px){html,body{max-width:100%;overflow-x:hidden}.architecture-book{display:block;grid-template-columns:1fr;width:100%;max-width:100%;overflow:hidden}.book-spine{left:14px;right:14px;top:50%;bottom:auto;width:auto;height:2px;background:linear-gradient(90deg,#c9bda9,#fff,#c9bda9)}.book-page{min-width:0;width:100%;padding:23px 20px}.book-page-left,.book-page-right{padding-left:20px;padding-right:20px}.book-page-left:before,.book-page-right:before{inset:8px}.method-grid{grid-template-columns:1fr}.book-footer{flex-direction:column;gap:4px}.studio-nav{overflow-x:auto;overflow-y:hidden;white-space:nowrap;flex-wrap:nowrap}.studio-nav a{flex:0 0 auto}}@media(max-width:900px){.grid,.framework,.calc-grid,.books,.course-grid{grid-template-columns:repeat(2,1fr)}.layout-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:650px){.course-grid{grid-template-columns:1fr}.sample-actions .btn{width:100%}.head{align-items:stretch;flex-direction:column;padding:9px 0;gap:9px}.brand-lockup{width:100%}.studio-nav{width:100%;max-width:none;padding:2px 1px 7px}.studio-nav a{padding:9px 12px;font-size:.86rem}.grid,.framework,.resource-grid,.case-grid,.layout-grid,.calc-grid,.books,.formgrid{grid-template-columns:1fr}.hero{padding-top:38px}section{padding:38px 0}.assignment{padding:17px}.evidence{margin-left:0}}@media(max-width:390px){.brand-logo{width:42px;height:42px}.brand{font-size:.94rem}.brand-sub{font-size:.66rem}.studio-nav a{font-size:.82rem;padding:8px 11px}}
 @media print{header,footer,.no-print,.hero .btn,.actions,.resource a{display:none!important}body{background:#fff;color:#111}.hero{padding:20px 0;background:#fff}.assignment{box-shadow:none;border:0;padding:0}section{padding:20px 0}.check-row{break-inside:avoid}.result{border:1px solid #aaa}}
-.footer-logo{display:block;width:96px;height:58px;background:#fff;border-radius:12px;padding:5px;margin:0 auto 10px;background-image:url("../../regtech-nexus-ai-logo-2026.png");background-position:center;background-repeat:no-repeat;background-size:contain}.brand-lockup .brand-logo-mark{width:100%;height:100%}footer{background:var(--p);color:#fff;border-top:4px solid var(--a);padding:28px 0 34px;text-align:center}footer strong{display:block;color:#fff}footer p{margin:4px 0 9px;color:rgba(255,255,255,.82)}footer a{color:#fff;font-weight:850}@media(max-width:650px){.head{display:block;padding:10px 0 8px}.brand-lockup{margin-bottom:5px}.studio-nav{width:100%;max-width:100%;padding-bottom:8px}.studio-nav a{padding:9px 13px}} </style>
+.footer-logo{display:block;width:96px;height:58px;background:#fff;border-radius:12px;padding:5px;margin:0 auto 10px;background-image:url("../../regtech-nexus-ai-logo-2026.png");background-position:center;background-repeat:no-repeat;background-size:contain}.brand-lockup .brand-logo-mark{width:100%;height:100%}footer{background:var(--p);color:#fff;border-top:4px solid var(--a);padding:28px 0 34px;text-align:center}footer strong{display:block;color:#fff}footer p{margin:4px 0 9px;color:rgba(255,255,255,.82)}footer a{color:#fff;font-weight:850}@media(max-width:650px){.head{display:block;padding:10px 0 8px}.brand-lockup{margin-bottom:5px}.studio-nav{width:100%;max-width:100%;padding-bottom:8px}.studio-nav a{padding:9px 13px}} 
+/* === Architecture Studio visual identity system === */
+.studio-nav a{border-width:1px 1px 3px!important;transition:transform .18s ease,filter .18s ease,box-shadow .18s ease}
+.studio-nav a:nth-child(1){background:#e9f8f4!important;border-color:#8bd3c0!important;color:#08745a!important}
+.studio-nav a:nth-child(2){background:#edf5ff!important;border-color:#9fc6f2!important;color:#1767ad!important}
+.studio-nav a:nth-child(3){background:#f3efff!important;border-color:#c6b4ee!important;color:#6540a5!important}
+.studio-nav a:nth-child(4){background:#fff7e6!important;border-color:#e9c879!important;color:#946b0b!important}
+.studio-nav a:nth-child(5){background:#ecfaf3!important;border-color:#9ad8b9!important;color:#147653!important}
+.studio-nav a:nth-child(6){background:#fff0f7!important;border-color:#e8a5c7!important;color:#a52f68!important}
+.studio-nav a:nth-child(7){background:#eef7fb!important;border-color:#9bc9da!important;color:#17647c!important}
+.studio-nav a:nth-child(8){background:#f1efff!important;border-color:#b9a9ea!important;color:#5d46a1!important}
+.studio-nav a:nth-child(9){background:#fff1ef!important;border-color:#e8aaa0!important;color:#a4473a!important}
+.studio-nav a:nth-child(10){background:#f0f7ff!important;border-color:#9ebfe4!important;color:#245b91!important}
+.studio-nav a:nth-child(11){background:#fff8e8!important;border-color:#e3c27b!important;color:#8b6615!important}
+.studio-nav a:nth-child(12){background:#f7efff!important;border-color:#c8a6e8!important;color:#74439d!important}
+.studio-nav a:hover{filter:saturate(1.08) brightness(.985);box-shadow:0 5px 12px rgba(8,39,70,.18)!important}
+
+:root{
+ --s1:#148a9c;--s1bg:#eefaf8;
+ --s2:#1677d2;--s2bg:#eff6ff;
+ --s3:#7a56c7;--s3bg:#f5f1ff;
+ --s4:#d99b21;--s4bg:#fff8e8;
+ --s5:#14966f;--s5bg:#effaf5;
+ --s6:#c93c83;--s6bg:#fff1f7;
+ --s7:#3b78b5;--s7bg:#f0f7fd;
+ --s8:#c66a2b;--s8bg:#fff5ed;
+ --s9:#5d63b8;--s9bg:#f3f3ff;
+ --s10:#248a68;--s10bg:#effaf6
+}
+main>section{position:relative;border-left:5px solid transparent;border-bottom:1px solid rgba(18,60,105,.06)}
+main>section:before{content:"";position:absolute;left:-5px;top:0;width:5px;height:100%;background:var(--section-accent,#148a9c);opacity:.95}
+main>section .heading h2{position:relative;display:flex;align-items:center;gap:10px}
+main>section .heading h2:before{content:attr(data-step);display:inline-flex;align-items:center;justify-content:center;min-width:58px;height:27px;padding:0 9px;border-radius:999px;background:var(--section-bg,#eefaf8);border:1px solid color-mix(in srgb,var(--section-accent,#148a9c) 35%,white);color:var(--section-accent,#148a9c);font-size:.64rem;letter-spacing:.07em;font-weight:950;line-height:1;flex:0 0 auto}
+main>section.studio-section-1{--section-accent:var(--s1);--section-bg:var(--s1bg);background:linear-gradient(180deg,#f8fcfc 0%,#f4faf9 100%)}
+main>section.studio-section-2{--section-accent:var(--s2);--section-bg:var(--s2bg);background:linear-gradient(180deg,#f8fbff 0%,#f3f8ff 100%)}
+main>section.studio-section-3{--section-accent:var(--s3);--section-bg:var(--s3bg);background:linear-gradient(180deg,#fbfaff 0%,#f7f4ff 100%)}
+main>section.studio-section-4{--section-accent:var(--s4);--section-bg:var(--s4bg);background:linear-gradient(180deg,#fffdf8 0%,#fff9ed 100%)}
+main>section.studio-section-5{--section-accent:var(--s5);--section-bg:var(--s5bg);background:linear-gradient(180deg,#f9fdfb 0%,#f1faf6 100%)}
+main>section.studio-section-6{--section-accent:var(--s6);--section-bg:var(--s6bg);background:linear-gradient(180deg,#fffafd 0%,#fff4f8 100%)}
+main>section.studio-section-7{--section-accent:var(--s7);--section-bg:var(--s7bg);background:linear-gradient(180deg,#f9fcff 0%,#f2f8fd 100%)}
+main>section.studio-section-8{--section-accent:var(--s8);--section-bg:var(--s8bg);background:linear-gradient(180deg,#fffaf7 0%,#fff5ee 100%)}
+main>section.studio-section-9{--section-accent:var(--s9);--section-bg:var(--s9bg);background:linear-gradient(180deg,#fbfbff 0%,#f5f5ff 100%)}
+main>section.studio-section-10{--section-accent:var(--s10);--section-bg:var(--s10bg);background:linear-gradient(180deg,#f9fdfb 0%,#f1faf6 100%)}
+
+/* Light, differentiated study cards */
+main>section .card,main>section .resource,main>section .course-card,main>section .case,main>section .layout-card,main>section .calc,main>section .book,main>section .framework>div,main>section .check-row,main>section .result,main>section .arch-bd-card{
+ background:#fff;border-color:color-mix(in srgb,var(--section-accent,#148a9c) 20%,#d7e1ea);
+ box-shadow:0 7px 20px rgba(16,39,64,.055)
+}
+main>section .card,main>section .resource,main>section .course-card,main>section .case,main>section .layout-card,main>section .calc,main>section .book,main>section .framework>div,main>section .arch-bd-card{border-top:3px solid var(--section-accent,#148a9c)}
+main>section .card:nth-child(3n+1),main>section .resource:nth-child(3n+1),main>section .course-card:nth-child(3n+1),main>section .case:nth-child(3n+1),main>section .layout-card:nth-child(3n+1){background:#f9fcff}
+main>section .card:nth-child(3n+2),main>section .resource:nth-child(3n+2),main>section .course-card:nth-child(3n+2),main>section .case:nth-child(3n+2),main>section .layout-card:nth-child(3n+2){background:#fbf9ff}
+main>section .card:nth-child(3n),main>section .resource:nth-child(3n),main>section .course-card:nth-child(3n),main>section .case:nth-child(3n),main>section .layout-card:nth-child(3n){background:#fffaf4}
+main>section .tag{background:var(--section-bg,#eef5fb);border:1px solid color-mix(in srgb,var(--section-accent,#148a9c) 20%,white);color:var(--section-accent,#148a9c)}
+main>section .resource-grid{grid-template-columns:repeat(3,1fr);gap:12px}
+main>section .resource{padding:14px}
+main>section .resource h3{font-size:.96rem}
+main>section .resource p{font-size:.82rem;line-height:1.5}
+main>section .resource a{font-size:.8rem}
+main>section .course-card{padding:15px}
+main>section .layout-card,main>section .calc,main>section .book{padding:15px}
+main>section .framework>div{padding:14px}
+main>section .check-row{padding:10px 12px}
+@media(max-width:900px){main>section .resource-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){
+ main>section{border-left-width:4px}
+ main>section:before{left:-4px;width:4px}
+ main>section .heading h2{display:block}
+ main>section .heading h2:before{margin-right:7px;vertical-align:middle}
+ main>section .resource-grid{grid-template-columns:1fr}
+ main>section .card,main>section .resource,main>section .course-card,main>section .case,main>section .layout-card,main>section .calc,main>section .book{padding:14px}
+}
+</style>
 </head>
 <body>
 <header><div class="wrap head">
@@ -536,7 +608,9 @@ const __archEnhanceStyle=document.createElement('style');__archEnhanceStyle.id='
 if(document.getElementById('architectureEnhancementsMarker'))return;
 const marker=document.createElement('span');marker.id='architectureEnhancementsMarker';marker.hidden=true;document.body.appendChild(marker);
 const nav=document.querySelector('.studio-nav');
-if(nav){[['#history','History'],['#calculators','Calculators'],['#photo-scale','Measure'],['#layouts','Layouts'],['#architecture-bd','Bangladesh Code'],['#ai-architecture','AI Lab']].forEach(([href,label])=>{if(!nav.querySelector('a[href="'+href+'"]')){const a=document.createElement('a');a.href=href;a.textContent=label;nav.appendChild(a)}})}
+if(nav){[['#history','History'],['#calculators','Calculators'],['#photo-scale','Measure'],['#layouts','Layouts'],['#architecture-bd','Bangladesh Code'],['#ai-architecture','AI Lab']].forEach(([href,label])=>{if(!nav.querySelector('a[href="'+href+'"]')){const a=document.createElement('a');a.href=href;a.textContent=label;nav.appendChild(a)}});nav.querySelectorAll('a').forEach((a,i)=>{a.dataset.navIndex=String(i+1)})}
+const studioSections=[['curriculum','1'],['courses','2'],['standards','3'],['cases','4'],['case-studio','5'],['layouts','6'],['calculators','7'],['photo-scale','8'],['assignment','9'],['resources','10']];
+studioSections.forEach(([id,n])=>{const s=document.getElementById(id);if(!s)return;s.classList.add('studio-section-'+n);const h=s.querySelector('.heading h2');if(h)h.dataset.step='STUDIO '+n;});
 const curriculum=document.querySelector('#curriculum .wrap');
 if(curriculum){
 const panel=document.createElement('div');panel.className='arch-enhance';panel.id='architecture-learning-path';
