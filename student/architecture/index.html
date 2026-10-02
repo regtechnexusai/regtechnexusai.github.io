@@ -349,12 +349,12 @@ function openPrintSheet(title,subtitle,boxes){const old=document.getElementById(
 function printCaseStudy(){const d=caseData();openPrintSheet('Architecture Case Study Field Lab',d.caseStudy,[{label:'Primary source / reference',value:d.source},{label:'Brief / context observed',value:d.brief},{label:'Design decisions observed',value:d.design},{label:'Your design lesson',value:d.lesson},{label:'Context transfer',value:d.transfer}]);}
 function clearCaseStudy(){localStorage.removeItem(CASE_KEY);['caseSource','caseBrief','caseDesign','caseLesson','caseTransfer'].forEach(id=>document.getElementById(id).value='');document.getElementById('caseResult').textContent='Case study cleared on this device.';}
 const PHOTO_SCALE={img:null,mode:'reference',refPx:null,widthPx:null,heightPx:null,points:[],imageUrl:null};
-const AR_MEASURE={session:null,gl:null,refSpace:null,viewerSpace:null,hitSource:null,lastHit:null,points:[],mode:null};
+const AR_MEASURE={session:null,gl:null,refSpace:null,viewerSpace:null,hitSource:null,lastHit:null,lastHitAt:0,lastSelectAt:0,points:[],mode:null};
 function arSetStatus(msg){const el=document.getElementById('arMeterStatus');if(el)el.textContent=msg;const ov=document.getElementById('arOverlayText');if(ov)ov.textContent=msg;}
 function arSetOverlay(active,title,msg){const o=document.getElementById('arOverlay');if(!o)return;o.classList.toggle('active',!!active);o.setAttribute('aria-hidden',active?'false':'true');document.getElementById('arOverlayTitle').textContent=title||'Smart Measure';document.getElementById('arOverlayText').textContent=msg||'';}
 function arDistance(a,b){return Math.hypot(b.x-a.x,b.y-a.y,b.z-a.z);}
 function arArea(points){if(points.length<3)return 0;let nx=0,ny=0,nz=0;for(let i=0;i<points.length;i++){const p=points[i],q=points[(i+1)%points.length];nx+=(p.y-q.y)*(p.z+q.z);ny+=(p.z-q.z)*(p.x+q.x);nz+=(p.x-q.x)*(p.y+q.y);}return .5*Math.hypot(nx,ny,nz);}
-function arCompleteResult(value,unit,label){const n=+value.toFixed(3);if(label==='Length')document.getElementById('photoScaleWidthOut').textContent=(n>=1?n.toFixed(2)+' m':(n*100).toFixed(1)+' cm');if(label==='Height')document.getElementById('photoScaleHeightOut').textContent=(n>=1?n.toFixed(2)+' m':(n*100).toFixed(1)+' cm');if(label==='Area')document.getElementById('photoScaleAreaOut').textContent=n.toFixed(2)+' m²';}
+function arCompleteResult(value,unit,label){const n=+value.toFixed(3);if(!(n>0))return;if(label==='Length')document.getElementById('photoScaleWidthOut').textContent=(n>=1?n.toFixed(2)+' m':(n*100).toFixed(1)+' cm');if(label==='Height')document.getElementById('photoScaleHeightOut').textContent=(n>=1?n.toFixed(2)+' m':(n*100).toFixed(1)+' cm');if(label==='Area')document.getElementById('photoScaleAreaOut').textContent=n.toFixed(2)+' m²';}
 async function startARMeasure(mode){
  if(!window.isSecureContext){arSetStatus('AR requires a secure HTTPS page. This site is HTTPS.');return;}
  if(!navigator.xr){arSetStatus('WebXR AR is not available in this browser. Try a supported AR-capable Android browser/device.');return;}
@@ -396,28 +396,97 @@ async function startARMeasure(mode){
 }
 function arFrame(t,frame){
  const s=AR_MEASURE.session;if(!s)return;s.requestAnimationFrame(arFrame);
- const gl=AR_MEASURE.gl;const layer=s.renderState.baseLayer;const vp=frame.getViewerPose(AR_MEASURE.refSpace);if(vp){gl.bindFramebuffer(gl.FRAMEBUFFER,layer.framebuffer);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);}
- if(AR_MEASURE.hitSource){const hits=frame.getHitTestResults(AR_MEASURE.hitSource);if(hits.length){const pose=hits[0].getPose(AR_MEASURE.refSpace);if(pose){AR_MEASURE.lastHit={x:pose.transform.position.x,y:pose.transform.position.y,z:pose.transform.position.z};}}}
+ const gl=AR_MEASURE.gl;const layer=s.renderState.baseLayer;const vp=frame.getViewerPose(AR_MEASURE.refSpace);
+ if(vp&&gl&&layer){gl.bindFramebuffer(gl.FRAMEBUFFER,layer.framebuffer);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);}
+ if(AR_MEASURE.hitSource){
+  const hits=frame.getHitTestResults(AR_MEASURE.hitSource);
+  if(hits.length){
+   const pose=hits[0].getPose(AR_MEASURE.refSpace);
+   if(pose){AR_MEASURE.lastHit={x:pose.transform.position.x,y:pose.transform.position.y,z:pose.transform.position.z};AR_MEASURE.lastHitAt=performance.now();}
+  }
+ }
 }
-function arSelectPoint(){
- const p=AR_MEASURE.lastHit;if(!p){arSetStatus('No surface detected yet. Move the phone slowly over the wall/floor and try again.');return;}
+function arGetHitFromFrame(frame){
+ if(!frame||!AR_MEASURE.hitSource)return null;
+ try{
+  const hits=frame.getHitTestResults(AR_MEASURE.hitSource);
+  if(hits.length){const pose=hits[0].getPose(AR_MEASURE.refSpace);if(pose)return{x:pose.transform.position.x,y:pose.transform.position.y,z:pose.transform.position.z};}
+ }catch(e){}
+ return null;
+}
+function arSelectPoint(event){
+ const now=performance.now();
+ if(now-AR_MEASURE.lastSelectAt<350)return;
+ AR_MEASURE.lastSelectAt=now;
+ const p=arGetHitFromFrame(event?.frame)||AR_MEASURE.lastHit;
+ if(!p){arSetStatus('No surface detected yet. Move the phone slowly over the wall/floor until the reticle locks, then tap again.');return;}
+ if(AR_MEASURE.points.length){
+  const gap=arDistance(AR_MEASURE.points[AR_MEASURE.points.length-1],p);
+  if(gap<0.02){arSetStatus('The second point is too close to the first. Move the reticle to the next point and tap again.');return;}
+ }
  AR_MEASURE.points.push({...p});
  if(AR_MEASURE.mode==='area'){
   if(AR_MEASURE.points.length<4){arSetStatus('Corner '+AR_MEASURE.points.length+' set. Aim at the next corner and tap.');return;}
-  const area=arArea(AR_MEASURE.points);arCompleteResult(area,'m²','Area');arSetStatus('Area set to '+area.toFixed(2)+' m².');AR_MEASURE.session?.end();return;
+  const area=arArea(AR_MEASURE.points);
+  if(!(area>0)){arSetStatus('Area could not be calculated. Select four distinct points on the same surface.');AR_MEASURE.points=[];return;}
+  arCompleteResult(area,'m²','Area');arSetStatus('Area set to '+area.toFixed(2)+' m².');AR_MEASURE.session?.end();return;
  }
- if(AR_MEASURE.points.length===1){arSetStatus('Point A set. Aim at the second point and tap again.');return;}
- const a=AR_MEASURE.points[0],b=AR_MEASURE.points[1],v=AR_MEASURE.mode==='height'?Math.abs(b.y-a.y):arDistance(a,b);const label=AR_MEASURE.mode==='height'?'Height':'Length';arCompleteResult(v,'m',label);arSetStatus(label+' set to '+(v>=1?v.toFixed(2)+' m':(v*100).toFixed(1)+' cm')+'.');AR_MEASURE.session?.end();
+ if(AR_MEASURE.points.length===1){
+  arSetStatus('Point A set. Move the reticle to the second point and wait for it to lock before tapping.');
+  return;
+ }
+ const a=AR_MEASURE.points[0],b=AR_MEASURE.points[1];
+ // For both length and height, use the true 3D distance between the two
+ // hit-test coordinates. A height measurement is obtained by placing the
+ // two points vertically on the wall/opening being studied.
+ const v=arDistance(a,b),label=AR_MEASURE.mode==='height'?'Height':'Length';
+ if(!(v>0)){arSetStatus('Measurement was zero. Select two distinct points and try again.');AR_MEASURE.points=[];return;}
+ arCompleteResult(v,'m',label);
+ arSetStatus(label+' set to '+(v>=1?v.toFixed(2)+' m':(v*100).toFixed(1)+' cm')+'.');
+ AR_MEASURE.session?.end();
 }
-function arEndSession(){if(AR_MEASURE.hitSource){try{AR_MEASURE.hitSource.cancel()}catch(e){}}AR_MEASURE.session=null;AR_MEASURE.hitSource=null;AR_MEASURE.lastHit=null;arSetOverlay(false);const mode=AR_MEASURE.mode;arSetStatus(mode==='length'?'AR length measurement complete.':mode==='height'?'AR height measurement complete.':mode==='area'?'AR area measurement complete.':'AR session ended.');}
+function arEndSession(){
+ if(AR_MEASURE.hitSource){try{AR_MEASURE.hitSource.cancel()}catch(e){}}
+ AR_MEASURE.session=null;AR_MEASURE.hitSource=null;AR_MEASURE.lastHit=null;AR_MEASURE.lastHitAt=0;AR_MEASURE.lastSelectAt=0;
+ arSetOverlay(false);const mode=AR_MEASURE.mode;arSetStatus(mode==='length'?'AR length measurement complete.':mode==='height'?'AR height measurement complete.':mode==='area'?'AR area measurement complete.':'AR session ended.');
+}
 function updatePhotoScaleAction(){const b=document.getElementById('scaleApplyBtn'),h=document.getElementById('scaleApplyHint');if(!b||!h)return;const isMeasure=PHOTO_SCALE.mode==='width'||PHOTO_SCALE.mode==='height';const refCm=+(document.getElementById('photoScaleRef')?.value||0);const hasRef=!!PHOTO_SCALE.refPx&&refCm>0;const ready=isMeasure&&PHOTO_SCALE.points.length===2&&hasRef;b.disabled=!ready;b.style.opacity=ready?'1':'.58';b.style.cursor=ready?'pointer':'not-allowed';b.textContent=PHOTO_SCALE.mode==='width'?'4. Set length':PHOTO_SCALE.mode==='height'?'4. Set height':'4. Set measurement';h.textContent=!isMeasure?'Choose length or height, then select two points.':!refCm?'Enter the known reference length above.':!PHOTO_SCALE.refPx?'Now tap 1. Calibrate reference and select the two reference points.':PHOTO_SCALE.points.length<2?'Select the two measurement points.':'Ready — tap the button to set the '+(PHOTO_SCALE.mode==='width'?'length':'height')+'.';}
 function applyPhotoScaleMeasurement(){const h=document.getElementById('scaleApplyHint');const refCm=+document.getElementById('photoScaleRef').value;if(!(PHOTO_SCALE.mode==='width'||PHOTO_SCALE.mode==='height'))return;if(!(refCm>0)){if(h)h.textContent='Enter the known reference length first (for example 29.7 cm for A4), then calibrate.';return;}if(!PHOTO_SCALE.refPx){if(h)h.textContent='Calibrate the reference first: tap 1. Calibrate reference and select its two points.';return;}if(PHOTO_SCALE.points.length!==2){if(h)h.textContent='Select exactly two measurement points.';return;}const px=Math.hypot(PHOTO_SCALE.points[1].x-PHOTO_SCALE.points[0].x,PHOTO_SCALE.points[1].y-PHOTO_SCALE.points[0].y);const cm=px/(PHOTO_SCALE.refPx/refCm);if(PHOTO_SCALE.mode==='width'){PHOTO_SCALE.widthPx=px;document.getElementById('photoScaleWidthOut').textContent=cm.toFixed(1)+' cm';}else{PHOTO_SCALE.heightPx=px;document.getElementById('photoScaleHeightOut').textContent=cm.toFixed(1)+' cm';}const w=PHOTO_SCALE.widthPx?PHOTO_SCALE.widthPx/(PHOTO_SCALE.refPx/refCm):null;const hh=PHOTO_SCALE.heightPx?PHOTO_SCALE.heightPx/(PHOTO_SCALE.refPx/refCm):null;document.getElementById('photoScaleAreaOut').textContent=w&&hh?(w/100*hh/100).toFixed(2)+' m²':'—';if(h)h.textContent=(PHOTO_SCALE.mode==='width'?'Length':'Height')+' set to '+cm.toFixed(1)+' cm.';updatePhotoScaleAction();}
 function setScaleMode(mode){PHOTO_SCALE.mode=mode;PHOTO_SCALE.points=[];['scaleRefBtn','scaleWidthBtn','scaleHeightBtn'].forEach(id=>{const b=document.getElementById(id);if(b)b.classList.remove('active')});const id=mode==='reference'?'scaleRefBtn':mode==='width'?'scaleWidthBtn':'scaleHeightBtn';document.getElementById(id)?.classList.add('active');updatePhotoScaleAction();photoScaleRedraw();}
-function photoScalePoint(ev){const canvas=document.getElementById('photoScaleCanvas');if(canvas.hidden||!PHOTO_SCALE.img)return;const r=canvas.getBoundingClientRect();const x=(ev.clientX-r.left)*(canvas.width/r.width),y=(ev.clientY-r.top)*(canvas.height/r.height);PHOTO_SCALE.points.push({x,y});if(PHOTO_SCALE.points.length>2)PHOTO_SCALE.points.shift();if(PHOTO_SCALE.mode==='reference'&&PHOTO_SCALE.points.length===2){const px=Math.hypot(PHOTO_SCALE.points[1].x-PHOTO_SCALE.points[0].x,PHOTO_SCALE.points[1].y-PHOTO_SCALE.points[0].y);const cm=+document.getElementById('photoScaleRef').value;if(cm>0){PHOTO_SCALE.refPx=px;document.getElementById('photoScaleReferenceOut').textContent=cm.toFixed(1)+' cm calibrated';}}photoScaleRedraw();updatePhotoScaleAction();}
+function photoScalePoint(ev){
+ const canvas=document.getElementById('photoScaleCanvas');
+ if(canvas.hidden||!PHOTO_SCALE.img)return;
+ const r=canvas.getBoundingClientRect();
+ const x=(ev.clientX-r.left)*(canvas.width/r.width),y=(ev.clientY-r.top)*(canvas.height/r.height);
+ const p={x,y};
+ if(PHOTO_SCALE.points.length===2)PHOTO_SCALE.points=[];
+ PHOTO_SCALE.points.push(p);
+ if(PHOTO_SCALE.points.length===2){
+  const px=Math.hypot(PHOTO_SCALE.points[1].x-PHOTO_SCALE.points[0].x,PHOTO_SCALE.points[1].y-PHOTO_SCALE.points[0].y);
+  if(px<5){
+   PHOTO_SCALE.points=[];
+   if(PHOTO_SCALE.mode==='reference')PHOTO_SCALE.refPx=null;
+   document.getElementById('photoScaleReferenceOut').textContent='—';
+   updatePhotoScaleAction();photoScaleRedraw();return;
+  }
+  if(PHOTO_SCALE.mode==='reference'){
+   const cm=+document.getElementById('photoScaleRef').value;
+   if(cm>0){PHOTO_SCALE.refPx=px;document.getElementById('photoScaleReferenceOut').textContent=cm.toFixed(1)+' cm calibrated';}
+  }
+ }
+ photoScaleRedraw();updatePhotoScaleAction();
+}
 function photoScaleRedraw(){const c=document.getElementById('photoScaleCanvas'),ctx=c.getContext('2d');if(!PHOTO_SCALE.img)return;ctx.clearRect(0,0,c.width,c.height);ctx.drawImage(PHOTO_SCALE.img,0,0,c.width,c.height);const pts=PHOTO_SCALE.points;if(pts.length){ctx.lineWidth=Math.max(4,c.width/450);ctx.strokeStyle='#d59a1a';ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(pts[0].x,pts[0].y,ctx.lineWidth*2.2,0,Math.PI*2);ctx.fill();ctx.stroke();if(pts[1]){ctx.beginPath();ctx.moveTo(pts[0].x,pts[0].y);ctx.lineTo(pts[1].x,pts[1].y);ctx.stroke();ctx.beginPath();ctx.arc(pts[1].x,pts[1].y,ctx.lineWidth*2.2,0,Math.PI*2);ctx.fill();ctx.stroke();}}}
 function photoScaleLoad(file){if(!file)return;const url=URL.createObjectURL(file),img=new Image();img.onload=()=>{const max=1600,s=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight));const c=document.getElementById('photoScaleCanvas');c.width=Math.round(img.naturalWidth*s);c.height=Math.round(img.naturalHeight*s);PHOTO_SCALE.img=img;PHOTO_SCALE.imageUrl=url;PHOTO_SCALE.refPx=null;PHOTO_SCALE.widthPx=null;PHOTO_SCALE.heightPx=null;PHOTO_SCALE.points=[];c.hidden=false;document.getElementById('photoScaleEmpty').hidden=true;['photoScaleReferenceOut','photoScaleWidthOut','photoScaleHeightOut','photoScaleAreaOut'].forEach(id=>document.getElementById(id).textContent='—');setScaleMode('reference');updatePhotoScaleAction();photoScaleRedraw();};img.src=url;}
 function photoScaleReset(){const c=document.getElementById('photoScaleCanvas');c.hidden=true;document.getElementById('photoScaleEmpty').hidden=false;PHOTO_SCALE.img=null;PHOTO_SCALE.points=[];PHOTO_SCALE.refPx=null;PHOTO_SCALE.widthPx=null;PHOTO_SCALE.heightPx=null;if(PHOTO_SCALE.imageUrl)URL.revokeObjectURL(PHOTO_SCALE.imageUrl);PHOTO_SCALE.imageUrl=null;['photoScaleReferenceOut','photoScaleWidthOut','photoScaleHeightOut','photoScaleAreaOut'].forEach(id=>document.getElementById(id).textContent='—');updatePhotoScaleAction();}
-document.getElementById('photoScaleFile')?.addEventListener('change',e=>photoScaleLoad(e.target.files?.[0]));document.getElementById('photoScaleRef')?.addEventListener('input',()=>{PHOTO_SCALE.refPx=null;document.getElementById('photoScaleReferenceOut').textContent='—';updatePhotoScaleAction();});
+document.getElementById('photoScaleFile')?.addEventListener('change',e=>photoScaleLoad(e.target.files?.[0]));document.getElementById('photoScaleRef')?.addEventListener('input',()=>{
+ PHOTO_SCALE.refPx=null;PHOTO_SCALE.points=[];PHOTO_SCALE.widthPx=null;PHOTO_SCALE.heightPx=null;
+ document.getElementById('photoScaleReferenceOut').textContent='—';
+ document.getElementById('photoScaleWidthOut').textContent='—';
+ document.getElementById('photoScaleHeightOut').textContent='—';
+ document.getElementById('photoScaleAreaOut').textContent='—';
+ updatePhotoScaleAction();photoScaleRedraw();
+});
 document.getElementById('photoScaleCanvas')?.addEventListener('pointerdown',e=>{e.preventDefault();photoScalePoint(e);});
 function areaCalc(){const a=+document.getElementById('ca').value,b=+document.getElementById('cb').value;document.getElementById('areaOut').textContent=a>0&&b>0?(a*b).toFixed(2)+' m²':'Enter positive dimensions.'}
 function farCalc(){const a=+document.getElementById('fa').value,b=+document.getElementById('fb').value;document.getElementById('farOut').textContent=a>0&&b>0?(a/b).toFixed(2):'Enter positive areas.'}
