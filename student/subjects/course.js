@@ -51,7 +51,7 @@ const DATA={
 "Correlation & Causation":["Correlation indicates association between variables; it does not by itself prove causation.","Consider alternative explanations, confounding and research design.","Causal claims require appropriate evidence and assumptions."]}}
 };
 const subject=document.body.dataset.subject, course=DATA[subject]; if(!course){document.body.innerHTML='<main style="padding:30px"><h1>Subject course unavailable</h1><p>Please return to the Student Knowledge Hub.</p></main>';return;}
-const qs=s=>document.querySelector(s), esc=s=>String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+const qs=s=>document.querySelector(s); const esc=s=>String(s).replace(/[&<>"]/g,function(m){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]||m;});
 document.title=subject+" Course | Student Knowledge Hub | RegTech Nexus AI";
 qs("#courseIcon").textContent=course.icon;qs("#courseTitle").textContent=subject;qs("#courseDescription").textContent=course.description;
 const keys=Object.keys(course.topics), storage="studentCourse:"+subject, saved=JSON.parse(localStorage.getItem(storage)||"{}");
@@ -82,9 +82,7 @@ loadTopic(keys[0]);
   const topic=()=>q('#lessonTitle')?.textContent||document.body.dataset.subject||'Subject';
   const printBtn=document.createElement('button');
   printBtn.className='btn secondary';printBtn.type='button';printBtn.textContent='Print / Save as PDF';
-  printBtn.onclick=()=>{
-    const title=document.title;document.title='RegTech Nexus AI — '+(document.body.dataset.subject||'Study')+' — '+topic();window.print();setTimeout(()=>document.title=title,900);
-  };
+  printBtn.onclick=()=>{const title=document.title;const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v||'—'};set('printTopic',topic());set('printConcept',q('#concept')?.textContent);set('printMethod',q('#method')?.textContent);set('printExample',q('#example')?.textContent);document.title='RegTech Nexus AI — '+(document.body.dataset.subject||'Study')+' — '+topic();window.print();setTimeout(()=>document.title=title,900);};
   q('.actions')?.appendChild(printBtn);
   q('#lesson')?.setAttribute('aria-live','polite');
   document.querySelectorAll('.topic-link').forEach(b=>b.setAttribute('aria-label','Study '+b.textContent.trim()));
