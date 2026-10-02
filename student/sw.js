@@ -1,4 +1,4 @@
-const CACHE_NAME='regtech-student-hub-v8';
+const CACHE_NAME='regtech-student-hub-v9';
 const CORE=['./','./manifest.webmanifest','../regtech-nexus-ai-logo-2026.png','./bangla/','./aml-cft/','./ifrs/','./privacy.html','./ai-use.html','./knowledge-updates/','./incoterms/','./architecture/','./architecture/index.html'];
 
 self.addEventListener('install',event=>{
