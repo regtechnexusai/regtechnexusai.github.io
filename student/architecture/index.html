@@ -705,29 +705,38 @@ const footer=document.querySelector('footer .wrap');
 if(footer){const trust=document.createElement('div');trust.className='arch-trust';trust.innerHTML='<div><b>Last verified:</b><span>2 October 2026</span></div><div><b>Review basis:</b><span>Page content + source-link review</span></div><div><b>Technical testing:</b><span>Browser/device dependent; re-test after deployment</span></div><div><b>Report an issue:</b><span><a href="mailto:regtechnexusai@gmail.com">regtechnexusai@gmail.com</a></span></div>';footer.appendChild(trust)}
 const studioNav=document.querySelector('.studio-nav');
 if(studioNav){
- let navDir=1,navRunning=true,navPauseUntil=0,lastNavTs=0;
- const navStep=(ts)=>{
-  if(!lastNavTs)lastNavTs=ts;
-  const dt=Math.min(40,ts-lastNavTs);lastNavTs=ts;
-  const max=studioNav.scrollWidth-studioNav.clientWidth;
-  if(max>4&&navRunning&&Date.now()>navPauseUntil){
-   if(studioNav.scrollLeft>=max-1){navDir=-1;navPauseUntil=Date.now()+450;}
-   if(studioNav.scrollLeft<=1){navDir=1;navPauseUntil=Date.now()+450;}
-   studioNav.scrollLeft+=navDir*(0.045*dt);
-  }
-  requestAnimationFrame(navStep);
- };
- const pauseNav=()=>{navRunning=false;navPauseUntil=Date.now()+1800;};
- const resumeNav=()=>{navRunning=true;navPauseUntil=Date.now()+900;};
- studioNav.addEventListener('pointerdown',pauseNav,{passive:true});
- studioNav.addEventListener('touchstart',pauseNav,{passive:true});
- studioNav.addEventListener('pointerup',resumeNav,{passive:true});
- studioNav.addEventListener('touchend',resumeNav,{passive:true});
- studioNav.addEventListener('mouseenter',pauseNav);
- studioNav.addEventListener('mouseleave',resumeNav);
- studioNav.addEventListener('focusin',pauseNav);
- studioNav.addEventListener('focusout',resumeNav);
- requestAnimationFrame(navStep);
+  // Continuous bidirectional auto-scroll. Manual touch/swipe always takes priority.
+  let navDir=1,navRunning=true,navPauseUntil=0,lastNavTs=0,navRaf=0;
+  const NAV_SPEED=34; // px/sec
+  const now=()=>Date.now();
+  const pauseNav=(ms=1600)=>{navRunning=false;navPauseUntil=now()+ms;};
+  const resumeNav=(delay=700)=>{navRunning=true;navPauseUntil=now()+delay;lastNavTs=0;};
+  const navStep=(ts)=>{
+    if(document.visibilityState==='hidden'){navRaf=requestAnimationFrame(navStep);return;}
+    if(!lastNavTs)lastNavTs=ts;
+    const dt=Math.min(50,Math.max(0,ts-lastNavTs));lastNavTs=ts;
+    const max=Math.max(0,studioNav.scrollWidth-studioNav.clientWidth);
+    if(max>2 && navRunning && now()>=navPauseUntil){
+      if(studioNav.scrollLeft >= max-1){navDir=-1;studioNav.scrollLeft=max-1;}
+      else if(studioNav.scrollLeft <= 1){navDir=1;studioNav.scrollLeft=1;}
+      studioNav.scrollLeft += navDir*(NAV_SPEED*dt/1000);
+    }
+    navRaf=requestAnimationFrame(navStep);
+  };
+  // Disable CSS snapping while the automatic motion is active; native/manual swipe remains enabled.
+  studioNav.style.scrollSnapType='none';
+  studioNav.style.scrollBehavior='auto';
+  const stopForInput=()=>pauseNav(1800);
+  const continueAfterInput=()=>resumeNav(850);
+  ['pointerdown','touchstart','wheel'].forEach(ev=>studioNav.addEventListener(ev,stopForInput,{passive:true}));
+  ['pointerup','pointercancel','touchend','touchcancel'].forEach(ev=>studioNav.addEventListener(ev,continueAfterInput,{passive:true}));
+  studioNav.addEventListener('mouseenter',stopForInput);
+  studioNav.addEventListener('mouseleave',continueAfterInput);
+  studioNav.addEventListener('focusin',stopForInput);
+  studioNav.addEventListener('focusout',continueAfterInput);
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')resumeNav(300);});
+  cancelAnimationFrame(navRaf);
+  navRaf=requestAnimationFrame(navStep);
 }
 const photoSection=document.getElementById('photo-scale');
 if(photoSection){
