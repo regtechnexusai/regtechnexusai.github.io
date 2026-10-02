@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mathematics Formula Library | RegTech Nexus AI Student Knowledge Hub</title>
+<meta name="description" content="Cross-level mathematics formula library covering school, secondary, intermediate, undergraduate and postgraduate mathematics with English and Bangla labels.">
+<link rel="canonical" href="https://regtechnexusai.com/student/subjects/mathematics/formulas.html">
+<meta name="robots" content="index,follow">
+<style>
+:root{--p:#123c69;--pd:#082746;--a:#148a9c;--v:#7a56c7;--g:#d99b21;--b:#d7e1ea;--bg:#f4f8fb;--m:#5d6b79}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#17212b;background:var(--bg);line-height:1.6}.wrap{width:min(1180px,92%);margin:auto}
+header{position:sticky;top:0;z-index:20;background:var(--p);box-shadow:0 4px 18px rgba(8,39,70,.22)}.head{min-height:74px;display:flex;align-items:center;gap:12px}.logo{width:54px;height:54px;border-radius:12px;background:#fff;padding:2px;object-fit:contain}.brand{color:#fff;font-weight:950;text-decoration:none;white-space:nowrap}.back{margin-left:auto;background:#fff;color:var(--p);padding:10px 14px;border-radius:11px;text-decoration:none;font-weight:900;white-space:nowrap}
+.hero{padding:48px 0 34px;background:linear-gradient(135deg,#eaf5fb,#fff 55%,#f3effc);border-bottom:1px solid var(--b)}.eyebrow{display:inline-block;background:#fff;border:1px solid #cbdde8;color:var(--p);padding:6px 10px;border-radius:999px;font-size:.75rem;font-weight:950;letter-spacing:.06em}.hero h1{font-size:clamp(2rem,5vw,3.6rem);line-height:1.06;color:var(--pd);margin:14px 0 10px}.lead{max-width:900px;color:var(--m);font-size:1.08rem}
+.controls{margin:24px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.control{background:#fff;border:1px solid var(--b);border-radius:14px;padding:14px}.control label{display:block;font-weight:900;color:var(--p);font-size:.82rem;margin-bottom:6px}.control select{width:100%;min-height:46px;border:1px solid #cbd8e2;border-radius:10px;padding:9px;font:inherit;background:#fff;color:#17324e}
+.meta{display:flex;flex-wrap:wrap;gap:8px}.pill{padding:7px 10px;border-radius:999px;background:#fff;border:1px solid var(--b);font-size:.78rem;font-weight:850}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;padding:0 0 40px}.card{background:#fff;border:1px solid var(--b);border-radius:15px;padding:17px;box-shadow:0 8px 24px rgba(16,39,64,.07);border-top:4px solid var(--a)}.card:nth-child(3n){border-top-color:var(--v)}.card:nth-child(4n){border-top-color:var(--g)}.card h3{margin:0 0 5px;color:var(--p);font-size:1rem}.bn{color:#687581;font-size:.78rem;font-weight:800}.formula{margin:10px 0;padding:12px 14px;border-radius:10px;background:#f7fbfd;border:1px solid #dce8ef;font-family:"Times New Roman",Cambria,serif;font-size:1.08rem;overflow:auto}.note{color:#5d6b79;font-size:.82rem}.empty{background:#fff;border:1px dashed #c9d8e2;border-radius:14px;padding:24px;color:#617181}
+footer{background:var(--p);color:#dce7f1;padding:28px 0;margin-top:20px}footer a{color:#fff}.source{font-size:.78rem;color:#6a7886;margin:18px 0 34px}
+@media(max-width:760px){.controls{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.head{gap:9px}.brand{font-size:.85rem}.back{font-size:.78rem;padding:8px 10px}}
+@media(max-width:460px){.brand{display:none}.back{margin-left:auto}.head{justify-content:space-between}}
+@media print{header,.controls,.back{display:none!important}.hero{padding:20px 0;background:#fff}.grid{grid-template-columns:1fr 1fr}.card{break-inside:avoid;box-shadow:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap head"><a href="../../"><img class="logo" src="../../../regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI"></a><a class="brand" href="./">Mathematics · Formula Library</a><a class="back" href="./">← Mathematics Course</a></div></header>
+<main>
+<section class="hero"><div class="wrap">
+<span class="eyebrow">MATHEMATICS · FORMULA LIBRARY</span>
+<h1>Standard Mathematics Formulas</h1>
+<p class="lead">A structured cross-level reference from primary/foundation mathematics through secondary, intermediate/HSC-equivalent, undergraduate and postgraduate/advanced mathematics. English terminology is paired with Bangla labels where useful. Use the level selector first, then narrow by topic.</p>
+<div class="meta"><span class="pill">School / Primary</span><span class="pill">Secondary / SSC</span><span class="pill">Intermediate / HSC</span><span class="pill">Undergraduate</span><span class="pill">Postgraduate / Advanced</span></div>
+</div></section>
+<section><div class="wrap">
+<div class="controls">
+<div class="control"><label for="level">Study level / স্তর</label><select id="level"></select></div>
+<div class="control"><label for="category">Topic / বিষয়</label><select id="category"></select></div>
+<div class="control"><label for="search">Search formula / সূত্র খুঁজুন</label><input id="search" placeholder="e.g. quadratic, area, derivative" style="width:100%;min-height:46px;border:1px solid #cbd8e2;border-radius:10px;padding:9px;font:inherit"></div>
+</div>
+<div id="count" class="meta" style="margin-bottom:14px"></div>
+<div id="formulaGrid" class="grid"></div>
+<div class="source"><strong>Curriculum note:</strong> Bangladesh's NCTB publishes school and higher-secondary textbook lists, including Bangla and English-version materials. This library is a cross-level formula reference, not a substitute for a specific board, university or examination syllabus. Verify the applicable syllabus and notation before exam use. <a href="https://nctb.gov.bd/pages/static-pages/695b98afc4774958d7b7044c" target="_blank" rel="noopener noreferrer">NCTB 2026 textbook list ↗</a></div>
+</div></section>
+</main>
+<footer><div class="wrap"><strong>RegTech Nexus AI — Student Knowledge Hub</strong><p>Formula reference for independent learning. Always show assumptions, units, domains and conditions where a formula requires them.</p><a href="./">Return to Mathematics Course →</a></div></footer>
+<script>
+const F=[
+{l:"School / Primary",c:"Arithmetic",t:"চার প্রাথমিক ক্রিয়া",f:"a+b, a-b, a×b, a÷b"},
+{l:"School / Primary",c:"Fractions",t:"ভগ্নাংশ",f:"a/b + c/d = (ad+bc)/bd"},
+{l:"School / Primary",c:"Fractions",t:"ভগ্নাংশ গুণ",f:"(a/b)(c/d)=ac/bd"},
+{l:"School / Primary",c:"Percentages",t:"শতকরা",f:"Percentage = (part/whole)×100%"},
+{l:"School / Primary",c:"Ratio",t:"অনুপাত",f:"a:b = ka:kb;  a/b = c/d  ⇒  ad=bc"},
+{l:"School / Primary",c:"Average",t:"গড়",f:"Mean = (x₁+x₂+…+xₙ)/n"},
+{l:"School / Primary",c:"Speed",t:"গতি",f:"Speed = distance/time"},
+{l:"School / Primary",c:"Perimeter",t:"পরিসীমা",f:"Rectangle: P=2(l+w)"},
+{l:"School / Primary",c:"Area",t:"ক্ষেত্রফল",f:"Rectangle: A=lw"},
+{l:"School / Primary",c:"Area",t:"ক্ষেত্রফল",f:"Triangle: A=½bh"},
+{l:"School / Primary",c:"Circle",t:"বৃত্ত",f:"Circumference C=2πr; Area A=πr²"},
+{l:"School / Primary",c:"Volume",t:"আয়তন",f:"Cuboid: V=lwh"},
+{l:"School / Primary",c:"Volume",t:"আয়তন",f:"Cylinder: V=πr²h"},
+{l:"School / Primary",c:"Angles",t:"কোণ",f:"Straight angle=180°; full turn=360°"},
+{l:"School / Primary",c:"Pythagoras",t:"পিথাগোরাস",f:"a²+b²=c² for a right triangle"},
+{l:"School / Primary",c:"Simple Interest",t:"সরল সুদ",f:"I=Prt;  A=P+I=P(1+rt)"},
+{l:"School / Primary",c:"Profit & Loss",t:"লাভ-ক্ষতি",f:"Profit=SP−CP; Loss=CP−SP"},
+{l:"School / Primary",c:"Unit Conversion",t:"একক",f:"1 km=1000 m; 1 m=100 cm; 1 kg=1000 g; 1 h=60 min"},
+{l:"Secondary / SSC",c:"Algebra",t:"বীজগণিত",f:"(a+b)²=a²+2ab+b²"},
+{l:"Secondary / SSC",c:"Algebra",t:"বীজগণিত",f:"(a−b)²=a²−2ab+b²"},
+{l:"Secondary / SSC",c:"Algebra",t:"বীজগণিত",f:"a²−b²=(a−b)(a+b)"},
+{l:"Secondary / SSC",c:"Algebra",t:"বীজগণিত",f:"(a+b)³=a³+3a²b+3ab²+b³"},
+{l:"Secondary / SSC",c:"Algebra",t:"বীজগণিত",f:"a³−b³=(a−b)(a²+ab+b²)"},
+{l:"Secondary / SSC",c:"Exponents",t:"সূচক",f:"aᵐaⁿ=aᵐ⁺ⁿ; aᵐ/aⁿ=aᵐ⁻ⁿ; (aᵐ)ⁿ=aᵐⁿ"},
+{l:"Secondary / SSC",c:"Logarithms",t:"লগারিদম",f:"logₐ(xy)=logₐx+logₐy"},
+{l:"Secondary / SSC",c:"Logarithms",t:"লগারিদম",f:"logₐ(x/y)=logₐx−logₐy"},
+{l:"Secondary / SSC",c:"Logarithms",t:"লগারিদম",f:"logₐ(xᵏ)=k logₐx"},
+{l:"Secondary / SSC",c:"Quadratic",t:"দ্বিঘাত সমীকরণ",f:"x=[−b±√(b²−4ac)]/(2a)"},
+{l:"Secondary / SSC",c:"Quadratic",t:"বিচারক",f:"Δ=b²−4ac; Δ>0 two real roots, Δ=0 repeated root, Δ<0 no real roots"},
+{l:"Secondary / SSC",c:"Sequences",t:"সমান্তর ধারা",f:"aₙ=a+(n−1)d;  Sₙ=n/2[2a+(n−1)d]"},
+{l:"Secondary / SSC",c:"Sequences",t:"গুণোত্তর ধারা",f:"aₙ=arⁿ⁻¹; Sₙ=a(rⁿ−1)/(r−1), r≠1"},
+{l:"Secondary / SSC",c:"Coordinate Geometry",t:"দূরত্ব",f:"d=√[(x₂−x₁)²+(y₂−y₁)²]"},
+{l:"Secondary / SSC",c:"Coordinate Geometry",t:"মধ্যবিন্দু",f:"M=((x₁+x₂)/2,(y₁+y₂)/2)"},
+{l:"Secondary / SSC",c:"Coordinate Geometry",t:"ঢাল",f:"m=(y₂−y₁)/(x₂−x₁)"},
+{l:"Secondary / SSC",c:"Straight Line",t:"সরলরেখা",f:"y−y₁=m(x−x₁);  y=mx+c"},
+{l:"Secondary / SSC",c:"Trigonometry",t:"ত্রিকোণমিতি",f:"sin²θ+cos²θ=1; 1+tan²θ=sec²θ; 1+cot²θ=csc²θ"},
+{l:"Secondary / SSC",c:"Trigonometry",t:"ত্রিকোণমিতি",f:"tanθ=sinθ/cosθ; cotθ=cosθ/sinθ"},
+{l:"Secondary / SSC",c:"Triangle",t:"ত্রিভুজ",f:"Area=½ab sin C"},
+{l:"Secondary / SSC",c:"Triangle",t:"কোসাইন সূত্র",f:"c²=a²+b²−2ab cos C"},
+{l:"Secondary / SSC",c:"Triangle",t:"সাইন সূত্র",f:"a/sin A=b/sin B=c/sin C=2R"},
+{l:"Secondary / SSC",c:"Circle",t:"বৃত্ত",f:"Arc length s=rθ; sector area=½r²θ (θ in radians)"},
+{l:"Secondary / SSC",c:"Statistics",t:"পরিসর",f:"Range=max−min"},
+{l:"Secondary / SSC",c:"Probability",t:"সম্ভাবনা",f:"P(A)=n(A)/n(S) for equally likely finite outcomes"},
+{l:"Secondary / SSC",c:"Probability",t:"সম্পূরক ঘটনা",f:"P(Aᶜ)=1−P(A)"},
+{l:"Secondary / SSC",c:"Mensuration",t:"শঙ্কু",f:"V=⅓πr²h; curved area=πrl"},
+{l:"Secondary / SSC",c:"Mensuration",t:"গোলক",f:"V=4/3πr³; surface area=4πr²"},
+{l:"Intermediate / HSC",c:"Functions",t:"ফাংশন",f:"(f∘g)(x)=f(g(x));  f⁻¹(f(x))=x where inverse exists"},
+{l:"Intermediate / HSC",c:"Binomial",t:"দ্বিপদী বিস্তৃতি",f:"(a+b)ⁿ=Σₖ₌₀ⁿ C(n,k)aⁿ⁻ᵏbᵏ"},
+{l:"Intermediate / HSC",c:"Combinations",t:"সমাবেশ",f:"C(n,r)=n!/[r!(n−r)!]"},
+{l:"Intermediate / HSC",c:"Permutations",t:"বিন্যাস",f:"P(n,r)=n!/(n−r)!"},
+{l:"Intermediate / HSC",c:"Matrices",t:"ম্যাট্রিক্স",f:"(AB)ᵀ=BᵀAᵀ"},
+{l:"Intermediate / HSC",c:"Matrices",t:"ডিটারমিন্যান্ট",f:"|a b; c d|=ad−bc"},
+{l:"Intermediate / HSC",c:"Matrices",t:"2×2 inverse",f:"[a b; c d]⁻¹=(1/(ad−bc))[d −b; −c a], ad−bc≠0"},
+{l:"Intermediate / HSC",c:"Vectors",t:"ভেক্টর",f:"|a|=√(a₁²+a₂²+a₃²)"},
+{l:"Intermediate / HSC",c:"Vectors",t:"ডট গুণন",f:"a·b=|a||b|cosθ=Σaᵢbᵢ"},
+{l:"Intermediate / HSC",c:"Vectors",t:"ক্রস গুণন",f:"|a×b|=|a||b|sinθ"},
+{l:"Intermediate / HSC",c:"Limits",t:"সীমা",f:"lim[x→a](f(x)+g(x))=lim f(x)+lim g(x), when limits exist"},
+{l:"Intermediate / HSC",c:"Derivatives",t:"অবকলন",f:"d(xⁿ)/dx=nxⁿ⁻¹; d(eˣ)/dx=eˣ; d(ln x)/dx=1/x"},
+{l:"Intermediate / HSC",c:"Derivatives",t:"ত্রিকোণমিতিক অবকলন",f:"d(sin x)/dx=cos x; d(cos x)/dx=−sin x; d(tan x)/dx=sec²x"},
+{l:"Intermediate / HSC",c:"Chain Rule",t:"চেইন রুল",f:"d[f(g(x))]/dx=f′(g(x))g′(x)"},
+{l:"Intermediate / HSC",c:"Integration",t:"সমাকলন",f:"∫xⁿdx=xⁿ⁺¹/(n+1)+C, n≠−1"},
+{l:"Intermediate / HSC",c:"Integration",t:"সমাকলন",f:"∫1/x dx=ln|x|+C; ∫eˣdx=eˣ+C"},
+{l:"Intermediate / HSC",c:"Integration",t:"ত্রিকোণমিতিক সমাকলন",f:"∫sin x dx=−cos x+C; ∫cos x dx=sin x+C"},
+{l:"Intermediate / HSC",c:"Integration",t:"By parts",f:"∫u dv=uv−∫v du"},
+{l:"Intermediate / HSC",c:"Probability",t:"স্বাধীন ঘটনা",f:"P(A∩B)=P(A)P(B) if A and B are independent"},
+{l:"Intermediate / HSC",c:"Conditional Probability",t:"শর্তাধীন সম্ভাবনা",f:"P(A|B)=P(A∩B)/P(B), P(B)>0"},
+{l:"Intermediate / HSC",c:"Bayes",t:"বেইজের সূত্র",f:"P(A|B)=P(B|A)P(A)/P(B)"},
+{l:"Intermediate / HSC",c:"Statistics",t:"Variance",f:"Var(X)=E[X²]−[E(X)]²"},
+{l:"Intermediate / HSC",c:"Statistics",t:"Standard deviation",f:"σ=√Var(X)"},
+{l:"Intermediate / HSC",c:"Conics",t:"পরাবৃত্ত",f:"y²=4ax; focus=(a,0); directrix x=−a"},
+{l:"Intermediate / HSC",c:"Conics",t:"উপবৃত্ত",f:"x²/a²+y²/b²=1; c²=a²−b²"},
+{l:"Intermediate / HSC",c:"Conics",t:"অধিবৃত্ত",f:"x²/a²−y²/b²=1; c²=a²+b²"},
+{l:"Undergraduate",c:"Multivariable Calculus",t:"আংশিক অবকলন",f:"∂f/∂x, ∂f/∂y; total differential df=fₓdx+fᵧdy"},
+{l:"Undergraduate",c:"Multivariable Calculus",t:"Gradient",f:"∇f=(∂f/∂x,∂f/∂y,∂f/∂z)"},
+{l:"Undergraduate",c:"Vector Calculus",t:"Divergence",f:"∇·F=∂F₁/∂x+∂F₂/∂y+∂F₃/∂z"},
+{l:"Undergraduate",c:"Vector Calculus",t:"Curl",f:"∇×F"},
+{l:"Undergraduate",c:"Vector Calculus",t:"Laplacian",f:"∇²f=∂²f/∂x²+∂²f/∂y²+∂²f/∂z²"},
+{l:"Undergraduate",c:"Linear Algebra",t:"Eigenvalue",f:"Av=λv; det(A−λI)=0"},
+{l:"Undergraduate",c:"Linear Algebra",t:"Rank-nullity",f:"rank(T)+nullity(T)=dim(V)"},
+{l:"Undergraduate",c:"Linear Algebra",t:"Least squares",f:"β̂=(XᵀX)⁻¹Xᵀy when XᵀX is invertible"},
+{l:"Undergraduate",c:"Differential Equations",t:"First-order linear ODE",f:"y′+P(x)y=Q(x); integrating factor μ=e^{∫P(x)dx}"},
+{l:"Undergraduate",c:"Differential Equations",t:"Second-order characteristic equation",f:"ay″+by′+cy=0 ⇒ ar²+br+c=0"},
+{l:"Undergraduate",c:"Probability",t:"Expectation",f:"E[g(X)]=Σg(x)p(x) for discrete X; E[g(X)]=∫g(x)f(x)dx for continuous X"},
+{l:"Undergraduate",c:"Normal Distribution",t:"Normal density",f:"f(x)=1/(σ√(2π)) exp[−(x−μ)²/(2σ²)]"},
+{l:"Undergraduate",c:"Correlation",t:"Pearson correlation",f:"r=Cov(X,Y)/(σₓσᵧ)"},
+{l:"Undergraduate",c:"Numerical Methods",t:"Newton-Raphson",f:"xₙ₊₁=xₙ−f(xₙ)/f′(xₙ)"},
+{l:"Undergraduate",c:"Numerical Methods",t:"Trapezoidal rule",f:"∫ₐᵇf(x)dx≈(h/2)[f(x₀)+2Σf(xᵢ)+f(xₙ)]"},
+{l:"Postgraduate / Advanced",c:"Real Analysis",t:"Taylor expansion",f:"f(x)=Σₙ₌₀^∞ f⁽ⁿ⁾(a)(x−a)ⁿ/n! within the convergence domain"},
+{l:"Postgraduate / Advanced",c:"Complex Analysis",t:"Euler formula",f:"e^{iθ}=cosθ+i sinθ"},
+{l:"Postgraduate / Advanced",c:"Complex Analysis",t:"Cauchy-Riemann",f:"uₓ=vᵧ and uᵧ=−vₓ for analytic f=u+iv under the usual differentiability conditions"},
+{l:"Postgraduate / Advanced",c:"Fourier Analysis",t:"Fourier series",f:"f(x)≈a₀/2+Σₙ₌₁^∞[aₙcos(nπx/L)+bₙsin(nπx/L)]"},
+{l:"Postgraduate / Advanced",c:"Fourier Analysis",t:"Fourier coefficients",f:"aₙ=(1/L)∫₋Lᴸ f(x)cos(nπx/L)dx; bₙ=(1/L)∫₋Lᴸ f(x)sin(nπx/L)dx"},
+{l:"Postgraduate / Advanced",c:"Laplace Transform",t:"লাপ্লাস",f:"L{f(t)}=∫₀^∞e⁻ˢᵗf(t)dt"},
+{l:"Postgraduate / Advanced",c:"Laplace Transform",t:"Derivative transform",f:"L{f′}=sF(s)−f(0⁺)"},
+{l:"Postgraduate / Advanced",c:"PDE",t:"Heat equation",f:"uₜ=α²uₓₓ"},
+{l:"Postgraduate / Advanced",c:"PDE",t:"Wave equation",f:"uₜₜ=c²uₓₓ"},
+{l:"Postgraduate / Advanced",c:"PDE",t:"Laplace equation",f:"∇²u=0"},
+{l:"Postgraduate / Advanced",c:"Optimization",t:"First-order condition",f:"∇f(x*)=0 for an unconstrained differentiable interior optimum"},
+{l:"Postgraduate / Advanced",c:"Optimization",t:"Lagrange multiplier",f:"∇f(x)=λ∇g(x), with constraint g(x)=0"},
+{l:"Postgraduate / Advanced",c:"Statistics",t:"MLE score equation",f:"∂/∂θ log L(θ)=0 at an interior maximum, subject to regularity and identification"},
+{l:"Postgraduate / Advanced",c:"Statistics",t:"Fisher information",f:"I(θ)=E[(∂/∂θ log f(X;θ))²] under standard regularity conditions"},
+{l:"Postgraduate / Advanced",c:"Probability",t:"Law of total expectation",f:"E[X]=E[E(X|Y)]"},
+{l:"Postgraduate / Advanced",c:"Probability",t:"Law of total variance",f:"Var(X)=E[Var(X|Y)]+Var(E[X|Y])"}
+];
+const levels=[...new Set(F.map(x=>x.l))], cats=[...new Set(F.map(x=>x.c))];
+const level=document.getElementById('level'), category=document.getElementById('category'), search=document.getElementById('search'), grid=document.getElementById('formulaGrid'), count=document.getElementById('count');
+levels.forEach(x=>{const o=document.createElement('option');o.value=x;o.textContent=x;level.appendChild(o)});
+function refreshCats(){const old=category.value;category.innerHTML='<option value="All">All topics / সব বিষয়</option>';const set=[...new Set(F.filter(x=>x.l===level.value).map(x=>x.c))];set.forEach(x=>{const o=document.createElement('option');o.value=x;o.textContent=x;category.appendChild(o)});if(set.includes(old))category.value=old}
+function render(){const q=search.value.trim().toLowerCase(),lv=level.value,cat=category.value;const rows=F.filter(x=>x.l===lv&&(cat==='All'||x.c===cat)&&(!q||[x.c,x.t,x.f].join(' ').toLowerCase().includes(q)));grid.innerHTML='';rows.forEach(x=>{const a=document.createElement('article');a.className='card';a.innerHTML='<h3>'+x.c+'</h3><div class="bn">'+x.t+'</div><div class="formula">'+x.f+'</div>';grid.appendChild(a)});count.innerHTML='<span class="pill">'+rows.length+' formulas shown</span><span class="pill">'+lv+'</span>'+(cat!=='All'?'<span class="pill">'+cat+'</span>':'');if(!rows.length)grid.innerHTML='<div class="empty">No formulas match this filter. Try “All topics” or clear the search.</div>'}
+level.value=levels[0];refreshCats();render();
+level.addEventListener('change',()=>{refreshCats();render()});category.addEventListener('change',render);search.addEventListener('input',render);
+</script>
+</body></html>
