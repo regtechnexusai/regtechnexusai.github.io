@@ -148,6 +148,36 @@ const F=[
 {l:"Postgraduate / Advanced",c:"Probability",t:"Law of total expectation",f:"E[X]=E[E(X|Y)]"},
 {l:"Postgraduate / Advanced",c:"Probability",t:"Law of total variance",f:"Var(X)=E[Var(X|Y)]+Var(E[X|Y])"}
 ];
+
+// Additional standard reference formulas
+F.push(
+{l:"School / Primary",c:"Area",t:"সমান্তর চতুর্ভুজ",f:"A=bh"},
+{l:"School / Primary",c:"Area",t:"ট্রাপিজিয়াম",f:"A=½(a+b)h"},
+{l:"School / Primary",c:"Area",t:"রম্বস",f:"A=½d₁d₂"},
+{l:"Secondary / SSC",c:"Coordinate Geometry",t:"Point-to-line distance",f:"d=|Ax₁+By₁+C|/√(A²+B²)"},
+{l:"Secondary / SSC",c:"Circle",t:"বৃত্তের সমীকরণ",f:"(x−h)²+(y−k)²=r²"},
+{l:"Secondary / SSC",c:"Straight Line",t:"দুই রেখার সমান্তরালতা",f:"m₁=m₂"},
+{l:"Secondary / SSC",c:"Straight Line",t:"লম্বতা",f:"m₁m₂=−1 when both slopes are defined"},
+{l:"Secondary / SSC",c:"Polygon",t:"Regular polygon interior-angle sum",f:"Sum=(n−2)180°"},
+{l:"Secondary / SSC",c:"Polygon",t:"Regular polygon each interior angle",f:"[(n−2)180°]/n"},
+{l:"Intermediate / HSC",c:"Trigonometry",t:"Compound angle",f:"sin(A±B)=sinA cosB±cosA sinB"},
+{l:"Intermediate / HSC",c:"Trigonometry",t:"Compound angle",f:"cos(A±B)=cosA cosB∓sinA sinB"},
+{l:"Intermediate / HSC",c:"Trigonometry",t:"Double angle",f:"sin2A=2sinA cosA; cos2A=cos²A−sin²A"},
+{l:"Intermediate / HSC",c:"Series",t:"Infinite GP",f:"S∞=a/(1−r), |r|<1"},
+{l:"Intermediate / HSC",c:"Complex Numbers",t:"Modulus",f:"|a+ib|=√(a²+b²)"},
+{l:"Intermediate / HSC",c:"Complex Numbers",t:"Conjugate product",f:"(a+ib)(a−ib)=a²+b²"},
+{l:"Undergraduate",c:"Calculus",t:"Product rule",f:"(fg)′=f′g+fg′"},
+{l:"Undergraduate",c:"Calculus",t:"Quotient rule",f:"(f/g)′=(f′g−fg′)/g²"},
+{l:"Undergraduate",c:"Calculus",t:"Fundamental theorem",f:"∫ₐᵇf(x)dx=F(b)−F(a) when F′=f"},
+{l:"Undergraduate",c:"Probability",t:"Binomial probability",f:"P(X=k)=C(n,k)pᵏ(1−p)ⁿ⁻ᵏ"},
+{l:"Undergraduate",c:"Probability",t:"Poisson probability",f:"P(X=k)=e⁻λλᵏ/k!"},
+{l:"Undergraduate",c:"Statistics",t:"Sample variance",f:"s²=Σ(xᵢ−x̄)²/(n−1)"},
+{l:"Undergraduate",c:"Statistics",t:"Standard error of mean",f:"SE(x̄)=s/√n"},
+{l:"Undergraduate",c:"Linear Algebra",t:"Matrix determinant property",f:"det(AB)=det(A)det(B)"},
+{l:"Postgraduate / Advanced",c:"Complex Analysis",t:"Residue theorem",f:"∮C f(z)dz=2πi Σ Res(f;zₖ) for isolated singularities inside C"},
+{l:"Postgraduate / Advanced",c:"Vector Calculus",t:"Divergence theorem",f:"∭V ∇·F dV=∯∂V F·n dS"},
+{l:"Postgraduate / Advanced",c:"Vector Calculus",t:"Stokes' theorem",f:"∮∂S F·dr=∫S (∇×F)·n dS"}
+);
 const levels=[...new Set(F.map(x=>x.l))], cats=[...new Set(F.map(x=>x.c))];
 const level=document.getElementById('level'), category=document.getElementById('category'), search=document.getElementById('search'), grid=document.getElementById('formulaGrid'), count=document.getElementById('count');
 levels.forEach(x=>{const o=document.createElement('option');o.value=x;o.textContent=x;level.appendChild(o)});
