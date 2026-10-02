@@ -64,3 +64,28 @@ qs("#practice").onclick=()=>{const t=qs("#lessonTitle").textContent,d=course.top
 qs("#checkQuiz").onclick=()=>{const t=qs("#lessonTitle").textContent,d=course.topics[t],v=document.querySelector('input[name="courseq"]:checked');if(!v){qs("#result").textContent="Select an answer first.";return;}qs("#result").textContent=decodeURIComponent(v.value)===d[0]?"Correct. Review the concept, then continue to the next topic.":"Review the lesson: the first statement is the core concept for this topic.";};
 loadTopic(keys[0]);
 })();
+
+/* Architecture-standard learning UX enhancements */
+(function(){
+  const q=s=>document.querySelector(s);
+  const path=q('.learning-path');
+  if(path){
+    const subject=document.body.dataset.subject||'Subject';
+    const steps=[
+      ['01 · LEARN','Build the concept','Read the guided lesson and identify the core idea.'],
+      ['02 · PRACTICE','Apply it','Use the worked example and practice the topic.'],
+      ['03 · SELF-CHECK','Test yourself','Complete the quick practice and review feedback.'],
+      ['04 · EVIDENCE','Document learning','Mark completion and keep your study record on this device.']
+    ];
+    path.innerHTML='<div class="learning-path-grid">'+steps.map(x=>'<div class="learning-step"><b>'+x[0]+'</b><strong>'+x[1]+'</strong><span>'+x[2]+'</span></div>').join('')+'</div>';
+  }
+  const topic=()=>q('#lessonTitle')?.textContent||document.body.dataset.subject||'Subject';
+  const printBtn=document.createElement('button');
+  printBtn.className='btn secondary';printBtn.type='button';printBtn.textContent='Print / Save as PDF';
+  printBtn.onclick=()=>{
+    const title=document.title;document.title='RegTech Nexus AI — '+(document.body.dataset.subject||'Study')+' — '+topic();window.print();setTimeout(()=>document.title=title,900);
+  };
+  q('.actions')?.appendChild(printBtn);
+  q('#lesson')?.setAttribute('aria-live','polite');
+  document.querySelectorAll('.topic-link').forEach(b=>b.setAttribute('aria-label','Study '+b.textContent.trim()));
+})();
