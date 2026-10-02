@@ -96,7 +96,7 @@ main>section .check-row{padding:10px 12px}
  main>section .resource-grid{grid-template-columns:1fr}
  main>section .card,main>section .resource,main>section .course-card,main>section .case,main>section .layout-card,main>section .calc,main>section .book{padding:14px}
 }
-</style>
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.studio-nav{scroll-behavior:auto!important}.ar-direction-guide .arrow.pulse{animation:none!important}.btn:hover,.studio-nav a:hover{transform:none!important}}</style>
 </head>
 <body>
 <header><div class="wrap head">
@@ -707,6 +707,8 @@ const studioNav=document.querySelector('.studio-nav');
 if(studioNav){
   // Continuous bidirectional auto-scroll. Manual touch/swipe always takes priority.
   let navDir=1,navRunning=true,navPauseUntil=0,lastNavTs=0,navRaf=0;
+  const prefersReducedMotion=!!window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(prefersReducedMotion)navRunning=false;
   const NAV_SPEED=34; // px/sec
   const now=()=>Date.now();
   const pauseNav=(ms=1600)=>{navRunning=false;navPauseUntil=now()+ms;};
@@ -760,6 +762,7 @@ if(photoSection){
     });
     document.getElementById('manualMeasureClear')?.addEventListener('click',()=>{
       ['manualLength','manualHeight','manualArea'].forEach(id=>{const e=document.getElementById(id);if(e)e.value=''});
+      ['photoScaleWidthOut','photoScaleHeightOut','photoScaleAreaOut'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent='—'});
     });
   }
   if(!photoSection.querySelector('.arch-privacy')){
