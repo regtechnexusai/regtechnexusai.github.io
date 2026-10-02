@@ -1,0 +1,7 @@
+# Project-specific protection: do not commit TravelToKnow production/session packages
+TravelToKnow*/
+TravelToKnow*
+Travel To Know*/
+Travel To Know*
+travel-to-know*/
+travel-to-know*
