@@ -2327,16 +2327,38 @@ loadStudentPreferences();
 </script>
 
 <script>
-const subjectIcons={Mathematics:'📐',Statistics:'📊',Economics:'📈',Accounting:'📚',Finance:'💰','Business Studies':'💼',Architecture:'🏛️','Computer Science':'💻',Programming:'⌨️','Information Technology':'🖥️','Data Science':'🧠',Cybersecurity:'🔐','English & Communication':'🗣️','Research Methodology':'🔎','General Science':'🔬','Social Science':'🌍'};
+const subjectIcons={Mathematics:'📐',Statistics:'📊',Economics:'📈',Accounting:'📚',Finance:'💰','Business Studies':'💼',Architecture:'🏛️','Computer Science':'💻',Programming:'⌨️','Information Technology':'🖥️','Data Science:'🧠',Cybersecurity:'🔐','English & Communication':'🗣️','Research Methodology':'🔎','General Science':'🔬','Social Science':'🌍','AML/CFT & Financial Crime':'🛡️','IFRS':'📘'};
+const subjectRoutes={
+  Mathematics:'subjects/mathematics/',
+  Statistics:'subjects/statistics/',
+  Economics:'subjects/economics/',
+  Accounting:'subjects/accounting/',
+  Finance:'subjects/finance/',
+  'Business Studies':'subjects/business-studies/',
+  Architecture:'architecture/',
+  'Computer Science':'subjects/computer-science/',
+  Programming:'subjects/programming/',
+  'Information Technology':'subjects/information-technology/',
+  'Data Science':'subjects/data-science/',
+  Cybersecurity:'subjects/cybersecurity/',
+  'English & Communication':'subjects/english-communication/',
+  'Research Methodology':'subjects/research-methodology/',
+  'General Science':'subjects/general-science/',
+  'Social Science':'subjects/social-science/',
+  'AML/CFT & Financial Crime':'aml-cft/',
+  IFRS:'ifrs/'
+};
+function openSubjectCourse(name){const path=subjectRoutes[name];if(path)window.location.href=path;else selectSubject(name);}
 function renderSubjects(){
  const box=qs('subjectButtons'); box.innerHTML='';
  Object.keys(studentSubjects).forEach(name=>{
-  const b=document.createElement('button'); b.className='subject-btn';
-  b.innerHTML='<span style="font-size:1.5rem;display:block;margin-bottom:6px">'+(subjectIcons[name]||'📖')+'</span><span>'+name+'</span>';
-  b.onclick=()=>selectSubject(name); box.appendChild(b);
+  const b=document.createElement('button'); b.className='subject-btn'; b.type='button';
+  b.setAttribute('aria-label','Open '+name+' course');
+  b.innerHTML='<span style="font-size:1.5rem;display:block;margin-bottom:6px">'+(subjectIcons[name]||'📖')+'</span><span>'+name+'</span><small style="display:block;margin-top:7px;font-size:.72rem;color:#607080">Start course →</small>';
+  b.onclick=()=>openSubjectCourse(name); box.appendChild(b);
  });
 }
-renderSubjects();selectSubject(currentSubject||'Mathematics');
+renderSubjects();
 </script>
 <!-- AI Answer / Printable Report workspace -->
 <div id="aiAnswerModal" class="ai-answer-modal" aria-hidden="true">
