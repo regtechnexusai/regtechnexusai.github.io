@@ -168,10 +168,10 @@ footer{background:var(--pd);color:#dfe8f0;padding:35px 0}footer a{color:#fff}
 <div class="calc"><h3>Ramp Slope Check</h3><input id="rise" type="number" step="0.01" placeholder="Rise / level change (m)"><input id="run" type="number" step="0.01" placeholder="Horizontal run (m)"><button class="btn secondary" onclick="rampCalc()">Calculate slope</button><div class="calc-result" id="rampOut">—</div></div>
 </div></div></section>
 
-<section id="photo-scale"><div class="wrap"><div class="heading"><h2>6A. Photo Scale Meter — Measure a Wall or Space</h2><p>Take or upload a photo, calibrate it with a known reference length, then tap two points on the photo to estimate a wall or space length/height.</p></div>
+<section id="photo-scale"><div class="wrap"><div class="heading"><h2>6A. Smart Measure — Measure a Wall or Space</h2><p>Use phone camera AR to measure real-world length, height, or area without a reference object. The calibrated photo method below is a fallback only.</p></div>
 <div class="photo-scale">
-<div class="photo-scale-head"><div><span class="tag">AR + PHOTO MEASUREMENT</span><h3>Smart Measure Lab</h3><p>Quick Measure-style AR measurement is now the primary method: use your phone camera, scan the space, point at two real-world locations and let the device AR system provide the metric distance. The calibrated-photo method remains available as a fallback.</p></div><span class="tag">AR FIRST</span></div><div class="ar-meter"><div class="ar-meter-head"><div><span class="ar-badge">SMART AR MEASURE</span><h4>No reference object required</h4><p>Choose a mode, start AR, move the phone so the centre reticle sits on the first point, then tap the screen. Aim at the second point and tap again. The result is calculated in real-world metres from WebXR/ARCore hit-test coordinates.</p></div></div><div class="ar-meter-actions no-print"><button class="btn green" type="button" onclick="startARMeasure('length')">Measure length</button><button class="btn" type="button" onclick="startARMeasure('height')">Measure height</button><button class="btn violet" type="button" onclick="startARMeasure('area')">Measure area</button></div><div id="arMeterStatus" class="ar-status">Ready. No reference length is required in AR mode.</div></div><div id="arOverlay" class="ar-overlay" aria-hidden="true"><div class="ar-top"><div class="ar-card"><strong id="arOverlayTitle">Smart Measure</strong><span id="arOverlayText">Move the phone until the reticle sits on a real surface.</span></div></div><div class="ar-crosshair" aria-hidden="true"></div><div class="ar-bottom"><span>Tap the screen to set the point</span></div></div><canvas id="arXrCanvas" style="display:none" aria-hidden="true"></canvas>
-<div class="scale-instructions"><div class="scale-step"><b>01 · PHOTO</b><span>Take a new photo or choose one from your phone.</span></div><div class="scale-step"><b>02 · REFERENCE</b><span>Enter the known reference length and mark its two ends.</span></div><div class="scale-step"><b>03 · MEASURE</b><span>Choose wall length or height, then tap the two endpoints.</span></div><div class="scale-step"><b>04 · RECORD</b><span>Use the result as a study measurement and verify on site.</span></div></div>
+<div class="photo-scale-head"><div><span class="tag">AR + PHOTO MEASUREMENT</span><h3>Smart Measure Lab</h3><p>Quick Measure-style AR measurement is now the primary method: use your phone camera, scan the space, point at two real-world locations and let the device AR system provide the metric distance. The calibrated-photo method remains available as a fallback.</p></div><span class="tag">AR FIRST</span></div><div class="ar-meter"><div class="ar-meter-head"><div><span class="ar-badge">SMART AR MEASURE</span><h4>No reference object required</h4><p>Choose a mode, start AR, move the phone so the centre reticle sits on the first point, then tap the screen. Aim at the second point and tap again. The result is calculated in real-world metres from WebXR/ARCore hit-test coordinates.</p></div></div><div class="ar-meter-actions no-print"><button class="btn green" type="button" onclick="startARMeasure('length')">Measure length</button><button class="btn" type="button" onclick="startARMeasure('height')">Measure height</button><button class="btn violet" type="button" onclick="startARMeasure('area')">Measure area</button></div><div id="arMeterStatus" class="ar-status">Ready. No reference length is required in AR mode.</div></div><div id="arOverlay" class="ar-overlay" aria-hidden="true"><div class="ar-top"><div class="ar-card"><strong id="arOverlayTitle">Smart Measure</strong><span id="arOverlayText">Move the phone until the reticle sits on a real surface.</span></div></div><div class="ar-crosshair" aria-hidden="true"></div><div class="ar-bottom"><span>Tap the screen to set the point</span></div></div><canvas id="arXrCanvas" width="1" height="1" style="position:fixed;width:1px;height:1px;left:-10000px;top:-10000px;opacity:0;pointer-events:none" aria-hidden="true"></canvas>
+<div class="scale-instructions"><div class="scale-step"><b>01 · AR SCAN</b><span>Start AR and scan the real surface slowly.</span></div><div class="scale-step"><b>02 · SET POINTS</b><span>Place the centre reticle on each real-world point and tap.</span></div><div class="scale-step"><b>03 · MEASURE</b><span>Get the real-world metric result from AR coordinates.</span></div><div class="scale-step"><b>04 · RECORD</b><span>Use the result for study and verify on site.</span></div></div>
 <div class="scale-controls">
 <div class="scale-control"><label for="photoScaleRef">Known reference length (cm) — photo fallback only</label><input id="photoScaleRef" type="number" min="0.1" step="0.1" placeholder="Optional: e.g. 29.7 for A4 long side"></div>
 <div class="actions no-print" style="margin:0"><label class="btn green" for="photoScaleFile">Take / choose photo</label><input id="photoScaleFile" type="file" accept="image/*" capture="environment" style="display:none"><button class="btn secondary" type="button" onclick="photoScaleReset()">Reset</button></div>
@@ -357,14 +357,25 @@ function arArea(points){if(points.length<3)return 0;let nx=0,ny=0,nz=0;for(let i
 function arCompleteResult(value,unit,label){const n=+value.toFixed(3);if(label==='Length')document.getElementById('photoScaleWidthOut').textContent=(n>=1?n.toFixed(2)+' m':(n*100).toFixed(1)+' cm');if(label==='Height')document.getElementById('photoScaleHeightOut').textContent=(n>=1?n.toFixed(2)+' m':(n*100).toFixed(1)+' cm');if(label==='Area')document.getElementById('photoScaleAreaOut').textContent=n.toFixed(2)+' m²';}
 async function startARMeasure(mode){
  if(!window.isSecureContext){arSetStatus('AR requires a secure HTTPS page. This site is HTTPS.');return;}
- if(!navigator.xr||!(await navigator.xr.isSessionSupported?.('immersive-ar'))){arSetStatus('AR measurement is not available in this browser/device. Use the Photo fallback below.');return;}
+ if(!navigator.xr){arSetStatus('WebXR AR is not available in this browser. Try a supported AR-capable Android browser/device.');return;}
  try{
   AR_MEASURE.mode=mode;AR_MEASURE.points=[];AR_MEASURE.lastHit=null;
   const overlay=document.getElementById('arOverlay');
-  const session=await navigator.xr.requestSession('immersive-ar',{requiredFeatures:['local','hit-test'],optionalFeatures:['dom-overlay'],domOverlay:{root:overlay}});
+  // Request the immersive session directly from the button tap. Do not await
+  // isSessionSupported() first: that asynchronous check can consume the
+  // transient user activation required by requestSession() on mobile.
+  const session=await navigator.xr.requestSession('immersive-ar',{
+   requiredFeatures:['local','hit-test'],
+   optionalFeatures:['dom-overlay'],
+   domOverlay:{root:overlay}
+  });
   AR_MEASURE.session=session;
-  const canvas=document.getElementById('arXrCanvas');const gl=canvas.getContext('webgl',{xrCompatible:true,alpha:true,antialias:true});AR_MEASURE.gl=gl;
-  session.updateRenderState({baseLayer:new XRWebGLLayer(session,gl, {alpha:true,antialias:true})});
+  const canvas=document.getElementById('arXrCanvas');
+  canvas.width=1;canvas.height=1;
+  const gl=canvas.getContext('webgl',{xrCompatible:true,alpha:true,antialias:true});
+  if(!gl)throw new Error('WebGL XR context could not be created');
+  AR_MEASURE.gl=gl;
+  session.updateRenderState({baseLayer:new XRWebGLLayer(session,gl,{alpha:true,antialias:true})});
   AR_MEASURE.refSpace=await session.requestReferenceSpace('local');
   AR_MEASURE.viewerSpace=await session.requestReferenceSpace('viewer');
   AR_MEASURE.hitSource=await session.requestHitTestSource({space:AR_MEASURE.viewerSpace});
@@ -373,7 +384,15 @@ async function startARMeasure(mode){
   arSetOverlay(true,'Smart '+(mode==='length'?'Length':mode==='height'?'Height':'Area')+' Measure',mode==='area'?'Tap four corners of the surface in order.':'Aim the centre reticle at the first point and tap.');
   arSetStatus('AR active. Scan the space slowly until the centre reticle locks onto a surface.');
   session.requestAnimationFrame(arFrame);
- }catch(e){console.error(e);arSetOverlay(false);arSetStatus('Could not start browser AR: '+(e?.message||'unsupported configuration')+'. Use the Photo fallback below.');}
+ }catch(e){
+  console.error(e);
+  try{AR_MEASURE.session?.end()}catch(_){}
+  AR_MEASURE.session=null;AR_MEASURE.hitSource=null;AR_MEASURE.lastHit=null;
+  arSetOverlay(false);
+  const name=e?.name||'';
+  const msg=name==='NotAllowedError'?'AR session permission/user activation was not accepted. Tap the AR button again and allow camera/AR access.':name==='NotSupportedError'?'This browser/device does not support the required WebXR AR hit-test features.':'Could not start browser AR: '+(e?.message||'unsupported configuration')+'.';
+  arSetStatus(msg+' The photo method remains available below as a fallback.');
+ }
 }
 function arFrame(t,frame){
  const s=AR_MEASURE.session;if(!s)return;s.requestAnimationFrame(arFrame);
