@@ -72,3 +72,51 @@ html{scroll-behavior:smooth}
 
 /* Mathematics platform layer */
 .math-platform{max-width:1180px;margin:0 auto;padding:8px 18px 30px}.math-section{scroll-margin-top:100px;margin:26px 0}.math-section-head{margin-bottom:15px}.math-kicker{display:inline-block;padding:5px 9px;border-radius:999px;background:#edf6fb;border:1px solid #d5e6ef;color:#245b7e;font-size:.7rem;font-weight:950;letter-spacing:.06em}.math-section h2{margin:8px 0 6px;color:var(--arch-pd)}.math-section-head p{max-width:900px;color:#687581;line-height:1.65}.math-level-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.math-level-card,.math-domain-card,.math-tool-card,.math-roadmap,.math-practice-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:0 8px 22px rgba(16,39,64,.07)}.math-level-card{border-top:4px solid var(--arch-a)}.math-level-card:nth-child(2){border-top-color:#1677d2}.math-level-card:nth-child(3){border-top-color:var(--arch-violet)}.math-level-card:nth-child(4){border-top-color:var(--arch-gold)}.math-level-card:nth-child(5){border-top-color:var(--arch-rose)}.math-level-card:nth-child(6){border-top-color:var(--arch-green)}.math-level-card h3,.math-domain-card h3,.math-tool-card h3{margin:5px 0 7px;color:var(--arch-p)}.math-level-card p,.math-domain-card p,.math-tool-card p,.math-roadmap p,.math-practice-card p{color:#5f6e7c;line-height:1.55;margin:6px 0}.math-level-card ul{margin:9px 0 0;padding-left:19px;color:#5f6e7c;line-height:1.55;font-size:.9rem}.math-level-badge{font-size:.7rem;font-weight:950;letter-spacing:.05em;color:#687581}.math-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.math-domain-card{min-height:150px}.math-tool-card{min-height:150px;border-left:4px solid var(--arch-a)}.math-tool-card:nth-child(2){border-left-color:var(--arch-violet)}.math-tool-card:nth-child(3){border-left-color:var(--arch-gold)}.math-tool-card:nth-child(4){border-left-color:var(--arch-green)}.math-roadmap{overflow:auto}.math-roadmap-flow{display:flex;align-items:center;gap:8px;min-width:820px;padding:8px 0}.math-roadmap-node{padding:12px 14px;border:1px solid #d5e3ec;border-radius:12px;background:#f7fbfd;color:var(--arch-p);font-weight:900;white-space:nowrap}.math-arrow{color:var(--arch-a);font-weight:950}.math-standard{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.math-standard div{padding:13px;border-radius:12px;background:#f7fbfd;border:1px solid #dce8ef}.math-standard b{display:block;color:var(--arch-p);font-size:.8rem;margin-bottom:4px}.math-standard span{font-size:.8rem;color:#657381;line-height:1.45}.math-note{padding:14px 16px;border-left:4px solid var(--arch-gold);background:#fffaf0;border-radius:11px;color:#5e6872;line-height:1.55}.math-links{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}.math-links a{display:inline-flex;align-items:center;min-height:42px;padding:8px 12px;border-radius:11px;border:1px solid #d8e6ee;background:#fff;text-decoration:none;font-weight:900;color:var(--arch-p)}.math-links a:hover{background:#eef7fb}@media(max-width:900px){.math-level-grid,.math-grid-3{grid-template-columns:1fr 1fr}.math-standard{grid-template-columns:1fr 1fr}}@media(max-width:560px){.math-platform{padding-left:12px;padding-right:12px}.math-level-grid,.math-grid-3,.math-standard{grid-template-columns:1fr}.math-section{margin:22px 0}.math-roadmap-flow{min-width:700px}}
+/* Mathematics landing-page refinement — additive, no content removal */
+body[data-subject="Mathematics"] .course-header{position:sticky;top:0}
+body[data-subject="Mathematics"] .course-head{max-width:1240px;gap:10px}
+body[data-subject="Mathematics"] .course-nav{order:2;min-width:0}
+body[data-subject="Mathematics"] .language-switcher{order:3}
+body[data-subject="Mathematics"] .course-head>.back{order:4}
+body[data-subject="Mathematics"] .course-hero{padding:58px 18px 46px}
+body[data-subject="Mathematics"] .course-hero-inner{max-width:1240px}
+body[data-subject="Mathematics"] .course-hero h1{letter-spacing:-.025em}
+body[data-subject="Mathematics"] .course-hero p{font-size:1.08rem;max-width:860px}
+body[data-subject="Mathematics"] .learning-path{max-width:1240px;padding-top:20px}
+body[data-subject="Mathematics"] .learning-path-grid{gap:12px}
+body[data-subject="Mathematics"] .math-platform{max-width:1240px;padding-top:14px}
+body[data-subject="Mathematics"] .math-section{margin:38px 0}
+body[data-subject="Mathematics"] .math-section-head{max-width:920px}
+body[data-subject="Mathematics"] .math-section h2{font-size:clamp(1.45rem,2.5vw,2rem)}
+body[data-subject="Mathematics"] .math-level-card,
+body[data-subject="Mathematics"] .math-domain-card,
+body[data-subject="Mathematics"] .math-tool-card,
+body[data-subject="Mathematics"] .math-practice-card{transition:transform .16s ease,box-shadow .16s ease}
+body[data-subject="Mathematics"] .math-level-card:hover,
+body[data-subject="Mathematics"] .math-domain-card:hover,
+body[data-subject="Mathematics"] .math-tool-card:hover,
+body[data-subject="Mathematics"] .math-practice-card:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(16,39,64,.11)}
+body[data-subject="Mathematics"] .math-tool-card .math-links+ p{margin-top:13px}
+body[data-subject="Mathematics"] .math-practice-card{min-height:165px}
+body[data-subject="Mathematics"] .course-wrap{max-width:1240px;margin-top:18px}
+body[data-subject="Mathematics"] .course-grid{max-width:1240px}
+body[data-subject="Mathematics"] .student-privacy,
+body[data-subject="Mathematics"] .course-verification{max-width:1240px}
+@media(max-width:1100px){
+ body[data-subject="Mathematics"] .course-head{flex-wrap:wrap}
+ body[data-subject="Mathematics"] .course-nav{order:5;flex-basis:100%}
+ body[data-subject="Mathematics"] .language-switcher{margin-left:auto}
+}
+@media(max-width:700px){
+ body[data-subject="Mathematics"] .course-hero{padding:38px 14px 32px}
+ body[data-subject="Mathematics"] .course-hero h1{font-size:2.25rem}
+ body[data-subject="Mathematics"] .math-section{margin:30px 0}
+ body[data-subject="Mathematics"] .math-tool-card,
+ body[data-subject="Mathematics"] .math-level-card{min-height:0}
+}
+@media(prefers-reduced-motion:reduce){
+ body[data-subject="Mathematics"] .math-level-card:hover,
+ body[data-subject="Mathematics"] .math-domain-card:hover,
+ body[data-subject="Mathematics"] .math-tool-card:hover,
+ body[data-subject="Mathematics"] .math-practice-card:hover{transform:none}
+}
