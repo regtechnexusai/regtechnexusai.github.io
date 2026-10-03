@@ -96,7 +96,123 @@ main>section .check-row{padding:10px 12px}
  main>section .resource-grid{grid-template-columns:1fr}
  main>section .card,main>section .resource,main>section .course-card,main>section .case,main>section .layout-card,main>section .calc,main>section .book{padding:14px}
 }
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.studio-nav{scroll-behavior:auto!important}.ar-direction-guide .arrow.pulse{animation:none!important}.btn:hover,.studio-nav a:hover{transform:none!important}}</style>
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.studio-nav{scroll-behavior:auto!important}.ar-direction-guide .arrow.pulse{animation:none!important}.btn:hover,.studio-nav a:hover{transform:none!important}}<style id="architecture-layout-repair-20261003">
+/* Architecture Studio — layout repair and responsive normalization. Existing content preserved. */
+:root{--arch-max:1180px}
+.wrap{width:min(var(--arch-max),calc(100% - 32px))}
+main{overflow:hidden}
+section{scroll-margin-top:92px}
+.heading{margin-left:auto;margin-right:auto}
+.hero .wrap{position:relative}
+.hero .pills{max-width:1100px}
+.grid,.course-grid,.framework,.layout-grid{align-items:stretch}
+.grid>.card,.course-grid>.course-card,.framework>div,.layout-grid>.layout-card{height:100%;display:flex;flex-direction:column}
+.grid>.card .btn,.course-grid>.course-card .btn,.layout-grid>.layout-card .btn{margin-top:auto;align-self:flex-start}
+.resource-grid,.case-grid{align-items:stretch}
+.resource,.case{height:100%;display:flex;flex-direction:column}
+.resource a,.case .actions{margin-top:auto}
+.architecture-book{min-width:0}
+.book-page{min-width:0}
+.method-step,.poster-pillar,.sample-evidence-item,.poster-tools>div{min-width:0}
+.arch-tools,.actions,.sample-actions,.ar-meter-actions{align-items:center}
+.arch-tools .btn,.actions .btn,.sample-actions .btn{max-width:100%}
+.arch-tools input,.arch-tools select{max-width:100%}
+.field input,.field textarea,.field select,.evidence,.evidence-link{min-width:0;max-width:100%}
+.photo-scale,.worked-sample,.sample-case,.assignment,.callout,.result,.ar-meter{overflow:hidden}
+.scale-canvas-wrap{max-width:100%}
+.scale-canvas{max-width:100%}
+.studio-nav a{white-space:nowrap}
+footer{margin-top:0}
+
+/* Make the long studio feel like a sequence of deliberate learning chapters. */
+main>section:nth-of-type(even){background:linear-gradient(180deg,#f8fbfd 0%,#fff 100%)}
+main>section:nth-of-type(odd){background:#fff}
+.hero{position:relative}
+.hero:after{content:"";display:block;max-width:var(--arch-max);height:4px;margin:34px auto 0;border-radius:999px;background:linear-gradient(90deg,#1677d2,#148a9c,#7a56c7,#d99b21,#c93c83,#14966f)}
+
+/* Course and reference cards: consistent visual hierarchy. */
+.course-card,.resource,.case,.layout-card,.card{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.course-card:hover,.resource:hover,.case:hover,.layout-card:hover,.card:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(16,39,64,.12)}
+.tag{line-height:1.2}
+.arch-resource-badge{display:inline-flex;align-items:center;align-self:flex-start;margin-bottom:8px;padding:4px 8px;border-radius:999px;background:#edf9f4;color:#087553;border:1px solid #c5e5d8;font-size:.65rem;font-weight:950;letter-spacing:.05em}
+.arch-resource-badge.gov{background:#eef5ff;color:#1769d2;border-color:#c9dcf2}
+.arch-resource-badge.secondary{background:#fff4fa;color:#a32968;border-color:#edc9db}
+
+/* Learning-path / enhancement blocks should not overflow their parent. */
+.arch-enhance,.arch-trust,.arch-method-choice,.manual-measure{max-width:100%;overflow:hidden}
+.arch-track-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.arch-track{min-width:0}
+.arch-track pre{max-width:100%;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}
+.arch-method-choice{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.arch-method{min-width:0;padding:15px;border:1px solid #d7e1ea;border-radius:13px;background:#fff}
+.arch-method h4{margin:0 0 6px;color:#173f67}.arch-method p{margin:0 0 10px;color:#607080;font-size:.8rem}
+.manual-measure-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.manual-measure-grid>div{min-width:0}.manual-note{margin-top:10px;color:#667481;font-size:.76rem}
+.arch-privacy{margin-top:12px;padding:12px 14px;border:1px solid #d7e1ea;border-left:4px solid #148a9c;border-radius:10px;background:#f6fbfd;color:#607080;font-size:.78rem}
+.arch-trust{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px;padding-top:16px;border-top:1px solid #d7e1ea}
+.arch-trust div{padding:10px 12px;border:1px solid #d7e1ea;border-radius:10px;background:#fff}
+.arch-trust b{display:block;color:#173f67;font-size:.7rem}.arch-trust span{display:block;color:#687581;font-size:.72rem;margin-top:3px}
+
+/* Desktop/tablet: prevent narrow cards from becoming unreadable. */
+@media(max-width:1050px){
+  .grid,.course-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .framework,.layout-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .resource-grid,.case-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .architecture-book{grid-template-columns:1fr}
+  .book-spine{display:none}
+  .book-page-left,.book-page-right{padding:25px}
+  .arch-track-grid{grid-template-columns:1fr 1fr}
+  .arch-trust{grid-template-columns:repeat(2,1fr)}
+}
+
+/* Mobile: every multi-column component collapses cleanly; no horizontal page break. */
+@media(max-width:700px){
+  .wrap{width:min(100% - 24px,var(--arch-max))}
+  header{position:sticky;top:0}
+  .head{min-height:auto;padding:9px 0;display:grid;grid-template-columns:1fr;gap:8px}
+  .brand-lockup{width:100%}
+  .studio-nav{width:100%;max-width:100%;order:2;padding:2px 0 5px}
+  .studio-nav a{padding:8px 11px;font-size:.78rem}
+  .grid,.course-grid,.framework,.layout-grid,.resource-grid,.case-grid{grid-template-columns:1fr}
+  .architecture-book{border-radius:16px;margin-top:15px}
+  .book-page,.book-page-left,.book-page-right{padding:20px 17px}
+  .book-principles,.method-grid{grid-template-columns:1fr}
+  .formgrid,.sample-meta-grid,.sample-evidence,.scale-instructions,.scale-controls,.scale-output,.manual-measure-grid,.arch-track-grid,.arch-method-choice{grid-template-columns:1fr}
+  .worked-sample,.sample-case,.assignment,.photo-scale{padding:17px}
+  .worked-sample-head,.photo-scale-head,.ar-meter-head{display:block}
+  .hero{padding:35px 0 30px}
+  .hero h1{font-size:clamp(1.9rem,9vw,2.8rem)}
+  .lead{font-size:.98rem}
+  section{padding:34px 0}
+  .heading{margin-bottom:18px}
+  .heading h2{font-size:1.55rem}
+  .arch-tools,.actions,.sample-actions,.ar-meter-actions{align-items:stretch}
+  .arch-tools .btn,.actions .btn,.sample-actions .btn,.ar-meter-actions .btn{width:100%}
+  .arch-trust{grid-template-columns:1fr}
+  .arch-trust div{padding:9px 10px}
+  .poster-footer,.book-footer{flex-direction:column;align-items:flex-start}
+  .poster-footer .btn{width:100%}
+}
+
+/* Small phones: eliminate accidental min-width/overflow from tables and canvases. */
+@media(max-width:420px){
+  .wrap{width:calc(100% - 20px)}
+  .brand-logo{width:46px;height:46px}
+  .brand{font-size:.9rem}.brand-sub{font-size:.65rem}
+  .studio-nav a{font-size:.72rem;padding:7px 9px}
+  .pill{font-size:.72rem}
+  .card,.course-card,.resource,.case,.layout-card{padding:16px}
+  .book-page,.book-page-left,.book-page-right{padding:17px 14px}
+  .scale-output{grid-template-columns:1fr}
+}
+
+/* Accessibility: respect reduced motion. */
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+  .course-card:hover,.resource:hover,.case:hover,.layout-card:hover,.card:hover{transform:none}
+}
+</style>
+</style>
 </head>
 <body>
 <header><div class="wrap head">
