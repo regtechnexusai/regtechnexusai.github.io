@@ -248,7 +248,7 @@
 
     const nativeBn = nativeBnUrl();
     en.href = nativeUrlForEnglish();
-    bn.href = nativeBn || '#';
+    bn.href = nativeBn || (isNativeBanglaPage() ? location.href : '#');
     en.classList.toggle('rtnx-active', !isNativeBanglaPage() && activeLanguage === 'en');
     bn.classList.toggle('rtnx-active', isNativeBanglaPage() || activeLanguage === 'bn');
 
@@ -260,7 +260,7 @@
       }
     };
     bn.onclick = e => {
-      if (nativeBn) return;
+      if (nativeBn || isNativeBanglaPage()) return;
       e.preventDefault();
       translatePage('bn');
       bn.classList.add('rtnx-active'); en.classList.remove('rtnx-active');
@@ -316,9 +316,9 @@
 
   function run() {
     if (!document.head) return;
+    if (isNativeBanglaPage()) activeLanguage = 'bn';
     injectStyle();
     buildBar();
-    if (isNativeBanglaPage()) activeLanguage = 'bn';
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run, {once:true});
