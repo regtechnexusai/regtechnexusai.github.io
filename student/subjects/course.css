@@ -53,7 +53,7 @@ body[data-subject="Mathematics"] .math-platform .math-level-grid,body[data-subje
 body[data-subject="Mathematics"] .math-platform .math-level-card,body[data-subject="Mathematics"] .math-platform .math-domain-card,body[data-subject="Mathematics"] .math-platform .math-tool-card,body[data-subject="Mathematics"] .math-platform .math-practice-card{display:flex;flex-direction:column;min-width:0;width:100%;height:100%;overflow:hidden;overflow-wrap:anywhere}
 body[data-subject="Mathematics"] .math-platform .math-level-card ul{margin:12px 0 0;padding-left:20px}
 body[data-subject="Mathematics"] .math-platform .math-level-card li{margin:7px 0;line-height:1.5;overflow-wrap:anywhere}
-body[data-subject="Mathematics"] .math-platform .math-domain-card,.math-tool-card,.math-practice-card{overflow-wrap:anywhere}
+body[data-subject="Mathematics"] .math-platform .math-domain-card,body[data-subject="Mathematics"] .math-platform .math-tool-card,body[data-subject="Mathematics"] .math-platform .math-practice-card{overflow-wrap:anywhere}
 body[data-subject="Mathematics"] .math-platform .math-roadmap{display:block;width:100%;max-width:100%;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch}
 body[data-subject="Mathematics"] .math-platform .math-roadmap-flow{display:flex;width:max-content;min-width:100%;align-items:center;gap:10px;white-space:nowrap}
 body[data-subject="Mathematics"] .math-platform .math-standard{display:grid;width:100%;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;align-items:stretch}
