@@ -73,6 +73,8 @@
 
     const existing = document.querySelector('.top-language-switch');
     const bar = existing || document.createElement('div');
+    let en, bn;
+
     if (!existing) {
       bar.className = 'rtnx-language-bar';
       const header = document.querySelector('header');
@@ -80,19 +82,28 @@
       else document.body.insertAdjacentElement('afterbegin', bar);
     } else {
       bar.classList.add('rtnx-language-bar');
+      const existingLinks = [...bar.querySelectorAll('a')];
+      en = existingLinks[0] || null;
+      bn = existingLinks[1] || null;
     }
 
-    const en = document.createElement('a');
-    en.href = isBanglaPage() ? nativeUrlForEnglish() : location.href;
-    en.textContent = 'English';
-    en.setAttribute('aria-label','English');
-    if (!isBanglaPage()) en.className = 'rtnx-active';
+    if (!en) {
+      en = document.createElement('a');
+      en.textContent = 'English';
+      en.setAttribute('aria-label','English');
+      bar.appendChild(en);
+    }
+    if (!bn) {
+      bn = document.createElement('a');
+      bn.textContent = 'বাংলা';
+      bn.setAttribute('aria-label','বাংলা');
+      bar.appendChild(bn);
+    }
 
-    const bn = document.createElement('a');
+    en.href = isBanglaPage() ? nativeUrlForEnglish() : location.href;
     bn.href = isBanglaPage() ? location.href : nativeBnUrl();
-    bn.textContent = 'বাংলা';
-    bn.setAttribute('aria-label','বাংলা');
-    if (isBanglaPage()) bn.className = 'rtnx-active';
+    en.classList.toggle('rtnx-active', !isBanglaPage());
+    bn.classList.toggle('rtnx-active', isBanglaPage());
 
     const wrap = document.createElement('div');
     wrap.className = 'rtnx-language-select';
@@ -131,9 +142,8 @@
     menu.addEventListener('click', e => e.stopPropagation());
 
     wrap.append(trigger, menu);
-    bar.append(en, bn, wrap);
+    bar.appendChild(wrap);
   }
-
   function run() {
     if (!document.head) return;
     buildBar();
