@@ -24,6 +24,9 @@
   const CACHE_KEY = 'rtnxTranslationCacheV2';
   let activeLanguage = 'en';
   let translating = false;
+  let requestChain = Promise.resolve();
+  const REQUEST_GAP_MS = 180;
+  const MAX_RETRIES = 3;
 
   function currentPath() {
     return location.pathname.replace(/index\.html$/, '').replace(/\/$/, '/') || '/';
@@ -91,46 +94,87 @@
     return out;
   }
 
+  function wait(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+
   async function translateOne(text, lang) {
+    const clean = String(text || '').trim();
+    if (!clean) return text;
     const cache = cacheRead();
-    const key = lang + '|' + text;
+    const key = lang + '|' + clean;
     if (cache[key]) return cache[key];
 
-    const params = new URLSearchParams({
-      q: text.slice(0, 500),
-      langpair: 'en|' + lang,
-      mt: '1'
-    });
-    const res = await fetch(API + '?' + params.toString(), {headers:{Accept:'application/json'}});
-    if (!res.ok) throw new Error('Translation service HTTP ' + res.status);
-    const data = await res.json();
-    const translated = data && data.responseData && data.responseData.translatedText;
-    if (!translated) throw new Error('No translation returned');
-    cache[key] = translated;
-    cacheWrite(cache);
-    return translated;
+    const run = async () => {
+      for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+        if (attempt) await wait(Math.min(4000, 500 * Math.pow(2, attempt - 1)));
+        const params = new URLSearchParams({
+          q: clean.slice(0, 500),
+          langpair: 'en|' + lang,
+          mt: '1'
+        });
+        let res;
+        try {
+          res = await fetch(API + '?' + params.toString(), {headers:{Accept:'application/json'}});
+        } catch (err) {
+          if (attempt === MAX_RETRIES) throw err;
+          continue;
+        }
+        if (res.status === 429 || res.status >= 500) {
+          if (attempt === MAX_RETRIES) throw new Error('Translation service HTTP ' + res.status);
+          continue;
+        }
+        if (!res.ok) throw new Error('Translation service HTTP ' + res.status);
+        const data = await res.json();
+        const translated = data && data.responseData && data.responseData.translatedText;
+        if (!translated) {
+          if (attempt === MAX_RETRIES) throw new Error('No translation returned');
+          continue;
+        }
+        cache[key] = translated;
+        cacheWrite(cache);
+        return translated;
+      }
+      throw new Error('Translation failed');
+    };
+
+    const result = requestChain.then(run, run);
+    requestChain = result.then(() => wait(REQUEST_GAP_MS), () => wait(REQUEST_GAP_MS));
+    return result;
   }
 
   async function translateItems(items, lang, apply) {
-    let index = 0;
-    const workers = Array.from({length: 3}, async () => {
-      while (true) {
-        const i = index++;
-        if (i >= items.length) return;
-        try {
-          const translated = await translateOne(items[i].text, lang);
-          apply(items[i], translated);
-        } catch (_) {}
-        updateStatus(Math.min(i + 1, items.length), items.length, lang);
-      }
+    const unique = [];
+    const seen = new Set();
+    items.forEach(item => {
+      const key = String(item.text || '').trim();
+      if (key && !seen.has(key)) { seen.add(key); unique.push(item); }
     });
-    await Promise.all(workers);
+
+    let done = 0, failed = 0;
+    for (const item of unique) {
+      try {
+        const translated = await translateOne(item.text, lang);
+        apply(item, translated);
+      } catch (_) {
+        failed++;
+      }
+      done++;
+      updateStatus(done, unique.length, lang, failed);
+    }
+
+    const cache = cacheRead();
+    items.forEach(item => {
+      const key = lang + '|' + String(item.text || '').trim();
+      if (cache[key]) apply(item, cache[key]);
+    });
+    return failed;
   }
 
-  function updateStatus(done, total, lang) {
+  function updateStatus(done, total, lang, failed = 0) {
     const status = document.getElementById('rtnx-translation-status');
     if (!status) return;
-    status.textContent = total ? 'Translating to ' + languageName(lang) + '… ' + done + '/' + total : '';
+    status.textContent = total
+      ? 'Translating to ' + languageName(lang) + '… ' + done + '/' + total + (failed ? ' · ' + failed + ' skipped' : '')
+      : '';
   }
 
   function languageName(code) {
@@ -181,13 +225,16 @@
     const total = textItems.length + attrItems.length;
     updateStatus(0, total, lang);
 
-    await translateItems(textItems, lang, (item, translated) => { item.node.nodeValue = translated; });
-    await translateItems(attrItems, lang, (item, translated) => { item.el.setAttribute(item.attr, translated); });
+    const failedText = await translateItems(textItems, lang, (item, translated) => { item.node.nodeValue = translated; });
+    const failedAttr = await translateItems(attrItems, lang, (item, translated) => { item.el.setAttribute(item.attr, translated); });
 
     document.documentElement.lang = lang;
     activeLanguage = lang;
-    status.textContent = 'Translated to ' + languageName(lang) + ' on this page.';
-    setTimeout(() => status.classList.remove('show'), 2500);
+    const failed = failedText + failedAttr;
+    status.textContent = failed
+      ? 'Translated to ' + languageName(lang) + ' with ' + failed + ' item(s) unavailable. Please try again later.'
+      : 'Translated to ' + languageName(lang) + ' on this page.';
+    setTimeout(() => status.classList.remove('show'), failed ? 5000 : 2500);
     translating = false;
   }
 
