@@ -1048,7 +1048,7 @@ body.calculator-page .footer-brand .brand-logo,
 }
 
 
-/* 2026-10-03: Main-site 6-left / 5-right quick-access rails. */
+/* 2026-10-03: Main-site 6-left / 6-right quick-access rails. */
 .desktop-side-tools{
   display:block;
 }
@@ -1116,7 +1116,8 @@ body.calculator-page .footer-brand .brand-logo,
 .desktop-side-tools__rail--right a:nth-child(2) .tool-icon{background:#fff5e9;color:#c15f12}
 .desktop-side-tools__rail--right a:nth-child(3) .tool-icon{background:#ecfbf7;color:#0c8b7a}
 .desktop-side-tools__rail--right a:nth-child(4) .tool-icon{background:#edf4ff;color:#2364c4}
-.desktop-side-tools__rail--right a:nth-child(5) .tool-icon{background:#fff0f8;color:#b42f83}
+.desktop-side-tools__rail--right a:nth-child(5) .tool-icon{background:#f2f0ff;color:#5f58b5}
+.desktop-side-tools__rail--right a:nth-child(6) .tool-icon{background:#fff0f8;color:#b42f83}
 
 @media(max-width:1180px){
   .desktop-side-tools{display:none}
