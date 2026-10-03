@@ -22,7 +22,19 @@ header{background:var(--arch-p)!important;border-bottom:1px solid rgba(255,255,2
 <section class="learning-path" aria-label="Learning path"><div class="c"><div class="learning-path-grid"><div class="learning-step"><b>01 · LEARN</b><strong>Build the foundation</strong><span>Read the core concepts and definitions.</span></div><div class="learning-step"><b>02 · PRACTICE</b><strong>Apply the concept</strong><span>Use the examples and control or reporting context.</span></div><div class="learning-step"><b>03 · SELF-CHECK</b><strong>Test yourself</strong><span>Reveal answers and identify gaps.</span></div><div class="learning-step"><b>04 · EVIDENCE</b><strong>Verify sources</strong><span>Use authoritative material for current requirements.</span></div></div></div></section>
 <section id="foundation"><div class="c"><h2>Foundation</h2><div class="grid"><article class="card"><h3>Money Laundering</h3><p>The process of disguising or transforming proceeds linked to criminal activity so their illicit origin is obscured. Study the concepts of placement, layering and integration as learning models, while recognising that legal definitions vary by jurisdiction.</p></article><article class="card"><h3>Terrorist Financing</h3><p>Focuses on the financing of terrorism and can involve funds from legitimate or illegitimate sources. The control objective is to identify and mitigate relevant financial risks.</p></article><article class="card"><h3>Risk-Based Approach</h3><p>AML/CFT controls should reflect identified ML/TF risks. FATF describes the risk-based approach as central to its standards and expects risks to be identified, assessed and understood.</p></article></div></div></section>
 <section id="controls"><div class="c"><h2>Core Control Concepts</h2><div class="grid"><article class="card"><h3>KYC / CDD</h3><p>Understand customer identification, verification, purpose and intended nature of relationships, ongoing due diligence and risk-sensitive monitoring.</p></article><article class="card"><h3>Beneficial Ownership</h3><p>Learn why identifying the natural person(s) who ultimately own or control a legal person or arrangement matters for transparency and financial-crime risk.</p></article><article class="card"><h3>Transaction Monitoring</h3><p>Learn how institutions use rules, scenarios, analytics and investigation processes to identify potentially unusual activity. A red flag is an indicator for review, not proof of crime.</p></article><article class="card"><h3>STR/SAR</h3><p>Understand the concept of suspicious transaction/activity reporting and why escalation, investigation and reporting requirements depend on applicable law and institutional procedures.</p></article><article class="card"><h3>Sanctions</h3><p>Study sanctions screening as a financial-crime control and distinguish screening alerts from confirmed matches and legal conclusions.</p></article><article class="card"><h3>Control Testing</h3><p>Ask: What is the control objective? What evidence demonstrates operation? What exception was found? What remediation is required?</p></article></div></div></section>
-<section id="quiz"><div class="c"><h2>Quick Self-Test</h2><div class="q"><b>1. What is the purpose of a risk-based approach?</b><br><button class="btn" onclick="a(1)">Show answer</button><div id="a1" class="answer">To identify, assess and understand risks and apply proportionate measures to mitigate them.</div></div><div class="q"><b>2. Does a transaction-monitoring red flag prove money laundering?</b><br><button class="btn" onclick="a(2)">Show answer</button><div id="a2" class="answer">No. It is an indicator that may require review; investigation and applicable legal processes determine next steps.</div></div><div class="q"><b>3. Why does beneficial ownership matter?</b><br><button class="btn" onclick="a(3)">Show answer</button><div id="a3" class="answer">It improves transparency about the natural persons who ultimately own or control an entity or arrangement.</div></div><div class="print-action"><button class="btn" type="button" onclick="window.print()">Print / Save as PDF</button></div><p class="source">Primary references: <a href="https://www.fatf-gafi.org/en/topics/fatf-recommendations.html" target="_blank" rel="noopener noreferrer">FATF Recommendations</a> and <a href="https://www.bfiu.org.bd/" target="_blank" rel="noopener noreferrer">Bangladesh Financial Intelligence Unit (BFIU)</a>.</p></div></section><section id="facebook-learning"><div class="c"><h2>Facebook Learning Bank · AML/CFT, TBML & Financial Safety</h2><p class="lead">This learning bank converts selected RegTech Nexus AI Facebook-page material into structured Q&amp;A, case analysis and self-testing. The source content was retrieved from the connected Facebook page through Metricool.</p><p class="source" style="margin-top:10px"><strong>Original Facebook Page:</strong> <a href="https://www.facebook.com/1133341169859442" target="_blank" rel="noopener noreferrer">Open RegTech Nexus AI Facebook Page ↗</a></p>
+<section id="quiz"><div class="c"><h2>Quick Self-Test</h2><div class="q"><b>1. What is the purpose of a risk-based approach?</b><br><button class="btn" onclick="a(1)">Show answer</button><div id="a1" class="answer">To identify, assess and understand risks and apply proportionate measures to mitigate them.</div></div><div class="q"><b>2. Does a transaction-monitoring red flag prove money laundering?</b><br><button class="btn" onclick="a(2)">Show answer</button><div id="a2" class="answer">No. It is an indicator that may require review; investigation and applicable legal processes determine next steps.</div></div><div class="q"><b>3. Why does beneficial ownership matter?</b><br><button class="btn" onclick="a(3)">Show answer</button><div id="a3" class="answer">It improves transparency about the natural persons who ultimately own or control an entity or arrangement.</div></div><div class="card" id="aml-50quiz" style="margin-top:24px">
+<span class="tag">QUIZ · 50 QUESTIONS</span>
+<h3>50-Question AML/CFT Quiz</h3>
+<p class="source">উপরের ৫০টি Study Bank প্রশ্ন থেকেই এই interactive quiz তৈরি করা হয়েছে। প্রতিটি প্রশ্নে একটি উত্তর নির্বাচন করুন, তারপর <strong>Submit Quiz</strong> চাপুন।</p>
+<div id="amlQuizProgress" class="privacy-card" style="margin:14px 0;border-left-color:var(--a)"><strong>Progress:</strong> 0 / 50 answered</div>
+<form id="aml50Quiz"></form>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
+<button class="btn" type="button" onclick="submitAML50Quiz()">Submit Quiz</button>
+<button class="btn" type="button" onclick="resetAML50Quiz()" style="background:#fff;color:var(--p)">Reset</button>
+</div>
+<div id="amlQuizResult" class="privacy-card" style="display:none;margin-top:18px;border-left-color:var(--green)"></div>
+</div>
+<div class="print-action"><button class="btn" type="button" onclick="window.print()">Print / Save as PDF</button></div><p class="source">Primary references: <a href="https://www.fatf-gafi.org/en/topics/fatf-recommendations.html" target="_blank" rel="noopener noreferrer">FATF Recommendations</a> and <a href="https://www.bfiu.org.bd/" target="_blank" rel="noopener noreferrer">Bangladesh Financial Intelligence Unit (BFIU)</a>.</p></div></section><section id="facebook-learning"><div class="c"><h2>Facebook Learning Bank · AML/CFT, TBML & Financial Safety</h2><p class="lead">This learning bank converts selected RegTech Nexus AI Facebook-page material into structured Q&amp;A, case analysis and self-testing. The source content was retrieved from the connected Facebook page through Metricool.</p><p class="source" style="margin-top:10px"><strong>Original Facebook Page:</strong> <a href="https://www.facebook.com/1133341169859442" target="_blank" rel="noopener noreferrer">Open RegTech Nexus AI Facebook Page ↗</a></p>
 <div class="privacy-card" style="margin:16px 0"><strong>Source provenance and verification rule</strong><p>The material below is genuinely sourced from RegTech Nexus AI's connected Facebook-page content. “Authentic source” means the content came from the owner's page; it does not mean every historical operational figure, legal statement or regulatory claim is automatically current. Current professional use requires verification against applicable primary sources.</p></div>
 <div class="grid">
 
@@ -147,6 +159,85 @@ header{background:var(--arch-p)!important;border-bottom:1px solid rgba(255,255,2
 <section id="privacy"><div class="c"><div class="privacy-card"><strong>Student Data & Privacy</strong><p>These pages do not require student account data. Avoid entering confidential, personal, client, restricted or security-sensitive information into exercises. Where browser-local learning state is used, it remains on this device and is not a backup service.</p></div></div></section><section id="resources"><div class="c verification"><strong>Source verification:</strong> Use applicable law, supervisory guidance and authoritative AML/CFT sources for professional conclusions. Third-party page availability may change.</div></section></main>
 <div class="page-review"><strong>Page review:</strong> 2 October 2026 · Learning content and source links reviewed for this release; third-party availability may change.</div><footer><div class="c"><strong>RegTech Nexus AI — AML/CFT Student Learning</strong><p>Educational material only. Always use the applicable law, regulation, supervisory guidance and institutional policy for professional decisions.</p><a href="../">← Student Hub</a></div></footer>
 <script>function a(n){const e=document.getElementById('a'+n);e.style.display=e.style.display==='block'?'none':'block'}</script><script>
+const aml50Questions=[
+["Money laundering কী?","Criminal proceeds-এর illicit origin গোপন/obscure করার প্রক্রিয়া","সাধারণ savings activity","শুধু tax payment","A"],
+["Money laundering-এর traditional তিন-stage model কোনটি?","Placement → Layering → Integration","KYC → CDD → EDD","Alert → Freeze → Close","A"],
+["Money laundering-এর একটি সম্ভাব্য ক্ষতি কী?","Financial-system integrity ও economic stability-তে ঝুঁকি","Customer service সবসময় উন্নত হওয়া","সব transaction দ্রুত হওয়া","A"],
+["KYC-এর মূল উদ্দেশ্য কী?","Customer identity ও relationship-এর relevant information বোঝা ও যাচাই করা","শুধু marketing করা","শুধু interest rate নির্ধারণ করা","A"],
+["STR কী?","Suspicious Transaction/Activity Report-এর ধারণা","Standard Tax Receipt","Settlement Transfer Record","A"],
+["CTR সাধারণত কীসের সঙ্গে সম্পর্কিত?","Qualifying cash-transaction reporting","Customer training record","Credit trade review","A"],
+["PEP কী?","Politically Exposed Person","Private Exchange Provider","Payment Entry Protocol","A"],
+["Beneficial Owner বলতে সাধারণত কাকে বোঝায়?","যে natural person শেষ পর্যন্ত own/control করেন বা যার behalf-এ transaction হয়, applicable definition অনুযায়ী","শুধু branch manager","শুধু account operator","A"],
+["AML-এর পূর্ণরূপ কী?","Anti-Money Laundering","Automated Money Ledger","Account Monitoring Limit","A"],
+["Bank officer-এর AML duty-এর একটি উদাহরণ কী?","Applicable KYC/CDD, monitoring, escalation ও documentation অনুসরণ করা","সব alert উপেক্ষা করা","Customer-এর হয়ে transaction করা","A"],
+["CDD কী?","Customer Due Diligence","Cash Deposit Directive","Credit Data Document","A"],
+["EDD কখন relevant হতে পারে?","Higher-risk relationship/context-এ enhanced due diligence হিসেবে","শুধু low-risk customer-এ","শুধু account closure-এ","A"],
+["FIU কী?","Financial Intelligence Unit","Finance Interest Utility","Federal Insurance Unit","A"],
+["Shell company কী?","এমন entity যার substantial operating activity সীমিত/অস্পষ্ট হতে পারে এবং যা misuse হতে পারে","সবসময় criminal organisation","শুধু government agency","A"],
+["Sanctions screening কী করে?","Applicable sanctions lists-এর সঙ্গে relevant parties/transactions screen করে","Customer-এর salary নির্ধারণ করে","Loan interest হিসাব করে","A"],
+["Terrorist financing কী?","Terrorism-related activity-এর financing risk","শুধু counterfeit currency risk","শুধু tax evasion","A"],
+["Risk-Based Approach কী?","Identified risk অনুযায়ী proportionate controls প্রয়োগ করা","সব customer-এ identical controls দেওয়া","কোনো risk assessment না করা","A"],
+["Red flag কী?","Further review-এর জন্য একটি risk indicator","অপরাধের automatic proof","Court judgment","A"],
+["Source of Funds কী?","নির্দিষ্ট funds কোথা থেকে এসেছে তার উৎস","Customer-এর সম্পদের মোট মূল্য","শুধু annual salary","A"],
+["Source of Wealth কী?","Customer-এর overall wealth কীভাবে তৈরি হয়েছে তার উৎস","একটি transaction-এর receipt","শুধু current account balance","A"],
+["Customer Risk Rating কী?","Customer/context-এর assessed ML/TF risk level","Customer satisfaction score","Branch performance score","A"],
+["PEP relationship কেন additional attention চাইতে পারে?","Applicable risk framework অনুযায়ী corruption/ML/TF exposure বিবেচনা করতে হতে পারে","PEP হওয়া মানেই crime","PEP কখনও customer হতে পারেন না","A"],
+["Suspicious Activity কী?","Known profile/context-এর তুলনায় activity যা reasonable review বা escalation trigger করতে পারে","যে কোনো large transaction","শুধু cash deposit","A"],
+["Layering কী?","Transactions/structures ব্যবহার করে funds-এর trail obscure করার সম্ভাব্য পর্যায়","Customer onboarding","Account opening","A"],
+["Financial crime কী?","Fraud, laundering, corruption বা other financial offences-এর বিস্তৃত ক্ষেত্র","শুধু late payment","শুধু bank charge","A"],
+["Customer Profile কী?","Customer-এর identity, purpose, expected activity ও relevant risk information-এর সমষ্টি","শুধু account number","শুধু phone number","A"],
+["False Identity কী?","ভুল/জাল পরিচয় বা identity information ব্যবহার","Updated NID ব্যবহার","Verified address ব্যবহার","A"],
+["Sanctions List কী?","Applicable regime-এ designated persons/entities-এর তালিকা","Customer database","Loan pricing list","A"],
+["High-Risk Jurisdiction কী?","Relevant AML/CFT, sanctions বা other risk factors-এর কারণে heightened risk context হতে পারে এমন jurisdiction","সব foreign country","শুধু neighboring country","A"],
+["Compliance Officer-এর একটি দায়িত্ব কী?","Compliance framework, escalation, monitoring ও reporting processes support করা","সব customer-এর investment advice দেওয়া","Sales target নির্ধারণ করা","A"],
+["Smurfing কী?","Funds-কে ছোট ছোট transactions-এ ভাগ করে movement/threshold detection এড়ানোর সম্ভাব্য কৌশল","Account closure process","Loan restructuring","A"],
+["Money Mule কে?","যার account/access ব্যবহার করে অন্যের funds receive বা move করা হয়, জেনে বা না জেনে","শুধু bank auditor","শুধু merchant","A"],
+["Dormant Account কী?","দীর্ঘ সময় নির্ধারিত activity না থাকা account, applicable rules অনুযায়ী","নতুন account","শুধু joint account","A"],
+["Unusual Transaction কী?","Customer profile/expected activity-এর তুলনায় অস্বাভাবিক transaction","অবশ্যই illegal transaction","অবশ্যই cash transaction","A"],
+["High-Risk Customer কে?","Assessed ML/TF risk তুলনামূলক বেশি হতে পারে এমন customer/context","সব senior citizen","সব নতুন customer","A"],
+["Virtual Asset কী?","Digitally represented value যা electronically traded/transferred হতে পারে, applicable definition অনুযায়ী","শুধু physical cash","শুধু paper cheque","A"],
+["False Positive কী?","Legitimate activity/party ভুলভাবে alert বা match হিসেবে শনাক্ত হওয়া","Confirmed crime","Court conviction","A"],
+["Record Retention কেন গুরুত্বপূর্ণ?","Audit, investigation, supervisory ও legal obligations support করার জন্য","শুধু advertising-এর জন্য","শুধু customer comfort-এর জন্য","A"],
+["Geographic Risk কী?","Country/region-এর relevant risk factors থেকে উদ্ভূত AML/CFT risk","শুধু exchange rate","শুধু weather risk","A"],
+["Transaction Monitoring System কী?","Rules, scenarios বা analytics দিয়ে transaction patterns analyse করার system","শুধু ATM machine","শুধু accounting ledger","A"],
+["Cash Intensive Business কী?","যে business-এ cash transactions-এর proportion উল্লেখযোগ্য হতে পারে","যে business-এ cash কখনও থাকে না","শুধু online business","A"],
+["Front Company কী?","Legitimate-looking business structure যা অন্য activity/funds conceal করতে misuse হতে পারে","সব listed company","শুধু state-owned company","A"],
+["Anonymous Transaction কী?","Relevant payer/beneficiary identity যথাযথভাবে জানা, verified বা traceable নয় এমন transaction","Fully verified transaction","Salary payment","A"],
+["Third-Party Transaction কী?","Account holder ছাড়া অন্য party funding, benefit বা control-এর সঙ্গে যুক্ত transaction","শুধু own-account transfer","ATM withdrawal only","A"],
+["Non-Face-to-Face Customer কী?","Physical face-to-face interaction ছাড়া onboarding/relationship establishment করা customer","শুধু branch visitor","শুধু cash customer","A"],
+["Sanctioned Entity কী?","Applicable sanctions regime-এর অধীনে designated entity/person","সব foreign entity","শুধু public company","A"],
+["Predicate Offence কী?","Underlying criminal conduct যেখান থেকে proceeds তৈরি হতে পারে","Customer complaint","Account opening form","A"],
+["Beneficiary Account কী?","যে account-এ payment/funds receive করার কথা","শুধু sender-এর account","শুধু suspense account","A"],
+["High-Value Transaction সম্পর্কে সঠিক statement কোনটি?","High-value হওয়া একাই suspicious নয়; context ও risk assess করতে হয়","High-value মানেই laundering","High-value হলে সবসময় STR","A"],
+["Compliance Culture কী?","প্রতিষ্ঠানের সব স্তরে laws, controls, escalation ও ethical conduct বাস্তবে অনুসরণের organisational culture","শুধু compliance officer-এর কাজ","শুধু annual training","A"]
+];
+function renderAML50Quiz(){
+ const f=document.getElementById("aml50Quiz"); if(!f)return;
+ f.innerHTML=aml50Questions.map((q,i)=>'<div class="q"><b>'+ (i+1)+'. '+q[0]+'</b><div style="margin-top:10px">'+q.slice(1).map((o,j)=>'<label style="display:block;margin:7px 0"><input type="radio" name="amlq'+i+'" value="'+String.fromCharCode(65+j)+'"> '+String.fromCharCode(65+j)+'. '+o+'</label>').join('')+'</div></div>').join('');
+ f.addEventListener('change',updateAML50Progress);
+ updateAML50Progress();
+}
+function updateAML50Progress(){
+ const n=aml50Questions.reduce((s,_,i)=>s+(document.querySelector('input[name="amlq'+i+'"]:checked')?1:0),0);
+ const p=document.getElementById("amlQuizProgress"); if(p)p.innerHTML="<strong>Progress:</strong> "+n+" / 50 answered";
+}
+function submitAML50Quiz(){
+ let answered=0,score=0;
+ aml50Questions.forEach((q,i)=>{const el=document.querySelector('input[name="amlq'+i+'"]:checked');if(el){answered++;if(el.value===q[4])score++;}});
+ const r=document.getElementById("amlQuizResult"); if(!r)return;
+ r.style.display="block";
+ if(answered<50){r.innerHTML="<strong>Quiz incomplete:</strong> "+answered+" / 50 answered. Please answer all 50 questions before submitting.";return;}
+ const pct=Math.round(score/50*100);
+ r.innerHTML="<strong>Quiz completed.</strong><br>Score: <strong>"+score+" / 50 ("+pct+"%)</strong><br><span class=\"source\">Review the Study Bank explanations for any concepts you missed.</span>";
+ r.scrollIntoView({behavior:"smooth",block:"center"});
+}
+function resetAML50Quiz(){
+ document.getElementById("aml50Quiz").reset();
+ const r=document.getElementById("amlQuizResult");if(r){r.style.display="none";r.innerHTML=""}
+ updateAML50Progress();
+}
+renderAML50Quiz();
+</script><script>
 (function(){
 const nav=document.querySelector('.nav');
 if(nav){
