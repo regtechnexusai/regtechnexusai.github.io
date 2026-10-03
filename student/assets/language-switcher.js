@@ -129,6 +129,13 @@
       a.dataset.lang = code;
       menu.appendChild(a);
     });
+    const more = document.createElement('a');
+    more.href = 'https://translate.google.com/';
+    more.textContent = '↗ More languages…';
+    more.setAttribute('role','menuitem');
+    more.target = '_blank';
+    more.rel = 'noopener noreferrer';
+    menu.appendChild(more);
 
     trigger.addEventListener('click', e => {
       e.stopPropagation();
