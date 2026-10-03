@@ -1049,9 +1049,7 @@ body.calculator-page .footer-brand .brand-logo,
 
 
 /* 2026-10-03: Main-site 6-left / 6-right quick-access rails. */
-.desktop-side-tools{
-  display:block;
-}
+.desktop-side-tools{display:block}
 .desktop-side-tools__rail{
   position:fixed;
   top:50%;
@@ -1059,23 +1057,27 @@ body.calculator-page .footer-brand .brand-logo,
   z-index:1150;
   display:flex;
   flex-direction:column;
-  gap:8px;
-  width:156px;
+  gap:9px;
+  width:142px;
 }
 .desktop-side-tools__rail--left{left:10px}
 .desktop-side-tools__rail--right{right:10px}
 .desktop-side-tools__rail a{
   display:flex;
+  flex-direction:column;
   align-items:center;
-  gap:8px;
-  min-height:48px;
+  justify-content:center;
+  gap:5px;
+  width:100%;
+  min-height:62px;
   box-sizing:border-box;
-  padding:7px 9px;
+  padding:7px 7px 8px;
   border:1px solid #d6e2eb;
   border-radius:12px;
-  background:rgba(255,255,255,.96);
+  background:rgba(255,255,255,.97);
   color:#20324b;
   text-decoration:none;
+  text-align:center;
   box-shadow:0 5px 14px rgba(16,43,73,.10),inset 0 1px 0 rgba(255,255,255,.95);
   backdrop-filter:blur(8px);
   transition:transform .18s ease,box-shadow .18s ease,background .18s ease;
@@ -1100,11 +1102,16 @@ body.calculator-page .footer-brand .brand-logo,
   letter-spacing:.03em;
 }
 .desktop-side-tools__rail b{
+  display:block;
+  width:100%;
   min-width:0;
   color:#20324b;
   font-size:10px;
   line-height:1.15;
   font-weight:900;
+  white-space:normal;
+  overflow-wrap:break-word;
+  word-break:normal;
 }
 .desktop-side-tools__rail--left a:nth-child(1) .tool-icon{background:#eefaf6;color:#0b8b72}
 .desktop-side-tools__rail--left a:nth-child(2) .tool-icon{background:#f5f0ff;color:#7047ad}
