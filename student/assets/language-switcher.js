@@ -24,7 +24,7 @@
 
   function translateUrl(lang) {
     const target = encodeURIComponent(location.href);
-    return 'https://translate.google.com/translate?sl=auto&tl=' + encodeURIComponent(lang) + '&u=' + target;
+    return 'https://translate.google.com/?sl=en&tl=' + encodeURIComponent(lang) + '&op=websites&url=' + target;
   }
 
   function nativeUrlForEnglish() {
