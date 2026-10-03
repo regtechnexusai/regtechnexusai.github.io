@@ -127,7 +127,7 @@ loadTopic(keys[0]);
 
   // Shared Student Knowledge Hub language selector (English / বাংলা / global fallback).
   const languageLoader=document.createElement('script');
-  languageLoader.src='/student/assets/language-switcher.js';
+  languageLoader.src='/student/assets/language-switcher.js?v=20261003-3';
   languageLoader.defer=true;
   document.head.appendChild(languageLoader);
 })();
