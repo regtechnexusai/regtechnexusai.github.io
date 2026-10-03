@@ -618,7 +618,23 @@
 .tool-book:nth-child(1){--tool-bg:#e8f1ff;--tool-accent:#2563eb}.tool-book:nth-child(2){--tool-bg:#fff0f5;--tool-accent:#db2777}.tool-book:nth-child(3){--tool-bg:#eafaf4;--tool-accent:#059669}.tool-book:nth-child(4){--tool-bg:#fff6df;--tool-accent:#d97706}.tool-book:nth-child(5){--tool-bg:#f0ebff;--tool-accent:#7c3aed}.tool-book:nth-child(6){--tool-bg:#e7f8fb;--tool-accent:#0891b2}.tool-book:nth-child(7){--tool-bg:#fff0eb;--tool-accent:#ea580c}.tool-book:nth-child(8){--tool-bg:#edf7e8;--tool-accent:#65a30d}.tool-book:nth-child(9){--tool-bg:#eef0ff;--tool-accent:#4f46e5}.tool-book:nth-child(10){--tool-bg:#fceff9;--tool-accent:#c026d3}.tool-book:nth-child(11){--tool-bg:#eaf7ff;--tool-accent:#0284c7}.tool-book:nth-child(12){--tool-bg:#fff1e6;--tool-accent:#c2410c}
 .tool-workspace{scroll-margin-top:90px;background:linear-gradient(135deg,#fff,#f5f9ff);border:2px solid #dce8f4}
 .quick-knowledge{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}.knowledge-card{background:#fff;border-radius:16px;padding:20px;border:1px solid var(--border);box-shadow:0 8px 22px rgba(16,39,64,.07);border-top:7px solid var(--kc,#2563eb)}.knowledge-card h3{margin:0 0 8px;color:#17324d}.knowledge-card p{color:var(--muted);font-size:.92rem}.knowledge-card .source-note{font-size:.78rem;color:#6b7280}.knowledge-card a{font-weight:800}.source-badge{display:inline-block;padding:4px 9px;border-radius:999px;background:#eef4ff;color:#2457a6;font-size:.75rem;font-weight:800}.ai-link-box{margin-top:14px;padding:14px 16px;border-radius:12px;background:#eef7ff;border:1px solid #cfe3f7}.quiz-meta{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}.quiz-meta span{padding:5px 9px;border-radius:999px;background:#edf3f8;font-size:.8rem;font-weight:700}
-@media(max-width:900px){.tool-book-grid,.quick-knowledge{grid-template-columns:repeat(2,1fr)}}@media(max-width:650px){.tool-book-grid,.quick-knowledge{grid-template-columns:1fr}}</style>
+@media(max-width:900px){.tool-book-grid,.quick-knowledge{grid-template-columns:repeat(2,1fr)}}@media(max-width:650px){.tool-book-grid,.quick-knowledge{grid-template-columns:1fr}}
+/* 2026-10-03: Student Knowledge Hub — first-page learning poster. Additive only. */
+.student-learning-poster{padding:38px 0 54px;background:linear-gradient(135deg,#f7fbff 0%,#ffffff 48%,#f2fbfa 100%);border-bottom:1px solid var(--border)}
+.student-learning-poster .poster-shell{border:1px solid #d6e4ed;border-radius:22px;background:rgba(255,255,255,.96);box-shadow:0 18px 55px rgba(16,39,64,.10);overflow:hidden}
+.poster-head{padding:28px 30px 22px;background:linear-gradient(135deg,#102b49 0%,#0956a8 55%,#147f83 100%);color:#fff}
+.poster-kicker{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#cceff1;margin-bottom:8px}
+.poster-head h2{margin:0;font-size:clamp(1.65rem,3.5vw,2.6rem);line-height:1.08}.poster-head p{margin:10px 0 0;max-width:850px;color:#e5f4f6;font-size:.96rem;line-height:1.55}
+.poster-levels{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.poster-level{padding:7px 11px;border:1px solid rgba(255,255,255,.32);border-radius:999px;background:rgba(255,255,255,.10);font-size:.75rem;font-weight:800}
+.poster-body{padding:24px 26px 28px}.poster-pillar-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.poster-pillar{min-width:0;padding:18px;border:1px solid #dce6ed;border-radius:15px;background:#fff;position:relative;overflow:hidden}.poster-pillar:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--poster-accent,#0956a8)}
+.poster-pillar h3{margin:0 0 9px;color:#17324d;font-size:1rem}.poster-pillar p{margin:0;color:#607187;font-size:.8rem;line-height:1.55}.poster-topics{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}.poster-topic{padding:5px 8px;border-radius:999px;background:#f0f5f8;border:1px solid #dbe5eb;color:#304b63;font-size:.7rem;font-weight:750}
+.poster-pillar:nth-child(1){--poster-accent:#2563eb}.poster-pillar:nth-child(2){--poster-accent:#db2777}.poster-pillar:nth-child(3){--poster-accent:#059669}.poster-pillar:nth-child(4){--poster-accent:#d97706}.poster-pillar:nth-child(5){--poster-accent:#7c3aed}.poster-pillar:nth-child(6){--poster-accent:#0891b2}
+.poster-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:18px;padding:14px 16px;border-radius:13px;background:#f4f8fb;border:1px solid #dce6ed}.poster-footer strong{color:#17324d;font-size:.85rem}.poster-footer span{color:#607187;font-size:.78rem}.poster-footer a{font-weight:850;font-size:.8rem;white-space:nowrap}
+@media(max-width:900px){.poster-pillar-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.student-learning-poster{padding:25px 0 38px}.poster-head{padding:23px 20px 19px}.poster-body{padding:18px 15px 20px}.poster-pillar-grid{grid-template-columns:1fr}.poster-footer{align-items:flex-start;flex-direction:column}.poster-footer a{white-space:normal}}
+
+</style>
 
   <!-- Structured data for search engines -->
   <script type="application/ld+json">
@@ -1311,6 +1327,30 @@ section#ai + section .card-grid .card:nth-child(6){border-top-color:#2f80ed;back
       </div>
     </section>
 
+    <!-- STUDENT LEARNING POSTER — additive landing-page discovery layer -->
+    <section class="student-learning-poster" aria-labelledby="student-learning-map-title">
+      <div class="container poster-shell">
+        <div class="poster-head">
+          <span class="poster-kicker">STUDENT LEARNING MAP · ONE HUB · MANY PATHS</span>
+          <h2 id="student-learning-map-title">What can you study here?</h2>
+          <p>Choose a subject, follow a class-style learning track, practise, test yourself and build your own study pathway.</p>
+          <div class="poster-levels" aria-label="Learning levels">
+            <span class="poster-level">Class 5–8</span><span class="poster-level">Class 9–12</span><span class="poster-level">University</span><span class="poster-level">Professional</span><span class="poster-level">Lifelong Learning</span>
+          </div>
+        </div>
+        <div class="poster-body">
+          <div class="poster-pillar-grid">
+            <article class="poster-pillar"><h3>📐 Mathematics & Data</h3><p>Build quantitative thinking from fundamentals to applied analysis.</p><div class="poster-topics"><span class="poster-topic">Mathematics</span><span class="poster-topic">Statistics</span><span class="poster-topic">Probability</span><span class="poster-topic">Data Analysis</span></div></article>
+            <article class="poster-pillar"><h3>💼 Business, Economics & Finance</h3><p>Understand markets, organisations, accounting and financial decision-making.</p><div class="poster-topics"><span class="poster-topic">Economics</span><span class="poster-topic">Accounting</span><span class="poster-topic">Finance</span><span class="poster-topic">Business Studies</span></div></article>
+            <article class="poster-pillar"><h3>🏛️ Architecture & Design</h3><p>Explore design thinking, construction, sustainability, BIM and professional practice.</p><div class="poster-topics"><span class="poster-topic">Design</span><span class="poster-topic">Structures</span><span class="poster-topic">Sustainability</span><span class="poster-topic">BIM</span></div></article>
+            <article class="poster-pillar"><h3>💻 Computing & Technology</h3><p>Develop digital foundations and practical technology skills.</p><div class="poster-topics"><span class="poster-topic">Computer Science</span><span class="poster-topic">Programming</span><span class="poster-topic">IT</span><span class="poster-topic">Data Science</span><span class="poster-topic">Cybersecurity</span></div></article>
+            <article class="poster-pillar"><h3>🔎 Research, English & Science</h3><p>Strengthen communication, research capability, critical thinking and scientific understanding.</p><div class="poster-topics"><span class="poster-topic">English</span><span class="poster-topic">Communication</span><span class="poster-topic">Research Methodology</span><span class="poster-topic">General Science</span><span class="poster-topic">Social Science</span></div></article>
+            <article class="poster-pillar"><h3>🛡️ Professional & Financial Knowledge</h3><p>Study practical professional topics alongside regulated-industry and financial knowledge.</p><div class="poster-topics"><span class="poster-topic">AML/CFT</span><span class="poster-topic">Financial Crime</span><span class="poster-topic">IFRS</span><span class="poster-topic">Incoterms®</span><span class="poster-topic">Trade & TBML</span></div></article>
+          </div>
+          <div class="poster-footer"><div><strong>AI + Study Skills + Tools</strong><br><span>Use the AI Study Coach, research guidance, quizzes, flashcards, progress tracking and practical student tools alongside your subject track.</span></div><a href="#ai">Start with AI Study Coach →</a></div>
+        </div>
+      </div>
+    </section>
 
     <!-- LEARNING PATHWAY -->
 
