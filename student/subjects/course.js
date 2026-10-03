@@ -123,4 +123,11 @@ loadTopic(keys[0]);
   q('.actions')?.appendChild(printBtn);
   q('#lesson')?.setAttribute('aria-live','polite');
   document.querySelectorAll('.topic-link').forEach(b=>b.setAttribute('aria-label','Study '+b.textContent.trim()));
+
+
+  // Shared Student Knowledge Hub language selector (English / বাংলা / global fallback).
+  const languageLoader=document.createElement('script');
+  languageLoader.src='/student/assets/language-switcher.js';
+  languageLoader.defer=true;
+  document.head.appendChild(languageLoader);
 })();
