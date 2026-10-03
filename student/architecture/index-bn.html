@@ -742,9 +742,6 @@ function exportAssignmentReadable(){
 
   function escapeRegExp(s){return s.replace(/[.*+?^$\\{}()|[\]\\]/g,'\\$&');}
 
-  // Protect English terminology with real translate="no" spans, rather than
-  // placeholder text. This prevents the translator from changing standards,
-  // product names, URLs, codes and technical terminology.
   function protectText(root){
     const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
     const nodes=[];
@@ -752,12 +749,11 @@ function exportAssignmentReadable(){
     nodes.forEach(node=>{
       const parent=node.parentElement;
       if(!parent || skipTags.has(parent.tagName) || parent.closest('[translate="no"]')) return;
-      let text=node.nodeValue;
+      const text=node.nodeValue;
       if(!text.trim()) return;
       let found=false;
       for(const term of protectedTerms){
-        const re=new RegExp(escapeRegExp(term),'gi');
-        if(re.test(text)){found=true;break;}
+        if(new RegExp(escapeRegExp(term),'i').test(text)){found=true;break;}
       }
       if(!found) return;
 
@@ -766,10 +762,9 @@ function exportAssignmentReadable(){
       while(rest){
         let best=null;
         for(const term of protectedTerms){
-          const re=new RegExp(escapeRegExp(term),'i');
-          const m=re.exec(rest);
+          const m=new RegExp(escapeRegExp(term),'i').exec(rest);
           if(m && (!best || m.index<best.index || (m.index===best.index && term.length>best.term.length))){
-            best={index:m.index,term:term,match:m[0]};
+            best={index:m.index,term,match:m[0]};
           }
         }
         if(!best){frag.appendChild(document.createTextNode(rest));break;}
@@ -810,10 +805,8 @@ function exportAssignmentReadable(){
   async function translatePage(){
     protectText(document.body);
     const nodes=collectTextNodes();
-
-    // Translate in small batches so the page remains responsive and the
-    // external service is not flooded with simultaneous requests.
     const batchSize=8;
+
     for(let i=0;i<nodes.length;i+=batchSize){
       const batch=nodes.slice(i,i+batchSize);
       await Promise.all(batch.map(async node=>{
@@ -821,15 +814,12 @@ function exportAssignmentReadable(){
           const original=node.nodeValue;
           const leading=(original.match(/^\s*/)||[''])[0];
           const trailing=(original.match(/\s*$/)||[''])[0];
-          const core=original.trim();
-          const translatedText=await translateText(core);
+          const translatedText=await translateText(original.trim());
           if(translatedText){
             node.nodeValue=leading+translatedText+trailing;
             translated.add(node);
           }
-        }catch(e){
-          // Keep the original English text if an individual translation fails.
-        }
+        }catch(e){}
       }));
       await new Promise(r=>setTimeout(r,80));
     }
@@ -838,10 +828,8 @@ function exportAssignmentReadable(){
   }
 
   document.addEventListener('DOMContentLoaded',()=>{
-    // Small status marker is intentionally invisible; no translation toolbar
-    // or blank iframe/banner is inserted into the page.
     protectText(document.body);
-    setTimeout(()=>translatePage(),120);
+    setTimeout(translatePage,120);
   });
 })();
 </script>
