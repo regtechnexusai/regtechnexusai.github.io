@@ -44,7 +44,7 @@ function solveEquation(raw){
  let text=raw.trim().replace(/−/g,'-').replace(/×/g,'*');
  function out(type,steps,answer,why){return{degree:type,steps,answer,why:why||(type==='system'?'A pair of linear equations is solved together using elimination/substitution.':type==='absolute'?'An absolute-value equation is split into its two possible signed cases.':type==='exponential'?'The same base is used on both sides, then logarithms isolate the exponent.':type==='logarithmic'?'The inverse relationship between logarithm and exponentiation isolates x.':type==='proportion'?'Cross-multiplication removes the denominators while preserving equality.':type==='trigonometric'?'The inverse trigonometric function gives the principal angle; periodic solutions follow from the unit-circle pattern.':type==='cubic'?'A cubic of the form x³=k can be solved by taking the real cube root.':'The algebraic structure determines the method.')}} 
  // 2x2 simultaneous linear equations: 2x+y=7; x-y=1
- let lines=text.split(/[;\n]+/).map(x=>x.trim()).filter(Boolean);
+ let lines=text.split(';').flatMap(function(z){return z.split(String.fromCharCode(10));}).map(function(x){return x.trim();}).filter(Boolean);
  if(lines.length===2&&lines.every(x=>x.includes('='))){
    try{let A=PO.parse(lines[0].split('=')[0]),B=PO.parse(lines[0].split('=')[1]),C=PO.parse(lines[1].split('=')[0]),D=PO.parse(lines[1].split('=')[1]);
    let a=A[1]-B[1],b=A[0]-B[0],c=C[1]-D[1],d=C[0]-D[0];
