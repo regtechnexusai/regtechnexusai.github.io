@@ -1046,3 +1046,78 @@ body.calculator-page .footer-brand .brand-logo,
 @media(prefers-reduced-motion:reduce){
   .mobile-toolkit-tabs .tool-tab{transition:none}
 }
+
+
+/* 2026-10-03: Main-site 6-left / 5-right quick-access rails. */
+.desktop-side-tools{
+  display:block;
+}
+.desktop-side-tools__rail{
+  position:fixed;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:1150;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  width:156px;
+}
+.desktop-side-tools__rail--left{left:10px}
+.desktop-side-tools__rail--right{right:10px}
+.desktop-side-tools__rail a{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-height:48px;
+  box-sizing:border-box;
+  padding:7px 9px;
+  border:1px solid #d6e2eb;
+  border-radius:12px;
+  background:rgba(255,255,255,.96);
+  color:#20324b;
+  text-decoration:none;
+  box-shadow:0 5px 14px rgba(16,43,73,.10),inset 0 1px 0 rgba(255,255,255,.95);
+  backdrop-filter:blur(8px);
+  transition:transform .18s ease,box-shadow .18s ease,background .18s ease;
+}
+.desktop-side-tools__rail a:hover{
+  transform:translateY(-2px);
+  background:#f7fbfd;
+  box-shadow:0 9px 20px rgba(16,43,73,.14),inset 0 1px 0 rgba(255,255,255,.98);
+}
+.desktop-side-tools__rail .tool-icon{
+  flex:0 0 30px;
+  width:30px;
+  height:30px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:9px;
+  background:#edf6fb;
+  color:#0956a8;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.03em;
+}
+.desktop-side-tools__rail b{
+  min-width:0;
+  color:#20324b;
+  font-size:10px;
+  line-height:1.15;
+  font-weight:900;
+}
+.desktop-side-tools__rail--left a:nth-child(1) .tool-icon{background:#eefaf6;color:#0b8b72}
+.desktop-side-tools__rail--left a:nth-child(2) .tool-icon{background:#f5f0ff;color:#7047ad}
+.desktop-side-tools__rail--left a:nth-child(3) .tool-icon{background:#fff1ed;color:#c05237}
+.desktop-side-tools__rail--left a:nth-child(4) .tool-icon{background:#fff0f7;color:#b42f83}
+.desktop-side-tools__rail--left a:nth-child(5) .tool-icon{background:#fff8e8;color:#a87512}
+.desktop-side-tools__rail--left a:nth-child(6) .tool-icon{background:#ecfaff;color:#087d91}
+.desktop-side-tools__rail--right a:nth-child(1) .tool-icon{background:#eef6ff;color:#1677d2}
+.desktop-side-tools__rail--right a:nth-child(2) .tool-icon{background:#fff5e9;color:#c15f12}
+.desktop-side-tools__rail--right a:nth-child(3) .tool-icon{background:#ecfbf7;color:#0c8b7a}
+.desktop-side-tools__rail--right a:nth-child(4) .tool-icon{background:#edf4ff;color:#2364c4}
+.desktop-side-tools__rail--right a:nth-child(5) .tool-icon{background:#fff0f8;color:#b42f83}
+
+@media(max-width:1180px){
+  .desktop-side-tools{display:none}
+}
