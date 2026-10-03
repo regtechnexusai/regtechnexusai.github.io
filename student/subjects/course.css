@@ -41,3 +41,25 @@ body[data-subject="Mathematics"] .course-head{max-width:1240px;gap:10px}body[dat
 @media(max-width:700px){body[data-subject="Mathematics"] .course-hero{padding:38px 14px 32px}body[data-subject="Mathematics"] .course-hero h1{font-size:2.25rem}body[data-subject="Mathematics"] .math-section{margin:30px 0}.math-level-grid,.math-grid-3{grid-template-columns:1fr}.math-standard{grid-template-columns:1fr}body[data-subject="Mathematics"] .math-tool-card,body[data-subject="Mathematics"] .math-level-card{min-height:0}}
 @media(max-width:560px){.math-platform{padding-left:12px;padding-right:12px}.course-head{flex-wrap:wrap}.course-nav{order:4;flex-basis:100%}.math-roadmap-flow{min-width:700px}body[data-subject="Mathematics"] .course-hero{padding:34px 14px 30px}}
 @media(prefers-reduced-motion:reduce){body[data-subject="Mathematics"] .math-level-card:hover,body[data-subject="Mathematics"] .math-domain-card:hover,body[data-subject="Mathematics"] .math-tool-card:hover,body[data-subject="Mathematics"] .math-practice-card:hover{transform:none}}
+
+
+/* Mathematics platform — final structural layout guard */
+body[data-subject="Mathematics"] .math-platform{display:block;width:100%;max-width:1240px;margin:0 auto;padding:10px 18px 36px;clear:both;overflow:visible;isolation:isolate}
+body[data-subject="Mathematics"] .math-platform .math-section{display:block;width:100%;margin:34px 0;clear:both}
+body[data-subject="Mathematics"] .math-platform .math-section-head{display:block;width:100%;margin:0 0 18px}
+body[data-subject="Mathematics"] .math-platform .math-section-head h2{margin:8px 0 8px;line-height:1.25;overflow-wrap:anywhere}
+body[data-subject="Mathematics"] .math-platform .math-section-head p{margin:0;max-width:900px;line-height:1.7;overflow-wrap:anywhere}
+body[data-subject="Mathematics"] .math-platform .math-level-grid,body[data-subject="Mathematics"] .math-platform .math-grid-3{display:grid;width:100%;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch}
+body[data-subject="Mathematics"] .math-platform .math-level-card,body[data-subject="Mathematics"] .math-platform .math-domain-card,body[data-subject="Mathematics"] .math-platform .math-tool-card,body[data-subject="Mathematics"] .math-platform .math-practice-card{display:flex;flex-direction:column;min-width:0;width:100%;height:100%;overflow:hidden;overflow-wrap:anywhere}
+body[data-subject="Mathematics"] .math-platform .math-level-card ul{margin:12px 0 0;padding-left:20px}
+body[data-subject="Mathematics"] .math-platform .math-level-card li{margin:7px 0;line-height:1.5;overflow-wrap:anywhere}
+body[data-subject="Mathematics"] .math-platform .math-domain-card,.math-tool-card,.math-practice-card{overflow-wrap:anywhere}
+body[data-subject="Mathematics"] .math-platform .math-roadmap{display:block;width:100%;max-width:100%;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch}
+body[data-subject="Mathematics"] .math-platform .math-roadmap-flow{display:flex;width:max-content;min-width:100%;align-items:center;gap:10px;white-space:nowrap}
+body[data-subject="Mathematics"] .math-platform .math-standard{display:grid;width:100%;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;align-items:stretch}
+body[data-subject="Mathematics"] .math-platform .math-standard>div{min-width:0;height:100%;overflow-wrap:anywhere}
+body[data-subject="Mathematics"] .math-platform .math-links{margin-top:auto;padding-top:12px}
+body[data-subject="Mathematics"] .math-platform .math-links a{max-width:100%;overflow-wrap:anywhere}
+@media(max-width:900px){body[data-subject="Mathematics"] .math-platform .math-level-grid,body[data-subject="Mathematics"] .math-platform .math-grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}body[data-subject="Mathematics"] .math-platform .math-standard{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){body[data-subject="Mathematics"] .math-platform{padding:6px 14px 28px}body[data-subject="Mathematics"] .math-platform .math-level-grid,body[data-subject="Mathematics"] .math-platform .math-grid-3,body[data-subject="Mathematics"] .math-platform .math-standard{grid-template-columns:1fr}body[data-subject="Mathematics"] .math-platform .math-section{margin:28px 0}body[data-subject="Mathematics"] .math-platform .math-level-card,body[data-subject="Mathematics"] .math-platform .math-domain-card,body[data-subject="Mathematics"] .math-platform .math-tool-card,body[data-subject="Mathematics"] .math-platform .math-practice-card{height:auto}}
+@media(max-width:480px){body[data-subject="Mathematics"] .math-platform{padding-left:10px;padding-right:10px}body[data-subject="Mathematics"] .math-platform .math-section-head h2{font-size:1.45rem}body[data-subject="Mathematics"] .math-platform .math-kicker{font-size:.64rem}}
