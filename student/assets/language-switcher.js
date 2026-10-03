@@ -25,8 +25,9 @@
   let activeLanguage = 'en';
   let translating = false;
   let requestChain = Promise.resolve();
-  const REQUEST_GAP_MS = 180;
+  const REQUEST_GAP_MS = 80;
   const MAX_RETRIES = 3;
+  const MAX_CONCURRENCY = 4;
 
   function currentPath() {
     return location.pathname.replace(/index\.html$/, '').replace(/\/$/, '/') || '/';
@@ -125,7 +126,9 @@
         if (!res.ok) throw new Error('Translation service HTTP ' + res.status);
         const data = await res.json();
         const translated = data && data.responseData && data.responseData.translatedText;
-        if (!translated) {
+        const normalizedSource = clean.replace(/\s+/g, ' ').trim().toLowerCase();
+        const normalizedResult = String(translated || '').replace(/\s+/g, ' ').trim().toLowerCase();
+        if (!translated || normalizedResult === normalizedSource) {
           if (attempt === MAX_RETRIES) throw new Error('No translation returned');
           continue;
         }
@@ -149,17 +152,25 @@
       if (key && !seen.has(key)) { seen.add(key); unique.push(item); }
     });
 
-    let done = 0, failed = 0;
-    for (const item of unique) {
-      try {
-        const translated = await translateOne(item.text, lang);
-        apply(item, translated);
-      } catch (_) {
-        failed++;
+    let nextIndex = 0, done = 0, failed = 0;
+    const worker = async () => {
+      while (true) {
+        const index = nextIndex++;
+        if (index >= unique.length) return;
+        const item = unique[index];
+        try {
+          const translated = await translateOne(item.text, lang);
+          apply(item, translated);
+        } catch (_) {
+          failed++;
+        }
+        done++;
+        updateStatus(done, unique.length, lang, failed);
       }
-      done++;
-      updateStatus(done, unique.length, lang, failed);
-    }
+    };
+
+    const workerCount = Math.min(MAX_CONCURRENCY, Math.max(1, unique.length));
+    await Promise.all(Array.from({length: workerCount}, worker));
 
     const cache = cacheRead();
     items.forEach(item => {
