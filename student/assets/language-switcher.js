@@ -24,10 +24,9 @@
   const CACHE_KEY = 'rtnxTranslationCacheV2';
   let activeLanguage = 'en';
   let translating = false;
-  let requestChain = Promise.resolve();
-  const REQUEST_GAP_MS = 80;
   const MAX_RETRIES = 3;
-  const MAX_CONCURRENCY = 4;
+  const MAX_CONCURRENCY = 6;
+  const MAX_ITEMS_PER_RUN = 900;
 
   function currentPath() {
     return location.pathname.replace(/index\.html$/, '').replace(/\/$/, '/') || '/';
@@ -104,44 +103,34 @@
     const key = lang + '|' + clean;
     if (cache[key]) return cache[key];
 
-    const run = async () => {
-      for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
-        if (attempt) await wait(Math.min(4000, 500 * Math.pow(2, attempt - 1)));
-        const params = new URLSearchParams({
-          q: clean.slice(0, 500),
-          langpair: 'en|' + lang,
-          mt: '1'
-        });
-        let res;
-        try {
-          res = await fetch(API + '?' + params.toString(), {headers:{Accept:'application/json'}});
-        } catch (err) {
-          if (attempt === MAX_RETRIES) throw err;
-          continue;
-        }
-        if (res.status === 429 || res.status >= 500) {
-          if (attempt === MAX_RETRIES) throw new Error('Translation service HTTP ' + res.status);
-          continue;
-        }
-        if (!res.ok) throw new Error('Translation service HTTP ' + res.status);
-        const data = await res.json();
-        const translated = data && data.responseData && data.responseData.translatedText;
-        const normalizedSource = clean.replace(/\s+/g, ' ').trim().toLowerCase();
-        const normalizedResult = String(translated || '').replace(/\s+/g, ' ').trim().toLowerCase();
-        if (!translated || normalizedResult === normalizedSource) {
-          if (attempt === MAX_RETRIES) throw new Error('No translation returned');
-          continue;
-        }
-        cache[key] = translated;
-        cacheWrite(cache);
-        return translated;
+    for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+      if (attempt) await wait(Math.min(3000, 400 * Math.pow(2, attempt - 1)));
+      const params = new URLSearchParams({q: clean.slice(0, 500), langpair: 'en|' + lang, mt: '1'});
+      let res;
+      try {
+        res = await fetch(API + '?' + params.toString(), {headers:{Accept:'application/json'}, cache:'no-store'});
+      } catch (err) {
+        if (attempt === MAX_RETRIES) throw err;
+        continue;
       }
-      throw new Error('Translation failed');
-    };
-
-    const result = requestChain.then(run, run);
-    requestChain = result.then(() => wait(REQUEST_GAP_MS), () => wait(REQUEST_GAP_MS));
-    return result;
+      if (res.status === 429 || res.status >= 500) {
+        if (attempt === MAX_RETRIES) throw new Error('Translation service HTTP ' + res.status);
+        continue;
+      }
+      if (!res.ok) throw new Error('Translation service HTTP ' + res.status);
+      const data = await res.json();
+      const translated = data && data.responseData && data.responseData.translatedText;
+      const normalizedSource = clean.replace(/\s+/g, ' ').trim().toLowerCase();
+      const normalizedResult = String(translated || '').replace(/\s+/g, ' ').trim().toLowerCase();
+      if (!translated || normalizedResult === normalizedSource) {
+        if (attempt === MAX_RETRIES) throw new Error('No translation returned');
+        continue;
+      }
+      cache[key] = translated;
+      cacheWrite(cache);
+      return translated;
+    }
+    throw new Error('Translation failed');
   }
 
   async function translateItems(items, lang, apply) {
@@ -159,8 +148,7 @@
         if (index >= unique.length) return;
         const item = unique[index];
         try {
-          const translated = await translateOne(item.text, lang);
-          apply(item, translated);
+          item.__translated = await translateOne(item.text, lang);
         } catch (_) {
           failed++;
         }
@@ -172,10 +160,10 @@
     const workerCount = Math.min(MAX_CONCURRENCY, Math.max(1, unique.length));
     await Promise.all(Array.from({length: workerCount}, worker));
 
-    const cache = cacheRead();
-    items.forEach(item => {
-      const key = lang + '|' + String(item.text || '').trim();
-      if (cache[key]) apply(item, cache[key]);
+    // Apply only after the complete batch is translated. This prevents
+    // progressive DOM reflow from breaking the page while conversion runs.
+    unique.forEach(item => {
+      if (item.__translated) apply(item, item.__translated);
     });
     return failed;
   }
@@ -234,6 +222,12 @@
       return x;
     });
     const total = textItems.length + attrItems.length;
+    if (total > MAX_ITEMS_PER_RUN) {
+      status.textContent = 'This page is too large for safe in-place translation. Please use the native language page where available.';
+      setTimeout(() => status.classList.remove('show'), 5000);
+      translating = false;
+      return;
+    }
     updateStatus(0, total, lang);
 
     const failedText = await translateItems(textItems, lang, (item, translated) => { item.node.nodeValue = translated; });
