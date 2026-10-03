@@ -7,9 +7,40 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self';script-src 'self' 'unsafe-inline';style-src 'self' 'unsafe-inline';img-src 'self' data:;font-src 'self';connect-src 'self';manifest-src 'self';object-src 'none';base-uri 'self';form-action 'self';upgrade-insecure-requests">
 <style>
 body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#17212b;background:#f4f8fb;line-height:1.7}.c{width:min(1100px,92%);margin:auto}header{background:#123c69;position:sticky;top:0;z-index:5;box-shadow:0 4px 18px rgba(8,39,70,.22)}.h{min-height:74px;display:flex;align-items:center;gap:10px;padding:10px 0}.h img{width:54px;height:54px;object-fit:contain;background:#fff;border-radius:12px;padding:2px}.nav{flex:1;display:flex;gap:7px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.nav a{min-height:44px;display:inline-flex;align-items:center;padding:9px 12px;border-radius:11px;border:1px solid rgba(255,255,255,.55);background:#fff;color:#123c69;text-decoration:none;font-weight:900;flex:0 0 auto}.hero{padding:58px 0;background:linear-gradient(135deg,#eaf5fb,#fff 55%,#f3effc)}h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1.1;color:#082746}.lead{max-width:850px;color:#5e6b78;font-size:1.06rem}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}section{padding:46px 0}.card,.q{background:#fff;border:1px solid #d7e1ea;border-radius:16px;padding:20px;box-shadow:0 9px 24px rgba(16,39,64,.07)}h2,h3{color:#123c69}.tag{display:inline-block;background:#fff;border:1px solid #cbdde8;color:#123c69;padding:5px 9px;border-radius:999px;font-weight:800;font-size:.8rem}.source{font-size:.88rem;color:#5e6b78}.btn{min-height:44px;border:1px solid #0956a8;background:#0956a8;color:#fff;border-radius:11px;padding:9px 13px;font-weight:800;cursor:pointer}.privacy-card{background:#fff;border:1px solid #d7e1ea;border-left:5px solid #7a56c7;border-radius:14px;padding:16px 18px}.learning-path-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.learning-step{background:#fff;border:1px solid #d7e1ea;border-radius:14px;padding:14px}.learning-step b{display:block;font-size:.7rem;color:#148a9c}.learning-step strong{display:block;color:#123c69}.case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.case{background:#fff;border:1px solid #d7e1ea;border-top:4px solid #d99b21;border-radius:15px;padding:18px}.case:nth-child(2n){border-top-color:#7a56c7}.answer{margin-top:10px;padding:10px;background:#f0f8fa;border-left:4px solid #1f7a8c}details summary{cursor:pointer}.quiz-q{padding:16px;background:#fff;border:1px solid #dce4ec;border-radius:12px;margin:10px 0}footer{background:#10203b;color:#dfe8f0;padding:35px 0}footer a{color:#fff}@media(max-width:800px){.grid,.case-grid{grid-template-columns:1fr 1fr}.learning-path-grid{grid-template-columns:1fr 1fr}}@media(max-width:560px){.h{flex-wrap:wrap}.nav{flex-basis:100%}.grid,.case-grid,.learning-path-grid{grid-template-columns:1fr}}
-</style></head><body>
-<header><div class="c h"><a href="../../"><img src="../../../regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI"></a><nav class="nav">
-<a href="../../">Student Hub</a><a href="../">Bangla</a><a href="#foundation">Learn</a><a href="#controls">Practice</a><a href="#aml-50q">50 Questions</a><a href="#quiz">Self-Check</a><a href="#case-studies">Case Studies</a><a href="#resources">Resources</a></nav></div></header>
+</style><style>
+.language-switch{width:48px!important;height:48px!important;min-width:48px!important;padding:0!important;border:1px solid rgba(255,255,255,.55)!important;border-radius:12px!important;background:#fff!important;color:#123c69!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;font-size:25px!important;font-weight:900!important;cursor:pointer!important;box-shadow:0 3px 0 rgba(20,80,130,.18);flex:0 0 auto}.language-switch:focus-visible{outline:3px solid #f2c14e;outline-offset:2px}@media(max-width:560px){.language-switch{width:44px!important;height:44px!important;min-width:44px!important}}
+</style><script>
+(function(){
+  async function switchAmlLanguage(){
+    const root=document.documentElement;
+    const target=root.lang==='en'?'/student/aml-cft/':'/student/aml-cft/en/';
+    const btn=document.querySelector('.language-switch');
+    if(btn){btn.disabled=true;btn.style.opacity='.55'}
+    try{
+      const res=await fetch(target+'?lang-switch='+Date.now(),{cache:'no-store'});
+      if(!res.ok) throw new Error('Language page unavailable');
+      const html=await res.text();
+      const doc=new DOMParser().parseFromString(html,'text/html');
+      const body=doc.querySelector('body');
+      if(!body) throw new Error('Invalid language page');
+      document.body.innerHTML=body.innerHTML;
+      document.documentElement.lang=doc.documentElement.lang||'en';
+      const title=doc.querySelector('title'); if(title) document.title=title.textContent;
+      const desc=doc.querySelector('meta[name="description"]');
+      if(desc){let d=document.querySelector('meta[name="description"]');if(!d){d=document.createElement('meta');d.name='description';document.head.appendChild(d)}d.content=desc.content}
+      const scripts=[...body.querySelectorAll('script')].map(s=>s.textContent);
+      scripts.forEach(code=>{const s=document.createElement('script');s.textContent=code;document.body.appendChild(s)});
+      window.scrollTo({top:0,behavior:'smooth'});
+    }catch(e){
+      console.error(e);
+      if(btn){btn.disabled=false;btn.style.opacity='1'}
+    }
+  }
+  window.switchAmlLanguage=switchAmlLanguage;
+})();
+</script></head><body>
+<header><div class="c h"><a href="../../"><img src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI"></a><nav class="nav">
+<a href="/student/">Student Hub</a><button class="language-switch" type="button" onclick="switchAmlLanguage()" aria-label="Switch language" title="Switch language">🌐</button><a href="#foundation">Learn</a><a href="#controls">Practice</a><a href="#aml-50q">50 Questions</a><a href="#quiz">Self-Check</a><a href="#case-studies">Case Studies</a><a href="#resources">Resources</a></nav></div></header>
 <main>
 <section class="hero"><div class="c"><span class="tag">AML/CFT LEARNING · ENGLISH</span><h1>AML/CFT Foundations for Students</h1><p class="lead">A structured English-language version of the RegTech Nexus AI AML/CFT Student Knowledge Hub. It covers anti-money laundering, countering the financing of terrorism, customer due diligence, beneficial ownership, transaction monitoring, TBML, payment safety and evidence-based learning.</p><p><a class="btn" href="../">Bangla Version</a></p></div></section>
 <section class="learning-path"><div class="c"><div class="learning-path-grid"><div class="learning-step"><b>01 · LEARN</b><strong>Build the foundation</strong><span>Read core concepts and definitions.</span></div><div class="learning-step"><b>02 · PRACTICE</b><strong>Apply the concept</strong><span>Use examples and control context.</span></div><div class="learning-step"><b>03 · SELF-CHECK</b><strong>Test yourself</strong><span>Reveal answers and identify gaps.</span></div><div class="learning-step"><b>04 · EVIDENCE</b><strong>Verify sources</strong><span>Use authoritative material for current requirements.</span></div></div></div></section>
