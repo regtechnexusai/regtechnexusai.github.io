@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" role="img" aria-labelledby="t d">
+<title id="t">Regulatory intelligence visual</title>
+<desc id="d">An abstract visual of connected regulation, risk, data and human judgment.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#eef8ff"/><stop offset=".55" stop-color="#f7f1ff"/><stop offset="1" stop-color="#ecfbf7"/></linearGradient>
+  <linearGradient id="card" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#f5f9fc"/></linearGradient>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#163c62" flood-opacity=".14"/></filter>
+</defs>
+<rect x="10" y="10" width="880" height="600" rx="44" fill="url(#bg)"/>
+<path d="M95 455 C230 360 300 480 410 390 S615 210 805 290" fill="none" stroke="#8b5bd7" stroke-width="7" stroke-linecap="round" opacity=".42"/>
+<path d="M100 180 C235 250 295 150 415 225 S625 420 805 350" fill="none" stroke="#10a37f" stroke-width="7" stroke-linecap="round" opacity=".34"/>
+<g filter="url(#shadow)">
+  <rect x="92" y="105" width="245" height="160" rx="24" fill="url(#card)"/>
+  <rect x="655" y="105" width="153" height="160" rx="24" fill="url(#card)"/>
+  <rect x="300" y="315" width="300" height="190" rx="28" fill="url(#card)"/>
+</g>
+<g fill="none" stroke-linecap="round">
+  <path d="M135 208h150M135 232h112M697 165h68M697 190h44" stroke="#2364c4" stroke-width="11"/>
+  <path d="M345 388h210M345 416h165" stroke="#d9468f" stroke-width="11"/>
+</g>
+<g>
+  <circle cx="430" cy="270" r="48" fill="#0956a8"/>
+  <circle cx="430" cy="270" r="28" fill="#fff"/>
+  <path d="M430 242v56M402 270h56" stroke="#0956a8" stroke-width="9" stroke-linecap="round"/>
+  <circle cx="190" cy="405" r="18" fill="#e06b4f"/><circle cx="720" cy="420" r="18" fill="#d59a1a"/>
+  <circle cx="135" cy="330" r="13" fill="#10a37f"/><circle cx="770" cy="205" r="13" fill="#5f58b5"/>
+</g>
+<g font-family="Arial, sans-serif" font-weight="700" fill="#20324b">
+  <text x="125" y="145" font-size="18">REGULATORY SIGNALS</text>
+  <text x="678" y="145" font-size="17">RISK</text>
+  <text x="345" y="355" font-size="18">HUMAN JUDGMENT + TECHNOLOGY</text>
+</g>
+</svg>
