@@ -68,6 +68,12 @@
 .xai-checklist li{padding:13px 15px;border:1px solid #dbe4ed;border-radius:11px;background:#fff}
 .xai-checklist li:before{content:"✓";font-weight:900;color:#087a52;margin-right:9px}
 .xai-source-list{padding-left:20px;line-height:1.8}
+.xai-audience{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:18px}
+.xai-audience div{padding:14px;border:1px solid #dbe4ed;border-radius:12px;background:#fff}
+.xai-audience strong{display:block;margin-bottom:5px;font-size:.92rem;color:#16344f}
+.xai-audience span{display:block;font-size:.82rem;line-height:1.5;color:#52677b}
+@media(max-width:1000px){.xai-audience{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.xai-audience{grid-template-columns:1fr}}
 .xai-source-list a{font-weight:700}
 .xai-footer-note{font-size:.86rem;color:#52677b;margin-top:28px}
 @media(max-width:800px){.xai-grid{grid-template-columns:1fr}.xai-checklist{grid-template-columns:1fr}.xai-hero{padding:55px 20px 42px}.xai-wrap{padding:0 17px 50px}.xai-table{font-size:.9rem}.xai-table-wrap{overflow-x:auto}.xai-table-hint{display:block}.xai-nav{gap:8px}.xai-nav a{padding:9px 11px;font-size:.88rem}}
@@ -136,6 +142,17 @@
   <nav class="xai-nav" aria-label="Explainable AI sections">
     <a href="#what">What XAI means</a><a href="#methods">Methods</a><a href="#controls">Control model</a><a href="#testing">Testing</a><a href="#evidence">Evidence</a><a href="#regulatory">Regulatory context</a>
   </nav>
+
+  <section class="xai-callout" id="audience" aria-labelledby="audience-title">
+    <strong id="audience-title">Who this page is for — and what you can use it for</strong>
+    <div class="xai-audience">
+      <div><strong>Banking &amp; Compliance</strong><span>Review explanation, challenge and evidence requirements.</span></div>
+      <div><strong>Internal Audit &amp; Model Risk</strong><span>Assess fidelity, stability, traceability and reconstruction.</span></div>
+      <div><strong>AI Governance</strong><span>Connect explainability to lifecycle controls and oversight.</span></div>
+      <div><strong>Students &amp; Professionals</strong><span>Learn XAI concepts, methods and practical examples.</span></div>
+      <div><strong>Executives &amp; Boards</strong><span>Understand what happened, why, risk, ownership and evidence.</span></div>
+    </div>
+  </section>
 
   
 <section class="xai-experience" id="xai-demo" aria-labelledby="xai-demo-title">
