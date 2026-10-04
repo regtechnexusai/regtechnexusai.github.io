@@ -5,12 +5,12 @@
     "defaultLanguage": "en",
     "publisher": "RegTech Nexus AI",
     "logo": "https://regtechnexusai.com/regtech-nexus-ai-logo.jpg",
-    "approvedDescription": "AI platform for Banking Regulation, AML/CFT, Financial Crime, Basel III/IV, IFRS 9, Risk Management, Internal Audit, Compliance, and AI Governance."
+    "approvedDescription": "RegTech Nexus AI provides regulatory intelligence, banking risk, AML/CFT, TBML, financial-crime, audit, compliance, Basel III/IV, IFRS 9 and responsible-AI decision-support resources for regulated professionals."
   },
   "pages": {
     "index.html": {
       "title": "RegTech Nexus AI | Regulation, Risk & Responsible AI",
-      "description": "AI platform for Banking Regulation, AML/CFT, Financial Crime, Basel III/IV, IFRS 9, Risk Management, Internal Audit, Compliance, and AI Governance.",
+      "description": "RegTech Nexus AI provides regulatory intelligence, banking risk, AML/CFT, TBML, financial-crime, audit, compliance, Basel III/IV, IFRS 9 and responsible-AI decision-support resources for regulated professionals.",
       "canonical": "https://regtechnexusai.com/"
     },
     "insights.html": {
@@ -75,6 +75,21 @@
       "title": "Regulatory Control & Policy Gap Analyzer | RegTech Nexus AI",
       "description": "An original, browser-local policy-to-control review aid for source-mapped regulatory gap identification and evidence-based action planning.",
       "canonical": "https://regtechnexusai.com/regulatory-gap-analyzer/"
+    },
+    "tradeguard/index.html": {
+      "title": "TradeGuard | TBML & Trade Finance Risk Review Support | RegTech Nexus AI",
+      "description": "Browser-based TradeGuard review support for TBML, trade-finance transaction risk, document consistency and explainable risk indicators using synthetic or anonymised sample inputs.",
+      "canonical": "https://regtechnexusai.com/tradeguard/"
+    },
+    "student/architecture/index.html": {
+      "title": "Architecture Learning Hub | RegTech Nexus AI Student Knowledge Hub",
+      "description": "Free architecture learning hub covering design, construction, materials, sustainability, CAD/BIM, research and responsible AI for architecture students.",
+      "canonical": "https://regtechnexusai.com/student/architecture/"
+    },
+    "student/subjects/mathematics/formulas.html": {
+      "title": "Mathematics Formula Library | RegTech Nexus AI Student Knowledge Hub",
+      "description": "A structured mathematics formula library covering algebra, geometry and higher-level study with worked-learning support.",
+      "canonical": "https://regtechnexusai.com/student/subjects/mathematics/formulas.html"
     }
   },
   "topicClusters": [
@@ -89,12 +104,21 @@
     "AI Governance",
     "RegTech",
     "SupTech",
-    "Responsible AI"
+    "Responsible AI",
+    "TBML",
+    "Trade Finance",
+    "KYC/CDD",
+    "Transaction Monitoring",
+    "Sanctions",
+    "Regulatory Change Management",
+    "Student Learning",
+    "Architecture Education",
+    "Mathematics"
   ],
   "socialProfiles": {
     "linkedin": "https://www.linkedin.com/company/regtech-nexus-ai/",
     "facebook": "https://www.facebook.com/regtechnexusai",
     "youtube": "https://youtube.com/@regtechnexusai"
   },
-  "lastReviewed": "2026-09-26"
+  "lastReviewed": "2026-10-04"
 }
