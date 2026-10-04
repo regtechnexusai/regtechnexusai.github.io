@@ -114,3 +114,16 @@ footer .footer-note{margin:4px 0 0!important;padding-top:18px!important;font-siz
 footer .legal{margin-top:8px!important;padding-top:14px!important;font-size:11px!important;line-height:1.35!important}
 @media(max-width:900px){.hero{padding-top:36px!important;padding-bottom:30px!important}.hero-visual img{max-height:280px!important}.authority-section{padding-top:42px!important;padding-bottom:42px!important}.authority-visual img{max-height:240px!important}.principles{padding-top:48px!important;padding-bottom:48px!important}footer{padding:38px 6vw 22px!important}}
 @media(max-width:560px){.hero-copy h1{font-size:40px!important}.hero-visual img{max-height:230px!important}.authority-intro h2{font-size:34px!important}.principles>h2{font-size:34px!important}footer .footer-brand .brand-logo{width:150px!important;max-width:150px!important}}
+
+
+/* 2026-10-04 RESTORE MOVABLE COLOURFUL DESKTOP QUICK-ACCESS RAILS */
+@media (min-width:1181px){
+.desktop-side-tools{display:block!important;position:relative!important;z-index:1000!important}
+.desktop-side-tools__rail{position:fixed!important;top:50%!important;transform:translateY(-50%)!important;width:142px!important;max-width:142px!important;flex:initial!important;flex-direction:column!important;overflow:visible!important;gap:9px!important;box-sizing:border-box!important}
+.desktop-side-tools__rail--left{left:10px!important;right:auto!important}
+.desktop-side-tools__rail--right{right:10px!important;left:auto!important}
+.desktop-side-tools__rail>a{display:flex!important;flex:initial!important;width:100%!important;min-height:62px!important;height:auto!important;box-sizing:border-box!important;padding:7px 7px 8px!important;border-radius:12px!important;white-space:normal!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:5px!important;text-align:center!important;transition:transform .2s ease,box-shadow .2s ease!important}
+.desktop-side-tools__rail>a:hover,.desktop-side-tools__rail>a:focus-visible{transform:translateX(5px) translateY(-2px)!important;box-shadow:0 6px 0 rgba(27,50,74,.10),0 12px 20px rgba(27,50,74,.13),inset 0 1px 0 rgba(255,255,255,.96)!important}
+.desktop-side-tools__rail--right>a:hover,.desktop-side-tools__rail--right>a:focus-visible{transform:translateX(-5px) translateY(-2px)!important}
+}
+@media (max-width:1180px){.desktop-side-tools{display:none!important}.mobile-toolkit-tabs{display:flex!important}}
