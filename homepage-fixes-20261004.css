@@ -1,43 +1,8 @@
-/* 2026-10-04 homepage visual correction layer */
-@media (min-width:1181px){
-  .desktop-side-tools__rail{
-    display:flex!important; flex-direction:row!important; width:100%!important;
-    flex:0 0 100%!important; overflow-x:auto!important; overflow-y:hidden!important;
-    gap:7px!important;
-  }
-  .desktop-side-tools__rail>a{
-    flex:0 0 auto!important; min-height:40px!important; height:40px!important;
-    padding:7px 13px!important; border-radius:9px!important; display:inline-flex!important;
-    align-items:center!important; justify-content:center!important; white-space:nowrap!important;
-  }
-  .desktop-side-tools__rail>a:nth-child(1){background:#eefaf6!important;border-color:#bfe9dd!important;color:#087e68!important}
-  .desktop-side-tools__rail>a:nth-child(2){background:#f5f0ff!important;border-color:#d9c9f3!important;color:#7047ad!important}
-  .desktop-side-tools__rail>a:nth-child(3){background:#fff1ed!important;border-color:#f3c9bd!important;color:#bd563d!important}
-  .desktop-side-tools__rail>a:nth-child(4){background:#fff0f7!important;border-color:#f0bfdc!important;color:#b42f83!important}
-  .desktop-side-tools__rail>a:nth-child(5){background:#fff8e8!important;border-color:#f0d69a!important;color:#9b6c10!important}
-  .desktop-side-tools__rail>a:nth-child(6){background:#ecfaff!important;border-color:#bce8ef!important;color:#087d91!important}
-  .desktop-side-tools__rail>a:nth-child(7){background:#eef6ff!important;border-color:#c4ddf8!important;color:#166bc0!important}
-  .desktop-side-tools__rail>a:nth-child(8){background:#fff5e9!important;border-color:#f1d2b0!important;color:#b85d13!important}
-  .desktop-side-tools__rail>a:nth-child(9){background:#ecfbf7!important;border-color:#bfe9df!important;color:#0c8b7a!important}
-  .desktop-side-tools__rail>a:nth-child(10){background:#edf4ff!important;border-color:#c5d8f4!important;color:#2364c4!important}
-  .desktop-side-tools__rail>a:nth-child(11){background:#f2f0ff!important;border-color:#d6cff1!important;color:#5f58b5!important}
-  .desktop-side-tools__rail>a:nth-child(12){background:#fff0f8!important;border-color:#f0c3df!important;color:#b42f83!important}
-  .desktop-side-tools__rail>a>b{color:inherit!important;font-size:11px!important;font-weight:800!important;line-height:1!important}
-}
 .nav .brand-logo{width:140px!important;max-width:140px!important;height:auto!important;max-height:46px!important;object-fit:contain!important}
 .static-visual-card{display:none!important}
 .static-visual-card img{display:none!important}
 .hero-visual img{width:min(100%,560px)!important;max-height:400px!important;object-fit:contain!important}
 @media(max-width:760px){.nav .brand-logo{width:128px!important;max-width:128px!important;max-height:43px!important}}
-
-
-/* Final precedence layer: coloured surfaces, single-colour labels, raised 3D form. */
-@media(min-width:1181px){
-  .desktop-side-tools__rail>a{color:#1d2b40!important;border-radius:12px!important;box-shadow:0 4px 0 rgba(27,50,74,.10),0 8px 16px rgba(27,50,74,.10),inset 0 1px 0 rgba(255,255,255,.96)!important}
-  .desktop-side-tools__rail>a>b{color:#1d2b40!important}
-  .desktop-side-tools__rail>a:hover{color:#1d2b40!important;transform:translateY(-2px)!important}
-}
-@media(prefers-reduced-motion:reduce){.desktop-side-tools__rail{scroll-behavior:auto!important}}
 
 
 /* 2026-10-04 FINAL PATHWAY + NAVIGATION PASS
@@ -116,115 +81,6 @@ footer .legal{margin-top:8px!important;padding-top:14px!important;font-size:11px
 @media(max-width:560px){.hero-copy h1{font-size:40px!important}.hero-visual img{max-height:230px!important}.authority-intro h2{font-size:34px!important}.principles>h2{font-size:34px!important}footer .footer-brand .brand-logo{width:150px!important;max-width:150px!important}}
 
 
-/* 2026-10-04 RESTORE MOVABLE COLOURFUL DESKTOP QUICK-ACCESS RAILS */
-@media (min-width:1181px){
-.desktop-side-tools{display:block!important;position:relative!important;z-index:1000!important}
-.desktop-side-tools__rail{position:fixed!important;top:50%!important;transform:translateY(-50%)!important;width:142px!important;max-width:142px!important;flex:initial!important;flex-direction:column!important;overflow:visible!important;gap:9px!important;box-sizing:border-box!important}
-.desktop-side-tools__rail--left{left:10px!important;right:auto!important}
-.desktop-side-tools__rail--right{right:10px!important;left:auto!important}
-.desktop-side-tools__rail>a{display:flex!important;flex:initial!important;width:100%!important;min-height:62px!important;height:auto!important;box-sizing:border-box!important;padding:7px 7px 8px!important;border-radius:12px!important;white-space:normal!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:5px!important;text-align:center!important;transition:transform .2s ease,box-shadow .2s ease!important}
-/* Initial viewport stabilization: reserve the header zone and center the full rail
-   within the visible page area without relying on translateY(-50%). */
-@media (min-width:1181px){
-  .desktop-side-tools__rail{
-    top:92px!important;
-    bottom:24px!important;
-    height:auto!important;
-    max-height:calc(100vh - 116px)!important;
-    transform:none!important;
-    justify-content:center!important;
-    overflow:visible!important;
-  }
-}
-
-/* Keep the rails vertically stable: hover movement is horizontal only. */
-.desktop-side-tools__rail>a:hover,.desktop-side-tools__rail>a:focus-visible{transform:translateX(5px)!important;box-shadow:0 6px 0 rgba(27,50,74,.10),0 12px 20px rgba(27,50,74,.13),inset 0 1px 0 rgba(255,255,255,.96)!important}
-.desktop-side-tools__rail--right>a:hover,.desktop-side-tools__rail--right>a:focus-visible{transform:translateX(-5px)!important}
-}
-@media (max-width:1180px){.desktop-side-tools{display:none!important}.mobile-toolkit-tabs{display:flex!important}}
-
-
-/* FINAL QUICK-ACCESS BUTTON STABILITY — desktop + mobile
-   Keep desktop as two vertical rails; keep mobile as a clean grid before scroll.
-   This intentionally overrides older horizontal-rail rules without deleting them. */
-
-@media (min-width:1181px){
-  .desktop-side-tools{
-    display:block!important;
-    position:relative!important;
-    z-index:1200!important;
-  }
-  .desktop-side-tools__rail,
-  .desktop-side-tools__rail--left,
-  .desktop-side-tools__rail--right{
-    position:fixed!important;
-    top:96px!important;
-    bottom:18px!important;
-    width:142px!important;
-    max-width:142px!important;
-    height:auto!important;
-    max-height:none!important;
-    min-width:0!important;
-    margin:0!important;
-    padding:0!important;
-    display:flex!important;
-    flex:0 0 142px!important;
-    flex-direction:column!important;
-    align-items:stretch!important;
-    justify-content:center!important;
-    gap:9px!important;
-    overflow:visible!important;
-    transform:none!important;
-    box-sizing:border-box!important;
-    touch-action:auto!important;
-  }
-  .desktop-side-tools__rail--left{left:10px!important;right:auto!important}
-  .desktop-side-tools__rail--right{left:auto!important;right:10px!important}
-  .desktop-side-tools__rail>a,
-  .desktop-side-tools__rail>a:nth-child(n){
-    position:relative!important;
-    display:flex!important;
-    flex:0 0 58px!important;
-    width:100%!important;
-    min-width:0!important;
-    max-width:none!important;
-    min-height:58px!important;
-    height:58px!important;
-    margin:0!important;
-    padding:6px 7px!important;
-    box-sizing:border-box!important;
-    flex-direction:column!important;
-    align-items:center!important;
-    justify-content:center!important;
-    gap:4px!important;
-    overflow:hidden!important;
-    white-space:normal!important;
-    text-align:center!important;
-    transform:none!important;
-  }
-  .desktop-side-tools__rail>a:hover,
-  .desktop-side-tools__rail>a:focus-visible{
-    transform:translateX(5px)!important;
-  }
-  .desktop-side-tools__rail--right>a:hover,
-  .desktop-side-tools__rail--right>a:focus-visible{
-    transform:translateX(-5px)!important;
-  }
-  .desktop-side-tools__rail>a>b{
-    display:block!important;
-    width:100%!important;
-    margin:0!important;
-    font-size:10.5px!important;
-    line-height:1.12!important;
-    white-space:normal!important;
-    overflow-wrap:anywhere!important;
-  }
-}
-
-@media (max-width:1180px){
-  .desktop-side-tools{display:none!important}
-}
-
 @media (max-width:760px){
   .mobile-toolkit-tabs{
     position:relative!important;
@@ -293,10 +149,8 @@ footer .legal{margin-top:8px!important;padding-top:14px!important;font-size:11px
   }
 }
 
-
-/* DESKTOP FINAL LOCK — keep quick-access rails out of document flow.
-   This removes the legacy full-width/sticky desktop band while preserving
-   the two fixed side rails. Mobile rules remain unchanged. */
+/* 2026-10-04 AUTHORITATIVE DESKTOP QUICK-ACCESS RAILS
+   One desktop implementation only. Mobile rules above are preserved unchanged. */
 @media (min-width:1181px){
   .desktop-side-tools{
     position:static!important;
@@ -310,22 +164,15 @@ footer .legal{margin-top:8px!important;padding-top:14px!important;font-size:11px
     background:transparent!important;
     border:0!important;
     box-shadow:none!important;
-    backdrop-filter:none!important;
     pointer-events:none!important;
-    z-index:1200!important;
   }
-  .desktop-side-tools__rail,
-  .desktop-side-tools__rail--left,
-  .desktop-side-tools__rail--right{
+
+  .desktop-side-tools__rail{
     position:fixed!important;
     top:96px!important;
     bottom:18px!important;
-    left:10px!important;
-    right:auto!important;
     width:142px!important;
-    max-width:142px!important;
     height:auto!important;
-    max-height:none!important;
     margin:0!important;
     padding:0!important;
     display:flex!important;
@@ -340,12 +187,11 @@ footer .legal{margin-top:8px!important;padding-top:14px!important;font-size:11px
     pointer-events:auto!important;
     z-index:1201!important;
   }
-  .desktop-side-tools__rail--right{
-    left:auto!important;
-    right:10px!important;
-  }
-  .desktop-side-tools__rail>a,
-  .desktop-side-tools__rail>a:nth-child(n){
+
+  .desktop-side-tools__rail--left{left:10px!important;right:auto!important}
+  .desktop-side-tools__rail--right{left:auto!important;right:10px!important}
+
+  .desktop-side-tools__rail>a{
     position:relative!important;
     flex:0 0 58px!important;
     width:142px!important;
@@ -366,20 +212,43 @@ footer .legal{margin-top:8px!important;padding-top:14px!important;font-size:11px
     white-space:normal!important;
     text-align:center!important;
     transform:none!important;
+    border-radius:12px!important;
+    color:#1d2b40!important;
+    box-shadow:0 4px 0 rgba(27,50,74,.10),0 8px 16px rgba(27,50,74,.10),inset 0 1px 0 rgba(255,255,255,.96)!important;
   }
+
+  .desktop-side-tools__rail>a:nth-child(1){background:#eaf8f3!important;border-color:#bfe9dd!important}
+  .desktop-side-tools__rail>a:nth-child(2){background:#f1ecfb!important;border-color:#d9c9f3!important}
+  .desktop-side-tools__rail>a:nth-child(3){background:#fff0eb!important;border-color:#f3c9bd!important}
+  .desktop-side-tools__rail>a:nth-child(4){background:#fdebf5!important;border-color:#f0bfdc!important}
+  .desktop-side-tools__rail>a:nth-child(5){background:#fff7df!important;border-color:#f0d69a!important}
+  .desktop-side-tools__rail>a:nth-child(6){background:#e8f8fb!important;border-color:#bce8ef!important}
+
+  .desktop-side-tools__rail--right>a:nth-child(1){background:#edf5ff!important;border-color:#c4ddf8!important}
+  .desktop-side-tools__rail--right>a:nth-child(2){background:#fff3e7!important;border-color:#f1d2b0!important}
+  .desktop-side-tools__rail--right>a:nth-child(3){background:#e9f8f4!important;border-color:#bfe9df!important}
+  .desktop-side-tools__rail--right>a:nth-child(4){background:#edf3ff!important;border-color:#c5d8f4!important}
+  .desktop-side-tools__rail--right>a:nth-child(5){background:#f0effb!important;border-color:#d6cff1!important}
+  .desktop-side-tools__rail--right>a:nth-child(6){background:#fdebf6!important;border-color:#f0c3df!important}
+
   .desktop-side-tools__rail>a>b{
+    display:block!important;
     width:100%!important;
+    margin:0!important;
+    color:#1d2b40!important;
     font-size:10.5px!important;
     line-height:1.12!important;
+    font-weight:800!important;
     white-space:normal!important;
     overflow-wrap:anywhere!important;
   }
-  .desktop-side-tools__rail>a:hover,
-  .desktop-side-tools__rail>a:focus-visible{
-    transform:translateX(5px)!important;
-  }
+
+  .desktop-side-tools__rail--left>a:hover,
+  .desktop-side-tools__rail--left>a:focus-visible{transform:translateX(5px)!important}
   .desktop-side-tools__rail--right>a:hover,
-  .desktop-side-tools__rail--right>a:focus-visible{
-    transform:translateX(-5px)!important;
-  }
+  .desktop-side-tools__rail--right>a:focus-visible{transform:translateX(-5px)!important}
+}
+
+@media (max-width:1180px){
+  .desktop-side-tools{display:none!important}
 }
