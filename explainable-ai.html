@@ -144,7 +144,7 @@
     <div class="xai-panel">
       <h3>Illustrative transaction-risk output</h3>
       <div class="xai-metric"><span>Risk signal</span><strong class="xai-score" id="xaiScore">78/100</strong></div>
-      <div class="xai-metric"><span>Explanation status</span><span class="xai-status">High — illustrative</span></div>
+      <div class="xai-metric"><span>Explanation status</span><span class="xai-status" title="Illustrative explanation strength, not probability of correctness.">High — illustrative</span></div>
       <div class="xai-metric"><span>Review status</span><strong id="xaiReview">Manual review required</strong></div>
       <div class="xai-metric"><span>Model</span><strong>XAI-Demo v1.0</strong></div>
       <div class="xai-metric"><span>Decision ID</span><strong>XAI-DEMO-001</strong></div>
@@ -161,11 +161,11 @@
     </div>
     <div class="xai-panel">
       <h3>Why was this signal generated?</h3>
-      <div class="xai-driver"><div class="xai-driver-top"><span>Transaction velocity</span><span id="driverVelocity">+24</span></div><div class="xai-bar"><i id="barVelocity" style="width:82%"></i></div></div>
+      <div class="xai-driver"><div class="xai-driver-top"><span>Baseline (average reference pattern)</span><span>14</span></div><div class="xai-bar"><i style="width:45%"></i></div></div><div class="xai-driver"><div class="xai-driver-top"><span>Transaction velocity</span><span id="driverVelocity">+24</span></div><div class="xai-bar"><i id="barVelocity" style="width:82%"></i></div></div>
       <div class="xai-driver"><div class="xai-driver-top"><span>Country-risk signal</span><span>+18</span></div><div class="xai-bar"><i style="width:61%"></i></div></div>
       <div class="xai-driver"><div class="xai-driver-top"><span>Amount deviation</span><span id="driverAmount">+15</span></div><div class="xai-bar"><i id="barAmount" style="width:52%"></i></div></div>
       <div class="xai-driver"><div class="xai-driver-top"><span>Customer history</span><span>+7</span></div><div class="xai-bar"><i style="width:24%"></i></div></div>
-      <div class="xai-whatif"><strong>Plain-language explanation</strong><p id="xaiExplanation">The transaction was flagged primarily because transaction velocity and amount deviation were materially above the configured illustrative reference pattern.</p><small>Attribution signals help explain the output; they are not presented as proof of causation.</small></div>
+      <div class="xai-whatif"><strong>Plain-language explanation</strong><p id="xaiExplanation">The transaction was flagged primarily because transaction velocity and amount deviation were materially above the configured illustrative reference pattern.</p><p><strong>What would change the result?</strong> <span id="xaiCounterfactual">If transaction frequency were about 50 instead of 82, the illustrative risk signal would fall to roughly 69.</span></p><small>Attribution and counterfactual signals help a reviewer challenge the result; they are not proof of causation.</small></div>
     </div>
   </div>
 </section>
@@ -290,12 +290,34 @@
   <section class="xai-section" id="regulatory">
     <h2>Regulatory and standards context — 2026</h2>
     <p><strong>NIST AI RMF:</strong> NIST identifies “explainable and interpretable” as a trustworthiness characteristic and frames AI risk management through GOVERN, MAP, MEASURE and MANAGE. NIST states that AI RMF 1.0 is currently being revised, so institutions should monitor the authoritative NIST source for future revisions. <a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener noreferrer">NIST AI RMF ↗</a></p>
-    <p><strong>EU AI Act:</strong> The EU framework uses a risk-based approach and includes transparency, documentation, traceability and human-oversight requirements for relevant AI systems. As of August 2026, the Act's transparency rules are applicable, while certain high-risk obligations have later application dates. Applicability depends on the system, role and use case. <a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener noreferrer">European Commission — AI Act ↗</a></p>
+    <p><strong>EU AI Act:</strong> The EU framework uses a risk-based approach and includes transparency, documentation, traceability and human-oversight requirements for relevant AI systems. Article 50 transparency obligations apply from 2 August 2026. Other AI Act obligations, including certain high-risk requirements, have different application dates depending on the system and context. Applicability depends on the system, role and use case. <a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener noreferrer">European Commission — AI Act ↗</a></p>
     <p><strong>ISO/IEC 42001:</strong> ISO/IEC 42001:2023 provides requirements for establishing, implementing, maintaining and continually improving an AI Management System (AIMS), including governance areas relevant to transparency, accountability and risk management. <a href="https://www.iso.org/standard/42001" target="_blank" rel="noopener noreferrer">ISO/IEC 42001 ↗</a></p>
     <div class="xai-callout"><strong>Regulatory note:</strong> Explainability is not a universal legal requirement for every AI system. Its required depth should be determined by jurisdiction, applicable law or regulation, use case, impact, contractual requirements, internal policy and risk appetite.</div>
   </section>
 
-  <section class="xai-section">
+  
+<section class="xai-section" id="faq">
+<h2>Frequently asked questions</h2>
+<div class="xai-grid">
+<details class="xai-card"><summary><strong>Is explainable AI legally required?</strong></summary><p>Not universally. The required depth depends on jurisdiction, applicable law or regulation, use case, impact, contractual requirements and institutional risk appetite. Applicability should be assessed case by case.</p></details>
+<details class="xai-card"><summary><strong>What is the difference between explainability and interpretability?</strong></summary><p>Explainability concerns how a system's operation or output can be represented and understood; interpretability concerns the meaning of that output in the context of the intended purpose.</p></details>
+<details class="xai-card"><summary><strong>SHAP vs LIME: which should we use?</strong></summary><p>Both are post-hoc attribution approaches. Neither is automatically better; assess fidelity, stability, robustness and usefulness for the model and use case.</p></details>
+<details class="xai-card"><summary><strong>Does feature attribution prove why a model decided something?</strong></summary><p>No. Attribution describes relationships between model output and inputs; it does not establish real-world causation, and post-hoc explanations can be approximations.</p></details>
+<details class="xai-card"><summary><strong>What evidence should we keep?</strong></summary><p>Use-case purpose, model/version, data provenance and limitations, explanation method/configuration, validation results, human review records and monitoring or incident evidence.</p></details>
+<details class="xai-card"><summary><strong>Can every AI model be fully explained?</strong></summary><p>No. The practical objective is proportionate, testable and auditable explanation suited to the use case, rather than a promise of complete transparency.</p></details>
+</div>
+</section>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Is explainable AI legally required?","acceptedAnswer":{"@type":"Answer","text":"Not universally. The required depth depends on jurisdiction, applicable law or regulation, use case, impact, contractual requirements and institutional risk appetite."}},
+{"@type":"Question","name":"What is the difference between explainability and interpretability?","acceptedAnswer":{"@type":"Answer","text":"Explainability concerns how a system's operation or output can be represented and understood; interpretability concerns the meaning of that output in the context of the intended purpose."}},
+{"@type":"Question","name":"SHAP vs LIME: which should we use?","acceptedAnswer":{"@type":"Answer","text":"Both are post-hoc attribution approaches. Neither is automatically better; assess fidelity, stability, robustness and usefulness for the model and use case."}},
+{"@type":"Question","name":"Does feature attribution prove why a model decided something?","acceptedAnswer":{"@type":"Answer","text":"No. Attribution describes relationships between model output and inputs; it does not establish real-world causation, and post-hoc explanations can be approximations."}},
+{"@type":"Question","name":"What evidence should we keep?","acceptedAnswer":{"@type":"Answer","text":"Use-case purpose, model/version, data provenance and limitations, explanation method/configuration, validation results, human review records and monitoring or incident evidence."}},
+{"@type":"Question","name":"Can every AI model be fully explained?","acceptedAnswer":{"@type":"Answer","text":"No. The practical objective is proportionate, testable and auditable explanation suited to the use case, rather than a promise of complete transparency."}}
+]}
+</script>
+<section class="xai-section">
     <h2>RegTech Nexus AI approach</h2>
     <p>For regulated use cases, XAI should support the chain <strong>REGULATORY REQUIREMENT → USE CASE → RISK → EXPLANATION → HUMAN CHALLENGE → EVIDENCE → ASSURANCE</strong>. The objective is not to promise that every AI model can be made fully transparent; it is to establish proportionate, testable and auditable explanation practices.</p>
     <p><strong>Practical assurance question:</strong> if an auditor, supervisor, model-risk reviewer or affected decision-maker cannot understand what the system was intended to do, what materially influenced the output, what uncertainty or limitation existed, and who reviewed the outcome, the XAI control environment may be insufficient for the use case.</p>
@@ -309,7 +331,8 @@
       <li><a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener noreferrer">European Commission — AI Act</a></li>
       <li><a href="https://www.iso.org/standard/42001" target="_blank" rel="noopener noreferrer">ISO — ISO/IEC 42001:2023</a></li>
     </ul>
-    <p class="xai-footer-note">This page is an educational and professional decision-support resource. It is not legal advice, a regulatory determination, a model validation opinion or an assurance conclusion. Applicable requirements should be verified against the authoritative source and the institution's specific jurisdiction, role and use case.</p>
+    <section class="xai-experience" id="xai-cta"><h2>Putting explainability into practice?</h2><p>Explore practical XAI governance, evidence and control-testing approaches for regulated environments.</p><a class="nav-cta" href="contact.html">Book a discussion ↗</a> <a class="xai-nav a" href="frameworks-toolkit.html">Explore frameworks &amp; toolkits ↗</a></section>
+<p class="xai-footer-note">This page is an educational and professional decision-support resource. It is not legal advice, a regulatory determination, a model validation opinion or an assurance conclusion. Applicable requirements should be verified against the authoritative source and the institution's specific jurisdiction, role and use case.</p>
   </section>
 </div>
 </main>
@@ -331,12 +354,15 @@
   const exp=document.getElementById('xaiExplanation'), review=document.getElementById('xaiReview');
   function update(){
     const a=+amount.value, f=+freq.value;
-    const risk=Math.max(20,Math.min(96,Math.round(31+(a*.30)+(f*.29))));
-    const va=Math.max(4,Math.round(a*.24)), vf=Math.max(5,Math.round(f*.29));
+    const va=Math.max(0,Math.round(24 + (f-82)*0.29));
+    const amountContribution=Math.max(0,Math.round(15 + (a-70)*0.24));
+    const risk=Math.max(20,Math.min(96,14+va+18+amountContribution+7));
+    const vf=va;
     score.textContent=risk+'/100'; amountOut.value=a; freqOut.value=f;
-    dA.textContent='+'+va; dV.textContent='+'+vf;
-    bA.style.width=Math.min(100,va*3.2)+'%'; bV.style.width=Math.min(100,vf*3.1)+'%';
+    dA.textContent='+'+amountContribution; dV.textContent='+'+vf;
+    bA.style.width=Math.min(100,amountContribution*3.2)+'%'; bV.style.width=Math.min(100,vf*3.1)+'%';
     review.textContent=risk>=65?'Manual review required':risk>=45?'Analyst review recommended':'Illustrative low-risk signal';
+    const cfFreq=50; const cfV=Math.max(0,Math.round(24+(cfFreq-82)*0.29)); const cfRisk=Math.max(20,Math.min(96,14+cfV+18+amountContribution+7)); document.getElementById('xaiCounterfactual').textContent='If transaction frequency were about 50 instead of '+f+', the illustrative risk signal would fall to roughly '+cfRisk+'/100.';
     exp.textContent=risk>=65
       ? 'The illustrative signal is driven mainly by transaction velocity and amount deviation relative to the configured reference pattern.'
       : risk>=45
