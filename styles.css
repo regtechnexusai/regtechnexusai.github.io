@@ -1129,3 +1129,220 @@ body.calculator-page .footer-brand .brand-logo,
 @media(max-width:1180px){
   .desktop-side-tools{display:none}
 }
+
+
+/* =========================================================
+   2026-10-04 DESKTOP POLISH — additive visual/readability layer
+   Preserve existing content/functionality; improve spacing, rails,
+   section boundaries, cards, tables and desktop whitespace.
+========================================================= */
+
+/* Desktop quick-access: move the six-left/six-right rails UP
+   into a horizontal, non-overlapping navigation band. */
+.desktop-side-tools{
+  position:sticky;
+  top:78px;
+  z-index:9;
+  display:flex;
+  align-items:stretch;
+  justify-content:space-between;
+  gap:14px;
+  width:100%;
+  box-sizing:border-box;
+  padding:8px 5vw;
+  margin:0;
+  background:rgba(247,251,253,.97);
+  border-bottom:1px solid #d9e4eb;
+  box-shadow:0 5px 16px rgba(16,43,73,.08);
+  backdrop-filter:blur(12px);
+}
+.desktop-side-tools__rail{
+  position:static;
+  transform:none;
+  display:flex;
+  flex:1 1 50%;
+  min-width:0;
+  flex-direction:row;
+  align-items:stretch;
+  gap:8px;
+  width:auto;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-x:contain;
+  touch-action:pan-x;
+  padding:2px 1px 5px;
+}
+.desktop-side-tools__rail::-webkit-scrollbar{display:none}
+.desktop-side-tools__rail--right{justify-content:flex-end}
+.desktop-side-tools__rail a{
+  flex:0 0 118px;
+  width:118px;
+  min-height:56px;
+  padding:6px 7px;
+  border-radius:13px;
+  gap:4px;
+  box-shadow:0 4px 10px rgba(16,43,73,.08),inset 0 1px 0 rgba(255,255,255,.95);
+}
+.desktop-side-tools__rail a:hover{transform:translateY(-1px)}
+.desktop-side-tools__rail .tool-icon{
+  flex:0 0 27px;
+  width:27px;
+  height:27px;
+  border-radius:9px;
+  font-size:8px;
+}
+.desktop-side-tools__rail b{font-size:9.5px;line-height:1.1}
+
+/* Clear visual section starts/ends. */
+.section,.thinking,.responsible,.closing,.capabilities,.authority-section,
+.global-systems-home,.icms-home-callout,.assistant-panel{
+  scroll-margin-top:92px;
+}
+.section:not(.dark),.thinking,.responsible,.closing{
+  border-top:1px solid #e4edf2;
+  border-bottom:1px solid #e4edf2;
+}
+.section:not(.dark)::after,.thinking::after,.responsible::after,.closing::after{
+  opacity:.32;
+}
+
+/* Architecture-style colorful cards for the general site. */
+.capabilities article,
+.article-grid article,
+.knowledge-list a,
+.global-systems-mini-grid a,
+.icms-home-callout,
+.global-systems-home,
+.assistant-panel,
+.responsible>div,
+.authority-section>div{
+  border-radius:18px;
+}
+.capabilities article{
+  border:1px solid #dce6ee;
+  border-top:5px solid #2f80ed;
+  background:#fff;
+  box-shadow:0 9px 24px rgba(16,39,64,.07);
+  margin:0 7px;
+  min-height:300px;
+}
+.capabilities article:nth-child(2){border-top-color:#d9468f}
+.capabilities article:nth-child(3){border-top-color:#10a37f}
+.capabilities article:nth-child(4){border-top-color:#7c5ce6}
+.capabilities article:last-child{border-right:1px solid #dce6ee}
+
+.article-grid{background:transparent;gap:14px}
+.article-grid article{
+  border:1px solid #dce6ee;
+  border-top:5px solid #2f80ed;
+  box-shadow:0 9px 24px rgba(16,39,64,.06);
+  min-height:290px;
+}
+.article-grid article:nth-child(2){border-top-color:#d9468f}
+.article-grid article:nth-child(3){border-top-color:#10a37f}
+
+.knowledge-list a{
+  padding:20px 22px;
+  margin:8px 0;
+  border:1px solid #dce6ee;
+  background:#fff;
+  box-shadow:0 7px 18px rgba(16,39,64,.05);
+}
+.knowledge-list a:nth-child(3n+1){border-left:5px solid #2f80ed}
+.knowledge-list a:nth-child(3n+2){border-left:5px solid #d9468f}
+.knowledge-list a:nth-child(3n){border-left:5px solid #10a37f}
+
+/* Fill large desktop dead zones without adding intrusive content. */
+.hero{min-height:650px}
+.hero::after{background:
+  radial-gradient(circle at 82% 26%,rgba(47,128,237,.08),transparent 20%),
+  radial-gradient(circle at 18% 78%,rgba(16,163,127,.07),transparent 18%);opacity:.8}
+.intro{min-height:360px;align-items:center}
+.authority-section{
+  padding:96px 8vw;
+  display:grid;
+  grid-template-columns:1fr 1.15fr;
+  gap:7vw;
+  border-top:1px solid #dfe8ed;
+  border-bottom:1px solid #dfe8ed;
+  background:linear-gradient(135deg,#f7fbfd,#fff 58%,#f8f3ff);
+}
+.authority-section>div:first-child{padding:26px}
+.authority-copy{
+  background:#fff;
+  border:1px solid #dce6ee;
+  padding:30px 34px;
+  box-shadow:0 12px 30px rgba(16,39,64,.07);
+}
+.authority-copy p{line-height:1.75;color:#526171}
+.authority-note{
+  border-left:4px solid #7c5ce6;
+  background:#f7f3ff;
+  padding:14px 16px;
+  border-radius:10px;
+}
+
+/* Tables: make them visually navigable like the Student Hub. */
+table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  border:1px solid #dce6ee;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 8px 22px rgba(16,39,64,.06);
+  background:#fff;
+}
+thead th{
+  background:linear-gradient(135deg,#eef6ff,#f5f0ff);
+  color:#20324b;
+  font-weight:900;
+  border-bottom:2px solid #dce6ee;
+}
+th,td{padding:12px 14px;border-bottom:1px solid #e7eef2}
+tbody tr:nth-child(even){background:#fbfdff}
+tbody tr:last-child td{border-bottom:0}
+@media(max-width:1180px){
+  .desktop-side-tools{
+    position:relative;
+    top:auto;
+    padding:7px 3vw;
+  }
+  .desktop-side-tools__rail{flex-basis:50%}
+}
+@media(max-width:760px){
+  .desktop-side-tools{display:none}
+}
+@media(min-width:761px) and (max-width:1050px){
+  .desktop-side-tools__rail a{flex-basis:108px;width:108px}
+}
+@media(max-width:900px){
+  .authority-section{grid-template-columns:1fr;padding-left:6vw;padding-right:6vw}
+  .capabilities{grid-template-columns:1fr 1fr}
+  .capabilities article{margin:0}
+}
+@media(max-width:560px){
+  .authority-section{padding:58px 6vw}
+  .authority-copy{padding:24px 20px}
+  .capabilities article{margin:0;min-height:260px}
+}
+
+/* Static visual block for content-rich pages; no live feed/video. */
+.static-visual-card{
+  max-width:1180px;
+  margin:0 auto 28px;
+  padding:18px;
+  border:1px solid #dce6ee;
+  border-radius:20px;
+  background:linear-gradient(135deg,#f7fbff,#fff,#f7f3ff);
+  box-shadow:0 12px 32px rgba(16,39,64,.07);
+}
+.static-visual-card img{
+  display:block;
+  width:100%;
+  max-height:360px;
+  object-fit:cover;
+  border-radius:14px;
+}
