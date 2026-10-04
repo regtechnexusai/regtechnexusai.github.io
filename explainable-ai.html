@@ -66,6 +66,35 @@
 .xai-source-list a{font-weight:700}
 .xai-footer-note{font-size:.86rem;color:#52677b;margin-top:28px}
 @media(max-width:800px){.xai-grid{grid-template-columns:1fr}.xai-checklist{grid-template-columns:1fr}.xai-hero{padding:55px 20px 42px}.xai-wrap{padding:0 17px 50px}.xai-table{font-size:.9rem}}
+
+.xai-experience{margin:38px 0;padding:24px;border:1px solid #cddbea;border-radius:22px;background:linear-gradient(180deg,#f8fbff,#fff)}
+.xai-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0 22px}
+.xai-flow div{padding:15px;border-radius:12px;background:#fff;border:1px solid #d8e2ec;text-align:center;font-weight:800}
+.xai-demo{display:grid;grid-template-columns:1.05fr 1fr;gap:18px}
+.xai-panel{border:1px solid #d8e2ec;border-radius:17px;padding:20px;background:#fff}
+.xai-panel h3{margin:0 0 12px}
+.xai-metric{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #edf1f5}
+.xai-metric:last-child{border-bottom:0}
+.xai-score{font-size:2.6rem;font-weight:900;line-height:1;color:#0956a8}
+.xai-driver{margin:13px 0}
+.xai-driver-top{display:flex;justify-content:space-between;font-weight:750;font-size:.92rem}
+.xai-bar{height:10px;background:#e8eef5;border-radius:99px;overflow:hidden;margin-top:6px}
+.xai-bar i{display:block;height:100%;background:linear-gradient(90deg,#0956a8,#18a6b8);border-radius:99px}
+.xai-demo-controls{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:16px}
+.xai-demo-controls label{font-weight:750;font-size:.9rem}
+.xai-demo-controls input{width:100%;accent-color:#0956a8}
+.xai-whatif{margin-top:18px;padding:15px;border-radius:13px;background:#eef6ff}
+.xai-status{display:inline-flex;padding:7px 10px;border-radius:999px;background:#fff4dc;color:#7a4d00;font-weight:800;font-size:.8rem}
+.xai-layer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.xai-layer{border:1px solid #d8e2ec;border-radius:15px;padding:18px;background:#fff}
+.xai-layer .tag{font-size:.72rem;font-weight:900;letter-spacing:.08em;color:#0956a8}
+.xai-evidence{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:15px}
+.xai-evidence div{padding:12px;border:1px solid #dbe4ed;border-radius:10px;background:#f9fbfd}
+.xai-evidence b{display:block;font-size:.75rem;color:#52677b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
+.xai-use-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.xai-use{padding:16px;border:1px solid #dbe4ed;border-radius:14px;background:#fff}
+.xai-use strong{display:block;margin-bottom:6px}
+@media(max-width:800px){.xai-flow,.xai-demo,.xai-layer-grid,.xai-use-grid{grid-template-columns:1fr}.xai-demo-controls,.xai-evidence{grid-template-columns:1fr}}
 </style>
 </head>
 <body class="article-page">
@@ -103,7 +132,91 @@
     <a href="#what">What XAI means</a><a href="#methods">Methods</a><a href="#controls">Control model</a><a href="#testing">Testing</a><a href="#evidence">Evidence</a><a href="#regulatory">Regulatory context</a>
   </nav>
 
-  <section class="xai-section" id="what">
+  
+<section class="xai-experience" id="xai-demo" aria-labelledby="xai-demo-title">
+  <div class="xai-number">INTERACTIVE XAI EXPERIENCE</div>
+  <h2 id="xai-demo-title">See the decision. Understand the drivers. Challenge the result.</h2>
+  <p>This synthetic demonstration shows how an explainability layer can connect an AI signal to a human-review workflow. It is illustrative only—not a real banking, credit, AML or customer decision.</p>
+  <div class="xai-flow" aria-label="XAI workflow">
+    <div>01 · Input</div><div>02 · Model signal</div><div>03 · Explanation</div><div>04 · Human review</div>
+  </div>
+  <div class="xai-demo">
+    <div class="xai-panel">
+      <h3>Illustrative transaction-risk output</h3>
+      <div class="xai-metric"><span>Risk signal</span><strong class="xai-score" id="xaiScore">78/100</strong></div>
+      <div class="xai-metric"><span>Explanation status</span><span class="xai-status">High — illustrative</span></div>
+      <div class="xai-metric"><span>Review status</span><strong id="xaiReview">Manual review required</strong></div>
+      <div class="xai-metric"><span>Model</span><strong>XAI-Demo v1.0</strong></div>
+      <div class="xai-metric"><span>Decision ID</span><strong>XAI-DEMO-001</strong></div>
+      <div class="xai-demo-controls">
+        <label>Transaction amount
+          <input id="xaiAmount" type="range" min="20" max="100" value="70" aria-label="Illustrative transaction amount">
+          <output id="xaiAmountOut">70</output>
+        </label>
+        <label>Transaction frequency
+          <input id="xaiFrequency" type="range" min="20" max="100" value="82" aria-label="Illustrative transaction frequency">
+          <output id="xaiFrequencyOut">82</output>
+        </label>
+      </div>
+    </div>
+    <div class="xai-panel">
+      <h3>Why was this signal generated?</h3>
+      <div class="xai-driver"><div class="xai-driver-top"><span>Transaction velocity</span><span id="driverVelocity">+24</span></div><div class="xai-bar"><i id="barVelocity" style="width:82%"></i></div></div>
+      <div class="xai-driver"><div class="xai-driver-top"><span>Country-risk signal</span><span>+18</span></div><div class="xai-bar"><i style="width:61%"></i></div></div>
+      <div class="xai-driver"><div class="xai-driver-top"><span>Amount deviation</span><span id="driverAmount">+15</span></div><div class="xai-bar"><i id="barAmount" style="width:52%"></i></div></div>
+      <div class="xai-driver"><div class="xai-driver-top"><span>Customer history</span><span>+7</span></div><div class="xai-bar"><i style="width:24%"></i></div></div>
+      <div class="xai-whatif"><strong>Plain-language explanation</strong><p id="xaiExplanation">The transaction was flagged primarily because transaction velocity and amount deviation were materially above the configured illustrative reference pattern.</p><small>Attribution signals help explain the output; they are not presented as proof of causation.</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="xai-section" id="layers">
+  <h2>One decision, three explanation layers</h2>
+  <p>Progressive disclosure lets different audiences reach the level of detail appropriate to their role without hiding the underlying evidence.</p>
+  <div class="xai-layer-grid">
+    <article class="xai-layer"><div class="tag">LEVEL 1 · EXECUTIVE</div><h3>Plain-language “Why?”</h3><p>What happened, why it matters and what action is expected—without unnecessary model jargon.</p></article>
+    <article class="xai-layer"><div class="tag">LEVEL 2 · RISK &amp; COMPLIANCE</div><h3>Control-relevant detail</h3><p>Key drivers, thresholds, context, uncertainty, review status and challenge/escalation route.</p></article>
+    <article class="xai-layer"><div class="tag">LEVEL 3 · TECHNICAL</div><h3>Reproducible evidence</h3><p>Model/version, attribution method, feature context, lineage, timestamp, stability/fidelity testing and decision ID.</p></article>
+  </div>
+</section>
+
+<section class="xai-section" id="human-review">
+  <h2>Human-in-the-loop: AI explains, a qualified human decides</h2>
+  <div class="xai-grid">
+    <article class="xai-card"><div class="xai-number">APPROVE</div><h3>Accept with evidence</h3><p>Reviewer confirms the explanation, context and applicable control requirements are adequate.</p></article>
+    <article class="xai-card"><div class="xai-number">CHALLENGE</div><h3>Question the result</h3><p>Reviewer can challenge the explanation, request supporting evidence or identify a potential model/data issue.</p></article>
+    <article class="xai-card"><div class="xai-number">ESCALATE</div><h3>Route the exception</h3><p>Material uncertainty, suspected bias, control failure or high-impact exception moves to the defined escalation path.</p></article>
+  </div>
+</section>
+
+<section class="xai-section" id="use-cases">
+  <h2>Where XAI can support regulated use cases</h2>
+  <div class="xai-use-grid">
+    <div class="xai-use"><strong>AML/CFT</strong><span>Explain material risk signals while preserving investigator judgement and evidence requirements.</span></div>
+    <div class="xai-use"><strong>TBML</strong><span>Make relevant transaction and trade-risk signals reviewable without presenting an automated conclusion as fact.</span></div>
+    <div class="xai-use"><strong>Fraud detection</strong><span>Surface contributing signals so analysts can validate, challenge and document action.</span></div>
+    <div class="xai-use"><strong>Credit &amp; risk</strong><span>Support decision review with appropriate feature, uncertainty and counterfactual context.</span></div>
+    <div class="xai-use"><strong>Transaction monitoring</strong><span>Connect alerts to explainable signals, thresholds and reviewer evidence.</span></div>
+    <div class="xai-use"><strong>AI governance</strong><span>Support model documentation, testing, oversight, monitoring and audit reconstruction.</span></div>
+  </div>
+</section>
+
+<section class="xai-section" id="audit-evidence">
+  <h2>Audit evidence panel</h2>
+  <p>An XAI interface becomes materially more useful for regulated environments when the explanation can be tied to reconstructable evidence.</p>
+  <div class="xai-evidence">
+    <div><b>Decision ID</b>XAI-DEMO-001</div>
+    <div><b>Model</b>XAI-Demo v1.0</div>
+    <div><b>Input class</b>Synthetic transaction</div>
+    <div><b>Explanation method</b>Illustrative feature attribution</div>
+    <div><b>Human review</b>Required</div>
+    <div><b>Override</b>Not applied</div>
+    <div><b>Evidence status</b>Complete — illustrative</div>
+    <div><b>Purpose</b>Learning / control demonstration</div>
+  </div>
+</section>
+
+<section class="xai-section" id="what">
     <h2>What is Explainable AI?</h2>
     <p>Explainability concerns how an AI system's operation or output can be represented and understood; interpretability concerns the meaning of that output in the context of the system's intended purpose. NIST treats explainability and interpretability as distinct but related trustworthiness characteristics and notes that explanations can support monitoring, documentation, audit and governance.</p>
     <div class="xai-callout"><strong>Regulated-industry principle:</strong> an explanation is useful only when its audience, purpose, timing and limitations are clear. A visually persuasive explanation is not automatically a faithful explanation of model behaviour.</div>
@@ -208,6 +321,31 @@
   <p class="footer-note">Research and digital tools support professional analysis. Review findings against evidence and applicable requirements.</p>
   <div class="legal"><span>© 2026 RegTech Nexus AI</span><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="contact.html">Contact</a></div>
 </footer>
+
+<script>
+(function(){
+  const amount=document.getElementById('xaiAmount'), freq=document.getElementById('xaiFrequency');
+  if(!amount||!freq)return;
+  const score=document.getElementById('xaiScore'), amountOut=document.getElementById('xaiAmountOut'), freqOut=document.getElementById('xaiFrequencyOut');
+  const dA=document.getElementById('driverAmount'), dV=document.getElementById('driverVelocity'), bA=document.getElementById('barAmount'), bV=document.getElementById('barVelocity');
+  const exp=document.getElementById('xaiExplanation'), review=document.getElementById('xaiReview');
+  function update(){
+    const a=+amount.value, f=+freq.value;
+    const risk=Math.max(20,Math.min(96,Math.round(31+(a*.30)+(f*.29))));
+    const va=Math.max(4,Math.round(a*.24)), vf=Math.max(5,Math.round(f*.29));
+    score.textContent=risk+'/100'; amountOut.value=a; freqOut.value=f;
+    dA.textContent='+'+va; dV.textContent='+'+vf;
+    bA.style.width=Math.min(100,va*3.2)+'%'; bV.style.width=Math.min(100,vf*3.1)+'%';
+    review.textContent=risk>=65?'Manual review required':risk>=45?'Analyst review recommended':'Illustrative low-risk signal';
+    exp.textContent=risk>=65
+      ? 'The illustrative signal is driven mainly by transaction velocity and amount deviation relative to the configured reference pattern.'
+      : risk>=45
+      ? 'The illustrative signal is moderate; the main drivers should be reviewed in context before any action is taken.'
+      : 'The illustrative signal is lower under these inputs, but the result still requires context and should not be treated as a real-world decision.';
+  }
+  amount.addEventListener('input',update); freq.addEventListener('input',update); update();
+})();
+</script>
 <script src="script.js" defer></script>
 <script src="site-email.js?v=20260928-email-routing" defer></script>
 </body>
