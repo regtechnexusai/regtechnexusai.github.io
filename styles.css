@@ -1654,3 +1654,90 @@ tbody tr:last-child td{border-bottom:0}
 @media(prefers-reduced-motion:reduce){
   .desktop-side-tools__rail a{transition:none}
 }
+
+
+
+/* =========================================================
+   2026-10-04 FINAL HOMEPAGE OVERRIDES
+   Definitive cascade for compact multicolor desktop quick-access
+   and controlled homepage branding. Additive; content/links preserved.
+========================================================= */
+@media (min-width:1181px){
+  .desktop-side-tools__rail{
+    display:flex !important;
+    flex-direction:row !important;
+    width:100% !important;
+    flex:0 0 100% !important;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+    gap:7px !important;
+  }
+  .desktop-side-tools__rail > a{
+    flex:0 0 auto !important;
+    min-height:40px !important;
+    height:40px !important;
+    padding:7px 13px !important;
+    border-radius:9px !important;
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    white-space:nowrap !important;
+    box-shadow:0 2px 7px rgba(16,43,73,.07) !important;
+    font-weight:800 !important;
+  }
+  .desktop-side-tools__rail > a:nth-child(1){background:#eefaf6 !important;border-color:#bfe9dd !important;color:#087e68 !important}
+  .desktop-side-tools__rail > a:nth-child(2){background:#f5f0ff !important;border-color:#d9c9f3 !important;color:#7047ad !important}
+  .desktop-side-tools__rail > a:nth-child(3){background:#fff1ed !important;border-color:#f3c9bd !important;color:#bd563d !important}
+  .desktop-side-tools__rail > a:nth-child(4){background:#fff0f7 !important;border-color:#f0bfdc !important;color:#b42f83 !important}
+  .desktop-side-tools__rail > a:nth-child(5){background:#fff8e8 !important;border-color:#f0d69a !important;color:#9b6c10 !important}
+  .desktop-side-tools__rail > a:nth-child(6){background:#ecfaff !important;border-color:#bce8ef !important;color:#087d91 !important}
+  .desktop-side-tools__rail > a:nth-child(7){background:#eef6ff !important;border-color:#c4ddf8 !important;color:#166bc0 !important}
+  .desktop-side-tools__rail > a:nth-child(8){background:#fff5e9 !important;border-color:#f1d2b0 !important;color:#b85d13 !important}
+  .desktop-side-tools__rail > a:nth-child(9){background:#ecfbf7 !important;border-color:#bfe9df !important;color:#0c8b7a !important}
+  .desktop-side-tools__rail > a:nth-child(10){background:#edf4ff !important;border-color:#c5d8f4 !important;color:#2364c4 !important}
+  .desktop-side-tools__rail > a:nth-child(11){background:#f2f0ff !important;border-color:#d6cff1 !important;color:#5f58b5 !important}
+  .desktop-side-tools__rail > a:nth-child(12){background:#fff0f8 !important;border-color:#f0c3df !important;color:#b42f83 !important}
+  .desktop-side-tools__rail > a > b{
+    color:inherit !important;
+    font-size:11px !important;
+    line-height:1 !important;
+    font-weight:800 !important;
+  }
+}
+
+/* Header logo: keep the actual brand mark compact; do not alter footer branding. */
+.nav .brand-logo{
+  width:140px !important;
+  max-width:140px !important;
+  height:auto !important;
+  max-height:46px !important;
+  object-fit:contain !important;
+}
+
+/* No standalone logo card on the homepage. If an old cached/template
+   block is present, suppress it rather than allowing a giant logo. */
+.static-visual-card{
+  display:none !important;
+}
+.static-visual-card img{
+  max-height:0 !important;
+  height:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  opacity:0 !important;
+}
+
+/* Keep the intended regulatory visual restrained rather than logo-like. */
+.hero-visual img{
+  width:min(100%,560px) !important;
+  max-height:400px !important;
+  object-fit:contain !important;
+}
+
+@media(max-width:760px){
+  .nav .brand-logo{
+    width:128px !important;
+    max-width:128px !important;
+    max-height:43px !important;
+  }
+}
