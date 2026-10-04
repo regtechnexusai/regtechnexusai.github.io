@@ -123,6 +123,20 @@ footer .legal{margin-top:8px!important;padding-top:14px!important;font-size:11px
 .desktop-side-tools__rail--left{left:10px!important;right:auto!important}
 .desktop-side-tools__rail--right{right:10px!important;left:auto!important}
 .desktop-side-tools__rail>a{display:flex!important;flex:initial!important;width:100%!important;min-height:62px!important;height:auto!important;box-sizing:border-box!important;padding:7px 7px 8px!important;border-radius:12px!important;white-space:normal!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:5px!important;text-align:center!important;transition:transform .2s ease,box-shadow .2s ease!important}
+/* Initial viewport stabilization: reserve the header zone and center the full rail
+   within the visible page area without relying on translateY(-50%). */
+@media (min-width:1181px){
+  .desktop-side-tools__rail{
+    top:92px!important;
+    bottom:24px!important;
+    height:auto!important;
+    max-height:calc(100vh - 116px)!important;
+    transform:none!important;
+    justify-content:center!important;
+    overflow:visible!important;
+  }
+}
+
 /* Keep the rails vertically stable: hover movement is horizontal only. */
 .desktop-side-tools__rail>a:hover,.desktop-side-tools__rail>a:focus-visible{transform:translateX(5px)!important;box-shadow:0 6px 0 rgba(27,50,74,.10),0 12px 20px rgba(27,50,74,.13),inset 0 1px 0 rgba(255,255,255,.96)!important}
 .desktop-side-tools__rail--right>a:hover,.desktop-side-tools__rail--right>a:focus-visible{transform:translateX(-5px)!important}
