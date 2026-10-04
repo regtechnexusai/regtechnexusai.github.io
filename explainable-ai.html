@@ -54,9 +54,14 @@
 .xai-card h3{margin:0 0 9px;font-size:1.08rem}
 .xai-card p{margin:0;line-height:1.62;color:#33485d}
 .xai-number{font-weight:900;color:#0956a8;font-size:.82rem;letter-spacing:.08em;margin-bottom:8px}
-.xai-table{width:100%;border-collapse:collapse;margin-top:18px;background:#fff;border:1px solid #dbe4ed}
+.xai-table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:18px;border:1px solid #dbe4ed;border-radius:12px;background:#fff}
+.xai-table{width:100%;min-width:680px;border-collapse:collapse;margin:0;background:#fff}
 .xai-table th,.xai-table td{padding:13px 14px;border:1px solid #dbe4ed;text-align:left;vertical-align:top;line-height:1.55}
-.xai-table th{background:#eef5fb}
+.xai-table th{background:#eef5fb;position:sticky;top:0;z-index:1}
+.xai-table-wrap:focus-within{outline:3px solid rgba(9,86,168,.22);outline-offset:2px}
+.xai-table-hint{display:none;font-size:.8rem;color:#52677b;margin:7px 2px 0}
+.xai-control-link{display:inline-flex;align-items:center;gap:6px;margin-top:16px;padding:9px 12px;border:1px solid #c8d9e8;border-radius:10px;background:#f7fbff;text-decoration:none;font-weight:800;color:#0956a8}
+.xai-control-link:hover{background:#eef6ff}
 .xai-callout{border-left:5px solid #0956a8;background:#eef6ff;padding:18px 20px;border-radius:10px;margin:20px 0;line-height:1.65}
 .xai-risk{border-left-color:#b56b00;background:#fff7e8}
 .xai-checklist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:0;list-style:none}
@@ -65,7 +70,7 @@
 .xai-source-list{padding-left:20px;line-height:1.8}
 .xai-source-list a{font-weight:700}
 .xai-footer-note{font-size:.86rem;color:#52677b;margin-top:28px}
-@media(max-width:800px){.xai-grid{grid-template-columns:1fr}.xai-checklist{grid-template-columns:1fr}.xai-hero{padding:55px 20px 42px}.xai-wrap{padding:0 17px 50px}.xai-table{font-size:.9rem}}
+@media(max-width:800px){.xai-grid{grid-template-columns:1fr}.xai-checklist{grid-template-columns:1fr}.xai-hero{padding:55px 20px 42px}.xai-wrap{padding:0 17px 50px}.xai-table{font-size:.9rem}.xai-table-wrap{overflow-x:auto}.xai-table-hint{display:block}.xai-nav{gap:8px}.xai-nav a{padding:9px 11px;font-size:.88rem}}
 
 .xai-experience{margin:38px 0;padding:24px;border:1px solid #cddbea;border-radius:22px;background:linear-gradient(180deg,#f8fbff,#fff)}
 .xai-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0 22px}
@@ -229,7 +234,7 @@
 
   <section class="xai-section" id="methods">
     <h2>XAI methods: choose for the use case</h2>
-    <table class="xai-table">
+    <div class="xai-table-wrap" tabindex="0" role="region" aria-label="XAI methods comparison table"><table class="xai-table">
       <thead><tr><th>Approach</th><th>Typical use</th><th>Control consideration</th></tr></thead>
       <tbody>
         <tr><td>Intrinsic interpretability</td><td>Rules, scorecards, constrained or simpler models</td><td>Often easier to document and challenge, but may trade off predictive performance or flexibility.</td></tr>
@@ -238,7 +243,8 @@
         <tr><td>Example / case-based explanation</td><td>Nearest or representative examples</td><td>Assess similarity quality, privacy, data leakage and whether the examples are genuinely relevant.</td></tr>
         <tr><td>Global model explanation</td><td>Overall behaviour and important patterns</td><td>Useful for governance and model review, but should not be substituted for case-level evidence where individual decisions matter.</td></tr>
       </tbody>
-    </table>
+    </table></div>
+    <p class="xai-table-hint">On smaller screens, swipe horizontally to view all columns.</p>
     <div class="xai-callout xai-risk"><strong>Important:</strong> post-hoc explanations can be approximations. Validate explanation fidelity and stability rather than assuming that an explanation method reveals the model's true causal reasoning.</div>
   </section>
 
@@ -252,6 +258,10 @@
       <article class="xai-card"><div class="xai-number">MANAGE</div><h3>Exception &amp; remediation</h3><p>Define thresholds, escalation, override, rollback, incident handling and change-management requirements.</p></article>
       <article class="xai-card"><div class="xai-number">AUDIT</div><h3>Reconstructability</h3><p>Preserve model/version, input snapshot where permitted, explanation output, reviewer action, approval and material evidence.</p></article>
       <article class="xai-card"><div class="xai-number">MONITOR</div><h3>Post-deployment assurance</h3><p>Monitor drift, data changes, explanation instability, override patterns, performance deterioration and emerging failure modes.</p></article>
+    </div>
+    <div class="xai-callout">
+      <strong>Control-testing bridge:</strong> use the synthetic XAI experience above to vary transaction inputs, observe how the illustrative signal changes, and then review the explanation and human-review implications.
+      <a class="xai-control-link" href="#xai-demo">Open the interactive XAI demonstration ↗</a>
     </div>
   </section>
 
@@ -273,7 +283,7 @@
 
   <section class="xai-section" id="evidence">
     <h2>Minimum XAI evidence pack</h2>
-    <table class="xai-table">
+    <div class="xai-table-wrap" tabindex="0" role="region" aria-label="Minimum XAI evidence pack table"><table class="xai-table">
       <thead><tr><th>Evidence</th><th>Why it matters</th></tr></thead>
       <tbody>
         <tr><td>Use-case statement &amp; decision purpose</td><td>Defines scope and prevents explanations being detached from the actual decision.</td></tr>
@@ -284,7 +294,8 @@
         <tr><td>Human review, challenge and approval record</td><td>Demonstrates accountable human oversight for consequential use cases.</td></tr>
         <tr><td>Monitoring, incidents and remediation</td><td>Shows that explainability is maintained through the AI lifecycle.</td></tr>
       </tbody>
-    </table>
+    </table></div>
+    <p class="xai-table-hint">On smaller screens, swipe horizontally to view all columns.</p>
   </section>
 
   <section class="xai-section" id="regulatory">
@@ -331,7 +342,7 @@
       <li><a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener noreferrer">European Commission — AI Act</a></li>
       <li><a href="https://www.iso.org/standard/42001" target="_blank" rel="noopener noreferrer">ISO — ISO/IEC 42001:2023</a></li>
     </ul>
-    <section class="xai-experience" id="xai-cta"><h2>Putting explainability into practice?</h2><p>Explore practical XAI governance, evidence and control-testing approaches for regulated environments.</p><a class="nav-cta" href="contact.html">Book a discussion ↗</a> <a class="xai-nav a" href="frameworks-toolkit.html">Explore frameworks &amp; toolkits ↗</a></section>
+    <section class="xai-experience" id="xai-cta"><h2>Putting explainability into practice?</h2><p>Explore practical XAI governance, evidence and control-testing approaches for regulated environments.</p><a class="nav-cta" href="contact.html">Book a discussion ↗</a> <a class="xai-control-link" href="frameworks-toolkit.html">Explore frameworks &amp; toolkits ↗</a></section>
 <p class="xai-footer-note">This page is an educational and professional decision-support resource. It is not legal advice, a regulatory determination, a model validation opinion or an assurance conclusion. Applicable requirements should be verified against the authoritative source and the institution's specific jurisdiction, role and use case.</p>
   </section>
 </div>
