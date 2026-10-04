@@ -69,3 +69,48 @@
 main .dark{background:#f7fafb!important;color:#17263d!important}
 @media(max-width:900px){.platform-pathways{grid-template-columns:1fr!important;gap:28px!important;padding:62px 6vw!important}.platform-pathways__grid{grid-template-columns:1fr!important}}
 @media(max-width:560px){.platform-pathways{padding:50px 6vw!important}.platform-pathway{padding:25px!important}.platform-pathways__intro h2{font-size:38px!important}}
+
+
+/* 2026-10-04 COMPACTNESS + LIGHT SECTION PASS
+   Reduce oversized vertical blocks while preserving content and links. */
+/* Hero: bring the first screen closer to the following content. */
+.hero{padding-top:46px!important;padding-bottom:38px!important;min-height:0!important}
+.hero-grid{gap:4vw!important}
+.hero-copy h1{font-size:clamp(42px,5vw,70px)!important;line-height:1.02!important;margin-bottom:18px!important}
+.hero-copy>p{max-width:640px!important;margin-bottom:18px!important;line-height:1.58!important}
+.hero-visual img{width:min(100%,500px)!important;max-height:340px!important}
+.hero-actions{margin-bottom:22px!important}
+.signal{margin-top:12px!important}
+/* Practitioner-led authority: shorter headline and tighter visual block. */
+.authority-section{padding-top:52px!important;padding-bottom:52px!important;gap:6vw!important}
+.authority-intro h2{font-size:clamp(34px,4vw,52px)!important;line-height:1.04!important;margin-bottom:18px!important}
+.authority-visual{margin-top:18px!important;max-width:500px!important}
+.authority-visual img{max-height:290px!important}
+/* Featured solutions: keep the entire area light and visually continuous. */
+#solutions.section.dark{background:#f7fafb!important;color:#17263d!important;padding-top:62px!important;padding-bottom:62px!important}
+#solutions.section.dark .solution-grid,
+#solutions.section.dark .icms-home-callout,
+#solutions.section.dark .global-systems-home,
+#solutions.section.dark .policy-gap-home-callout{background:#fff!important;color:#17263d!important;border-color:#d9e5e9!important;box-shadow:0 6px 0 rgba(31,54,76,.055),0 14px 26px rgba(31,54,76,.065)!important}
+#solutions.section.dark .feature,#solutions.section.dark .side{background:#fff!important;color:#17263d!important}
+#solutions.section.dark h2,#solutions.section.dark h3,#solutions.section.dark h4,#solutions.section.dark p,#solutions.section.dark .tag,#solutions.section.dark .kicker{color:#17263d!important}
+#solutions.section.dark .tag{color:#087e8b!important}
+#solutions.section.dark .site-3d-btn,#solutions.section.dark .global-systems-home-cta{box-shadow:0 4px 0 rgba(27,50,74,.10),0 9px 16px rgba(27,50,74,.10),inset 0 1px 0 rgba(255,255,255,.65)!important}
+#solutions.section.dark .chips span{background:#f2f7f8!important;border-color:#d4e1e5!important;color:#425267!important}
+/* Mobile quick-access tabs: same pastel language as desktop rail, dark single-colour text. */
+.mobile-toolkit-tabs{background:#f7fafb!important;border-bottom:1px solid #dbe5e9!important}
+.mobile-toolkit-tabs .tool-tab{color:#1d2b40!important;border:1px solid #d6e2e7!important;box-shadow:0 4px 0 rgba(27,50,74,.08),0 8px 14px rgba(27,50,74,.07),inset 0 1px 0 rgba(255,255,255,.96)!important}
+.mobile-toolkit-tabs .tool-tab b,.mobile-toolkit-tabs .tool-tab span{color:#1d2b40!important}
+.mobile-toolkit-tabs .tool-tab--tradeguard{background:#eaf8f3!important}.mobile-toolkit-tabs .tool-tab--icms{background:#f1ecfb!important}.mobile-toolkit-tabs .tool-tab--bank{background:#fff0eb!important}.mobile-toolkit-tabs .tool-tab--mdceo{background:#fdebf5!important}.mobile-toolkit-tabs .tool-tab--payscale{background:#fff7df!important}.mobile-toolkit-tabs .tool-tab--global{background:#e8f8fb!important}.mobile-toolkit-tabs .tool-tab--solutions{background:#edf5ff!important}.mobile-toolkit-tabs .tool-tab--knowledge{background:#fff3e7!important}.mobile-toolkit-tabs .tool-tab--student{background:#e9f8f4!important}.mobile-toolkit-tabs .tool-tab--insights{background:#edf3ff!important}.mobile-toolkit-tabs .tool-tab--policy{background:#fdebf6!important}.mobile-toolkit-tabs .tool-tab--assistant{background:#f0effb!important}
+/* Our Approach: reduce headline footprint and section height. */
+.principles{padding-top:58px!important;padding-bottom:58px!important}
+.principles>h2{font-size:clamp(32px,4vw,50px)!important;line-height:1.04!important;margin-bottom:30px!important}
+.principle-grid{gap:18px!important}
+/* Footer: standard compact corporate proportions, without removing any links/content. */
+footer{padding:46px 7vw 24px!important;row-gap:26px!important;column-gap:36px!important}
+footer .footer-brand .brand-logo{width:170px!important;max-width:170px!important;height:auto!important;max-height:52px!important}
+footer .footer-brand p{margin-top:9px!important;font-size:11px!important;line-height:1.45!important}
+footer .footer-note{margin:4px 0 0!important;padding-top:18px!important;font-size:11px!important;line-height:1.5!important}
+footer .legal{margin-top:8px!important;padding-top:14px!important;font-size:11px!important;line-height:1.35!important}
+@media(max-width:900px){.hero{padding-top:36px!important;padding-bottom:30px!important}.hero-visual img{max-height:280px!important}.authority-section{padding-top:42px!important;padding-bottom:42px!important}.authority-visual img{max-height:240px!important}.principles{padding-top:48px!important;padding-bottom:48px!important}footer{padding:38px 6vw 22px!important}}
+@media(max-width:560px){.hero-copy h1{font-size:40px!important}.hero-visual img{max-height:230px!important}.authority-intro h2{font-size:34px!important}.principles>h2{font-size:34px!important}footer .footer-brand .brand-logo{width:150px!important;max-width:150px!important}}
