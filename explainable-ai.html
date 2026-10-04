@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Explainable AI (XAI) | RegTech Nexus AI</title>
+<meta name="description" content="Explainable AI for regulated environments: practical XAI concepts, model explanations, human oversight, evidence, auditability and control testing for banking, risk, compliance and AI governance.">
+<link rel="canonical" href="https://regtechnexusai.com/explainable-ai.html">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<meta name="author" content="RegTech Nexus AI">
+<meta name="theme-color" content="#0956a8">
+<link rel="icon" type="image/png" href="regtech-nexus-ai-logo-2026.png">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="RegTech Nexus AI">
+<meta property="og:title" content="Explainable AI (XAI) | RegTech Nexus AI">
+<meta property="og:description" content="A governance-first practical guide to explainable and interpretable AI for regulated environments.">
+<meta property="og:url" content="https://regtechnexusai.com/explainable-ai.html">
+<meta property="og:image" content="https://regtechnexusai.com/regtech-nexus-ai-logo-2026.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Explainable AI (XAI) | RegTech Nexus AI">
+<meta name="twitter:description" content="A governance-first practical guide to explainable and interpretable AI for regulated environments.">
+<meta name="twitter:image" content="https://regtechnexusai.com/regtech-nexus-ai-logo-2026.png">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Explainable AI (XAI) — From Model Output to Auditable Understanding",
+  "description":"A governance-first practical guide to explainable and interpretable AI for regulated environments.",
+  "url":"https://regtechnexusai.com/explainable-ai.html",
+  "author":{"@type":"Organization","name":"RegTech Nexus AI","url":"https://regtechnexusai.com/"},
+  "publisher":{"@type":"Organization","name":"RegTech Nexus AI","url":"https://regtechnexusai.com/"},
+  "dateModified":"2026-10-04",
+  "inLanguage":"en"
+}
+</script>
+<link rel="stylesheet" href="styles.css">
+<style>
+.xai-wrap{max-width:1180px;margin:auto;padding:0 24px 70px}
+.xai-hero{padding:76px 24px 54px;background:linear-gradient(135deg,#071b36 0%,#0956a8 55%,#0b7aa5 100%);color:#fff;border-radius:0 0 28px 28px}
+.xai-hero-inner{max-width:1180px;margin:auto}
+.xai-kicker{font-size:.78rem;letter-spacing:.16em;font-weight:800;opacity:.88;margin-bottom:16px}
+.xai-hero h1{font-size:clamp(2.3rem,5vw,4.7rem);line-height:1.02;margin:0 0 20px}
+.xai-hero h1 span{color:#bfe9ff}
+.xai-hero p{max-width:820px;font-size:1.1rem;line-height:1.7;margin:0}
+.xai-badges{display:flex;flex-wrap:wrap;gap:9px;margin-top:25px}
+.xai-badges span{padding:8px 12px;border:1px solid rgba(255,255,255,.35);border-radius:999px;font-size:.82rem;background:rgba(255,255,255,.09)}
+.xai-nav{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0 34px}
+.xai-nav a{padding:10px 14px;border:1px solid #d8e2ec;border-radius:10px;text-decoration:none;font-weight:700;background:#fff}
+.xai-section{margin:34px 0}
+.xai-section h2{font-size:clamp(1.55rem,3vw,2.2rem);margin-bottom:12px}
+.xai-section>p{line-height:1.75;max-width:930px}
+.xai-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:20px}
+.xai-card{border:1px solid #dbe4ed;border-radius:16px;padding:21px;background:#fff;box-shadow:0 5px 18px rgba(15,42,70,.06)}
+.xai-card h3{margin:0 0 9px;font-size:1.08rem}
+.xai-card p{margin:0;line-height:1.62;color:#33485d}
+.xai-number{font-weight:900;color:#0956a8;font-size:.82rem;letter-spacing:.08em;margin-bottom:8px}
+.xai-table{width:100%;border-collapse:collapse;margin-top:18px;background:#fff;border:1px solid #dbe4ed}
+.xai-table th,.xai-table td{padding:13px 14px;border:1px solid #dbe4ed;text-align:left;vertical-align:top;line-height:1.55}
+.xai-table th{background:#eef5fb}
+.xai-callout{border-left:5px solid #0956a8;background:#eef6ff;padding:18px 20px;border-radius:10px;margin:20px 0;line-height:1.65}
+.xai-risk{border-left-color:#b56b00;background:#fff7e8}
+.xai-checklist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:0;list-style:none}
+.xai-checklist li{padding:13px 15px;border:1px solid #dbe4ed;border-radius:11px;background:#fff}
+.xai-checklist li:before{content:"✓";font-weight:900;color:#087a52;margin-right:9px}
+.xai-source-list{padding-left:20px;line-height:1.8}
+.xai-source-list a{font-weight:700}
+.xai-footer-note{font-size:.86rem;color:#52677b;margin-top:28px}
+@media(max-width:800px){.xai-grid{grid-template-columns:1fr}.xai-checklist{grid-template-columns:1fr}.xai-hero{padding:55px 20px 42px}.xai-wrap{padding:0 17px 50px}.xai-table{font-size:.9rem}}
+</style>
+</head>
+<body class="article-page">
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="nav">
+  <a class="brand" href="index.html#work" aria-label="RegTech Nexus AI home">
+    <img class="brand-logo" src="regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="228" height="72">
+  </a>
+  <button class="menu" aria-label="Open menu" aria-expanded="false" aria-controls="main-nav">☰</button>
+  <nav id="main-nav" aria-label="Main navigation">
+    <a href="index.html#work">What we do</a>
+    <a href="index.html#solutions">Solutions</a>
+    <a href="insights.html">Insights</a>
+    <a href="blog.html">Blog</a>
+    <a href="index.html#knowledge">Knowledge</a>
+    <a href="index.html#about">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="index.html#ai-assistant">AI Assistant ↗</a>
+  </nav>
+  <a class="nav-cta" href="index.html#solutions">Explore solutions ↗</a>
+</header>
+
+<main id="main-content">
+<section class="xai-hero">
+  <div class="xai-hero-inner">
+    <div class="xai-kicker">RESPONSIBLE AI · MODEL RISK · AUDITABILITY · GOVERNANCE</div>
+    <h1>Explainable AI:<br><span>from model output to accountable understanding.</span></h1>
+    <p>Explainable AI (XAI) is not simply about making a complex model look understandable. In a regulated environment, the objective is to provide decision-relevant explanations, preserve evidence, support meaningful human challenge and make the AI lifecycle auditable.</p>
+    <div class="xai-badges"><span>Banking</span><span>AML/CFT</span><span>Credit &amp; Risk</span><span>Fraud &amp; Transaction Monitoring</span><span>Internal Audit</span><span>AI Governance</span></div>
+  </div>
+</section>
+
+<div class="xai-wrap">
+  <nav class="xai-nav" aria-label="Explainable AI sections">
+    <a href="#what">What XAI means</a><a href="#methods">Methods</a><a href="#controls">Control model</a><a href="#testing">Testing</a><a href="#evidence">Evidence</a><a href="#regulatory">Regulatory context</a>
+  </nav>
+
+  <section class="xai-section" id="what">
+    <h2>What is Explainable AI?</h2>
+    <p>Explainability concerns how an AI system's operation or output can be represented and understood; interpretability concerns the meaning of that output in the context of the system's intended purpose. NIST treats explainability and interpretability as distinct but related trustworthiness characteristics and notes that explanations can support monitoring, documentation, audit and governance.</p>
+    <div class="xai-callout"><strong>Regulated-industry principle:</strong> an explanation is useful only when its audience, purpose, timing and limitations are clear. A visually persuasive explanation is not automatically a faithful explanation of model behaviour.</div>
+    <div class="xai-grid">
+      <article class="xai-card"><div class="xai-number">01 · PURPOSE</div><h3>Explain the decision</h3><p>Identify what the model was asked to predict, classify, rank or recommend—and what decision the output supports.</p></article>
+      <article class="xai-card"><div class="xai-number">02 · EVIDENCE</div><h3>Explain the basis</h3><p>Show the relevant input factors, data provenance, model/version context and material assumptions behind the result.</p></article>
+      <article class="xai-card"><div class="xai-number">03 · CHALLENGE</div><h3>Enable human review</h3><p>Give reviewers enough context to question the result, identify uncertainty and escalate exceptions before consequential action.</p></article>
+    </div>
+  </section>
+
+  <section class="xai-section" id="methods">
+    <h2>XAI methods: choose for the use case</h2>
+    <table class="xai-table">
+      <thead><tr><th>Approach</th><th>Typical use</th><th>Control consideration</th></tr></thead>
+      <tbody>
+        <tr><td>Intrinsic interpretability</td><td>Rules, scorecards, constrained or simpler models</td><td>Often easier to document and challenge, but may trade off predictive performance or flexibility.</td></tr>
+        <tr><td>Feature attribution</td><td>Local or global contribution analysis</td><td>Confirm what the attribution method actually measures and test stability; do not treat contribution as causal proof.</td></tr>
+        <tr><td>Counterfactual explanation</td><td>“What would need to change?” analysis</td><td>Check feasibility, actionability and whether proposed changes respect policy and data constraints.</td></tr>
+        <tr><td>Example / case-based explanation</td><td>Nearest or representative examples</td><td>Assess similarity quality, privacy, data leakage and whether the examples are genuinely relevant.</td></tr>
+        <tr><td>Global model explanation</td><td>Overall behaviour and important patterns</td><td>Useful for governance and model review, but should not be substituted for case-level evidence where individual decisions matter.</td></tr>
+      </tbody>
+    </table>
+    <div class="xai-callout xai-risk"><strong>Important:</strong> post-hoc explanations can be approximations. Validate explanation fidelity and stability rather than assuming that an explanation method reveals the model's true causal reasoning.</div>
+  </section>
+
+  <section class="xai-section" id="controls">
+    <h2>Explainability as a control system</h2>
+    <p>For banks and other regulated institutions, XAI should connect to model governance rather than sit as a separate visualisation layer.</p>
+    <div class="xai-grid">
+      <article class="xai-card"><div class="xai-number">GOVERN</div><h3>Ownership &amp; accountability</h3><p>Define model owner, business owner, control owner, reviewer and escalation route. Record the intended use and prohibited uses.</p></article>
+      <article class="xai-card"><div class="xai-number">MAP</div><h3>Context &amp; impact</h3><p>Map affected customers, decisions, data sources, downstream actions, jurisdiction and potential harms.</p></article>
+      <article class="xai-card"><div class="xai-number">MEASURE</div><h3>Explanation quality</h3><p>Test fidelity, consistency, robustness, stability across relevant populations and usefulness to the intended reviewer.</p></article>
+      <article class="xai-card"><div class="xai-number">MANAGE</div><h3>Exception &amp; remediation</h3><p>Define thresholds, escalation, override, rollback, incident handling and change-management requirements.</p></article>
+      <article class="xai-card"><div class="xai-number">AUDIT</div><h3>Reconstructability</h3><p>Preserve model/version, input snapshot where permitted, explanation output, reviewer action, approval and material evidence.</p></article>
+      <article class="xai-card"><div class="xai-number">MONITOR</div><h3>Post-deployment assurance</h3><p>Monitor drift, data changes, explanation instability, override patterns, performance deterioration and emerging failure modes.</p></article>
+    </div>
+  </section>
+
+  <section class="xai-section" id="testing">
+    <h2>XAI testing checklist</h2>
+    <ul class="xai-checklist">
+      <li>Can the reviewer state what decision the model supports?</li>
+      <li>Is the explanation appropriate for the reviewer's technical skill and role?</li>
+      <li>Does the explanation remain materially stable under relevant perturbations?</li>
+      <li>Does the explanation have demonstrable fidelity to model behaviour?</li>
+      <li>Are important data limitations and missing variables visible?</li>
+      <li>Can a reviewer distinguish correlation from causation?</li>
+      <li>Are overrides and human challenges recorded and reviewable?</li>
+      <li>Can the institution reconstruct the model and explanation version used?</li>
+      <li>Have bias, privacy, security and adversarial risks been considered?</li>
+      <li>Are material changes subject to documented validation and approval?</li>
+    </ul>
+  </section>
+
+  <section class="xai-section" id="evidence">
+    <h2>Minimum XAI evidence pack</h2>
+    <table class="xai-table">
+      <thead><tr><th>Evidence</th><th>Why it matters</th></tr></thead>
+      <tbody>
+        <tr><td>Use-case statement &amp; decision purpose</td><td>Defines scope and prevents explanations being detached from the actual decision.</td></tr>
+        <tr><td>Model / system identification and version</td><td>Allows reconstruction of the system that produced the material output.</td></tr>
+        <tr><td>Data provenance and material limitations</td><td>Shows where decision-relevant information came from and what may be missing.</td></tr>
+        <tr><td>Explanation method and configuration</td><td>Allows reviewers and auditors to understand how the explanation was generated.</td></tr>
+        <tr><td>Validation / testing results</td><td>Provides evidence that explanation quality and limitations were assessed.</td></tr>
+        <tr><td>Human review, challenge and approval record</td><td>Demonstrates accountable human oversight for consequential use cases.</td></tr>
+        <tr><td>Monitoring, incidents and remediation</td><td>Shows that explainability is maintained through the AI lifecycle.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="xai-section" id="regulatory">
+    <h2>Regulatory and standards context — 2026</h2>
+    <p><strong>NIST AI RMF:</strong> NIST identifies “explainable and interpretable” as a trustworthiness characteristic and frames AI risk management through GOVERN, MAP, MEASURE and MANAGE. NIST states that AI RMF 1.0 is currently being revised, so institutions should monitor the authoritative NIST source for future revisions. <a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener noreferrer">NIST AI RMF ↗</a></p>
+    <p><strong>EU AI Act:</strong> The EU framework uses a risk-based approach and includes transparency, documentation, traceability and human-oversight requirements for relevant AI systems. As of August 2026, the Act's transparency rules are applicable, while certain high-risk obligations have later application dates. Applicability depends on the system, role and use case. <a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener noreferrer">European Commission — AI Act ↗</a></p>
+    <p><strong>ISO/IEC 42001:</strong> ISO/IEC 42001:2023 provides requirements for establishing, implementing, maintaining and continually improving an AI Management System (AIMS), including governance areas relevant to transparency, accountability and risk management. <a href="https://www.iso.org/standard/42001" target="_blank" rel="noopener noreferrer">ISO/IEC 42001 ↗</a></p>
+    <div class="xai-callout"><strong>Regulatory note:</strong> Explainability is not a universal legal requirement for every AI system. Its required depth should be determined by jurisdiction, applicable law or regulation, use case, impact, contractual requirements, internal policy and risk appetite.</div>
+  </section>
+
+  <section class="xai-section">
+    <h2>RegTech Nexus AI approach</h2>
+    <p>For regulated use cases, XAI should support the chain <strong>REGULATORY REQUIREMENT → USE CASE → RISK → EXPLANATION → HUMAN CHALLENGE → EVIDENCE → ASSURANCE</strong>. The objective is not to promise that every AI model can be made fully transparent; it is to establish proportionate, testable and auditable explanation practices.</p>
+    <p><strong>Practical assurance question:</strong> if an auditor, supervisor, model-risk reviewer or affected decision-maker cannot understand what the system was intended to do, what materially influenced the output, what uncertainty or limitation existed, and who reviewed the outcome, the XAI control environment may be insufficient for the use case.</p>
+  </section>
+
+  <section class="xai-section">
+    <h2>Primary reference sources</h2>
+    <ul class="xai-source-list">
+      <li><a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener noreferrer">NIST — AI Risk Management Framework</a></li>
+      <li><a href="https://airc.nist.gov/airmf-resources/airmf/3-sec-characteristics/" target="_blank" rel="noopener noreferrer">NIST AIRC — Explainable and Interpretable AI</a></li>
+      <li><a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener noreferrer">European Commission — AI Act</a></li>
+      <li><a href="https://www.iso.org/standard/42001" target="_blank" rel="noopener noreferrer">ISO — ISO/IEC 42001:2023</a></li>
+    </ul>
+    <p class="xai-footer-note">This page is an educational and professional decision-support resource. It is not legal advice, a regulatory determination, a model validation opinion or an assurance conclusion. Applicable requirements should be verified against the authoritative source and the institution's specific jurisdiction, role and use case.</p>
+  </section>
+</div>
+</main>
+
+<footer id="contact">
+  <div class="footer-brand"><div class="brand"><img class="brand-logo" src="regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="248" height="80"></div><p>Audit · Regulatory Intelligence · Compliance · Risk · Technology</p></div>
+  <div><b>Knowledge</b><a href="insights.html">Research &amp; Insights</a><a href="blog.html">Blog</a><a href="regulatory-explainers.html">Regulatory Explainers</a><a href="frameworks-toolkit.html">Frameworks &amp; Toolkits</a><a href="publications.html">Publications</a></div>
+  <div><b>Connect</b><a href="https://www.linkedin.com/company/regtech-nexus-ai/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://www.facebook.com/regtechnexusai" target="_blank" rel="noopener noreferrer">Facebook</a><a href="contact.html">Contact</a></div>
+  <p class="footer-note">Research and digital tools support professional analysis. Review findings against evidence and applicable requirements.</p>
+  <div class="legal"><span>© 2026 RegTech Nexus AI</span><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="contact.html">Contact</a></div>
+</footer>
+<script src="script.js" defer></script>
+<script src="site-email.js?v=20260928-email-routing" defer></script>
+</body>
+</html>
