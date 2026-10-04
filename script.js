@@ -53,7 +53,7 @@
         desktopRaf = requestAnimationFrame(desktopAutoMove);
         return;
       }
-      const next = desktopRail.scrollLeft + (desktopDirection * 0.28);
+      const next = desktopRail.scrollLeft + (desktopDirection * 0.55);
       if (next >= max) {
         desktopRail.scrollLeft = max;
         desktopDirection = -1;
@@ -78,7 +78,7 @@
 
     desktopRail.addEventListener('pointerdown', pauseDesktopAuto, {passive:true});
     desktopRail.addEventListener('wheel', pauseDesktopAuto, {passive:true});
-    desktopRail.addEventListener('mouseenter', pauseDesktopAuto);
+    /* Keep auto-movement active on hover; pause only for direct interaction. */
     desktopRail.addEventListener('touchstart', pauseDesktopAuto, {passive:true});
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) stopDesktopAuto();
