@@ -1771,3 +1771,85 @@ tbody tr:last-child td{border-bottom:0}
 footer{background:linear-gradient(135deg,#061b3a 0%,#0956a8 52%,#087e8b 100%)!important;color:#fff!important;border-top:4px solid #0a9ba7!important}footer b{color:#d9f5f5!important}footer a{color:#f2fbfc!important}footer a:hover{color:#fff!important;text-decoration:underline}footer .footer-brand p,footer span{color:#d0e4eb!important}footer .legal{border-top-color:rgba(255,255,255,.28)!important;color:#d0e4eb!important}footer .footer-note{color:#dceff3!important}
 @media(max-width:900px){.platform-pathways{grid-template-columns:1fr;padding:66px 6vw}.platform-pathways__grid{grid-template-columns:1fr}}
 @media(max-width:560px){.platform-pathways{padding:55px 6vw}.platform-pathway{padding:25px}.platform-pathway h3{font-size:23px}}
+
+
+/* =========================================================
+   2026-10-04 CONTENT SPACE BALANCE
+   Purpose: reduce excessive blank vertical space and soften
+   oversized/deep-blue content sections.
+   Scope: homepage + editorial/content pages only.
+   Explicitly excludes calculator and specialist tool layouts.
+   Header/footer are intentionally untouched.
+========================================================= */
+
+@media (min-width: 901px){
+  /* Homepage: tighter vertical rhythm without changing content. */
+  body:not(.calculator-page):not(.icms-page):not(.reggap-page):not(.global-systems-page) .section{
+    padding-top:78px;
+    padding-bottom:78px;
+  }
+  body:not(.calculator-page):not(.icms-page):not(.reggap-page):not(.global-systems-page) .thinking{
+    padding-top:82px;
+    padding-bottom:82px;
+  }
+  body:not(.calculator-page):not(.icms-page):not(.reggap-page):not(.global-systems-page) .responsible{
+    padding-top:78px;
+    padding-bottom:78px;
+  }
+  body:not(.calculator-page):not(.icms-page):not(.reggap-page):not(.global-systems-page) .closing{
+    padding-top:88px;
+    padding-bottom:88px;
+  }
+  body:not(.calculator-page):not(.icms-page):not(.reggap-page):not(.global-systems-page) .capabilities{
+    padding-bottom:78px;
+  }
+
+  /* Editorial pages: remove oversized top/bottom breathing room. */
+  .insights-page .insights-hero{
+    padding-top:68px;
+    padding-bottom:58px;
+  }
+  .insights-page .posts-wrap{
+    padding-top:58px;
+    padding-bottom:78px;
+  }
+  .article-page .article-hero{
+    padding-top:60px;
+    padding-bottom:46px;
+  }
+  .article-page .article-body{
+    padding-top:52px;
+    padding-bottom:76px;
+  }
+  .contact-page .article-hero{
+    padding-top:60px;
+    padding-bottom:46px;
+  }
+}
+
+/* Soften the legacy full-width deep-blue content band.
+   Header/footer remain brand-colour zones; no tool/calculator styles
+   are changed by this rule. */
+body:not(.calculator-page):not(.icms-page):not(.reggap-page):not(.global-systems-page) .principles{
+  background:linear-gradient(135deg,#f7fafb 0%,#eef7f8 58%,#f8faf7 100%) !important;
+  color:var(--rt-ink,#17263d) !important;
+}
+body:not(.calculator-page):not(.icms-page):not(.reggap-page):not(.global-systems-page) .principles .kicker{
+  color:var(--rt-brand-2,#0a7f8c) !important;
+}
+body:not(.calculator-page):not(.icms-page):not(.reggap-page):not(.global-systems-page) .principle-grid{
+  border-top-color:#d8e3e7 !important;
+}
+body:not(.calculator-page):not(.icms-page):not(.reggap-page):not(.global-systems-page) .principle-grid p{
+  color:#59697b !important;
+}
+
+/* Editorial card spacing: compact, but preserve readability. */
+.insights-page .post-card{
+  padding:34px 40px;
+  margin-bottom:22px;
+}
+.article-page .article-callout{
+  margin-top:24px;
+  margin-bottom:24px;
+}
