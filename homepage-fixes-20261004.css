@@ -29,3 +29,12 @@
 .static-visual-card img{display:none!important}
 .hero-visual img{width:min(100%,560px)!important;max-height:400px!important;object-fit:contain!important}
 @media(max-width:760px){.nav .brand-logo{width:128px!important;max-width:128px!important;max-height:43px!important}}
+
+
+/* Final precedence layer: coloured surfaces, single-colour labels, raised 3D form. */
+@media(min-width:1181px){
+  .desktop-side-tools__rail>a{color:#1d2b40!important;border-radius:12px!important;box-shadow:0 4px 0 rgba(27,50,74,.10),0 8px 16px rgba(27,50,74,.10),inset 0 1px 0 rgba(255,255,255,.96)!important}
+  .desktop-side-tools__rail>a>b{color:#1d2b40!important!important}
+  .desktop-side-tools__rail>a:hover{color:#1d2b40!important;transform:translateY(-2px)!important}
+}
+@media(prefers-reduced-motion:reduce){.desktop-side-tools__rail{scroll-behavior:auto!important}}
