@@ -29,6 +29,69 @@
     document.body.prepend(assistantAnchor);
   }
 
+
+  /* Desktop homepage toolkit rail: gentle automatic horizontal movement.
+     User interaction pauses the movement briefly so links remain easy to use. */
+  const desktopRail = document.querySelector('.desktop-side-tools__rail');
+  if (desktopRail && window.matchMedia('(min-width: 1181px)').matches &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let desktopRaf = 0;
+    let desktopResumeTimer = 0;
+    let desktopDirection = 1;
+
+    const desktopMaxScroll = () =>
+      Math.max(0, desktopRail.scrollWidth - desktopRail.clientWidth);
+
+    const stopDesktopAuto = () => {
+      if (desktopRaf) cancelAnimationFrame(desktopRaf);
+      desktopRaf = 0;
+    };
+
+    const desktopAutoMove = () => {
+      const max = desktopMaxScroll();
+      if (document.hidden || max <= 1) {
+        desktopRaf = requestAnimationFrame(desktopAutoMove);
+        return;
+      }
+      const next = desktopRail.scrollLeft + (desktopDirection * 0.28);
+      if (next >= max) {
+        desktopRail.scrollLeft = max;
+        desktopDirection = -1;
+      } else if (next <= 0) {
+        desktopRail.scrollLeft = 0;
+        desktopDirection = 1;
+      } else {
+        desktopRail.scrollLeft = next;
+      }
+      desktopRaf = requestAnimationFrame(desktopAutoMove);
+    };
+
+    const startDesktopAuto = () => {
+      if (!desktopRaf) desktopRaf = requestAnimationFrame(desktopAutoMove);
+    };
+
+    const pauseDesktopAuto = () => {
+      stopDesktopAuto();
+      clearTimeout(desktopResumeTimer);
+      desktopResumeTimer = setTimeout(startDesktopAuto, 1800);
+    };
+
+    desktopRail.addEventListener('pointerdown', pauseDesktopAuto, {passive:true});
+    desktopRail.addEventListener('wheel', pauseDesktopAuto, {passive:true});
+    desktopRail.addEventListener('mouseenter', pauseDesktopAuto);
+    desktopRail.addEventListener('touchstart', pauseDesktopAuto, {passive:true});
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopDesktopAuto();
+      else startDesktopAuto();
+    });
+    window.addEventListener('resize', () => {
+      if (window.matchMedia('(min-width: 1181px)').matches) startDesktopAuto();
+      else stopDesktopAuto();
+    });
+
+    startDesktopAuto();
+  }
+
   /* Mobile homepage toolkit: switch to a one-line, touch-scrollable
      auto-moving rail after the page starts scrolling. */
   const toolkitRail = document.querySelector('.mobile-toolkit-tabs');
