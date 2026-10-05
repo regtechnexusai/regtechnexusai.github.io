@@ -211,3 +211,105 @@
 @media(prefers-reduced-motion:reduce){
   .irc-page .nav-cta,.irc-footer-col a{transition:none}
 }
+
+/* Compact final header/footer sizing */
+.irc-page .irc-site-header{
+  min-height:58px!important;
+  padding:6px 18px!important;
+  gap:12px!important;
+}
+.irc-page .brand-logo{max-width:150px!important}
+.irc-page .nav-title{min-width:0!important}
+.irc-page .nav-title strong{
+  font-size:.88rem!important;
+  line-height:1.15!important;
+}
+.irc-page .nav-title span{
+  font-size:.68rem!important;
+  margin-top:1px!important;
+}
+.irc-page .nav-cta{
+  min-height:34px!important;
+  padding:6px 11px!important;
+  border-radius:9px!important;
+  font-size:.76rem!important;
+  line-height:1.1!important;
+}
+
+/* Keep the compact header genuinely compact on phones */
+@media(max-width:800px){
+  .irc-page .irc-site-header{
+    min-height:52px!important;
+    padding:5px 10px!important;
+    gap:7px!important;
+  }
+  .irc-page .brand-logo{max-width:108px!important}
+  .irc-page .nav-title strong{
+    font-size:.76rem!important;
+  }
+  .irc-page .nav-title span{display:none!important}
+  .irc-page .nav-cta{
+    min-height:31px!important;
+    padding:5px 8px!important;
+    font-size:.68rem!important;
+    border-radius:8px!important;
+    white-space:nowrap!important;
+  }
+}
+@media(max-width:430px){
+  .irc-page .irc-site-header{
+    min-height:48px!important;
+    padding:4px 8px!important;
+  }
+  .irc-page .brand-logo{max-width:92px!important}
+  .irc-page .nav-title strong{font-size:.69rem!important}
+  .irc-page .nav-cta{
+    min-height:29px!important;
+    padding:4px 7px!important;
+    font-size:.63rem!important;
+  }
+}
+
+/* Compact footer */
+.irc-footer{margin-top:16px!important}
+.irc-footer-inner{
+  padding:22px 18px 16px!important;
+  gap:18px!important;
+}
+.irc-footer-brand img{
+  width:130px!important;
+  margin-bottom:8px!important;
+}
+.irc-footer-brand strong{font-size:.88rem!important}
+.irc-footer-brand span{
+  font-size:.68rem!important;
+  margin-top:3px!important;
+}
+.irc-footer-col{gap:5px!important}
+.irc-footer-col b{font-size:.7rem!important;margin-bottom:1px!important}
+.irc-footer-col a{font-size:.74rem!important}
+.irc-footer-disclaimer{
+  padding:10px 12px!important;
+}
+.irc-footer-disclaimer p{
+  font-size:.7rem!important;
+  line-height:1.4!important;
+}
+.irc-footer-meta{
+  margin-top:9px!important;
+  padding-top:8px!important;
+  font-size:.63rem!important;
+  gap:6px 10px!important;
+}
+@media(max-width:800px){
+  .irc-footer-inner{
+    padding:18px 12px 13px!important;
+    gap:14px!important;
+  }
+}
+@media(max-width:560px){
+  .irc-footer-brand img{width:112px!important}
+  .irc-footer-inner{padding:17px 12px 12px!important}
+  .irc-footer-brand strong{font-size:.82rem!important}
+  .irc-footer-col a{font-size:.72rem!important}
+}
