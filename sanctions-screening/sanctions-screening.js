@@ -1,0 +1,17 @@
+(() => {
+"use strict";
+const DEMO=[
+ {id:"DEMO-UN-001",source:"UN",type:"individual",primary_name:"Mohammed Ahmed",aliases:["Muhammad Ahmed","Mohamad Ahmed"],dob:"1970-05-12",nationality:"Bangladesh"},
+ {id:"DEMO-OFAC-001",source:"OFAC",type:"entity",primary_name:"Ahmed Trading Group",aliases:["Ahmed Trading"],dob:"",nationality:"United Arab Emirates"},
+ {id:"DEMO-EU-001",source:"EU",type:"individual",primary_name:"Mohammad Rahman",aliases:["Mohammed Rahman"],dob:"1968-11-03",nationality:"Pakistan"},
+ {id:"DEMO-UK-001",source:"UK",type:"individual",primary_name:"John Example",aliases:["J. Example"],dob:"1975-02-18",nationality:"United Kingdom"}
+];
+const normalize=s=>String(s||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^\p{L}\p{N}\s]/gu," ").replace(/\s+/g," ").trim();
+const tokens=s=>normalize(s).split(" ").filter(Boolean);
+function lev(a,b){const x=normalize(a),y=normalize(b),d=Array.from({length:x.length+1},(_,i)=>[i]);for(let j=0;j<=y.length;j++)d[0][j]=j;for(let i=1;i<=x.length;i++){for(let j=1;j<=y.length;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(x[i-1]===y[j-1]?0:1));}return d[x.length][y.length];}
+function similarity(a,b){const x=normalize(a),y=normalize(b);if(!x||!y)return 0;if(x===y)return 100;const dist=lev(x,y),base=Math.max(x.length,y.length);const edit=base?100*(1-dist/base):0;const A=new Set(tokens(x)),B=new Set(tokens(y));const inter=[...A].filter(t=>B.has(t)).length, union=new Set([...A,...B]).size;const token=union?100*inter/union:0;return Math.round(Math.max(edit,token));}
+function score(input,r){const names=[r.primary_name,...r.aliases];const name=Math.max(...names.map(n=>similarity(input.name,n)));let total=name;const factors=[{label:"Name",value:name}];if(input.dob&&r.dob){const v=input.dob===r.dob?100:0;total=total*.8+v*.2;factors.push({label:"DOB",value:v});}if(input.nationality&&r.nationality){const v=normalize(input.nationality)===normalize(r.nationality)?100:0;total=total*.9+v*.1;factors.push({label:"Nationality",value:v});}return {score:Math.round(total),name,factors};}
+function status(s){return s>=95?"Likely Match":s>=80?"Potential Match":s>=60?"Review": "No Apparent Match";}
+const form=document.querySelector("#screen-form"),result=document.querySelector("#result"),statusEl=document.querySelector("#screen-status");
+form.addEventListener("submit",e=>{e.preventDefault();const name=document.querySelector("#name").value.trim();const dob=document.querySelector("#dob").value;const nationality=document.querySelector("#nationality").value.trim();if(!name){statusEl.textContent="Enter a name.";return;}const ranked=DEMO.map(r=>({r,...score({name,dob,nationality},r)})).sort((a,b)=>b.score-a.score);const top=ranked[0];statusEl.textContent="Demo screening completed against synthetic records only.";result.className="result";result.innerHTML=`<div class="result-card"><span class="badge">${status(top.score)}</span><div class="match-name">${top.r.primary_name}</div><div class="muted">${top.r.source} · synthetic record ${top.r.id}</div><div class="score">${top.score}/100</div><div class="muted">Similarity / match-confidence indicator — not a sanctions probability or legal conclusion.</div><div class="evidence">${top.factors.map(f=>`<div><strong>${f.label}</strong><br>${f.value}/100</div>`).join("")}</div><p><strong>Review required:</strong> Compare identifiers, date of birth, nationality, address and other official-list evidence before any disposition. A potential match is not a confirmed match.</p></div>`;});
+})();
