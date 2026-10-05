@@ -29,7 +29,7 @@
 .platform-pathway__button{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:100%!important;box-sizing:border-box!important;margin-top:auto!important;min-height:44px!important;padding:10px 15px!important;border-radius:10px!important;color:#fff!important;font-size:12px!important;font-weight:800!important;text-decoration:none!important}
 .platform-pathway--professional .platform-pathway__button{background:linear-gradient(135deg,#0956a8,#087f9b)!important}.platform-pathway--student .platform-pathway__button{background:linear-gradient(135deg,#087e78,#159b8e)!important}
 /* Header links: consistently separated, compact navigation chips without competing with the brand logo. */
-@media(min-width:761px){.nav nav{display:flex!important;align-items:center!important;gap:5px!important}.nav nav a{display:inline-flex!important;align-items:center!important;min-height:32px!important;padding:7px 9px!important;border:1px solid transparent!important;border-radius:8px!important;background:#f7fafb!important;color:#334155!important}.nav nav a:hover,.nav nav a:focus-visible{background:#edf5f8!important;border-color:#d8e7eb!important;color:#0956a8!important}}
+@media(min-width:1101px){.nav nav{display:flex!important;align-items:center!important;gap:5px!important}.nav nav a{display:inline-flex!important;align-items:center!important;min-height:32px!important;padding:7px 9px!important;border:1px solid transparent!important;border-radius:8px!important;background:#f7fafb!important;color:#334155!important}.nav nav a:hover,.nav nav a:focus-visible{background:#edf5f8!important;border-color:#d8e7eb!important;color:#0956a8!important}}
 /* Ensure only header/footer carry the strongest brand colour treatment; main surfaces remain light. */
 main .dark{background:#f7fafb!important;color:#17263d!important}
 @media(max-width:900px){.platform-pathways{grid-template-columns:1fr!important;gap:28px!important;padding:62px 6vw!important}.platform-pathways__grid{grid-template-columns:1fr!important}}
@@ -80,6 +80,16 @@ footer .legal{margin-top:8px!important;padding-top:14px!important;font-size:11px
 @media(max-width:900px){.hero{padding-top:36px!important;padding-bottom:30px!important}.hero-visual img{max-height:280px!important}.authority-section{padding-top:42px!important;padding-bottom:42px!important}.authority-visual img{max-height:240px!important}.principles{padding-top:48px!important;padding-bottom:48px!important}footer{padding:38px 6vw 22px!important}}
 @media(max-width:560px){.hero-copy h1{font-size:40px!important}.hero-visual img{max-height:230px!important}.authority-intro h2{font-size:34px!important}.principles>h2{font-size:34px!important}footer .footer-brand .brand-logo{width:150px!important;max-width:150px!important}}
 
+
+@media (max-width:1180px){
+  .mobile-toolkit-tabs{
+    display:grid!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    width:100%!important;
+    max-width:100%!important;
+    box-sizing:border-box!important;
+  }
+}
 
 @media (max-width:760px){
   .mobile-toolkit-tabs{
@@ -251,4 +261,33 @@ footer .legal{margin-top:8px!important;padding-top:14px!important;font-size:11px
 
 @media (max-width:1180px){
   .desktop-side-tools{display:none!important}
+}
+
+
+/* 2026-10-05 MINIMAL RESPONSIVE + ACCESSIBILITY CORRECTIONS
+   Additive only: preserves existing content, links, tools and layout systems. */
+.tool-tab--calculators{background:#f4f0ff!important;border-color:#d9cff2!important}
+.knowledge-list span{color:#5f6b7c!important}
+
+@media (min-width:1181px){
+  main{padding-left:max(0px,calc(162px - 8vw))!important;padding-right:max(0px,calc(162px - 8vw))!important}
+}
+
+@media (max-width:760px){
+  .mobile-toolkit-tabs.is-scroll-rail{top:78px!important}
+}
+
+@media (max-width:1180px) and (min-width:761px){
+  .mobile-toolkit-tabs{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;}
+}
+
+@media (max-width:560px){
+  .mobile-toolkit-tabs{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+}
+@media (max-width:390px){
+  .mobile-toolkit-tabs{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .mobile-toolkit-tabs.is-scroll-rail{scroll-behavior:auto!important}
 }
