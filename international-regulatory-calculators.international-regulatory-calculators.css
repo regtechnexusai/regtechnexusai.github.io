@@ -98,3 +98,116 @@
 .irc-page .irc-site-header{background:#0f3b5f!important;border-bottom:3px solid #0a9aa8!important;padding:10px 22px!important;color:#fff}.irc-page .irc-site-header .brand-logo{background:#fff;border-radius:8px;padding:3px}.irc-page .nav-title strong{color:#fff}.irc-page .nav-title span{color:#d8edf1}.irc-title-short{display:none!important}.irc-page .nav-cta{border-color:#7dd9df!important;color:#fff!important;background:transparent!important}.irc-page .nav-cta:hover{background:#0a6975!important;color:#fff!important}.irc-header-nav{display:none!important}
 @media(max-width:800px){.irc-page .irc-site-header{padding:8px 14px!important;gap:10px}.irc-page .brand-logo{max-width:140px}.irc-title-full{display:none!important}.irc-title-short{display:block!important;font-size:.9rem!important;line-height:1.1}.irc-page .nav-title span{font-size:.68rem}.irc-page .nav-cta{min-height:38px!important;padding:7px 9px!important;font-size:.76rem!important;white-space:nowrap}}
 @media(max-width:430px){.irc-page .brand-logo{max-width:118px}.irc-page .nav-title{min-width:0!important;flex:1}.irc-title-short{font-size:.78rem!important}.irc-page .nav-title span{display:none}.irc-page .nav-cta{font-size:.7rem!important;padding:6px 8px!important}}
+
+/* Final header/footer polish — layout only; calculator content untouched */
+.irc-page .irc-site-header{
+  background:linear-gradient(135deg,#0b3558 0%,#0f4c68 52%,#087f8b 100%)!important;
+  border-bottom:3px solid #35d0d4!important;
+  box-shadow:0 5px 18px rgba(7,42,66,.20);
+}
+.irc-page .nav-title strong{color:#fff!important;text-shadow:0 1px 1px rgba(0,0,0,.16)}
+.irc-page .nav-title span{color:#e5fbfc!important}
+.irc-page .nav-cta{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  border:1px solid rgba(255,255,255,.72)!important;
+  border-radius:12px!important;
+  color:#07374a!important;
+  background:linear-gradient(180deg,#ffffff 0%,#e9ffff 46%,#8ee8e8 100%)!important;
+  box-shadow:
+    0 4px 0 rgba(3,73,88,.45),
+    0 7px 16px rgba(0,0,0,.20),
+    inset 0 1px 0 rgba(255,255,255,.95),
+    inset 0 -1px 0 rgba(0,91,105,.22)!important;
+  text-shadow:0 1px 0 rgba(255,255,255,.55);
+  transition:transform .16s ease,box-shadow .16s ease,filter .16s ease;
+}
+.irc-page .nav-cta::before{
+  content:"";
+  position:absolute;
+  left:8%;
+  right:8%;
+  top:3px;
+  height:38%;
+  border-radius:999px;
+  background:linear-gradient(180deg,rgba(255,255,255,.82),rgba(255,255,255,0));
+  pointer-events:none;
+  z-index:-1;
+}
+.irc-page .nav-cta:hover{
+  background:linear-gradient(180deg,#fff 0%,#dfffff 44%,#69d9dc 100%)!important;
+  color:#052f42!important;
+  transform:translateY(-1px);
+  box-shadow:
+    0 5px 0 rgba(3,73,88,.42),
+    0 10px 20px rgba(0,0,0,.24),
+    inset 0 1px 0 rgba(255,255,255,.98),
+    inset 0 -1px 0 rgba(0,91,105,.22)!important;
+  filter:saturate(1.08);
+}
+.irc-page .nav-cta:active{
+  transform:translateY(2px);
+  box-shadow:
+    0 2px 0 rgba(3,73,88,.45),
+    0 4px 9px rgba(0,0,0,.18),
+    inset 0 2px 4px rgba(0,77,90,.18)!important;
+}
+.irc-page .nav-cta:focus-visible{
+  outline:3px solid #fff!important;
+  outline-offset:3px;
+}
+
+/* Mobile: keep logo, compact title and CTA on one clean row */
+@media(max-width:800px){
+  .irc-page .irc-site-header{
+    flex-wrap:nowrap!important;
+    align-items:center!important;
+    gap:9px!important;
+  }
+  .irc-page .nav-title{
+    order:initial!important;
+    flex:1 1 auto!important;
+    min-width:0!important;
+    text-align:left!important;
+    border-top:0!important;
+    padding-top:0!important;
+  }
+  .irc-page .nav-title span{
+    display:block!important;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+}
+@media(max-width:430px){
+  .irc-page .irc-site-header{gap:7px!important}
+  .irc-page .nav-title{flex:1 1 0!important}
+  .irc-page .nav-cta{flex:0 0 auto!important}
+}
+
+/* Footer: clearer hierarchy without changing its links/content */
+.irc-footer{
+  background:linear-gradient(145deg,#0c2945 0%,#122f4d 55%,#0c4350 100%);
+  border-top:4px solid #35d0d4;
+  box-shadow:0 -4px 18px rgba(7,42,66,.10);
+}
+.irc-footer-brand strong{font-size:1.04rem}
+.irc-footer-col a{transition:color .15s ease,transform .15s ease}
+.irc-footer-col a:hover,.irc-footer-col a:focus-visible{
+  color:#8ff5f4;
+  transform:translateX(2px);
+}
+.irc-footer-disclaimer{
+  padding:14px 16px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:12px;
+  background:rgba(255,255,255,.045);
+}
+.irc-footer-meta{border-top-color:rgba(255,255,255,.20)}
+@media(max-width:560px){
+  .irc-footer-disclaimer{padding:13px 14px}
+}
+@media(prefers-reduced-motion:reduce){
+  .irc-page .nav-cta,.irc-footer-col a{transition:none}
+}
