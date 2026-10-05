@@ -66,7 +66,7 @@ function initCalculatorPage(){
     const res=active.querySelector("#irc-result");
     if(!form||!res)return;
 
-    const svText=sv.length?x[4].split(";").map((n,i)=>n+" = "+sv[i]).join(" · "):"";
+    const svText=sv.length?names.map((n,i)=>n+" = "+sv[i]).join(" · "):"";
     const sampleText=(sample!==null&&Number.isFinite(sample))?sample.toLocaleString(undefined,{maximumFractionDigits:4}):"Unavailable";
     const actions=document.createElement("div");
     actions.className="irc-action-row";
