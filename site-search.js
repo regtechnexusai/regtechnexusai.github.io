@@ -4,9 +4,9 @@
   if (!document.querySelector('link[data-rnx-search-css]')) {
     const link = document.createElement('link'); link.rel='stylesheet'; link.href=CSS; link.dataset.rnxSearchCss='1'; document.head.appendChild(link);
   }
-  const norm = s => (s || '').replace(/\\s+/g,' ').trim();
+  const norm = s => (s || '').replace(/\s+/g,' ').trim();
   const esc = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const pathLabel = u => { try { const p=new URL(u,ROOT).pathname; return p==='/'?'Home':p.replace(/^\\//,'').replace(/\\/$/,'').replace(/[-_]+/g,' ').replace(/\\.html$/i,'').replace(/\\//g,' › ') || 'Home'; } catch { return u; } };
+  const pathLabel = u => { try { const p=new URL(u,ROOT).pathname; return p==='/'?'Home':p.replace(/^\//,'').replace(/\/$/,'').replace(/[-_]+/g,' ').replace(/\.html$/i,'').replace(/\//g,' › ') || 'Home'; } catch { return u; } };
 
   function ensureUI(){
     if(document.getElementById('rnx-search-backdrop')) return;
@@ -55,7 +55,7 @@
   async function runSearch(q){
     const b=document.getElementById('rnx-search-backdrop'), status=b.querySelector('.rnx-search-status'), out=b.querySelector('.rnx-search-results');
     q=norm(q).toLowerCase(); if(!q){out.innerHTML=''; status.textContent='Type a topic or keyword to search the site.'; return;}
-    const idx=await buildIndex(); const terms=q.split(/\\s+/).filter(Boolean);
+    const idx=await buildIndex(); const terms=q.split(/\s+/).filter(Boolean);
     const results=idx.map(p=>{let score=0; for(const t of terms){if(p.title.toLowerCase().includes(t))score+=12;if(p.heads.join(' ').toLowerCase().includes(t))score+=7;if(p.desc.toLowerCase().includes(t))score+=4;if(p.text.includes(t))score+=1;} return {...p,score};}).filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,20);
     status.textContent=results.length?results.length+' result'+(results.length===1?'':'s')+' found.':'No matching page found.';
     out.innerHTML=results.length?results.map(p=>'<a class="rnx-search-result" href="'+esc(p.url)+'"><strong>'+esc(p.title)+'</strong><small>'+esc(pathLabel(p.url))+' · '+esc(p.desc||p.heads.slice(0,3).join(' · '))+'</small></a>').join(''):'<div class="rnx-search-empty">No matching topic was found. Try a broader keyword such as AML, TBML, AI, Architecture, Mathematics, IFRS, Risk, Audit or Regulation.</div>';
