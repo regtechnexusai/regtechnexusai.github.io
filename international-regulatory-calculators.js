@@ -43,8 +43,8 @@ function initCalculatorPage(){
     const active=document.getElementById("irc-active");
     if(!active)return;
 
-    const names=(x[4]||"").split(";").filter(Boolean);
-    const sv=samples[id]||[];
+    const names=(x[4]||"").includes(";")?(x[4]||"").split(";").filter(Boolean):[x[4],x[5]].filter(Boolean);
+    const sv=samples[id]||({"bangladesh-stress":[100,20,900]})[id]||[];
     let sample;
     try{sample=sampleResult(id,sv)}catch(e){sample=null}
 
