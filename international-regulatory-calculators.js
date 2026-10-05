@@ -100,7 +100,7 @@ function initCalculatorPage(){
         setResult(res,"<strong>Calculation cannot be completed.</strong><br><span>The supplied values produce a non-finite result.</span>");
         return;
       }
-      const pct=!(id==="bangladesh-credit"||id==="bangladesh-liquidity"||id==="bangladesh-ecl"||id==="singapore-stress"||id==="finland-rwa"||id==="global-oprisk");
+      const pct=outputType(id)==="percentage";
       let comparison="";
       if(id==="bangladesh-crar")comparison=z>=12.5?"Above 12.5% reference including CCB":z>=10?"Meets 10% minimum but below 12.5% CCB reference":"Below 10% minimum";
       if(id==="global-lcr"||id==="global-nsfr")comparison=z>=100?"Meets 100% Basel minimum":"Below 100% Basel minimum";
