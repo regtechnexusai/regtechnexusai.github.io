@@ -95,7 +95,8 @@
   /* Mobile homepage toolkit: switch to a one-line, touch-scrollable
      auto-moving rail after the page starts scrolling. */
   const toolkitRail = document.querySelector('.mobile-toolkit-tabs');
-  if (toolkitRail && window.matchMedia('(max-width: 760px)').matches) {
+  if (toolkitRail && window.matchMedia('(max-width: 760px)').matches &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     let railActive = false;
     let direction = 1;
     let rafId = 0;
