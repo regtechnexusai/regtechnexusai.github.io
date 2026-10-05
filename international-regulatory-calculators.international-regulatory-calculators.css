@@ -83,3 +83,5 @@
  .irc-page main{max-width:none;padding:0}
  .irc-panel{box-shadow:none}
 }
+
+.irc-status-legend{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}.irc-status-legend>div{padding:13px 15px;border:1px solid #dce6eb;border-radius:10px;background:#fbfcfd}.irc-status-legend b{display:block;color:#087e8b;font-size:.82rem;margin-bottom:4px}.irc-status-legend span{display:block;color:#59697b;font-size:.84rem}.irc-active-head a{color:#087e8b;font-weight:700}.irc-note a{color:#087e8b}@media(max-width:800px){.irc-status-legend{grid-template-columns:1fr}}
