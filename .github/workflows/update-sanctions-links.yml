@@ -1,0 +1,81 @@
+name: Update sanctions source links
+
+on:
+  schedule:
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  check-and-refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check official sanctions links and refresh redirects
+        shell: python
+        run: |
+          import re
+          import urllib.request
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          path = Path("sanctions-screening/index.html")
+          html = path.read_text(encoding="utf-8")
+          original = html
+
+          # Only external HTTP(S) links in the sanctions source cards are checked.
+          pattern = re.compile(r'href="(https?://[^"]+)"')
+
+          def final_url(url):
+              req = urllib.request.Request(
+                  url,
+                  method="GET",
+                  headers={"User-Agent": "RegTech-Nexus-AI-Sanctions-Link-Monitor/1.0"},
+              )
+              with urllib.request.urlopen(req, timeout=20) as response:
+                  return response.geturl()
+
+          checked = 0
+          refreshed = 0
+          failures = []
+
+          def replace(match):
+              nonlocal checked, refreshed
+              url = match.group(1)
+              checked += 1
+              try:
+                  resolved = final_url(url)
+                  # Follow only genuine redirects to another stable HTTP(S) URL.
+                  # Never invent a new source; preserve the official destination.
+                  if resolved.startswith(("https://", "http://")) and resolved != url:
+                      refreshed += 1
+                      return f'href="{resolved}"'
+              except Exception as exc:
+                  failures.append(f"{url} :: {type(exc).__name__}")
+              return match.group(0)
+
+          html = pattern.sub(replace, html)
+
+          # Update the reference date only when at least one link actually changed.
+          if html != original:
+              today = datetime.now(timezone.utc).strftime("%-d %B %Y")
+              html = re.sub(
+                  r'The links are provided as of [^<.]+\.',
+                  f'The links are provided as of {today}.',
+                  html,
+                  count=1,
+              )
+              path.write_text(html, encoding="utf-8")
+
+          print(f"Checked: {checked}; refreshed redirects: {refreshed}; failures: {len(failures)}")
+          for item in failures:
+              print(f"WARNING: {item}")
+
+          if refreshed:
+              print("Official source redirects detected and applied.")
+          elif not failures:
+              print("No link changes required.")
