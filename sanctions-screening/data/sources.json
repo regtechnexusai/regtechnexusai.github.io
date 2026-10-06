@@ -1,9 +1,0 @@
-{
-  "schema_version":"1.0",
-  "sources":[
-    {"id":"UNSC","name":"UN Security Council Consolidated List","authority":"United Nations Security Council","format":["XML","HTML","PDF"],"official_url":"https://main.un.org/securitycouncil/en/content/un-sc-consolidated-list","status":"planned-production-source"},
-    {"id":"OFAC","name":"OFAC Sanctions List Service","authority":"U.S. Department of the Treasury, OFAC","format":["XML","CSV","advanced data"],"official_url":"https://ofac.treasury.gov/sanctions-list-service","status":"planned-production-source"},
-    {"id":"EU","name":"EU sanctions / consolidated financial sanctions data","authority":"European Commission / EU","format":["machine-readable data where officially provided"],"official_url":"https://finance.ec.europa.eu/eu-and-world/sanctions-restrictive-measures/overview-sanctions-and-related-resources_en","status":"planned-production-source"},
-    {"id":"UK","name":"UK Sanctions List","authority":"UK Government / FCDO","format":["XML","CSV","HTML","PDF"],"official_url":"https://www.gov.uk/government/publications/the-uk-sanctions-list","status":"planned-production-source"}
-  ]
-}
