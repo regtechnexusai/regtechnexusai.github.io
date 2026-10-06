@@ -35,10 +35,6 @@ main{width:100%;max-width:1120px;margin:0 auto;padding:0 24px 70px}
 .steps span{display:block;overflow-wrap:anywhere}
 .boundary{background:#edf5ff;color:#17324e;border:1px solid #cfe2f7}
 .boundary p{margin-bottom:0;overflow-wrap:anywhere}
-footer{width:100%;max-width:1120px;margin:0 auto;padding:25px 24px 50px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px;color:#63758a;font-size:14px}
-footer span,footer a{min-width:0;overflow-wrap:anywhere}
-footer a{color:#0b5db7;font-weight:700;text-decoration:none}
-
 @media (max-width:760px){
   .page-header{padding:34px 18px 25px}
   .back{margin-bottom:30px}
@@ -49,7 +45,6 @@ footer a{color:#0b5db7;font-weight:700;text-decoration:none}
   .links{display:grid;grid-template-columns:minmax(0,1fr);width:100%}
   .links a{width:100%}
   .steps{grid-template-columns:1fr 1fr}
-  footer{padding:22px 18px 40px;flex-direction:column}
   .page-header h1{font-size:clamp(40px,11vw,54px)}
   .lead{font-size:17px}
 }
