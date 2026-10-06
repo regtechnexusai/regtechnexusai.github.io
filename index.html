@@ -195,20 +195,20 @@
   }
   .mobile-toolkit-tabs::-webkit-scrollbar{display:none!important}
   .mobile-toolkit-tabs .tool-tab{
-    flex:0 0 148px!important;
-    width:148px!important;
-    min-width:148px!important;
-    max-width:148px!important;
-    height:48px!important;
-    min-height:48px!important;
-    max-height:48px!important;
+    flex:0 0 116px!important;
+    width:116px!important;
+    min-width:116px!important;
+    max-width:116px!important;
+    height:44px!important;
+    min-height:44px!important;
+    max-height:44px!important;
     box-sizing:border-box!important;
     margin:0!important;
-    padding:6px 9px!important;
+    padding:5px 6px!important;
     border-radius:9px!important;
   }
-  .mobile-toolkit-tabs .tool-tab b{font-size:10px!important;line-height:1.1!important}
-  .mobile-toolkit-tabs .tool-tab span{font-size:8.5px!important;line-height:1.1!important}
+  .mobile-toolkit-tabs .tool-tab b{font-size:9.5px!important;line-height:1.05!important;white-space:nowrap!important}
+  .mobile-toolkit-tabs .tool-tab span{font-size:7.2px!important;line-height:1.05!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
   .social-learning{
     width:100%!important;
     max-width:none!important;
@@ -335,20 +335,20 @@
 
 <!-- MOBILE TOOLKIT QUICK ACCESS -->
 <nav class="mobile-toolkit-tabs" aria-label="Quick access to RegTech Nexus AI tools and knowledge">
-  <a class="tool-tab tool-tab--tradeguard" href="/tradeguard/"><b>TradeGuard</b><span>TBML &amp; transaction risk</span></a>
-  <a class="tool-tab tool-tab--sanctions" href="/sanctions-screening/"><b>Sanctions Screening</b><span>UN · OFAC · EU · UK</span></a>
-  <a class="tool-tab tool-tab--icms" href="/icms-2026/"><b>ICMS Toolkit</b><span>Readiness &amp; controls</span></a>
-  <a class="tool-tab tool-tab--bank" href="bank-use-review.html"><b>Bank-use Review</b><span>Use &amp; risk boundaries</span></a>
-  <a class="tool-tab tool-tab--mdceo" href="/md-ceo-performance-calculator/"><b>MD/CEO KPI</b><span>Performance calculator</span></a>
-  <a class="tool-tab tool-tab--payscale" href="/payscale-2026/"><b>PayScale 2026</b><span>Planning calculator</span></a>
-  <a class="tool-tab tool-tab--global" href="global-financial-systems.html#assessment"><b>International Readiness</b><span>Jurisdiction tools</span></a>
+  <a class="tool-tab tool-tab--tradeguard" href="/tradeguard/"><b>TBML Risk</b><span>TradeGuard</span></a>
+  <a class="tool-tab tool-tab--sanctions" href="/sanctions-screening/"><b>Sanctions</b><span>UN · OFAC · EU · UK</span></a>
+  <a class="tool-tab tool-tab--icms" href="/icms-2026/"><b>ICMS</b><span>Governance toolkit</span></a>
+  <a class="tool-tab tool-tab--bank" href="bank-use-review.html"><b>Bank Review</b><span>Use &amp; risk</span></a>
+  <a class="tool-tab tool-tab--mdceo" href="/md-ceo-performance-calculator/"><b>CEO KPI</b><span>Performance</span></a>
+  <a class="tool-tab tool-tab--payscale" href="/payscale-2026/"><b>PayScale</b><span>Salary planning</span></a>
+  <a class="tool-tab tool-tab--global" href="global-financial-systems.html#assessment"><b>Global Ready</b><span>Jurisdiction tools</span></a>
   <a class="tool-tab tool-tab--solutions" href="#solutions"><b>Solutions</b><span>All solutions</span></a>
   <a class="tool-tab tool-tab--knowledge" href="#knowledge"><b>Knowledge</b><span>Learning resources</span></a>
-  <a class="tool-tab tool-tab--calculators" href="international-regulatory-calculators.html"><b>Regulatory Calculators</b><span>Global &amp; country profiles</span></a>
-  <a class="tool-tab tool-tab--student" href="/student/"><b>Student Knowledge Hub</b><span>Learning, AI &amp; career</span></a>
-  <a class="tool-tab tool-tab--insights" href="#insights"><b>Insights &amp; Updates</b><span>Research &amp; briefings</span></a>
-  <a class="tool-tab tool-tab--policy" href="regulatory-gap-analyzer/"><b>Policy Gap Analyzer</b><span>Policy-to-control review</span></a>
-  <a class="tool-tab tool-tab--assistant" href="https://chatgpt.com/g/g-6a09920b01348191b9b1628b69367d9b-regtech-nexus-ai" target="_blank" rel="noopener noreferrer"><b>AI Assistant</b><span>Ask RegTech Nexus AI ↗</span></a>
+  <a class="tool-tab tool-tab--calculators" href="international-regulatory-calculators.html"><b>Reg Calculators</b><span>Global profiles</span></a>
+  <a class="tool-tab tool-tab--student" href="/student/"><b>Student Hub</b><span>Learning &amp; AI</span></a>
+  <a class="tool-tab tool-tab--insights" href="#insights"><b>Insights</b><span>Research &amp; updates</span></a>
+  <a class="tool-tab tool-tab--policy" href="regulatory-gap-analyzer/"><b>Policy Gap</b><span>Policy-to-control</span></a>
+  <a class="tool-tab tool-tab--assistant" href="https://chatgpt.com/g/g-6a09920b01348191b9b1628b69367d9b-regtech-nexus-ai" target="_blank" rel="noopener noreferrer"><b>AI Assistant</b><span>Ask RegTech AI ↗</span></a>
 </nav>
 <!-- /MOBILE TOOLKIT QUICK ACCESS -->
 
@@ -1897,5 +1897,30 @@
 </script>
 
 <script src="/site-search.js" defer></script>
+<script>
+(function(){
+  function initQuickRail(){
+    var rail=document.querySelector('.mobile-toolkit-tabs');
+    if(!rail || window.matchMedia('(min-width:761px)').matches || rail.dataset.autoRail==='1') return;
+    rail.dataset.autoRail='1';
+    var paused=false,last=performance.now(),speed=.22;
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+    function pause(){paused=true} function resume(){paused=false;last=performance.now()}
+    ['touchstart','pointerdown','wheel','mouseenter','focusin'].forEach(function(e){rail.addEventListener(e,pause,{passive:true})});
+    ['touchend','pointerup','mouseleave','focusout'].forEach(function(e){rail.addEventListener(e,resume,{passive:true})});
+    var loopWidth=0;
+    function measure(){loopWidth=rail.scrollWidth}
+    function tick(now){
+      if(!paused&&!reduce.matches&&document.visibilityState==='visible'){
+        rail.scrollLeft+=Math.min(32,now-last)*speed;
+        if(loopWidth && rail.scrollLeft>=loopWidth-rail.clientWidth-1) rail.scrollLeft=0;
+      }
+      last=now;requestAnimationFrame(tick);
+    }
+    measure();window.addEventListener('resize',measure,{passive:true});requestAnimationFrame(tick);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initQuickRail);else initQuickRail();
+})();
+</script>
 </body>
 </html>
