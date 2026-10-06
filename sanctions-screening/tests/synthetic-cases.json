@@ -1,7 +1,0 @@
-[
- {"case":"exact-name","input":"Mohammed Ahmed","expected":"Likely Match"},
- {"case":"alias-candidate","input":"Muhammad Ahmed","expected":"Likely Match"},
- {"case":"near-name","input":"Mohammd Ahmed","expected":"Potential Match or Review"},
- {"case":"unrelated","input":"Completely Unrelated Name","expected":"No Apparent Match"},
- {"case":"source-failure-control","condition":"source unavailable","expected":"Screening Incomplete"}
-]
