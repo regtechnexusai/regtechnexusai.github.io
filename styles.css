@@ -2074,3 +2074,73 @@ body:not(.calculator-page):not(.icms-page):not(.reggap-page):not(.global-systems
     max-height:64px!important;
   }
 }
+
+/* 2026-10-06 HOMEPAGE LIGHT TOOL CALLOUT PALETTE
+   Keep the existing content, links and tool logic; only change presentation.
+   The ICMS -> MD/CEO -> Bank Review -> International Readiness sequence
+   now uses distinct soft light surfaces instead of repeated dark blue. */
+.icms-home-callout{
+  background:linear-gradient(135deg,#f3f8ff 0%,#eaf4ff 100%)!important;
+  border:1px solid #c8ddf4!important;
+  color:#18324d!important;
+}
+.icms-home-callout .tag{color:#2d69a8!important}
+.icms-home-callout h3{color:#18324d!important}
+.icms-home-callout p{color:#536b82!important}
+.icms-home-callout>a{
+  background:#fff!important;
+  color:#174f82!important;
+  border-color:#c4d9ee!important;
+  box-shadow:0 4px 0 #9dbbd7!important;
+}
+.icms-home-callout.mdceo-home-callout{
+  background:linear-gradient(135deg,#f7f1ff 0%,#eee8ff 100%)!important;
+  border-color:#d8c9f1!important;
+}
+.icms-home-callout.mdceo-home-callout .tag{color:#7250a8!important}
+.icms-home-callout.mdceo-home-callout>a{
+  color:#60438e!important;
+  border-color:#d4c3ef!important;
+  box-shadow:0 4px 0 #b9a3d8!important;
+}
+.icms-home-callout.portfolio-review-home-callout{
+  background:linear-gradient(135deg,#fff7ef 0%,#fff0e7 100%)!important;
+  border-color:#efd2bd!important;
+}
+.icms-home-callout.portfolio-review-home-callout .tag{color:#b56335!important}
+.icms-home-callout.portfolio-review-home-callout>a{
+  color:#a2552c!important;
+  border-color:#ebc9af!important;
+  box-shadow:0 4px 0 #d7aa8d!important;
+}
+.global-systems-home{
+  background:linear-gradient(135deg,#eefaf7 0%,#e5f6f1 100%)!important;
+  border-color:#bfe2d8!important;
+  color:#173f3a!important;
+}
+.global-systems-home .tag{color:#197b6d!important}
+.global-systems-home h3{color:#173f3a!important}
+.global-systems-home p{color:#526f6b!important}
+.global-systems-home-cta{
+  background:#fff!important;
+  color:#17695f!important;
+  border-color:#b9ded5!important;
+  box-shadow:0 4px 0 #91c5ba!important;
+}
+.global-systems-mini-grid{
+  background:#c5e5dc!important;
+}
+.global-systems-mini-grid a{
+  background:#f8fffd!important;
+  border:0!important;
+}
+.global-systems-mini-grid a:hover{background:#effbf7!important}
+.global-systems-mini-grid b{color:#24564f!important}
+.global-systems-mini-grid span{color:#607a75!important}
+.global-systems-mini-grid i{color:#208878!important}
+
+/* Calculator entry immediately following the readiness block, when present. */
+#solutions .solution-grid .side{
+  background:#fffdf5;
+  border-color:#eadfbb;
+}
