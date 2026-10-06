@@ -1882,3 +1882,144 @@ body:not(.calculator-page):not(.icms-page):not(.reggap-page):not(.global-systems
     font-size:12.5px;
   }
 }
+
+
+/* 2026-10-06 GLOBAL RESPONSIVE UI CORRECTION PASS
+   Presentation-only. No tool/calculator logic is changed. */
+
+/* Secondary-page desktop navigation: prevent the long menu from becoming clipped. */
+@media (min-width:1101px){
+  .nav{
+    padding-left:3vw;
+    padding-right:3vw;
+  }
+  .nav nav{
+    gap:8px;
+    min-width:0;
+    flex:1 1 auto;
+    justify-content:flex-end;
+  }
+  .nav nav a{
+    font-size:11.5px;
+    padding:7px 4px;
+  }
+  .nav-cta{
+    margin-left:8px;
+    padding:10px 12px;
+    font-size:11px;
+    white-space:nowrap;
+  }
+}
+@media (min-width:1101px) and (max-width:1320px){
+  .nav-cta{display:none}
+}
+
+/* Phone quick-access: always use a compact horizontal rail. */
+@media (max-width:760px){
+  .mobile-toolkit-tabs{
+    position:relative!important;
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    align-items:center!important;
+    gap:8px!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    height:62px!important;
+    min-height:62px!important;
+    margin:0!important;
+    padding:7px 10px!important;
+    box-sizing:border-box!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    overscroll-behavior-x:contain!important;
+    scroll-snap-type:x proximity!important;
+    scrollbar-width:none!important;
+    -webkit-overflow-scrolling:touch!important;
+  }
+  .mobile-toolkit-tabs::-webkit-scrollbar{display:none!important}
+  .mobile-toolkit-tabs .tool-tab{
+    flex:0 0 148px!important;
+    width:148px!important;
+    min-width:148px!important;
+    max-width:148px!important;
+    height:48px!important;
+    min-height:48px!important;
+    max-height:48px!important;
+    margin:0!important;
+    padding:6px 9px!important;
+    border-radius:9px!important;
+    scroll-snap-align:start!important;
+  }
+  .mobile-toolkit-tabs .tool-tab b{
+    font-size:10px!important;
+    line-height:1.1!important;
+  }
+  .mobile-toolkit-tabs .tool-tab span{
+    display:block!important;
+    margin-top:2px!important;
+    font-size:8.5px!important;
+    line-height:1.1!important;
+  }
+}
+@media (max-width:390px){
+  .mobile-toolkit-tabs .tool-tab{
+    flex-basis:136px!important;
+    width:136px!important;
+    min-width:136px!important;
+    max-width:136px!important;
+  }
+}
+
+/* Secondary publication pages: keep the Watch & Learn block readable on phones. */
+@media (max-width:900px){
+  .social-learning{
+    width:100%!important;
+    max-width:none!important;
+    box-sizing:border-box!important;
+    padding-left:6vw!important;
+    padding-right:6vw!important;
+  }
+  .social-learning-links{
+    grid-template-columns:1fr!important;
+  }
+}
+@media (max-width:560px){
+  .social-learning{
+    padding-top:40px!important;
+    padding-bottom:48px!important;
+  }
+  .social-learning h2{
+    font-size:32px!important;
+    line-height:1.1!important;
+  }
+  .social-learning>p{
+    font-size:15px!important;
+    line-height:1.65!important;
+  }
+  .social-learning-links{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:10px!important;
+    margin-top:22px!important;
+  }
+  .social-learning-links a{
+    width:100%!important;
+    min-height:52px!important;
+    box-sizing:border-box!important;
+    padding:13px 14px!important;
+    font-size:12.5px!important;
+    line-height:1.45!important;
+    overflow-wrap:anywhere!important;
+  }
+  body.article-page .footer-brand .brand-logo,
+  body.insights-page .footer-brand .brand-logo,
+  body.contact-page .footer-brand .brand-logo,
+  body.calculator-page .footer-brand .brand-logo,
+  .wide-logo-page .footer-brand .brand-logo{
+    width:220px!important;
+    max-width:100%!important;
+    height:auto!important;
+    max-height:64px!important;
+  }
+}
