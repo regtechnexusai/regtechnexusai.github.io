@@ -1194,6 +1194,52 @@ body.calculator-page .footer-brand .brand-logo,
   font-size:8px;
 }
 .desktop-side-tools__rail b{font-size:9.5px;line-height:1.1}
+/* 2026-10-06 DESKTOP QUICK-ACCESS FIT FIX
+   Keep the existing two-group architecture, but make the complete quick-access
+   band fit common desktop widths without showing a clipped first card. */
+@media (min-width:1181px){
+  .desktop-side-tools{
+    padding-left:2.5vw;
+    padding-right:2.5vw;
+    gap:8px;
+  }
+  .desktop-side-tools__rail{
+    gap:5px;
+    padding-left:0;
+    padding-right:0;
+    overflow-x:hidden;
+  }
+  .desktop-side-tools__rail--left{justify-content:flex-start}
+  .desktop-side-tools__rail--right{justify-content:flex-end}
+  .desktop-side-tools__rail a{
+    flex:1 1 0;
+    width:auto;
+    min-width:0;
+    max-width:108px;
+    min-height:54px;
+    padding:5px 5px;
+    border-radius:11px;
+  }
+  .desktop-side-tools__rail b{
+    font-size:8.7px;
+    line-height:1.08;
+  }
+}
+@media (min-width:1181px) and (max-width:1320px){
+  .desktop-side-tools{
+    padding-left:1.5vw;
+    padding-right:1.5vw;
+  }
+  .desktop-side-tools__rail{
+    gap:4px;
+  }
+  .desktop-side-tools__rail a{
+    max-width:92px;
+    min-height:52px;
+    padding:4px;
+  }
+  .desktop-side-tools__rail b{font-size:8.2px}
+}
 
 /* Clear visual section starts/ends. */
 .section,.thinking,.responsible,.closing,.capabilities,.authority-section,
