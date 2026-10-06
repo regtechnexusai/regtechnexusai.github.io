@@ -967,6 +967,7 @@ body.calculator-page .footer-brand .brand-logo,
   .mobile-toolkit-tabs .tool-tab--knowledge{--tab-accent:#e07b19;--tab-bg:#fff5e9}
   .mobile-toolkit-tabs .tool-tab--insights{--tab-accent:#2364c4;--tab-bg:#edf4ff}
   .mobile-toolkit-tabs .tool-tab--assistant{--tab-accent:#b42f83;--tab-bg:#fff0f8}
+  .mobile-toolkit-tabs .tool-tab--sanctions{--tab-accent:#b44a3a;--tab-bg:#fff2ef}
 
   /* After the user starts scrolling, turn the grid into a compact
      single-line, horizontally scrollable toolkit rail. */
