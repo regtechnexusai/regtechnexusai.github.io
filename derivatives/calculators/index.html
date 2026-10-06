@@ -186,13 +186,44 @@ function collInterest(){let P=n('ciP'),r=n('ciR')/100,d=n('ciD'),b=n('ciB'),i=P*
   }
   function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
   function openPrint(card){
-    const d=getData(card),w=window.open('','_blank','noopener,noreferrer,width=900,height=700');
-    if(!w){setStatus(card,'Allow pop-ups to print/PDF');return;}
-    w.document.open();w.document.write(reportHtml(d));w.document.close();
-    let printed=false;
-    const doPrint=function(){if(printed)return;printed=true;try{w.focus();w.print();}catch(e){}};
-    w.onload=doPrint;
-    setTimeout(doPrint,700);
+    const d=getData(card);
+    const frame=document.createElement('iframe');
+    frame.setAttribute('title','Print preview');
+    frame.style.position='fixed';
+    frame.style.right='0';
+    frame.style.bottom='0';
+    frame.style.width='0';
+    frame.style.height='0';
+    frame.style.border='0';
+    frame.style.visibility='hidden';
+    frame.srcdoc=reportHtml(d);
+    document.body.appendChild(frame);
+    let finished=false;
+    const cleanup=function(){
+      if(finished)return;
+      finished=true;
+      setTimeout(function(){if(frame.parentNode)frame.parentNode.removeChild(frame);},300);
+    };
+    frame.onload=function(){
+      try{
+        const pw=frame.contentWindow;
+        if(!pw){throw new Error('Print frame unavailable');}
+        pw.onafterprint=cleanup;
+        setTimeout(function(){
+          pw.focus();
+          pw.print();
+        },120);
+      }catch(e){
+        cleanup();
+        setStatus(card,'Print unavailable — try again');
+      }
+    };
+    setTimeout(function(){
+      if(!finished && !frame.contentWindow){
+        cleanup();
+        setStatus(card,'Print unavailable — try again');
+      }
+    },2500);
   }
   function addTools(card){
     const result=card.querySelector('.result'); if(!result || card.querySelector('.export-tools'))return;
