@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="/styles.css">
 <style>
 body{background:#f7fbff;color:#10243e}.hero{padding:62px 6vw 50px;background:linear-gradient(135deg,#eaf5ff,#f8fbff);border-bottom:1px solid #d9e7f4}.wrap{max-width:1220px;margin:auto;padding:42px 5vw}.k{color:#1769aa;font-weight:800;letter-spacing:.08em;font-size:.76rem}.hero h1{font-size:clamp(2rem,5vw,3.8rem);line-height:1.04;margin:.5rem 0 1rem}.hero p,.intro{max-width:930px;line-height:1.7;color:#50647a}.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0}.toolbar a{background:#fff;border:1px solid #cbddea;border-radius:9px;padding:9px 12px;color:#0956a8;text-decoration:none;font-weight:700}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.card{background:#fff;border:1px solid #dce8f2;border-radius:14px;padding:22px;box-shadow:0 6px 22px rgba(24,65,104,.05)}.card h2{font-size:1.35rem;margin:.1rem 0 .4rem;color:#173a5d}.desc{font-size:.92rem;color:#617489;line-height:1.55}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:15px}.field label{display:block;font-size:.83rem;font-weight:750;margin-bottom:5px;color:#38536c}.field input,.field select{width:100%;box-sizing:border-box;padding:10px;border:1px solid #cbd9e5;border-radius:8px;background:#fff;color:#142d46}.full{grid-column:1/-1}.calc{margin-top:14px;padding:10px 15px;border:0;border-radius:8px;background:#0956a8;color:#fff;font-weight:800;cursor:pointer}.result{margin-top:13px;padding:13px;background:#eef6fc;border:1px solid #cfe0ed;border-radius:9px;line-height:1.6}.result b{color:#173a5d}.sample{font-size:.78rem;color:#65798d;margin-top:8px}.notice{margin:25px 0;background:#fff8e8;border:1px solid #ead39c;border-radius:12px;padding:17px;color:#5c4b25;line-height:1.65}.section-title{margin:36px 0 14px}.section-title h2{margin:.25rem 0;font-size:1.8rem}.formula{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78rem;background:#f3f7fa;padding:8px;border-radius:7px;overflow:auto;margin-top:9px}@media(max-width:800px){.grid,.fields{grid-template-columns:1fr}.full{grid-column:auto}}
+
+.export-tools{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}.export-tools button{border:1px solid #c7d8e7;background:#fff;color:#174f7f;border-radius:7px;padding:7px 9px;font-size:.76rem;font-weight:750;cursor:pointer}.export-tools button:hover{background:#f2f7fb}.export-tools button:focus-visible{outline:2px solid #1769aa;outline-offset:2px}.export-status{font-size:.72rem;color:#5f7183;margin-left:2px;align-self:center}@media print{.export-tools,.calc,.toolbar,.nav,footer,.notice{display:none!important}.card{box-shadow:none;break-inside:avoid}.hero{padding:20px}.wrap{padding:20px}.result{background:#fff}}
 </style>
 </head>
 <body class="article-page">
@@ -143,6 +145,89 @@ function hedge(){let c=n('hrC'),sx=n('hrX'),sh=n('hrH'),h=c*sx/sh,notional=h*n('
 function margin(){let N=n('mgN'),rate=n('mgR')/100,coll=n('mgC'),hair=n('mgH')/100,gross=N*rate,eligible=coll*(1-hair),short=Math.max(gross-eligible,0);document.getElementById('mgr').innerHTML='<b>Indicative margin requirement:</b> '+fmt(gross)+'<br><b>Haircut-adjusted collateral:</b> '+fmt(eligible)+'<br><b>Indicative additional collateral:</b> '+fmt(short);}
 function breakeven(){let K=n('beK'),P=n('beP'),call=document.getElementById('beT').value==='Long Call',be=call?K+P:K-P;document.getElementById('ber').innerHTML='<b>Expiration breakeven:</b> '+fmt(be)+'<br><span class="small">Before transaction costs, taxes and contract-specific adjustments.</span>';}
 function collInterest(){let P=n('ciP'),r=n('ciR')/100,d=n('ciD'),b=n('ciB'),i=P*r*d/b;document.getElementById('cir').innerHTML='<b>Indicative accrued interest:</b> '+fmt(i)+'<br><b>Balance including interest:</b> '+fmt(P+i);}
+
+<script>
+(function(){
+  const EXPORT_NOTICE='Educational/analytical output only — not investment, legal, accounting or regulatory advice.';
+  function cleanText(s){return String(s||'').replace(/\\s+/g,' ').trim();}
+  function getData(card){
+    const title=card.querySelector('h2')?.textContent.trim()||'Derivatives Calculator';
+    const desc=cleanText(card.querySelector('.desc')?.textContent||'');
+    const sample=cleanText(card.querySelector('.sample')?.textContent||'');
+    const fields=[];
+    card.querySelectorAll('.field').forEach(field=>{
+      const label=field.querySelector('label')?.textContent.trim();
+      const control=field.querySelector('input,select,textarea');
+      if(label && control && !control.hidden) fields.push({label,value:control.value});
+    });
+    const result=cleanText(card.querySelector('.result')?.innerText||'');
+    return {title,desc,sample,fields,result:result||'No result calculated yet.',timestamp:new Date().toLocaleString()};
+  }
+  function csvEscape(v){return '"'+String(v??'').replace(/"/g,'""')+'"';}
+  function csvFor(d){
+    const rows=[['RegTech Nexus AI','Derivatives Calculator Export'],['Calculator',d.title],['Generated',d.timestamp],[],['Input','Value']];
+    d.fields.forEach(x=>rows.push([x.label,x.value]));
+    rows.push([],['Result',d.result],['Notes',d.desc],['Sample',d.sample],['Disclaimer',EXPORT_NOTICE]);
+    return rows.map(r=>r.map(csvEscape).join(',')).join('\\r\\n');
+  }
+  function downloadBlob(name,content,type){
+    const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');
+    a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  }
+  function setStatus(card,msg){
+    const s=card.querySelector('.export-status'); if(!s)return; s.textContent=msg; clearTimeout(s._t); s._t=setTimeout(()=>s.textContent='',2200);
+  }
+  function reportText(d){
+    return ['RegTech Nexus AI — Derivatives Calculator Report','',d.title,'Generated: '+d.timestamp,'', 'INPUTS', ...d.fields.map(x=>x.label+': '+x.value),'','RESULT',d.result,'','NOTES',d.desc,d.sample,'',EXPORT_NOTICE].join('\\n');
+  }
+  function reportHtml(d){
+    const rows=d.fields.map(x=>'<tr><th>'+esc(x.label)+'</th><td>'+esc(x.value)+'</td></tr>').join('');
+    return '<!doctype html><html><head><meta charset="utf-8"><title>'+esc(d.title)+' | RegTech Nexus AI</title><style>body{font-family:Arial,sans-serif;color:#142d46;max-width:900px;margin:40px auto;padding:0 24px;line-height:1.55}h1{font-size:26px}h2{font-size:18px;margin-top:26px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #d5e0e8;padding:9px;text-align:left;vertical-align:top}th{width:34%;background:#f3f7fa}.result{background:#eef6fc;padding:14px;border:1px solid #cfe0ed;border-radius:8px}.note{color:#5a6c7c;font-size:13px}.brand{font-weight:800;color:#1769aa} @media print{body{margin:15mm;max-width:none}}</style></head><body><div class="brand">RegTech Nexus AI</div><h1>'+esc(d.title)+'</h1><p class="note">Generated: '+esc(d.timestamp)+'</p><h2>Inputs</h2><table>'+rows+'</table><h2>Result</h2><div class="result">'+esc(d.result).replace(/\\n/g,'<br>')+'</div><h2>Notes</h2><p>'+esc(d.desc)+'</p><p class="note">'+esc(d.sample)+'</p><p class="note">'+EXPORT_NOTICE+'</p></body></html>';
+  }
+  function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function openPrint(card){
+    const d=getData(card),w=window.open('','_blank','noopener,noreferrer,width=900,height=700');
+    if(!w){setStatus(card,'Allow pop-ups to print/PDF');return;}
+    w.document.open();w.document.write(reportHtml(d));w.document.close();
+    w.onload=function(){w.focus();w.print();};
+    setTimeout(function(){try{w.focus();w.print();}catch(e){}},500);
+  }
+  function addTools(card){
+    const result=card.querySelector('.result'); if(!result || card.querySelector('.export-tools'))return;
+    const bar=document.createElement('div');bar.className='export-tools';bar.setAttribute('aria-label','Export calculator result');
+    const buttons=[
+      ['Copy','copy'],['Excel / CSV','csv'],['PDF','pdf'],['Print','print'],['Download','download']
+    ];
+    buttons.forEach(([label,action])=>{
+      const b=document.createElement('button');b.type='button';b.textContent=label;
+      b.addEventListener('click',async()=>{
+        const d=getData(card),base='regtech-nexus-ai-'+d.title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+        try{
+          if(action==='copy'){
+            await navigator.clipboard.writeText(reportText(d));
+            setStatus(card,'Copied');
+          }else if(action==='csv'){
+            downloadBlob(base+'.csv','\\uFEFF'+csvFor(d),'text/csv;charset=utf-8');
+            setStatus(card,'CSV downloaded');
+          }else if(action==='download'){
+            downloadBlob(base+'.txt',reportText(d),'text/plain;charset=utf-8');
+            setStatus(card,'Report downloaded');
+          }else{
+            openPrint(card);
+          }
+        }catch(e){
+          if(action==='copy'){
+            const ta=document.createElement('textarea');ta.value=reportText(d);document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();setStatus(card,'Copied');
+          }else setStatus(card,'Export unavailable — try again');
+        }
+      });
+      bar.appendChild(b);
+    });
+    const status=document.createElement('span');status.className='export-status';status.setAttribute('aria-live','polite');bar.appendChild(status);
+    result.after(bar);
+  }
+  document.querySelectorAll('.card .result').forEach(result=>addTools(result.closest('.card')));
+})();
 </script>
 <script src="/script.js" defer></script><script src="/site-email.js?v=20260928-email-routing" defer></script><script src="/site-search.js" defer></script>
 </body></html>
