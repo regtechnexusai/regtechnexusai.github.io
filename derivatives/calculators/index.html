@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Derivatives Calculators | Pricing, Greeks, Rates, Margin & Hedging | RegTech Nexus AI</title>
+<meta name="description" content="Derivatives calculator hub covering futures P&L, forwards, Black-Scholes option pricing and Greeks, option payoff, interest-rate swaps, FRA settlement, DV01, hedge ratio, breakeven and indicative margin.">
+<link rel="canonical" href="https://regtechnexusai.com/derivatives/calculators/">
+<link rel="stylesheet" href="/styles.css">
+<style>
+body{background:#f7fbff;color:#10243e}.hero{padding:62px 6vw 50px;background:linear-gradient(135deg,#eaf5ff,#f8fbff);border-bottom:1px solid #d9e7f4}.wrap{max-width:1220px;margin:auto;padding:42px 5vw}.k{color:#1769aa;font-weight:800;letter-spacing:.08em;font-size:.76rem}.hero h1{font-size:clamp(2rem,5vw,3.8rem);line-height:1.04;margin:.5rem 0 1rem}.hero p,.intro{max-width:930px;line-height:1.7;color:#50647a}.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0}.toolbar a{background:#fff;border:1px solid #cbddea;border-radius:9px;padding:9px 12px;color:#0956a8;text-decoration:none;font-weight:700}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.card{background:#fff;border:1px solid #dce8f2;border-radius:14px;padding:22px;box-shadow:0 6px 22px rgba(24,65,104,.05)}.card h2{font-size:1.35rem;margin:.1rem 0 .4rem;color:#173a5d}.desc{font-size:.92rem;color:#617489;line-height:1.55}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:15px}.field label{display:block;font-size:.83rem;font-weight:750;margin-bottom:5px;color:#38536c}.field input,.field select{width:100%;box-sizing:border-box;padding:10px;border:1px solid #cbd9e5;border-radius:8px;background:#fff;color:#142d46}.full{grid-column:1/-1}.calc{margin-top:14px;padding:10px 15px;border:0;border-radius:8px;background:#0956a8;color:#fff;font-weight:800;cursor:pointer}.result{margin-top:13px;padding:13px;background:#eef6fc;border:1px solid #cfe0ed;border-radius:9px;line-height:1.6}.result b{color:#173a5d}.sample{font-size:.78rem;color:#65798d;margin-top:8px}.notice{margin:25px 0;background:#fff8e8;border:1px solid #ead39c;border-radius:12px;padding:17px;color:#5c4b25;line-height:1.65}.section-title{margin:36px 0 14px}.section-title h2{margin:.25rem 0;font-size:1.8rem}.formula{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78rem;background:#f3f7fa;padding:8px;border-radius:7px;overflow:auto;margin-top:9px}@media(max-width:800px){.grid,.fields{grid-template-columns:1fr}.full{grid-column:auto}}
+</style>
+</head>
+<body class="article-page">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="nav">
+<a class="brand" href="/index.html#work" aria-label="RegTech Nexus AI home"><img class="brand-logo" src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="228" height="72"></a>
+<button class="menu" aria-label="Open menu" aria-expanded="false" aria-controls="main-nav">☰</button>
+<nav id="main-nav" aria-label="Main navigation"><a href="/index.html#work">What we do</a><a href="/index.html#solutions">Solutions</a><a href="/global-financial-systems.html">Readiness tools</a><a href="/insights.html">Insights</a><a href="/blog.html">Blog</a><a href="/index.html#knowledge">Knowledge</a><a href="/international-regulatory-calculators.html">Regulatory Calculators</a><a href="/student/">Student Knowledge Hub</a><a href="/index.html#about">About</a><a href="/contact.html">Contact</a></nav>
+<a class="nav-cta" href="/derivatives/">Derivatives ↗</a>
+</header>
+<main id="main">
+<section class="hero"><div class="k">DERIVATIVES · CALCULATOR SUITE</div><h1>Derivatives Calculators</h1><p>A practical calculation laboratory for pricing, rates, P&amp;L, option Greeks, swaps, forwards, margin and hedging. Every calculator starts with an illustrative sample so a learner or professional can see what each input field is asking for.</p><div class="toolbar"><a href="#pricing">Pricing</a><a href="#rates">Rates &amp; Swaps</a><a href="#risk">Risk &amp; Greeks</a><a href="#hedging">Hedging &amp; Margin</a><a href="/derivatives/control-matrix/">Control Matrix ↗</a></div></section>
+<div class="wrap">
+<div class="notice"><strong>Important:</strong> These are educational and analytical calculators. They use simplified assumptions and do not constitute investment, legal, accounting or regulatory advice. Production valuation may require market curves, discounting conventions, volatility surfaces, collateral terms, netting sets, clearing rules, model validation and transaction-specific documentation. Do not treat an indicative result as an executable market quote or regulatory determination.</div>
+
+<div class="section-title" id="pricing"><div class="k">01 · PRICING &amp; P&amp;L</div><h2>Futures, forwards and options</h2></div>
+<div class="grid">
+<section class="card"><h2>Futures P&amp;L</h2><p class="desc">Illustrative profit/loss from price movement. Enter contract size and number of contracts.</p><div class="fields">
+<div class="field"><label>Entry price</label><input id="fp1" type="number" value="100"></div><div class="field"><label>Exit price</label><input id="fp2" type="number" value="105"></div>
+<div class="field"><label>Contract size</label><input id="fp3" type="number" value="1000"></div><div class="field"><label>Contracts</label><input id="fp4" type="number" value="2"></div>
+<select id="fp5" hidden><option>Long</option></select>
+<div class="field full"><label>Position</label><select id="fp6"><option>Long</option><option>Short</option></select></div></div>
+<button class="calc" onclick="futuresPL()">Calculate P&amp;L</button><div class="result" id="fr"></div><div class="sample">Sample: Long 2 contracts × 1,000 units; entry 100; exit 105.</div></section>
+
+<section class="card"><h2>FX Forward Rate</h2><p class="desc">Covered-interest-parity style indicative forward rate for an FX forward.</p><div class="fields">
+<div class="field"><label>Spot FX rate</label><input id="fxs" type="number" value="110" step="0.0001"></div>
+<div class="field"><label>Domestic interest rate %</label><input id="fxrd" type="number" value="5"></div>
+<div class="field"><label>Foreign interest rate %</label><input id="fxrf" type="number" value="3"></div>
+<div class="field"><label>Tenor (days)</label><input id="fxt" type="number" value="180"></div>
+<div class="field full"><label>Day-count basis</label><input id="fxb" type="number" value="360"></div></div>
+<button class="calc" onclick="fxForward()">Calculate Forward Rate</button><div class="result" id="fxr"></div><div class="sample">Sample: Spot 110; domestic 5%; foreign 3%; 180 days; 360-day basis.</div></section>
+
+<section class="card"><h2>European Option — Black-Scholes</h2><p class="desc">Indicative European call/put value plus Delta, Gamma, Vega and Theta. Assumes continuous rates/dividend yield and lognormal dynamics.</p><div class="fields">
+<div class="field"><label>Underlying price (S)</label><input id="bsS" type="number" value="100"></div><div class="field"><label>Strike (K)</label><input id="bsK" type="number" value="105"></div>
+<div class="field"><label>Volatility %</label><input id="bsV" type="number" value="20"></div><div class="field"><label>Risk-free rate %</label><input id="bsR" type="number" value="5"></div>
+<div class="field"><label>Dividend yield %</label><input id="bsQ" type="number" value="0"></div><div class="field"><label>Days to expiry</label><input id="bsT" type="number" value="90"></div>
+<div class="field full"><label>Option type</label><select id="bsType"><option>Call</option><option>Put</option></select></div></div>
+<button class="calc" onclick="blackScholes()">Calculate Price &amp; Greeks</button><div class="result" id="bsr"></div><div class="sample">Sample: S=100, K=105, volatility=20%, rate=5%, expiry=90 days, Call.</div></section>
+
+<section class="card"><h2>Option Payoff / Breakeven</h2><p class="desc">Shows expiration payoff and the basic breakeven level for a long option.</p><div class="fields">
+<div class="field"><label>Strike price</label><input id="opK" type="number" value="100"></div><div class="field"><label>Premium paid</label><input id="opP" type="number" value="5"></div>
+<div class="field"><label>Expiry underlying price</label><input id="opS" type="number" value="112"></div><div class="field"><label>Contract multiplier</label><input id="opM" type="number" value="100"></div>
+<div class="field full"><label>Position</label><select id="opT"><option>Long Call</option><option>Long Put</option></select></div></div>
+<button class="calc" onclick="optionPayoff()">Calculate Payoff</button><div class="result" id="opr"></div><div class="sample">Sample: Long Call, K=100, premium=5, expiry price=112, multiplier=100.</div></section>
+</div>
+
+<div class="section-title" id="rates"><div class="k">02 · RATES &amp; SWAPS</div><h2>Interest-rate calculations</h2></div>
+<div class="grid">
+<section class="card"><h2>Interest-Rate Swap Payment</h2><p class="desc">Illustrative fixed and floating payment for one calculation period.</p><div class="fields">
+<div class="field"><label>Notional</label><input id="swN" type="number" value="10000000"></div><div class="field"><label>Fixed rate %</label><input id="swF" type="number" value="5"></div>
+<div class="field"><label>Floating rate %</label><input id="swL" type="number" value="4.5"></div><div class="field"><label>Day-count fraction</label><input id="swD" type="number" value="0.25" step="0.0001"></div>
+<div class="field full"><label>Position</label><select id="swP"><option>Pay fixed / receive floating</option><option>Receive fixed / pay floating</option></select></div></div>
+<button class="calc" onclick="swapPay()">Calculate Swap Cash Flow</button><div class="result" id="swr"></div><div class="sample">Sample: Notional 10,000,000; fixed 5%; floating 4.5%; quarter-year period.</div></section>
+
+<section class="card"><h2>FRA Settlement</h2><p class="desc">Indicative cash settlement of a Forward Rate Agreement using a simple money-market convention.</p><div class="fields">
+<div class="field"><label>Notional</label><input id="fraN" type="number" value="10000000"></div><div class="field"><label>Contract FRA rate %</label><input id="fraK" type="number" value="5"></div>
+<div class="field"><label>Reference rate %</label><input id="fraR" type="number" value="5.5"></div><div class="field"><label>Accrual fraction</label><input id="fraD" type="number" value="0.25" step="0.0001"></div>
+<div class="field full"><label>Convention</label><select id="fraC"><option>Settlement at period start</option><option>Simple interest approximation</option></select></div></div>
+<button class="calc" onclick="fra()">Calculate FRA Settlement</button><div class="result" id="frar"></div><div class="sample">Sample: Notional 10m; FRA 5%; reference 5.5%; accrual 0.25.</div></section>
+
+<section class="card"><h2>DV01 / PVBP</h2><p class="desc">Simple linear approximation of value change for a 1 basis-point rate move.</p><div class="fields">
+<div class="field"><label>Market value / PV</label><input id="dvPV" type="number" value="10000000"></div><div class="field"><label>Modified duration</label><input id="dvD" type="number" value="4.5" step="0.01"></div>
+<div class="field full"><label>Rate move (basis points)</label><input id="dvB" type="number" value="1"></div></div>
+<button class="calc" onclick="dv01()">Calculate DV01</button><div class="result" id="dvr"></div><div class="sample">Sample: PV 10m; modified duration 4.5; 1 bp move.</div></section>
+
+<section class="card"><h2>Indicative Swap Fixed Rate</h2><p class="desc">Par fixed rate using a set of discount factors: fixed rate ≈ (1−DFn) / sum(DFᵢ×accrualᵢ). Enter comma-separated discount factors and equal accrual periods.</p><div class="fields">
+<div class="field full"><label>Discount factors</label><input id="srDF" value="0.987,0.973,0.958,0.943"></div>
+<div class="field"><label>Accrual per period</label><input id="srA" type="number" value="0.25" step="0.0001"></div><div class="field"><label>Final discount factor</label><input id="srLast" type="number" value="0.943" step="0.000001"></div>
+</div><button class="calc" onclick="swapRate()">Calculate Par Fixed Rate</button><div class="result" id="srr"></div><div class="sample">Sample discount factors: 0.987, 0.973, 0.958, 0.943; quarterly accrual.</div></section>
+</div>
+
+<div class="section-title" id="risk"><div class="k">03 · RISK, GREEKS &amp; EXPOSURE</div><h2>Risk sensitivities</h2></div>
+<div class="grid">
+<section class="card"><h2>Option Position Greeks</h2><p class="desc">Uses the Black-Scholes result to scale Delta, Gamma and Vega by contracts and multiplier.</p><div class="fields">
+<div class="field"><label>Underlying price</label><input id="gS" type="number" value="100"></div><div class="field"><label>Strike</label><input id="gK" type="number" value="100"></div>
+<div class="field"><label>Volatility %</label><input id="gV" type="number" value="20"></div><div class="field"><label>Rate %</label><input id="gR" type="number" value="5"></div>
+<div class="field"><label>Days</label><input id="gT" type="number" value="90"></div><div class="field"><label>Contracts</label><input id="gC" type="number" value="10"></div>
+<div class="field full"><label>Multiplier</label><input id="gM" type="number" value="100"></div></div>
+<button class="calc" onclick="greeks()">Calculate Position Greeks</button><div class="result" id="gr"></div><div class="sample">Sample: ATM option; 20% vol; 90 days; 10 contracts × 100 multiplier.</div></section>
+
+<section class="card"><h2>Forward / Futures Basis</h2><p class="desc">Measures the difference between the observed futures/forward price and spot price.</p><div class="fields">
+<div class="field"><label>Spot price</label><input id="baS" type="number" value="100"></div><div class="field"><label>Forward/Futures price</label><input id="baF" type="number" value="102"></div>
+<div class="field"><label>Days to maturity</label><input id="baT" type="number" value="90"></div><div class="field"><label>Annualised basis convention</label><input id="baB" type="number" value="365"></div></div>
+<button class="calc" onclick="basis()">Calculate Basis</button><div class="result" id="bar"></div><div class="sample">Sample: Spot 100; forward 102; 90 days.</div></section>
+</div>
+
+<div class="section-title" id="hedging"><div class="k">04 · HEDGING &amp; MARGIN</div><h2>Exposure, hedge and capital planning</h2></div>
+<div class="grid">
+<section class="card"><h2>Minimum-Variance Hedge Ratio</h2><p class="desc">Indicative hedge ratio from correlation and volatility of exposure and hedge instrument.</p><div class="fields">
+<div class="field"><label>Correlation (ρ)</label><input id="hrC" type="number" value="0.85" step="0.01"></div><div class="field"><label>Exposure volatility</label><input id="hrX" type="number" value="12" step="0.01"></div>
+<div class="field"><label>Hedge instrument volatility</label><input id="hrH" type="number" value="10" step="0.01"></div><div class="field"><label>Exposure notional</label><input id="hrN" type="number" value="10000000"></div></div>
+<button class="calc" onclick="hedge()">Calculate Hedge Ratio</button><div class="result" id="hrr"></div><div class="sample">Sample: correlation 0.85; exposure vol 12%; hedge vol 10%; exposure 10m.</div></section>
+
+<section class="card"><h2>Indicative Margin</h2><p class="desc">Simple scenario-based margin estimate. This is not a CCP margin model such as SPAN/CORE or an approved regulatory IM model.</p><div class="fields">
+<div class="field"><label>Gross exposure / position value</label><input id="mgN" type="number" value="10000000"></div><div class="field"><label>Margin rate %</label><input id="mgR" type="number" value="8"></div>
+<div class="field"><label>Collateral already posted</label><input id="mgC" type="number" value="300000"></div><div class="field"><label>Eligible collateral haircut %</label><input id="mgH" type="number" value="5"></div></div>
+<button class="calc" onclick="margin()">Calculate Indicative Margin</button><div class="result" id="mgr"></div><div class="sample">Sample: exposure 10m; indicative margin rate 8%; collateral 300k; haircut 5%.</div></section>
+
+<section class="card"><h2>Option Strategy Breakeven</h2><p class="desc">Basic expiration breakeven for a single long call or put using premium paid.</p><div class="fields">
+<div class="field"><label>Strike</label><input id="beK" type="number" value="100"></div><div class="field"><label>Premium</label><input id="beP" type="number" value="6"></div>
+<div class="field full"><label>Strategy</label><select id="beT"><option>Long Call</option><option>Long Put</option></select></div></div>
+<button class="calc" onclick="breakeven()">Calculate Breakeven</button><div class="result" id="ber"></div><div class="sample">Sample: K=100; premium=6; Long Call → breakeven 106.</div></section>
+
+<section class="card"><h2>Collateral Interest</h2><p class="desc">Simple collateral interest accrual using principal, rate, day count and days. Market documentation determines the actual convention.</p><div class="fields">
+<div class="field"><label>Collateral balance</label><input id="ciP" type="number" value="5000000"></div><div class="field"><label>Interest rate %</label><input id="ciR" type="number" value="4"></div>
+<div class="field"><label>Days</label><input id="ciD" type="number" value="30"></div><div class="field"><label>Day-count basis</label><input id="ciB" type="number" value="360"></div></div>
+<button class="calc" onclick="collInterest()">Calculate Interest</button><div class="result" id="cir"></div><div class="sample">Sample: collateral 5m; rate 4%; 30 days; 360-day basis.</div></section>
+</div>
+
+<div class="section-title"><div class="k">05 · COVERAGE &amp; CONTROL</div><h2>What this suite covers</h2></div>
+<div class="card"><p class="intro">The suite intentionally focuses on core calculation families commonly encountered in derivatives pricing, risk and collateral workflows. Professional platforms may additionally use yield-curve bootstrapping, OIS discounting, multi-curve valuation, volatility surfaces, local/stochastic volatility, Monte Carlo, CVA/DVA/FVA, XVA, expected exposure, PFE, stress testing, portfolio margining and product-specific clearing models. Those require materially more market data and model governance than a public educational calculator.</p><div class="notice"><strong>Model-governance principle:</strong> A calculator output is only as reliable as its inputs, conventions, model assumptions, market data and validation. For institutional use, retain calculation inputs, source data, model version, assumptions, approvals and evidence.</div></div>
+</div>
+</main>
+<footer id="contact"><div class="footer-brand"><div class="brand"><img class="brand-logo" src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="248" height="80"></div><p>Audit · Regulatory Intelligence · Compliance · Risk · Technology</p></div><div><b>Knowledge</b><a href="/derivatives/">Derivatives</a><a href="/derivatives/control-matrix/">Control Matrix</a><a href="/derivatives/readiness-check/">Readiness Check</a><a href="/insights.html">Research &amp; Insights</a></div><div><b>Connect</b><a href="/contact.html">Contact</a></div><div class="legal"><span>© 2026 RegTech Nexus AI</span><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/contact.html">Contact</a></div></footer>
+<script>
+const n=id=>parseFloat(document.getElementById(id).value)||0;
+const fmt=x=>Number.isFinite(x)?x.toLocaleString(undefined,{maximumFractionDigits:6}):'—';
+const norm=x=>Math.exp(-x*x/2)/Math.sqrt(2*Math.PI);
+const cdf=x=>0.5*(1+Math.erf(x/Math.sqrt(2)));
+function futuresPL(){let d=n('fp2')-n('fp1'),p=document.getElementById('fp6').value==='Long'?1:-1,pl=d*p*n('fp3')*n('fp4');fr.innerHTML='<b>P&amp;L:</b> '+fmt(pl);}
+function fxForward(){let S=n('fxs'),rd=n('fxrd')/100,rf=n('fxrf')/100,T=n('fxt')/n('fxb'),F=S*(1+rd*T)/(1+rf*T);fxr.innerHTML='<b>Indicative forward rate:</b> '+fmt(F)+'<br>Forward points: '+fmt(F-S);}
+function bs(S,K,v,r,q,T,type){let sd=v*Math.sqrt(T),d1=(Math.log(S/K)+(r-q+v*v/2)*T)/sd,d2=d1-sd,D=Math.exp(-r*T),Q=Math.exp(-q*T),price=type==='Call'?S*Q*cdf(d1)-K*D*cdf(d2):K*D*cdf(-d2)-S*Q*cdf(-d1),delta=type==='Call'?Q*cdf(d1):Q*(cdf(d1)-1),gamma=Q*norm(d1)/(S*sd),vega=S*Q*norm(d1)*Math.sqrt(T)/100,theta=type==='Call'?(-S*Q*norm(d1)*v/(2*Math.sqrt(T))-r*K*D*cdf(d2)+q*S*Q*cdf(d1))/365:(-S*Q*norm(d1)*v/(2*Math.sqrt(T))+r*K*D*cdf(-d2)-q*S*Q*cdf(-d1))/365;return{price,delta,gamma,vega,theta};}
+function blackScholes(){let x=bs(n('bsS'),n('bsK'),n('bsV')/100,n('bsR')/100,n('bsQ')/100,n('bsT')/365,document.getElementById('bsType').value);bsr.innerHTML='<b>Indicative price:</b> '+fmt(x.price)+'<br><b>Delta:</b> '+fmt(x.delta)+' · <b>Gamma:</b> '+fmt(x.gamma)+' · <b>Vega/1%:</b> '+fmt(x.vega)+' · <b>Theta/day:</b> '+fmt(x.theta);}
+function optionPayoff(){let K=n('opK'),P=n('opP'),S=n('opS'),M=n('opM'),call=document.getElementById('opT').value==='Long Call',intr=call?Math.max(S-K,0):Math.max(K-S,0),pl=(intr-P)*M;opr.innerHTML='<b>Intrinsic value:</b> '+fmt(intr)+'<br><b>Net P&amp;L at expiry:</b> '+fmt(pl);}
+function swapPay(){let N=n('swN'),F=n('swF')/100,L=n('swL')/100,D=n('swD'),fixed=N*F*D,float=N*L*D,net=document.getElementById('swP').value.startsWith('Pay')?float-fixed:fixed-float;swr.innerHTML='<b>Fixed payment:</b> '+fmt(fixed)+'<br><b>Floating payment:</b> '+fmt(float)+'<br><b>Net cash flow:</b> '+fmt(net);}
+function fra(){let N=n('fraN'),K=n('fraK')/100,R=n('fraR')/100,D=n('fraD'),settle=N*(R-K)*D/(1+R*D);frar.innerHTML='<b>Indicative FRA settlement:</b> '+fmt(settle)+'<br><span class="small">Positive result means receipt under the simplified convention.</span>';}
+function dv01(){let pv=n('dvPV'),dur=n('dvD'),dv=pv*dur*.0001,dvMove=dv*n('dvB');dvr.innerHTML='<b>DV01:</b> '+fmt(dv)+'<br><b>Approx. value change for selected move:</b> '+fmt(dvMove)+' (absolute sensitivity; sign depends on position).';}
+function swapRate(){let dfs=document.getElementById('srDF').value.split(',').map(Number).filter(x=>Number.isFinite(x)),a=n('srA'),last=n('srLast'),sum=dfs.reduce((s,x)=>s+x*a,0),r=(1-last)/sum;srr.innerHTML='<b>Indicative par fixed rate:</b> '+fmt(r*100)+'%<br><span class="small">Uses the supplied discount factors and equal accrual periods.</span>';}
+function greeks(){let x=bs(n('gS'),n('gK'),n('gV')/100,n('gR')/100,0,n('gT')/365,'Call'),m=n('gC')*n('gM');gr.innerHTML='<b>Scaled Delta:</b> '+fmt(x.delta*m)+'<br><b>Scaled Gamma:</b> '+fmt(x.gamma*m)+'<br><b>Scaled Vega per 1%:</b> '+fmt(x.vega*m)+'<br><span class="small">Call-based illustration; production portfolios require position-level aggregation.</span>';}
+function basis(){let S=n('baS'),F=n('baF'),T=n('baT')/n('baB'),b=F-S,ann=b/S/T;bar.innerHTML='<b>Absolute basis:</b> '+fmt(b)+'<br><b>Annualised simple basis:</b> '+fmt(ann*100)+'%';}
+function hedge(){let c=n('hrC'),sx=n('hrX'),sh=n('hrH'),h=c*sx/sh,notional=h*n('hrN');hrr.innerHTML='<b>Minimum-variance hedge ratio:</b> '+fmt(h)+'<br><b>Indicative hedge notional:</b> '+fmt(notional);}
+function margin(){let N=n('mgN'),rate=n('mgR')/100,coll=n('mgC'),hair=n('mgH')/100,gross=N*rate,eligible=coll*(1-hair),short=Math.max(gross-eligible,0);mgr.innerHTML='<b>Indicative margin requirement:</b> '+fmt(gross)+'<br><b>Haircut-adjusted collateral:</b> '+fmt(eligible)+'<br><b>Indicative additional collateral:</b> '+fmt(short);}
+function breakeven(){let K=n('beK'),P=n('beP'),call=document.getElementById('beT').value==='Long Call',be=call?K+P:K-P;ber.innerHTML='<b>Expiration breakeven:</b> '+fmt(be)+'<br><span class="small">Before transaction costs, taxes and contract-specific adjustments.</span>';}
+function collInterest(){let P=n('ciP'),r=n('ciR')/100,d=n('ciD'),b=n('ciB'),i=P*r*d/b;cir.innerHTML='<b>Indicative accrued interest:</b> '+fmt(i)+'<br><b>Balance including interest:</b> '+fmt(P+i);}
+</script>
+<script src="/script.js" defer></script><script src="/site-email.js?v=20260928-email-routing" defer></script><script src="/site-search.js" defer></script>
+</body></html>
