@@ -145,7 +145,7 @@ function hedge(){let c=n('hrC'),sx=n('hrX'),sh=n('hrH'),h=c*sx/sh,notional=h*n('
 function margin(){let N=n('mgN'),rate=n('mgR')/100,coll=n('mgC'),hair=n('mgH')/100,gross=N*rate,eligible=coll*(1-hair),short=Math.max(gross-eligible,0);document.getElementById('mgr').innerHTML='<b>Indicative margin requirement:</b> '+fmt(gross)+'<br><b>Haircut-adjusted collateral:</b> '+fmt(eligible)+'<br><b>Indicative additional collateral:</b> '+fmt(short);}
 function breakeven(){let K=n('beK'),P=n('beP'),call=document.getElementById('beT').value==='Long Call',be=call?K+P:K-P;document.getElementById('ber').innerHTML='<b>Expiration breakeven:</b> '+fmt(be)+'<br><span class="small">Before transaction costs, taxes and contract-specific adjustments.</span>';}
 function collInterest(){let P=n('ciP'),r=n('ciR')/100,d=n('ciD'),b=n('ciB'),i=P*r*d/b;document.getElementById('cir').innerHTML='<b>Indicative accrued interest:</b> '+fmt(i)+'<br><b>Balance including interest:</b> '+fmt(P+i);}
-
+</script>
 <script>
 (function(){
   const EXPORT_NOTICE='Educational/analytical output only — not investment, legal, accounting or regulatory advice.';
