@@ -291,3 +291,109 @@ footer .legal{margin-top:8px!important;padding-top:14px!important;font-size:11px
 @media (prefers-reduced-motion:reduce){
   .mobile-toolkit-tabs.is-scroll-rail{scroll-behavior:auto!important}
 }
+
+
+/* 2026-10-06 RESPONSIVE UI CORRECTION PASS
+   Presentation-only corrections based on desktop/mobile inspection.
+   Preserves calculators, tools, algorithms, content and navigation targets. */
+
+/* Desktop: keep the full primary navigation usable without horizontal clipping. */
+@media (min-width:1101px){
+  .nav{
+    padding-left:3vw!important;
+    padding-right:3vw!important;
+  }
+  .nav nav{
+    gap:8px!important;
+    min-width:0!important;
+    flex:1 1 auto!important;
+    justify-content:flex-end!important;
+  }
+  .nav nav a{
+    font-size:11.5px!important;
+    padding:7px 4px!important;
+  }
+  .nav-cta{
+    margin-left:8px!important;
+    padding:10px 12px!important;
+    font-size:11px!important;
+    white-space:nowrap!important;
+  }
+}
+@media (min-width:1101px) and (max-width:1320px){
+  .nav-cta{display:none!important}
+}
+
+/* Phones: the quick-access toolkit must be a compact horizontal rail,
+   not a tall 3-column grid that pushes the hero far below the fold. */
+@media (max-width:760px){
+  .mobile-toolkit-tabs{
+    position:relative!important;
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    align-items:center!important;
+    gap:8px!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    height:62px!important;
+    min-height:62px!important;
+    margin:0!important;
+    padding:7px 10px!important;
+    box-sizing:border-box!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    overscroll-behavior-x:contain!important;
+    scroll-snap-type:x proximity!important;
+    scrollbar-width:none!important;
+    -webkit-overflow-scrolling:touch!important;
+  }
+  .mobile-toolkit-tabs::-webkit-scrollbar{display:none!important}
+  .mobile-toolkit-tabs .tool-tab{
+    flex:0 0 148px!important;
+    width:148px!important;
+    min-width:148px!important;
+    max-width:148px!important;
+    height:48px!important;
+    min-height:48px!important;
+    max-height:48px!important;
+    margin:0!important;
+    padding:6px 9px!important;
+    border-radius:9px!important;
+    scroll-snap-align:start!important;
+  }
+  .mobile-toolkit-tabs .tool-tab b{
+    font-size:10px!important;
+    line-height:1.1!important;
+  }
+  .mobile-toolkit-tabs .tool-tab span{
+    display:block!important;
+    margin-top:2px!important;
+    font-size:8.5px!important;
+    line-height:1.1!important;
+  }
+}
+
+/* Small phones: slightly narrower cards to expose the next destination. */
+@media (max-width:390px){
+  .mobile-toolkit-tabs .tool-tab{
+    flex-basis:136px!important;
+    width:136px!important;
+    min-width:136px!important;
+    max-width:136px!important;
+  }
+}
+
+/* Compact secondary-page footer branding on phones. */
+@media (max-width:560px){
+  body.article-page .footer-brand .brand-logo,
+  body.insights-page .footer-brand .brand-logo,
+  body.contact-page .footer-brand .brand-logo,
+  body.calculator-page .footer-brand .brand-logo,
+  .wide-logo-page .footer-brand .brand-logo{
+    width:220px!important;
+    max-width:100%!important;
+    height:auto!important;
+    max-height:64px!important;
+  }
+}
