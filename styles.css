@@ -602,7 +602,7 @@ body.calculator-page .footer-brand .brand-logo,
   .icms-page .footer-brand .brand{width:min(100%,240px) !important}
   .icms-page .footer-brand .brand-logo{max-width:240px !important}
   .focus-grid a{min-height:0;padding:24px 22px}
-  .knowledge-list a{padding:20px 18px}
+  .knowledge-list a{padding:20px 24px}
   .flow{gap:12px}
   .flow span{padding:15px 17px}
   .flow i{width:42px;height:42px}
@@ -1291,7 +1291,7 @@ body.calculator-page .footer-brand .brand-logo,
 .article-grid article:nth-child(3){border-top-color:#10a37f}
 
 .knowledge-list a{
-  padding:20px 22px;
+  padding:20px 30px;
   margin:8px 0;
   border:1px solid #dce6ee;
   background:#fff;
@@ -1817,7 +1817,7 @@ body:not(.calculator-page):not(.icms-page):not(.reggap-page):not(.global-systems
   .solution-grid{margin-top:30px}
   .solution-grid article{padding:28px}
   .article-grid article{min-height:0;padding:28px}
-  .knowledge-list a{padding:18px 0;gap:12px}
+  .knowledge-list a{padding:18px 24px;gap:12px}
 }
 
 /* Keep content backgrounds light; deep blue remains reserved for intentional
