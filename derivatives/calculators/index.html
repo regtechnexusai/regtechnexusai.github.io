@@ -231,7 +231,7 @@ function collInterest(){let P=n('ciP'),r=n('ciR')/100,d=n('ciD'),b=n('ciB');if(!
     const result=card.querySelector('.result'); if(!result || card.querySelector('.export-tools'))return;
     const bar=document.createElement('div');bar.className='export-tools';bar.setAttribute('aria-label','Export calculator result');
     const buttons=[
-      ['Copy','copy'],['CSV','csv'],['PDF / Print','pdf'],['Print','print'],['Download TXT','download']
+      ['Copy','copy'],['CSV','csv'],['Print / Save PDF','print'],['Download TXT','download']
     ];
     buttons.forEach(([label,action])=>{
       const b=document.createElement('button');b.type='button';b.textContent=label;
