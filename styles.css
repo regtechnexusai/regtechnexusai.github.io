@@ -1795,7 +1795,7 @@ body:not(.calculator-page):not(.icms-page):not(.reggap-page):not(.global-systems
   .flow{margin:48px auto}
   .solution-grid{margin-top:44px}
   .article-grid{margin-top:40px}
-  .knowledge-list a{padding:20px 0}
+  .knowledge-list a{padding:20px 30px}
 }
 
 /* Consistent content measure and card rhythm. */
