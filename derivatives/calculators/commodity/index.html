@@ -113,7 +113,7 @@ body{background:#f7fbff;color:#10243e}.hero{padding:58px 6vw 48px;background:lin
 <script>
 const n=id=>parseFloat(document.getElementById(id).value)||0;
 const fmt=x=>Number.isFinite(x)?x.toLocaleString(undefined,{maximumFractionDigits:6}):'—';
-const erf=x=>{const s=x<0?-1:1,a=Math.abs(x),t=1/(1+0.3275911*a),p=((((1.061405429*t-1.453152027)*t+1.421413741)*t-0.284496736)*t+0.254829592)*t;return s*(1-p*Math.exp(-a*a));};
+const erf=x=>{const sign=x<0?-1:1,a=Math.abs(x);if(a===0)return 0;if(a<=4){let sum=0,term=a,fact=1,xx=a*a;for(let k=0;k<100;k++){if(k>0){term*=-xx;fact*=k;}const add=term/(fact*(2*k+1));sum+=add;if(Math.abs(add)<1e-18*Math.max(1,Math.abs(sum)))break;}return sign*(2/Math.sqrt(Math.PI))*sum;}let term=1,sum=1,xx=2*a*a;for(let k=1;k<50;k++){term*=-(2*k-1)/xx;sum+=term;if(Math.abs(term)<1e-18*Math.abs(sum))break;}const erfc=Math.exp(-a*a)/(a*Math.sqrt(Math.PI))*sum;return sign*(1-erfc);};
 const cdf=x=>0.5*(1+erf(x/Math.sqrt(2)));
 function black76(F,K,v,r,T,type){if(!(F>0&&K>0&&v>0&&T>0))throw new Error('Black-76 requires F > 0, K > 0, volatility > 0 and time to expiry > 0.');let sd=v*Math.sqrt(T),d1=(Math.log(F/K)+.5*v*v*T)/sd,d2=d1-sd,D=Math.exp(-r*T),phi=(1/Math.sqrt(2*Math.PI))*Math.exp(-d1*d1/2),price=type==='Call'?D*(F*cdf(d1)-K*cdf(d2)):D*(K*cdf(-d2)-F*cdf(-d1)),delta=D*(type==='Call'?cdf(d1):-cdf(-d1)),gamma=D*phi/(F*sd),vega=D*F*phi*Math.sqrt(T)/100,theta=(-D*F*phi*v/(2*Math.sqrt(T))+r*price)/365;return{price,delta,gamma,vega,theta};}
 function inputError(id,msg){document.getElementById(id).innerHTML='<b>Input error:</b> '+msg;}
