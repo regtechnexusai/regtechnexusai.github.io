@@ -60,6 +60,7 @@ body{background:#f7fbff;color:#10243e}.hero{padding:58px 6vw 48px;background:lin
 <div class="field"><label>Futures price</label><input id="c6a" type="number" value="75"></div><div class="field"><label>Strike</label><input id="c6b" type="number" value="75"></div>
 <div class="field"><label>Volatility %</label><input id="c6c" type="number" value="30"></div><div class="field"><label>Rate %</label><input id="c6d" type="number" value="5"></div>
 <div class="field"><label>Days</label><input id="c6e" type="number" value="90"></div><div class="field"><label>Contracts</label><input id="c6f" type="number" value="10"></div>
+<div class="field"><label>Option type</label><select id="c6h"><option>Call</option><option>Put</option></select></div><div class="field"><label>Position</label><select id="c6i"><option>Long</option><option>Short</option></select></div>
 <div class="field full"><label>Contract multiplier</label><input id="c6g" type="number" value="1000"></div></div><button class="calc" onclick="c6()">Calculate Greeks</button><div class="result" id="r6"></div><div class="sample">Sample: ATM; 30% volatility; 90 days; 10 contracts × 1,000 multiplier. F, K, volatility and maturity must be > 0.</div></section>
 </div>
 
