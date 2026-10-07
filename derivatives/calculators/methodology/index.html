@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Derivatives Calculator Methodology & Model Governance | RegTech Nexus AI</title>
+<meta name="description" content="Model methodology, validation boundaries, assumptions, testing and governance principles for RegTech Nexus AI derivatives calculators.">
+<link rel="canonical" href="https://regtechnexusai.com/derivatives/calculators/methodology/">
+<link rel="stylesheet" href="/styles.css">
+<style>
+body{background:#f7fbff;color:#10243e}.hero{padding:64px 6vw 50px;background:linear-gradient(135deg,#edf7ff,#fff);border-bottom:1px solid #d9e7f4}.wrap{max-width:1120px;margin:auto;padding:42px 5vw}.k{color:#1769aa;font-weight:800;letter-spacing:.08em;font-size:.76rem}.hero h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1.06;margin:.5rem 0 1rem}.hero p,.section p,.section li{line-height:1.7;color:#50647a}.section{background:#fff;border:1px solid #dce8f2;border-radius:14px;padding:24px;margin:18px 0}.section.alt{background:#eef6fc}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.card{background:#fff;border:1px solid #dce8f2;border-radius:12px;padding:18px}.card h3{margin:.1rem 0 .45rem;color:#173a5d}.tag{display:inline-block;padding:6px 9px;border-radius:999px;background:#e8f2f9;color:#1769aa;font-weight:800;font-size:.76rem}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.actions a{padding:11px 15px;border-radius:10px;text-decoration:none;font-weight:750}.primary{background:#0956a8;color:#fff}.secondary{background:#fff;color:#0956a8;border:1px solid #bfd3e5}.notice{background:#fff8ef;border-left:4px solid #a45b08;padding:15px;border-radius:8px;line-height:1.6;color:#5e5145}@media(max-width:760px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+<div class="k">DERIVATIVES · MODEL GOVERNANCE</div>
+<h1>Calculator Methodology &amp; Validation</h1>
+<p>How the RegTech Nexus AI derivatives calculators should be interpreted, tested and governed before any professional or institutional reliance.</p>
+<div class="actions"><a class="primary" href="/derivatives/calculators/">Calculator Hub ↗</a><a class="secondary" href="/derivatives/calculators/commodity/">Commodity Suite ↗</a><a class="secondary" href="/derivatives/control-matrix/">Control Matrix ↗</a></div>
+</div></header>
+<main class="wrap">
+<section class="section">
+<span class="tag">1 · PURPOSE</span><h2>Analytical models, not production engines</h2>
+<p>The calculators are client-side educational and analytical tools. They demonstrate recognized financial-engineering relationships using user-supplied or illustrative inputs. They are not exchange, CCP, bank or institutional valuation engines and do not establish regulatory compliance.</p>
+<div class="notice"><strong>Boundary:</strong> A standard formula is not, by itself, evidence that an implementation is independently validated. Material outputs should be recomputed and verified against authoritative product conventions before professional reliance.</div>
+</section>
+<section class="section alt">
+<span class="tag">2 · MODEL FAMILIES</span><h2>Primary calculation frameworks</h2>
+<div class="grid">
+<div class="card"><h3>Black-Scholes</h3><p>European-style option analysis under stated assumptions. Inputs, day-count and compounding conventions must be interpreted exactly as labelled.</p></div>
+<div class="card"><h3>Black-76</h3><p>European-style options on futures/forwards with positive forward/futures and strike inputs. It does not cover all commodity option exercise styles or negative-price environments.</p></div>
+<div class="card"><h3>Cost of carry</h3><p>Illustrative forward/futures relationships using financing, storage and convenience-yield assumptions. Actual market pricing may include basis, transport, quality, location and contract effects.</p></div>
+<div class="card"><h3>Risk / hedge measures</h3><p>DV01, Greeks and minimum-variance hedge ratios are simplified analytical sensitivities, not substitutes for portfolio risk engines.</p></div>
+</div>
+</section>
+<section class="section">
+<span class="tag">3 · VALIDATION STANDARD</span><h2>Recommended regression evidence</h2>
+<ol>
+<li>Record calculator name, model, version, inputs, units and assumptions.</li>
+<li>Independently recompute the expected result using a trusted reference implementation.</li>
+<li>Compare expected versus actual output using a defined numerical tolerance.</li>
+<li>Test boundary conditions: zero/negative/blank inputs, extreme values, maturity boundaries and invalid correlations.</li>
+<li>Test economically meaningful identities where applicable, such as option parity and sign conventions.</li>
+<li>Repeat across supported browsers and retain evidence of the test environment.</li>
+<li>Retain the test vector, expected output, actual output, tolerance, date and reviewer.</li>
+</ol>
+<p><strong>Evidence status:</strong> Fact · Observation · Inference · Assumption · Unverified · Recommendation.</p>
+</section>
+<section class="section alt">
+<span class="tag">4 · KNOWN PRODUCTION GAPS</span><h2>What the public calculators do not model</h2>
+<div class="grid">
+<div class="card"><h3>Market data</h3><p>No live institutional curves, volatility surfaces, market-data quality controls or independent price verification.</p></div>
+<div class="card"><h3>Valuation complexity</h3><p>No general-purpose multi-curve, stochastic-volatility, Monte Carlo or full XVA framework.</p></div>
+<div class="card"><h3>Margin</h3><p>Indicative scenarios are not CCP SPAN/CORE, ISDA SIMM or other approved production margin engines.</p></div>
+<div class="card"><h3>Governance</h3><p>Public calculators should not be treated as independently validated models, regulatory capital engines, client-pricing engines or automated trading systems.</p></div>
+</div>
+</section>
+<section class="section">
+<span class="tag">5 · ASSURANCE RULE</span><h2>Evidence before conclusion</h2>
+<p>Use the RegTech Nexus audit sequence: <strong>DISCOVER → INSPECT → VERIFY → TEST → CHALLENGE → ASSESS → RISK-RATE → REMEDIATE → RETEST → ASSURE</strong>.</p>
+<p>Where the evidence needed to support a conclusion is unavailable, use the control statement: <strong>INSUFFICIENT EVIDENCE — VERIFICATION REQUIRED.</strong></p>
+</section>
+<section class="section">
+<div class="notice"><strong>Important:</strong> This methodology is an internal/public analytical governance framework, not a legal, accounting, investment or regulatory opinion. Applicable requirements depend on jurisdiction, entity status, product, transaction and authoritative primary sources.</div>
+</section>
+</main>
+<footer id="contact"><div class="footer-brand"><div class="brand"><img class="brand-logo" src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="248" height="80"></div><p>Audit · Regulatory Intelligence · Compliance · Risk · Technology</p></div><div><b>Knowledge</b><a href="/derivatives/">Derivatives</a><a href="/derivatives/calculators/">Calculators</a><a href="/derivatives/control-matrix/">Control Matrix</a></div><div><b>Connect</b><a href="/contact.html">Contact</a></div><div class="legal"><span>© 2026 RegTech Nexus AI</span><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div></footer>
+<script src="/script.js" defer></script><script src="/site-email.js?v=20260928-email-routing" defer></script><script src="/site-search.js" defer></script>
+</body></html>
