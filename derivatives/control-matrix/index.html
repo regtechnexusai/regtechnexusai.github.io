@@ -70,6 +70,20 @@
 </div>
 </section>
 
+<section class="cm-section alt">
+<div class="kicker">03 · MODEL &amp; CALCULATION ASSURANCE</div>
+<h2>Controls for the calculator layer</h2>
+<div class="cm-table-wrap"><table class="cm-table"><thead><tr><th>Risk area</th><th>Control objective</th><th>Illustrative evidence</th><th>Test / challenge</th></tr></thead><tbody>
+<tr><td><span class="cm-badge">Model governance</span></td><td>Each calculator has an identified model, assumptions, intended use and limitations.</td><td>Model card, methodology, version, owner/reviewer, validation date.</td><td>Verify the published model against source code and documented scope.</td></tr>
+<tr><td><span class="cm-badge">Calculation integrity</span></td><td>Material formulas produce reproducible outputs within defined tolerances.</td><td>Regression vectors, expected outputs, tolerances and test results.</td><td>Independently recompute selected outputs and challenge rounding or convention differences.</td></tr>
+<tr><td><span class="cm-badge">Input / unit control</span></td><td>Invalid values, unit mismatches and ambiguous conventions are identified before calculation.</td><td>Validation rules, unit labels, error handling and boundary tests.</td><td>Test blank, zero, negative, extreme and inconsistent inputs.</td></tr>
+<tr><td><span class="cm-badge">Change management</span></td><td>Formula or interface changes remain traceable and are regression-tested before release.</td><td>Git history, change log, version, test evidence and reviewer record.</td><td>Trace a material change from commit through validation and release.</td></tr>
+<tr><td><span class="cm-badge">Data / evidence</span></td><td>Calculator inputs and outputs used for professional review can be reconstructed.</td><td>Timestamp, inputs, units, output, model/version and evidence pack.</td><td>Attempt to reproduce a prior result from retained evidence.</td></tr>
+<tr><td><span class="cm-badge">Use boundary</span></td><td>Users do not mistake educational outputs for production valuation, regulatory capital, CCP margin or automated trading decisions.</td><td>Visible scope statements, result-level notices and methodology page.</td><td>Challenge whether a reasonable professional user could misinterpret the output.</td></tr>
+</tbody></table></div>
+<div class="notice"><strong>Model assurance boundary:</strong> A visible formula or disclaimer does not establish independent validation. Where evidence is unavailable: <strong>INSUFFICIENT EVIDENCE — VERIFICATION REQUIRED.</strong></div>
+</section>
+
 <section class="cm-section">
 <div class="kicker">03 · MANAGEMENT VIEW</div>
 <h2>Questions senior management should be able to answer</h2>
