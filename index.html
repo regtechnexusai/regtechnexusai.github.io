@@ -1955,46 +1955,6 @@
 </script>
 
 <script src="/site-search.js" defer></script>
-<script>
-(function(){
-  function initQuickRail(){
-    var rail=document.querySelector('.mobile-toolkit-tabs');
-    if(!rail || window.matchMedia('(min-width:1181px)').matches || rail.dataset.autoRail==='1') return;
-    rail.dataset.autoRail='1';
 
-    /* Duplicate the tab set so the horizontal movement loops continuously. */
-    var original=Array.prototype.slice.call(rail.children);
-    original.forEach(function(item){
-      var clone=item.cloneNode(true);
-      clone.setAttribute('aria-hidden','true');
-      clone.setAttribute('tabindex','-1');
-      rail.appendChild(clone);
-    });
-
-    var paused=false,last=performance.now(),speed=.34,loopWidth=0,resumeTimer;
-    function measure(){loopWidth=rail.scrollWidth/2}
-    function pauseBriefly(){
-      paused=true;
-      clearTimeout(resumeTimer);
-      resumeTimer=setTimeout(function(){paused=false;last=performance.now()},1200);
-    }
-    ['touchstart','pointerdown','wheel','focusin'].forEach(function(e){
-      rail.addEventListener(e,pauseBriefly,{passive:true});
-    });
-    function tick(now){
-      if(!paused && document.visibilityState==='visible'){
-        rail.scrollLeft+=Math.min(32,now-last)*speed;
-        if(loopWidth && rail.scrollLeft>=loopWidth) rail.scrollLeft-=loopWidth;
-      }
-      last=now;
-      requestAnimationFrame(tick);
-    }
-    measure();
-    window.addEventListener('resize',measure,{passive:true});
-    requestAnimationFrame(tick);
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initQuickRail);else initQuickRail();
-})();
-</script>
 </body>
 </html>
