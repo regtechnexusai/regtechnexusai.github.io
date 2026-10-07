@@ -71,7 +71,7 @@
 </script>
 
 <link rel="stylesheet" href="styles.css?v=20261006-ui6">
-<link rel="stylesheet" href="homepage-fixes-20261006-ui3">
+
 <style id="homepage-quick-access-critical">
 @media (min-width:1181px){
   .desktop-side-tools{
@@ -247,7 +247,19 @@
 }
 </style>
 
-\n<style id="rt-video-knowledge-teaser-20261008">.video-knowledge-teaser{padding:58px 6vw;text-align:center;background:linear-gradient(135deg,#f7fbff,#eef5ff)}.video-knowledge-teaser .kicker{font-weight:800;letter-spacing:.08em;font-size:11px;color:#0956a8}.video-knowledge-teaser h2{max-width:760px;margin:10px auto 12px;color:#102b4e;font-size:clamp(28px,4vw,44px);line-height:1.15}.video-knowledge-teaser p{max-width:760px;margin:0 auto 22px;color:#536579;line-height:1.7}@media(max-width:640px){.video-knowledge-teaser{padding:46px 6vw}}</style>
+\n<style id="rt-video-knowledge-teaser-20261008">
+.video-knowledge-teaser{position:relative;isolation:isolate;overflow:hidden;padding:72px clamp(24px,8vw,104px);background:linear-gradient(135deg,#f7fbff 0%,#eef6fb 52%,#f3faf8 100%);border-top:1px solid #dce8ec;border-bottom:1px solid #dce8ec;text-align:center}
+.video-knowledge-teaser::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 18% 25%,rgba(9,86,168,.10),transparent 28%),radial-gradient(circle at 82% 65%,rgba(21,147,159,.10),transparent 28%)}
+.video-knowledge-teaser__inner{max-width:980px;margin:0 auto}
+.video-knowledge-teaser .kicker{margin-bottom:12px;color:#0956a8;font-weight:800}
+.video-knowledge-teaser h2{max-width:820px;margin:0 auto 14px;color:#102b4e;font-family:Manrope,Inter,Arial,sans-serif;font-size:clamp(30px,4.2vw,48px);line-height:1.08;letter-spacing:-.035em}
+.video-knowledge-teaser h2 span{color:#0956a8}
+.video-knowledge-teaser p{max-width:760px;margin:0 auto 26px;color:#536579;font-size:15px;line-height:1.7}
+.video-knowledge-teaser__meta{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:0 auto 24px}
+.video-knowledge-teaser__meta span{padding:7px 11px;border:1px solid #c9dce3;border-radius:999px;background:rgba(255,255,255,.78);color:#4c6376;font-size:11px;font-weight:700}
+.video-knowledge-teaser .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:13px 20px;border-radius:8px}
+@media(max-width:640px){.video-knowledge-teaser{padding:52px 6vw}.video-knowledge-teaser h2{font-size:32px}.video-knowledge-teaser p{font-size:14px}.video-knowledge-teaser__meta{gap:6px}.video-knowledge-teaser__meta span{font-size:10px;padding:6px 9px}.video-knowledge-teaser .btn{width:100%;max-width:340px}}
+</style>
 </head>
 
 <body>
@@ -1389,7 +1401,7 @@
   </div>
 
 </section>
-<section class="video-knowledge-teaser" aria-labelledby="video-knowledge-teaser-title"><div class="kicker">VIDEO KNOWLEDGE</div><h2 id="video-knowledge-teaser-title">Learn the concepts. <span>Connect them to practice.</span></h2><p>Selected RegTech Nexus AI videos covering AML/CFT, TBML, Incoterms® 2020, AI, security and financial-institution compliance.</p><a class="btn primary" href="video-knowledge/">Explore Video Knowledge →</a></section>
+<section class="video-knowledge-teaser" aria-labelledby="video-knowledge-teaser-title"><div class="video-knowledge-teaser__inner"><div class="kicker">VIDEO KNOWLEDGE</div><h2 id="video-knowledge-teaser-title">Learn the concepts. <span>Connect them to practice.</span></h2><p>Selected RegTech Nexus AI videos covering AML/CFT, TBML, Incoterms® 2020, AI, security and financial-institution compliance.</p><div class="video-knowledge-teaser__meta" aria-label="Video Knowledge topics"><span>AML/CFT</span><span>TBML</span><span>Incoterms® 2020</span><span>AI</span><span>Compliance</span></div><a class="btn primary" href="video-knowledge/">Explore Video Knowledge →</a></div></section>
 
 
 
