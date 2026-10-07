@@ -71,7 +71,7 @@ body{background:#f7fbff;color:#10243e}.hero{padding:62px 6vw 50px;background:lin
 <div class="field full"><label>Settlement convention</label><select id="fraC"><option>Settlement at period start — simple money-market discounting</option></select></div></div>
 <button class="calc" onclick="fra()">Calculate FRA Settlement</button><div class="result" id="frar"></div><div class="sample">Sample: Notional 10m; FRA 5%; reference 5.5%; accrual 0.25.</div></section>
 
-<section class="card"><h2>DV01 / PVBP</h2><p class="desc">Simple linear approximation of value change for a 1 basis-point rate move.</p><div class="fields">
+<section class="card"><h2>DV01 / PVBP</h2><p class="desc">Simple linear duration approximation of DV01/PVBP for a 1 basis-point rate move; reported DV01 is a positive magnitude.</p><div class="fields">
 <div class="field"><label>Market value / PV</label><input id="dvPV" type="number" value="10000000"></div><div class="field"><label>Modified duration</label><input id="dvD" type="number" value="4.5" step="0.01"></div>
 <div class="field full"><label>Rate move (basis points)</label><input id="dvB" type="number" value="1"></div></div>
 <button class="calc" onclick="dv01()">Calculate DV01</button><div class="result" id="dvr"></div><div class="sample">Sample: PV 10m; modified duration 4.5; 1 bp move.</div></section>
@@ -84,7 +84,7 @@ body{background:#f7fbff;color:#10243e}.hero{padding:62px 6vw 50px;background:lin
 
 <div class="section-title" id="risk"><div class="k">03 · RISK, GREEKS &amp; EXPOSURE</div><h2>Risk sensitivities</h2></div>
 <div class="grid">
-<section class="card"><h2>Option Position Greeks</h2><p class="desc">Uses the Black-Scholes result to scale Delta, Gamma and Vega by contracts and multiplier.</p><div class="fields">
+<section class="card"><h2>Option Position Greeks</h2><p class="desc">Uses Black-Scholes to scale Delta, Gamma, Vega and Theta by contracts and multiplier, with selectable call/put type, dividend yield and long/short direction.</p><div class="fields">
 <div class="field"><label>Underlying price</label><input id="gS" type="number" value="100"></div><div class="field"><label>Strike</label><input id="gK" type="number" value="100"></div>
 <div class="field"><label>Volatility %</label><input id="gV" type="number" value="20"></div><div class="field"><label>Rate %</label><input id="gR" type="number" value="5"></div>
 <div class="field"><label>Days</label><input id="gT" type="number" value="90"></div><div class="field"><label>Contracts</label><input id="gC" type="number" value="10"></div>
@@ -231,7 +231,7 @@ function collInterest(){let P=n('ciP'),r=n('ciR')/100,d=n('ciD'),b=n('ciB');if(!
     const result=card.querySelector('.result'); if(!result || card.querySelector('.export-tools'))return;
     const bar=document.createElement('div');bar.className='export-tools';bar.setAttribute('aria-label','Export calculator result');
     const buttons=[
-      ['Copy','copy'],['Excel / CSV','csv'],['PDF','pdf'],['Print','print'],['Download','download']
+      ['Copy','copy'],['CSV','csv'],['PDF / Print','pdf'],['Print','print'],['Download TXT','download']
     ];
     buttons.forEach(([label,action])=>{
       const b=document.createElement('button');b.type='button';b.textContent=label;
