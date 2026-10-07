@@ -1036,6 +1036,15 @@ body.calculator-page .footer-brand .brand-logo,
   .mobile-toolkit-tabs .tool-tab span{font-size:8.2px}
 }
 
+/* 2026-10-08: desktop/tablet top quick-access rail. */
+@media(min-width:761px){
+  .mobile-toolkit-tabs{display:flex!important;flex-wrap:nowrap!important;align-items:stretch!important;gap:8px!important;width:100%!important;height:58px!important;min-height:58px!important;box-sizing:border-box!important;padding:7px 12px!important;margin:0!important;background:rgba(255,255,255,.99)!important;border-bottom:1px solid #dbe4ec!important;box-shadow:0 5px 16px rgba(16,43,73,.08)!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior-x:contain!important;scroll-behavior:auto!important}
+  .mobile-toolkit-tabs::-webkit-scrollbar{display:none!important}
+  .mobile-toolkit-tabs .tool-tab{flex:0 0 116px!important;width:116px!important;min-width:116px!important;max-width:116px!important;height:44px!important;min-height:44px!important;max-height:44px!important;box-sizing:border-box!important;margin:0!important;padding:5px 6px!important;border-radius:9px!important}
+  .mobile-toolkit-tabs .tool-tab b{font-size:9.5px!important;line-height:1.05!important;white-space:nowrap!important}
+  .mobile-toolkit-tabs .tool-tab span{font-size:7.2px!important;line-height:1.05!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+}
+
 @media(max-width:760px){
   .mobile-toolkit-tabs.is-scroll-rail{
     grid-template-columns:none;
