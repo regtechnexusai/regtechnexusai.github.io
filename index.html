@@ -176,7 +176,7 @@
 </script>
 <style id="rt-ui-20261006-critical">
 /* Critical responsive presentation override. Presentation only; no tools/calculators/algorithms changed. */
-@media (max-width:760px){
+@media (max-width:1180px){
   .mobile-toolkit-tabs{
     display:flex!important;
     flex-wrap:nowrap!important;
@@ -1959,23 +1959,39 @@
 (function(){
   function initQuickRail(){
     var rail=document.querySelector('.mobile-toolkit-tabs');
-    if(!rail || window.matchMedia('(min-width:761px)').matches || rail.dataset.autoRail==='1') return;
+    if(!rail || window.matchMedia('(min-width:1181px)').matches || rail.dataset.autoRail==='1') return;
     rail.dataset.autoRail='1';
-    var paused=false,last=performance.now(),speed=.22;
-    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
-    function pause(){paused=true} function resume(){paused=false;last=performance.now()}
-    ['touchstart','pointerdown','wheel','mouseenter','focusin'].forEach(function(e){rail.addEventListener(e,pause,{passive:true})});
-    ['touchend','pointerup','mouseleave','focusout'].forEach(function(e){rail.addEventListener(e,resume,{passive:true})});
-    var loopWidth=0;
-    function measure(){loopWidth=rail.scrollWidth}
-    function tick(now){
-      if(!paused&&!reduce.matches&&document.visibilityState==='visible'){
-        rail.scrollLeft+=Math.min(32,now-last)*speed;
-        if(loopWidth && rail.scrollLeft>=loopWidth-rail.clientWidth-1) rail.scrollLeft=0;
-      }
-      last=now;requestAnimationFrame(tick);
+
+    /* Duplicate the tab set so the horizontal movement loops continuously. */
+    var original=Array.prototype.slice.call(rail.children);
+    original.forEach(function(item){
+      var clone=item.cloneNode(true);
+      clone.setAttribute('aria-hidden','true');
+      clone.setAttribute('tabindex','-1');
+      rail.appendChild(clone);
+    });
+
+    var paused=false,last=performance.now(),speed=.34,loopWidth=0,resumeTimer;
+    function measure(){loopWidth=rail.scrollWidth/2}
+    function pauseBriefly(){
+      paused=true;
+      clearTimeout(resumeTimer);
+      resumeTimer=setTimeout(function(){paused=false;last=performance.now()},1200);
     }
-    measure();window.addEventListener('resize',measure,{passive:true});requestAnimationFrame(tick);
+    ['touchstart','pointerdown','wheel','focusin'].forEach(function(e){
+      rail.addEventListener(e,pauseBriefly,{passive:true});
+    });
+    function tick(now){
+      if(!paused && document.visibilityState==='visible'){
+        rail.scrollLeft+=Math.min(32,now-last)*speed;
+        if(loopWidth && rail.scrollLeft>=loopWidth) rail.scrollLeft-=loopWidth;
+      }
+      last=now;
+      requestAnimationFrame(tick);
+    }
+    measure();
+    window.addEventListener('resize',measure,{passive:true});
+    requestAnimationFrame(tick);
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initQuickRail);else initQuickRail();
 })();
