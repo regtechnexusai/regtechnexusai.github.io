@@ -1,0 +1,14 @@
+/* RegTech Nexus AI · Amazon resource layer · additive only */
+.rt-amazon-resources{margin:42px auto 34px;max-width:1120px;padding:24px 22px;border:1px solid #d7e4ee;border-radius:18px;background:linear-gradient(135deg,#f7fbff 0%,#f4faf8 100%);box-shadow:0 8px 24px rgba(16,43,78,.06)}
+.rt-amazon-resources__head{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+.rt-amazon-resources h2{margin:0;color:#102b4e;font-size:clamp(20px,2.5vw,28px);line-height:1.2}
+.rt-amazon-resources p{margin:7px 0 0;color:#586b7c;font-size:13px;line-height:1.6}
+.rt-amazon-resources__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px}
+.rt-amazon-resource{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 14px;border:1px solid #d7e4ee;border-radius:12px;background:#fff;text-decoration:none;color:#183554;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.rt-amazon-resource:hover,.rt-amazon-resource:focus-visible{transform:translateY(-2px);border-color:#9bbfd5;box-shadow:0 8px 18px rgba(16,43,78,.08)}
+.rt-amazon-resource__title{font-weight:800;font-size:13px;line-height:1.25}
+.rt-amazon-resource__meta{display:block;margin-top:3px;color:#66798b;font-size:11px;font-weight:500}
+.rt-amazon-resource__cta{flex:0 0 auto;color:#0956a8;font-size:11px;font-weight:800;white-space:nowrap}
+.rt-amazon-resources__disclosure{margin-top:15px!important;font-size:10.5px!important;color:#718294!important}
+.rt-amazon-resources__disclosure a{color:#0956a8}
+@media(max-width:640px){.rt-amazon-resources{margin:30px 12px 26px;padding:19px 15px;border-radius:15px}.rt-amazon-resources__grid{grid-template-columns:1fr}.rt-amazon-resource{padding:12px}.rt-amazon-resource__title{font-size:12px}.rt-amazon-resource__cta{font-size:10px}}
