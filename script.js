@@ -30,28 +30,85 @@
   }
 
 
-  /* Unified top quick-access rail: automatic left↔right movement. */
+  /* Unified top quick-access rail: reliable automatic left↔right movement. */
   const toolkitRail = document.querySelector('.mobile-toolkit-tabs');
   if (toolkitRail) {
-    let direction = 1, rafId = 0, resumeTimer = 0;
-    const maxScroll = () => Math.max(0, toolkitRail.scrollWidth - toolkitRail.clientWidth);
-    const stopAuto = () => { if (rafId) cancelAnimationFrame(rafId); rafId = 0; };
-    const autoMove = () => {
-      if (document.hidden) { rafId = requestAnimationFrame(autoMove); return; }
+    let direction = 1;
+    let rafId = 0;
+    let resumeTimer = 0;
+    let lastTime = 0;
+
+    const maxScroll = () =>
+      Math.max(0, toolkitRail.scrollWidth - toolkitRail.clientWidth);
+
+    const stopAuto = () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = 0;
+      lastTime = 0;
+    };
+
+    const autoMove = (time) => {
+      if (document.hidden) {
+        lastTime = time;
+        rafId = requestAnimationFrame(autoMove);
+        return;
+      }
+
       const max = maxScroll();
-      if (max <= 1) { rafId = requestAnimationFrame(autoMove); return; }
-      const step = window.innerWidth >= 1181 ? 0.65 : 0.45;
-      const next = toolkitRail.scrollLeft + direction * step;
-      if (next >= max) { toolkitRail.scrollLeft = max; direction = -1; }
-      else if (next <= 0) { toolkitRail.scrollLeft = 0; direction = 1; }
-      else toolkitRail.scrollLeft = next;
+      if (max <= 1) {
+        lastTime = time;
+        rafId = requestAnimationFrame(autoMove);
+        return;
+      }
+
+      if (!lastTime) lastTime = time;
+      const elapsed = Math.min(32, time - lastTime);
+      lastTime = time;
+
+      /* Deliberately visible movement on phones while remaining smooth. */
+      const pixelsPerSecond = window.innerWidth <= 760 ? 42 : 38;
+      const step = pixelsPerSecond * (elapsed / 1000);
+      let next = toolkitRail.scrollLeft + direction * step;
+
+      if (next >= max) {
+        next = max;
+        direction = -1;
+      } else if (next <= 0) {
+        next = 0;
+        direction = 1;
+      }
+
+      toolkitRail.scrollLeft = next;
       rafId = requestAnimationFrame(autoMove);
     };
-    const startAuto = () => { if (!rafId) rafId = requestAnimationFrame(autoMove); };
-    const pauseBriefly = () => { stopAuto(); clearTimeout(resumeTimer); resumeTimer = setTimeout(startAuto, 900); };
-    ['pointerdown','touchstart','wheel'].forEach(e => toolkitRail.addEventListener(e, pauseBriefly, {passive:true}));
-    document.addEventListener('visibilitychange', () => document.hidden ? stopAuto() : startAuto());
-    window.addEventListener('resize', startAuto, {passive:true});
+
+    const startAuto = () => {
+      if (!rafId) {
+        lastTime = 0;
+        rafId = requestAnimationFrame(autoMove);
+      }
+    };
+
+    const pauseBriefly = () => {
+      stopAuto();
+      clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(startAuto, 1200);
+    };
+
+    ['pointerdown', 'touchstart', 'wheel'].forEach((eventName) => {
+      toolkitRail.addEventListener(eventName, pauseBriefly, { passive: true });
+    });
+
+    toolkitRail.addEventListener('mouseenter', pauseBriefly, { passive: true });
+    toolkitRail.addEventListener('mouseleave', startAuto, { passive: true });
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopAuto();
+      else startAuto();
+    });
+
+    window.addEventListener('resize', startAuto, { passive: true });
+    window.addEventListener('load', startAuto, { passive: true });
+
     startAuto();
-  }
-})();
+  }})();
