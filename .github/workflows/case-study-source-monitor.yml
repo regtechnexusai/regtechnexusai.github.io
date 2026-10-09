@@ -1,0 +1,55 @@
+name: Case Study Official Source Monitor
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * 1"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: case-study-source-monitor
+  cancel-in-progress: true
+
+jobs:
+  discover-publications:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Discover official-source publication links
+        run: |
+          mkdir -p monitor-output
+          python scripts/monitor_case_study_sources.py > monitor-output/case-study-review-queue.json
+
+      - name: Write run summary
+        if: always()
+        run: |
+          echo "## Case Study Official Source Monitor" >> "$GITHUB_STEP_SUMMARY"
+          echo "This workflow discovers candidate links from configured official source pages. It does not generate legal conclusions or publish website content." >> "$GITHUB_STEP_SUMMARY"
+          if [ -f monitor-output/case-study-review-queue.json ]; then
+            python - <<'PY'
+          import json
+          with open("monitor-output/case-study-review-queue.json", encoding="utf-8") as f:
+              data = json.load(f)
+          print(f"- Candidate links: **{data.get('candidate_count', 0)}**", file=open(__import__('os').environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8'))
+          for source in data.get("source_status", []):
+              print(f"- {source['source']}: {source['status']} ({source['candidate_links']} candidate links)", file=open(__import__('os').environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8'))
+          PY
+          fi
+
+      - name: Upload review queue artifact
+        if: always() && hashFiles('monitor-output/case-study-review-queue.json') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: case-study-review-queue
+          path: monitor-output/case-study-review-queue.json
+          retention-days: 30
