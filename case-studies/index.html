@@ -53,7 +53,7 @@ header.nav{display:flex;align-items:center;justify-content:space-between;gap:16p
   <section class="case-hero">
     <div class="case-kicker">Source-led learning · Regulatory intelligence</div>
     <h1>Case Studies &amp; Practice</h1>
-    <p>Learn from official financial-intelligence publications, regulatory reports and international typologies. Each published case will connect documented facts with risk indicators, applicable requirements, control considerations and relevant RegTech Nexus AI tools.</p>
+    <p>Study documented international typologies, Bangladesh regulatory publications and practical control-testing scenarios. Each entry identifies its source, separates reported facts from analysis, and links the lessons to relevant RegTech Nexus AI tools.</p>
     <p><strong>Evidence first. Analysis clearly labelled. Human judgement remains essential.</strong></p>
     <div class="case-actions">
       <a class="case-btn" href="#official-sources">Explore official sources</a>
@@ -70,6 +70,68 @@ header.nav{display:flex;align-items:center;justify-content:space-between;gap:16p
       <div class="case-step"><b>04 · Detection &amp; controls</b><span>Documented detection method, red flags and potential control improvements.</span></div>
       <div class="case-step"><b>05 · RegTech Nexus Take</b><span>Bounded analysis of where monitoring, analytics or workflow tools may help.</span></div>
       <div class="case-step"><b>06 · Practice &amp; tools</b><span>Questions, learning points and links to relevant tools and the RegTech Nexus AI GPT.</span></div>
+    </div>
+  </section>
+
+
+  <section class="case-section" id="published-case-studies">
+    <h2>Source-backed case studies and control-testing scenarios</h2>
+    <p>The entries below identify the source facts, then separate analytical lessons and proposed tests. They are educational case studies—not findings about any named bank or customer. Open the original document to confirm context before relying on it.</p>
+    <div class="case-grid">
+      <article class="case-card">
+        <span class="case-tag">Case study 01 · International typology</span>
+        <h3>TBML through inflated trade prices and offshore entities</h3>
+        <p><strong>Primary source:</strong> FATF, <em>Trade-Based Money Laundering</em> (2006), Case Study 12, printed report page 7.</p>
+        <p><strong>Documented facts:</strong> The report describes a Brazilian company engaged in illegal activities. Proceeds were moved through cash couriers and offshore accounts; offshore shell companies then bought concentrated syrup from the Brazilian company at highly inflated prices and resold it at a significant loss. FATF describes the scheme as a way for criminal proceeds to return to the Brazilian company through apparently legitimate trade.</p>
+        <p><strong>Risk analysis:</strong> The trade payment alone may appear commercially plausible. The risk emerges when price, counterparty relationships, source of funds, shipping evidence and onward resale are assessed together.</p>
+        <p><strong>Potential red flags to test:</strong></p>
+        <ul>
+          <li>Material price variance without a documented commercial explanation.</li>
+          <li>Related or opaque offshore counterparties and shell-company indicators.</li>
+          <li>Inconsistent invoice, goods, shipping and payment information.</li>
+          <li>Unusual loss-making resale or transaction economics that lack a credible rationale.</li>
+        </ul>
+        <p><strong>Control-testing procedure:</strong> Select a risk-based sample of trade-finance transactions; reconcile invoice, contract, customs/shipping evidence and payment; document price-benchmark source and variance; review beneficial ownership and counterparties; inspect alert rationale, escalation and disposition. Do not treat any single red flag as proof of crime.</p>
+        <p><strong>RegTech mapping:</strong> TradeGuard for structured trade-document review; ICMS Toolkit for control ownership and evidence; Explainable AI for explainable alerts and human review.</p>
+        <p><a href="https://www.fatf-gafi.org/content/dam/fatf/documents/reports/Trade%20Based%20Money%20Laundering.pdf" target="_blank" rel="noopener noreferrer">Open original FATF report (PDF) ↗</a> · <a href="https://www.fatf-gafi.org/en/publications/Methodsandtrends/Trade-basedmoneylaundering.html" target="_blank" rel="noopener noreferrer">FATF publication page ↗</a></p>
+        <p><strong>Evidence status:</strong> Source facts verified from the FATF report summary. Local legal applicability and current control requirements must be separately verified.</p>
+      </article>
+      <article class="case-card">
+        <span class="case-tag">Case study 02 · Bangladesh regulatory baseline</span>
+        <h3>TBML control implementation: from guidance to auditable evidence</h3>
+        <p><strong>Primary sources:</strong> BFIU Circular No. 24, dated 10 December 2019, <em>Guidelines for Prevention of Trade Based Money Laundering</em>; BFIU Annual Report 2019–20, printed page 19; BFIU Circular Letter No. 01/2021, dated 7 March 2021, extending the implementation deadline.</p>
+        <p><strong>Documented facts:</strong> BFIU issued the TBML guidelines for scheduled banks. The 2019–20 annual report states that banks had reported few suspicious TBML transactions and identifies limited awareness, guidance and implementation framework as contributing issues. The 2021 circular letter extended the implementation timeline; it is historical evidence of a deadline extension, not proof of the present compliance status of any bank.</p>
+        <p><strong>Analysis:</strong> Issuing a guideline does not by itself demonstrate that a bank implemented it. Auditability depends on approved procedures, ownership, staff capability, transaction-level evidence and testing of actual operation.</p>
+        <p><strong>Control-testing procedure:</strong></p>
+        <ul>
+          <li>Obtain the currently applicable BFIU instructions and the bank's approved TBML policy; verify amendments and applicability before concluding.</li>
+          <li>Inspect risk assessment, business coverage, customer/product/geography risk factors and approval records.</li>
+          <li>Trace selected trade transactions from customer and invoice review through payment, alert handling, escalation and documented disposition.</li>
+          <li>Inspect staff training, monitoring-rule governance, exception handling and independent testing evidence.</li>
+          <li>Rate gaps by impact and likelihood; assign an owner, due date, evidence requirement and retest criteria.</li>
+        </ul>
+        <p><strong>RegTech mapping:</strong> Policy Gap Analyzer for policy-to-control mapping; ICMS Toolkit for evidence and remediation tracking; TradeGuard for transaction-level review.</p>
+        <p><a href="https://www.bfiu.org.bd/pdf/circular/aml/dec102019bfiu24.pdf" target="_blank" rel="noopener noreferrer">BFIU Circular No. 24 (PDF) ↗</a> · <a href="https://www.bfiu.org.bd/pdf/pub/annual/2019-2020.pdf" target="_blank" rel="noopener noreferrer">BFIU Annual Report 2019–20 (PDF) ↗</a> · <a href="https://www.bfiu.org.bd/pdf/news/prevention_trade_based_ml.pdf" target="_blank" rel="noopener noreferrer">BFIU Circular Letter No. 01/2021 (PDF) ↗</a></p>
+        <p><strong>Evidence status:</strong> The historical statements above are attributed to BFIU's cited publications. This is not a claim that all banks currently have these gaps, nor a legal opinion on current requirements.</p>
+      </article>
+      <article class="case-card">
+        <span class="case-tag">Practice scenario 03 · Monitoring controls</span>
+        <h3>Transaction monitoring: can the institution prove its alerts work?</h3>
+        <p><strong>Primary source:</strong> BFIU Circular Letter No. 02, dated 5 February 2026, on scheduled banks' transaction-monitoring systems, and Circular Letter No. 03 of the same date on MFS providers. Check the official circular-letter register for later changes before treating either as current.</p>
+        <p><strong>Scenario status:</strong> This is a hypothetical control-testing exercise, not a reported enforcement case or allegation against an institution.</p>
+        <p><strong>Test objective:</strong> Determine whether monitoring coverage is risk-based, alerts are reproducible, investigations are documented and reporting decisions are supported by evidence.</p>
+        <p><strong>Control-testing procedure:</strong></p>
+        <ul>
+          <li>Obtain the approved monitoring inventory, scenario logic, thresholds, change approvals and coverage rationale.</li>
+          <li>Use controlled test transactions or an approved test environment to check expected alert generation and suppression.</li>
+          <li>Trace a sample of alerts through triage, investigation, escalation, closure rationale and applicable reporting decision.</li>
+          <li>Check access controls, audit logs, data quality, tuning approvals, false-positive/false-negative analysis and periodic validation.</li>
+          <li>Verify the currently effective reporting rules independently; do not infer reporting obligations from an alert alone.</li>
+        </ul>
+        <p><strong>RegTech mapping:</strong> ICMS Toolkit for control governance and evidence; Explainable AI for traceable rationale; Policy Gap Analyzer for mapping verified requirements to procedures.</p>
+        <p><a href="https://bfiu.org.bd/index.php/legislation/circularLetter" target="_blank" rel="noopener noreferrer">BFIU official circular-letter register ↗</a></p>
+        <p><strong>Evidence status:</strong> The circular-letter titles and dates are listed by BFIU. Scenario steps are proposed audit procedures, not text quoted from the circulars. Confirm later amendments, including any cancellation notices, before use.</p>
+      </article>
     </div>
   </section>
 
