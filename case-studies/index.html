@@ -93,6 +93,48 @@ header.nav nav a:hover,header.nav nav a:focus-visible{background:#eaf3ff;color:#
 @media(max-width:360px){.case-actions{grid-template-columns:minmax(0,1fr)}header.nav nav a{font-size:.79rem}}
 @media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
 
+
+/* Search, international case library and footer feedback improvements */
+[hidden]{display:none!important}
+.case-top-search{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:36px;padding:8px 12px;border:1px solid #9ab9dc;border-radius:10px;background:#fff;color:#174f91;font:inherit;font-weight:800;cursor:pointer;white-space:nowrap}
+.case-top-search:hover,.case-top-search:focus-visible{background:#eaf3ff;outline:2px solid #8bbcf1;outline-offset:2px}
+.case-search-panel{max-width:1120px;margin:10px auto 0;padding:0 18px}
+.case-search-inner{display:flex;gap:10px;align-items:center;padding:13px;border:1px solid #d2e1ef;border-radius:14px;background:#f7fbff}
+.case-search-inner label{font-weight:800;white-space:nowrap}
+.case-search-inner input{flex:1;min-width:0;min-height:42px;padding:10px 12px;border:1px solid #b7c8da;border-radius:9px;background:#fff;color:#172033;font:inherit}
+.case-search-inner input:focus-visible,.case-feedback input:focus-visible,.case-feedback textarea:focus-visible,.case-feedback select:focus-visible{outline:3px solid #8bbcf1;outline-offset:2px}
+.case-search-status{margin:7px 2px 0;color:#52677d;font-size:.9rem}
+.case-international{margin-top:26px}
+.case-international .case-card{display:flex;flex-direction:column;align-items:flex-start}
+.case-international .case-card p{margin:.45rem 0}
+.case-source-link{display:inline-flex;align-items:center;gap:5px;margin-top:auto;padding-top:10px;font-weight:800}
+.case-footer{padding-top:28px}
+.case-footer-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:22px;margin:18px 0}
+.case-footer-panel{min-width:0;padding:19px;border:1px solid #dce5ef;border-radius:15px;background:#f8fbfe}
+.case-footer-panel h3{margin:0 0 9px;font-size:1.08rem}
+.case-footer-panel p,.case-footer-panel li{line-height:1.65}
+.case-return-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:11px 17px;border-radius:11px;background:#1458a6;color:#fff!important;text-decoration:none;font-weight:800;box-shadow:0 3px 0 #0e417d22}
+.case-return-btn:hover{background:#0b4789}
+.case-feedback{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+.case-feedback .field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.case-feedback .field.full{grid-column:1/-1}
+.case-feedback label{font-size:.9rem;font-weight:750;color:#243a51}
+.case-feedback input,.case-feedback textarea,.case-feedback select{box-sizing:border-box;width:100%;min-height:42px;padding:10px 11px;border:1px solid #b7c8da;border-radius:9px;background:#fff;color:#172033;font:inherit}
+.case-feedback textarea{min-height:108px;resize:vertical}
+.case-feedback button{grid-column:1/-1;justify-self:start;min-height:44px;padding:11px 17px;border:0;border-radius:10px;background:#1458a6;color:#fff;font:inherit;font-weight:800;cursor:pointer}
+.case-feedback-note{margin-top:9px!important;font-size:.83rem;color:#52677d}
+.case-footer-links{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:18px}
+.case-footer-links a{font-weight:700}
+@media(max-width:760px){
+ .case-search-panel{padding:0 14px}
+ .case-search-inner{align-items:stretch;flex-direction:column}
+ .case-search-inner label{white-space:normal}
+ .case-footer-grid{grid-template-columns:minmax(0,1fr)}
+ .case-feedback{grid-template-columns:minmax(0,1fr)}
+ .case-feedback .field.full,.case-feedback button{grid-column:auto}
+ .case-feedback button{width:100%}
+}
+
 </style>
 </head>
 <body>
@@ -106,8 +148,17 @@ header.nav nav a:hover,header.nav nav a:focus-visible{background:#eaf3ff;color:#
     <a href="/icms-2026/">ICMS Toolkit</a>
     <a href="/regulatory-gap-analyzer/">Policy Gap Analyzer</a>
     <a href="https://chatgpt.com/g/g-6a09920b01348191b9b1628b69367d9b-regtech-nexus-ai" target="_blank" rel="noopener noreferrer">Ask our GPT ↗</a>
+    <button class="case-top-search" type="button" id="case-search-toggle" aria-expanded="false" aria-controls="case-search-panel"><span aria-hidden="true">⌕</span> Search</button>
   </nav>
 </header>
+<section class="case-search-panel" id="case-search-panel" hidden aria-label="Search case studies">
+  <div class="case-search-inner">
+    <label for="case-search-input">Search cases, controls, topics and tools</label>
+    <input type="search" id="case-search-input" placeholder="Try: TBML, transaction monitoring, ICMS, Malaysia…" autocomplete="off">
+    <button class="case-top-search" type="button" id="case-search-clear">Clear search</button>
+  </div>
+  <p class="case-search-status" id="case-search-status" role="status" aria-live="polite">Enter a keyword to filter the case library and related mapping cards.</p>
+</section>
 <main id="main-content" class="case-page">
   <section class="case-hero">
     <div class="case-kicker">Source-led learning · Regulatory intelligence</div>
@@ -247,6 +298,65 @@ header.nav nav a:hover,header.nav nav a:focus-visible{background:#eaf3ff;color:#
     </div>
   </section>
 
+  <section class="case-section case-international" id="international-cases" aria-labelledby="international-cases-title">
+    <h2 id="international-cases-title">International Central Bank &amp; Regulatory Case Studies</h2>
+    <p>These additional cases are summarised in original wording from official regulator or central-bank publications. Each entry distinguishes the regulator's reported findings from the practical control lessons drawn for learning. Confirm the linked notice and applicable local law before relying on the analysis.</p>
+    <div class="case-grid">
+      <article class="case-card" id="case-ireland-danske">
+        <span class="case-tag">Ireland · Transaction monitoring</span>
+        <h3>Danske Bank: historic filters left customer transactions outside monitoring</h3>
+        <p><strong>Official source:</strong> Central Bank of Ireland, 15 September 2022.</p>
+        <p><strong>What happened:</strong> The regulator found that legacy data filters meant transactions for certain customer categories in Danske Bank's Irish branch were not covered by its automated monitoring system for almost nine years. The issue was rooted in the way older filters had been carried forward, rather than a demonstrated one-off alert failure.</p>
+        <p><strong>Control lesson:</strong> A monitoring system can appear to be running while entire customer groups or transaction flows remain outside its effective scope. Audit should test coverage and data lineage, not only alert volumes.</p>
+        <p><strong>RegTech Nexus AI Mapping:</strong> Risk population → customer/product coverage → filter inventory and data lineage → scenario coverage test → exceptions and accountable remediation.</p>
+        <p><a href="/icms-2026/">ICMS Toolkit</a> for ownership and remediation; <a href="/explainable-ai.html#controls">Explainable AI controls</a> for traceability and review; <a href="/regulatory-gap-analyzer/">Policy Gap Analyzer</a> for verified requirements-to-controls mapping.</p>
+        <a class="case-source-link" href="https://www.centralbank.ie/news/article/danske-bank-a-s-fined-by-the-central-bank-of-ireland-for-transaction-monitoring-failures-15-september-2022" target="_blank" rel="noopener noreferrer">Read official Central Bank of Ireland notice ↗</a>
+      </article>
+      <article class="case-card" id="case-new-zealand-asb">
+        <span class="case-tag">New Zealand · AML/CFT programme</span>
+        <h3>ASB Bank: prolonged gaps in customer due diligence and monitoring</h3>
+        <p><strong>Official source:</strong> Reserve Bank of New Zealand, June 2026.</p>
+        <p><strong>What happened:</strong> The Reserve Bank reported that the High Court imposed a NZ$6.731 million civil penalty after ASB admitted seven AML/CFT breaches. The findings included shortcomings in customer due diligence, ongoing monitoring, suspicious-activity reporting and related programme controls over an extended period.</p>
+        <p><strong>Control lesson:</strong> Policy documents alone are not enough. Institutions need evidence that customer risk assessment, ongoing review, alert handling, reporting decisions and oversight operate together and on time.</p>
+        <p><strong>RegTech Nexus AI Mapping:</strong> Legal obligation → CDD/monitoring/reporting control → customer-file and alert evidence → sample-based operating test → issue severity → remediation and retest.</p>
+        <p><a href="/regulatory-gap-analyzer/">Policy Gap Analyzer</a> can structure requirement-to-control review; <a href="/icms-2026/">ICMS Toolkit</a> can support control ownership, evidence and corrective-action thinking.</p>
+        <a class="case-source-link" href="https://www.rbnz.govt.nz/news-and-events/news/2026/06/asb-bank-ordered-to-pay-largest-aml-cft-penalty-to-date" target="_blank" rel="noopener noreferrer">Read official Reserve Bank of New Zealand notice ↗</a>
+      </article>
+      <article class="case-card" id="case-malaysia-ubb">
+        <span class="case-tag">Malaysia · Customer due diligence &amp; STRs</span>
+        <h3>UBB Investment Bank: delayed suspicious-transaction reports and CDD gaps</h3>
+        <p><strong>Official source:</strong> Bank Negara Malaysia and Labuan Financial Services Authority, 14 August 2026.</p>
+        <p><strong>What happened:</strong> Following an examination, the authorities reported that 53 suspicious transactions from 2023–2024 had not been reported promptly and that customer identity checks were inadequate in a separate onboarding matter. The authorities later imposed combined compounds of RM10 million, which the firm paid in June 2026 after prosecution proceedings had been initiated.</p>
+        <p><strong>Control lesson:</strong> Reporting timeliness and onboarding verification should be independently testable. Audit trails need timestamps, rationale, decision ownership, escalation evidence and proof that exceptions are corrected.</p>
+        <p><strong>RegTech Nexus AI Mapping:</strong> Customer onboarding / suspicious activity → CDD and reporting controls → KYC records and event timestamps → timeliness and completeness tests → remediation tracking.</p>
+        <p><a href="/icms-2026/">ICMS Toolkit</a> for accountability and action tracking; <a href="/regulatory-gap-analyzer/">Policy Gap Analyzer</a> for mapping the verified local requirements; <a href="/explainable-ai.html#controls">Explainable AI controls</a> where automated alerts assist review.</p>
+        <a class="case-source-link" href="https://amlcft.bnm.gov.my/web/guest/-/ea-pn-20260814" target="_blank" rel="noopener noreferrer">Read official BNM / LFSA notice ↗</a>
+      </article>
+      <article class="case-card" id="case-singapore-padang">
+        <span class="case-tag">Singapore · AML/CFT controls</span>
+        <h3>Padang Trust: weak scrutiny of unusual activity and reporting</h3>
+        <p><strong>Official source:</strong> Monetary Authority of Singapore, 25 May 2026.</p>
+        <p><strong>What happened:</strong> MAS imposed a S$300,000 composition penalty on a licensed trust company after identifying failures to investigate unusual transactions without an apparent lawful purpose and to file suspicious-transaction reports promptly when warranted. The regulator also identified weaknesses in staff awareness and the overall control framework.</p>
+        <p><strong>Control lesson:</strong> Unusual activity must lead to documented inquiry, a reasoned decision and timely reporting where required. Training effectiveness and investigation quality should be tested, not assumed from attendance records.</p>
+        <p><strong>RegTech Nexus AI Mapping:</strong> Unusual activity → investigation and reporting controls → case file and decision timestamps → sample review → staff capability and escalation gaps → retest.</p>
+        <p><a href="/icms-2026/">ICMS Toolkit</a> for governance and remediation; <a href="/regulatory-gap-analyzer/">Policy Gap Analyzer</a> for requirement mapping. This case concerns a regulated trust company, not a commercial bank.</p>
+        <a class="case-source-link" href="https://www.mas.gov.sg/regulation/enforcement/enforcement-actions/2026/mas-imposes-%24300000-composition-penalty-on-padang-trust-pte-ltd-for-aml-cft-breaches" target="_blank" rel="noopener noreferrer">Read official MAS notice ↗</a>
+      </article>
+      <article class="case-card" id="case-ireland-coinbase">
+        <span class="case-tag">Ireland · Crypto-asset service provider</span>
+        <h3>Coinbase Europe: transaction coverage and monitoring failures</h3>
+        <p><strong>Official source:</strong> Central Bank of Ireland, 6 November 2025.</p>
+        <p><strong>What happened:</strong> The regulator announced a settlement after Coinbase Europe accepted breaches involving incomplete monitoring of more than 30 million transactions and additional monitoring needs affecting 184,790 transactions. The agreed sanction included a reprimand and a monetary penalty of approximately €30.66 million.</p>
+        <p><strong>Control lesson:</strong> Transaction-monitoring coverage should be reconciled to the full population of transactions. Where coverage is incomplete, institutions need documented lookback decisions, impact assessment, reporting review and independently validated remediation.</p>
+        <p><strong>RegTech Nexus AI Mapping:</strong> Full transaction population → monitoring coverage → data/reconciliation evidence → completeness and lookback tests → impact assessment → remediation validation.</p>
+        <p><a href="/icms-2026/">ICMS Toolkit</a> for issue and retest tracking; <a href="/explainable-ai.html#controls">Explainable AI controls</a> for reviewability of automated signals. This is a crypto-asset service provider case, not a bank case.</p>
+        <a class="case-source-link" href="https://www.centralbank.ie/news/article/press-release-enforcement-action-against-coinbase-europe-limited-6-November-2025" target="_blank" rel="noopener noreferrer">Read official Central Bank of Ireland notice ↗</a>
+      </article>
+    </div>
+    <div class="case-note" style="margin-top:16px"><strong>Editorial boundary:</strong> The cases above are regulator-reported matters. The “Control lesson” and “RegTech Nexus AI Mapping” paragraphs are our educational analysis, not quotations or official regulator endorsements. RegTech Nexus AI tools do not determine legal liability or certify that a control is effective.</div>
+  </section>
+
+
   <section class="case-section" id="official-sources">
     <h2>Official source library</h2>
     <p>These are starting points for source discovery. A report will not be described as containing a specific case until the relevant pages have been reviewed and the reference recorded.</p>
@@ -303,11 +413,106 @@ header.nav nav a:hover,header.nav nav a:focus-visible{background:#eaf3ff;color:#
     <div class="case-note"><strong>Publication policy:</strong> Automated monitoring may discover reports and prepare candidate records, but it will not publish AI-generated case analysis automatically. Each case must pass source verification, duplicate checks, legal-reference review, privacy/copyright checks and human approval. A red flag is not proof of wrongdoing, and the platform does not issue official regulatory determinations.</div>
   </section>
 
-  <footer class="case-footer">
+  <footer class="case-footer" id="case-page-footer">
     <p><strong>RegTech Nexus AI — Intelligence for a Regulated World.</strong></p>
-    <p>This is an independent educational and decision-support resource, not official guidance from BFIU, Bangladesh Bank, FATF or any regulator. Case summaries will distinguish source facts from editorial analysis and assumptions.</p>
-    <p><a href="/">Home</a> · <a href="/publications.html">Publications</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></p>
+    <p>Independent educational and decision-support resources for banking regulation, AML/CFT, TBML, financial crime, internal control, auditability and responsible AI. This Case Studies library summarises selected public regulatory publications and translates their lessons into practical control-mapping and audit-testing exercises.</p>
+    <div class="case-footer-grid">
+      <section class="case-footer-panel" aria-labelledby="case-footer-about">
+        <h3 id="case-footer-about">About this library</h3>
+        <p>Each case aims to separate official source facts from editorial analysis, proposed controls and assumptions. Original regulator notices remain the authoritative source. The tools linked here support learning and structured review; they are not official regulatory determinations, legal advice or a substitute for professional judgement.</p>
+        <p>Do not submit confidential bank, customer, transaction or personal data through public learning tools or this feedback form.</p>
+        <a class="case-return-btn" href="/" aria-label="Return to the RegTech Nexus AI main page"><span aria-hidden="true">←</span> Return to Main Page</a>
+      </section>
+      <section class="case-footer-panel" aria-labelledby="case-feedback-title">
+        <h3 id="case-feedback-title">User Feedback</h3>
+        <p>Tell us which case was useful, report a broken source link or suggest a topic for future case studies.</p>
+        <form class="case-feedback" id="case-feedback-form">
+          <div class="field">
+            <label for="feedback-name">Name (optional)</label>
+            <input id="feedback-name" name="name" autocomplete="name" maxlength="100" placeholder="Your name">
+          </div>
+          <div class="field">
+            <label for="feedback-role">Your perspective</label>
+            <select id="feedback-role" name="role">
+              <option value="Banking / financial services professional">Banking / financial services professional</option>
+              <option value="Compliance / AML-CFT">Compliance / AML/CFT</option>
+              <option value="Audit / risk / governance">Audit / risk / governance</option>
+              <option value="Student / learner">Student / learner</option>
+              <option value="Researcher / educator">Researcher / educator</option>
+              <option value="Other">Other</option>
+              <option value="Prefer not to say">Prefer not to say</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="feedback-topic">Case or page</label>
+            <select id="feedback-topic" name="topic">
+              <option value="General Case Studies page">General Case Studies page</option>
+              <option value="TBML price verification">TBML price verification</option>
+              <option value="Bangladesh TBML controls">Bangladesh TBML controls</option>
+              <option value="Transaction monitoring">Transaction monitoring</option>
+              <option value="International case studies">International case studies</option>
+              <option value="Search, navigation or buttons">Search, navigation or buttons</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="feedback-message">Feedback or suggested case <span aria-hidden="true">*</span></label>
+            <textarea id="feedback-message" name="message" required maxlength="4000" placeholder="Share a suggestion, correction, source link or case-study topic. Please do not include confidential or personal data."></textarea>
+          </div>
+          <button type="submit">Prepare Feedback Email ↗</button>
+        </form>
+        <p class="case-feedback-note">Submitting opens your email application with the feedback prepared for regtechnexusai@gmail.com. This version does not automatically store responses in a database or Google Sheets.</p>
+      </section>
+    </div>
+    <nav class="case-footer-links" aria-label="Footer links">
+      <a href="/">Main Page</a>
+      <a href="/case-studies/">Case Studies</a>
+      <a href="/publications.html">Publications</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+      <a href="mailto:regtechnexusai@gmail.com?subject=RegTech%20Nexus%20AI%20Case%20Studies">Contact the team</a>
+    </nav>
+    <p style="margin-top:16px;font-size:.84rem;color:#52677d">© RegTech Nexus AI. Official sources should be checked for amendments, subsequent enforcement developments and jurisdiction-specific applicability.</p>
   </footer>
+  <script>
+  (function(){
+    const searchToggle=document.getElementById('case-search-toggle');
+    const searchPanel=document.getElementById('case-search-panel');
+    const searchInput=document.getElementById('case-search-input');
+    const searchClear=document.getElementById('case-search-clear');
+    const searchStatus=document.getElementById('case-search-status');
+    const searchable=Array.from(document.querySelectorAll('.case-card,.case-mapping-card'));
+    function filterCases(){
+      const q=(searchInput.value||'').trim().toLowerCase();
+      let shown=0;
+      searchable.forEach(function(card){
+        const match=!q||card.textContent.toLowerCase().includes(q);
+        card.hidden=!match;
+        if(match) shown++;
+      });
+      searchStatus.textContent=q?(shown+' matching card'+(shown===1?'':'s')+' found. Clear the search to show all cards.'):('Search across '+searchable.length+' case and mapping cards.');
+    }
+    searchToggle.addEventListener('click',function(){
+      const opening=searchPanel.hidden;
+      searchPanel.hidden=!opening;
+      searchToggle.setAttribute('aria-expanded',String(opening));
+      if(opening) searchInput.focus();
+      else {searchInput.value='';filterCases();}
+    });
+    searchInput.addEventListener('input',filterCases);
+    searchClear.addEventListener('click',function(){searchInput.value='';filterCases();searchInput.focus();});
+    document.getElementById('case-feedback-form').addEventListener('submit',function(event){
+      event.preventDefault();
+      const name=document.getElementById('feedback-name').value.trim()||'Not provided';
+      const role=document.getElementById('feedback-role').value;
+      const topic=document.getElementById('feedback-topic').value;
+      const message=document.getElementById('feedback-message').value.trim();
+      const subject='Case Studies feedback: '+topic;
+      const body='RegTech Nexus AI Case Studies Feedback\n\nName: '+name+'\nPerspective: '+role+'\nTopic: '+topic+'\n\nFeedback:\n'+message+'\n\nSent from: '+window.location.href;
+      window.location.href='mailto:regtechnexusai@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+    });
+    filterCases();
+  })();
+  </script>
 </main>
 </body>
 </html>
