@@ -93,6 +93,8 @@ header.nav{display:flex;align-items:center;justify-content:space-between;gap:16p
         </ul>
         <p><strong>Control-testing procedure:</strong> Select a risk-based sample of trade-finance transactions; reconcile invoice, contract, customs/shipping evidence and payment; document price-benchmark source and variance; review beneficial ownership and counterparties; inspect alert rationale, escalation and disposition. Do not treat any single red flag as proof of crime.</p>
         <p><strong>RegTech mapping:</strong> TradeGuard for structured trade-document review; ICMS Toolkit for control ownership and evidence; Explainable AI for explainable alerts and human review.</p>
+        <div class="case-note"><strong>Learning pathway · Price verification with TradeGuard</strong><br>Use this case to practise a structured price-reasonableness review in <a href="/tradeguard/">TradeGuard ↗</a>. Compare the declared unit price with a defensible reference for the same or a genuinely comparable product, grade/specification, quantity, trade term, currency, date and market. Record the benchmark source, adjustments, variance and rationale; then cross-check the invoice against contract, goods description, quantity, shipping/customs evidence and payment. A price difference is a risk indicator—not proof of TBML. TradeGuard is a review-support tool, not a live market-price database or a substitute for independent evidence.</div>
+        <p><strong>Try it yourself:</strong> Write down (1) the exact price comparison basis, (2) what makes the benchmark comparable, (3) what evidence is missing, and (4) what would trigger escalation. Do not upload confidential customer or bank data.</p>
         <p><a href="https://www.fatf-gafi.org/content/dam/fatf/documents/reports/Trade%20Based%20Money%20Laundering.pdf" target="_blank" rel="noopener noreferrer">Open original FATF report (PDF) ↗</a> · <a href="https://www.fatf-gafi.org/en/publications/Methodsandtrends/Trade-basedmoneylaundering.html" target="_blank" rel="noopener noreferrer">FATF publication page ↗</a></p>
         <p><strong>Evidence status:</strong> Source facts verified from the FATF report summary. Local legal applicability and current control requirements must be separately verified.</p>
       </article>
@@ -110,7 +112,9 @@ header.nav{display:flex;align-items:center;justify-content:space-between;gap:16p
           <li>Inspect staff training, monitoring-rule governance, exception handling and independent testing evidence.</li>
           <li>Rate gaps by impact and likelihood; assign an owner, due date, evidence requirement and retest criteria.</li>
         </ul>
-        <p><strong>RegTech mapping:</strong> Policy Gap Analyzer for policy-to-control mapping; ICMS Toolkit for evidence and remediation tracking; TradeGuard for transaction-level review.</p>
+        <p><strong>RegTech mapping:</strong> <a href="/regulatory-gap-analyzer/">Policy Gap Analyzer ↗</a> for policy-to-control mapping; <a href="/icms-2026/">ICMS Toolkit ↗</a> for evidence and remediation tracking; <a href="/tradeguard/">TradeGuard ↗</a> for transaction-level review.</p>
+        <div class="case-note"><strong>Learning pathway · Turn a circular into auditable controls</strong><br>Open the original BFIU circular and identify the exact requirement, applicability, responsible function and required evidence before mapping it in the <a href="/regulatory-gap-analyzer/">Policy Gap Analyzer</a>. Then use the <a href="/icms-2026/">ICMS Toolkit</a> to structure control ownership, testing results, issue severity, remediation owner, due date and retest evidence. Confirm later amendments and institution-specific instructions first; do not infer that a historical deadline or report describes today's compliance status.</div>
+        <p><strong>Try it yourself:</strong> Create one control record with fields for source clause, control objective, sample selected, evidence inspected, exception, risk rating, action owner and retest result. Use only non-sensitive or synthetic text.</p>
         <p><a href="https://www.bfiu.org.bd/pdf/circular/aml/dec102019bfiu24.pdf" target="_blank" rel="noopener noreferrer">BFIU Circular No. 24 (PDF) ↗</a> · <a href="https://www.bfiu.org.bd/pdf/pub/annual/2019-2020.pdf" target="_blank" rel="noopener noreferrer">BFIU Annual Report 2019–20 (PDF) ↗</a> · <a href="https://www.bfiu.org.bd/pdf/news/prevention_trade_based_ml.pdf" target="_blank" rel="noopener noreferrer">BFIU Circular Letter No. 01/2021 (PDF) ↗</a></p>
         <p><strong>Evidence status:</strong> The historical statements above are attributed to BFIU's cited publications. This is not a claim that all banks currently have these gaps, nor a legal opinion on current requirements.</p>
       </article>
@@ -128,7 +132,9 @@ header.nav{display:flex;align-items:center;justify-content:space-between;gap:16p
           <li>Check access controls, audit logs, data quality, tuning approvals, false-positive/false-negative analysis and periodic validation.</li>
           <li>Verify the currently effective reporting rules independently; do not infer reporting obligations from an alert alone.</li>
         </ul>
-        <p><strong>RegTech mapping:</strong> ICMS Toolkit for control governance and evidence; Explainable AI for traceable rationale; Policy Gap Analyzer for mapping verified requirements to procedures.</p>
+        <p><strong>RegTech mapping:</strong> <a href="/icms-2026/">ICMS Toolkit ↗</a> for control governance and evidence; <a href="/explainable-ai.html#controls">Explainable AI ↗</a> for traceable rationale; <a href="/regulatory-gap-analyzer/">Policy Gap Analyzer ↗</a> for mapping verified requirements to procedures.</p>
+        <div class="case-note"><strong>Learning pathway · Test the whole alert lifecycle</strong><br>Use the <a href="/icms-2026/">ICMS Toolkit</a> to map the monitoring control from data input and scenario logic to alert triage, investigation, escalation, reporting decision and closure. For an AI-supported alert, review the explanation and evidence trail in the <a href="/explainable-ai.html#controls">Explainable AI controls section</a>. Test scenarios only in an authorised test environment; do not run test transactions against live banking systems or use real customer data in public tools.</div>
+        <p><strong>Try it yourself:</strong> Prepare a sample-based audit worksheet: expected alert, actual outcome, threshold/version, reviewer, evidence link, disposition rationale, escalation timing, exception and retest result. A generated alert or missed alert does not independently establish criminal conduct.</p>
         <p><a href="https://bfiu.org.bd/index.php/legislation/circularLetter" target="_blank" rel="noopener noreferrer">BFIU official circular-letter register ↗</a></p>
         <p><strong>Evidence status:</strong> The circular-letter titles and dates are listed by BFIU. Scenario steps are proposed audit procedures, not text quoted from the circulars. Confirm later amendments, including any cancellation notices, before use.</p>
       </article>
@@ -159,6 +165,18 @@ header.nav{display:flex;align-items:center;justify-content:space-between;gap:16p
         <p>International typologies, risk-based guidance and reports on money laundering, terrorist financing, trade-based schemes and emerging financial-crime methods.</p>
         <p><a href="https://www.fatf-gafi.org/en/publications.html" target="_blank" rel="noopener noreferrer">FATF publications ↗</a></p>
       </article>
+    </div>
+  </section>
+
+
+  <section class="case-section" id="learning-pathways">
+    <h2>Use each case as a guided learning exercise</h2>
+    <p>These pathways connect the case lesson to existing RegTech Nexus AI resources. Use fictional or anonymised examples only, verify official requirements and preserve human review.</p>
+    <div class="case-grid">
+      <article class="case-card"><span class="case-tag">TBML · Price verification</span><h3>Review a trade-price anomaly</h3><p>Practise product comparability, benchmark quality, price variance rationale and supporting-document cross-checks. Do not treat price variance alone as evidence of wrongdoing.</p><a href="/tradeguard/">Practise with TradeGuard ↗</a></article>
+      <article class="case-card"><span class="case-tag">Governance · Evidence</span><h3>Make the control auditable</h3><p>Turn a verified requirement into a control objective, sample test, evidence record, finding, owner, due date and retest.</p><a href="/icms-2026/">Use the ICMS Toolkit ↗</a></article>
+      <article class="case-card"><span class="case-tag">Regulatory mapping</span><h3>Map source to policy and controls</h3><p>Start with the original rule and exact clause, confirm applicability, then record policy wording, evidence gaps and review actions.</p><a href="/regulatory-gap-analyzer/">Use Policy Gap Analyzer ↗</a></article>
+      <article class="case-card"><span class="case-tag">Responsible AI</span><h3>Review an AI-supported signal</h3><p>Ask what data and rationale produced a signal, whether the result can be reproduced, who reviewed it and how the decision was documented.</p><a href="/explainable-ai.html#controls">Study Explainable AI controls ↗</a></article>
     </div>
   </section>
 
