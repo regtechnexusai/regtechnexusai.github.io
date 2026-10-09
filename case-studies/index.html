@@ -125,6 +125,9 @@ header.nav nav a:hover,header.nav nav a:focus-visible{background:#eaf3ff;color:#
 .case-feedback-note{margin-top:9px!important;font-size:.83rem;color:#52677d}
 .case-footer-links{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:18px}
 .case-footer-links a{font-weight:700}
+.case-number{display:inline-flex;align-items:center;justify-content:center;align-self:flex-start;margin:0 0 10px;padding:6px 10px;border-radius:8px;background:#1458a6;color:#fff;font-size:.78rem;font-weight:850;letter-spacing:.02em;line-height:1.2}
+#published-case-studies .case-card,#international-cases .case-card{display:flex;flex-direction:column;align-items:flex-start}
+#published-case-studies .case-card h3,#international-cases .case-card h3{width:100%}
 @media(max-width:760px){
  .case-search-panel{padding:0 14px}
  .case-search-inner{align-items:stretch;flex-direction:column}
@@ -236,7 +239,7 @@ header.nav nav a:hover,header.nav nav a:focus-visible{background:#eaf3ff;color:#
     <p>The entries below identify the source facts, then separate analytical lessons and proposed tests. They are educational case studies—not findings about any named bank or customer. Open the original document to confirm context before relying on it.</p>
     <div class="case-grid">
       <article class="case-card" id="case-tbml-price">
-        <span class="case-tag">Case study 01 · International typology</span>
+        <span class="case-tag">International typology</span>
         <h3>TBML through inflated trade prices and offshore entities</h3>
         <p><strong>Primary source:</strong> FATF, <em>Trade-Based Money Laundering</em> (2006), Case Study 12, printed report page 7.</p>
         <p><strong>Documented facts:</strong> The report describes a Brazilian company engaged in illegal activities. Proceeds were moved through cash couriers and offshore accounts; offshore shell companies then bought concentrated syrup from the Brazilian company at highly inflated prices and resold it at a significant loss. FATF describes the scheme as a way for criminal proceeds to return to the Brazilian company through apparently legitimate trade.</p>
@@ -256,7 +259,7 @@ header.nav nav a:hover,header.nav nav a:focus-visible{background:#eaf3ff;color:#
         <p><strong>Evidence status:</strong> Source facts verified from the FATF report summary. Local legal applicability and current control requirements must be separately verified.</p><div class="case-tool-pathway"><h4>Use the platform tools for this case</h4><p><a class="case-tool-link" href="/tradeguard/">Open TradeGuard: trade-price and document review ↗</a></p><p>Use TradeGuard to structure the review; it is not a live commodity-price feed and does not certify a price as fair. For a simple percentage-variance practice calculation, open the <a href="/student/">Student Knowledge Hub</a> and select <strong>Percentage Calculator</strong> under Free Student Tools. Calculate only after choosing a defensible comparable benchmark; the calculator cannot supply the benchmark or determine whether a transaction is suspicious.</p><p><strong>Practice output:</strong> benchmark source, comparability adjustments, unit-price variance, supporting documents, unresolved questions and escalation rationale.</p></div>
       </article>
       <article class="case-card" id="case-bangladesh-controls">
-        <span class="case-tag">Case study 02 · Bangladesh regulatory baseline</span>
+        <span class="case-tag">Bangladesh regulatory baseline</span>
         <h3>TBML control implementation: from guidance to auditable evidence</h3>
         <p><strong>Primary sources:</strong> BFIU Circular No. 24, dated 10 December 2019, <em>Guidelines for Prevention of Trade Based Money Laundering</em>; BFIU Annual Report 2019–20, printed page 19; BFIU Circular Letter No. 01/2021, dated 7 March 2021, extending the implementation deadline.</p>
         <p><strong>Documented facts:</strong> BFIU issued the TBML guidelines for scheduled banks. The 2019–20 annual report states that banks had reported few suspicious TBML transactions and identifies limited awareness, guidance and implementation framework as contributing issues. The 2021 circular letter extended the implementation timeline; it is historical evidence of a deadline extension, not proof of the present compliance status of any bank.</p>
@@ -276,7 +279,7 @@ header.nav nav a:hover,header.nav nav a:focus-visible{background:#eaf3ff;color:#
         <p><strong>Evidence status:</strong> The historical statements above are attributed to BFIU's cited publications. This is not a claim that all banks currently have these gaps, nor a legal opinion on current requirements.</p><div class="case-tool-pathway"><h4>Use the platform tools for this case</h4><p><a class="case-tool-link" href="/regulatory-gap-analyzer/">Open Policy Gap Analyzer ↗</a> <a class="case-tool-link" href="/icms-2026/">Open ICMS Toolkit ↗</a></p><p>Use Policy Gap Analyzer to map verified source clauses to control objectives and evidence requirements. Use ICMS Toolkit to organise control owner, test sample, evidence inspected, exception, risk rating, remediation deadline and retest result. Do not treat an automated mapping as proof that a control is effective.</p><p><strong>Calculator relevance:</strong> No standalone regulatory calculator is needed for this policy-implementation assessment. Do not add a capital/liquidity calculator unless the case's verified facts actually require that calculation.</p></div>
       </article>
       <article class="case-card" id="case-transaction-monitoring">
-        <span class="case-tag">Practice scenario 03 · Monitoring controls</span>
+        <span class="case-tag">Practice scenario · Monitoring controls</span>
         <h3>Transaction monitoring: can the institution prove its alerts work?</h3>
         <p><strong>Primary source:</strong> BFIU Circular Letter No. 02, dated 5 February 2026, on scheduled banks' transaction-monitoring systems, and Circular Letter No. 03 of the same date on MFS providers. Check the official circular-letter register for later changes before treating either as current.</p>
         <p><strong>Scenario status:</strong> This is a hypothetical control-testing exercise, not a reported enforcement case or allegation against an institution.</p>
@@ -413,9 +416,8 @@ header.nav nav a:hover,header.nav nav a:focus-visible{background:#eaf3ff;color:#
     <div class="case-note"><strong>Publication policy:</strong> Automated monitoring may discover reports and prepare candidate records, but it will not publish AI-generated case analysis automatically. Each case must pass source verification, duplicate checks, legal-reference review, privacy/copyright checks and human approval. A red flag is not proof of wrongdoing, and the platform does not issue official regulatory determinations.</div>
   </section>
 
-  <footer class="case-footer" id="case-page-footer">
-    <p><strong>RegTech Nexus AI — Intelligence for a Regulated World.</strong></p>
-    <p>Independent educational and decision-support resources for banking regulation, AML/CFT, TBML, financial crime, internal control, auditability and responsible AI. This Case Studies library summarises selected public regulatory publications and translates their lessons into practical control-mapping and audit-testing exercises.</p>
+  <section class="case-section" id="case-page-actions" aria-label="About this library and user feedback">
+    <h2>About this library &amp; User Feedback</h2>
     <div class="case-footer-grid">
       <section class="case-footer-panel" aria-labelledby="case-footer-about">
         <h3 id="case-footer-about">About this library</h3>
@@ -463,6 +465,12 @@ header.nav nav a:hover,header.nav nav a:focus-visible{background:#eaf3ff;color:#
         <p class="case-feedback-note">Submitting opens your email application with the feedback prepared for regtechnexusai@gmail.com. This version does not automatically store responses in a database or Google Sheets.</p>
       </section>
     </div>
+  </section>
+
+  <footer class="case-footer" id="case-page-footer">
+    <p><strong>RegTech Nexus AI — Intelligence for a Regulated World.</strong></p>
+    <p>Independent educational and decision-support resources for banking regulation, AML/CFT, TBML, financial crime, internal control, auditability and responsible AI. This Case Studies library summarises selected public regulatory publications and translates their lessons into practical control-mapping and audit-testing exercises.</p>
+
     <nav class="case-footer-links" aria-label="Footer links">
       <a href="/">Main Page</a>
       <a href="/case-studies/">Case Studies</a>
@@ -475,6 +483,14 @@ header.nav nav a:hover,header.nav nav a:focus-visible{background:#eaf3ff;color:#
   </footer>
   <script>
   (function(){
+    // Number published case studies in DOM order. New cards in either case-study section continue the sequence automatically.
+    const publishedCases=Array.from(document.querySelectorAll('#published-case-studies .case-card, #international-cases .case-card'));
+    publishedCases.forEach(function(card,index){
+      let number=card.querySelector('.case-number');
+      if(!number){number=document.createElement('span');number.className='case-number';card.insertBefore(number,card.firstChild);}
+      number.textContent='Case Study '+(index+1);
+      number.setAttribute('aria-label','Case Study '+(index+1));
+    });
     const searchToggle=document.getElementById('case-search-toggle');
     const searchPanel=document.getElementById('case-search-panel');
     const searchInput=document.getElementById('case-search-input');
