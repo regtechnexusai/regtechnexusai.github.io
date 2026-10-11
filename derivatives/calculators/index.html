@@ -57,7 +57,7 @@ body{background:#f7fbff;color:#10243e}.hero{padding:62px 6vw 50px;background:lin
 <div class="field"><label>Volatility %</label><input id="bsV" type="number" value="20"></div><div class="field"><label>Risk-free rate %</label><input id="bsR" type="number" value="5"></div>
 <div class="field"><label>Dividend yield %</label><input id="bsQ" type="number" value="0"></div><div class="field"><label>Days to expiry</label><input id="bsT" type="number" value="90"></div>
 <div class="field full"><label>Option type</label><select id="bsType"><option>Call</option><option>Put</option></select></div></div>
-<button class="calc" onclick="blackScholes()">Calculate Price &amp; Greeks</button><div class="result" id="bsr"></div><div class="sample">Sample: S=100, K=105, volatility=20%, rate=5%, expiry=90 days, Call. S, K, volatility and maturity must be > 0.</div></section>
+<button class="calc" onclick="blackScholes()">Calculate Price &amp; Greeks</button><div class="result" id="bsr"></div><div class="sample">Sample inputs and option type are updated to reflect the latest calculation. S, K, volatility and maturity must be > 0.</div></section>
 
 <section class="card"><h2>Option Payoff / Breakeven</h2><p class="desc">Shows expiration payoff and the basic breakeven level for a long option.</p><div class="fields">
 <div class="field"><label>Strike price</label><input id="opK" type="number" value="100"></div><div class="field"><label>Premium paid</label><input id="opP" type="number" value="5"></div>
