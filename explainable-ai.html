@@ -38,7 +38,7 @@
   "url":"https://regtechnexusai.com/explainable-ai.html",
   "author":{"@type":"Organization","name":"RegTech Nexus AI","url":"https://regtechnexusai.com/"},
   "publisher":{"@type":"Organization","name":"RegTech Nexus AI","url":"https://regtechnexusai.com/"},
-  "dateModified":"2026-10-04",
+  "dateModified":"2026-10-12",
   "inLanguage":"en"
 }
 </script>
@@ -149,7 +149,7 @@
 
 <div class="xai-wrap">
   <nav class="xai-nav" aria-label="Explainable AI sections">
-    <a href="#what">What XAI means</a><a href="#methods">Methods</a><a href="#controls">Control model</a><a href="#testing">Testing</a><a href="#evidence">Evidence</a><a href="#regulatory">Regulatory context</a>
+    <a href="#what">What XAI means</a><a href="#methods">Methods</a><a href="#controls">Control model</a><a href="#testing">Testing</a><a href="#evidence">Evidence</a><a href="#regulatory">Regulatory context</a><a href="#xai-assurance-lab">Assurance Lab</a>
   </nav>
 
   <section class="xai-callout" id="audience" aria-labelledby="audience-title">
@@ -333,6 +333,40 @@
   </section>
 
   
+
+<section class="xai-section" id="xai-assurance-lab">
+  <h2>Explainable AI Assurance Lab — practical controls and validation</h2>
+  <p>This additive module extends the existing XAI guide with a practical assurance workflow for regulated use cases. It is educational guidance, not legal advice, model certification or a substitute for institution-specific validation.</p>
+  <div class="xai-grid">
+    <article class="xai-card"><div class="xai-number">01 · EXPLAIN</div><h3>Explanation methods</h3><p>Distinguish intrinsic interpretability from post-hoc explanation. SHAP estimates feature contributions under its assumptions; LIME approximates local behaviour around a selected instance. Neither method alone proves causality, fairness or model correctness.</p></article>
+    <article class="xai-card"><div class="xai-number">02 · VALIDATE</div><h3>Test explanation quality</h3><p>Test fidelity to the model, stability under reasonable input perturbations, sensitivity to irrelevant features, reproducibility, coverage of important populations and consistency with the intended decision use.</p></article>
+    <article class="xai-card"><div class="xai-number">03 · GOVERN</div><h3>Preserve human accountability</h3><p>Record the model and version, input context, explanation method/version, reviewer, challenge, override rationale, decision and escalation outcome. An explanation should inform—not automatically replace—qualified human judgement.</p></article>
+  </div>
+  <h3>Banking example: transaction-monitoring alert</h3>
+  <p>Use synthetic data only. Suppose a fictional alert score is influenced by unusual transaction velocity, a new counterparty and a deviation from the customer’s historical pattern. The reviewer should verify whether these features are reliable, relevant, permitted for use and correctly represented—not infer wrongdoing from a score alone.</p>
+  <div class="xai-callout"><strong>Interpretation boundary:</strong> feature attribution describes how a model output is associated with input features under a method’s assumptions. It does not by itself establish causal effect, suspicious intent, legal breach or the correct operational action.</div>
+  <h3>Minimum explanation-validation checklist</h3>
+  <ul class="xai-checklist">
+    <li>Use case, intended user and decision impact are documented.</li>
+    <li>Model owner, version, data scope and explanation method are identified.</li>
+    <li>Fidelity is tested against the model being explained.</li>
+    <li>Stability and sensitivity are assessed with controlled perturbations.</li>
+    <li>Known limitations, missing data and out-of-distribution cases are disclosed.</li>
+    <li>Bias/fairness testing is separate from explanation generation.</li>
+    <li>Human review, challenge and override are logged.</li>
+    <li>Monitoring, change control and incident escalation are assigned.</li>
+  </ul>
+  <h3>Control testing record — reusable fields</h3>
+  <div class="xai-table-wrap"><table class="xai-table"><thead><tr><th>Field</th><th>Evidence expected</th><th>Reviewer question</th></tr></thead><tbody>
+  <tr><td>Model/use-case ID</td><td>Inventory record, purpose and owner</td><td>Is the system within approved scope?</td></tr>
+  <tr><td>Explanation artefact</td><td>Method, version, output and relevant inputs</td><td>Can the result be reproduced?</td></tr>
+  <tr><td>Fidelity and stability</td><td>Test design, results, thresholds and exceptions</td><td>Does the explanation reliably reflect model behaviour?</td></tr>
+  <tr><td>Human challenge</td><td>Reviewer rationale, override and escalation logs</td><td>Can the reviewer question the output meaningfully?</td></tr>
+  <tr><td>Limitations and monitoring</td><td>Known limitations, drift monitoring and incident records</td><td>Are failure modes detected and remediated?</td></tr>
+  </tbody></table></div>
+  <p class="xai-footer-note"><strong>Update note:</strong> reviewed for this content release on 12 October 2026. Re-check authoritative standards and jurisdictional requirements before using this material in a formal policy, validation or audit.</p>
+</section>
+
 <section class="xai-section" id="faq">
 <h2>Frequently asked questions</h2>
 <div class="xai-grid">
@@ -367,6 +401,8 @@
       <li><a href="https://airc.nist.gov/airmf-resources/airmf/3-sec-characteristics/" target="_blank" rel="noopener noreferrer">NIST AIRC — Explainable and Interpretable AI</a></li>
       <li><a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener noreferrer">European Commission — AI Act</a></li>
       <li><a href="https://www.iso.org/standard/42001" target="_blank" rel="noopener noreferrer">ISO — ISO/IEC 42001:2023</a></li>
+       <li><a href="https://shap.readthedocs.io/" target="_blank" rel="noopener noreferrer">SHAP — official documentation</a></li>
+       <li><a href="https://github.com/marcotcr/lime" target="_blank" rel="noopener noreferrer">LIME — reference implementation and documentation</a></li>
     </ul>
     <section class="xai-experience" id="xai-cta"><h2>Putting explainability into practice?</h2><p>Explore practical XAI governance, evidence and control-testing approaches for regulated environments.</p><a class="nav-cta" href="contact.html">Book a discussion ↗</a> <a class="xai-control-link" href="frameworks-toolkit.html">Explore frameworks &amp; toolkits ↗</a></section>
 <p class="xai-footer-note">This page is an educational and professional decision-support resource. It is not legal advice, a regulatory determination, a model validation opinion or an assurance conclusion. Applicable requirements should be verified against the authoritative source and the institution's specific jurisdiction, role and use case.</p>
