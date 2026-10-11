@@ -47,4 +47,13 @@ Implemented an additive update package for the Explainable AI page and Student K
 No login/authentication, server-side learner tracking, or sensitive-data collection was added. No calculator logic, architecture content, existing learning topics or established URLs were intentionally removed or replaced. The changes are additive.
 
 ## 6. Deployment status
-At the time this report was created, changes were on the implementation branch and PR #17 was open. Live deployment and post-deployment browser verification were not yet confirmed. Update this section after merge and live checks; do not treat a GitHub commit alone as proof that the production website has updated.
+- **Repository integration:** PR [#17](https://github.com/regtechnexusai/regtechnexusai.github.io/pull/17) was merged successfully using squash merge. Merge commit: `5bab43e396cedaf6475f43eb02e4db3119cfa2a1`.
+- **Main-branch verification:** all six implementation pages plus this report were fetched successfully from the repository's `main` branch after merge; the XAI assurance module and all three language course files are present.
+- **Live-domain verification:** **NOT CONFIRMED — VERIFICATION REQUIRED.** The external website could not be fetched from this execution environment because DNS resolution failed. This does not prove the site is down; it means production rendering and GitHub Pages publication could not be independently confirmed here.
+- **Next production check:** open the five public URLs below in a browser and test on mobile/desktop:
+  - https://regtechnexusai.com/explainable-ai.html#xai-assurance-lab
+  - https://regtechnexusai.com/student/languages/
+  - https://regtechnexusai.com/student/languages/chinese/
+  - https://regtechnexusai.com/student/languages/korean/
+  - https://regtechnexusai.com/student/languages/japanese/
+- Do not treat repository merge alone as proof of live deployment.
