@@ -11,6 +11,18 @@ footer.main-site-footer>div:not(.footer-brand):not(.legal){display:flex;flex-dir
 @media(max-width:1100px){header.nav .nav-cta{display:none}header.nav .menu{display:block}header.nav nav#main-nav{display:none}header.nav.open nav#main-nav{display:flex;position:absolute;top:78px;left:0;right:0;background:#fff;padding:22px 5vw;flex-direction:column;align-items:flex-start;gap:18px;border-bottom:1px solid #ddd;box-shadow:0 14px 22px #00000010}header.nav.open nav#main-nav a{font-size:14px}footer.main-site-footer{grid-template-columns:1fr 1fr}footer.main-site-footer .footer-brand,footer.main-site-footer .footer-note,footer.main-site-footer .legal{grid-column:1/-1}}
 @media(max-width:560px){header.nav{padding:0 5vw}header.nav .brand-logo{width:155px;max-height:54px}footer.main-site-footer{grid-template-columns:1fr;padding:42px 6vw 25px}footer.main-site-footer .footer-brand,footer.main-site-footer .footer-note,footer.main-site-footer .legal{grid-column:auto}footer.main-site-footer .legal{gap:16px}}
 </style>
+
+<style id="language-bengali-readability-fix">
+/* Bengali readability: ensure strong contrast over the blue hero and reliable Bengali glyph rendering. */
+.hero p, .hero .kicker { color:#ffffff !important; }
+.hero p { font-family:"Noto Sans Bengali","Nirmala UI","Vrinda",system-ui,sans-serif; font-size:clamp(1.05rem,2.2vw,1.2rem); line-height:1.85; font-weight:500; text-shadow:0 1px 1px rgba(0,0,0,.12); }
+body, p, li, td, th, label, .answer, .qa-item, .muted { font-family:"Noto Sans Bengali","Nirmala UI","Vrinda",system-ui,-apple-system,"Segoe UI",Arial,sans-serif; }
+.muted { color:#43566a !important; }
+.pill { color:#123b60 !important; background:#f3f8ff !important; }
+.panel, .panel p, .panel li, .panel label, .panel td, .panel th, .qa-item .answer { color:#172b3f; }
+#listenStatus { color:#123b60; font-weight:700; }
+@media(max-width:560px){ .hero p{line-height:1.9;font-size:1.08rem}.hero{padding:24px 20px} }
+</style>
 </head>
 <body><a class="skip-link" href="#main-content">Skip to content</a><header class="nav">
 
