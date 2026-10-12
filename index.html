@@ -279,6 +279,61 @@
 .knowledge-list .knowledge-video-entry:hover{background:linear-gradient(135deg,#e6f4f8 0%,#f3faf8 100%);transform:translateY(-2px);box-shadow:0 16px 34px rgba(16,32,59,.10)}
 @media(max-width:560px){.knowledge-list .knowledge-video-entry{padding:20px 24px}.knowledge-list .knowledge-video-entry b{font-size:18px}.knowledge-list .knowledge-video-entry::after{right:14px}.knowledge-list .knowledge-video-entry i{width:40px;height:40px}}
 </style>
+
+<style id="regtech-navigation-finishing-20261012">
+/* Desktop/mobile navigation polish only. Calculator and tool logic is untouched. */
+@media (min-width:1181px){
+  .desktop-side-tools{display:none!important}
+}
+.toolkit-toolbar{
+  position:relative; z-index:30; display:flex; align-items:center; gap:8px;
+  width:100%; padding:8px 14px; margin:0 auto; box-sizing:border-box;
+  background:linear-gradient(180deg,#f8fafc,#edf2f7);
+  border-top:1px solid #e2e8f0; border-bottom:1px solid #d7e0ea;
+}
+.toolkit-scroll-control{
+  flex:0 0 38px; width:38px; height:42px; display:flex; align-items:center; justify-content:center;
+  border:1px solid #cbd5e1; border-radius:11px; background:#fff; color:#15243a;
+  font-size:27px; line-height:1; font-weight:700; cursor:pointer;
+  box-shadow:0 2px 5px rgba(15,23,42,.08); transition:background .18s,transform .18s;
+}
+.toolkit-scroll-control:hover{background:#e6edf6;transform:translateY(-1px)}
+.toolkit-scroll-control:focus-visible{outline:3px solid #4f8bd6;outline-offset:2px}
+.toolkit-toolbar .mobile-toolkit-tabs{
+  flex:1 1 auto; min-width:0; display:flex!important; flex-wrap:nowrap!important;
+  align-items:stretch; gap:9px; height:58px!important; min-height:58px!important;
+  margin:0!important; padding:4px 2px!important; overflow-x:auto!important; overflow-y:hidden!important;
+  scroll-behavior:smooth; scrollbar-width:thin!important; scrollbar-color:#9aa9bc transparent;
+  -webkit-overflow-scrolling:touch;
+}
+.toolkit-toolbar .mobile-toolkit-tabs::-webkit-scrollbar{height:5px;display:block!important}
+.toolkit-toolbar .mobile-toolkit-tabs::-webkit-scrollbar-thumb{background:#9aa9bc;border-radius:8px}
+.toolkit-toolbar .tool-tab{
+  flex:0 0 142px!important; width:142px!important; min-width:142px!important; max-width:142px!important;
+  height:46px!important; min-height:46px!important; max-height:46px!important; margin:0!important;
+  padding:6px 9px!important; display:flex!important; flex-direction:column; align-items:flex-start; justify-content:center;
+  gap:3px; border:1px solid #d4deea; border-radius:11px!important; background:#fff;
+  box-shadow:0 2px 5px rgba(15,23,42,.07); white-space:normal; overflow:hidden; transition:transform .18s,box-shadow .18s;
+}
+.toolkit-toolbar .tool-tab:hover,.toolkit-toolbar .tool-tab:focus-visible{
+  transform:translateY(-2px); box-shadow:0 5px 12px rgba(15,23,42,.13); outline-offset:2px;
+}
+.toolkit-toolbar .tool-tab b{display:block;font-size:11px!important;line-height:1.15!important;white-space:nowrap!important;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.toolkit-toolbar .tool-tab span{display:block;font-size:9px!important;line-height:1.1!important;white-space:nowrap!important;overflow:hidden;text-overflow:ellipsis;max-width:100%;opacity:.78}
+.toolkit-toolbar .tool-tab--hub,.toolkit-toolbar .tool-tab--professional{background:#e8eef9;border-color:#b9c9e3}
+.toolkit-toolbar .tool-tab--student{background:#e7f4eb;border-color:#bad9c4}
+@media(max-width:1180px){
+  .toolkit-toolbar{gap:5px;padding:7px 7px}
+  .toolkit-scroll-control{flex-basis:31px;width:31px;height:40px;font-size:24px}
+  .toolkit-toolbar .mobile-toolkit-tabs{height:55px!important;min-height:55px!important}
+  .toolkit-toolbar .tool-tab{flex-basis:126px!important;width:126px!important;min-width:126px!important;max-width:126px!important;height:43px!important;min-height:43px!important;max-height:43px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .toolkit-toolbar .mobile-toolkit-tabs{scroll-behavior:auto}
+  .toolkit-toolbar .tool-tab,.toolkit-scroll-control{transition:none}
+}
+</style>
+
 </head>
 
 <body>
@@ -287,7 +342,7 @@
 
 <header class="nav">
 
-  <a class="brand" href="#work" aria-label="RegTech Nexus AI home">
+  <a class="brand" href="/" aria-label="RegTech Nexus AI home">
     <img
       class="brand-logo"
       src="regtech-nexus-ai-logo-2026.png"
@@ -309,6 +364,7 @@
     <a href="#work">What we do</a>
 
     <a href="#solutions">Solutions</a>
+    <a href="/platform-hub.html">Platform Hub</a>
 
     <a href="global-financial-systems.html">Readiness tools</a>
 
@@ -346,48 +402,31 @@
 
 </header>
 
-<!-- DESKTOP QUICK ACCESS: restored colourful, movable left/right rails -->
-<div class="desktop-side-tools" aria-label="Main site quick access">
-  <nav class="desktop-side-tools__rail desktop-side-tools__rail--left" aria-label="Tools and readiness">
-    <a href="/tradeguard/"><b>TradeGuard</b></a>
-    <a href="/icms-2026/"><b>ICMS Toolkit</b></a>
-    <a href="bank-use-review.html"><b>Bank Use Review</b></a>
-    <a href="/md-ceo-performance-calculator/"><b>MD/CEO KPI</b></a>
-    <a href="/payscale-2026/"><b>PayScale 2026</b></a>
-    <a href="global-financial-systems.html#assessment"><b>International Readiness</b></a>
+<!-- UNIFIED QUICK ACCESS: scrollable on desktop and touch devices -->
+<div class="desktop-side-tools" aria-hidden="true"></div>
+<div class="toolkit-toolbar" aria-label="Quick access to professional tools and learning">
+  <button class="toolkit-scroll-control toolkit-scroll-control--left" type="button" aria-label="Scroll quick access left" title="Scroll left">‹</button>
+  <nav class="mobile-toolkit-tabs" aria-label="Quick access to RegTech Nexus AI tools and knowledge">
+    <a class="tool-tab tool-tab--hub" href="/platform-hub.html"><b>Platform Hub</b><span>All pathways</span></a>
+    <a class="tool-tab tool-tab--professional" href="/platform-hub.html#professional"><b>Professional Tools</b><span>Banking, risk &amp; compliance</span></a>
+    <a class="tool-tab tool-tab--student" href="/student/"><b>Student Hub</b><span>Learning &amp; practice</span></a>
+    <a class="tool-tab tool-tab--tradeguard" href="/tradeguard/"><b>TradeGuard</b><span>TBML &amp; trade risk</span></a>
+    <a class="tool-tab tool-tab--icms" href="/icms-2026/"><b>ICMS Toolkit</b><span>Governance &amp; controls</span></a>
+    <a class="tool-tab tool-tab--bank" href="bank-use-review.html"><b>Bank Use Review</b><span>Use &amp; risk</span></a>
+    <a class="tool-tab tool-tab--mdceo" href="/md-ceo-performance-calculator/"><b>MD/CEO KPI</b><span>Performance</span></a>
+    <a class="tool-tab tool-tab--payscale" href="/payscale-2026/"><b>PayScale 2026</b><span>Salary planning</span></a>
+    <a class="tool-tab tool-tab--global" href="global-financial-systems.html#assessment"><b>International Readiness</b><span>Jurisdiction tools</span></a>
+    <a class="tool-tab tool-tab--calculators" href="international-regulatory-calculators.html"><b>Regulatory Calculators</b><span>Banking calculations</span></a>
+    <a class="tool-tab tool-tab--knowledge" href="#knowledge"><b>Knowledge</b><span>Guides &amp; resources</span></a>
+    <a class="tool-tab tool-tab--insights" href="#insights"><b>Insights &amp; Updates</b><span>Research &amp; updates</span></a>
+    <a class="tool-tab tool-tab--policy" href="regulatory-gap-analyzer/"><b>Policy Gap Analyzer</b><span>Policy-to-control</span></a>
+    <a class="tool-tab tool-tab--sanctions" href="/sanctions-screening/"><b>Sanctions Resources</b><span>Official-list links</span></a>
+    <a class="tool-tab tool-tab--derivatives" href="/derivatives/"><b>Derivatives</b><span>Risk &amp; compliance</span></a>
+    <a class="tool-tab tool-tab--assistant" href="https://chatgpt.com/g/g-6a09920b01348191b9b1628b69367d9b-regtech-nexus-ai" target="_blank" rel="noopener noreferrer"><b>AI Assistant</b><span>Ask RegTech AI ↗</span></a>
   </nav>
-  <nav class="desktop-side-tools__rail desktop-side-tools__rail--right" aria-label="Knowledge and services">
-    <a href="#solutions"><b>Solutions</b></a>
-    <a href="#knowledge"><b>Knowledge</b></a>
-    <a href="international-regulatory-calculators.html"><b>Regulatory Calculators</b></a>
-    <a href="/student/"><b>Student Knowledge Hub</b></a>
-    <a href="#insights"><b>Insights &amp; Updates</b></a>
-    <a href="#ai-assistant"><b>AI Assistant</b></a>
-    <a href="regulatory-gap-analyzer/"><b>Policy Gap Analyzer</b></a>
-    <a href="/sanctions-screening/"><b>Sanctions Screening</b></a>
-    <a href="/derivatives/"><b>Derivatives</b></a>
-  </nav>
+  <button class="toolkit-scroll-control toolkit-scroll-control--right" type="button" aria-label="Scroll quick access right" title="Scroll right">›</button>
 </div>
-
-<!-- MOBILE TOOLKIT QUICK ACCESS -->
-<nav class="mobile-toolkit-tabs" aria-label="Quick access to RegTech Nexus AI tools and knowledge">
-  <a class="tool-tab tool-tab--tradeguard" href="/tradeguard/"><b>TBML Risk</b><span>TradeGuard</span></a>
-  <a class="tool-tab tool-tab--icms" href="/icms-2026/"><b>ICMS</b><span>Governance toolkit</span></a>
-  <a class="tool-tab tool-tab--bank" href="bank-use-review.html"><b>Bank Review</b><span>Use &amp; risk</span></a>
-  <a class="tool-tab tool-tab--mdceo" href="/md-ceo-performance-calculator/"><b>CEO KPI</b><span>Performance</span></a>
-  <a class="tool-tab tool-tab--payscale" href="/payscale-2026/"><b>PayScale</b><span>Salary planning</span></a>
-  <a class="tool-tab tool-tab--global" href="global-financial-systems.html#assessment"><b>Global Ready</b><span>Jurisdiction tools</span></a>
-  <a class="tool-tab tool-tab--solutions" href="#solutions"><b>Solutions</b><span>All solutions</span></a>
-  <a class="tool-tab tool-tab--knowledge" href="#knowledge"><b>Knowledge</b><span>Learning resources</span></a>
-  <a class="tool-tab tool-tab--calculators" href="international-regulatory-calculators.html"><b>Reg Calculators</b><span>Global profiles</span></a>
-  <a class="tool-tab tool-tab--student" href="/student/"><b>Student Hub</b><span>Learning &amp; AI</span></a>
-  <a class="tool-tab tool-tab--insights" href="#insights"><b>Insights</b><span>Research &amp; updates</span></a>
-  <a class="tool-tab tool-tab--policy" href="regulatory-gap-analyzer/"><b>Policy Gap</b><span>Policy-to-control</span></a>
-  <a class="tool-tab tool-tab--sanctions" href="/sanctions-screening/"><b>Sanctions</b><span>Screening</span></a>
-  <a class="tool-tab tool-tab--derivatives" href="/derivatives/"><b>Derivatives</b><span>Risk &amp; compliance</span></a>
-  <a class="tool-tab tool-tab--assistant" href="https://chatgpt.com/g/g-6a09920b01348191b9b1628b69367d9b-regtech-nexus-ai" target="_blank" rel="noopener noreferrer"><b>AI Assistant</b><span>Ask RegTech AI ↗</span></a>
-</nav>
-<!-- /MOBILE TOOLKIT QUICK ACCESS -->
+<!-- /UNIFIED QUICK ACCESS -->
 
 
 <main id="main-content">
@@ -1975,7 +2014,7 @@
 </footer>
 
 
-<script src="script.js?v=20261008-tabs-fix1" defer></script>
+<script src="script.js?v=20261012-navigation-fix" defer></script>
 
 <script
   src="site-email.js?v=20260928-email-routing"
