@@ -99,8 +99,27 @@
       toolkitRail.addEventListener(eventName, pauseBriefly, { passive: true });
     });
 
-    toolkitRail.addEventListener('mouseenter', pauseBriefly, { passive: true });
+    /* Pause while the pointer is over the rail so links remain easy to select. */
+    toolkitRail.addEventListener('mouseenter', stopAuto, { passive: true });
     toolkitRail.addEventListener('mouseleave', startAuto, { passive: true });
+    toolkitRail.addEventListener('focusin', stopAuto);
+    toolkitRail.addEventListener('focusout', startAuto);
+
+    /* Explicit controls make desktop and touch navigation predictable. */
+    const leftControl = document.querySelector('.toolkit-scroll-control--left');
+    const rightControl = document.querySelector('.toolkit-scroll-control--right');
+    const moveRail = (amount) => {
+      stopAuto();
+      clearTimeout(resumeTimer);
+      toolkitRail.scrollBy({ left: amount, behavior: 'smooth' });
+      resumeTimer = setTimeout(startAuto, 2200);
+    };
+    if (leftControl) {
+      leftControl.addEventListener('click', () => moveRail(-Math.max(240, toolkitRail.clientWidth * 0.72)));
+    }
+    if (rightControl) {
+      rightControl.addEventListener('click', () => moveRail(Math.max(240, toolkitRail.clientWidth * 0.72)));
+    }
 
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) stopAuto();
