@@ -65,3 +65,14 @@ No login/authentication, server-side learner tracking, or sensitive-data collect
   - https://regtechnexusai.com/student/languages/korean/
   - https://regtechnexusai.com/student/languages/japanese/
 - Do not treat repository merge alone as proof of live deployment.
+
+
+## 8. Language-course expansion — 12 October 2026
+- Reworked only the three existing course pages and added the shared course interaction script at `/student/languages/language-learning.js`. Existing public routes remain unchanged.
+- Added a searchable character/letter inventory with common romanisation and Bengali pronunciation guidance. Coverage is language-appropriate: Mandarin Pinyin initials/finals plus common Hanzi; Hangul consonants, vowels, compound vowels, syllable examples and batchim clusters; Japanese Hiragana, Katakana, voiced/contracted kana and beginner Kanji examples.
+- Added 50 or more vocabulary/phrase entries per course, with target-script form, romanisation, approximate Bengali pronunciation and Bengali meaning. The same full vocabulary list populates each course's Listen dropdown, and each item has a one-tap speech control.
+- Added bilingual practice in both directions: each vocabulary item creates a target-language-to-Bengali question and a Bengali-to-target-language question, resulting in at least 100 question/answer items per course. Learners can search questions and reveal/hide answers.
+- Added a character/word click interaction that opens a large visual glyph and touch/mouse trace board. **Limitation:** this is a trace/practice guide with general writing notes, not verified animated per-stroke order data for every character; users should consult a specialist stroke-order reference for authoritative stroke sequencing.
+- Added a direct fallback link to the official JLPT page at `https://jlpt.jp/sp/e/index.cgi`. During web verification on 12 October 2026, opening `https://jlpt.jp/sp/e/index.cgi` succeeded and identified itself as the official worldwide JLPT site operated by the Japan Foundation and Japan Educational Exchanges and Services. Fetching the root domain and `https://www.jlpt.jp/e/` timed out in the web-check environment. This indicates an access/fetch issue on those routes in that check, not proof of a global outage.
+- Static repository checks: all three course pages contain the expected shared script and required interaction targets; no duplicate literal IDs were found in the three page shells. Vocabulary dataset inspection confirmed at least 50 entries per language. The Q&A bank is generated as two translation directions per vocabulary entry.
+- **Still pending:** browser-based end-to-end tests, touch/mouse tracing tests, voice availability checks on actual Android/desktop devices, and live production verification after deployment. Static checks do not prove runtime behavior on every device.
