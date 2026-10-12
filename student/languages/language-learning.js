@@ -89,12 +89,47 @@ function showWriting(glyph,roman,bn,kind){
 }
 function speak(text){
  const status=$('listenStatus');
- if(!('speechSynthesis'in window)||!('SpeechSynthesisUtterance'in window)){status.textContent='Speech playback is not supported in this browser. Use a device/browser with a compatible '+data[lang].locale+' voice.';return;}
- window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang=data[lang].locale;u.rate=.82;
- u.onstart=()=>status.textContent='Playing '+data[lang].locale+' pronunciation…';
- u.onend=()=>status.textContent='Playback finished. Repeat the item and compare it with the written form.';
- u.onerror=()=>status.textContent='Playback failed or no compatible voice is installed. Try another browser/device with a '+data[lang].locale+' voice.';
- window.speechSynthesis.speak(u);
+ if(!('speechSynthesis' in window)||!('SpeechSynthesisUtterance' in window)){
+   status.textContent='এই browser-এ সরাসরি audio playback সমর্থিত নয়। Chrome/Samsung Internet-এ আবার চেষ্টা করুন অথবা ফোনের Text-to-speech voice settings পরীক্ষা করুন।';
+   return;
+ }
+ const synth=window.speechSynthesis;
+ try{
+   synth.cancel();
+   const u=new SpeechSynthesisUtterance(text);
+   u.lang=data[lang].locale;
+   u.rate=.82;
+   u.pitch=1;
+   const chooseVoice=()=>{
+     const voices=synth.getVoices?synth.getVoices():[];
+     const exact=voices.find(v=>(v.lang||'').toLowerCase()===data[lang].locale.toLowerCase());
+     const base=data[lang].locale.split('-')[0].toLowerCase();
+     const regional=voices.find(v=>(v.lang||'').toLowerCase().startsWith(base+'-')||(v.lang||'').toLowerCase()===base);
+     if(exact||regional)u.voice=exact||regional;
+   };
+   chooseVoice();
+   u.onstart=()=>status.textContent='শোনা যাচ্ছে — '+data[lang].name+' pronunciation…';
+   u.onend=()=>status.textContent='শোনা শেষ। আবার শুনতে Listen চাপুন।';
+   u.onerror=(event)=>{
+     const code=event&&event.error;
+     if(code==='not-allowed'||code==='canceled'){
+       status.textContent='Playback শুরু হয়নি। Listen বোতামটি আবার চাপুন এবং ফোনের Media volume ও Text-to-speech settings পরীক্ষা করুন।';
+     }else if(code==='voice-unavailable'){
+       status.textContent='এই ভাষার voice ফোনে পাওয়া যাচ্ছে না। Settings → Text-to-speech output-এ গিয়ে Google Speech Services/Speech Services by Google-এর voice data পরীক্ষা করুন।';
+     }else{
+       status.textContent='Playback ব্যর্থ হয়েছে ('+(code||'unknown error')+')। ফোনের Text-to-speech engine ও '+data[lang].name+' voice data পরীক্ষা করুন।';
+     }
+   };
+   // Speak directly inside the user's button action; some mobile browsers block delayed playback.
+   synth.speak(u);
+   // Voice lists can populate asynchronously on Android; refresh availability for the next tap.
+   if(typeof synth.addEventListener==='function'&&!synth.__regtechVoiceListener){
+     synth.addEventListener('voiceschanged',()=>{synth.getVoices();});
+     synth.__regtechVoiceListener=true;
+   }
+ }catch(err){
+   status.textContent='Audio চালু করা যায়নি। ফোনের Text-to-speech settings পরীক্ষা করে আবার Listen চাপুন।';
+ }
 }
 $('listenButton').addEventListener('click',()=>{const v=data[lang].vocab[Number(listen.value)];if(v)speak(v[0]);});
 $('listenReverseButton').addEventListener('click',()=>{const v=data[lang].vocab[Number(listen.value)];if(v){$('listenStatus').textContent='বাংলা অর্থ: '+v[3]+' · '+v[2];}});
