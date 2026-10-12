@@ -1,7 +1,8 @@
 # RegTech Nexus AI — Implementation & QA Report
 **Report date:** 12 October 2026  
 **Repository:** `regtechnexusai/regtechnexusai.github.io`  
-**Implementation branch:** `feature/xai-language-learning-2026-10`  
+**Original implementation branch:** `feature/xai-language-learning-2026-10`  
+**Duplicate-ID fix branch:** `fix/student-hub-duplicate-ids-2026-10-12`  
 **Pull request:** [#17 — Add XAI assurance lab and Bengali-based Asian language learning](https://github.com/regtechnexusai/regtechnexusai.github.io/pull/17)
 
 ## 1. Executive summary
@@ -33,20 +34,27 @@ Implemented an additive update package for the Explainable AI page and Student K
 |---|---|---|
 | Initial test | HTML shell, titles, file sizes and key section presence | Found missing XAI nav link to the new Assurance Lab; browser speech practice was not yet present. |
 | Recheck 1 | HTML shell closure, internal anchors, feature presence | Corrected XAI navigation; added listening controls to all three language lessons. |
-| Recheck 2 | Required curriculum content, SHAP/LIME references, quiz handlers, baseline comparison | Required content checks passed. Confirmed three duplicate IDs on Student Knowledge Hub already existed on `main`; not changed because shared JavaScript dependencies require separate regression-safe remediation. |
+| Recheck 2 | Required curriculum content, SHAP/LIME references, quiz handlers, baseline comparison | Required content checks passed. Confirmed three duplicate-ID patterns on Student Knowledge Hub already existed on `main`; logged for a separate regression-safe fix. |
 | Recheck 3 | Keyboard accessibility, internal route targets, language metadata, broken anchors, course/listening/quiz presence | All six changed files passed the checked shell, language attribute and anchor checks. New course routes resolve to matching `index.html` files in the repository. |
 
 ## 4. Known limitations / follow-up
 - The GitHub repository has no PR-triggered workflow run or combined commit status available for this branch; static repository checks are not equivalent to browser-based end-to-end testing.
 - Live-domain rendering and mobile visual checks must be performed after deployment.
 - Speech output depends on browser/device speech synthesis and installed Chinese, Korean or Japanese voices. The pages display a fallback message when playback is unsupported or fails.
-- Existing Student Knowledge Hub duplicate IDs remain: `toolResult`, `quizResult`, and `student-hub-progress-pwa`. These were verified on the base `main` branch before the changes and are outside this change set.
+- **Duplicate-ID remediation (12 October 2026):** fixed in the follow-up patch. Tool result outputs now use a scoped `.mini-output` selector rather than a repeated `toolResult` ID; the two quiz result targets are explicitly namespaced (`quizResult-legacy` and `quizResult-adaptive`) with matching references; the PWA style and script IDs are now distinct (`student-hub-progress-pwa` and `student-hub-progress-pwa-script`). Static duplicate-ID scan of the updated Student Knowledge Hub file returns zero duplicate IDs.
 - Course content is an independent beginner learning resource, not official HSK, TOPIK or JLPT exam preparation. Future course-level alignment should be reviewed against current official guidance.
 
 ## 5. Scope and safety
 No login/authentication, server-side learner tracking, or sensitive-data collection was added. No calculator logic, architecture content, existing learning topics or established URLs were intentionally removed or replaced. The changes are additive.
 
-## 6. Deployment status
+## 6. Follow-up duplicate-ID fix — QA
+- Updated `student/index.html` in a separate fix branch, preserving the existing page content and tool behaviour.
+- Recheck A: static ID inventory — **PASS**, no repeated literal HTML IDs remain.
+- Recheck B: quiz target references — **PASS**, both namespaced result targets have matching JavaScript references; no old `quizResult` target remains.
+- Recheck C: study-tool output handling and PWA IDs — **PASS**, all 12 study tools use the shared scoped output selector, no generated `toolResult` IDs remain, and style/script IDs are distinct.
+- Browser-based end-to-end interaction testing remains pending; static checks cannot prove every browser runtime path.
+
+## 7. Deployment status
 - **Repository integration:** PR [#17](https://github.com/regtechnexusai/regtechnexusai.github.io/pull/17) was merged successfully using squash merge. Merge commit: `5bab43e396cedaf6475f43eb02e4db3119cfa2a1`.
 - **Main-branch verification:** all six implementation pages plus this report were fetched successfully from the repository's `main` branch after merge; the XAI assurance module and all three language course files are present.
 - **Live-domain verification:** **NOT CONFIRMED — VERIFICATION REQUIRED.** The external website could not be fetched from this execution environment because DNS resolution failed. This does not prove the site is down; it means production rendering and GitHub Pages publication could not be independently confirmed here.
