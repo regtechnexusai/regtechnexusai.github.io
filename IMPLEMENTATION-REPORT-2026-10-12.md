@@ -76,3 +76,12 @@ No login/authentication, server-side learner tracking, or sensitive-data collect
 - Added a direct fallback link to the official JLPT page at `https://jlpt.jp/sp/e/index.cgi`. During web verification on 12 October 2026, opening `https://jlpt.jp/sp/e/index.cgi` succeeded and identified itself as the official worldwide JLPT site operated by the Japan Foundation and Japan Educational Exchanges and Services. Fetching the root domain and `https://www.jlpt.jp/e/` timed out in the web-check environment. This indicates an access/fetch issue on those routes in that check, not proof of a global outage.
 - Static repository checks: all three course pages contain the expected shared script and required interaction targets; no duplicate literal IDs were found in the three page shells. Vocabulary dataset inspection confirmed at least 50 entries per language. The Q&A bank is generated as two translation directions per vocabulary entry.
 - **Still pending:** browser-based end-to-end tests, touch/mouse tracing tests, voice availability checks on actual Android/desktop devices, and live production verification after deployment. Static checks do not prove runtime behavior on every device.
+
+
+## 9. Language-page site-shell harmonisation — 12 October 2026
+- Updated only `student/languages/index.html` and the three existing Chinese, Korean and Japanese course pages to use the main homepage's shared `/styles.css`, branded logo/header navigation, mobile menu behavior, five-column footer information architecture, legal links and responsible-use note.
+- Header/footer links that refer to homepage sections now point to root anchors (for example `/#solutions`) rather than broken paths relative to the language subdirectory. All external links and official language-test links remain intact.
+- Added short native-language starter phrases with romanisation and Bengali meanings to each course page; the Language Centre includes a few starter words for all three languages.
+- CSS loading order keeps the existing language-course-specific styling and learning content while applying main-site header/footer presentation.
+- Static checks: four language-related HTML pages contain the shared stylesheet, standard branded footer, mobile menu handler, language phrase examples, no duplicate literal IDs and no known broken homepage-anchor paths.
+- Browser visual/responsive checks and live production verification remain pending; repository inspection alone cannot confirm rendered behavior or deployment.
