@@ -1,0 +1,25 @@
+{
+  "id": "/student/languages/",
+  "name": "RegTech Nexus AI Language Learning Hub",
+  "short_name": "Language Hub",
+  "description": "Learn Chinese, Korean and Japanese through Bangla and English.",
+  "lang": "en",
+  "start_url": "/student/languages/",
+  "scope": "/student/languages/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#0956a8",
+  "categories": [
+    "education",
+    "learning"
+  ],
+  "icons": [
+    {
+      "src": "/student/languages/icons/language-hub.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
