@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">RegTech Nexus AI Language Hub</title>
+  <desc id="desc">Three speech panels representing Chinese, Korean and Japanese learning.</desc>
+  <rect width="512" height="512" rx="104" fill="#071b36"/>
+  <circle cx="256" cy="256" r="196" fill="#0b3159"/>
+  <rect x="78" y="112" width="150" height="174" rx="28" fill="#d83240"/>
+  <rect x="284" y="112" width="150" height="174" rx="28" fill="#16865b"/>
+  <rect x="150" y="306" width="212" height="112" rx="26" fill="#8046c4"/>
+  <g fill="#fff" font-family="sans-serif" font-weight="700" text-anchor="middle">
+    <text x="153" y="222" font-size="82">中</text>
+    <text x="359" y="222" font-size="82">한</text>
+    <text x="256" y="384" font-size="68">あ</text>
+  </g>
+</svg>
