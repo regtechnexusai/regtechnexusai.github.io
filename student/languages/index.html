@@ -44,6 +44,19 @@ footer.main-site-footer>div:not(.footer-brand):not(.legal){display:flex;flex-dir
  .language-action{grid-column:1/-1!important;grid-row:3!important;margin-top:6px!important;padding-top:8px!important}
 }
 </style>
+<style>
+/* 3D action buttons for the quick-start links below the language examples */
+.language-start-button{--start:#145da0;--start-dark:#0b3c6b;display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:54px;margin:12px 0 6px;padding:13px 16px;border:1px solid rgba(255,255,255,.72);border-radius:13px;background:linear-gradient(145deg,color-mix(in srgb,var(--start) 78%,white),var(--start));box-shadow:0 5px 0 var(--start-dark),0 8px 14px rgba(20,35,55,.14),inset 0 1px 0 rgba(255,255,255,.35);color:#fff!important;text-decoration:none!important;font-weight:800;line-height:1.25;transition:transform .16s ease,box-shadow .16s ease,filter .16s ease}
+.language-start-button>span:last-child{font-size:1.2rem}
+.language-start-button.start-chinese{--start:#c62836;--start-dark:#861b25}
+.language-start-button.start-korean{--start:#1267b4;--start-dark:#0a4178}
+.language-start-button.start-japanese{--start:#7044bd;--start-dark:#482a80}
+.language-start-button:hover{filter:brightness(1.06);transform:translateY(-2px);box-shadow:0 7px 0 var(--start-dark),0 11px 18px rgba(20,35,55,.17),inset 0 1px 0 rgba(255,255,255,.35)}
+.language-start-button:active{transform:translateY(3px);box-shadow:0 2px 0 var(--start-dark),0 4px 8px rgba(20,35,55,.12)}
+.language-start-button:focus-visible{outline:3px solid #e9a23b;outline-offset:4px}
+@media(max-width:760px){.language-start-button{min-height:50px;padding:12px 14px;margin-top:10px}}
+@media(prefers-reduced-motion:reduce){.language-start-button{transition:none}}
+</style>
 </head>
 <body><a class="skip-link" href="#main-content">Skip to content</a><header class="nav">
 
@@ -126,7 +139,7 @@ footer.main-site-footer>div:not(.footer-brand):not(.legal){display:flex;flex-dir
     <span class="language-action">Start learning <span aria-hidden="true">↗</span></span>
   </a>
 </section>
-<section class="panel"><h2>Start with a few words</h2><div class="two-col"><div><h3>Mandarin Chinese · 中文</h3><p><strong>你好</strong> (nǐ hǎo) — হ্যালো<br><strong>谢谢</strong> (xièxie) — ধন্যবাদ</p><a href="/student/languages/chinese/">Start Chinese →</a></div><div><h3>Korean · 한국어</h3><p><strong>안녕하세요</strong> (annyeonghaseyo) — নমস্কার<br><strong>감사합니다</strong> (gamsahamnida) — ধন্যবাদ</p><a href="/student/languages/korean/">Start Korean →</a></div><div><h3>Japanese · 日本語</h3><p><strong>こんにちは</strong> (konnichiwa) — নমস্কার<br><strong>ありがとう</strong> (arigatō) — ধন্যবাদ</p><a href="/student/languages/japanese/">Start Japanese →</a></div></div></section>
+<section class="panel"><h2>Start with a few words</h2><div class="two-col"><div><h3>Mandarin Chinese · 中文</h3><p><strong>你好</strong> (nǐ hǎo) — হ্যালো<br><strong>谢谢</strong> (xièxie) — ধন্যবাদ</p><a class="language-start-button start-chinese" href="/student/languages/chinese/"><span>Start Chinese</span><span aria-hidden="true">↗</span></a></div><div><h3>Korean · 한국어</h3><p><strong>안녕하세요</strong> (annyeonghaseyo) — নমস্কার<br><strong>감사합니다</strong> (gamsahamnida) — ধন্যবাদ</p><a class="language-start-button start-korean" href="/student/languages/korean/"><span>Start Korean</span><span aria-hidden="true">↗</span></a></div><div><h3>Japanese · 日本語</h3><p><strong>こんにちは</strong> (konnichiwa) — নমস্কার<br><strong>ありがとう</strong> (arigatō) — ধন্যবাদ</p><a class="language-start-button start-japanese" href="/student/languages/japanese/"><span>Start Japanese</span><span aria-hidden="true">↗</span></a></div></div></section>
 
 <section class="panel" aria-labelledby="install-language-title" style="margin-top:18px">
   <h2 id="install-language-title">Install the Language Learning Hub</h2>
