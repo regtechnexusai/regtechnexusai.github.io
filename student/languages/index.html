@@ -28,10 +28,21 @@ footer.main-site-footer>div:not(.footer-brand):not(.legal){display:flex;flex-dir
 .language-title{font-size:1.35rem;font-weight:850;line-height:1.2}
 .language-native{font-size:.95rem;font-weight:650;opacity:.96}
 .language-action{display:flex;justify-content:space-between;align-items:center;width:100%;margin-top:10px;padding-top:12px;border-top:1px solid rgba(255,255,255,.35);font-size:.9rem;font-weight:800}
-@media(max-width:760px){.language-launchers{grid-template-columns:1fr;gap:14px}.language-3d{padding:18px 20px;display:grid;grid-template-columns:auto 1fr;column-gap:13px;align-items:center}.language-flag{grid-row:span 2}.language-title,.language-native{grid-column:2}.language-action{grid-column:1/-1;margin-top:7px}}
+@media(max-width:760px){.language-launchers{grid-template-columns:1fr;gap:12px}.language-3d{box-sizing:border-box;width:100%;min-height:0;height:auto;padding:15px 18px 13px;display:grid;grid-template-columns:44px minmax(0,1fr);grid-template-rows:min-content min-content min-content;column-gap:12px;row-gap:4px;align-items:center;align-content:start}.language-flag{grid-column:1;grid-row:1/3;align-self:center;font-size:1.65rem}.language-title{grid-column:2;grid-row:1;font-size:1.22rem;line-height:1.15}.language-native{grid-column:2;grid-row:2;font-size:.9rem;line-height:1.2}.language-action{grid-column:1/-1;grid-row:3;margin-top:6px;padding-top:8px;min-height:0;line-height:1.2}.language-3d:before{border-radius:inherit}}
 @media(prefers-reduced-motion:reduce){.language-3d{transition:none}}
 /* Keep the mobile navigation compact and scrollable instead of widely spaced. */
 @media(max-width:1100px){header.nav.open nav#main-nav{justify-content:flex-start!important;align-content:flex-start;gap:12px!important;max-height:calc(100dvh - 100px);overflow-y:auto;overscroll-behavior:contain}header.nav.open nav#main-nav a{display:block!important;line-height:1.35!important;margin:0!important;padding:4px 0!important;min-height:0!important}}
+</style>
+<style>
+/* Final mobile sizing override: compact cards, preserve clear tap targets. */
+@media(max-width:760px){
+ .language-launchers{gap:12px!important}
+ .language-3d{min-height:0!important;height:auto!important;box-sizing:border-box;grid-template-rows:min-content min-content min-content!important;align-content:start!important;padding:15px 18px 13px!important;row-gap:4px!important}
+ .language-flag{grid-column:1!important;grid-row:1/3!important;align-self:center}
+ .language-title{grid-column:2!important;grid-row:1!important}
+ .language-native{grid-column:2!important;grid-row:2!important}
+ .language-action{grid-column:1/-1!important;grid-row:3!important;margin-top:6px!important;padding-top:8px!important}
+}
 </style>
 </head>
 <body><a class="skip-link" href="#main-content">Skip to content</a><header class="nav">
