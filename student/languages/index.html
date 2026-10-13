@@ -11,6 +11,28 @@ footer.main-site-footer>div:not(.footer-brand):not(.legal){display:flex;flex-dir
 @media(max-width:1100px){header.nav .nav-cta{display:none}header.nav .menu{display:block}header.nav nav#main-nav{display:none}header.nav.open nav#main-nav{display:flex;position:absolute;top:78px;left:0;right:0;background:#fff;padding:22px 5vw;flex-direction:column;align-items:flex-start;gap:18px;border-bottom:1px solid #ddd;box-shadow:0 14px 22px #00000010}header.nav.open nav#main-nav a{font-size:14px}footer.main-site-footer{grid-template-columns:1fr 1fr}footer.main-site-footer .footer-brand,footer.main-site-footer .footer-note,footer.main-site-footer .legal{grid-column:1/-1}}
 @media(max-width:560px){header.nav{padding:0 5vw}header.nav .brand-logo{width:155px;max-height:54px}footer.main-site-footer{grid-template-columns:1fr;padding:42px 6vw 25px}footer.main-site-footer .footer-brand,footer.main-site-footer .footer-note,footer.main-site-footer .legal{grid-column:auto}footer.main-site-footer .legal{gap:16px}}
 </style>
+<style>
+/* Language Hub readability and tactile language launch buttons */
+.hero .kicker{color:#c8f4ff!important;opacity:1!important;text-shadow:0 1px 2px rgba(0,0,0,.18)}
+.hero>p,.hero p{color:#f5faff!important;text-shadow:0 1px 1px rgba(0,0,0,.12)}
+.language-launchers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:0 0 22px}
+.language-3d{display:flex;min-width:0;flex-direction:column;align-items:flex-start;gap:7px;padding:22px 20px 19px;border:1px solid rgba(255,255,255,.7);border-radius:18px;color:#fff!important;text-decoration:none!important;box-shadow:0 7px 0 #06366b,0 12px 22px rgba(7,39,75,.18),inset 0 1px 0 rgba(255,255,255,.55);transform:translateY(0);transition:transform .18s ease,box-shadow .18s ease;position:relative;isolation:isolate;overflow:hidden}
+.language-3d:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(145deg,rgba(255,255,255,.2),transparent 48%,rgba(0,0,0,.12));pointer-events:none}
+.chinese-3d{background:linear-gradient(135deg,#c72e3b,#9e1527)}
+.korean-3d{background:linear-gradient(135deg,#1877c9,#124b99)}
+.japanese-3d{background:linear-gradient(135deg,#7253d6,#44339e)}
+.language-3d:hover{transform:translateY(-3px);box-shadow:0 10px 0 #06366b,0 17px 26px rgba(7,39,75,.2),inset 0 1px 0 rgba(255,255,255,.55)}
+.language-3d:active{transform:translateY(4px);box-shadow:0 3px 0 #06366b,0 6px 12px rgba(7,39,75,.16)}
+.language-3d:focus-visible{outline:3px solid #e9a23b;outline-offset:4px}
+.language-flag{font-size:1.8rem;line-height:1.1}
+.language-title{font-size:1.35rem;font-weight:850;line-height:1.2}
+.language-native{font-size:.95rem;font-weight:650;opacity:.96}
+.language-action{display:flex;justify-content:space-between;align-items:center;width:100%;margin-top:10px;padding-top:12px;border-top:1px solid rgba(255,255,255,.35);font-size:.9rem;font-weight:800}
+@media(max-width:760px){.language-launchers{grid-template-columns:1fr;gap:14px}.language-3d{padding:18px 20px;display:grid;grid-template-columns:auto 1fr;column-gap:13px;align-items:center}.language-flag{grid-row:span 2}.language-title,.language-native{grid-column:2}.language-action{grid-column:1/-1;margin-top:7px}}
+@media(prefers-reduced-motion:reduce){.language-3d{transition:none}}
+/* Keep the mobile navigation compact and scrollable instead of widely spaced. */
+@media(max-width:1100px){header.nav.open nav#main-nav{justify-content:flex-start!important;align-content:flex-start;gap:12px!important;max-height:calc(100dvh - 100px);overflow-y:auto;overscroll-behavior:contain}header.nav.open nav#main-nav a{display:block!important;line-height:1.35!important;margin:0!important;padding:4px 0!important;min-height:0!important}}
+</style>
 </head>
 <body><a class="skip-link" href="#main-content">Skip to content</a><header class="nav">
 
@@ -73,6 +95,26 @@ footer.main-site-footer>div:not(.footer-brand):not(.legal){display:flex;flex-dir
 
 </header><main id="main-content">
 <section class="hero"><div class="kicker">STUDENT KNOWLEDGE HUB · LANGUAGE LEARNING</div><h1>Learn Asian languages through Bengali</h1><p>A structured beginner pathway for Mandarin Chinese, Korean and Japanese. Learn the writing system first, then build pronunciation, vocabulary, grammar, reading, writing, listening and speaking skills with guided practice.</p><span class="pill">Beginner-friendly</span><span class="pill">Bengali explanations</span><span class="pill">Practice-led</span><span class="pill">Free learning pathway</span></section>
+<section class="language-launchers" aria-label="Choose a language to start">
+  <a class="language-3d chinese-3d" href="/student/languages/chinese/">
+    <span class="language-flag" aria-hidden="true">🇨🇳</span>
+    <span class="language-title">Chinese</span>
+    <span class="language-native">中文 · Mandarin</span>
+    <span class="language-action">Start learning <span aria-hidden="true">↗</span></span>
+  </a>
+  <a class="language-3d korean-3d" href="/student/languages/korean/">
+    <span class="language-flag" aria-hidden="true">🇰🇷</span>
+    <span class="language-title">Korean</span>
+    <span class="language-native">한국어</span>
+    <span class="language-action">Start learning <span aria-hidden="true">↗</span></span>
+  </a>
+  <a class="language-3d japanese-3d" href="/student/languages/japanese/">
+    <span class="language-flag" aria-hidden="true">🇯🇵</span>
+    <span class="language-title">Japanese</span>
+    <span class="language-native">日本語</span>
+    <span class="language-action">Start learning <span aria-hidden="true">↗</span></span>
+  </a>
+</section>
 <section class="panel"><h2>Start with a few words</h2><div class="two-col"><div><h3>Mandarin Chinese · 中文</h3><p><strong>你好</strong> (nǐ hǎo) — হ্যালো<br><strong>谢谢</strong> (xièxie) — ধন্যবাদ</p><a href="/student/languages/chinese/">Start Chinese →</a></div><div><h3>Korean · 한국어</h3><p><strong>안녕하세요</strong> (annyeonghaseyo) — নমস্কার<br><strong>감사합니다</strong> (gamsahamnida) — ধন্যবাদ</p><a href="/student/languages/korean/">Start Korean →</a></div><div><h3>Japanese · 日本語</h3><p><strong>こんにちは</strong> (konnichiwa) — নমস্কার<br><strong>ありがとう</strong> (arigatō) — ধন্যবাদ</p><a href="/student/languages/japanese/">Start Japanese →</a></div></div></section>
 
 <section class="panel" aria-labelledby="install-language-title" style="margin-top:18px">
