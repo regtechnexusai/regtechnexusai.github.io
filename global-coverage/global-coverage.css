@@ -66,3 +66,110 @@
 @media(max-width:1120px){.fih-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.fih-steps{grid-template-columns:repeat(3,minmax(0,1fr))}.fih-hero{grid-template-columns:minmax(0,1fr) minmax(240px,.7fr)}}
 @media(max-width:760px){.fih-hero{grid-template-columns:1fr;padding:42px 20px 34px}.fih-hero-visual{min-height:265px;max-width:480px;width:100%;margin:0 auto}.fih-core{width:155px;height:155px}.fih-orbit--one{height:180px}.fih-orbit--two{height:225px}.fih-node{font-size:.58rem;padding:7px 8px}.fih-principle{grid-template-columns:1fr}.fih-principle>div{padding:18px 22px}.fih-section{padding:42px 18px}.fih-grid{grid-template-columns:1fr}.fih-card{padding:20px}.fih-steps{grid-template-columns:1fr}.fih-steps li{display:grid;grid-template-columns:42px 1fr;gap:0 10px}.fih-steps li>span{grid-row:1 / span 2;margin:0}.fih-steps b{align-self:center}.fih-steps p{margin-top:7px}.fih-domain-band{padding:36px 18px}.fih-disclaimer{margin:22px 16px 32px;padding:17px}}
 @media(prefers-reduced-motion:reduce){.fih-card{transition:none}.fih-card:hover{transform:none}}
+
+
+/* FinTech Intelligence Hub — layout, contrast and responsive text repair */
+body:has(.fih-hero){color:#18334b;background:#fff;font-family:Inter,Arial,sans-serif;line-height:1.55}
+body:has(.fih-hero) main, body:has(.fih-hero) section{min-width:0}
+body:has(.fih-hero) p,
+body:has(.fih-hero) h1,
+body:has(.fih-hero) h2,
+body:has(.fih-hero) h3,
+body:has(.fih-hero) b,
+body:has(.fih-hero) span,
+body:has(.fih-hero) a{overflow-wrap:break-word;word-break:normal;hyphens:none}
+.fih-hero{grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);gap:clamp(24px,4vw,64px);padding:clamp(44px,6vw,84px) clamp(22px,5vw,72px);background:linear-gradient(125deg,#f7fbff 0%,#edf5fb 60%,#eef8f5 100%)}
+.fih-hero__inner{width:100%;max-width:760px}
+.fih-hero h1{max-width:760px;font-size:clamp(2.6rem,5vw,4.7rem);line-height:1.08;letter-spacing:-.035em;text-wrap:balance}
+.fih-eyebrow{font-size:.76rem;letter-spacing:.095em;color:#087a7d}
+.fih-lead{font-size:clamp(1.04rem,1.45vw,1.22rem);line-height:1.72;color:#29445b}
+.fih-sublead{font-size:1rem;line-height:1.7;color:#52677a}
+.fih-primary{background:#0756a3;border:1px solid #0756a3;border-radius:8px;min-height:48px;padding:13px 19px;color:#fff!important;box-shadow:0 3px 0 #063d78,0 8px 20px rgba(7,86,163,.14)}
+.fih-primary:hover{background:#063f7d;transform:translateY(-1px)}
+.fih-tags span{font-size:.78rem;line-height:1.4;border-color:#d1e1ea;color:#294b62;padding:7px 10px}
+.fih-hero-visual{min-width:0;max-width:510px;width:100%;justify-self:center}
+.fih-core{border-color:#bfd6e2;box-shadow:0 16px 45px rgba(16,43,73,.12)}
+.fih-node{font-size:.68rem;letter-spacing:.035em;color:#23465e;border-color:#c8dce7}
+.fih-principle{background:#d9e5ec}
+.fih-principle>div{padding:23px clamp(20px,4.8vw,72px);gap:9px}
+.fih-principle b{font-size:1rem;color:#123b59}
+.fih-principle span{font-size:.93rem;color:#4b6275;line-height:1.7}
+.fih-section{padding:clamp(44px,5.5vw,72px) clamp(20px,4.5vw,68px)}
+.fih-section-heading{max-width:850px;margin-bottom:36px}
+.fih-section-heading h2,.fih-domain-band h2{color:#123653;line-height:1.2;text-wrap:balance}
+.fih-section-heading>p:last-child{font-size:.98rem;color:#52677a;line-height:1.75}
+.fih-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;max-width:1240px}
+.fih-card{padding:24px;min-height:300px;border-color:#d8e4ec;border-radius:13px;box-shadow:0 5px 18px rgba(16,43,73,.055)}
+.fih-card--featured{border-top:4px solid #087a7d}
+.fih-card-top{align-items:center}
+.fih-number{flex:0 0 34px;background:#e8f3f8;color:#0756a3}
+.fih-label{font-size:.66rem;line-height:1.45;color:#536c80;letter-spacing:.065em}
+.fih-card h3{font-size:1.14rem;line-height:1.42;color:#153b57;text-wrap:pretty}
+.fih-card p{font-size:.94rem;line-height:1.72;color:#53687a}
+.fih-meta{margin-top:auto;margin-bottom:18px}
+.fih-meta span{background:#f3f8fb;color:#34556b;border-color:#d9e6ed;font-size:.73rem;line-height:1.35}
+.fih-link{font-size:.92rem;line-height:1.5;color:#0756a3!important}
+.fih-secondary-link{font-size:.86rem;line-height:1.5;color:#28627e!important}
+.fih-section--soft{background:#f5f9fc}
+.fih-steps{grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;max-width:1240px}
+.fih-steps li{min-width:0;padding:20px 18px;border-color:#d7e4ec;border-radius:12px}
+.fih-steps b{font-size:.96rem;line-height:1.45;color:#153b57}
+.fih-steps p{font-size:.9rem;line-height:1.7;color:#53687a}
+.fih-domain-band{background:#fbfdfe;padding:clamp(38px,5vw,60px) clamp(20px,5vw,72px)}
+.fih-domain-band h2{font-size:clamp(1.65rem,2.7vw,2.25rem)}
+.fih-domain-list span{background:#f0f7fa;border-color:#d8e6ed;color:#284d64;font-size:.84rem;line-height:1.4}
+.fih-disclaimer{background:#fffaf0;border-color:#ead9a8;border-left-color:#b38a2e;border-radius:10px;padding:22px 24px}
+.fih-disclaimer b{color:#594516;font-size:.98rem}
+.fih-disclaimer p{font-size:.91rem;line-height:1.75;color:#62583e}
+.gc-footer{background:#0a1b36;color:#eef5fb;padding:36px 20px 28px}
+.gc-footer nav a{font-size:.88rem;color:#eef5fb}
+.gc-footer nav a:hover{color:#9ce1e0}
+.gc-footer small{max-width:900px;margin:0 auto;color:#c1d1df;font-size:.76rem}
+.gc-nav{position:sticky;top:0;z-index:30;min-height:78px;height:auto;background:rgba(255,255,255,.97);border-bottom:1px solid #dce6ed;box-shadow:0 3px 14px rgba(16,43,73,.045)}
+.gc-nav .brand{flex:0 0 auto}
+.gc-nav .brand-logo{width:210px;height:68px;object-fit:contain}
+.gc-nav #main-nav{align-items:center;gap:clamp(10px,1.5vw,22px)}
+.gc-nav #main-nav a{font-size:clamp(11px,.88vw,13px);line-height:1.45;color:#28445a;white-space:normal}
+.gc-nav #main-nav a:hover{color:#0756a3}
+.gc-nav .nav-cta{background:#0756a3;color:#fff;border-radius:7px;padding:12px 14px;font-size:12px;line-height:1.35;white-space:nowrap}
+.gc-nav .menu{border:1px solid #d7e4ec;border-radius:8px;padding:8px 10px;color:#123653}
+@media(max-width:1200px){
+ .gc-nav{padding:0 3vw;flex-wrap:wrap}
+ .gc-nav .nav-cta{display:none}
+ .gc-nav .menu{display:inline-flex;align-items:center;justify-content:center;margin-left:auto}
+ .gc-nav #main-nav{display:none;position:absolute;top:100%;left:0;right:0;width:100%;margin:0;padding:12px 4vw 18px;background:#fff;border-bottom:1px solid #dce6ed;box-shadow:0 12px 22px rgba(16,43,73,.08);flex-direction:column;align-items:stretch;gap:0}
+ .gc-nav #main-nav.is-open{display:flex}
+ .gc-nav #main-nav a{display:block;padding:12px 8px;font-size:14px;border-bottom:1px solid #edf2f5}
+ .gc-nav #main-nav a:last-child{border-bottom:0}
+ .fih-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .fih-steps{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:760px){
+ .gc-nav{min-height:68px;padding:0 16px}
+ .gc-nav .brand-logo{width:184px;height:60px}
+ .fih-hero{grid-template-columns:minmax(0,1fr);gap:10px;padding:40px 20px 32px}
+ .fih-hero h1{font-size:clamp(2.45rem,9vw,3.8rem);line-height:1.08}
+ .fih-hero-visual{min-height:250px;max-width:440px}
+ .fih-core{width:150px;height:150px}
+ .fih-orbit--one{height:174px}
+ .fih-orbit--two{height:218px}
+ .fih-principle{grid-template-columns:minmax(0,1fr)}
+ .fih-principle>div{padding:19px 22px}
+ .fih-section{padding:40px 18px}
+ .fih-grid,.fih-steps{grid-template-columns:minmax(0,1fr)}
+ .fih-card{min-height:0;padding:21px}
+ .fih-steps li{display:grid;grid-template-columns:40px minmax(0,1fr);gap:0 10px}
+ .fih-steps li>span{grid-row:1 / span 2;margin:0}
+ .fih-steps b{align-self:center}
+ .fih-steps p{margin-top:7px}
+ .fih-domain-band{padding:36px 18px}
+ .fih-disclaimer{margin:22px 16px 32px;padding:18px}
+}
+@media(max-width:380px){
+ .gc-nav .brand-logo{width:160px;height:54px}
+ .fih-hero{padding-left:16px;padding-right:16px}
+ .fih-eyebrow{font-size:.68rem;letter-spacing:.055em}
+ .fih-node{font-size:.53rem;padding:6px}
+ .fih-tags span{font-size:.72rem}
+}
+@media(prefers-reduced-motion:reduce){.fih-card,.fih-primary{transition:none}.fih-card:hover,.fih-primary:hover{transform:none}}
