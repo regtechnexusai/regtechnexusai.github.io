@@ -13,11 +13,11 @@
 <link rel="stylesheet" href="/fintech-intelligence-hub/fintech-intelligence-hub.css?v=20261014-layout5">
 <link rel="stylesheet" href="/fintech-intelligence-hub/fintech-inclusion-lab.css?v=20261014-inclusion1">
 <link rel="stylesheet" href="/fintech-intelligence-hub/fintech-phase2-toolkit.css?v=20261014-printfix1">
-<link rel="stylesheet" href="/fintech-intelligence-hub/regulatory-coverage-workbench.css?v=20261014-wb3">
+<link rel="stylesheet" href="/fintech-intelligence-hub/regulatory-coverage-workbench.css?v=20261014-wb5">
 <script defer src="/fintech-intelligence-hub/fintech-intelligence-hub.js"></script>
 <script defer src="/fintech-intelligence-hub/fintech-inclusion-lab.js?v=20261014-inclusion1"></script>
 <script defer src="/fintech-intelligence-hub/fintech-phase2-toolkit.js?v=20261014-phase2b"></script>
-<script defer src="/fintech-intelligence-hub/regulatory-coverage-workbench.js?v=20261014-wb4"></script>
+<script defer src="/fintech-intelligence-hub/regulatory-coverage-workbench.js?v=20261014-wb5"></script>
 </head>
 <body class="fih-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -287,6 +287,14 @@
       <span class="rcw-coverage-label">Circular &amp; reference fields</span>
       <span class="rcw-coverage-label">A4 Print / Save as PDF</span>
     </div>
+    <section class="rcw-sample-panel" aria-labelledby="rcw-sample-heading">
+      <div class="rcw-sample-top">
+        <div><p class="rcw-kicker">INTERACTIVE LEARNING CASES</p><h3 id="rcw-sample-heading">Explore a FinTech sample case</h3><p class="rcw-help">Choose a country above and a product below. The scenario adapts to the selected jurisdiction and shows relevant regulator starting points where mapped.</p></div>
+        <div class="rcw-field rcw-sample-select"><label for="rcw-sample-product">FinTech product / service</label><select id="rcw-sample-product"><option value="wallet">Digital wallet / e-money</option><option value="bank">Digital bank</option><option value="psp">Payment Service Provider (PSP)</option></select></div>
+      </div>
+      <div id="rcw-sample-case" class="rcw-sample-case" aria-live="polite"><h3>Illustrative case — Digital wallet / e-money</h3><p>Select a country or jurisdiction above to tailor the regulatory starting point.</p></div>
+      <button type="button" class="rcw-btn rcw-btn-primary" id="rcw-use-sample">Use this sample in the decision brief</button>
+    </section>
     <div class="rcw-grid">
       <div class="rcw-card">
         <h3>1. Jurisdiction &amp; source</h3>
@@ -381,7 +389,7 @@
     <div class="rcw-note" style="margin-top:16px"><strong>Privacy and reliability:</strong> Use only public, synthetic or otherwise authorised non-sensitive information. Do not enter customer data, account numbers, credentials, transaction details or confidential bank records. This first version structures supplied information and selected workbook metadata; it does not run live AI analysis, automatically verify laws, or certify compliance. International standards and recommendations must be distinguished from binding domestic requirements.</div>
     <div class="rcw-output" id="rcw-output" hidden aria-labelledby="rcw-report-title">
       <h3 id="rcw-report-title">Draft report preview — RegTech Nexus AI</h3>
-      <pre id="rcw-report-preview"></pre>
+      <div id="rcw-report-preview" class="rcw-report-preview"></div>
     </div>
   </section>
 
