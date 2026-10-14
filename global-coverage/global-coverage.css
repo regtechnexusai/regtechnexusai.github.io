@@ -66,3 +66,133 @@
 @media(max-width:1120px){.fih-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.fih-steps{grid-template-columns:repeat(3,minmax(0,1fr))}.fih-hero{grid-template-columns:minmax(0,1fr) minmax(240px,.7fr)}}
 @media(max-width:760px){.fih-hero{grid-template-columns:1fr;padding:42px 20px 34px}.fih-hero-visual{min-height:265px;max-width:480px;width:100%;margin:0 auto}.fih-core{width:155px;height:155px}.fih-orbit--one{height:180px}.fih-orbit--two{height:225px}.fih-node{font-size:.58rem;padding:7px 8px}.fih-principle{grid-template-columns:1fr}.fih-principle>div{padding:18px 22px}.fih-section{padding:42px 18px}.fih-grid{grid-template-columns:1fr}.fih-card{padding:20px}.fih-steps{grid-template-columns:1fr}.fih-steps li{display:grid;grid-template-columns:42px 1fr;gap:0 10px}.fih-steps li>span{grid-row:1 / span 2;margin:0}.fih-steps b{align-self:center}.fih-steps p{margin-top:7px}.fih-domain-band{padding:36px 18px}.fih-disclaimer{margin:22px 16px 32px;padding:17px}}
 @media(prefers-reduced-motion:reduce){.fih-card{transition:none}.fih-card:hover{transform:none}}
+
+
+/* FinTech Intelligence Hub — typography, contrast and responsive layout repair */
+.fih-page{
+  --fih-navy:#102b49;
+  --fih-blue:#0956a8;
+  --fih-teal:#0f7b83;
+  --fih-ink:#24364b;
+  --fih-muted:#53677a;
+  --fih-line:#d8e4ec;
+  --fih-soft:#f4f8fb;
+  background:#fff;
+  color:var(--fih-ink);
+  font-family:Inter,Arial,sans-serif;
+  overflow-x:hidden;
+}
+.fih-page #main-content{width:100%;max-width:none;margin:0 auto;overflow-wrap:normal;word-break:normal;hyphens:none}
+.fih-page #main-content *{box-sizing:border-box;word-break:normal;overflow-wrap:normal;hyphens:none}
+.fih-page #main-content p{max-width:100%;white-space:normal}
+.fih-page .gc-nav{height:auto;min-height:78px;gap:18px;background:rgba(255,255,255,.98);border-bottom:1px solid var(--fih-line);padding:12px clamp(16px,3.5vw,54px)}
+.fih-page .gc-nav .brand{flex:0 0 auto;min-width:0}
+.fih-page .gc-nav .brand-logo{display:block;width:190px;max-width:100%;height:auto;max-height:62px;object-fit:contain}
+.fih-page .gc-nav #main-nav{display:flex;align-items:center;flex-wrap:wrap;gap:clamp(8px,1.25vw,18px);margin-left:auto;min-width:0}
+.fih-page .gc-nav #main-nav a{display:inline-flex;align-items:center;padding:8px 0;color:#253d53;font-size:12px;line-height:1.45;white-space:normal}
+.fih-page .gc-nav #main-nav a:hover,.fih-page .gc-nav #main-nav a:focus-visible{color:var(--fih-blue)}
+.fih-page .gc-nav .nav-cta{display:inline-flex;align-items:center;justify-content:center;margin-left:4px;padding:11px 13px;border-radius:8px;background:var(--fih-navy);color:#fff;font-size:12px;line-height:1.35;text-align:center}
+.fih-page .fih-hero{grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);gap:clamp(24px,4vw,64px);padding:clamp(42px,6vw,82px) clamp(20px,5.5vw,78px);background:linear-gradient(135deg,#f7fbff 0%,#edf5fb 57%,#eef8f6 100%);border-bottom:1px solid var(--fih-line)}
+.fih-page .fih-hero__inner{width:100%;min-width:0;max-width:760px}
+.fih-page .fih-eyebrow{color:var(--fih-teal);font-size:clamp(.68rem,.8vw,.76rem);font-weight:800;letter-spacing:.09em;line-height:1.55;overflow-wrap:break-word}
+.fih-page .fih-hero h1{max-width:100%;margin:0;color:var(--fih-navy);font-size:clamp(2.35rem,4.7vw,4.45rem);font-weight:750;line-height:1.08;letter-spacing:-.035em;overflow-wrap:normal}
+.fih-page .fih-hero h1 span{display:inline;color:var(--fih-blue)}
+.fih-page .fih-lead{font-size:clamp(1rem,1.45vw,1.2rem);line-height:1.72;color:#2d4358}
+.fih-page .fih-sublead{font-size:.96rem;line-height:1.75;color:#52677a}
+.fih-page .fih-tags span{background:#fff;border-color:#cbdde7;color:#29475d;line-height:1.45}
+.fih-page .fih-primary{min-height:46px;border-radius:8px;background:var(--fih-blue);color:#fff!important;line-height:1.45;box-shadow:0 4px 0 #073d78,0 8px 18px #0956a81c}
+.fih-page .fih-primary:focus-visible,.fih-page .fih-link:focus-visible,.fih-page .fih-secondary-link:focus-visible{outline:3px solid #e1b84c;outline-offset:3px}
+.fih-page .fih-hero-visual{width:100%;min-width:0;min-height:310px}
+.fih-page .fih-core{flex-shrink:0}
+.fih-page .fih-node{max-width:45%;text-align:center;line-height:1.4;overflow-wrap:break-word}
+.fih-page .fih-principle{background:#dce7ed;border-color:#dce7ed}
+.fih-page .fih-principle>div{min-width:0;padding:22px clamp(20px,4.5vw,64px);background:#fff}
+.fih-page .fih-principle b{color:var(--fih-navy);line-height:1.45}
+.fih-page .fih-principle span{color:#4e6275;line-height:1.7}
+.fih-page .fih-section{width:100%;padding:clamp(42px,5.5vw,72px) clamp(18px,4.5vw,64px)}
+.fih-page .fih-section--soft{background:#f4f8fb;border-color:#e0e9ef}
+.fih-page .fih-section-heading{max-width:820px;margin-bottom:32px}
+.fih-page .fih-section-heading h2,.fih-page .fih-domain-band h2{color:var(--fih-navy);font-weight:750;line-height:1.18;letter-spacing:-.025em;overflow-wrap:normal}
+.fih-page .fih-section-heading>p:last-child{color:#53677a;font-size:1rem;line-height:1.75}
+.fih-page .fih-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;width:100%;max-width:1440px}
+.fih-page .fih-card{min-width:0;padding:clamp(17px,1.6vw,23px);border:1px solid #d8e4ec;border-radius:13px;background:#fff;box-shadow:0 5px 18px rgba(16,43,73,.055)}
+.fih-page .fih-card-top{align-items:flex-start;min-width:0}
+.fih-page .fih-label{max-width:calc(100% - 44px);color:#5b7083;font-size:.64rem;line-height:1.5;overflow-wrap:break-word}
+.fih-page .fih-number{flex:0 0 34px;background:#eaf4f8;color:#155a78}
+.fih-page .fih-card h3{color:#173952;font-size:clamp(1rem,1.15vw,1.12rem);line-height:1.42;letter-spacing:-.01em;overflow-wrap:normal}
+.fih-page .fih-card p{color:#53677a;font-size:.91rem;line-height:1.75;overflow-wrap:normal}
+.fih-page .fih-meta{margin-top:auto;margin-bottom:16px;gap:6px}
+.fih-page .fih-meta span{background:#f5f9fc;border-color:#d7e4ec;color:#38566b;font-size:.72rem;line-height:1.45;white-space:normal}
+.fih-page .fih-link{color:#0756a3!important;font-size:.9rem;line-height:1.55;overflow-wrap:break-word}
+.fih-page .fih-secondary-link{color:#32627f!important;font-size:.84rem;line-height:1.6;overflow-wrap:break-word}
+.fih-page .fih-steps{grid-template-columns:repeat(5,minmax(0,1fr));gap:13px}
+.fih-page .fih-steps li{min-width:0;padding:19px 16px;border-color:#d8e4ec;border-radius:12px;background:#fff}
+.fih-page .fih-steps b{display:block;color:#173952;font-size:.94rem;line-height:1.5;overflow-wrap:normal}
+.fih-page .fih-steps p{color:#53677a;font-size:.87rem;line-height:1.75}
+.fih-page .fih-domain-band{background:#fff;border-color:#d8e4ec}
+.fih-page .fih-domain-list span{background:#f5f9fc;border-color:#d4e2ea;color:#2f4d63;font-size:.82rem;line-height:1.5;white-space:normal}
+.fih-page .fih-disclaimer{margin:30px auto 42px;border-color:#d8e4ec;border-left-color:var(--fih-teal);background:#f5f9fc}
+.fih-page .fih-disclaimer b{color:var(--fih-navy);line-height:1.5}
+.fih-page .fih-disclaimer p{color:#4d6174;font-size:.9rem;line-height:1.8}
+.fih-page .gc-footer{background:#102b49;color:#eaf2f8}
+.fih-page .gc-footer p{color:#eaf2f8;line-height:1.7}
+.fih-page .gc-footer a{color:#f1f7fb}
+.fih-page .gc-footer small{color:#c5d5e2;line-height:1.7}
+@media(max-width:1180px){
+ .fih-page .gc-nav{gap:12px}
+ .fih-page .gc-nav #main-nav{gap:10px}
+ .fih-page .gc-nav #main-nav a{font-size:11px}
+ .fih-page .gc-nav .nav-cta{font-size:11px;padding:10px}
+ .fih-page .fih-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .fih-page .fih-steps{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:900px){
+ .fih-page .gc-nav{position:relative;min-height:72px;flex-wrap:wrap}
+ .fih-page .gc-nav .menu{display:inline-flex;align-items:center;justify-content:center;margin-left:auto;width:44px;height:44px;border:1px solid #d5e1e9;border-radius:8px;background:#fff;color:var(--fih-navy)}
+ .fih-page .gc-nav .nav-cta{display:none}
+ .fih-page .gc-nav #main-nav{display:none;flex:0 0 100%;width:100%;margin:0;padding:8px 0 4px;flex-direction:column;align-items:stretch;gap:0}
+ .fih-page .gc-nav #main-nav.is-open{display:flex}
+ .fih-page .gc-nav #main-nav a{padding:11px 8px;border-top:1px solid #edf1f4;font-size:14px}
+ .fih-page .fih-hero{grid-template-columns:minmax(0,1fr);padding:40px 22px 32px}
+ .fih-page .fih-hero__inner{max-width:780px;margin:0 auto}
+ .fih-page .fih-hero-visual{min-height:260px;max-width:500px;margin:0 auto}
+ .fih-page .fih-principle{grid-template-columns:1fr}
+ .fih-page .fih-principle>div{padding:19px 24px}
+ .fih-page .fih-steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:600px){
+ .fih-page .gc-nav{padding:10px 16px}
+ .fih-page .gc-nav .brand-logo{width:164px;max-height:54px}
+ .fih-page .fih-hero{padding:34px 18px 28px}
+ .fih-page .fih-hero h1{font-size:clamp(2.15rem,10vw,3.2rem);line-height:1.1;letter-spacing:-.03em}
+ .fih-page .fih-lead{font-size:1rem;line-height:1.72}
+ .fih-page .fih-sublead{font-size:.91rem}
+ .fih-page .fih-tags{gap:7px}
+ .fih-page .fih-tags span{font-size:.73rem;padding:6px 9px}
+ .fih-page .fih-hero-visual{min-height:230px;max-width:390px}
+ .fih-page .fih-core{width:140px;height:140px}
+ .fih-page .fih-core b{font-size:1rem}
+ .fih-page .fih-orbit--one{height:155px}
+ .fih-page .fih-orbit--two{height:190px}
+ .fih-page .fih-node{font-size:.55rem;padding:6px 7px;max-width:42%}
+ .fih-page .fih-section{padding:38px 16px}
+ .fih-page .fih-section-heading{margin-bottom:24px}
+ .fih-page .fih-section-heading h2{font-size:clamp(1.65rem,7.5vw,2.2rem)}
+ .fih-page .fih-grid,.fih-page .fih-steps{grid-template-columns:minmax(0,1fr)}
+ .fih-page .fih-card{padding:19px}
+ .fih-page .fih-card h3{font-size:1.08rem}
+ .fih-page .fih-card p{font-size:.92rem}
+ .fih-page .fih-steps li{display:grid;grid-template-columns:40px minmax(0,1fr);gap:0 10px;padding:17px}
+ .fih-page .fih-steps li>span{grid-row:1 / span 2;margin:0}
+ .fih-page .fih-steps b{align-self:center}
+ .fih-page .fih-steps p{grid-column:2;margin-top:6px}
+ .fih-page .fih-domain-band{padding:35px 16px}
+ .fih-page .fih-domain-band h2{font-size:1.65rem}
+ .fih-page .fih-domain-list{gap:7px}
+ .fih-page .fih-domain-list span{font-size:.76rem;padding:7px 10px}
+ .fih-page .fih-disclaimer{margin:20px 14px 30px;padding:17px}
+ .fih-page .gc-footer{padding:30px 18px 24px}
+ .fih-page .gc-footer nav{gap:12px}
+ .fih-page .gc-footer nav a{font-size:13px}
+}
+@media(prefers-reduced-motion:reduce){.fih-page .fih-card{transition:none}.fih-page .fih-card:hover{transform:none}}
