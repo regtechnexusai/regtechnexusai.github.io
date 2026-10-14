@@ -438,3 +438,109 @@ body:has(.fih-hero) a{overflow-wrap:break-word;word-break:normal;hyphens:none}
     gap:5px;
   }
 }
+
+
+/* Robust repair: stack the intelligence brief to avoid narrow or broken columns. */
+.fih-page #intelligence-brief .fih-brief-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  align-items:stretch;
+  gap:18px;
+  width:100%;
+  max-width:1120px;
+  margin-inline:auto;
+}
+.fih-page #intelligence-brief .fih-brief-paper,
+.fih-page #intelligence-brief .fih-brief-side{
+  display:block;
+  width:100%;
+  min-width:0;
+  max-width:none;
+  margin:0;
+  float:none;
+  clear:both;
+}
+.fih-page #intelligence-brief .fih-brief-header{
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  gap:8px;
+  margin:0 0 20px;
+  white-space:normal;
+}
+.fih-page #intelligence-brief .fih-brief-header span{
+  display:block;
+  width:100%;
+  min-width:0;
+  padding:10px 12px;
+  border:1px solid #d8e9e9;
+  border-radius:8px;
+  background:#eef7f7;
+  color:#12666d;
+  font-size:.72rem;
+  font-weight:800;
+  line-height:1.55;
+  letter-spacing:.04em;
+  white-space:normal;
+  overflow-wrap:anywhere;
+}
+.fih-page #intelligence-brief .fih-brief-paper h3{
+  margin:0 0 18px;
+  font-size:clamp(1.3rem,2.4vw,1.65rem);
+  line-height:1.35;
+}
+.fih-page #intelligence-brief .fih-brief-paper dl{
+  display:block;
+  width:100%;
+  margin:0;
+}
+.fih-page #intelligence-brief .fih-brief-paper dl>div{
+  display:grid;
+  grid-template-columns:minmax(150px,.42fr) minmax(0,1fr);
+  align-items:start;
+  gap:12px 18px;
+  width:100%;
+  min-width:0;
+  padding:15px 0;
+  border-top:1px solid #e3ebf0;
+}
+.fih-page #intelligence-brief .fih-brief-paper dt,
+.fih-page #intelligence-brief .fih-brief-paper dd{
+  display:block;
+  min-width:0;
+  margin:0;
+  overflow-wrap:anywhere;
+  word-break:normal;
+  white-space:normal;
+}
+.fih-page #intelligence-brief .fih-brief-side h3{
+  margin:0 0 12px;
+  line-height:1.4;
+}
+.fih-page #intelligence-brief .fih-brief-side ol{
+  margin:0 0 18px;
+  padding-left:22px;
+}
+.fih-page #intelligence-brief .fih-brief-side li{
+  padding-left:2px;
+}
+@media(max-width:640px){
+  .fih-page #intelligence-brief .fih-brief-paper{
+    padding:18px 16px;
+  }
+  .fih-page #intelligence-brief .fih-brief-paper dl>div{
+    grid-template-columns:minmax(0,1fr);
+    gap:5px;
+    padding:14px 0;
+  }
+  .fih-page #intelligence-brief .fih-brief-paper dt{
+    font-size:.9rem;
+  }
+  .fih-page #intelligence-brief .fih-brief-paper dd{
+    font-size:.9rem;
+    line-height:1.75;
+  }
+  .fih-page #intelligence-brief .fih-brief-side{
+    padding:18px 16px;
+  }
+}
