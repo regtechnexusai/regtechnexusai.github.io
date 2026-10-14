@@ -165,12 +165,22 @@
     arr.forEach(v=>{const opt=document.createElement('option'); opt.value=v; opt.textContent=v; el.appendChild(opt);});
   };
   allOptions(country, countryNames.slice().sort((a,b)=>a.localeCompare(b)), 'Select a country / jurisdiction');
+  const directorySources = [
+    ['BIS — Central bank directory','Starting point to identify a country’s central bank / monetary authority; verify the national regulator’s own website.','https://www.bis.org/cbanks.htm'],
+    ['IOSCO — Securities regulators / members','Starting point for securities-market regulator identification; membership is not proof of jurisdictional scope.','https://www.iosco.org/about/?subsection=membership'],
+    ['FATF Global Network','AML/CFT standard-setting and regional-body directory; distinguish standards from domestic binding law.','https://www.fatf-gafi.org/en/countries/global-network.html'],
+    ['IMF country information','Country and financial-sector reference material; not a substitute for the issuing regulator’s instrument register.','https://www.imf.org/en/Countries'],
+    ['World Bank country data','Country context and development / financial-inclusion data; not a legal instrument source.','https://data.worldbank.org/country']
+  ];
   const renderAuthorities = () => {
-    const list = sources[country.value] || [];
+    const mapped = sources[country.value] || [];
+    const list = mapped.length ? mapped : directorySources;
     authority.innerHTML = '';
-    const first=document.createElement('option'); first.value=''; first.textContent=list.length?'Select authority / organisation':'No pre-mapped authority — enter or select a source manually'; authority.appendChild(first);
+    const first=document.createElement('option'); first.value=''; first.textContent='Select authority / source directory'; authority.appendChild(first);
     list.forEach(([name,focus,url])=>{const o=document.createElement('option');o.value=name;o.textContent=name; o.dataset.focus=focus; o.dataset.url=url; authority.appendChild(o);});
-    root.querySelector('#rcw-authority-help').textContent = list.length ? 'Choose a listed authority; confirm the actual instrument and applicable legal status at its official source.' : 'The jurisdiction exists in the coverage register, but a verified local authority map is not yet loaded. Do not infer coverage from the country listing alone.';
+    root.querySelector('#rcw-authority-help').textContent = mapped.length
+      ? 'Mapped official starting points are shown. Confirm the instrument, legal status, applicability and amendments on the issuing authority’s official site.'
+      : 'No country-specific authority mapping is available for this jurisdiction yet. Cross-jurisdiction directories are provided as discovery starting points only; they are not the local regulator and do not establish legal coverage.';
     renderEvidence();
   };
   const recordArray = () => country.value==='Bangladesh' ? bdCirculars.concat(bdLetters).map(r=>({date:r[0],number:r[1],scope:r[2],title:r[3],url:r[4],verification:r[5]})) : [];
@@ -248,8 +258,27 @@
     return report;
   }
   form.addEventListener('submit',e=>{e.preventDefault();generate();});
-  root.querySelector('#rcw-print').addEventListener('click',()=>{if(output.hidden)generate();document.body.classList.add('rcw-printing');window.print();});
-  window.addEventListener('afterprint',()=>document.body.classList.remove('rcw-printing'));
+  let printRoot = null;
+  const cleanupPrint = () => {
+    document.body.classList.remove('rcw-printing');
+    if (printRoot) { printRoot.remove(); printRoot = null; }
+  };
+  root.querySelector('#rcw-print').addEventListener('click',()=>{
+    if(output.hidden) generate();
+    cleanupPrint();
+    printRoot = document.createElement('main');
+    printRoot.id = 'rcw-print-root';
+    printRoot.setAttribute('aria-label','Printable FinTech regulatory decision brief');
+    const heading = document.createElement('h1');
+    heading.textContent = 'Draft report preview — RegTech Nexus AI';
+    const report = document.createElement('pre');
+    report.textContent = preview.textContent;
+    printRoot.append(heading, report);
+    document.body.appendChild(printRoot);
+    document.body.classList.add('rcw-printing');
+    window.print();
+  });
+  window.addEventListener('afterprint',cleanupPrint);
   root.querySelector('#rcw-download').addEventListener('click',()=>{
     const report=output.hidden?generate():preview.textContent;
     const blob=new Blob(['\uFEFF',report],{type:'text/plain;charset=utf-8'});
