@@ -3,16 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Global Regulatory Coverage Gap Register | RegTech Nexus AI</title>
-<meta name="description" content="Global regulatory coverage and gap-assessment workbench for financial regulation, AML/CFT, prudential standards, sanctions, markets, insurance, AI governance and more.">
+<title>FinTech Intelligence Hub | RegTech Nexus AI</title>
+<meta name="description" content="Navigate FinTech risk and regulatory analysis through RegTech Nexus AI's connected tools for regulatory signals, trade finance, sanctions resources, policy gaps, ICMS, quantitative risk and responsible AI.">
 <link rel="canonical" href="https://regtechnexusai.com/global-coverage/">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#0956a8">
 <link rel="icon" type="image/png" href="/regtech-nexus-ai-logo-2026.png">
 <link rel="stylesheet" href="/styles.css?v=20261006-ui6">
 <link rel="stylesheet" href="/global-coverage/global-coverage.css">
-<script defer src="https://cdn.jsdelivr.net/npm/d3-geo@3/dist/d3-geo.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
 <script defer src="/global-coverage/global-coverage.js"></script>
 </head>
 <body>
@@ -21,142 +19,126 @@
   <a class="brand" href="/" aria-label="RegTech Nexus AI home"><img class="brand-logo" src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="190" height="62"></a>
   <button class="menu" aria-label="Open menu" aria-expanded="false" aria-controls="main-nav">☰</button>
   <nav id="main-nav" aria-label="Main navigation">
-    <a href="/">Home</a><a href="/global-financial-systems.html">Readiness tools</a><a href="/international-regulatory-calculators.html">Regulatory Calculators</a><a href="/regulatory-gap-analyzer/">Policy Gap Analyzer</a><a href="/insights.html">Insights</a><a href="/student/">Student Knowledge Hub</a>
+    <a href="/">Home</a><a href="/global-financial-systems.html">Regulatory Signal Labs</a><a href="/international-regulatory-calculators.html">Regulatory Calculators</a><a href="/regulatory-gap-analyzer/">Policy Gap Analyzer</a><a href="/insights.html">Insights</a><a href="/student/">Student Knowledge Hub</a>
   </nav>
-  <a class="nav-cta" href="#global-register">Explore global register ↗</a>
+  <a class="nav-cta" href="#workflows">Choose an analysis path ↗</a>
 </header>
 <main id="main-content">
-  <section class="gc-hero">
-    <div class="gc-hero__inner">
-      <p class="gc-kicker">REGTECH NEXUS AI · AUDIT &amp; REGULATORY INTELLIGENCE</p>
-      <h1>Global Regulatory<br><span>Coverage Gap Register</span></h1>
-      <p class="gc-lead">A global workbench to organise regulatory domains, jurisdictions, authoritative sources, implementation evidence and unresolved gaps—without confusing an international standard with national law.</p>
-      <div class="gc-tags"><span>Worldwide scope</span><span>Official-source evidence</span><span>Traceable gaps</span><span>Human-reviewed</span></div>
-      <a class="gc-primary" href="#global-register">Open the global register ↓</a>
+  <section class="fih-hero">
+    <div class="fih-hero__inner">
+      <p class="fih-eyebrow">REGTECH NEXUS AI · FINTECH · REGTECH · RISK INTELLIGENCE</p>
+      <h1>FinTech Intelligence<br><span>Hub</span></h1>
+      <p class="fih-lead">Start with a FinTech question. Find the right analysis path, use the dedicated tool, verify the evidence and turn findings into accountable action.</p>
+      <p class="fih-sublead">One connected workflow—not another screening engine, gap analyser or compliance score.</p>
+      <div class="fih-tags"><span>Evidence-led</span><span>Human-reviewed</span><span>Tool boundaries preserved</span><span>Global perspective</span></div>
+      <a class="fih-primary" href="#workflows">Find the right tool ↓</a>
+    </div>
+    <div class="fih-hero-visual" aria-hidden="true">
+      <div class="fih-orbit fih-orbit--one"></div><div class="fih-orbit fih-orbit--two"></div>
+      <div class="fih-core"><span>FINTECH</span><b>INTELLIGENCE</b><small>Evidence → Analysis → Action</small></div>
+      <span class="fih-node fih-node--one">REGULATION</span><span class="fih-node fih-node--two">RISK</span><span class="fih-node fih-node--three">CONTROLS</span><span class="fih-node fih-node--four">TECHNOLOGY</span>
     </div>
   </section>
-  <section class="gc-status-band" aria-label="Register status">
-    <div><b>Coverage architecture</b><span>Jurisdiction × topic × instrument × evidence × status × review date</span></div>
-    <div><b>Data quality status</b><span>Global framework is staged; country/topic assessments must be verified individually before reliance.</span></div>
+
+  <section class="fih-principle" aria-label="Purpose of this hub">
+    <div><b>What this page does</b><span>Connects users to the existing tool that matches their question and explains the workflow between tools.</span></div>
+    <div><b>What this page does not do</b><span>It does not duplicate screening, recalculate risk, certify compliance or combine separate tool outputs into an unvalidated score.</span></div>
   </section>
-  <section class="gc-section" id="global-register">
-    <div class="gc-heading">
-      <p class="gc-kicker">WORLDWIDE COVERAGE VIEW</p>
-      <h2>Choose a jurisdiction to inspect its coverage record</h2>
-      <p>The map is a navigation layer, not a compliance score. Jurisdiction-level topic statuses start as “Not assessed” unless verified evidence is added. No country is marked compliant merely because an international standard exists.</p>
+
+  <section class="fih-section" id="workflows">
+    <div class="fih-section-heading">
+      <p class="fih-eyebrow">START WITH THE QUESTION</p>
+      <h2>Choose your FinTech analysis path</h2>
+      <p>Each destination keeps its own purpose, logic and limitations. Open only the module relevant to the question you need to answer.</p>
     </div>
-    <div class="gc-map-layout">
-      <div class="gc-map-panel">
-        <div class="gc-panel-title"><div><h3>World coverage map</h3><p>Select a country/territory on the map or use the search field.</p></div><span class="gc-map-legend"><i></i> Not assessed</span></div>
-        <div id="gc-world-map" class="gc-world-map" role="img" aria-label="Interactive world map. Countries are neutral until their regulatory evidence is assessed.">
-          <div class="gc-map-loading" id="gc-map-loading">Loading world map…</div>
-        </div>
-        <p class="gc-map-note" id="gc-map-note">Geographic boundaries are for navigation only; they do not represent legal status, recognition, risk or compliance.</p>
-      </div>
-      <aside class="gc-selected-panel" aria-labelledby="gc-selected-title">
-        <p class="gc-kicker">SELECTED JURISDICTION</p>
-        <h3 id="gc-selected-title">No jurisdiction selected</h3>
-        <label for="gc-country-search">Find a country or territory</label>
-        <input id="gc-country-search" type="search" placeholder="Type a jurisdiction…" autocomplete="off" list="gc-country-options">
-        <datalist id="gc-country-options"></datalist>
-        <button type="button" class="gc-secondary" id="gc-select-country">Inspect jurisdiction</button>
-        <div class="gc-selected-status"><span class="gc-status-dot"></span><div><b id="gc-overall-status">Not assessed</b><small id="gc-overall-detail">Country/topic evidence has not yet been verified in this release.</small></div></div>
-        <dl class="gc-meta-list"><div><dt>Jurisdiction</dt><dd id="gc-country-name">—</dd></div><div><dt>Coverage evidence</dt><dd id="gc-evidence-count">No verified records loaded</dd></div><div><dt>Last reviewed</dt><dd id="gc-review-date">—</dd></div></dl>
-      </aside>
-    </div>
-    <div class="gc-matrix-head"><div><p class="gc-kicker">TOPIC COVERAGE MATRIX</p><h3>Coverage areas for selected jurisdiction</h3></div><label for="gc-topic-filter">Filter topics <input id="gc-topic-filter" type="search" placeholder="e.g. sanctions, AI, Basel"></label></div>
-    <div class="gc-table-wrap">
-      <table class="gc-matrix" id="gc-topic-matrix">
-        <thead><tr><th scope="col">Regulatory domain</th><th scope="col">International baseline</th><th scope="col">Domestic instrument</th><th scope="col">Assessment status</th><th scope="col">Next evidence step</th></tr></thead>
-        <tbody>
-          <tr data-topic="aml cft cpf financial crime"><td><b>AML/CFT/CPF &amp; financial crime</b></td><td>FATF Recommendations and relevant FSRB assessments</td><td>Not yet verified</td><td><span class="gc-status-pill">Not assessed</span></td><td>Identify national AML law, FIU, sector rules, amendments and effectiveness evidence.</td></tr>
-          <tr data-topic="prudential banking basel capital liquidity"><td><b>Banking prudential / Basel</b></td><td>BCBS standards and RCAP evidence</td><td>Not yet verified</td><td><span class="gc-status-pill">Not assessed</span></td><td>Identify prudential regulator, domestic rules, effective dates and deviations.</td></tr>
-          <tr data-topic="financial stability resolution recovery deposit insurance"><td><b>Financial stability, recovery &amp; resolution</b></td><td>FSB Key Attributes and relevant international principles</td><td>Not yet verified</td><td><span class="gc-status-pill">Not assessed</span></td><td>Verify resolution authority, powers, recovery framework and deposit protection.</td></tr>
-          <tr data-topic="securities markets derivatives conduct"><td><b>Securities, markets &amp; derivatives</b></td><td>IOSCO principles and assessment materials</td><td>Not yet verified</td><td><span class="gc-status-pill">Not assessed</span></td><td>Identify securities regulator, market rules, scope and enforcement powers.</td></tr>
-          <tr data-topic="insurance solvency conduct"><td><b>Insurance &amp; solvency</b></td><td>IAIS Insurance Core Principles and assessment evidence</td><td>Not yet verified</td><td><span class="gc-status-pill">Not assessed</span></td><td>Verify local supervisor, solvency regime, conduct and group supervision.</td></tr>
-          <tr data-topic="sanctions targeted financial sanctions un"><td><b>Sanctions &amp; targeted financial sanctions</b></td><td>UN measures and applicable national/regional regimes</td><td>Not yet verified</td><td><span class="gc-status-pill">Not assessed</span></td><td>Verify domestic legal effect, freezing/reporting duties, licences and exemptions.</td></tr>
-          <tr data-topic="payments remittance financial market infrastructure"><td><b>Payments, remittances &amp; FMIs</b></td><td>CPMI/BIS standards and related source material</td><td>Not yet verified</td><td><span class="gc-status-pill">Not assessed</span></td><td>Identify payment authority, system rules, settlement and cross-border obligations.</td></tr>
-          <tr data-topic="virtual assets vasp stablecoins travel rule"><td><b>Virtual assets, VASPs &amp; stablecoins</b></td><td>FATF, FSB, IOSCO and BCBS material as applicable</td><td>Not yet verified</td><td><span class="gc-status-pill">Not assessed</span></td><td>Verify licensing, Travel Rule, custody, stablecoin and prudential rules.</td></tr>
-          <tr data-topic="ai artificial intelligence privacy data governance"><td><b>AI governance, privacy &amp; data</b></td><td>Applicable regional instruments and international policy sources</td><td>Not yet verified</td><td><span class="gc-status-pill">Not assessed</span></td><td>Verify binding AI/privacy laws, regulator guidance, transfers and effective dates.</td></tr>
-          <tr data-topic="cyber operational resilience outsourcing cloud"><td><b>Cybersecurity &amp; operational resilience</b></td><td>FSB/BCBS/CPMI materials and applicable sector standards</td><td>Not yet verified</td><td><span class="gc-status-pill">Not assessed</span></td><td>Verify incident reporting, cloud/outsourcing, testing and recovery requirements.</td></tr>
-          <tr data-topic="accounting audit disclosure ifrs"><td><b>Accounting, audit &amp; disclosure</b></td><td>IFRS Foundation and relevant audit/ethics standard-setters</td><td>Not yet verified</td><td><span class="gc-status-pill">Not assessed</span></td><td>Verify national adoption/endorsement, reporting entities, exceptions and dates.</td></tr>
-          <tr data-topic="tax transparency beneficial ownership corporate registry"><td><b>Tax transparency &amp; beneficial ownership</b></td><td>OECD Global Forum, FATF and relevant international standards</td><td>Not yet verified</td><td><span class="gc-status-pill">Not assessed</span></td><td>Verify definitions, registers, filing/verification duties, access and sanctions.</td></tr>
-          <tr data-topic="trade finance tbml customs export control"><td><b>Trade finance, TBML &amp; customs</b></td><td>FATF, WCO and relevant trade/customs authorities</td><td>Not yet verified</td><td><span class="gc-status-pill">Not assessed</span></td><td>Verify trade-finance controls, customs requirements, reporting and export controls.</td></tr>
-          <tr data-topic="consumer protection conduct complaints redress"><td><b>Consumer protection &amp; conduct</b></td><td>Applicable national and sectoral principles</td><td>Not yet verified</td><td><span class="gc-status-pill">Not assessed</span></td><td>Verify disclosure, suitability, complaints, redress and enforcement requirements.</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="gc-matrix-footnote">The matrix defines the global assessment schema. “Not yet verified” is an explicit evidence gap—not a claim that a country has no relevant law.</p>
-  </section>
-  <section class="gc-section gc-sources">
-    <div class="gc-heading"><p class="gc-kicker">INTERNATIONAL SOURCE REGISTER</p><h2>Global standards and official source bodies</h2><p>These links are starting points for source verification. They do not certify any jurisdiction’s implementation.</p></div>
-    <div class="gc-controls">
-      <label class="gc-search-label" for="gc-source-search">Search source bodies or topics</label>
-      <input id="gc-source-search" type="search" placeholder="Search FATF, Basel, sanctions, AI, insurance…" autocomplete="off">
-      <div class="gc-filters" role="group" aria-label="Filter international source register">
-        <button type="button" class="gc-filter is-active" data-filter="all" aria-pressed="true">All sources</button>
-        <button type="button" class="gc-filter" data-filter="aml" aria-pressed="false">AML/CFT</button>
-        <button type="button" class="gc-filter" data-filter="prudential" aria-pressed="false">Banking</button>
-        <button type="button" class="gc-filter" data-filter="markets" aria-pressed="false">Markets &amp; insurance</button>
-        <button type="button" class="gc-filter" data-filter="sanctions" aria-pressed="false">Sanctions</button>
-        <button type="button" class="gc-filter" data-filter="technology" aria-pressed="false">AI &amp; cyber</button>
-        <button type="button" class="gc-filter" data-filter="other" aria-pressed="false">Other domains</button>
-      </div>
-      <p class="gc-result-count" id="gc-result-count" aria-live="polite">Showing all source frameworks</p>
-    </div>
-    <div class="gc-cards" id="gc-cards">
-      <article class="gc-card" data-topic="aml" data-search="fatf financial action task force recommendations aml cft cpf money laundering terrorist financing proliferation targeted financial sanctions mutual evaluations">
-        <div class="gc-card__top"><span class="gc-domain">AML/CFT/CPF</span><span class="gc-state">International baseline</span></div><h3>FATF Recommendations &amp; evaluations</h3><p>International standards, mutual evaluations, follow-up reports and risk-based implementation evidence.</p><p class="gc-evidence"><b>Country evidence:</b> national laws, competent authority, effective date, assessment findings and supersession history.</p><a href="https://www.fatf-gafi.org/en/publications/Fatfrecommendations/Fatf-recommendations.html" target="_blank" rel="noopener noreferrer">Open official FATF source ↗</a>
+    <div class="fih-grid">
+      <article class="fih-card fih-card--featured">
+        <div class="fih-card-top"><span class="fih-number">01</span><span class="fih-label">REGULATORY SIGNALS</span></div>
+        <h3>What rules and control expectations may apply?</h3>
+        <p>Explore source-mapped jurisdiction and thematic control-evidence labs. Check the source, scope and verification status before relying on a signal.</p>
+        <div class="fih-meta"><span>Jurisdiction context</span><span>Source paths</span><span>Evidence review</span></div>
+        <a href="/global-financial-systems.html" class="fih-link">Open Regulatory Signal Labs <span aria-hidden="true">↗</span></a>
       </article>
-      <article class="gc-card" data-topic="prudential" data-search="bis basel committee bcbs basel framework capital liquidity leverage prudential banking rcap implementation">
-        <div class="gc-card__top"><span class="gc-domain">Banking &amp; prudential</span><span class="gc-state">Country mapping needed</span></div><h3>Basel Framework &amp; RCAP</h3><p>Basel Committee standards and the Regulatory Consistency Assessment Programme for adoption and implementation.</p><p class="gc-evidence"><b>Country evidence:</b> domestic prudential rule, scope, effective date, national deviations and implementation status.</p><a href="https://www.bis.org/committees/bcbs/rcap" target="_blank" rel="noopener noreferrer">Open official BIS/BCBS source ↗</a>
+      <article class="fih-card">
+        <div class="fih-card-top"><span class="fih-number">02</span><span class="fih-label">TRADE & FINANCIAL CRIME</span></div>
+        <h3>Does a trade transaction need closer review?</h3>
+        <p>Use TradeGuard to organise trade, party, route and document risk indicators for a human-led TBML review.</p>
+        <div class="fih-meta"><span>TBML signals</span><span>Trade documents</span></div>
+        <a href="/tradeguard/" class="fih-link">Open TradeGuard <span aria-hidden="true">↗</span></a>
       </article>
-      <article class="gc-card" data-topic="other" data-search="financial stability board fsb g20 recommendations implementation monitoring peer review resolution">
-        <div class="gc-card__top"><span class="gc-domain">Financial stability</span><span class="gc-state">Source directory</span></div><h3>Financial Stability Board</h3><p>Financial stability policy, implementation monitoring, thematic reviews and crisis-management work.</p><p class="gc-evidence"><b>Country evidence:</b> applicable recommendation, legal nature, domestic implementation and review findings.</p><a href="https://www.fsb.org/" target="_blank" rel="noopener noreferrer">Open official FSB source ↗</a>
+      <article class="fih-card">
+        <div class="fih-card-top"><span class="fih-number">03</span><span class="fih-label">POLICY & CONTROLS</span></div>
+        <h3>Does policy wording address the expected control?</h3>
+        <p>Map a non-sensitive policy excerpt to source-linked control questions, evidence gaps and an action plan.</p>
+        <div class="fih-meta"><span>Policy-to-control</span><span>Evidence gaps</span></div>
+        <a href="/regulatory-gap-analyzer/" class="fih-link">Open Policy Gap Analyzer <span aria-hidden="true">↗</span></a>
       </article>
-      <article class="gc-card" data-topic="markets" data-search="iosco securities markets derivatives intermediaries investor protection principles assessment">
-        <div class="gc-card__top"><span class="gc-domain">Securities &amp; markets</span><span class="gc-state">Country mapping needed</span></div><h3>IOSCO standards &amp; principles</h3><p>International benchmarks for securities regulation, market intermediaries, market integrity and investor protection.</p><p class="gc-evidence"><b>Country evidence:</b> national regulator, legislation, assessment results and enforcement powers.</p><a href="https://www.iosco.org/" target="_blank" rel="noopener noreferrer">Open official IOSCO source ↗</a>
+      <article class="fih-card">
+        <div class="fih-card-top"><span class="fih-number">04</span><span class="fih-label">GOVERNANCE & REMEDIATION</span></div>
+        <h3>Who owns the control gap, action and retest?</h3>
+        <p>Structure control ownership, priority, due dates, evidence notes and corrective actions with the ICMS Toolkit.</p>
+        <div class="fih-meta"><span>Control governance</span><span>Action tracking</span></div>
+        <a href="/icms-2026/" class="fih-link">Open ICMS Toolkit <span aria-hidden="true">↗</span></a>
       </article>
-      <article class="gc-card" data-topic="markets" data-search="iais insurance core principles insurance supervision solvency conduct implementation assessment">
-        <div class="gc-card__top"><span class="gc-domain">Insurance</span><span class="gc-state">Country mapping needed</span></div><h3>IAIS Insurance Core Principles</h3><p>Global principles and assessment work for insurance supervision, solvency and supervisory cooperation.</p><p class="gc-evidence"><b>Country evidence:</b> local supervisor, solvency regime, legal instrument and assessment evidence.</p><a href="https://www.iais.org/activities-topics/implementation-assessment/" target="_blank" rel="noopener noreferrer">Open official IAIS source ↗</a>
+      <article class="fih-card">
+        <div class="fih-card-top"><span class="fih-number">05</span><span class="fih-label">SANCTIONS RESOURCES</span></div>
+        <h3>Which official sanctions source must be checked?</h3>
+        <p>Use the sanctions resource page to reach official lists and authorities. It is a source directory, not a live name-screening service.</p>
+        <div class="fih-meta"><span>Official sources</span><span>Human verification</span></div>
+        <a href="/sanctions-screening/" class="fih-link">Open Sanctions Resources <span aria-hidden="true">↗</span></a>
       </article>
-      <article class="gc-card" data-topic="other" data-search="cpmi bis payments financial market infrastructure payment systems settlement cross border payments">
-        <div class="gc-card__top"><span class="gc-domain">Payments &amp; FMIs</span><span class="gc-state">Source directory</span></div><h3>CPMI / payment systems</h3><p>International work on payments, financial market infrastructures and related policy standards.</p><p class="gc-evidence"><b>Country evidence:</b> national payment-system law, central-bank rules, operator obligations and effective dates.</p><a href="https://www.bis.org/committees/cpmi/overview" target="_blank" rel="noopener noreferrer">Open official BIS/CPMI source ↗</a>
+      <article class="fih-card">
+        <div class="fih-card-top"><span class="fih-number">06</span><span class="fih-label">QUANTITATIVE & PRUDENTIAL RISK</span></div>
+        <h3>Does the question require a calculation or model input?</h3>
+        <p>Choose the appropriate regulatory calculator or derivatives resource. Confirm assumptions, jurisdiction and source before interpreting outputs.</p>
+        <div class="fih-meta"><span>Banking calculations</span><span>Derivatives risk</span></div>
+        <a href="/international-regulatory-calculators.html" class="fih-link">Open Regulatory Calculators <span aria-hidden="true">↗</span></a>
+        <a href="/derivatives/" class="fih-secondary-link">Explore Derivatives Risk &amp; Compliance ↗</a>
       </article>
-      <article class="gc-card" data-topic="sanctions" data-search="un united nations security council sanctions designations freezing asset freeze exemptions licensing">
-        <div class="gc-card__top"><span class="gc-domain">Sanctions</span><span class="gc-state">Time-sensitive source</span></div><h3>UN Security Council sanctions</h3><p>Official sanctions regimes and committee information; domestic implementation and exemptions vary.</p><p class="gc-evidence"><b>Country evidence:</b> national legal effect, freezing/reporting authority, licensing, exemptions and last-checked date.</p><a href="https://main.un.org/securitycouncil/en/sanctions/information" target="_blank" rel="noopener noreferrer">Open official UN source ↗</a>
+      <article class="fih-card">
+        <div class="fih-card-top"><span class="fih-number">07</span><span class="fih-label">BANK USE & AI GOVERNANCE</span></div>
+        <h3>Is a tool or AI use case appropriate for institutional use?</h3>
+        <p>Review intended use, data boundaries, evidence, governance and human oversight before institutional adoption.</p>
+        <div class="fih-meta"><span>Use boundaries</span><span>Explainability</span></div>
+        <a href="/bank-use-review.html" class="fih-link">Open Bank-use Review <span aria-hidden="true">↗</span></a>
+        <a href="/explainable-ai.html#controls" class="fih-secondary-link">Review Explainable AI controls ↗</a>
       </article>
-      <article class="gc-card" data-topic="technology" data-search="oecd artificial intelligence ai principles policy governance data responsible ai">
-        <div class="gc-card__top"><span class="gc-domain">AI governance</span><span class="gc-state">Jurisdictional law required</span></div><h3>OECD AI policy resources</h3><p>International policy and principles relevant to trustworthy AI; not a substitute for binding national or regional law.</p><p class="gc-evidence"><b>Country evidence:</b> applicable AI/privacy laws, regulator guidance, scope, transition dates and enforcement.</p><a href="https://oecd.ai/" target="_blank" rel="noopener noreferrer">Open official OECD AI source ↗</a>
+      <article class="fih-card">
+        <div class="fih-card-top"><span class="fih-number">08</span><span class="fih-label">RESEARCH & CASE ANALYSIS</span></div>
+        <h3>How do risks, controls and evidence connect in practice?</h3>
+        <p>Use case studies and research to understand the analysis method before applying a tool to a suitable, non-sensitive scenario.</p>
+        <div class="fih-meta"><span>Worked examples</span><span>Methodology</span></div>
+        <a href="/case-studies/" class="fih-link">Explore Regulatory Case Studies <span aria-hidden="true">↗</span></a>
+        <a href="/insights.html" class="fih-secondary-link">Read Insights &amp; Updates ↗</a>
       </article>
-      <article class="gc-card" data-topic="other" data-search="ifrs foundation international accounting standards adoption endorsement financial reporting audit">
-        <div class="gc-card__top"><span class="gc-domain">Accounting &amp; disclosure</span><span class="gc-state">Adoption status varies</span></div><h3>IFRS Foundation</h3><p>International financial reporting standards; national endorsement and adoption are separate questions.</p><p class="gc-evidence"><b>Country evidence:</b> local adoption instrument, reporting entities, effective dates and exceptions.</p><a href="https://www.ifrs.org/" target="_blank" rel="noopener noreferrer">Open official IFRS source ↗</a>
-      </article>
-      <article class="gc-card" data-topic="aml" data-search="virtual assets vasps travel rule fatf virtual assets stablecoins licensing implementation">
-        <div class="gc-card__top"><span class="gc-domain">Virtual assets</span><span class="gc-state">Report-level review needed</span></div><h3>Virtual assets &amp; VASPs</h3><p>Use FATF standards and implementation reports alongside national licensing, Travel Rule and enforcement evidence.</p><p class="gc-evidence"><b>Country evidence:</b> national VASP regime, registration/licensing, Travel Rule and current assessment.</p><a href="https://www.fatf-gafi.org/en/topics/virtual-assets.html" target="_blank" rel="noopener noreferrer">Open official FATF source ↗</a>
-      </article>
-      <article class="gc-card" data-topic="technology" data-search="cybersecurity operational resilience third party risk cloud outsourcing financial stability board basel">
-        <div class="gc-card__top"><span class="gc-domain">Cyber &amp; resilience</span><span class="gc-state">Multi-source mapping needed</span></div><h3>Operational resilience &amp; cyber</h3><p>International recommendations and domestic supervisory rules must be tracked separately.</p><p class="gc-evidence"><b>Country evidence:</b> incident deadlines, outsourcing/cloud, resilience tests and recovery duties.</p><a href="https://www.fsb.org/" target="_blank" rel="noopener noreferrer">Open official FSB source ↗</a>
-      </article>
-      <article class="gc-card" data-topic="other" data-search="oecd tax transparency beneficial ownership exchange information tax global forum">
-        <div class="gc-card__top"><span class="gc-domain">Tax &amp; ownership transparency</span><span class="gc-state">Jurisdictional mapping needed</span></div><h3>Tax transparency &amp; beneficial ownership</h3><p>Review international tax transparency standards with national registry, access and verification rules.</p><p class="gc-evidence"><b>Country evidence:</b> definitions, covered entities, filing/verification, access rights and sanctions.</p><a href="https://www.oecd.org/tax/transparency/" target="_blank" rel="noopener noreferrer">Open official OECD source ↗</a>
-      </article>
-    </div>
-    <div class="gc-empty" id="gc-empty" hidden>No source frameworks match that search. Try another topic or clear the search.</div>
-  </section>
-  <section class="gc-section gc-pathways">
-    <div class="gc-heading"><p class="gc-kicker">ONE PLATFORM · TWO CLEAR PATHWAYS</p><h2>Built for professionals and learners</h2><p>The global register connects to the wider RegTech Nexus AI knowledge ecosystem; it does not replace existing tools or learning pages.</p></div>
-    <div class="gc-path-grid">
-      <article><span class="gc-path-label">01 · PROFESSIONALS</span><h3>Professionals &amp; Regulated Industries</h3><p>Regulatory change → Risk understanding → Control thinking → Evidence → Readiness.</p><a href="/global-financial-systems.html">Explore readiness tools ↗</a><a href="/international-regulatory-calculators.html">Open regulatory calculators ↗</a><a href="/regulatory-gap-analyzer/">Open Policy Gap Analyzer ↗</a></article>
-      <article><span class="gc-path-label">02 · STUDENTS</span><h3>Students &amp; Learners</h3><p>Knowledge → Practice → Understanding → Capability.</p><a href="/student/">Open Student Knowledge Hub ↗</a><a href="/insights.html">Explore insights and explainers ↗</a></article>
     </div>
   </section>
-  <section class="gc-section gc-method">
-    <div class="gc-heading"><p class="gc-kicker">MASTER BLUEPRINT</p><h2>How a coverage record becomes auditable</h2><p>Every jurisdiction/topic record should be evidence-led, versioned and clear about what has—and has not—been verified.</p></div>
-    <ol class="gc-steps"><li><b>Define scope</b><span>Resolve jurisdiction names, aliases, territories and regional frameworks.</span></li><li><b>Identify baseline</b><span>Record source body, instrument type, version/date and official URL.</span></li><li><b>Verify domestic law</b><span>Capture national instrument, regulator, legal status, effective date and amendments.</span></li><li><b>Assess implementation</b><span>Separate adoption, effectiveness, supervisory practice and enforcement evidence.</span></li><li><b>Log the gap</b><span>Assign status, priority, evidence limitation, next action and review date.</span></li></ol>
-    <div class="gc-status-dictionary"><h3>Coverage status definitions</h3><div><span class="gc-status-pill">Not assessed</span><p>No structured jurisdiction/topic assessment is recorded.</p></div><div><span class="gc-status-pill gc-status-pill--partial">Partially verified</span><p>Some official evidence has been reviewed, but material gaps remain.</p></div><div><span class="gc-status-pill gc-status-pill--verified">Verified as of date</span><p>Official text, amendments and supersession were checked on a recorded date.</p></div><div><span class="gc-status-pill gc-status-pill--blocked">Verification blocked</span><p>An official source was identified but could not be reviewed; this is not a “no law” finding.</p></div></div>
+
+  <section class="fih-section fih-section--soft" id="workflow-method">
+    <div class="fih-section-heading">
+      <p class="fih-eyebrow">A REPEATABLE ANALYSIS METHOD</p>
+      <h2>From signal to defensible action</h2>
+      <p>The same evidence discipline can support many FinTech questions without forcing every problem into one scoring model.</p>
+    </div>
+    <ol class="fih-steps">
+      <li><span>01</span><div><b>Frame the question</b><p>Define the product, transaction, institution, jurisdiction and decision that need analysis.</p></div></li>
+      <li><span>02</span><div><b>Verify authoritative sources</b><p>Check the primary source, date, legal status, scope and amendments. International standards are not automatically domestic law.</p></div></li>
+      <li><span>03</span><div><b>Select the dedicated tool</b><p>Use the relevant existing module; do not treat one tool's output as another tool's result.</p></div></li>
+      <li><span>04</span><div><b>Inspect evidence and limitations</b><p>Record what is known, missing, assumed or not verified. Risk indicators are not proof of wrongdoing.</p></div></li>
+      <li><span>05</span><div><b>Assign action and retest</b><p>Where appropriate, record the owner, due date, supporting evidence, approval and retest result in the institution's approved process.</p></div></li>
+    </ol>
   </section>
-  <section class="gc-disclaimer"><h2>Current release limitation</h2><p>This release establishes the global register structure, topic taxonomy, source directory and jurisdiction-selection interface. It is <b>not yet a completed country-by-country legal audit</b>. Country-level statuses must be populated only from verified official evidence. This page does not certify compliance and must not be used as the sole basis for a regulatory decision. Time-sensitive rules and lists must be rechecked before operational use.</p><p>For source corrections or a coverage enquiry, contact <a href="mailto:regtechnexusai@gmail.com?subject=Global%20Coverage%20Gap%20Register">RegTech Nexus AI</a>.</p></section>
+
+  <section class="fih-domain-band">
+    <p class="fih-eyebrow">FINTECH LENS</p>
+    <h2>Topics connected by the analysis—not by duplicate tools</h2>
+    <div class="fih-domain-list"><span>Digital payments</span><span>AML/CFT &amp; sanctions</span><span>Trade finance &amp; TBML</span><span>Open / embedded finance</span><span>Digital assets</span><span>Cyber resilience</span><span>AI governance</span><span>Prudential &amp; market risk</span><span>Consumer protection</span><span>RegTech &amp; SupTech</span></div>
+  </section>
+
+  <section class="fih-disclaimer">
+    <b>Important use boundary</b>
+    <p>This hub is a navigation and workflow layer. It does not itself determine compliance, provide live sanctions matching, connect to bank systems, certify a control or replace legal, regulatory or professional judgment. Use synthetic, public or authorised non-sensitive information in public tools, and verify current requirements with official sources.</p>
+  </section>
 </main>
 <footer class="gc-footer"><a href="/" aria-label="RegTech Nexus AI home"><img src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="180" height="58" loading="lazy"></a><p><b>RegTech Nexus AI — Audit &amp; Regulatory Intelligence</b><br>Intelligence for a Regulated World.</p><nav aria-label="Footer links"><a href="/">Home</a><a href="/insights.html">Insights</a><a href="/student/">Student Knowledge Hub</a><a href="mailto:regtechnexusai@gmail.com">Contact</a></nav><small>Published by RegTech Nexus AI · Educational and decision-support resource; verify official sources before reliance.</small></footer>
 </body>
