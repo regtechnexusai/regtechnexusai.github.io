@@ -1,0 +1,76 @@
+/* Phase 2 — practical work product toolkit; additive styles scoped to this hub */
+.fih-page .fih-phase2{background:#f7fafc;border-top:1px solid var(--fih-line)}
+.fih-page .fih-phase2-nav{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 22px}
+.fih-page .fih-phase2-nav a{display:inline-flex;align-items:center;min-height:42px;padding:9px 13px;border:1px solid #d1e0e8;border-radius:8px;background:#fff;color:#174b69;font-size:.86rem;font-weight:800;line-height:1.5;text-decoration:none}
+.fih-page .fih-phase2-nav a:hover{border-color:#087e85;background:#edf8f8;text-decoration:underline;text-underline-offset:3px}
+.fih-page .fih-phase2-card{min-width:0;margin:22px 0;padding:clamp(17px,3vw,28px);border:1px solid #d6e3eb;border-radius:15px;background:#fff;box-shadow:0 8px 26px rgba(16,43,73,.04);scroll-margin-top:20px}
+.fih-page .fih-phase2-heading{display:flex;align-items:flex-start;gap:14px;margin-bottom:20px}
+.fih-page .fih-phase2-heading>span{display:inline-flex;flex:none;align-items:center;justify-content:center;width:42px;height:42px;border-radius:11px;background:#e5f2f4;color:#12666d;font-size:.92rem;font-weight:900}
+.fih-page .fih-phase2-heading h3{margin:0 0 7px;color:var(--fih-navy);font-size:clamp(1.25rem,2.4vw,1.65rem);line-height:1.35}
+.fih-page .fih-phase2-heading p{margin:0;color:var(--fih-muted);font-size:.92rem;line-height:1.75}
+.fih-page .fih-phase2-form,.fih-page #phase2-readiness-form{min-width:0}
+.fih-page .fih-phase2-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.fih-page .fih-phase2-fields-compact{margin-bottom:18px}
+.fih-page .fih-phase2-fields label,.fih-page .fih-phase2-check-fields label{display:flex;flex-direction:column;gap:7px;min-width:0;color:#183d56;font-size:.86rem;font-weight:750;line-height:1.55}
+.fih-page .fih-phase2-fields input,.fih-page .fih-phase2-fields textarea,.fih-page .fih-phase2-check-fields input,.fih-page .fih-phase2-check-fields select{display:block;box-sizing:border-box;width:100%;min-width:0;min-height:44px;padding:10px 12px;border:1px solid #cbd9e3;border-radius:8px;background:#fff;color:#203b50;font:inherit;font-size:.91rem;font-weight:400;line-height:1.6}
+.fih-page .fih-phase2-fields textarea{resize:vertical}
+.fih-page .fih-phase2-fields input:focus,.fih-page .fih-phase2-fields textarea:focus,.fih-page .fih-phase2-check-fields input:focus,.fih-page .fih-phase2-check-fields select:focus{outline:3px solid #b8e1e4;outline-offset:1px;border-color:#087e85}
+.fih-page .fih-phase2-actions{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 12px}
+.fih-page .fih-phase2-btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 15px;border:1px solid #c5d6e1;border-radius:8px;background:#fff;color:#17425e;font:inherit;font-size:.86rem;font-weight:800;line-height:1.5;cursor:pointer}
+.fih-page .fih-phase2-btn:hover{border-color:#0b7191;background:#f0f8fb}
+.fih-page .fih-phase2-btn:focus-visible{outline:3px solid #a9dce1;outline-offset:2px}
+.fih-page .fih-phase2-btn-primary{border-color:#0756a3;background:#0756a3;color:#fff}
+.fih-page .fih-phase2-btn-primary:hover{background:#064681;color:#fff}
+.fih-page .fih-phase2-status,.fih-page .fih-phase2-note{margin:0 0 16px;padding:13px 15px;border-left:4px solid #147d83;border-radius:0 8px 8px 0;background:#eaf6f5;color:#294e5b;font-size:.89rem;line-height:1.75}
+.fih-page .fih-phase2-note{margin:16px 0}
+.fih-page .fih-phase2-output{margin-top:18px;padding:clamp(16px,3vw,24px);border:1px solid #cddfe5;border-radius:12px;background:#fbfdfe}
+.fih-page .fih-phase2-output h4{margin:0 0 14px;color:var(--fih-navy);font-size:1.2rem;line-height:1.5;overflow-wrap:anywhere}
+.fih-page .fih-phase2-output pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;font-size:.88rem;line-height:1.8;color:#294458}
+.fih-page .fih-phase2-caution{margin:15px 0 0;color:#617587;font-size:.81rem;line-height:1.75}
+.fih-page .fih-phase2-checklist{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+.fih-page .fih-phase2-check{min-width:0;margin:0;padding:17px;border:1px solid #d7e4ec;border-radius:11px;background:#fff}
+.fih-page .fih-phase2-check legend{max-width:100%;padding:0 0 8px;color:var(--fih-navy);font-weight:850;font-size:.96rem;line-height:1.6}
+.fih-page .fih-phase2-check>p{margin:0 0 13px;color:var(--fih-muted);font-size:.87rem;line-height:1.75}
+.fih-page .fih-phase2-check-fields{display:grid;grid-template-columns:minmax(155px,.65fr) minmax(0,1.8fr) minmax(160px,.8fr);gap:12px}
+.fih-page .fih-phase2-check-fields label{font-size:.8rem}
+.fih-page .fih-phase2-check-fields input,.fih-page .fih-phase2-check-fields select{font-size:.83rem}
+.fih-page .fih-phase2-sources{margin-top:22px;padding:18px 20px;border-radius:10px;background:#f3f8fb}
+.fih-page .fih-phase2-sources h4{margin:0 0 7px;color:var(--fih-navy);font-size:1rem}
+.fih-page .fih-phase2-sources p,.fih-page .fih-phase2-sources li{color:#4e6374;font-size:.86rem;line-height:1.75}
+.fih-page .fih-phase2-sources ul{margin:8px 0 0;padding-left:22px}
+.fih-page .fih-phase2-sources a{color:#0756a3;overflow-wrap:anywhere}
+.fih-page .fih-phase2-case-banner{padding:19px 21px;border:1px solid #c8e1e4;border-radius:10px;background:#eef8f8}
+.fih-page .fih-phase2-case-banner strong{color:#145d65}
+.fih-page .fih-phase2-case-banner p{margin:7px 0 0;color:#294e5b;font-size:.91rem;line-height:1.8}
+.fih-page .fih-phase2-case-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:17px 0}
+.fih-page .fih-phase2-case-grid article{min-width:0;padding:18px;border:1px solid #dce6ec;border-radius:10px;background:#fff}
+.fih-page .fih-phase2-case-grid h4{margin:0 0 9px;color:var(--fih-navy);font-size:.98rem;line-height:1.5}
+.fih-page .fih-phase2-case-grid ul{margin:0;padding-left:20px}
+.fih-page .fih-phase2-case-grid li{margin:6px 0;color:#4e6374;font-size:.86rem;line-height:1.75}
+.fih-page .fih-phase2-small{margin:10px 0 0;color:#647789;font-size:.8rem;line-height:1.7}
+.fih-page .fih-phase2-table-wrap{max-width:100%;overflow-x:auto;border:1px solid #d7e4ec;border-radius:10px}
+.fih-page .fih-phase2-action-table{width:100%;min-width:650px;border-collapse:collapse;background:#fff}
+.fih-page .fih-phase2-action-table caption{padding:13px;text-align:left;background:#f3f8fb;color:#274b63;font-size:.86rem;font-weight:800}
+.fih-page .fih-phase2-action-table th,.fih-page .fih-phase2-action-table td{padding:12px 13px;border-bottom:1px solid #e0e9ee;text-align:left;vertical-align:top;color:#3d5568;font-size:.83rem;line-height:1.7}
+.fih-page .fih-phase2-action-table th{background:#f7fafc;color:#183d56;font-weight:850}
+.fih-page .fih-phase2-privacy{margin:20px 0 0;padding:18px 20px;border-left:4px solid #147d83;border-radius:0 10px 10px 0;background:#eaf6f5;color:#385766;font-size:.88rem;line-height:1.8}
+@media(max-width:900px){.fih-page .fih-phase2-check-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.fih-page .fih-phase2-check-fields label:nth-child(2){grid-column:span 2}}
+@media(max-width:650px){.fih-page .fih-phase2-fields,.fih-page .fih-phase2-case-grid{grid-template-columns:minmax(0,1fr)}.fih-page .fih-phase2-check-fields{grid-template-columns:minmax(0,1fr)}.fih-page .fih-phase2-check-fields label:nth-child(2){grid-column:auto}.fih-page .fih-phase2-actions{display:grid;grid-template-columns:minmax(0,1fr)}.fih-page .fih-phase2-btn{width:100%}.fih-page .fih-phase2-nav{display:grid;grid-template-columns:minmax(0,1fr)}.fih-page .fih-phase2-nav a{width:100%;box-sizing:border-box}.fih-page .fih-phase2-heading>span{width:36px;height:36px}.fih-page .fih-phase2-card{padding:16px}}
+@media print{
+ body.fih-page *{visibility:hidden!important}
+ body.fih-page[data-phase2-print="brief"] #phase2-brief,body.fih-page[data-phase2-print="brief"] #phase2-brief *,
+ body.fih-page[data-phase2-print="readiness"] #phase2-readiness,body.fih-page[data-phase2-print="readiness"] #phase2-readiness *,
+ body.fih-page[data-phase2-print="case"] #phase2-case,body.fih-page[data-phase2-print="case"] #phase2-case *{visibility:visible!important}
+ body.fih-page[data-phase2-print="brief"] #phase2-brief,body.fih-page[data-phase2-print="readiness"] #phase2-readiness,body.fih-page[data-phase2-print="case"] #phase2-case{position:relative!important;display:block!important;width:100%!important;margin:0!important;padding:0!important;border:0!important;box-shadow:none!important;background:#fff!important;break-inside:auto}
+ body.fih-page[data-phase2-print="brief"] #phase2-work-products> .fih-section-heading,body.fih-page[data-phase2-print="brief"] .fih-phase2-nav,
+ body.fih-page[data-phase2-print="brief"] .fih-phase2-actions,body.fih-page[data-phase2-print="brief"] .fih-phase2-status,
+ body.fih-page[data-phase2-print="readiness"] #phase2-work-products> .fih-section-heading,body.fih-page[data-phase2-print="readiness"] .fih-phase2-nav,
+ body.fih-page[data-phase2-print="readiness"] .fih-phase2-actions,body.fih-page[data-phase2-print="readiness"] .fih-phase2-status,body.fih-page[data-phase2-print="readiness"] .fih-phase2-note,
+ body.fih-page[data-phase2-print="case"] #phase2-work-products> .fih-section-heading,body.fih-page[data-phase2-print="case"] .fih-phase2-nav,
+ body.fih-page[data-phase2-print="case"] .fih-phase2-actions{display:none!important}
+ body.fih-page .fih-phase2-card .fih-phase2-fields input,body.fih-page .fih-phase2-card .fih-phase2-fields textarea,body.fih-page .fih-phase2-card .fih-phase2-check-fields input,body.fih-page .fih-phase2-card .fih-phase2-check-fields select{border:0!important;border-bottom:1px solid #aaa!important;border-radius:0!important;padding-left:0!important}
+ body.fih-page .fih-phase2-check,body.fih-page .fih-phase2-case-grid article,body.fih-page .fih-phase2-output{break-inside:avoid;box-shadow:none!important}
+ body.fih-page .fih-phase2-case-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ body.fih-page .fih-phase2-action-table{min-width:0!important}
+ body.fih-page .fih-phase2-table-wrap{overflow:visible!important}
+}
