@@ -6,3 +6,42 @@
 #regulatory-coverage-workbench #rcw-country,#regulatory-coverage-workbench #rcw-authority,#regulatory-coverage-workbench #rcw-type{display:block!important;width:100%!important;min-height:52px!important;padding:13px 42px 13px 14px!important;border:1px solid #7891a6!important;border-radius:9px!important;background-color:#fff!important;color:#0b1f33!important;-webkit-text-fill-color:#0b1f33!important;opacity:1!important;font:600 16px/1.45 Arial,Helvetica,sans-serif!important;letter-spacing:0!important;text-shadow:none!important;filter:none!important;box-shadow:0 1px 2px rgba(16,45,74,.08)!important;appearance:auto!important;-webkit-appearance:menulist!important}
 #regulatory-coverage-workbench #rcw-country option,#regulatory-coverage-workbench #rcw-authority option,#regulatory-coverage-workbench #rcw-type option{background:#fff!important;color:#0b1f33!important;-webkit-text-fill-color:#0b1f33!important;font:600 16px Arial,Helvetica,sans-serif!important;opacity:1!important}
 @media print{@page{size:A4;margin:14mm}}
+/* Case-study cards and structured report presentation */
+.rcw-sample-panel{margin:22px 0 26px;padding:clamp(16px,2.5vw,26px);border:1px solid #c8dbe8;border-radius:16px;background:linear-gradient(135deg,#f1f8fc,#fff);box-shadow:0 5px 18px rgba(16,45,74,.06)}
+.rcw-sample-top{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(240px,.7fr);gap:18px;align-items:end}
+.rcw-sample-top h3{margin:0 0 8px;color:#102d4a;font-size:1.3rem}
+.rcw-sample-select{margin:0}
+#regulatory-coverage-workbench #rcw-sample-product{background:#fff!important;color:#0b1f33!important;-webkit-text-fill-color:#0b1f33!important;opacity:1!important;font:600 16px/1.45 Arial,Helvetica,sans-serif!important;min-height:52px!important;border:1px solid #7891a6!important;border-radius:9px!important}
+#regulatory-coverage-workbench #rcw-sample-product option{background:#fff!important;color:#0b1f33!important}
+.rcw-sample-case{margin:14px 0;padding:18px;background:#fff;border:1px solid #d5e2eb;border-left:4px solid #0b6894;border-radius:10px;color:#243d52;line-height:1.65;overflow-wrap:anywhere}
+.rcw-sample-case h3{font-size:1.12rem;color:#102d4a;margin:0 0 12px}
+.rcw-sample-case p{margin:8px 0}
+.rcw-sample-case .rcw-help{margin-top:14px;padding-top:10px;border-top:1px solid #e1e9ef}
+.rcw-report-preview{color:#20394f;font:400 .95rem/1.65 Arial,Helvetica,sans-serif;overflow-wrap:anywhere}
+.rcw-report-preview h3{margin:18px 0 8px;padding-bottom:6px;border-bottom:1px solid #cbd8e3;color:#174d6c;font-size:1rem}
+.rcw-report-preview p{margin:6px 0}
+.rcw-report-status{padding:10px 12px;background:#fff6e5;border:1px solid #efd49b;border-radius:6px;color:#784600;font-weight:800}
+.rcw-report-table{width:100%;border-collapse:collapse;table-layout:fixed;margin:8px 0 16px;font-size:.9rem}
+.rcw-report-table th,.rcw-report-table td{border:1px solid #cbd8e3;padding:8px;text-align:left;vertical-align:top;overflow-wrap:anywhere;word-break:break-word}
+.rcw-report-table th{width:32%;background:#edf4f8;color:#193e58}
+.rcw-report-preview ul{padding-left:22px;line-height:1.6}
+.rcw-report-preview li{margin:5px 0}
+.rcw-report-attribution{margin-top:20px;padding-top:10px;border-top:1px solid #cbd8e3}
+.rcw-report-footnote{font-size:.86rem;color:#4c5e6b}
+@media(max-width:700px){.rcw-sample-top{grid-template-columns:1fr}.rcw-sample-panel{padding:15px}.rcw-report-table th{width:38%}}
+@media print{
+  body.fih-page[data-phase2-print] > *{display:none!important}
+  body.fih-page[data-phase2-print] > main{display:block!important}
+  body.fih-page[data-phase2-print] main > section:not(#phase2-work-products){display:none!important}
+  body.fih-page[data-phase2-print] #phase2-work-products{display:block!important;position:static!important;height:auto!important;min-height:0!important;overflow:visible!important}
+  body.fih-page[data-phase2-print="brief"] #phase2-work-products > :not(#phase2-brief),
+  body.fih-page[data-phase2-print="readiness"] #phase2-work-products > :not(#phase2-readiness),
+  body.fih-page[data-phase2-print="case"] #phase2-work-products > :not(#phase2-case){display:none!important}
+  body.fih-page[data-phase2-print="brief"] #phase2-brief,
+  body.fih-page[data-phase2-print="readiness"] #phase2-readiness,
+  body.fih-page[data-phase2-print="case"] #phase2-case{display:block!important;position:static!important;inset:auto!important;height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important;transform:none!important;break-inside:auto!important;page-break-inside:auto!important}
+  body.fih-page[data-phase2-print] #phase2-work-products .fih-phase2-output{display:block!important;height:auto!important;max-height:none!important;overflow:visible!important;break-inside:auto!important;page-break-inside:auto!important}
+  body.fih-page[data-phase2-print] #phase2-work-products .fih-phase2-output pre{display:block!important;height:auto!important;max-height:none!important;overflow:visible!important;white-space:pre-wrap!important;overflow-wrap:anywhere!important;break-inside:auto!important;page-break-inside:auto!important}
+  body.fih-page[data-phase2-print] #phase2-work-products{break-before:auto!important;page-break-before:auto!important}
+  @page{size:A4;margin:12mm}
+}
