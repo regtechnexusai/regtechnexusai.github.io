@@ -346,7 +346,49 @@
     if(!filtered.length){const tr=document.createElement('tr'); const td=document.createElement('td');td.colSpan=5;td.textContent=arr.length?'No matching records.':'No preloaded instrument register for this jurisdiction. Add the official reference in the form above; coverage listing is not proof of a complete register.';tr.appendChild(td);evidenceTable.appendChild(tr);return;}
     filtered.forEach(r=>{const tr=document.createElement('tr');[r.date,r.number,r.scope,r.verification].forEach(v=>{const td=document.createElement('td');td.textContent=v||'Not stated';tr.appendChild(td);});const td=document.createElement('td');if(r.url){const a=document.createElement('a');a.href=r.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent='Official document';td.appendChild(a);}else{td.textContent='Catalogue only';}tr.appendChild(td);evidenceTable.appendChild(tr);});
   };
-  country.addEventListener('change',renderAuthorities);
+  const sampleProduct = root.querySelector('#rcw-sample-product');
+  const sampleCase = root.querySelector('#rcw-sample-case');
+  const sampleTemplates = {
+    wallet: {
+      title: 'Illustrative case — Digital wallet / e-money',
+      question: 'Can the proposed wallet onboarding, stored-value model, agent network, transfers and customer-fund safeguarding operate lawfully and safely in the selected jurisdiction?',
+      facts: 'Hypothetical product: a mobile wallet for low-value payments and domestic transfers, with optional cash-in/cash-out through agents. No real customer or transaction data is used.',
+      gaps: 'Confirm whether the model requires a payment, e-money, stored-value or other licence; verify safeguarding / trust-account rules, AML/CFT risk controls, agent oversight, limits, disclosures, complaints, fraud reimbursement and incident reporting from current official sources.',
+      follow: 'Map the product flow; identify the competent regulator; verify the current rulebook and licence perimeter; test fee disclosures and account recovery with intended users; assign owners and due dates.'
+    },
+    bank: {
+      title: 'Illustrative case — Digital bank',
+      question: 'What permissions, prudential controls and customer safeguards are required before launching a fully digital deposit-taking bank?',
+      facts: 'Hypothetical digital-first bank offering remote onboarding, deposits, transfers, debit-card access and app-based customer support. This is a learning scenario, not a claim about a real institution.',
+      gaps: 'Verify banking licence eligibility, capital and governance requirements, fit-and-proper tests, outsourcing/cloud controls, cyber resilience, operational continuity, deposit protection, AML/CFT, identity verification, complaint handling and applicable reporting duties.',
+      follow: 'Create a regulator-confirmed licensing checklist; map end-to-end customer journeys; test business continuity and recovery; evidence board oversight; document open legal questions before launch approval.'
+    },
+    psp: {
+      title: 'Illustrative case — Payment Service Provider (PSP)',
+      question: 'How should a PSP establish a controlled launch for merchant acquiring, payment initiation or payment processing in this jurisdiction?',
+      facts: 'Hypothetical PSP connecting merchants, customers and financial institutions. The exact legal classification depends on the services, funds flow and local law.',
+      gaps: 'Confirm authorisation / registration category, settlement and safeguarding model, outsourcing and scheme obligations, AML/CFT responsibilities, fraud monitoring, dispute handling, chargebacks, data protection, incident notification and consumer disclosures.',
+      follow: 'Draw the funds and data flows; ask the regulator to confirm the perimeter where ambiguous; document merchant due diligence, reconciliation, dispute SLAs, fraud escalation and outage procedures.'
+    }
+  };
+  const renderSampleCase = () => {
+    if (!sampleCase || !sampleProduct) return;
+    const t = sampleTemplates[sampleProduct.value] || sampleTemplates.wallet;
+    const jurisdiction = country.value || 'Select a jurisdiction';
+    const mapped = sources[country.value] || [];
+    const authorityHint = mapped.length ? mapped.map(x=>x[0]).slice(0,3).join(' · ') : 'Use the regulator directory above to identify the competent local authority';
+    sampleCase.innerHTML = '<h3>'+esc(t.title)+'</h3><p><strong>Jurisdiction:</strong> '+esc(jurisdiction)+'</p><p><strong>Regulatory starting point:</strong> '+esc(authorityHint)+'</p><p><strong>Decision question</strong><br>'+esc(t.question)+'</p><p><strong>Scenario</strong><br>'+esc(t.facts)+'</p><p><strong>Evidence gaps to test</strong><br>'+esc(t.gaps)+'</p><p><strong>Suggested next steps</strong><br>'+esc(t.follow)+'</p><p class="rcw-help">Illustrative scenario only. It does not identify a verified country-specific circular or establish legal obligations. Confirm all applicable rules on official sources.</p>';
+  };
+  country.addEventListener('change',()=>{renderAuthorities();renderSampleCase();});
+  sampleProduct?.addEventListener('change',renderSampleCase);
+  root.querySelector('#rcw-use-sample')?.addEventListener('click',()=>{
+    const t=sampleTemplates[sampleProduct.value]||sampleTemplates.wallet;
+    decision.value=t.question; facts.value=t.facts; limitations.value=t.gaps+' Suggested follow-up: '+t.follow;
+    if(!val(root.querySelector('#rcw-type'))) root.querySelector('#rcw-type').value='Other official source';
+    if(!val(instrument)) instrument.value=t.title+' — illustrative scenario; not a legal instrument';
+    status.textContent='Illustrative case copied into the brief. Replace assumptions with verified facts and official sources before circulation.';
+    decision.scrollIntoView({behavior:'smooth',block:'center'});
+  });
   authority.addEventListener('change',()=>{const o=authority.selectedOptions[0]; if(o && o.dataset.url && !sourceUrl.value) sourceUrl.value=o.dataset.url;});
   root.querySelector('#rcw-record-search').addEventListener('input',renderEvidence);
   root.querySelector('#rcw-fill-record').addEventListener('click',()=>{
@@ -357,6 +399,34 @@
   });
   const val = el => (el.value||'').trim();
   const esc = s => String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  function formatReport(report){
+    const rows=report.split('\n'); let html=''; let inMeta=false; let inList=false;
+    const closeList=()=>{if(inList){html+='</ul>';inList=false;}};
+    rows.forEach((line)=>{
+      const t=line.trim();
+      if(!t){closeList();return;}
+      if(t==='DRAFT — HUMAN REVIEW REQUIRED'){closeList();html+='<p class="rcw-report-status">'+esc(t)+'</p>';return;}
+      if(['REPORT METADATA','DECISION OR QUESTION','FACTS / EVIDENCE SUPPLIED','AUTHORITY / TOPIC SCOPE','ASSUMPTIONS, LIMITATIONS AND OPEN QUESTIONS','EVIDENCE QUALITY GATE','DECISION SUPPORT STATUS'].includes(t)){
+        closeList(); if(inMeta){html+='</tbody></table>';inMeta=false;}
+        html+='<h3>'+esc(t)+'</h3>';
+        if(t==='REPORT METADATA'){html+='<table class="rcw-report-table"><tbody>';inMeta=true;}
+        return;
+      }
+      if(inMeta && t.includes(': ')){
+        const k=t.slice(0,t.indexOf(': ')), v=t.slice(t.indexOf(': ')+2);
+        html+='<tr><th>'+esc(k)+'</th><td>'+esc(v)+'</td></tr>';return;
+      }
+      if(inMeta){html+='</tbody></table>';inMeta=false;}
+      if(t.startsWith('- ')){if(!inList){html+='<ul>';inList=true;}html+='<li>'+esc(t.slice(2))+'</li>';return;}
+      closeList();
+      if(t.startsWith('Published by RegTech Nexus AI')) html+='<p class="rcw-report-attribution"><strong>'+esc(t)+'</strong></p>';
+      else if(t.startsWith('Educational and decision-support')||t.startsWith('Do not enter confidential')) html+='<p class="rcw-report-footnote">'+esc(t)+'</p>';
+      else if(t.includes(': ') && t.length<220){const k=t.slice(0,t.indexOf(': ')),v=t.slice(t.indexOf(': ')+2);html+='<p><strong>'+esc(k)+':</strong> '+esc(v)+'</p>';}
+      else html+='<p>'+esc(t)+'</p>';
+    });
+    closeList();if(inMeta)html+='</tbody></table>';
+    return html;
+  }
   function generate(){
     const authorityName=val(authority)||'[Authority not selected]';
     const selectedSource=authority.selectedOptions[0];
@@ -406,7 +476,8 @@
       'Do not enter confidential customer, account, transaction, credential or other restricted banking data into a public-facing form.'
     ];
     const report=lines.join('\n');
-    preview.textContent=report;
+    preview.dataset.report=report;
+    preview.innerHTML=formatReport(report);
     output.hidden=false;
     status.textContent='Draft report generated. Use Print / Save as PDF to create the report. Verify every source before reliance.';
     return report;
@@ -421,9 +492,9 @@
     cleanupPrint();
     printFrame = document.createElement('iframe');
     printFrame.setAttribute('title','Print report');
-    printFrame.style.cssText='position:fixed;right:0;bottom:0;width:1px;height:1px;border:0;opacity:0;pointer-events:none';
-    const reportText = preview.textContent;
-    const safeReport = reportText.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    printFrame.style.cssText='position:fixed;left:-10000px;top:0;width:794px;height:1123px;border:0;opacity:1;pointer-events:none';
+    const reportText = preview.dataset.report || generate();
+    const safeReport = formatReport(reportText);
     printFrame.onload = () => {
       const win = printFrame && printFrame.contentWindow;
       if (!win) return;
@@ -431,12 +502,12 @@
       win.print();
       win.addEventListener('afterprint',cleanupPrint,{once:true});
     };
-    printFrame.srcdoc = '<!doctype html><html><head><meta charset="utf-8"><title>RegTech Nexus AI — Decision Brief</title><style>@page{size:A4;margin:14mm}html,body{height:auto!important;min-height:0!important;width:auto!important;margin:0!important;padding:0!important;overflow:visible!important;background:#fff!important;color:#111!important}body{font-family:Arial,Helvetica,sans-serif;font-size:10pt;line-height:1.4}h1{font-size:15pt;line-height:1.2;margin:0 0 12pt}pre{font:9.5pt/1.45 Arial,Helvetica,sans-serif;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;margin:0;max-height:none!important;overflow:visible!important}*{box-sizing:border-box;break-before:auto!important;break-after:auto!important;page-break-before:auto!important;page-break-after:auto!important}@media print{html,body{height:auto!important;min-height:0!important;overflow:visible!important}pre{orphans:2;widows:2}}</style></head><body><h1>Draft report preview — RegTech Nexus AI</h1><pre>'+safeReport+'</pre></body></html>';
+    printFrame.srcdoc = '<!doctype html><html><head><meta charset="utf-8"><title>RegTech Nexus AI — Decision Brief</title><style>@page{size:A4;margin:14mm}*{box-sizing:border-box}html,body{margin:0;padding:0;background:#fff;color:#172b43;font-family:Arial,Helvetica,sans-serif;font-size:10pt;line-height:1.45}h1{font-size:17pt;color:#102d4a;border-bottom:3px solid #0b6894;padding-bottom:10pt;margin:0 0 8pt}h2{font-size:12pt}h3{font-size:11pt;color:#174d6c;margin:16pt 0 7pt;padding-bottom:4pt;border-bottom:1px solid #cbd8e3;break-after:avoid}p{margin:5pt 0;overflow-wrap:anywhere}ul{margin:4pt 0 8pt;padding-left:18pt}li{margin:3pt 0;break-inside:avoid}.rcw-report-status{font-weight:bold;color:#8a4d00;background:#fff6e5;border:1px solid #efd49b;padding:7pt}.rcw-report-table{width:100%;border-collapse:collapse;margin:5pt 0 10pt;table-layout:fixed}.rcw-report-table th,.rcw-report-table td{border:1px solid #cbd8e3;padding:6pt;text-align:left;vertical-align:top;overflow-wrap:anywhere}.rcw-report-table th{width:32%;background:#edf4f8;color:#193e58}.rcw-report-attribution{margin-top:15pt;padding-top:8pt;border-top:1px solid #cbd8e3}.rcw-report-footnote{font-size:9pt;color:#4c5e6b}tr{break-inside:avoid;page-break-inside:avoid}*{break-before:auto!important;break-after:auto!important;page-break-before:auto!important;page-break-after:auto!important}h1,h3{break-after:avoid-page}p,li{orphans:2;widows:2}</style></head><body><h1>REGTECH NEXUS AI</h1><p><strong>FinTech Regulatory Decision Intelligence Brief</strong></p>'+safeReport+'</body></html>';
     document.body.appendChild(printFrame);
   });
   window.addEventListener('afterprint',cleanupPrint);
   root.querySelector('#rcw-download').addEventListener('click',()=>{
-    const report=output.hidden?generate():preview.textContent;
+    const report=output.hidden?generate():(preview.dataset.report||generate());
     const blob=new Blob(['\uFEFF',report],{type:'text/plain;charset=utf-8'});
     const url=URL.createObjectURL(blob);const a=document.createElement('a');
     const base=(val(decision)||'fintech-regulatory-brief').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,50)||'fintech-regulatory-brief';
