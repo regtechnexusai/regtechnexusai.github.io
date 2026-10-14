@@ -69,3 +69,9 @@
   body.fih-page #inclusion-impact-lab .fih-inclusion-check,body.fih-page #inclusion-impact-lab .fih-inclusion-context{break-inside:avoid-page;page-break-inside:avoid}
   @page{size:A4;margin:12mm}
 }
+
+@media print{
+  body.fih-page main > :not(#inclusion-impact-lab){display:none!important}
+  body.fih-page #inclusion-impact-lab,body.fih-page #inclusion-impact-lab *{visibility:visible!important}
+  body.fih-page #inclusion-impact-lab{isolation:isolate!important}
+}
