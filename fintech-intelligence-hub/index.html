@@ -13,11 +13,11 @@
 <link rel="stylesheet" href="/fintech-intelligence-hub/fintech-intelligence-hub.css?v=20261014-layout5">
 <link rel="stylesheet" href="/fintech-intelligence-hub/fintech-inclusion-lab.css?v=20261014-printfix2">
 <link rel="stylesheet" href="/fintech-intelligence-hub/fintech-phase2-toolkit.css?v=20261014-printfix2">
-<link rel="stylesheet" href="/fintech-intelligence-hub/regulatory-coverage-workbench.css?v=20261014-wb6">
+<link rel="stylesheet" href="/fintech-intelligence-hub/regulatory-coverage-workbench.css?v=20261015-access1">
 <script defer src="/fintech-intelligence-hub/fintech-intelligence-hub.js"></script>
 <script defer src="/fintech-intelligence-hub/fintech-inclusion-lab.js?v=20261014-inclusion1"></script>
 <script defer src="/fintech-intelligence-hub/fintech-phase2-toolkit.js?v=20261014-phase2b"></script>
-<script defer src="/fintech-intelligence-hub/regulatory-coverage-workbench.js?v=20261014-wb6"></script>
+<script defer src="/fintech-intelligence-hub/regulatory-coverage-workbench.js?v=20261015-access1"></script>
 </head>
 <body class="fih-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -30,6 +30,15 @@
   <a class="nav-cta" href="#workflows">Choose an analysis path ↗</a>
 </header>
 <main id="main-content">
+  <section class="fih-language-tools" aria-label="Language options">
+    <div class="fih-language-tools__intro"><strong>Language / ভাষা</strong><span>Choose preferred languages below; use the translation menu to view this page in one language at a time.</span></div>
+    <div id="google_translate_element" aria-label="Translate this page"></div>
+    <details class="fih-language-preferences"><summary>Choose multiple preferred languages / একাধিক ভাষা বেছে নিন</summary>
+      <div class="fih-language-options">
+        <label><input type="checkbox" value="en" checked> English</label><label><input type="checkbox" value="bn"> বাংলা</label><label><input type="checkbox" value="zh-CN"> 中文 (Chinese)</label><label><input type="checkbox" value="ko"> 한국어 (Korean)</label><label><input type="checkbox" value="ja"> 日本語 (Japanese)</label><label><input type="checkbox" value="es"> Español</label><label><input type="checkbox" value="fr"> Français</label><label><input type="checkbox" value="ar"> العربية</label><label><input type="checkbox" value="hi"> हिन्दी</label><label><input type="checkbox" value="pt"> Português</label><label><input type="checkbox" value="id"> Bahasa Indonesia</label><label><input type="checkbox" value="ur"> اردو</label>
+      </div><p id="fih-language-status" role="status" aria-live="polite">English is selected. Select more than one language to record your preferences.</p>
+    </details>
+  </section>
   <section class="fih-hero">
     <div class="fih-hero__inner">
       <p class="fih-eyebrow">REGTECH NEXUS AI · FINTECH · REGTECH · RISK INTELLIGENCE</p>
@@ -300,13 +309,22 @@
         <h3>1. Jurisdiction &amp; source</h3>
         <form id="rcw-form">
           <div class="rcw-field">
+            <label for="rcw-country-search">Search country / jurisdiction</label>
+            <input id="rcw-country-search" type="search" class="rcw-search" placeholder="Type a country or jurisdiction name" autocomplete="off">
+          </div>
+          <div class="rcw-field">
             <label for="rcw-country">Country / jurisdiction *</label>
             <select id="rcw-country" name="country" required><option value="">Loading jurisdiction register…</option></select>
+          </div>
+          <div class="rcw-field">
+            <label for="rcw-authority-search">Search regulator / organisation</label>
+            <input id="rcw-authority-search" type="search" class="rcw-search" placeholder="Type an authority or organisation name" autocomplete="off">
           </div>
           <div class="rcw-field">
             <label for="rcw-authority">Regulator / issuing authority / source body</label>
             <select id="rcw-authority" name="authority"><option value="">Select country first</option></select>
             <p class="rcw-help" id="rcw-authority-help">Select a jurisdiction to view mapped sources.</p>
+            <p class="rcw-source-action"><a id="rcw-open-source" href="#" target="_blank" rel="noopener noreferrer" aria-disabled="true">Open selected official starting point ↗</a></p>
           </div>
           <div class="rcw-field">
             <label for="rcw-type">Instrument / source type *</label>
@@ -341,7 +359,7 @@
           </div>
           <div class="rcw-field">
             <label for="rcw-reference-date">Reference / source verification date *</label>
-            <input type="date" id="rcw-reference-date" name="referenceDate" value="2026-10-14" required>
+            <input type="date" id="rcw-reference-date" name="referenceDate" required>
           </div>
           <div class="rcw-field">
             <label for="rcw-source-url">Official source / document URL</label>
@@ -361,6 +379,7 @@
           </div>
           <div class="rcw-actions">
             <button class="rcw-btn" type="submit">Generate decision-support brief</button>
+            <button class="rcw-btn rcw-btn--secondary" type="button" id="rcw-reset">Reset / Clear form</button>
             <button class="rcw-btn rcw-btn--secondary" type="button" id="rcw-download">Export TXT</button>
             <button class="rcw-btn rcw-btn--secondary" type="button" id="rcw-print">Print / Save as PDF</button>
           </div>
@@ -558,6 +577,25 @@
     <p>Use this Hub for education, research and structured decision preparation. It does not grant regulatory permission, determine legal compliance or provide live screening against private or bank systems. Use only public, synthetic or otherwise authorised non-sensitive information in public tools, verify requirements with the relevant official authority, and obtain qualified advice where needed.</p>
   </section>
 </main>
-<footer class="gc-footer"><a href="/" aria-label="RegTech Nexus AI home"><img src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="180" height="58" loading="lazy"></a><p><b>RegTech Nexus AI — Audit &amp; Regulatory Intelligence</b><br>Intelligence for a Regulated World.</p><nav aria-label="Footer links"><a href="/">Home</a><a href="/insights.html">Insights</a><a href="/student/">Student Knowledge Hub</a><a href="mailto:regtechnexusai@gmail.com">Contact</a></nav><small>Published by RegTech Nexus AI · Educational and decision-support resource; verify official sources before reliance.</small></footer>
+<footer class="gc-footer">
+  <section class="fih-feedback" aria-labelledby="fih-feedback-title">
+    <h2 id="fih-feedback-title">Feedback / মতামত</h2>
+    <p>Help improve this free resource. Submitting opens your email app with the feedback details addressed to RegTech Nexus AI; it does not send automatically.</p>
+    <form id="fih-feedback-form">
+      <div class="fih-feedback-grid">
+        <label for="fih-feedback-role">You are / আপনার পরিচয়<select id="fih-feedback-role" name="role"><option>Student / learner</option><option>FinTech founder / product team</option><option>Banking / financial services professional</option><option>Regulator / policymaker</option><option>Researcher / consultant</option><option>Other</option></select></label>
+        <label for="fih-feedback-topic">Feedback topic<select id="fih-feedback-topic" name="topic"><option>Country / authority / source link</option><option>Language / accessibility</option><option>Report / PDF export</option><option>Content accuracy</option><option>New feature request</option><option>Other</option></select></label>
+        <label class="fih-feedback-wide" for="fih-feedback-message">Your feedback / আপনার মতামত<textarea id="fih-feedback-message" name="message" rows="4" required placeholder="Tell us what worked, what failed, or what should improve. Please do not include confidential or personal banking data."></textarea></label>
+      </div>
+      <button type="submit" class="fih-feedback-submit">Prepare feedback email</button><p id="fih-feedback-status" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+  <a href="/" aria-label="RegTech Nexus AI home"><img src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="180" height="58" loading="lazy"></a><p><b>RegTech Nexus AI — Audit &amp; Regulatory Intelligence</b><br>Intelligence for a Regulated World.</p><nav aria-label="Footer links"><a href="/">Home</a><a href="/insights.html">Insights</a><a href="/student/">Student Knowledge Hub</a><a href="mailto:regtechnexusai@gmail.com">Contact</a></nav><small>Published by RegTech Nexus AI · Educational and decision-support resource; verify official sources before reliance.</small></footer>
+<script>
+function googleTranslateElementInit(){if(window.google&&google.translate){new google.translate.TranslateElement({pageLanguage:'en',includedLanguages:'en,bn,zh-CN,ko,ja,es,fr,ar,hi,pt,id,ur',autoDisplay:false},'google_translate_element');}}
+document.querySelectorAll('.fih-language-options input').forEach(function(box){box.addEventListener('change',function(){var selected=Array.from(document.querySelectorAll('.fih-language-options input:checked')).map(function(x){return x.parentElement.textContent.trim();});document.getElementById('fih-language-status').textContent=selected.length?('Preferred languages: '+selected.join(', ')+'. Use the translation menu above to switch the page language.'): 'No preferred languages selected.';});});
+document.getElementById('fih-feedback-form')?.addEventListener('submit',function(e){e.preventDefault();var role=document.getElementById('fih-feedback-role').value,topic=document.getElementById('fih-feedback-topic').value,message=document.getElementById('fih-feedback-message').value.trim();if(!message)return;var subject=encodeURIComponent('FinTech Intelligence Hub feedback — '+topic);var body=encodeURIComponent('Role: '+role+'\nTopic: '+topic+'\n\nFeedback:\n'+message+'\n\nSent from RegTech Nexus AI FinTech Intelligence Hub.');document.getElementById('fih-feedback-status').textContent='Opening your email app. Please review and send the message there.';window.location.href='mailto:regtechnexusai@gmail.com?subject='+subject+'&body='+body;});
+</script>
+<script defer src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
