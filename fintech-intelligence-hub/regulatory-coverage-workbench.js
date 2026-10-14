@@ -301,6 +301,10 @@
   const form = root.querySelector('#rcw-form');
   const country = root.querySelector('#rcw-country');
   const authority = root.querySelector('#rcw-authority');
+  const countrySearch = root.querySelector('#rcw-country-search');
+  const authoritySearch = root.querySelector('#rcw-authority-search');
+  const openSource = root.querySelector('#rcw-open-source');
+  let authorityOptions = [];
   const instrument = root.querySelector('#rcw-instrument');
   const issueDate = root.querySelector('#rcw-issue-date');
   const referenceDate = root.querySelector('#rcw-reference-date');
@@ -319,6 +323,14 @@
     arr.forEach(v=>{const opt=document.createElement('option'); opt.value=v; opt.textContent=v; el.appendChild(opt);});
   };
   allOptions(country, countryNames.slice().sort((a,b)=>a.localeCompare(b)), 'Select a country / jurisdiction');
+  const countryOptions = Array.from(country.options).slice(1).map(o=>({value:o.value,text:o.textContent}));
+  const filterSelect = (select, options, query, placeholder) => {
+    const previous=select.value, q=(query||'').trim().toLocaleLowerCase();
+    select.innerHTML=''; const first=document.createElement('option');first.value='';first.textContent=placeholder;select.appendChild(first);
+    options.filter(o=>!q || o.text.toLocaleLowerCase().includes(q)).forEach(o=>{const el=document.createElement('option');el.value=o.value;el.textContent=o.text;if(o.focus)el.dataset.focus=o.focus;if(o.url)el.dataset.url=o.url;select.appendChild(el);});
+    if(options.some(o=>o.value===previous)&&Array.from(select.options).some(o=>o.value===previous))select.value=previous;
+  };
+  countrySearch.addEventListener('input',()=>filterSelect(country,countryOptions,countrySearch.value,'Select a country / jurisdiction'));
   const directorySources = [
     ['BIS — Central bank directory','Starting point to identify a country’s central bank / monetary authority; verify the national regulator’s own website.','https://www.bis.org/cbanks.htm'],
     ['IOSCO — Securities regulators / members','Starting point for securities-market regulator identification; membership is not proof of jurisdictional scope.','https://www.iosco.org/about/?subsection=membership'],
@@ -329,14 +341,24 @@
   const renderAuthorities = () => {
     const mapped = sources[country.value] || [];
     const list = mapped.length ? mapped : directorySources;
-    authority.innerHTML = '';
+    authority.innerHTML = ''; authority.value='';
     const first=document.createElement('option'); first.value=''; first.textContent='Select authority / source directory'; authority.appendChild(first);
     list.forEach(([name,focus,url])=>{const o=document.createElement('option');o.value=name;o.textContent=name; o.dataset.focus=focus; o.dataset.url=url; authority.appendChild(o);});
+    authorityOptions=Array.from(authority.options).slice(1).map(o=>({value:o.value,text:o.textContent,focus:o.dataset.focus,url:o.dataset.url}));
+    filterSelect(authority,authorityOptions,authoritySearch.value,'Select authority / source directory');
+    updateSourceLink();
     root.querySelector('#rcw-authority-help').textContent = mapped.length
       ? 'Mapped official starting points are shown. Confirm the instrument, legal status, applicability and amendments on the issuing authority’s official site.'
       : 'No country-specific authority mapping is available for this jurisdiction yet. Cross-jurisdiction directories are provided as discovery starting points only; they are not the local regulator and do not establish legal coverage.';
     renderEvidence();
   };
+  const updateSourceLink = () => {
+    const selected=authority.selectedOptions[0], url=selected&&selected.dataset.url?selected.dataset.url:'';
+    openSource.href=url||'#'; openSource.setAttribute('aria-disabled',url?'false':'true');
+    openSource.style.pointerEvents=url?'auto':'none'; openSource.style.opacity=url?'1':'.55';
+    openSource.textContent=url?'Open selected official starting point ↗':'Select an authority to open its source';
+  };
+  authoritySearch.addEventListener('input',()=>{filterSelect(authority,authorityOptions,authoritySearch.value,'Select authority / source directory');if(!authority.value)sourceUrl.value='';updateSourceLink();});
   const recordArray = () => country.value==='Bangladesh' ? bdCirculars.concat(bdLetters).map(r=>({date:r[0],number:r[1],scope:r[2],title:r[3],url:r[4],verification:r[5]})) : [];
   const renderEvidence = () => {
     const arr=recordArray();
@@ -379,17 +401,23 @@
     const authorityHint = mapped.length ? mapped.map(x=>x[0]).slice(0,3).join(' · ') : 'Use the regulator directory above to identify the competent local authority';
     sampleCase.innerHTML = '<h3>'+esc(t.title)+'</h3><p><strong>Jurisdiction:</strong> '+esc(jurisdiction)+'</p><p><strong>Regulatory starting point:</strong> '+esc(authorityHint)+'</p><p><strong>Decision question</strong><br>'+esc(t.question)+'</p><p><strong>Scenario</strong><br>'+esc(t.facts)+'</p><p><strong>Evidence gaps to test</strong><br>'+esc(t.gaps)+'</p><p><strong>Suggested next steps</strong><br>'+esc(t.follow)+'</p><p class="rcw-help">Illustrative scenario only. It does not identify a verified country-specific circular or establish legal obligations. Confirm all applicable rules on official sources.</p>';
   };
-  country.addEventListener('change',()=>{renderAuthorities();renderSampleCase();});
+  country.addEventListener('change',()=>{sourceUrl.value='';authoritySearch.value='';renderAuthorities();renderSampleCase();});
   sampleProduct?.addEventListener('change',renderSampleCase);
   root.querySelector('#rcw-use-sample')?.addEventListener('click',()=>{
     const t=sampleTemplates[sampleProduct.value]||sampleTemplates.wallet;
     decision.value=t.question; facts.value=t.facts; limitations.value=t.gaps+' Suggested follow-up: '+t.follow;
-    if(!val(root.querySelector('#rcw-type'))) root.querySelector('#rcw-type').value='Other official source';
-    if(!val(instrument)) instrument.value=t.title+' — illustrative scenario; not a legal instrument';
-    status.textContent='Illustrative case copied into the brief. Replace assumptions with verified facts and official sources before circulation.';
+    circularNo.value='';instrument.value='';issueDate.value='';root.querySelector('#rcw-effective-date').value='';root.querySelector('#rcw-type').value='';
+    status.textContent='Illustrative case copied into the brief. Sample scenarios are not legal instruments. Select the correct source type and enter verified instrument metadata only if you have checked an official document.';
     decision.scrollIntoView({behavior:'smooth',block:'center'});
   });
-  authority.addEventListener('change',()=>{const o=authority.selectedOptions[0]; if(o && o.dataset.url && !sourceUrl.value) sourceUrl.value=o.dataset.url;});
+  authority.addEventListener('change',()=>{const o=authority.selectedOptions[0]; if(o && o.dataset.url){sourceUrl.value=o.dataset.url;} updateSourceLink();});
+  root.querySelector('#rcw-reset').addEventListener('click',()=>{
+    form.reset(); countrySearch.value='';authoritySearch.value='';country.value='';root.querySelector('#rcw-type').value='';
+    root.querySelector('#rcw-record-search').value='';root.querySelector('#rcw-sample-product').value='wallet';
+    sourceUrl.value='';issueDate.value='';root.querySelector('#rcw-effective-date').value='';instrument.value='';circularNo.value='';
+    referenceDate.value=new Date().toISOString().slice(0,10);output.hidden=true;preview.innerHTML='';preview.dataset.report='';
+    renderAuthorities();renderSampleCase();status.textContent='Form reset. Select a jurisdiction and authority to begin again.';
+  });
   root.querySelector('#rcw-record-search').addEventListener('input',renderEvidence);
   root.querySelector('#rcw-fill-record').addEventListener('click',()=>{
     const match=recordArray().find(r=>r.number.toLowerCase().includes((root.querySelector('#rcw-record-search').value||'').toLowerCase()) || r.title.toLowerCase().includes((root.querySelector('#rcw-record-search').value||'').toLowerCase()));
@@ -446,7 +474,7 @@
       'Issue / publication date: '+(val(issueDate)||'[Not provided]'),
       'Effective date: '+(val(root.querySelector('#rcw-effective-date'))||'[Not stated / not provided]'),
       'Instrument title: '+(val(instrument)||'[Not provided]'),
-      'Official source URL: '+(val(sourceUrl)||'[Not provided]'),
+      'Official source URL / authority starting point (verify the exact instrument link separately): '+(val(sourceUrl)||'[Not provided]'),
       '',
       'DECISION OR QUESTION',
       val(decision)||'[Not provided — evidence or input required]',
@@ -513,6 +541,7 @@
     const base=(val(decision)||'fintech-regulatory-brief').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,50)||'fintech-regulatory-brief';
     a.href=url;a.download=base+'.txt';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
   });
+  referenceDate.value=new Date().toISOString().slice(0,10);
   renderAuthorities();
   renderSampleCase();
 })();
