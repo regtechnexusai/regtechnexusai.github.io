@@ -544,3 +544,61 @@ body:has(.fih-hero) a{overflow-wrap:break-word;word-break:normal;hyphens:none}
     padding:18px 16px;
   }
 }
+
+
+/* Desktop navigation: keep the header compact and open site links on demand.
+   Mobile navigation retains its existing responsive behaviour. */
+@media (min-width:901px){
+  .fih-page .gc-nav{
+    position:relative;
+    top:auto;
+  }
+  .fih-page .gc-nav .menu{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    flex:0 0 44px;
+    width:44px;
+    height:44px;
+    margin-left:auto;
+    border:1px solid #d5e1e9;
+    border-radius:8px;
+    background:#fff;
+    color:var(--fih-navy);
+    cursor:pointer;
+  }
+  .fih-page .gc-nav #main-nav{
+    display:none;
+    position:absolute;
+    top:calc(100% - 1px);
+    right:clamp(16px,3.5vw,52px);
+    left:auto;
+    z-index:40;
+    width:min(360px,calc(100vw - 32px));
+    max-height:min(70vh,560px);
+    overflow-y:auto;
+    margin:0;
+    padding:10px 16px;
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    border:1px solid var(--fih-line);
+    border-radius:0 0 12px 12px;
+    background:#fff;
+    box-shadow:0 14px 30px rgba(16,43,73,.14);
+  }
+  .fih-page .gc-nav #main-nav.is-open{
+    display:flex;
+  }
+  .fih-page .gc-nav #main-nav a{
+    display:flex;
+    width:100%;
+    padding:12px 6px;
+    border-bottom:1px solid #edf1f4;
+    font-size:14px;
+    line-height:1.5;
+  }
+  .fih-page .gc-nav #main-nav a:last-child{
+    border-bottom:0;
+  }
+}
