@@ -45,3 +45,23 @@
   body.fih-page[data-phase2-print] #phase2-work-products{break-before:auto!important;page-break-before:auto!important}
   @page{size:A4;margin:12mm}
 }
+
+/* Country and authority search, direct source action, multilingual access and feedback */
+#regulatory-coverage-workbench .rcw-source-action{margin:8px 0 0;font-weight:750;line-height:1.5}
+#regulatory-coverage-workbench .rcw-source-action a{color:#075e9b;text-decoration:underline;text-underline-offset:3px}
+#regulatory-coverage-workbench .rcw-search{color:#102d4a!important;-webkit-text-fill-color:#102d4a!important;background:#fff!important;opacity:1!important}
+#regulatory-coverage-workbench select,#regulatory-coverage-workbench option{color:#102d4a!important;-webkit-text-fill-color:#102d4a!important;background-color:#fff!important;opacity:1!important}
+#regulatory-coverage-workbench .rcw-btn:focus-visible,.fih-feedback-submit:focus-visible{outline:3px solid #e5a600;outline-offset:3px}
+.fih-language-tools{max-width:1200px;margin:14px auto 20px;padding:14px 18px;border:1px solid #cbdbe7;border-radius:14px;background:#f6fafc;color:#17334a;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 18px;align-items:center}
+.fih-language-tools__intro{display:flex;flex-direction:column;gap:4px;line-height:1.45}.fih-language-tools__intro strong{font-size:1.05rem}.fih-language-tools__intro span{font-size:.86rem;color:#40596c}
+#google_translate_element{justify-self:end;min-width:160px}
+.fih-language-preferences{grid-column:1/-1;border-top:1px solid #dce6ed;padding-top:9px}.fih-language-preferences summary{cursor:pointer;font-weight:750;color:#174d6c}
+.fih-language-options{display:flex;flex-wrap:wrap;gap:9px 15px;padding:12px 0 6px}.fih-language-options label{display:flex;align-items:center;gap:6px;font-size:.9rem;color:#19394f}.fih-language-options input{accent-color:#0b6894;width:16px;height:16px}
+#fih-language-status{font-size:.82rem;color:#435a6e;margin:4px 0}
+.fih-feedback{width:min(100% - 24px,1100px);margin:0 auto 26px;padding:22px;background:#f4f8fb;border:1px solid #cbdbe7;border-radius:16px;color:#17334a}
+.fih-feedback h2{margin:0 0 8px;font-size:1.45rem;color:#102d4a}.fih-feedback p{line-height:1.55}.fih-feedback-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.fih-feedback-grid label{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:.92rem}
+.fih-feedback-grid select,.fih-feedback-grid textarea{width:100%;min-width:0;padding:11px 12px;border:1px solid #9eb2c4;border-radius:8px;background:#fff;color:#102d4a;font:400 16px/1.45 system-ui,sans-serif}
+.fih-feedback-wide{grid-column:1/-1}.fih-feedback-submit{margin-top:12px;padding:11px 16px;border:1px solid #0b5d91;border-radius:9px;background:#0b5d91;color:#fff;font:700 1rem system-ui;cursor:pointer}
+#fih-feedback-status{font-size:.86rem}
+@media(max-width:700px){.fih-language-tools{margin:12px;padding:14px;grid-template-columns:1fr}.fih-language-preferences{grid-column:auto}#google_translate_element{justify-self:start}.fih-feedback-grid{grid-template-columns:1fr}.fih-feedback-wide{grid-column:auto}}
