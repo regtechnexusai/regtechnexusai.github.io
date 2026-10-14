@@ -248,7 +248,8 @@
     return report;
   }
   form.addEventListener('submit',e=>{e.preventDefault();generate();});
-  root.querySelector('#rcw-print').addEventListener('click',()=>{if(output.hidden)generate();window.print();});
+  root.querySelector('#rcw-print').addEventListener('click',()=>{if(output.hidden)generate();document.body.classList.add('rcw-printing');window.print();});
+  window.addEventListener('afterprint',()=>document.body.classList.remove('rcw-printing'));
   root.querySelector('#rcw-download').addEventListener('click',()=>{
     const report=output.hidden?generate():preview.textContent;
     const blob=new Blob(['\uFEFF',report],{type:'text/plain;charset=utf-8'});
