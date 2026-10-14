@@ -104,6 +104,160 @@
       ['Securities and Futures Commission (SFC)','Securities and futures markets','https://www.sfc.hk/'],
       ['Hong Kong Customs and Excise Department','AML/CFT for designated non-financial businesses and professions','https://www.customs.gov.hk/']
     ],
+    "France": [
+      ["Autorité de contrôle prudentiel et de résolution (ACPR)","Banking and insurance prudential supervision; verify activity-specific scope","https://acpr.banque-france.fr/"],
+      ["Banque de France","Central banking, payments and financial stability","https://www.banque-france.fr/en"],
+      ["Autorité des marchés financiers (AMF)","Financial markets and investment services","https://www.amf-france.org/en"],
+      ["TRACFIN","Financial intelligence and AML/CFT","https://www.economie.gouv.fr/tracfin"],
+      ["Legifrance","Official French legislation and regulatory texts","https://www.legifrance.gouv.fr/"]
+    ],
+    "Germany": [
+      ["Federal Financial Supervisory Authority (BaFin)","Financial services, banking, securities and insurance supervision","https://www.bafin.de/EN/Homepage/homepage_node.html"],
+      ["Deutsche Bundesbank","Central banking and banking supervision functions","https://www.bundesbank.de/en"],
+      ["Financial Intelligence Unit Germany (FIU)","Financial intelligence and suspicious transaction reporting","https://www.zoll.de/EN/Businesses/Movement-of-goods/Import/Restrictions/Restrictions_node.html"],
+      ["Gesetze im Internet","Official federal legislation portal","https://www.gesetze-im-internet.de/"]
+    ],
+    "Italy": [
+      ["Banca d’Italia","Banking supervision, payments and financial stability","https://www.bancaditalia.it/?com.dotmarketing.htmlpage.language=1"],
+      ["Commissione Nazionale per le Società e la Borsa (CONSOB)","Securities markets and investment services","https://www.consob.it/web/consob-and-its-activities"],
+      ["Unità di Informazione Finanziaria per l’Italia (UIF)","Financial intelligence and AML/CFT","https://uif.bancaditalia.it/?com.dotmarketing.htmlpage.language=1"],
+      ["Normattiva","Official Italian legislation portal","https://www.normattiva.it/"]
+    ],
+    "Spain": [
+      ["Banco de España","Banking supervision and payments","https://www.bde.es/wbe/en/"],
+      ["Comisión Nacional del Mercado de Valores (CNMV)","Securities markets","https://www.cnmv.es/portal/home.aspx?lang=en"],
+      ["SEPBLAC","Financial intelligence and AML/CFT","https://www.sepblac.es/en/"],
+      ["Boletín Oficial del Estado (BOE)","Official state gazette and legislation","https://www.boe.es/"]
+    ],
+    "Netherlands": [
+      ["De Nederlandsche Bank (DNB)","Prudential supervision and central banking","https://www.dnb.nl/en/"],
+      ["Authority for the Financial Markets (AFM)","Financial markets and conduct supervision","https://www.afm.nl/en"],
+      ["FIU-The Netherlands","Financial intelligence and unusual transaction reporting","https://www.fiu-nederland.nl/en"],
+      ["wetten.nl","Official Dutch legislation portal","https://wetten.overheid.nl/"]
+    ],
+    "Ireland": [
+      ["Central Bank of Ireland","Financial regulation, supervision and consumer protection","https://www.centralbank.ie/"],
+      ["Department of Finance","Financial services policy and legislation","https://www.gov.ie/en/organisation/department-of-finance/"],
+      ["Irish Statute Book","Official Irish legislation","https://www.irishstatutebook.ie/"]
+    ],
+    "Poland": [
+      ["Polish Financial Supervision Authority (KNF)","Financial market supervision","https://www.knf.gov.pl/en/"],
+      ["General Inspector of Financial Information (GIIF)","Financial intelligence and AML/CFT","https://www.gov.pl/web/finance/general-inspector-of-financial-information"],
+      ["Internet System of Legal Acts (ISAP)","Official legal acts database","https://isap.sejm.gov.pl/"]
+    ],
+    "Sweden": [
+      ["Finansinspektionen (Swedish Financial Supervisory Authority)","Financial market supervision","https://www.fi.se/en/"],
+      ["Sveriges Riksbank","Central banking and payments","https://www.riksbank.se/en-gb/"],
+      ["Swedish Police Financial Intelligence Unit","Financial intelligence and suspicious transaction reporting; confirm current official route","https://polisen.se/en/"]
+    ],
+    "Denmark": [
+      ["Danish Financial Supervisory Authority (Finanstilsynet)","Financial sector supervision","https://www.dfsa.dk/"],
+      ["Danmarks Nationalbank","Central banking and payment systems","https://www.nationalbanken.dk/en"],
+      ["Retsinformation","Official Danish legislation portal","https://www.retsinformation.dk/"]
+    ],
+    "Belgium": [
+      ["National Bank of Belgium (NBB)","Prudential supervision and financial stability","https://www.nbb.be/en"],
+      ["Financial Services and Markets Authority (FSMA)","Financial markets and conduct supervision","https://www.fsma.be/en"],
+      ["CTIF-CFI","Financial intelligence and AML/CFT","https://www.ctif-cfi.be/"]
+    ],
+    "Austria": [
+      ["Financial Market Authority (FMA)","Financial market supervision","https://www.fma.gv.at/en/"],
+      ["Oesterreichische Nationalbank (OeNB)","Central banking and financial stability","https://www.oenb.at/en/"],
+      ["RIS — Rechtsinformationssystem des Bundes","Official Austrian legal information system","https://www.ris.bka.gv.at/"]
+    ],
+    "Portugal": [
+      ["Banco de Portugal","Banking supervision and payments","https://www.bportugal.pt/en"],
+      ["Portuguese Securities Market Commission (CMVM)","Securities markets","https://www.cmvm.pt/EN/Pages/homepage.aspx"],
+      ["Diário da República Eletrónico","Official Portuguese legal gazette","https://diariodarepublica.pt/"]
+    ],
+    "Greece": [
+      ["Bank of Greece","Central banking and financial supervision","https://www.bankofgreece.gr/en"],
+      ["Hellenic Capital Market Commission (HCMC)","Capital markets","https://www.hcmc.gr/en_US/web/portal/home"],
+      ["Government Gazette / National Printing House","Official legislation publication portal","https://search.et.gr/en/"]
+    ],
+    "Finland": [
+      ["Finnish Financial Supervisory Authority (FIN-FSA)","Financial and insurance supervision","https://www.finanssivalvonta.fi/en/"],
+      ["Bank of Finland","Central banking and payment systems","https://www.suomenpankki.fi/en/"],
+      ["Finlex","Official Finnish legislation database","https://www.finlex.fi/en/"]
+    ],
+    "Luxembourg": [
+      ["Commission de Surveillance du Secteur Financier (CSSF)","Financial sector supervision","https://www.cssf.lu/en/"],
+      ["Commissariat aux Assurances (CAA)","Insurance supervision","https://www.caa.lu/en"],
+      ["Legilux","Official Luxembourg legal portal","https://legilux.public.lu/"]
+    ],
+    "Malta": [
+      ["Malta Financial Services Authority (MFSA)","Financial services supervision","https://www.mfsa.mt/"],
+      ["Financial Intelligence Analysis Unit (FIAU)","AML/CFT supervision and financial intelligence","https://fiaumalta.org/"],
+      ["Legislation Malta","Official legislation portal","https://legislation.mt/"]
+    ],
+    "Iceland": [
+      ["Central Bank of Iceland — Financial Supervision","Financial supervision and central banking","https://www.cb.is/"],
+      ["Icelandic Financial Intelligence Unit","Financial intelligence and AML/CFT; confirm official contact/source route","https://www.cb.is/"],
+      ["Althingi legislation portal","Official Icelandic legislation","https://www.althingi.is/english/"]
+    ],
+    "Norway": [
+      ["Finanstilsynet (Financial Supervisory Authority of Norway)","Financial market supervision","https://www.finanstilsynet.no/en/"],
+      ["Norges Bank","Central banking and payment systems","https://www.norges-bank.no/en/"],
+      ["Lovdata","Norwegian legal information portal","https://lovdata.no/"]
+    ],
+    "Switzerland": [
+      ["Swiss Financial Market Supervisory Authority (FINMA)","Financial market supervision","https://www.finma.ch/en/"],
+      ["Swiss National Bank (SNB)","Central banking and financial stability","https://www.snb.ch/en"],
+      ["Federal Office of Police — MROS","Money laundering reporting office / financial intelligence","https://www.fedpol.admin.ch/fedpol/en/home/kriminalitaet/geldwaescherei.html"],
+      ["Fedlex","Official Swiss law portal","https://www.fedlex.admin.ch/en/home"]
+    ],
+    "New Zealand": [
+      ["Reserve Bank of New Zealand (RBNZ)","Banking, insurance and financial stability supervision","https://www.rbnz.govt.nz/"],
+      ["Financial Markets Authority (FMA)","Financial markets conduct and regulation","https://www.fma.govt.nz/"],
+      ["New Zealand Police Financial Intelligence Unit","Financial intelligence and AML/CFT","https://www.police.govt.nz/advice/businesses-and-organisations/fiu"],
+      ["New Zealand Legislation","Official legislation portal","https://www.legislation.govt.nz/"]
+    ],
+    "Mexico": [
+      ["Comisión Nacional Bancaria y de Valores (CNBV)","Banking and securities supervision","https://www.gob.mx/cnbv"],
+      ["Banco de México","Central banking and payment systems","https://www.banxico.org.mx/"],
+      ["Unidad de Inteligencia Financiera (UIF)","Financial intelligence and AML/CFT","https://www.gob.mx/hacienda"],
+      ["Diario Oficial de la Federación","Official federal gazette","https://www.dof.gob.mx/"]
+    ],
+    "Thailand": [
+      ["Bank of Thailand (BOT)","Central banking, payments and financial institutions","https://www.bot.or.th/en/home.html"],
+      ["Securities and Exchange Commission, Thailand (SEC)","Securities and digital-asset markets","https://www.sec.or.th/EN/Pages/Home.aspx"],
+      ["Anti-Money Laundering Office (AMLO)","AML/CFT and financial intelligence","https://www.amlo.go.th/"]
+    ],
+    "Philippines": [
+      ["Bangko Sentral ng Pilipinas (BSP)","Banking, payments and financial supervision","https://www.bsp.gov.ph/"],
+      ["Securities and Exchange Commission (SEC)","Securities and corporate regulation","https://www.sec.gov.ph/"],
+      ["Anti-Money Laundering Council (AMLC)","Financial intelligence and AML/CFT","https://www.amlc.gov.ph/"]
+    ],
+    "Vietnam": [
+      ["State Bank of Vietnam (SBV)","Central banking and payments","https://www.sbv.gov.vn/"],
+      ["State Securities Commission of Vietnam (SSC)","Securities markets","https://www.ssc.gov.vn/"],
+      ["Vietnam Government Portal","Government decisions and legal documents starting point","https://vanban.chinhphu.vn/"]
+    ],
+    "Nepal": [
+      ["Nepal Rastra Bank (NRB)","Central banking and financial institution supervision","https://www.nrb.org.np/"],
+      ["Securities Board of Nepal (SEBON)","Securities markets","https://www.sebon.gov.np/"],
+      ["Department of Money Laundering Investigation (DMLI)","AML/CFT investigation and implementation","https://dmli.gov.np/"]
+    ],
+    "Kenya": [
+      ["Central Bank of Kenya (CBK)","Banking, payments and financial stability","https://www.centralbank.go.ke/"],
+      ["Capital Markets Authority (CMA) Kenya","Capital markets","https://www.cma.or.ke/"],
+      ["Financial Reporting Centre (FRC)","Financial intelligence and AML/CFT","https://www.frc.go.ke/"]
+    ],
+    "Nigeria": [
+      ["Central Bank of Nigeria (CBN)","Banking and payment systems","https://www.cbn.gov.ng/"],
+      ["Securities and Exchange Commission Nigeria","Capital markets","https://sec.gov.ng/"],
+      ["Nigerian Financial Intelligence Unit (NFIU)","Financial intelligence and AML/CFT","https://www.nfiu.gov.ng/"]
+    ],
+    "Ghana": [
+      ["Bank of Ghana","Central banking and financial regulation","https://www.bog.gov.gh/"],
+      ["Securities and Exchange Commission Ghana","Capital markets","https://sec.gov.gh/"],
+      ["Financial Intelligence Centre (FIC)","Financial intelligence and AML/CFT","https://fic.gov.gh/"]
+    ],
+    "Egypt": [
+      ["Central Bank of Egypt (CBE)","Central banking and banking supervision","https://www.cbe.org.eg/en"],
+      ["Financial Regulatory Authority (FRA)","Non-banking financial markets","https://fra.gov.eg/"],
+      ["Egyptian Money Laundering and Terrorist Financing Combating Unit","Financial intelligence and AML/CFT; confirm current official publications","https://www.cbe.org.eg/en"]
+    ],
     'Global standards and cross-border frameworks': [
       ['FATF','Global AML/CFT/CPF standards; verify domestic implementation separately','https://www.fatf-gafi.org/'],
       ['BIS / Basel Committee on Banking Supervision','Prudential banking standards and guidance','https://www.bis.org/committees/bcbs/overview'],
@@ -258,25 +412,27 @@
     return report;
   }
   form.addEventListener('submit',e=>{e.preventDefault();generate();});
-  let printRoot = null;
+  let printFrame = null;
   const cleanupPrint = () => {
-    document.body.classList.remove('rcw-printing');
-    if (printRoot) { printRoot.remove(); printRoot = null; }
+    if (printFrame) { printFrame.remove(); printFrame = null; }
   };
   root.querySelector('#rcw-print').addEventListener('click',()=>{
     if(output.hidden) generate();
     cleanupPrint();
-    printRoot = document.createElement('main');
-    printRoot.id = 'rcw-print-root';
-    printRoot.setAttribute('aria-label','Printable FinTech regulatory decision brief');
-    const heading = document.createElement('h1');
-    heading.textContent = 'Draft report preview — RegTech Nexus AI';
-    const report = document.createElement('pre');
-    report.textContent = preview.textContent;
-    printRoot.append(heading, report);
-    document.body.appendChild(printRoot);
-    document.body.classList.add('rcw-printing');
-    window.print();
+    printFrame = document.createElement('iframe');
+    printFrame.setAttribute('title','Print report');
+    printFrame.style.cssText='position:fixed;right:0;bottom:0;width:1px;height:1px;border:0;opacity:0;pointer-events:none';
+    const reportText = preview.textContent;
+    const safeReport = reportText.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    printFrame.onload = () => {
+      const win = printFrame && printFrame.contentWindow;
+      if (!win) return;
+      win.focus();
+      win.print();
+      win.addEventListener('afterprint',cleanupPrint,{once:true});
+    };
+    printFrame.srcdoc = '<!doctype html><html><head><meta charset="utf-8"><title>RegTech Nexus AI — Decision Brief</title><style>@page{size:A4;margin:14mm}html,body{height:auto!important;min-height:0!important;width:auto!important;margin:0!important;padding:0!important;overflow:visible!important;background:#fff!important;color:#111!important}body{font-family:Arial,Helvetica,sans-serif;font-size:10pt;line-height:1.4}h1{font-size:15pt;line-height:1.2;margin:0 0 12pt}pre{font:9.5pt/1.45 Arial,Helvetica,sans-serif;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;margin:0;max-height:none!important;overflow:visible!important}*{box-sizing:border-box;break-before:auto!important;break-after:auto!important;page-break-before:auto!important;page-break-after:auto!important}@media print{html,body{height:auto!important;min-height:0!important;overflow:visible!important}pre{orphans:2;widows:2}}</style></head><body><h1>Draft report preview — RegTech Nexus AI</h1><pre>'+safeReport+'</pre></body></html>';
+    document.body.appendChild(printFrame);
   });
   window.addEventListener('afterprint',cleanupPrint);
   root.querySelector('#rcw-download').addEventListener('click',()=>{
