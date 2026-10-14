@@ -4,14 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>FinTech Intelligence Hub | RegTech Nexus AI</title>
-<meta name="description" content="Navigate FinTech risk and regulatory analysis through RegTech Nexus AI's connected tools for regulatory signals, trade finance, sanctions resources, policy gaps, ICMS, quantitative risk and responsible AI.">
+<meta name="description" content="Explore FinTech risk intelligence, regulatory analysis and a free global Inclusion Impact Canvas to identify barriers, document evidence and build a practical action register.">
 <link rel="canonical" href="https://regtechnexusai.com/fintech-intelligence-hub/">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#0956a8">
 <link rel="icon" type="image/png" href="/regtech-nexus-ai-logo-2026.png">
 <link rel="stylesheet" href="/styles.css?v=20261006-ui6">
 <link rel="stylesheet" href="/fintech-intelligence-hub/fintech-intelligence-hub.css?v=20261014-layout5">
+<link rel="stylesheet" href="/fintech-intelligence-hub/fintech-inclusion-lab.css?v=20261014-inclusion1">
 <script defer src="/fintech-intelligence-hub/fintech-intelligence-hub.js"></script>
+<script defer src="/fintech-intelligence-hub/fintech-inclusion-lab.js?v=20261014-inclusion1"></script>
 </head>
 <body class="fih-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -31,7 +33,7 @@
       <p class="fih-lead">Start with a FinTech question. Find the right analysis path, use the dedicated tool, verify the evidence and turn findings into accountable action.</p>
       <p class="fih-sublead">A practical starting point for learning, researching a FinTech idea and organising evidence for your next decision.</p>
       <div class="fih-tags"><span>Evidence-led</span><span>Human-reviewed</span><span>Tool boundaries preserved</span><span>Global perspective</span></div>
-      <a class="fih-primary" href="#workflows">Find the right tool ↓</a>
+      <div class="fih-hero-actions"><a class="fih-primary" href="#workflows">Find the right tool ↓</a><a class="fih-inclusion-hero-link" href="#inclusion-impact-lab">Build a FinTech Inclusion Action Plan ↗</a></div>
     </div>
     <div class="fih-hero-visual" aria-hidden="true">
       <div class="fih-orbit fih-orbit--one"></div><div class="fih-orbit fih-orbit--two"></div>
@@ -210,6 +212,63 @@
       </table>
     </div>
     <p class="fih-example-note"><b>Why this is intelligence:</b> the team connects market, regulatory, operational, financial-crime and technology questions to one business decision. The sample findings above are hypothetical; they are not claims about a real company or current legal requirements.</p>
+  </section>
+
+
+  <section class="fih-section fih-inclusion-lab" id="inclusion-impact-lab" aria-labelledby="inclusion-lab-title">
+    <div class="fih-section-heading">
+      <p class="fih-eyebrow">FREE GLOBAL WORK PRODUCT · REUSABLE FIELD KIT</p>
+      <h2 id="inclusion-lab-title">FinTech Inclusion Impact Canvas</h2>
+      <p>A practical worksheet for founders, banks, NGOs, researchers, product teams and students to test whether a digital financial service is genuinely accessible, affordable, safe and useful for people who are often left out. Use it for any country or market—then export a working action register.</p>
+    </div>
+    <div class="fih-inclusion-intro">
+      <div><b>Designed for real-world usefulness</b><p>Move beyond counting app downloads. Examine the full customer journey, barriers, evidence and remedies—from first contact to complaints and exit.</p></div>
+      <div><b>Open and reusable</b><p>Free to use and adapt with attribution to RegTech Nexus AI. This is a structured self-review, not a certification, ranking or proof of impact.</p></div>
+      <div><b>Privacy by design</b><p>Your entries stay in this browser session. This worksheet does not submit them to RegTech Nexus AI. Do not enter personal, account or confidential customer data.</p></div>
+    </div>
+    <form class="fih-inclusion-form" id="inclusion-canvas-form">
+      <div class="fih-inclusion-context">
+        <label>Product or service
+          <input id="inclusion-product" name="product" type="text" maxlength="140" placeholder="e.g. low-cost digital wallet">
+        </label>
+        <label>Country / market
+          <input id="inclusion-market" name="market" type="text" maxlength="120" placeholder="e.g. Bangladesh; cross-border pilot">
+        </label>
+        <label>People you intend to serve
+          <input id="inclusion-users" name="users" type="text" maxlength="180" placeholder="e.g. rural women, micro-merchants, people with disabilities">
+        </label>
+        <label>Review owner / team (optional)
+          <input id="inclusion-owner" name="owner" type="text" maxlength="120" placeholder="Team or role—not a personal identifier">
+        </label>
+      </div>
+      <p class="fih-inclusion-instruction">For each dimension, choose the status supported by your current evidence and add a source, observation or question. If you select “Gap identified” or “Not assessed”, the generated action register will flag follow-up work.</p>
+      <div class="fih-inclusion-checks">
+        <fieldset class="fih-inclusion-check" data-dimension="access"><legend><span>01</span><b>Reach and practical access</b></legend><p>Can intended users reach and use the service with their actual device, connectivity, electricity, location and access to cash-in/cash-out or support?</p><label>Status<select name="status-access"><option value="not-assessed">Not assessed</option><option value="supported">Evidence supports</option><option value="gap">Gap identified</option><option value="na">Not applicable (explain)</option></select></label><label>Evidence / notes<input name="evidence-access" type="text" maxlength="280" placeholder="Source, test, observation, or why not applicable"></label></fieldset>
+        <fieldset class="fih-inclusion-check" data-dimension="affordability"><legend><span>02</span><b>Affordability and transparency</b></legend><p>Are all fees, data costs, minimum balances, penalties, exchange rates and likely indirect costs understandable and manageable for the target group?</p><label>Status<select name="status-affordability"><option value="not-assessed">Not assessed</option><option value="supported">Evidence supports</option><option value="gap">Gap identified</option><option value="na">Not applicable (explain)</option></select></label><label>Evidence / notes<input name="evidence-affordability" type="text" maxlength="280" placeholder="Price test, fee schedule, user feedback…"></label></fieldset>
+        <fieldset class="fih-inclusion-check" data-dimension="usability"><legend><span>03</span><b>Language, literacy and accessibility</b></legend><p>Can people with different languages, reading levels, disabilities and digital skills complete key tasks independently, including recovery from errors?</p><label>Status<select name="status-usability"><option value="not-assessed">Not assessed</option><option value="supported">Evidence supports</option><option value="gap">Gap identified</option><option value="na">Not applicable (explain)</option></select></label><label>Evidence / notes<input name="evidence-usability" type="text" maxlength="280" placeholder="Usability test, language coverage, accessibility review…"></label></fieldset>
+        <fieldset class="fih-inclusion-check" data-dimension="onboarding"><legend><span>04</span><b>Fair and workable onboarding</b></legend><p>Are identity, documentation and verification requirements risk-based, lawful and practical for people who may lack standard documents—without bypassing required safeguards?</p><label>Status<select name="status-onboarding"><option value="not-assessed">Not assessed</option><option value="supported">Evidence supports</option><option value="gap">Gap identified</option><option value="na">Not applicable (explain)</option></select></label><label>Evidence / notes<input name="evidence-onboarding" type="text" maxlength="280" placeholder="Onboarding journey, exception path, official requirements…"></label></fieldset>
+        <fieldset class="fih-inclusion-check" data-dimension="trust"><legend><span>05</span><b>Trust, privacy and informed choice</b></legend><p>Do users understand consent, data use, permissions, sharing, automated decisions and how to stop or change the service?</p><label>Status<select name="status-trust"><option value="not-assessed">Not assessed</option><option value="supported">Evidence supports</option><option value="gap">Gap identified</option><option value="na">Not applicable (explain)</option></select></label><label>Evidence / notes<input name="evidence-trust" type="text" maxlength="280" placeholder="Consent wording, privacy notice, comprehension test…"></label></fieldset>
+        <fieldset class="fih-inclusion-check" data-dimension="safety"><legend><span>06</span><b>Fraud prevention and safe recovery</b></legend><p>Can users recognise scams, report unauthorised activity, secure or recover an account and obtain timely help without being unfairly blamed?</p><label>Status<select name="status-safety"><option value="not-assessed">Not assessed</option><option value="supported">Evidence supports</option><option value="gap">Gap identified</option><option value="na">Not applicable (explain)</option></select></label><label>Evidence / notes<input name="evidence-safety" type="text" maxlength="280" placeholder="Fraud journey, recovery test, support response…"></label></fieldset>
+        <fieldset class="fih-inclusion-check" data-dimension="redress"><legend><span>07</span><b>Complaints and customer redress</b></legend><p>Can customers raise a complaint in an accessible way, track it, receive a clear decision and challenge an error or transaction outcome?</p><label>Status<select name="status-redress"><option value="not-assessed">Not assessed</option><option value="supported">Evidence supports</option><option value="gap">Gap identified</option><option value="na">Not applicable (explain)</option></select></label><label>Evidence / notes<input name="evidence-redress" type="text" maxlength="280" placeholder="Complaint channels, response times, appeal route…"></label></fieldset>
+        <fieldset class="fih-inclusion-check" data-dimension="fairness"><legend><span>08</span><b>Fair treatment and outcome gaps</b></legend><p>Are approval, pricing, fraud flags, service quality and drop-off reviewed across relevant user groups for unjustified disparities and unintended harm?</p><label>Status<select name="status-fairness"><option value="not-assessed">Not assessed</option><option value="supported">Evidence supports</option><option value="gap">Gap identified</option><option value="na">Not applicable (explain)</option></select></label><label>Evidence / notes<input name="evidence-fairness" type="text" maxlength="280" placeholder="Disaggregated results, test design, limitations…"></label></fieldset>
+        <fieldset class="fih-inclusion-check" data-dimension="resilience"><legend><span>09</span><b>Reliability and continuity</b></legend><p>What happens during outages, weak connectivity, failed transfers, delayed settlements or agent downtime—and how are users informed and made whole?</p><label>Status<select name="status-resilience"><option value="not-assessed">Not assessed</option><option value="supported">Evidence supports</option><option value="gap">Gap identified</option><option value="na">Not applicable (explain)</option></select></label><label>Evidence / notes<input name="evidence-resilience" type="text" maxlength="280" placeholder="Failure test, refund/reversal path, continuity plan…"></label></fieldset>
+        <fieldset class="fih-inclusion-check" data-dimension="impact"><legend><span>10</span><b>Measurable benefit—not just sign-ups</b></legend><p>Will you measure whether the service improves a real outcome, such as safer saving, lower total cost, time saved, reliable payment or business resilience?</p><label>Status<select name="status-impact"><option value="not-assessed">Not assessed</option><option value="supported">Evidence supports</option><option value="gap">Gap identified</option><option value="na">Not applicable (explain)</option></select></label><label>Evidence / notes<input name="evidence-impact" type="text" maxlength="280" placeholder="Baseline, outcome measure, review period…"></label></fieldset>
+      </div>
+      <div class="fih-inclusion-actions">
+        <button type="button" class="fih-inclusion-button fih-inclusion-button--primary" id="inclusion-generate">Generate action register</button>
+        <button type="button" class="fih-inclusion-button" id="inclusion-export">Export CSV</button>
+        <button type="button" class="fih-inclusion-button" id="inclusion-print">Print / Save as PDF</button>
+        <button type="reset" class="fih-inclusion-button fih-inclusion-button--quiet" id="inclusion-reset">Reset worksheet</button>
+      </div>
+      <p class="fih-inclusion-status" id="inclusion-status" role="status" aria-live="polite">Start by describing the service and reviewing each dimension. No numerical score is produced: a single score can hide serious barriers for a particular group.</p>
+      <section class="fih-inclusion-output" id="inclusion-output" aria-labelledby="inclusion-output-title" hidden>
+        <div class="fih-inclusion-output-head"><div><p class="fih-eyebrow">YOUR WORKING OUTPUT</p><h3 id="inclusion-output-title">Inclusion action register</h3></div><span id="inclusion-summary-count"></span></div>
+        <p id="inclusion-summary-text"></p>
+        <div id="inclusion-actions-list"></div>
+        <p class="fih-inclusion-attribution">Prepared with the FinTech Inclusion Impact Canvas · RegTech Nexus AI · https://regtechnexusai.com/fintech-intelligence-hub/</p>
+      </section>
+    </form>
+    <div class="fih-inclusion-footer-note"><b>Use this as a learning and improvement tool.</b> Validate findings with the people affected, use lawful and proportionate data, document sample limitations, and assign an accountable owner and review date. Do not use it to deny services, certify compliance or compare organisations without a defensible, context-aware method.</div>
   </section>
 
   <section class="fih-section fih-scenarios" id="sample-use-cases">

@@ -1,0 +1,59 @@
+/* Global FinTech Inclusion Impact Canvas — additive component styles */
+.fih-page .fih-inclusion-lab{background:#f6fafc;border-top:1px solid var(--fih-line);border-bottom:1px solid var(--fih-line)}
+.fih-page .fih-inclusion-intro{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin:0 0 22px}
+.fih-page .fih-inclusion-intro>div{padding:20px;border:1px solid #d7e4ec;border-radius:12px;background:#fff}
+.fih-page .fih-inclusion-intro b{display:block;margin-bottom:7px;color:var(--fih-navy);font-size:.98rem;line-height:1.5}
+.fih-page .fih-inclusion-intro p{margin:0;color:var(--fih-muted);font-size:.88rem;line-height:1.75}
+.fih-page .fih-inclusion-form{max-width:1200px;margin:0 auto}
+.fih-page .fih-inclusion-context{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;padding:20px;border:1px solid #d7e4ec;border-radius:12px;background:#fff}
+.fih-page .fih-inclusion-context label,.fih-page .fih-inclusion-check label{display:flex;flex-direction:column;gap:7px;min-width:0;color:var(--fih-navy);font-size:.86rem;font-weight:750;line-height:1.5}
+.fih-page .fih-inclusion-context input,.fih-page .fih-inclusion-check input,.fih-page .fih-inclusion-check select{width:100%;min-width:0;min-height:44px;padding:10px 12px;border:1px solid #cbd9e3;border-radius:8px;background:#fff;color:#203b50;font:inherit;font-weight:400}
+.fih-page .fih-inclusion-context input:focus,.fih-page .fih-inclusion-check input:focus,.fih-page .fih-inclusion-check select:focus{outline:3px solid #b8e1e4;outline-offset:1px;border-color:#087e85}
+.fih-page .fih-inclusion-instruction{margin:18px 0;color:#405a6d;font-size:.92rem;line-height:1.75}
+.fih-page .fih-inclusion-checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.fih-page .fih-inclusion-check{display:flex;flex-direction:column;gap:13px;min-width:0;margin:0;padding:19px;border:1px solid #d7e4ec;border-radius:12px;background:#fff}
+.fih-page .fih-inclusion-check legend{display:flex;align-items:flex-start;gap:10px;max-width:100%;padding:0 0 8px;color:var(--fih-navy);line-height:1.5}
+.fih-page .fih-inclusion-check legend span{display:inline-flex;flex:none;align-items:center;justify-content:center;width:31px;height:31px;border-radius:8px;background:#e8f4f5;color:#12666d;font-size:.74rem;font-weight:900}
+.fih-page .fih-inclusion-check legend b{padding-top:4px;font-size:1rem}
+.fih-page .fih-inclusion-check>p{margin:0;color:var(--fih-muted);font-size:.88rem;line-height:1.75}
+.fih-page .fih-inclusion-check label+label{margin-top:1px}
+.fih-page .fih-inclusion-actions{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 12px}
+.fih-page .fih-inclusion-button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:11px 16px;border:1px solid #c5d6e1;border-radius:8px;background:#fff;color:#17425e;font:inherit;font-size:.88rem;font-weight:800;line-height:1.45;cursor:pointer}
+.fih-page .fih-inclusion-button:hover{border-color:#0b7191;background:#f0f8fb}
+.fih-page .fih-inclusion-button:focus-visible{outline:3px solid #a9dce1;outline-offset:2px}
+.fih-page .fih-inclusion-button--primary{border-color:#0756a3;background:#0756a3;color:#fff}
+.fih-page .fih-inclusion-button--primary:hover{background:#064681;color:#fff}
+.fih-page .fih-inclusion-button--quiet{background:transparent}
+.fih-page .fih-inclusion-status{margin:0 0 18px;padding:14px 16px;border-left:4px solid #147d83;border-radius:0 8px 8px 0;background:#eaf6f5;color:#294e5b;font-size:.9rem;line-height:1.7}
+.fih-page .fih-inclusion-output{margin-top:20px;padding:clamp(18px,3vw,28px);border:1px solid #cddfe5;border-radius:14px;background:#fff;box-shadow:0 8px 24px rgba(16,43,73,.055)}
+.fih-page .fih-inclusion-output-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.fih-page .fih-inclusion-output-head .fih-eyebrow{margin:0 0 7px}
+.fih-page .fih-inclusion-output h3{margin:0 0 12px;color:var(--fih-navy);font-size:clamp(1.25rem,2.5vw,1.7rem);line-height:1.35}
+.fih-page #inclusion-summary-count{display:inline-block;padding:7px 10px;border-radius:7px;background:#edf5fa;color:#174b69;font-size:.8rem;font-weight:850;line-height:1.5}
+.fih-page #inclusion-summary-text{color:var(--fih-muted);font-size:.92rem;line-height:1.75}
+.fih-page .fih-inclusion-action-row{padding:15px 0;border-top:1px solid #e2ebf0}
+.fih-page .fih-inclusion-action-row h4{margin:0 0 6px;color:var(--fih-navy);font-size:.98rem;line-height:1.5}
+.fih-page .fih-inclusion-action-row p{margin:5px 0;color:#4e6374;font-size:.88rem;line-height:1.7;overflow-wrap:anywhere}
+.fih-page .fih-inclusion-action-row .fih-inclusion-next{color:#184e68}
+.fih-page .fih-inclusion-attribution{margin:18px 0 0;padding-top:13px;border-top:1px solid #e2ebf0;color:#607587;font-size:.78rem;line-height:1.7;overflow-wrap:anywhere}
+.fih-page .fih-inclusion-footer-note{margin:22px 0 0;padding:18px 20px;border-left:4px solid #147d83;border-radius:0 10px 10px 0;background:#eaf6f5;color:#385766;font-size:.89rem;line-height:1.8}
+.fih-page .fih-inclusion-footer-note b{color:#173e52}
+@media(max-width:760px){.fih-page .fih-inclusion-intro,.fih-page .fih-inclusion-checks{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:560px){.fih-page .fih-inclusion-context{grid-template-columns:minmax(0,1fr);padding:15px}.fih-page .fih-inclusion-check{padding:16px}.fih-page .fih-inclusion-actions{display:grid;grid-template-columns:minmax(0,1fr)}.fih-page .fih-inclusion-button{width:100%}.fih-page .fih-inclusion-intro>div{padding:17px}}
+@media print{
+  body.fih-page *{visibility:hidden!important}
+  body.fih-page #inclusion-impact-lab,body.fih-page #inclusion-impact-lab *{visibility:visible!important}
+  body.fih-page #inclusion-impact-lab{position:absolute!important;inset:0 auto auto 0!important;width:100%!important;padding:0!important;background:#fff!important;border:0!important}
+  body.fih-page #inclusion-impact-lab .fih-inclusion-actions,body.fih-page #inclusion-impact-lab .fih-inclusion-status,body.fih-page #inclusion-impact-lab .fih-inclusion-intro{display:none!important}
+  body.fih-page #inclusion-impact-lab .fih-inclusion-context,body.fih-page #inclusion-impact-lab .fih-inclusion-check,body.fih-page #inclusion-impact-lab .fih-inclusion-output{break-inside:avoid;box-shadow:none!important}
+  body.fih-page #inclusion-impact-lab .fih-inclusion-checks{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  body.fih-page #inclusion-impact-lab .fih-inclusion-context input,body.fih-page #inclusion-impact-lab .fih-inclusion-check input,body.fih-page #inclusion-impact-lab .fih-inclusion-check select{border:0!important;border-bottom:1px solid #999!important;border-radius:0!important;padding-left:0!important}
+  body.fih-page #inclusion-impact-lab .fih-inclusion-button{display:none!important}
+}
+
+/* Hero discovery link for the global inclusion field kit */
+.fih-page .fih-hero-actions{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:8px}
+.fih-page .fih-hero-actions .fih-primary{margin:0}
+.fih-page .fih-inclusion-hero-link{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:11px 14px;border:1px solid rgba(255,255,255,.55);border-radius:8px;color:#fff!important;font-size:.9rem;font-weight:800;line-height:1.5;text-decoration:none;background:rgba(255,255,255,.09)}
+.fih-page .fih-inclusion-hero-link:hover{background:rgba(255,255,255,.17);text-decoration:underline;text-underline-offset:3px}
+@media(max-width:600px){.fih-page .fih-hero-actions{align-items:stretch;flex-direction:column}.fih-page .fih-hero-actions .fih-primary,.fih-page .fih-inclusion-hero-link{width:100%;text-align:center}}
