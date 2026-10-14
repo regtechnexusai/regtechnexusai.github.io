@@ -132,6 +132,31 @@
     });
     updateSources();
   }));
+  const loadRegisterData = async () => {
+    try {
+      const response = await fetch('/global-coverage/coverage-data.json', {mode:'same-origin'});
+      if (!response.ok) throw new Error('Register data unavailable');
+      const register = await response.json();
+      const tbody = document.querySelector('#gc-topic-matrix tbody');
+      if (!tbody || !Array.isArray(register.topic_domains)) return;
+      tbody.innerHTML = register.topic_domains.map(domain => {
+        const topicKey = (domain.id + ' ' + domain.label + ' ' + domain.evidence_required.join(' ')).toLowerCase().replace(/"/g,'&quot;');
+        const next = domain.evidence_required.slice(0,4).join('; ');
+        return '<tr data-topic="' + safeText(topicKey) + '"><td><b>' + safeText(domain.label) + '</b></td><td>' + safeText(domain.baseline) + '</td><td>Not yet verified</td><td><span class="gc-status-pill">Not assessed</span></td><td>Verify: ' + safeText(next) + '.</td></tr>';
+      }).join('');
+      const count = register.topic_domains.length;
+      const heading = document.querySelector('.gc-matrix-head h3');
+      if (heading) heading.textContent = 'Coverage areas (' + count + ' domains) for selected jurisdiction';
+      if (register.coverage_note) {
+        const note = document.querySelector('.gc-matrix-footnote');
+        if (note) note.textContent = register.coverage_note;
+      }
+    } catch (e) {
+      // Keep the static matrix as a graceful fallback if the data file is unavailable.
+    }
+  };
+  loadRegisterData();
+
   const topicSearch = document.getElementById('gc-topic-filter');
   if (topicSearch) topicSearch.addEventListener('input', () => {
     const term = topicSearch.value.trim().toLowerCase();
