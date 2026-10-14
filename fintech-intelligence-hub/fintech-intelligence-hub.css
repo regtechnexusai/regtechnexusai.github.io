@@ -345,3 +345,26 @@ body:has(.fih-hero) a{overflow-wrap:break-word;word-break:normal;hyphens:none}
 .fih-brief-side p b{color:var(--gc-navy)}
 @media(max-width:980px){.fih-intelligence-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.fih-brief-grid{grid-template-columns:1fr}}
 @media(max-width:650px){.fih-intelligence-grid,.fih-audience-grid,.fih-example-summary,.fih-scenario-grid{grid-template-columns:1fr}.fih-intelligence-grid article,.fih-audience-grid article{padding:18px}.fih-brief-paper dl>div{grid-template-columns:1fr;gap:5px}.fih-brief-header{font-size:.58rem}.fih-scenario summary{padding:15px}.fih-scenario>div{padding:0 15px 15px}}
+
+
+/* Phase 1: audience-first pathways and beginner glossary */
+.fih-page .fih-start-here{background:#f7fafc;border-top:1px solid var(--fih-line);border-bottom:1px solid var(--fih-line)}
+.fih-page .fih-start-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;max-width:1440px}
+.fih-page .fih-start-card{display:flex;flex-direction:column;align-items:flex-start;min-width:0;padding:22px;border:1px solid #d7e4ec;border-radius:14px;background:#fff;box-shadow:0 6px 20px rgba(16,43,73,.045)}
+.fih-page .fih-start-number{display:inline-flex;align-items:center;min-height:28px;padding:5px 9px;border-radius:6px;background:#eaf4f8;color:#155a78;font-size:.67rem;font-weight:850;letter-spacing:.045em;line-height:1.45}
+.fih-page .fih-start-card h3{margin:15px 0 9px;color:var(--fih-navy);font-size:1.08rem;line-height:1.45}
+.fih-page .fih-start-card p,.fih-page .fih-start-card li{color:var(--fih-muted);font-size:.88rem;line-height:1.7}
+.fih-page .fih-start-card p{margin:0}
+.fih-page .fih-start-card ul{margin:12px 0 18px;padding-left:19px}
+.fih-page .fih-start-card li+li{margin-top:5px}
+.fih-page .fih-start-link{display:inline-flex;align-items:flex-start;gap:6px;margin-top:auto;color:#0756a3!important;font-size:.9rem;font-weight:800;line-height:1.6;text-decoration:underline;text-underline-offset:3px}
+.fih-page .fih-start-secondary{display:inline-block;margin-top:12px;color:#365f78!important;font-size:.82rem;line-height:1.6;text-decoration:underline;text-underline-offset:3px}
+.fih-page .fih-glossary{background:#fff}
+.fih-page .fih-glossary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0}
+.fih-page .fih-glossary-grid>div{min-width:0;padding:18px 20px;border:1px solid #d9e5ec;border-radius:11px;background:#fbfdfe}
+.fih-page .fih-glossary-grid dt{margin:0 0 7px;color:var(--fih-navy);font-size:.98rem;font-weight:850;line-height:1.5}
+.fih-page .fih-glossary-grid dd{margin:0;color:var(--fih-muted);font-size:.88rem;line-height:1.75}
+.fih-page .fih-glossary-next{margin:20px 0 0;color:var(--fih-muted);font-size:.93rem;line-height:1.8}
+.fih-page .fih-glossary-next a{color:#0756a3;font-weight:750;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:1180px){.fih-page .fih-start-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.fih-page .fih-start-grid,.fih-page .fih-glossary-grid{grid-template-columns:minmax(0,1fr)}.fih-page .fih-start-card{padding:19px}.fih-page .fih-glossary-grid>div{padding:16px}}
