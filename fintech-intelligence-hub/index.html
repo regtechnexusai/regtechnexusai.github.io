@@ -13,9 +13,11 @@
 <link rel="stylesheet" href="/fintech-intelligence-hub/fintech-intelligence-hub.css?v=20261014-layout5">
 <link rel="stylesheet" href="/fintech-intelligence-hub/fintech-inclusion-lab.css?v=20261014-inclusion1">
 <link rel="stylesheet" href="/fintech-intelligence-hub/fintech-phase2-toolkit.css?v=20261014-printfix1">
+<link rel="stylesheet" href="/fintech-intelligence-hub/regulatory-coverage-workbench.css?v=20261014-wb1">
 <script defer src="/fintech-intelligence-hub/fintech-intelligence-hub.js"></script>
 <script defer src="/fintech-intelligence-hub/fintech-inclusion-lab.js?v=20261014-inclusion1"></script>
 <script defer src="/fintech-intelligence-hub/fintech-phase2-toolkit.js?v=20261014-phase2b"></script>
+<script defer src="/fintech-intelligence-hub/regulatory-coverage-workbench.js?v=20261014-wb1"></script>
 </head>
 <body class="fih-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -35,7 +37,7 @@
       <p class="fih-lead">Start with a FinTech question. Find the right analysis path, use the dedicated tool, verify the evidence and turn findings into accountable action.</p>
       <p class="fih-sublead">A practical starting point for learning, researching a FinTech idea and organising evidence for your next decision.</p>
       <div class="fih-tags"><span>Evidence-led</span><span>Human-reviewed</span><span>Tool boundaries preserved</span><span>Global perspective</span></div>
-      <div class="fih-hero-actions"><a class="fih-primary" href="#workflows">Find the right tool ↓</a><a class="fih-inclusion-hero-link" href="#inclusion-impact-lab">Build a FinTech Inclusion Action Plan ↗</a><a class="fih-inclusion-hero-link" href="#phase2-work-products">Explore Phase 2 Work Products ↗</a></div>
+      <div class="fih-hero-actions"><a class="fih-primary" href="#workflows">Find the right tool ↓</a><a class="fih-inclusion-hero-link" href="#inclusion-impact-lab">Build a FinTech Inclusion Action Plan ↗</a><a class="fih-inclusion-hero-link" href="#phase2-work-products">Explore Phase 2 Work Products ↗</a><a class="fih-inclusion-hero-link" href="#regulatory-coverage-workbench">Open Regulatory Coverage Workbench ↗</a></div>
     </div>
     <div class="fih-hero-visual" aria-hidden="true">
       <div class="fih-orbit fih-orbit--one"></div><div class="fih-orbit fih-orbit--two"></div>
@@ -273,6 +275,116 @@
     <div class="fih-inclusion-footer-note"><b>Use this as a learning and improvement tool.</b> Validate findings with the people affected, use lawful and proportionate data, document sample limitations, and assign an accountable owner and review date. Do not use it to deny services, certify compliance or compare organisations without a defensible, context-aware method.</div>
   </section>
 
+
+
+  <section class="rcw-section" id="regulatory-coverage-workbench" aria-labelledby="rcw-title">
+    <p class="rcw-kicker">GLOBAL COVERAGE · REGULATORY EVIDENCE · DECISION SUPPORT</p>
+    <h2 id="rcw-title">FinTech Regulatory Coverage &amp; Decision Workbench</h2>
+    <p class="rcw-lead">Select a country or jurisdiction, identify the relevant authority, record the circular or legal reference, and prepare a structured evidence-led brief. The register below reflects selected records from the current coverage workbook; it is not a complete or live regulatory database.</p>
+    <div aria-label="Workbench capabilities">
+      <span class="rcw-coverage-label">221 jurisdiction / framework labels</span>
+      <span class="rcw-coverage-label">Authority dropdowns where mapped</span>
+      <span class="rcw-coverage-label">Circular &amp; reference fields</span>
+      <span class="rcw-coverage-label">A4 Print / Save as PDF</span>
+    </div>
+    <div class="rcw-grid">
+      <div class="rcw-card">
+        <h3>1. Jurisdiction &amp; source</h3>
+        <form id="rcw-form">
+          <div class="rcw-field">
+            <label for="rcw-country">Country / jurisdiction *</label>
+            <select id="rcw-country" name="country" required><option value="">Loading jurisdiction register…</option></select>
+          </div>
+          <div class="rcw-field">
+            <label for="rcw-authority">Regulator / issuing authority / source body</label>
+            <select id="rcw-authority" name="authority"><option value="">Select country first</option></select>
+            <p class="rcw-help" id="rcw-authority-help">Select a jurisdiction to view mapped sources.</p>
+          </div>
+          <div class="rcw-field">
+            <label for="rcw-type">Instrument / source type *</label>
+            <select id="rcw-type" name="type" required>
+              <option value="">Select source type</option>
+              <option>Circular / Circular Letter / Regulatory Notice</option>
+              <option>Act / Law / Regulation</option>
+              <option>Directive / Guideline / Rule</option>
+              <option>International Standard / Recommendation</option>
+              <option>Consultation / Proposed Rule</option>
+              <option>Official Report / Risk Assessment</option>
+              <option>Other official source</option>
+            </select>
+          </div>
+          <div class="rcw-field">
+            <label for="rcw-circular-no">Circular / reference number</label>
+            <input id="rcw-circular-no" name="circularNo" placeholder="e.g., BFIU Circular No. 33 / Rule number">
+          </div>
+          <div class="rcw-field">
+            <label for="rcw-instrument">Official title / subject</label>
+            <input id="rcw-instrument" name="instrument" placeholder="Use the title shown in the official source">
+          </div>
+          <div class="rcw-grid">
+            <div class="rcw-field">
+              <label for="rcw-issue-date">Issue / publication date</label>
+              <input type="date" id="rcw-issue-date" name="issueDate">
+            </div>
+            <div class="rcw-field">
+              <label for="rcw-effective-date">Effective date</label>
+              <input type="date" id="rcw-effective-date" name="effectiveDate">
+            </div>
+          </div>
+          <div class="rcw-field">
+            <label for="rcw-reference-date">Reference / source verification date *</label>
+            <input type="date" id="rcw-reference-date" name="referenceDate" value="2026-10-14" required>
+          </div>
+          <div class="rcw-field">
+            <label for="rcw-source-url">Official source / document URL</label>
+            <input type="url" id="rcw-source-url" name="sourceUrl" placeholder="https:// official regulator or government source">
+          </div>
+          <div class="rcw-field">
+            <label for="rcw-decision">Decision or question to answer *</label>
+            <textarea id="rcw-decision" name="decision" required placeholder="What FinTech, regulatory, risk or business decision needs support?"></textarea>
+          </div>
+          <div class="rcw-field">
+            <label for="rcw-facts">Facts, evidence and relevant observations</label>
+            <textarea id="rcw-facts" name="facts" placeholder="Record verified facts, excerpts with citations, metrics, or a summary of non-confidential evidence."></textarea>
+          </div>
+          <div class="rcw-field">
+            <label for="rcw-limitations">Assumptions, evidence gaps and limitations</label>
+            <textarea id="rcw-limitations" name="limitations" placeholder="What is missing, not verified, possibly amended, or outside the scope?"></textarea>
+          </div>
+          <div class="rcw-actions">
+            <button class="rcw-btn" type="submit">Generate decision-support brief</button>
+            <button class="rcw-btn rcw-btn--secondary" type="button" id="rcw-download">Export TXT</button>
+            <button class="rcw-btn rcw-btn--secondary" type="button" id="rcw-print">Print / Save as PDF</button>
+          </div>
+          <p class="rcw-status" id="rcw-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+      <div class="rcw-card">
+        <h3>2. Existing reference register</h3>
+        <p class="rcw-help">Search the selected Bangladesh circular / circular-letter entries imported from workbook v7.9. Choose a record by searching its number, date, sector or title, then use “Load matching record” to copy the metadata into the form.</p>
+        <div class="rcw-field">
+          <label for="rcw-record-search">Search circular / letter register</label>
+          <input class="rcw-search" id="rcw-record-search" type="search" placeholder="e.g., BFIU Circular No. 33, CTR, 2026">
+        </div>
+        <div class="rcw-actions">
+          <button class="rcw-btn rcw-btn--secondary" type="button" id="rcw-fill-record">Load matching record</button>
+        </div>
+        <div class="rcw-table-wrap" style="margin-top:14px">
+          <table class="rcw-table">
+            <thead><tr><th>Issue date</th><th>Instrument / number</th><th>Sector</th><th>Verification status</th><th>Source</th></tr></thead>
+            <tbody id="rcw-evidence-list"><tr><td colspan="5">Loading reference register…</td></tr></tbody>
+          </table>
+        </div>
+        <p class="rcw-help" style="margin-top:12px">A catalogue entry or URL is not proof that the full legal text has been reviewed. Verification status is shown explicitly; verify the original source and any amendments before operational use.</p>
+      </div>
+    </div>
+    <div class="rcw-note" style="margin-top:16px"><strong>Privacy and reliability:</strong> Use only public, synthetic or otherwise authorised non-sensitive information. Do not enter customer data, account numbers, credentials, transaction details or confidential bank records. This first version structures supplied information and selected workbook metadata; it does not run live AI analysis, automatically verify laws, or certify compliance. International standards and recommendations must be distinguished from binding domestic requirements.</div>
+    <div class="rcw-output" id="rcw-output" hidden aria-labelledby="rcw-report-title">
+      <h3 id="rcw-report-title">Draft report preview — RegTech Nexus AI</h3>
+      <pre id="rcw-report-preview"></pre>
+      <div class="rcw-actions"><button class="rcw-btn" type="button" id="rcw-print-preview" onclick="document.getElementById('rcw-print').click()">Print / Save as PDF</button></div>
+    </div>
+  </section>
 
   <section class="fih-section fih-phase2" id="phase2-work-products" aria-labelledby="phase2-title">
     <div class="fih-section-heading">
