@@ -288,3 +288,60 @@ body:has(.fih-hero) a{overflow-wrap:break-word;word-break:normal;hyphens:none}
  .fih-page .gc-footer nav a{font-size:13px}
 }
 @media(prefers-reduced-motion:reduce){.fih-page .fih-card{transition:none}.fih-page .fih-card:hover{transform:none}}
+
+
+/* Practical FinTech intelligence sections — additive styles */
+.fih-section-heading{max-width:900px;margin:0 0 28px}
+.fih-section-heading h2{margin:0 0 13px;color:var(--gc-navy);font-size:clamp(1.85rem,3.8vw,2.8rem);line-height:1.12;letter-spacing:-.035em}
+.fih-section-heading>p:last-child{margin:0;color:var(--gc-muted);font-size:1rem;line-height:1.75}
+.fih-intelligence-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.fih-intelligence-grid article,.fih-audience-grid article{min-width:0;padding:22px;border:1px solid var(--gc-line);border-radius:14px;background:#fff;box-shadow:0 7px 22px rgba(16,43,73,.035)}
+.fih-mini-icon{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:#e9f4fa;color:var(--gc-blue);font-size:.8rem;font-weight:900}
+.fih-intelligence-grid h3,.fih-audience-grid h3{margin:15px 0 8px;color:var(--gc-navy);font-size:1.08rem;line-height:1.3}
+.fih-intelligence-grid p,.fih-audience-grid p,.fih-audience-grid li{color:var(--gc-muted);font-size:.9rem;line-height:1.7}
+.fih-intelligence-grid p,.fih-audience-grid p{margin:0}
+.fih-callout{margin-top:18px;padding:18px 20px;border-left:4px solid var(--gc-teal);border-radius:0 10px 10px 0;background:#edf8f6;color:#254657;line-height:1.7}
+.fih-audience-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.fih-audience-grid ul{margin:12px 0 0;padding-left:19px}
+.fih-audience-grid li+li{margin-top:4px}
+.fih-worked-example{background:#f7fafc;border-top:1px solid var(--gc-line);border-bottom:1px solid var(--gc-line)}
+.fih-example-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 20px}
+.fih-example-summary>div{padding:17px;border:1px solid #d7e4eb;border-radius:11px;background:#fff}
+.fih-example-summary span{display:block;margin-bottom:8px;color:var(--gc-teal);font-size:.68rem;font-weight:900;letter-spacing:.09em}
+.fih-example-summary b{display:block;color:var(--gc-navy);font-size:.94rem;line-height:1.5}
+.fih-table-wrap{overflow-x:auto;border:1px solid var(--gc-line);border-radius:12px;background:#fff}
+.fih-example-table{width:100%;min-width:820px;border-collapse:collapse}
+.fih-example-table th{padding:14px 15px;background:#eaf2f7;color:var(--gc-navy);font-size:.76rem;text-align:left;vertical-align:top}
+.fih-example-table td{padding:15px;border-top:1px solid #e4edf2;color:#4c6073;font-size:.84rem;line-height:1.65;vertical-align:top}
+.fih-example-table td:first-child{min-width:140px;color:var(--gc-navy)}
+.fih-example-note{margin:15px 0 0;color:var(--gc-muted);font-size:.86rem;line-height:1.7}
+.fih-scenario-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;align-items:start}
+.fih-scenario{min-width:0;border:1px solid var(--gc-line);border-radius:12px;background:#fff;overflow:hidden}
+.fih-scenario summary{display:flex;align-items:flex-start;gap:12px;padding:18px;cursor:pointer;list-style:none;color:var(--gc-navy);line-height:1.45}
+.fih-scenario summary::-webkit-details-marker{display:none}
+.fih-scenario summary:after{content:"+";margin-left:auto;color:var(--gc-blue);font-size:1.2rem;font-weight:800}
+.fih-scenario[open] summary:after{content:"−"}
+.fih-scenario summary span{display:inline-flex;flex:none;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:#edf5fb;color:var(--gc-blue);font-size:.75rem;font-weight:900}
+.fih-scenario summary b{padding-top:4px;font-size:.97rem}
+.fih-scenario>div{padding:0 18px 18px}
+.fih-scenario>div p{margin:0 0 10px;color:var(--gc-muted);font-size:.86rem;line-height:1.7}
+.fih-scenario>div p:last-child{margin-bottom:0}
+.fih-scenario>div b{color:var(--gc-navy)}
+.fih-brief-section{background:#f8fbfd;border-top:1px solid var(--gc-line)}
+.fih-brief-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr);gap:18px;align-items:start}
+.fih-brief-paper{padding:clamp(18px,3vw,30px);border:1px solid #d5e2e9;border-radius:14px;background:#fff;box-shadow:0 10px 32px rgba(16,43,73,.055)}
+.fih-brief-header{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--gc-teal);font-size:.65rem;font-weight:900;letter-spacing:.06em}
+.fih-brief-paper h3{margin:18px 0;color:var(--gc-navy);font-size:1.5rem}
+.fih-brief-paper dl{margin:0}
+.fih-brief-paper dl>div{display:grid;grid-template-columns:minmax(135px,.62fr) minmax(0,1fr);gap:15px;padding:13px 0;border-top:1px solid #e8eef2}
+.fih-brief-paper dt{color:var(--gc-navy);font-size:.84rem;font-weight:800}
+.fih-brief-paper dd{margin:0;color:var(--gc-muted);font-size:.84rem;line-height:1.65}
+.fih-brief-side{padding:22px;border:1px solid #d5e2e9;border-radius:14px;background:#eef5fa}
+.fih-brief-side h3{margin:0 0 12px;color:var(--gc-navy);font-size:1.15rem}
+.fih-brief-side ol{padding-left:20px;margin:0 0 18px}
+.fih-brief-side li,.fih-brief-side p{color:#4d6174;font-size:.86rem;line-height:1.7}
+.fih-brief-side li+li{margin-top:7px}
+.fih-brief-side p{margin:0;padding-top:15px;border-top:1px solid #d5e2e9}
+.fih-brief-side p b{color:var(--gc-navy)}
+@media(max-width:980px){.fih-intelligence-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.fih-brief-grid{grid-template-columns:1fr}}
+@media(max-width:650px){.fih-intelligence-grid,.fih-audience-grid,.fih-example-summary,.fih-scenario-grid{grid-template-columns:1fr}.fih-intelligence-grid article,.fih-audience-grid article{padding:18px}.fih-brief-paper dl>div{grid-template-columns:1fr;gap:5px}.fih-brief-header{font-size:.58rem}.fih-scenario summary{padding:15px}.fih-scenario>div{padding:0 15px 15px}}
