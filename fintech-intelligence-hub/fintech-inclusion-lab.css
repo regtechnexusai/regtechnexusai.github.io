@@ -50,3 +50,10 @@
   body.fih-page #inclusion-impact-lab .fih-inclusion-context input,body.fih-page #inclusion-impact-lab .fih-inclusion-check input,body.fih-page #inclusion-impact-lab .fih-inclusion-check select{border:0!important;border-bottom:1px solid #999!important;border-radius:0!important;padding-left:0!important}
   body.fih-page #inclusion-impact-lab .fih-inclusion-button{display:none!important}
 }
+
+/* Hero discovery link for the global inclusion field kit */
+.fih-page .fih-hero-actions{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:8px}
+.fih-page .fih-hero-actions .fih-primary{margin:0}
+.fih-page .fih-inclusion-hero-link{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:11px 14px;border:1px solid rgba(255,255,255,.55);border-radius:8px;color:#fff!important;font-size:.9rem;font-weight:800;line-height:1.5;text-decoration:none;background:rgba(255,255,255,.09)}
+.fih-page .fih-inclusion-hero-link:hover{background:rgba(255,255,255,.17);text-decoration:underline;text-underline-offset:3px}
+@media(max-width:600px){.fih-page .fih-hero-actions{align-items:stretch;flex-direction:column}.fih-page .fih-hero-actions .fih-primary,.fih-page .fih-inclusion-hero-link{width:100%;text-align:center}}
