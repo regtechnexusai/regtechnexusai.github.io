@@ -368,3 +368,73 @@ body:has(.fih-hero) a{overflow-wrap:break-word;word-break:normal;hyphens:none}
 .fih-page .fih-glossary-next a{color:#0756a3;font-weight:750;text-decoration:underline;text-underline-offset:3px}
 @media(max-width:1180px){.fih-page .fih-start-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.fih-page .fih-start-grid,.fih-page .fih-glossary-grid{grid-template-columns:minmax(0,1fr)}.fih-page .fih-start-card{padding:19px}.fih-page .fih-glossary-grid>div{padding:16px}}
+
+
+/* Layout repair: keep the reusable brief template readable at every viewport. */
+.fih-page .fih-brief-grid{
+  grid-template-columns:minmax(0,1.45fr) minmax(0,.75fr);
+  min-width:0;
+}
+.fih-page .fih-brief-paper,
+.fih-page .fih-brief-side{
+  min-width:0;
+  overflow-wrap:anywhere;
+}
+.fih-page .fih-brief-header{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  align-items:stretch;
+  gap:8px;
+  margin:0 0 18px;
+  font-size:.68rem;
+  letter-spacing:.045em;
+}
+.fih-page .fih-brief-header span{
+  display:flex;
+  align-items:center;
+  min-width:0;
+  min-height:42px;
+  padding:10px 12px;
+  border:1px solid #d8e9e9;
+  border-radius:8px;
+  background:#eef7f7;
+  color:#12666d;
+  line-height:1.5;
+  overflow-wrap:anywhere;
+}
+.fih-page .fih-brief-paper h3{
+  margin:0 0 18px;
+  font-size:clamp(1.3rem,2.2vw,1.55rem);
+  line-height:1.3;
+  overflow-wrap:break-word;
+}
+.fih-page .fih-brief-paper dl>div{
+  grid-template-columns:minmax(125px,.65fr) minmax(0,1fr);
+}
+.fih-page .fih-brief-paper dt,
+.fih-page .fih-brief-paper dd{
+  min-width:0;
+  overflow-wrap:anywhere;
+}
+.fih-page .fih-brief-side li,
+.fih-page .fih-brief-side p{
+  overflow-wrap:anywhere;
+}
+@media(max-width:650px){
+  .fih-page .fih-brief-header{
+    grid-template-columns:minmax(0,1fr);
+    gap:7px;
+    font-size:.68rem;
+  }
+  .fih-page .fih-brief-header span{
+    min-height:0;
+    padding:9px 11px;
+  }
+  .fih-page .fih-brief-paper{
+    padding:18px;
+  }
+  .fih-page .fih-brief-paper dl>div{
+    grid-template-columns:minmax(0,1fr);
+    gap:5px;
+  }
+}
