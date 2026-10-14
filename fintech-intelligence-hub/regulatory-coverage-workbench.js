@@ -114,7 +114,7 @@
     "Germany": [
       ["Federal Financial Supervisory Authority (BaFin)","Financial services, banking, securities and insurance supervision","https://www.bafin.de/EN/Homepage/homepage_node.html"],
       ["Deutsche Bundesbank","Central banking and banking supervision functions","https://www.bundesbank.de/en"],
-      ["Financial Intelligence Unit Germany (FIU)","Financial intelligence and suspicious transaction reporting","https://www.zoll.de/EN/Businesses/Movement-of-goods/Import/Restrictions/Restrictions_node.html"],
+      ["Financial Intelligence Unit Germany (FIU)","Financial intelligence and suspicious transaction reporting","https://www.zoll.de/EN/Home/home_node.html"],
       ["Gesetze im Internet","Official federal legislation portal","https://www.gesetze-im-internet.de/"]
     ],
     "Italy": [
