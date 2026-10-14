@@ -1,4 +1,13 @@
 (() => {
+  const menu = document.querySelector('.gc-nav .menu');
+  const nav = document.getElementById('main-nav');
+  if (menu && nav) {
+    menu.addEventListener('click', () => {
+      const open = nav.classList.toggle('is-open');
+      menu.setAttribute('aria-expanded', open ? 'true' : 'false');
+      menu.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    });
+  }
   const search = document.getElementById('gc-search');
   const cards = Array.from(document.querySelectorAll('.gc-card'));
   const filters = Array.from(document.querySelectorAll('.gc-filter'));
