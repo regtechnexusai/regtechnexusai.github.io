@@ -58,9 +58,16 @@
 @media(max-width:650px){.fih-page .fih-phase2-fields,.fih-page .fih-phase2-case-grid{grid-template-columns:minmax(0,1fr)}.fih-page .fih-phase2-check-fields{grid-template-columns:minmax(0,1fr)}.fih-page .fih-phase2-check-fields label:nth-child(2){grid-column:auto}.fih-page .fih-phase2-actions{display:grid;grid-template-columns:minmax(0,1fr)}.fih-page .fih-phase2-btn{width:100%}.fih-page .fih-phase2-nav{display:grid;grid-template-columns:minmax(0,1fr)}.fih-page .fih-phase2-nav a{width:100%;box-sizing:border-box}.fih-page .fih-phase2-heading>span{width:36px;height:36px}.fih-page .fih-phase2-card{padding:16px}}
 @media print{
  body.fih-page *{visibility:hidden!important}
- body.fih-page #phase2-brief,body.fih-page #phase2-brief *,body.fih-page #phase2-readiness,body.fih-page #phase2-readiness *,body.fih-page #phase2-case,body.fih-page #phase2-case *{visibility:visible!important}
- body.fih-page #phase2-brief,body.fih-page #phase2-readiness,body.fih-page #phase2-case{position:relative!important;display:block!important;width:100%!important;margin:0 0 20px!important;padding:0!important;border:0!important;box-shadow:none!important;background:#fff!important;break-inside:auto}
- body.fih-page #phase2-work-products> .fih-section-heading,body.fih-page .fih-phase2-nav,body.fih-page .fih-phase2-actions,body.fih-page .fih-phase2-status,body.fih-page .fih-phase2-note{display:none!important}
+ body.fih-page[data-phase2-print="brief"] #phase2-brief,body.fih-page[data-phase2-print="brief"] #phase2-brief *,
+ body.fih-page[data-phase2-print="readiness"] #phase2-readiness,body.fih-page[data-phase2-print="readiness"] #phase2-readiness *,
+ body.fih-page[data-phase2-print="case"] #phase2-case,body.fih-page[data-phase2-print="case"] #phase2-case *{visibility:visible!important}
+ body.fih-page[data-phase2-print="brief"] #phase2-brief,body.fih-page[data-phase2-print="readiness"] #phase2-readiness,body.fih-page[data-phase2-print="case"] #phase2-case{position:relative!important;display:block!important;width:100%!important;margin:0!important;padding:0!important;border:0!important;box-shadow:none!important;background:#fff!important;break-inside:auto}
+ body.fih-page[data-phase2-print="brief"] #phase2-work-products> .fih-section-heading,body.fih-page[data-phase2-print="brief"] .fih-phase2-nav,
+ body.fih-page[data-phase2-print="brief"] .fih-phase2-actions,body.fih-page[data-phase2-print="brief"] .fih-phase2-status,
+ body.fih-page[data-phase2-print="readiness"] #phase2-work-products> .fih-section-heading,body.fih-page[data-phase2-print="readiness"] .fih-phase2-nav,
+ body.fih-page[data-phase2-print="readiness"] .fih-phase2-actions,body.fih-page[data-phase2-print="readiness"] .fih-phase2-status,body.fih-page[data-phase2-print="readiness"] .fih-phase2-note,
+ body.fih-page[data-phase2-print="case"] #phase2-work-products> .fih-section-heading,body.fih-page[data-phase2-print="case"] .fih-phase2-nav,
+ body.fih-page[data-phase2-print="case"] .fih-phase2-actions{display:none!important}
  body.fih-page .fih-phase2-card .fih-phase2-fields input,body.fih-page .fih-phase2-card .fih-phase2-fields textarea,body.fih-page .fih-phase2-card .fih-phase2-check-fields input,body.fih-page .fih-phase2-card .fih-phase2-check-fields select{border:0!important;border-bottom:1px solid #aaa!important;border-radius:0!important;padding-left:0!important}
  body.fih-page .fih-phase2-check,body.fih-page .fih-phase2-case-grid article,body.fih-page .fih-phase2-output{break-inside:avoid;box-shadow:none!important}
  body.fih-page .fih-phase2-case-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
