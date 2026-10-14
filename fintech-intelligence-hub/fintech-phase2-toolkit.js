@@ -69,7 +69,8 @@
     download(safeName(field(brief,'title'),'fintech-intelligence-brief')+'.txt','text/plain;charset=utf-8',makeBrief());
     document.getElementById('phase2-brief-status').textContent = 'Text export prepared in your browser. Review and store the file securely.';
   });
-  document.getElementById('phase2-brief-print').addEventListener('click',() => { renderBrief(); window.print(); });
+  const printOnly = (which) => { document.body.setAttribute('data-phase2-print',which); window.addEventListener('afterprint',() => document.body.removeAttribute('data-phase2-print'),{once:true}); window.print(); };
+  document.getElementById('phase2-brief-print').addEventListener('click',() => { renderBrief(); printOnly('brief'); });
   brief.addEventListener('reset',() => window.setTimeout(() => {
     document.getElementById('phase2-brief-output').hidden = true;
     document.getElementById('phase2-brief-preview').textContent = '';
@@ -134,7 +135,7 @@
     download(safeName(field(readiness,'product'),'regulatory-readiness')+'-readiness-checklist.csv','text/csv;charset=utf-8',rows.map(row=>row.map(csvCell).join(',')).join('\r\n'));
     document.getElementById('phase2-readiness-status').textContent = 'CSV export prepared in your browser. Store and share only through an approved process.';
   });
-  document.getElementById('phase2-readiness-print').addEventListener('click',() => { renderReadiness(); window.print(); });
+  document.getElementById('phase2-readiness-print').addEventListener('click',() => { renderReadiness(); printOnly('readiness'); });
   readiness.addEventListener('reset',() => window.setTimeout(() => {
     document.getElementById('phase2-readiness-output').hidden = true;
     document.getElementById('phase2-readiness-summary').textContent = '';
@@ -142,5 +143,5 @@
     document.getElementById('phase2-readiness-status').textContent = 'Checklist reset. Reconfirm jurisdiction and use current official sources.';
   },0));
 
-  document.getElementById('phase2-case-print').addEventListener('click',() => window.print());
+  document.getElementById('phase2-case-print').addEventListener('click',() => printOnly('case'));
 })();
