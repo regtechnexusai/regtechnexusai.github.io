@@ -1,0 +1,17 @@
+/* RegTech Nexus AI — site-wide visual consistency layer. Presentation only. */
+:root{--rt-shell-ink:#10203b;--rt-shell-blue:#0956a8;--rt-shell-line:#dce4ec}
+body:not(.homepage-redesign){color:var(--rt-shell-ink);background:#fff}
+body:not(.homepage-redesign) header{background:linear-gradient(112deg,#10203b 0%,#123d63 62%,#0956a8 100%)!important;color:#fff!important;border-bottom:1px solid rgba(255,255,255,.16)!important;box-shadow:0 5px 22px rgba(16,32,59,.10)}
+body:not(.homepage-redesign) header a,body:not(.homepage-redesign) header nav a,body:not(.homepage-redesign) header button{color:#fff}
+body:not(.homepage-redesign) header img{max-height:46px;width:auto;object-fit:contain}
+body:not(.homepage-redesign) footer{background:#111827!important;color:#fff!important;border-top:3px solid var(--rt-shell-blue)}
+body:not(.homepage-redesign) footer a{color:#e6edf5}
+body:not(.homepage-redesign) footer a:hover,body:not(.homepage-redesign) header a:hover{color:#70d5df}
+body:not(.homepage-redesign) h1,body:not(.homepage-redesign) h2,body:not(.homepage-redesign) h3{letter-spacing:-.025em}
+body:not(.homepage-redesign) input:not([type=checkbox]):not([type=radio]):not([type=range]),body:not(.homepage-redesign) select,body:not(.homepage-redesign) textarea{border-color:#cbd5e1}
+body:not(.homepage-redesign) input:focus,body:not(.homepage-redesign) select:focus,body:not(.homepage-redesign) textarea:focus{outline:2px solid rgba(9,86,168,.22);outline-offset:1px}
+.rt-back-home{position:fixed;right:18px;bottom:18px;z-index:2147483000;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:12px 17px;border:1px solid rgba(255,255,255,.28);border-radius:999px;background:linear-gradient(135deg,#10203b,#0956a8);color:#fff!important;font:700 13px/1.2 Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;text-decoration:none!important;box-shadow:0 8px 24px rgba(16,32,59,.24);transition:transform .18s ease,box-shadow .18s ease}
+.rt-back-home:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(16,32,59,.3);color:#fff!important}
+.rt-back-home:focus-visible{outline:3px solid #70d5df;outline-offset:3px}
+@media(max-width:600px){.rt-back-home{right:10px;bottom:10px;min-height:42px;padding:11px 14px;font-size:12px}}
+@media(prefers-reduced-motion:reduce){.rt-back-home{transition:none}}
