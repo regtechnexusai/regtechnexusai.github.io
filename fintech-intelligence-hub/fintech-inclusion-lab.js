@@ -29,7 +29,9 @@
   const entries = () => dimensions.map((d) => ({
     ...d,
     status:value('status-' + d.id) || 'not-assessed',
-    evidence:value('evidence-' + d.id)
+    evidence:value('evidence-' + d.id),
+    evidenceRequired: (value('status-' + d.id) === 'supported' || value('status-' + d.id) === 'gap') && !value('evidence-' + d.id),
+    explanationRequired: value('status-' + d.id) === 'na' && !value('evidence-' + d.id)
   }));
   const setStatus = (message) => {
     const status = get('inclusion-status');
@@ -38,10 +40,10 @@
 
   function render() {
     const records = entries();
-    const pending = records.filter(r => r.status === 'gap' || r.status === 'not-assessed');
-    const gaps = records.filter(r => r.status === 'gap');
+    const pending = records.filter(r => r.status === 'gap' || r.status === 'not-assessed' || r.evidenceRequired || r.explanationRequired);
+    const gaps = records.filter(r => r.status === 'gap' || r.evidenceRequired);
     const unassessed = records.filter(r => r.status === 'not-assessed');
-    const unsupportedNA = records.filter(r => r.status === 'na' && !r.evidence);
+    const unsupportedNA = records.filter(r => r.explanationRequired);
     const output = get('inclusion-output');
     const list = get('inclusion-actions-list');
     const count = get('inclusion-summary-count');
@@ -58,7 +60,7 @@
       ' not-applicable response(s) need an explanation. This is a work plan, not a validated impact score.';
     list.replaceChildren();
 
-    const renderRows = pending.length ? pending : records.filter(r => r.status === 'na' && !r.evidence);
+    const renderRows = pending;
     if (!renderRows.length) {
       const p = document.createElement('p');
       p.textContent = 'No gap or unassessed items were selected. Confirm that evidence is current, relevant to the target group and independently reviewable. Revisit the canvas when the service or context changes.';
@@ -68,9 +70,9 @@
         const article = document.createElement('article');
         article.className = 'fih-inclusion-action-row';
         const h = document.createElement('h4');
-        h.textContent = r.title + ' — ' + statusLabels[r.status];
+        h.textContent = r.title + ' — ' + statusLabels[r.status] + (r.evidenceRequired ? ' — EVIDENCE REQUIRED' : '') + (r.explanationRequired ? ' — EXPLANATION REQUIRED' : '');
         const statusP = document.createElement('p');
-        statusP.textContent = 'Evidence / notes: ' + (r.evidence || 'Not provided. Record a source, user observation or reason before closing this item.');
+        statusP.textContent = 'Evidence / notes: ' + (r.evidence || (r.explanationRequired ? 'Explanation required before marking not applicable.' : 'Evidence required before this status can be relied on. Record a source, user observation or test result.'));
         const actionP = document.createElement('p');
         actionP.className = 'fih-inclusion-next';
         actionP.textContent = 'Suggested next step: ' + r.action;
@@ -89,17 +91,13 @@
   function exportCSV() {
     const records = entries();
     const rows = [
-      ['RegTech Nexus AI — FinTech Inclusion Impact Canvas'],
-      ['Product or service', get('inclusion-product').value.trim()],
-      ['Country / market', get('inclusion-market').value.trim()],
-      ['Intended users', get('inclusion-users').value.trim()],
-      ['Review owner / team', get('inclusion-owner').value.trim()],
-      ['Generated on', new Date().toISOString().slice(0,10)],
-      [],
-      ['Dimension','Status','Evidence / notes','Suggested follow-up']
+      ['Dimension','Status','Evidence / notes','Suggested follow-up'],
+      ...records.map(r => [r.title,
+        r.evidenceRequired ? statusLabels[r.status] + ' — EVIDENCE REQUIRED' :
+        r.explanationRequired ? statusLabels[r.status] + ' — EXPLANATION REQUIRED' : statusLabels[r.status],
+        r.evidence,
+        (r.status === 'gap' || r.status === 'not-assessed' || r.evidenceRequired || r.explanationRequired) ? r.action : ''])
     ];
-    records.forEach(r => rows.push([r.title, statusLabels[r.status], r.evidence, (r.status === 'gap' || r.status === 'not-assessed') ? r.action : '']));
-    rows.push([], ['Use boundary','Educational and decision-support worksheet only. Not a certification, compliance assessment, ranking or proof of impact. Validate with affected users and authoritative sources.']);
     const csv = '\uFEFF' + rows.map(row => row.map(csvCell).join(',')).join('\r\n');
     const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
     const url = URL.createObjectURL(blob);
