@@ -602,3 +602,53 @@ body:has(.fih-hero) a{overflow-wrap:break-word;word-break:normal;hyphens:none}
     border-bottom:0;
   }
 }
+
+
+/* Compact language panel: keep the page's main purpose visible on mobile. */
+.fih-page .fih-language-tools{
+  margin:14px auto 0;
+  padding:14px 18px;
+  border-radius:18px;
+}
+.fih-page .fih-language-tools__intro{
+  display:grid;
+  gap:5px;
+  margin:0;
+}
+.fih-page .fih-language-tools__intro strong{
+  font-size:1rem;
+  line-height:1.35;
+}
+.fih-page .fih-language-tools__intro span{
+  font-size:.92rem;
+  line-height:1.45;
+}
+.fih-page #google_translate_element{
+  margin:9px 0 0;
+  min-height:0;
+}
+.fih-page .fih-language-preferences{
+  margin-top:9px;
+  padding-top:9px;
+}
+.fih-page .fih-language-preferences summary{
+  font-size:.95rem;
+  line-height:1.4;
+}
+.fih-page .fih-language-options{
+  margin-top:10px;
+}
+@media(max-width:600px){
+  .fih-page .fih-language-tools{
+    margin:10px 14px 0;
+    padding:12px 14px;
+    border-radius:16px;
+  }
+  .fih-page .fih-language-tools__intro span{
+    font-size:.88rem;
+    line-height:1.4;
+  }
+  .fih-page .fih-language-preferences summary{
+    font-size:.9rem;
+  }
+}
