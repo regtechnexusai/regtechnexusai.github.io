@@ -4,7 +4,52 @@
   if (!root) return;
   const countryNames = "Global standards and cross-border frameworks|Bangladesh|United States|United Kingdom|European Union (EU-level)|China|India|Singapore|Hong Kong|Japan|South Korea|Australia|Canada|Brazil|United Arab Emirates (federal)|DIFC / DFSA (UAE)|ADGM / FSRA (UAE)|Saudi Arabia|Malaysia|Indonesia|Thailand|Philippines|Vietnam|Pakistan|Sri Lanka|Nepal|New Zealand|Switzerland|Norway|Liechtenstein|Türkiye|Bahrain|Qatar|Kuwait|Oman|Jordan|Israel|South Africa|Nigeria|Kenya|Ghana|Rwanda|Egypt|Morocco|Mauritius|Tanzania|Uganda|Ethiopia|Senegal / WAEMU|CEMAC regional framework|Mexico|Chile|Colombia|Argentina|Peru|The Bahamas|Barbados|Jamaica|Bermuda|Kazakhstan|Uzbekistan|Brunei Darussalam|Cambodia|Laos|Taiwan|Mongolia|Fiji|Papua New Guinea|Angola|Botswana|Burundi|Eswatini|Gabon|The Gambia|Liberia|Malawi|Mali|Mozambique|Niger|Algeria|Tunisia|Côte d’Ivoire|Burkina Faso|Benin|Togo|Guinea|Democratic Republic of the Congo|Zambia|Zimbabwe|Namibia|Lesotho|Seychelles|Cape Verde|France|Germany|Italy|Spain|Netherlands|Ireland|Poland|Sweden|Denmark|Belgium|Austria|Portugal|Greece|Finland|Luxembourg|Malta|Iceland|Serbia|Georgia|Armenia|Azerbaijan|Bosnia and Herzegovina|Montenegro|Moldova|Belarus|Ukraine|Russia|Kosovo|North Macedonia|Albania|Kyrgyz Republic|Tajikistan|Costa Rica|Panama|El Salvador|Ecuador|Uruguay|Trinidad and Tobago|Eastern Caribbean Currency Union|Maldives|Afghanistan|Bhutan|Macau SAR|Samoa|Vanuatu|Solomon Islands|Tonga|Timor-Leste|Cayman Islands|British Virgin Islands|Bolivia|Guatemala|Honduras|Paraguay|Czechia|Hungary|Romania|Lebanon|South Sudan|Côte d’Ivoire / WAEMU regional record|Turkmenistan|Curaçao and Sint Maarten|Jersey|Guernsey|Isle of Man|Gibraltar|Estonia|Cyprus|Bulgaria|Iraq|Yemen|Syria|Haiti|Venezuela|Cook Islands|Macao, China|Marshall Islands|Nauru|Niue|Palau|Tuvalu|Chinese Taipei|Myanmar|Anguilla|Antigua and Barbuda|Aruba|Belize|Curaçao|Dominica|Grenada|Guyana|Montserrat|Saint Kitts and Nevis|Saint Lucia|Sint Maarten|Saint Vincent and the Grenadines|Suriname|Turks and Caicos Islands|Comoros|Guinea-Bissau|São Tomé and Príncipe|Sierra Leone|Eritrea|Madagascar|Cuba|Dominican Republic|Nicaragua|Djibouti|Sudan|Somalia|State of Palestine|Libya|Mauritania|Andorra|Croatia|Latvia|Lithuania|Monaco|San Marino|Slovakia|Slovenia|Holy See|Cameroon|Central African Republic|Republic of the Congo|Equatorial Guinea|Chad|Senegal".split('|');
   const sources = {
-    'Liechtenstein': [
+    'Eastern Caribbean Currency Union': [
+      ['Eastern Caribbean Central Bank (ECCB)','Regional central bank and prudential supervisor for ECCU members; check local laws and non-bank regulators separately','https://www.eccb-centralbank.org/regulations-and-standards']
+    ],
+    'Estonia': [
+      ['Finantsinspektsioon — Estonian Financial Supervision and Resolution Authority','Financial institution and market supervision','https://www.fi.ee/en'],
+      ['Eesti Pank — Bank of Estonia','Central banking and payment systems','https://www.eestipank.ee/en']
+    ],
+    'Cyprus': [
+      ['Central Bank of Cyprus','Central banking and banking supervision','https://www.centralbank.cy/en/home'],
+      ['Cyprus Securities and Exchange Commission (CySEC)','Investment services and securities markets','https://www.cysec.gov.cy/en-GB/home/']
+    ],
+    'Bulgaria': [
+      ['Bulgarian National Bank','Central banking and banking supervision','https://www.bnb.bg/?toLang=_EN'],
+      ['Financial Supervision Commission Bulgaria','Non-bank financial markets supervision','https://www.fsc.bg/en/']
+    ],
+    'Iraq': [
+      ['Central Bank of Iraq','Central banking and financial institution supervision','https://cbi.iq/']
+    ],
+    'Yemen': [
+      ['Central Bank of Yemen — official starting point','Confirm current operational status, competent authority and applicable instruments before reliance','https://www.centralbank.gov.ye/']
+    ],
+    'Syria': [
+      ['Central Bank of Syria — official starting point','Confirm current operational status, competent authority and applicable instruments before reliance','https://cb.gov.sy/']
+    ],
+    'Haiti': [
+      ['Bank of the Republic of Haiti (BRH)','Central banking and financial institution supervision','https://www.brh.ht/']
+    ],
+    'Venezuela': [
+      ['Central Bank of Venezuela (BCV)','Central banking and monetary policy','https://www.bcv.org.ve/'],
+      ['Superintendence of Banking Sector Institutions (SUDEBAN)','Banking supervision; confirm current official publication links','https://www.sudeban.gob.ve/']
+    ],
+    'Cook Islands': [
+      ['Financial Supervisory Commission Cook Islands','Financial institution licensing, prudential supervision and FIU functions','https://www.fsc.gov.ck/']
+    ],
+    'Marshall Islands': [
+      ['Monetary Authority of the Marshall Islands (MAMI)','Financial regulation, banking supervision and AML/CFT; established in February 2026 according to its official site','https://mamimh.org/']
+    ],
+    'Myanmar': [
+      ['Central Bank of Myanmar','Central banking and financial institution supervision','https://www.cbm.gov.mm/'],
+      ['Securities and Exchange Commission of Myanmar','Securities markets','https://www.secm.gov.mm/']
+    ],
+    'Senegal': [
+      ['Central Bank of West African States (BCEAO)','Regional central bank and banking framework for WAEMU member states','https://www.bceao.int/en'],
+      ['Regional Council for Public Savings and Financial Markets (CREPMF)','Regional financial market supervision','https://www.crepmf.org/']
+    ],
+    'France': [
       ['Financial Market Authority Liechtenstein (FMA)','Financial market supervision','https://www.fma-li.li/en']
     ],
     'Barbados': [
