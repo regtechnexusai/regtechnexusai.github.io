@@ -3196,3 +3196,8 @@ body.homepage-redesign .nav .nav-cta-gloss:focus-visible{
   body.homepage-redesign .nav .nav-cta-gloss,
   body.homepage-redesign .closing .closing-3d-btn{transition:none!important}
 }
+
+@media(max-width:760px){
+  /* Keep the desktop-only header CTA from crowding the compact mobile header. */
+  body.homepage-redesign .nav .nav-cta-gloss{display:none!important}
+}
