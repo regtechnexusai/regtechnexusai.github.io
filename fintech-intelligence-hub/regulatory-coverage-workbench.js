@@ -415,7 +415,7 @@
     form.reset(); countrySearch.value='';authoritySearch.value='';country.value='';root.querySelector('#rcw-type').value='';
     root.querySelector('#rcw-record-search').value='';root.querySelector('#rcw-sample-product').value='wallet';
     sourceUrl.value='';issueDate.value='';root.querySelector('#rcw-effective-date').value='';instrument.value='';circularNo.value='';
-    referenceDate.value=new Date().toISOString().slice(0,10);output.hidden=true;preview.innerHTML='';preview.dataset.report='';
+    referenceDate.value='';output.hidden=true;preview.innerHTML='';preview.dataset.report='';
     renderAuthorities();renderSampleCase();status.textContent='Form reset. Select a jurisdiction and authority to begin again.';
   });
   root.querySelector('#rcw-record-search').addEventListener('input',renderEvidence);
@@ -461,12 +461,13 @@
     const authorityName=val(authority)||'[Authority not selected]';
     const selectedSource=authority.selectedOptions[0];
     const focus=selectedSource && selectedSource.dataset.focus ? selectedSource.dataset.focus : '';
-    const checked=val(referenceDate)||today;
+    const checked=val(referenceDate);
     const effective=val(root.querySelector('#rcw-effective-date'));
     const title=val(instrument);
     const hypothetical=/illustrative|hypothetical|not a legal instrument/i.test([title,val(facts),val(decision)].join(' '));
     const warnings=[];
-    if(checked>today) warnings.push('Verification date is in the future relative to report preparation; confirm or correct it.');
+    if(!checked) warnings.push('Reference date is not provided. Enter the intended reference date; this date does not itself verify the source.');
+    if(checked && checked>today) warnings.push('Reference date is in the future relative to report preparation; confirm or correct it.');
     if(issueDate.value && issueDate.value>today) warnings.push('Issue/publication date is after the report preparation date; verify whether this is a proposed/forthcoming instrument or a date-entry error.');
     if(issueDate.value && effective && effective<issueDate.value) warnings.push('Effective date precedes issue/publication date; review the source because retrospective effect may be possible but must not be assumed.');
     let sourceHost='';
@@ -524,7 +525,7 @@
       '',
       'REPORT METADATA',
       'Prepared on: '+today,
-      'Reference date (user-entered; verification not confirmed): '+(hypothetical?'N/A — illustrative scenario; no verification claimed':checked),
+      'Reference date (user-entered; verification not confirmed): '+(hypothetical?'N/A — illustrative scenario; no verification claimed':(checked||'[Not provided]')),
       'Jurisdiction: '+(val(country)||'[Not provided]'),
       'Issuing authority / source body: '+instrumentMetadata.authority,
       'Instrument type: '+instrumentMetadata.type,
@@ -600,7 +601,6 @@
     const base=(val(decision)||'fintech-regulatory-brief').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,50)||'fintech-regulatory-brief';
     a.href=url;a.download=base+'.txt';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
   });
-  referenceDate.value=new Date().toISOString().slice(0,10);
   renderAuthorities();
   renderSampleCase();
 })();
