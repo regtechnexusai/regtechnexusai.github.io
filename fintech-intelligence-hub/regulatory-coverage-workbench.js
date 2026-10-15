@@ -315,7 +315,7 @@
     'Suriname': [
       ['Central Bank of Suriname','Central banking and financial institution supervision','https://www.cbvs.sr/']
     ],
-    'Global standards and cross-border frameworks': [
+    'Bangladesh': [
       ['Bangladesh Bank','Banking, prudential regulation, payments and MFS','https://www.bb.org.bd/'],
       ['Bangladesh Financial Intelligence Unit (BFIU)','AML/CFT, financial intelligence, circulars and circular letters','https://www.bfiu.org.bd/index.php/legislation/circular'],
       ['Bangladesh Securities and Exchange Commission (BSEC)','Capital markets and securities','https://sec.gov.bd/'],
