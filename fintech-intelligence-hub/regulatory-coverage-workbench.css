@@ -65,3 +65,14 @@
 .fih-feedback-wide{grid-column:1/-1}.fih-feedback-submit{margin-top:12px;padding:11px 16px;border:1px solid #0b5d91;border-radius:9px;background:#0b5d91;color:#fff;font:700 1rem system-ui;cursor:pointer}
 #fih-feedback-status{font-size:.86rem}
 @media(max-width:700px){.fih-language-tools{margin:12px;padding:14px;grid-template-columns:1fr}.fih-language-preferences{grid-column:auto}#google_translate_element{justify-self:start}.fih-feedback-grid{grid-template-columns:1fr}.fih-feedback-wide{grid-column:auto}}
+
+/* Regulatory brief print/readability hardening. */
+.rcw-report-preview, .rcw-report-preview p, .rcw-report-preview li, .rcw-report-table td { overflow-wrap: anywhere; }
+.rcw-report-table { table-layout: fixed; }
+.rcw-report-table th, .rcw-report-table td { word-break: normal; hyphens: auto; }
+@media print {
+  .rcw-report-table thead { display: table-header-group; }
+  .rcw-report-table tr { break-inside: avoid; page-break-inside: avoid; }
+  .rcw-report-preview h3 { break-after: avoid; page-break-after: avoid; }
+  .rcw-report-preview p, .rcw-report-preview li { orphans: 3; widows: 3; }
+}

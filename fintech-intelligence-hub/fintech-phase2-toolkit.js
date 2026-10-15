@@ -87,51 +87,61 @@
   }
   function renderReadiness() {
     const rows = getReadinessRows();
-    const needsAction = rows.filter(r => r.status === 'gap' || r.status === 'not-assessed' || (r.status === 'na' && !r.evidence));
-    const evidenceMissing = rows.filter(r => r.status === 'evidence' && !r.evidence);
+    const assessed = rows.filter(r => r.status !== 'not-assessed');
+    const needsAction = rows.filter(r => r.status === 'not-assessed' || r.status === 'gap' ||
+      ((r.status === 'evidence' || r.status === 'gap') && !r.evidence) || (r.status === 'na' && !r.evidence));
     const out = document.getElementById('phase2-readiness-output');
     const summary = document.getElementById('phase2-readiness-summary');
     const list = document.getElementById('phase2-readiness-list');
     out.hidden = false;
+    if (!assessed.length && !field(readiness,'product') && !field(readiness,'jurisdiction')) {
+      summary.textContent = 'Not yet assessed. Enter the product/service and jurisdiction, then review each control area and record evidence, gaps or an explained not-applicable rationale.';
+      list.replaceChildren();
+      const p = document.createElement('p');
+      p.textContent = 'No assessment findings have been generated because no items have been assessed.';
+      list.appendChild(p);
+      document.getElementById('phase2-readiness-status').textContent = 'Blank checklist: no findings generated. This tool does not determine legal compliance.';
+      return;
+    }
     summary.textContent = (field(readiness,'product') || 'Product/service not specified') + ' — ' +
       (field(readiness,'jurisdiction') || 'jurisdiction not specified') + '. ' +
-      needsAction.length + ' item(s) need assessment, action or explanation; ' +
-      evidenceMissing.length + ' item(s) marked “Evidence recorded” have no evidence entered. ' +
+      (assessed.length ? assessed.length + ' of ' + rows.length + ' item(s) assessed; ' : 'No items assessed yet; ') +
+      needsAction.length + ' item(s) require assessment, action, evidence or explanation. ' +
       'This is a self-review tracker, not a finding of compliance.';
     list.replaceChildren();
-    const rowsToShow = needsAction.concat(evidenceMissing.filter(r => !needsAction.some(n => n.id === r.id)));
-    if (!rowsToShow.length) {
+    if (!assessed.length) {
+      const p = document.createElement('p');
+      p.textContent = 'Not yet assessed. Select a status for each relevant area and document the supporting evidence or rationale.';
+      list.appendChild(p);
+    } else if (!needsAction.length) {
       const p = document.createElement('p');
       p.textContent = 'No open follow-up was identified by the selected statuses. A qualified reviewer must still validate source currency, legal applicability, evidence quality and approvals.';
       list.appendChild(p);
-    } else rowsToShow.forEach(r => {
+    } else needsAction.forEach(r => {
       const article = document.createElement('div');
       article.className = 'fih-phase2-action-row';
       const h = document.createElement('h5');
-      h.textContent = r.label + ' — ' + statusLabel[r.status];
+      const issue = (r.status === 'evidence' || r.status === 'gap') && !r.evidence ? ' — EVIDENCE REQUIRED' : (r.status === 'na' && !r.evidence ? ' — EXPLANATION REQUIRED' : '');
+      h.textContent = r.label + ' — ' + statusLabel[r.status] + issue;
       const p = document.createElement('p');
-      p.textContent = 'Evidence / official source: ' + (r.evidence || 'Not recorded; locate current official source or document the rationale.');
+      p.textContent = 'Evidence / official source: ' + (r.evidence || 'Not recorded. Add the current official source, evidence or reason before closing this item.');
       const owner = document.createElement('p');
       owner.textContent = 'Owner / due date: ' + (r.owner || 'Assign an accountable role and target date.');
       article.append(h,p,owner);
       list.appendChild(article);
     });
-    document.getElementById('phase2-readiness-status').textContent = 'Summary generated. “Evidence recorded” does not mean the source has been independently verified or the obligation has been satisfied.';
+    document.getElementById('phase2-readiness-status').textContent = 'Summary generated. A status is a self-reported assessment only; it does not mean the source was independently verified or an obligation was satisfied.';
   }
   document.getElementById('phase2-readiness-generate').addEventListener('click',renderReadiness);
   document.getElementById('phase2-readiness-export').addEventListener('click',() => {
     renderReadiness();
     const rows = [
-      ['RegTech Nexus AI — Regulatory Readiness Checklist'],
-      ['Product / service',field(readiness,'product')],
-      ['Jurisdiction(s)',field(readiness,'jurisdiction')],
-      ['Review date',field(readiness,'date')],
-      ['Review owner / team',field(readiness,'owner')],
-      [],
-      ['Control area','Status','Evidence / official source / rationale','Owner / due date']
+      ['Control area','Status','Evidence / official source / rationale','Owner / due date'],
+      ...getReadinessRows().map(r => [r.label,
+        ((r.status === 'evidence' || r.status === 'gap') && !r.evidence) ? statusLabel[r.status] + ' — EVIDENCE REQUIRED' :
+        (r.status === 'na' && !r.evidence) ? statusLabel[r.status] + ' — EXPLANATION REQUIRED' : statusLabel[r.status],
+        r.evidence,r.owner])
     ];
-    getReadinessRows().forEach(r => rows.push([r.label,statusLabel[r.status],r.evidence,r.owner]));
-    rows.push([],['Boundary','Internal scoping aid only. Not legal advice, certification, or evidence of regulatory approval. Verify current obligations with competent authorities.']);
     download(safeName(field(readiness,'product'),'regulatory-readiness')+'-readiness-checklist.csv','text/csv;charset=utf-8',rows.map(row=>row.map(csvCell).join(',')).join('\r\n'));
     document.getElementById('phase2-readiness-status').textContent = 'CSV export prepared in your browser. Store and share only through an approved process.';
   });

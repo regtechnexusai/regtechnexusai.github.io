@@ -456,26 +456,68 @@
     return html;
   }
   function generate(){
+    const today=new Date().toISOString().slice(0,10);
     const authorityName=val(authority)||'[Authority not selected]';
     const selectedSource=authority.selectedOptions[0];
     const focus=selectedSource && selectedSource.dataset.focus ? selectedSource.dataset.focus : '';
-    const checked=val(referenceDate)||new Date().toISOString().slice(0,10);
+    const checked=val(referenceDate)||today;
+    const effective=val(root.querySelector('#rcw-effective-date'));
+    const title=val(instrument);
+    const hypothetical=/illustrative|hypothetical|not a legal instrument/i.test([title,val(facts),val(decision)].join(' '));
+    const warnings=[];
+    if(checked>today) warnings.push('Verification date is in the future relative to report preparation; confirm or correct it.');
+    if(issueDate.value && issueDate.value>today) warnings.push('Issue/publication date is after the report preparation date; verify whether this is a proposed/forthcoming instrument or a date-entry error.');
+    if(issueDate.value && effective && effective<issueDate.value) warnings.push('Effective date precedes issue/publication date; review the source because retrospective effect may be possible but must not be assumed.');
+    let sourceHost='';
+    try { sourceHost=val(sourceUrl) ? new URL(val(sourceUrl)).hostname.toLowerCase() : ''; } catch(e) { warnings.push('Source URL is not a valid absolute URL; verify it manually.'); }
+    const authorityKey=authorityName.toLowerCase();
+    const expectedDomains=[
+      [/people.?s bank of china|pboc/,['pbc.gov.cn']],
+      [/banca d.?italia/,['bancaditalia.it']],
+      [/consob/,['consob.it']],
+      [/fatf/,['fatf-gafi.org']],
+      [/argentina|banco central de la rep[uú]blica argentina|bcra/,['bcra.gob.ar']],
+      [/imf|international monetary fund/,['imf.org']]
+    ];
+    const domainRule=expectedDomains.find(([pattern])=>pattern.test(authorityKey));
+    if(sourceHost && domainRule && !domainRule[1].some(d=>sourceHost===d || sourceHost.endsWith('.'+d))) warnings.push('Source domain does not match the selected authority’s expected domain; mark source as UNVERIFIED until the exact official document is confirmed.');
+    if(sourceHost && !domainRule) warnings.push('Source domain was not automatically matched to the selected authority; mark source as UNVERIFIED until a reviewer confirms the exact official document.');
+    if(!sourceHost) warnings.push('No source URL supplied; primary-source verification is outstanding.');
+    if(hypothetical) warnings.push('ILLUSTRATIVE SCENARIO — no legal instrument is cited. Instrument metadata is marked N/A and must not be read as a verified regulatory citation.');
+    const instrumentMetadata = hypothetical ? {
+      authority:'N/A — illustrative scenario; no instrument cited',
+      type:'N/A — no legal instrument cited',
+      number:'N/A — no instrument cited',
+      issue:'N/A — no instrument cited',
+      effective:'N/A — no instrument cited',
+      title:'N/A — no instrument cited',
+      source:'N/A — no instrument cited'
+    } : {
+      authority:authorityName,
+      type:val(root.querySelector('#rcw-type'))||'[Not provided]',
+      number:val(circularNo)||'[Not stated / not provided]',
+      issue:val(issueDate)||'[Not provided]',
+      effective:effective||'[Not stated / not provided]',
+      title:title||'[Not provided]',
+      source:val(sourceUrl)||'[Not provided]'
+    };
     const lines=[
-      'REGTECH NEXUS AI — FINTECH REGULATORY DECISION INTELLIGENCE BRIEF',
+      'REGTECH NEXUS AI — FINTECH REGULATORY EVIDENCE BRIEF',
       'DRAFT — HUMAN REVIEW REQUIRED',
       '',
       'REPORT METADATA',
-      'Prepared on: '+new Date().toISOString().slice(0,10),
-      'Reference / verification date: '+checked,
+      'Prepared on: '+today,
+      'Reference / verification date: '+(hypothetical?'N/A — illustrative scenario; no verification claimed':checked),
       'Jurisdiction: '+(val(country)||'[Not provided]'),
-      'Issuing authority / source body: '+authorityName,
-      'Instrument type: '+(val(root.querySelector('#rcw-type'))||'[Not provided]'),
-      'Circular / reference number: '+(val(circularNo)||'[Not stated / not provided]'),
-      'Issue / publication date: '+(val(issueDate)||'[Not provided]'),
-      'Effective date: '+(val(root.querySelector('#rcw-effective-date'))||'[Not stated / not provided]'),
-      'Instrument title: '+(val(instrument)||'[Not provided]'),
-      'Official source URL / authority starting point (verify the exact instrument link separately): '+(val(sourceUrl)||'[Not provided]'),
+      'Issuing authority / source body: '+instrumentMetadata.authority,
+      'Instrument type: '+instrumentMetadata.type,
+      'Circular / reference number: '+instrumentMetadata.number,
+      'Issue / publication date: '+instrumentMetadata.issue,
+      'Effective date: '+instrumentMetadata.effective,
+      'Instrument title: '+instrumentMetadata.title,
+      'Official source URL: '+instrumentMetadata.source,
       '',
+      ...(warnings.length?['VALIDATION WARNINGS',...warnings.map(w=>'- '+w),'']:[]),
       'DECISION OR QUESTION',
       val(decision)||'[Not provided — evidence or input required]',
       '',
@@ -489,15 +531,15 @@
       val(limitations)||'[No limitations recorded — reviewer must identify missing evidence, legal status, amendments and applicability.]',
       '',
       'EVIDENCE QUALITY GATE',
-      '- Confirm the instrument number, title, issue date and effective date against the original official source.',
-      '- Confirm whether the instrument is in force, amended, superseded, withdrawn or proposed.',
+      '- Verify the exact instrument and its legal status against the original official source before relying on it.',
+      '- Check publication, effective, amendment, supersession and withdrawal dates; do not assume chronology.',
+      '- A matching domain is a screening signal, not proof that the exact document supports the claim.',
       '- Separate official catalogue metadata from full-text clause verification.',
-      '- Record the exact source URL and the date the source was checked.',
-      '- Do not infer that an instrument applies merely because the jurisdiction or regulator appears in the register.',
+      '- Do not infer applicability merely because a jurisdiction or regulator appears in a register.',
       '- Treat international standards and recommendations separately from domestic binding law.',
       '',
       'DECISION SUPPORT STATUS',
-      'This output structures the supplied information. It does not perform live legal research or independently verify the source. Any analysis and recommendations require human review.',
+      'This brief structures supplied information and flags selected data-quality risks. It does not perform live legal research or independently establish legality. It does not provide a legal conclusion or recommendation unless evidence and analysis are explicitly supplied and reviewed by a qualified human.',
       '',
       'Published by RegTech Nexus AI — Audit & Regulatory Intelligence',
       'Educational and decision-support resource; not legal advice, regulatory approval or a compliance certification.',
@@ -507,7 +549,7 @@
     preview.dataset.report=report;
     preview.innerHTML=formatReport(report);
     output.hidden=false;
-    status.textContent='Draft report generated. Use Print / Save as PDF to create the report. Verify every source before reliance.';
+    status.textContent=warnings.length ? 'Draft generated with '+warnings.length+' validation warning(s). Resolve or document each warning and verify the exact primary source before reliance.' : 'Draft generated. Verify the exact primary source, legal status and applicability before reliance.';
     return report;
   }
   form.addEventListener('submit',e=>{e.preventDefault();generate();});
