@@ -638,7 +638,7 @@
   const filterSelect = (select, options, query, placeholder) => {
     const previous=select.value, q=(query||'').trim().toLocaleLowerCase();
     select.innerHTML=''; const first=document.createElement('option');first.value='';first.textContent=placeholder;select.appendChild(first);
-    options.filter(o=>!q || o.text.toLocaleLowerCase().includes(q)).forEach(o=>{const el=document.createElement('option');el.value=o.value;el.textContent=o.text;if(o.focus)el.dataset.focus=o.focus;if(o.url)el.dataset.url=o.url;select.appendChild(el);});
+    options.filter(o=>!q || o.text.toLocaleLowerCase().includes(q)).forEach(o=>{const el=document.createElement('option');el.value=o.value;el.textContent=o.text;if(o.focus)el.dataset.focus=o.focus;if(o.url)el.dataset.url=o.url;if(o.sourceKind)el.dataset.sourceKind=o.sourceKind;select.appendChild(el);});
     if(options.some(o=>o.value===previous)&&Array.from(select.options).some(o=>o.value===previous))select.value=previous;
   };
   countrySearch.addEventListener('input',()=>filterSelect(country,countryOptions,countrySearch.value,'Select a country / jurisdiction'));
