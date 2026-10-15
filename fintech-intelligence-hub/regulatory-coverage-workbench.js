@@ -472,12 +472,13 @@
     let sourceHost='';
     try { sourceHost=val(sourceUrl) ? new URL(val(sourceUrl)).hostname.toLowerCase() : ''; } catch(e) { warnings.push('Source URL is not a valid absolute URL; verify it manually.'); }
     const authorityKey=authorityName.toLowerCase();
+    const stripWww = host => String(host || '').toLowerCase().startsWith('www.') ? String(host).slice(4).toLowerCase() : String(host || '').toLowerCase();
     let expectedHost='';
     try {
       const selectedUrl=selectedSource && selectedSource.dataset.url ? new URL(selectedSource.dataset.url) : null;
-      expectedHost=selectedUrl ? selectedUrl.hostname.toLowerCase().replace(/^www\\./,'') : '';
+      expectedHost=selectedUrl ? stripWww(selectedUrl.hostname) : '';
     } catch(e) { expectedHost=''; }
-    const normalHost=sourceHost.replace(/^www\\./,'');
+    const normalHost=stripWww(sourceHost);
     const domainMatches=Boolean(normalHost && expectedHost &&
       (normalHost===expectedHost || normalHost.endsWith('.'+expectedHost) || expectedHost.endsWith('.'+normalHost)));
     if(sourceHost && expectedHost && !domainMatches) warnings.push('Source domain does not match the selected authority’s mapped official starting point; mark source as UNVERIFIED until the exact official document is confirmed.');
@@ -486,7 +487,7 @@
     if(sourceHost && !hypothetical) {
       try {
         const parsedSource=new URL(val(sourceUrl));
-        if(parsedSource.pathname==='/' || parsedSource.pathname.replace(/\\/$/,'')==='' ) warnings.push('Source URL appears to be a general homepage, not the exact instrument; replace it with the specific circular, rule or document URL.');
+        if(!parsedSource.pathname || parsedSource.pathname==='/') warnings.push('Source URL appears to be a general homepage, not the exact instrument; replace it with the specific circular, rule or document URL.');
       } catch(e) {}
     }
     if(!hypothetical) {
