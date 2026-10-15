@@ -4,6 +4,718 @@
   if (!root) return;
   const countryNames = "Global standards and cross-border frameworks|Bangladesh|United States|United Kingdom|European Union (EU-level)|China|India|Singapore|Hong Kong|Japan|South Korea|Australia|Canada|Brazil|United Arab Emirates (federal)|DIFC / DFSA (UAE)|ADGM / FSRA (UAE)|Saudi Arabia|Malaysia|Indonesia|Thailand|Philippines|Vietnam|Pakistan|Sri Lanka|Nepal|New Zealand|Switzerland|Norway|Liechtenstein|Türkiye|Bahrain|Qatar|Kuwait|Oman|Jordan|Israel|South Africa|Nigeria|Kenya|Ghana|Rwanda|Egypt|Morocco|Mauritius|Tanzania|Uganda|Ethiopia|Senegal / WAEMU|CEMAC regional framework|Mexico|Chile|Colombia|Argentina|Peru|The Bahamas|Barbados|Jamaica|Bermuda|Kazakhstan|Uzbekistan|Brunei Darussalam|Cambodia|Laos|Taiwan|Mongolia|Fiji|Papua New Guinea|Angola|Botswana|Burundi|Eswatini|Gabon|The Gambia|Liberia|Malawi|Mali|Mozambique|Niger|Algeria|Tunisia|Côte d’Ivoire|Burkina Faso|Benin|Togo|Guinea|Democratic Republic of the Congo|Zambia|Zimbabwe|Namibia|Lesotho|Seychelles|Cape Verde|France|Germany|Italy|Spain|Netherlands|Ireland|Poland|Sweden|Denmark|Belgium|Austria|Portugal|Greece|Finland|Luxembourg|Malta|Iceland|Serbia|Georgia|Armenia|Azerbaijan|Bosnia and Herzegovina|Montenegro|Moldova|Belarus|Ukraine|Russia|Kosovo|North Macedonia|Albania|Kyrgyz Republic|Tajikistan|Costa Rica|Panama|El Salvador|Ecuador|Uruguay|Trinidad and Tobago|Eastern Caribbean Currency Union|Maldives|Afghanistan|Bhutan|Macau SAR|Samoa|Vanuatu|Solomon Islands|Tonga|Timor-Leste|Cayman Islands|British Virgin Islands|Bolivia|Guatemala|Honduras|Paraguay|Czechia|Hungary|Romania|Lebanon|South Sudan|Côte d’Ivoire / WAEMU regional record|Turkmenistan|Curaçao and Sint Maarten|Jersey|Guernsey|Isle of Man|Gibraltar|Estonia|Cyprus|Bulgaria|Iraq|Yemen|Syria|Haiti|Venezuela|Cook Islands|Macao, China|Marshall Islands|Nauru|Niue|Palau|Tuvalu|Chinese Taipei|Myanmar|Anguilla|Antigua and Barbuda|Aruba|Belize|Curaçao|Dominica|Grenada|Guyana|Montserrat|Saint Kitts and Nevis|Saint Lucia|Sint Maarten|Saint Vincent and the Grenadines|Suriname|Turks and Caicos Islands|Comoros|Guinea-Bissau|São Tomé and Príncipe|Sierra Leone|Eritrea|Madagascar|Cuba|Dominican Republic|Nicaragua|Djibouti|Sudan|Somalia|State of Palestine|Libya|Mauritania|Andorra|Croatia|Latvia|Lithuania|Monaco|San Marino|Slovakia|Slovenia|Holy See|Cameroon|Central African Republic|Republic of the Congo|Equatorial Guinea|Chad|Senegal".split('|');
   const sources = {
+    'Nauru': [
+      ['Government of the Republic of Nauru — official directory','Government directory starting point; confirm the competent financial authority and current instrument source before reliance','https://www.nauru.gov.nr/']
+    ],
+    'Niue': [
+      ['Government of Niue — official directory','Government directory starting point; confirm the competent financial authority and current instrument source before reliance','https://www.gov.nu/']
+    ],
+    'Palau': [
+      ['Palau National Government — official directory','Government directory starting point; confirm the competent financial authority and current instrument source before reliance','https://www.palaugov.pw/home/']
+    ],
+    'Tuvalu': [
+      ['Ministry of Finance and Economic Development Tuvalu','Official government starting point for financial policy and financial intelligence contacts; confirm the competent supervisor and current Banking Commission arrangements','https://finance.gov.tv/'],
+      ['Tuvalu Government Legislation','Official legislation index; search the Banking Commission Act and current amendments','https://tuvalu-legislation.tv/cms/component/legislation/?Itemid=683&view=index_all']
+    ],
+    'Eastern Caribbean Currency Union': [
+      ['Eastern Caribbean Central Bank (ECCB)','Regional central bank and prudential supervisor for ECCU members; check local laws and non-bank regulators separately','https://www.eccb-centralbank.org/regulations-and-standards']
+    ],
+    'Estonia': [
+      ['Finantsinspektsioon — Estonian Financial Supervision and Resolution Authority','Financial institution and market supervision','https://www.fi.ee/en'],
+      ['Eesti Pank — Bank of Estonia','Central banking and payment systems','https://www.eestipank.ee/en']
+    ],
+    'Cyprus': [
+      ['Central Bank of Cyprus','Central banking and banking supervision','https://www.centralbank.cy/en/home'],
+      ['Cyprus Securities and Exchange Commission (CySEC)','Investment services and securities markets','https://www.cysec.gov.cy/en-GB/home/']
+    ],
+    'Bulgaria': [
+      ['Bulgarian National Bank','Central banking and banking supervision','https://www.bnb.bg/?toLang=_EN'],
+      ['Financial Supervision Commission Bulgaria','Non-bank financial markets supervision','https://www.fsc.bg/en/']
+    ],
+    'Iraq': [
+      ['Central Bank of Iraq','Central banking and financial institution supervision','https://cbi.iq/']
+    ],
+    'Yemen': [
+      ['Central Bank of Yemen — official starting point','Confirm current operational status, competent authority and applicable instruments before reliance','https://www.centralbank.gov.ye/']
+    ],
+    'Syria': [
+      ['Central Bank of Syria — official starting point','Confirm current operational status, competent authority and applicable instruments before reliance','https://cb.gov.sy/']
+    ],
+    'Haiti': [
+      ['Bank of the Republic of Haiti (BRH)','Central banking and financial institution supervision','https://www.brh.ht/']
+    ],
+    'Venezuela': [
+      ['Central Bank of Venezuela (BCV)','Central banking and monetary policy','https://www.bcv.org.ve/'],
+      ['Superintendence of Banking Sector Institutions (SUDEBAN)','Banking supervision; confirm current official publication links','https://www.sudeban.gob.ve/']
+    ],
+    'Cook Islands': [
+      ['Financial Supervisory Commission Cook Islands','Financial institution licensing, prudential supervision and FIU functions','https://www.fsc.gov.ck/']
+    ],
+    'Marshall Islands': [
+      ['Monetary Authority of the Marshall Islands (MAMI)','Financial regulation, banking supervision and AML/CFT; established in February 2026 according to its official site','https://mamimh.org/']
+    ],
+    'Myanmar': [
+      ['Central Bank of Myanmar','Central banking and financial institution supervision','https://www.cbm.gov.mm/'],
+      ['Securities and Exchange Commission of Myanmar','Securities markets','https://www.secm.gov.mm/']
+    ],
+    'Senegal': [
+      ['Central Bank of West African States (BCEAO)','Regional central bank and banking framework for WAEMU member states','https://www.bceao.int/en'],
+      ['Regional Council for Public Savings and Financial Markets (CREPMF)','Regional financial market supervision','https://www.crepmf.org/']
+    ],
+    'Liechtenstein': [
+      ['Financial Market Authority Liechtenstein (FMA)','Financial market supervision','https://www.fma-li.li/en']
+    ],
+    'Barbados': [
+      ['Central Bank of Barbados','Central banking and banking supervision','https://www.centralbank.org.bb/'],
+      ['Financial Services Commission Barbados','Non-bank financial services supervision','https://www.fsc.gov.bb/']
+    ],
+    'Brunei Darussalam': [
+      ['Brunei Darussalam Central Bank (BDCB)','Central banking and financial sector supervision','https://www.bdcb.gov.bn/']
+    ],
+    'Cambodia': [
+      ['National Bank of Cambodia','Central banking and banking supervision','https://www.nbc.gov.kh/english/'],
+      ['Securities and Exchange Regulator of Cambodia','Securities and capital markets','https://www.serc.gov.kh/']
+    ],
+    'Laos': [
+      ['Bank of the Lao P.D.R.','Central banking and financial institution supervision','https://www.bol.gov.la/en/']
+    ],
+    'Mongolia': [
+      ['Bank of Mongolia','Central banking and financial institution supervision','https://www.mongolbank.mn/en/'],
+      ['Financial Regulatory Commission Mongolia','Non-bank financial sector supervision','https://www.frc.mn/']
+    ],
+    'Papua New Guinea': [
+      ['Bank of Papua New Guinea','Central banking and financial institution supervision','https://www.bankpng.gov.pg/'],
+      ['Securities Commission of Papua New Guinea','Securities markets','https://www.scpng.gov.pg/']
+    ],
+    'Angola': [
+      ['National Bank of Angola (BNA)','Central banking and banking supervision','https://www.bna.ao/'],
+      ['Capital Markets Commission Angola','Capital markets','https://www.cmc.ao/']
+    ],
+    'Botswana': [
+      ['Bank of Botswana','Central banking and banking supervision','https://www.bankofbotswana.bw/'],
+      ['Non-Bank Financial Institutions Regulatory Authority (NBFIRA)','Non-bank financial services supervision','https://www.nbfira.org.bw/']
+    ],
+    'Burundi': [
+      ['Bank of the Republic of Burundi (BRB)','Central banking and financial institution supervision','https://www.brb.bi/']
+    ],
+    'Eswatini': [
+      ['Central Bank of Eswatini','Central banking and financial institution supervision','https://www.centralbank.org.sz/']
+    ],
+    'Gabon': [
+      ['Bank of Central African States (BEAC)','Regional central bank for CEMAC member states','https://www.beac.int/'],
+      ['Central African Banking Commission (COBAC)','Regional banking supervision','https://www.sgcobac.org/']
+    ],
+    'The Gambia': [
+      ['Central Bank of The Gambia','Central banking and financial institution supervision','https://www.cbg.gm/']
+    ],
+    'Liberia': [
+      ['Central Bank of Liberia','Central banking and financial institution supervision','https://www.cbl.org.lr/']
+    ],
+    'Malawi': [
+      ['Reserve Bank of Malawi','Central banking and financial institution supervision','https://www.rbm.mw/']
+    ],
+    'Mali': [
+      ['Central Bank of West African States (BCEAO)','Regional central bank and banking framework for WAEMU member states','https://www.bceao.int/en'],
+      ['Regional Council for Public Savings and Financial Markets (CREPMF)','Regional financial market supervision','https://www.crepmf.org/']
+    ],
+    'Mozambique': [
+      ['Bank of Mozambique','Central banking and financial institution supervision','https://www.bancomoc.mz/']
+    ],
+    'Niger': [
+      ['Central Bank of West African States (BCEAO)','Regional central bank and banking framework for WAEMU member states','https://www.bceao.int/en'],
+      ['Regional Council for Public Savings and Financial Markets (CREPMF)','Regional financial market supervision','https://www.crepmf.org/']
+    ],
+    'Algeria': [
+      ['Bank of Algeria','Central banking and financial institution supervision','https://www.bank-of-algeria.dz/']
+    ],
+    'Tunisia': [
+      ['Central Bank of Tunisia','Central banking and financial institution supervision','https://www.bct.gov.tn/']
+    ],
+    'Burkina Faso': [
+      ['Central Bank of West African States (BCEAO)','Regional central bank and banking framework for WAEMU member states','https://www.bceao.int/en'],
+      ['Regional Council for Public Savings and Financial Markets (CREPMF)','Regional financial market supervision','https://www.crepmf.org/']
+    ],
+    'Benin': [
+      ['Central Bank of West African States (BCEAO)','Regional central bank and banking framework for WAEMU member states','https://www.bceao.int/en'],
+      ['Regional Council for Public Savings and Financial Markets (CREPMF)','Regional financial market supervision','https://www.crepmf.org/']
+    ],
+    'Togo': [
+      ['Central Bank of West African States (BCEAO)','Regional central bank and banking framework for WAEMU member states','https://www.bceao.int/en'],
+      ['Regional Council for Public Savings and Financial Markets (CREPMF)','Regional financial market supervision','https://www.crepmf.org/']
+    ],
+    'Guinea': [
+      ['Central Bank of the Republic of Guinea','Central banking and financial institution supervision','https://www.bcrg-guinee.org/']
+    ],
+    'Democratic Republic of the Congo': [
+      ['Central Bank of the Congo','Central banking and financial institution supervision','https://www.bcc.cd/']
+    ],
+    'Zambia': [
+      ['Bank of Zambia','Central banking and financial institution supervision','https://www.boz.zm/']
+    ],
+    'Zimbabwe': [
+      ['Reserve Bank of Zimbabwe','Central banking and financial institution supervision','https://www.rbz.co.zw/']
+    ],
+    'Namibia': [
+      ['Bank of Namibia','Central banking and financial institution supervision','https://www.bon.com.na/']
+    ],
+    'Lesotho': [
+      ['Central Bank of Lesotho','Central banking and financial institution supervision','https://www.centralbank.org.ls/']
+    ],
+    'Seychelles': [
+      ['Central Bank of Seychelles','Central banking and financial institution supervision','https://www.cbs.sc/']
+    ],
+    'Cape Verde': [
+      ['Banco de Cabo Verde','Central banking and financial institution supervision','https://www.bcv.cv/']
+    ],
+    'Serbia': [
+      ['National Bank of Serbia','Central banking and financial institution supervision','https://www.nbs.rs/en/'],
+      ['Securities Commission Serbia','Capital markets','https://www.sec.gov.rs/index.php/en/']
+    ],
+    'Georgia': [
+      ['National Bank of Georgia','Central banking and financial institution supervision','https://nbg.gov.ge/en']
+    ],
+    'Armenia': [
+      ['Central Bank of Armenia','Central banking and financial institution supervision','https://www.cba.am/en']
+    ],
+    'Azerbaijan': [
+      ['Central Bank of the Republic of Azerbaijan','Central banking and financial institution supervision','https://www.cbar.az/']
+    ],
+    'Bosnia and Herzegovina': [
+      ['Central Bank of Bosnia and Herzegovina','Central banking and financial institution supervision','https://www.cbbh.ba/?lang=en'],
+      ['Securities Commission Federation of Bosnia and Herzegovina','Capital markets','https://www.komvp.gov.ba/']
+    ],
+    'Montenegro': [
+      ['Central Bank of Montenegro','Central banking and financial institution supervision','https://www.cbcg.me/en']
+    ],
+    'Moldova': [
+      ['National Bank of Moldova','Central banking and financial institution supervision','https://www.bnm.md/en'],
+      ['National Commission for Financial Markets Moldova','Non-bank financial market supervision','https://www.cnpf.md/en']
+    ],
+    'Belarus': [
+      ['National Bank of the Republic of Belarus','Central banking and financial institution supervision','https://www.nbrb.by/engl/']
+    ],
+    'Ukraine': [
+      ['National Bank of Ukraine','Central banking and financial institution supervision','https://bank.gov.ua/en/'],
+      ['National Securities and Stock Market Commission Ukraine','Capital markets','https://www.nssmc.gov.ua/en/']
+    ],
+    'Russia': [
+      ['Bank of Russia','Central banking and financial market supervision','https://www.cbr.ru/eng/']
+    ],
+    'Kosovo': [
+      ['Central Bank of the Republic of Kosovo','Central banking and financial institution supervision','https://bqk-kos.org/']
+    ],
+    'North Macedonia': [
+      ['National Bank of the Republic of North Macedonia','Central banking and financial institution supervision','https://www.nbrm.mk/?lang=en'],
+      ['Securities and Exchange Commission North Macedonia','Capital markets','https://www.sec.gov.mk/']
+    ],
+    'Albania': [
+      ['Bank of Albania','Central banking and financial institution supervision','https://www.bankofalbania.org/'],
+      ['Financial Supervisory Authority Albania','Non-bank financial markets','https://amf.gov.al/']
+    ],
+    'Kyrgyz Republic': [
+      ['National Bank of the Kyrgyz Republic','Central banking and financial institution supervision','https://www.nbkr.kg/index1.jsp?item=1&lang=ENG']
+    ],
+    'Tajikistan': [
+      ['National Bank of Tajikistan','Central banking and financial institution supervision','https://nbt.tj/en/']
+    ],
+    'Costa Rica': [
+      ['Central Bank of Costa Rica','Central banking and payments','https://www.bccr.fi.cr/en'],
+      ['General Superintendency of Financial Entities (SUGEF)','Financial institution supervision','https://www.sugef.fi.cr/']
+    ],
+    'Panama': [
+      ['Superintendency of Banks of Panama','Banking supervision','https://www.superbancos.gob.pa/en/'],
+      ['Superintendency of the Securities Market Panama','Capital markets','https://supervalores.gob.pa/']
+    ],
+    'El Salvador': [
+      ['Central Reserve Bank of El Salvador','Central banking and financial systems','https://www.bcr.gob.sv/'],
+      ['Superintendence of the Financial System (SSF)','Financial sector supervision','https://ssf.gob.sv/']
+    ],
+    'Ecuador': [
+      ['Central Bank of Ecuador','Central banking and payments','https://www.bce.fin.ec/'],
+      ['Superintendence of Banks Ecuador','Banking supervision','https://www.superbancos.gob.ec/']
+    ],
+    'Uruguay': [
+      ['Central Bank of Uruguay','Central banking and financial institution supervision','https://www.bcu.gub.uy/English/Pages/default.aspx']
+    ],
+    'Trinidad and Tobago': [
+      ['Central Bank of Trinidad and Tobago','Central banking and financial institution supervision','https://www.central-bank.org.tt/']
+    ],
+    'Maldives': [
+      ['Maldives Monetary Authority','Central banking and financial institution supervision','https://www.mma.gov.mv/']
+    ],
+    'Afghanistan': [
+      ['Da Afghanistan Bank','Central banking and financial institution supervision','https://dab.gov.af/']
+    ],
+    'Bhutan': [
+      ['Royal Monetary Authority of Bhutan','Central banking and financial institution supervision','https://www.rma.org.bt/']
+    ],
+    'Samoa': [
+      ['Central Bank of Samoa','Central banking and financial institution supervision','https://www.cbs.gov.ws/']
+    ],
+    'Vanuatu': [
+      ['Reserve Bank of Vanuatu','Central banking and financial institution supervision','https://www.rbv.gov.vu/']
+    ],
+    'Solomon Islands': [
+      ['Central Bank of Solomon Islands','Central banking and financial institution supervision','https://www.cbsi.com.sb/']
+    ],
+    'Tonga': [
+      ['National Reserve Bank of Tonga','Central banking and financial institution supervision','https://www.reservebank.to/']
+    ],
+    'Timor-Leste': [
+      ['Banco Central de Timor-Leste','Central banking and financial institution supervision','https://www.bancocentral.tl/']
+    ],
+    'Bolivia': [
+      ['Central Bank of Bolivia','Central banking and payments','https://www.bcb.gob.bo/'],
+      ['Financial System Supervisory Authority (ASFI)','Financial institution supervision','https://www.asfi.gob.bo/']
+    ],
+    'Guatemala': [
+      ['Superintendency of Banks Guatemala','Financial institution supervision','https://www.sib.gob.gt/'],
+      ['Bank of Guatemala','Central banking and payments','https://www.banguat.gob.gt/']
+    ],
+    'Honduras': [
+      ['National Banking and Insurance Commission (CNBS)','Banking and insurance supervision','https://www.cnbs.gob.hn/'],
+      ['Central Bank of Honduras','Central banking and payments','https://www.bch.hn/']
+    ],
+    'Paraguay': [
+      ['Central Bank of Paraguay','Central banking and financial institution supervision','https://www.bcp.gov.py/']
+    ],
+    'Czechia': [
+      ['Czech National Bank','Central banking and financial market supervision','https://www.cnb.cz/en/']
+    ],
+    'Hungary': [
+      ['Magyar Nemzeti Bank (Central Bank of Hungary)','Central banking and financial supervision','https://www.mnb.hu/en']
+    ],
+    'Romania': [
+      ['National Bank of Romania','Central banking and banking supervision','https://www.bnr.ro/'],
+      ['Financial Supervisory Authority Romania','Insurance, pension and capital markets supervision','https://asfromania.ro/en/']
+    ],
+    'Lebanon': [
+      ['Banque du Liban','Central banking and financial institution supervision','https://www.bdl.gov.lb/'],
+      ['Capital Markets Authority Lebanon','Capital markets','https://www.cma.gov.lb/']
+    ],
+    'South Sudan': [
+      ['Bank of South Sudan','Central banking and financial institution supervision','https://boss.gov.ss/']
+    ],
+    'Turks and Caicos Islands': [
+      ['Turks and Caicos Islands Financial Services Commission','Financial services supervision','https://tcifsc.tc/']
+    ],
+    'Comoros': [
+      ['Central Bank of the Comoros','Central banking and financial institution supervision','https://banque-comores.km/']
+    ],
+    'Guinea-Bissau': [
+      ['Central Bank of West African States (BCEAO)','Regional central bank and banking framework for WAEMU member states','https://www.bceao.int/en'],
+      ['Regional Council for Public Savings and Financial Markets (CREPMF)','Regional financial market supervision','https://www.crepmf.org/']
+    ],
+    'São Tomé and Príncipe': [
+      ['Central Bank of São Tomé and Príncipe','Central banking and financial institution supervision','https://www.bcstp.st/']
+    ],
+    'Sierra Leone': [
+      ['Bank of Sierra Leone','Central banking and financial institution supervision','https://bsl.gov.sl/']
+    ],
+    'Eritrea': [
+      ['Bank of Eritrea','Central banking and financial institution supervision','https://www.bankoferitrea.org/']
+    ],
+    'Madagascar': [
+      ['Central Bank of Madagascar','Central banking and financial institution supervision','https://www.banky-foibe.mg/']
+    ],
+    'Cuba': [
+      ['Central Bank of Cuba','Central banking and financial institution supervision','https://www.bc.gob.cu/']
+    ],
+    'Dominican Republic': [
+      ['Central Bank of the Dominican Republic','Central banking and financial institution supervision','https://www.bancentral.gov.do/'],
+      ['Superintendency of Banks Dominican Republic','Banking supervision','https://sb.gob.do/']
+    ],
+    'Nicaragua': [
+      ['Central Bank of Nicaragua','Central banking and financial institution supervision','https://www.bcn.gob.ni/'],
+      ['Superintendency of Banks and Other Financial Institutions (SIBOIF)','Financial institution supervision','https://www.superintendencia.gob.ni/']
+    ],
+    'Djibouti': [
+      ['Central Bank of Djibouti','Central banking and financial institution supervision','https://banque-centrale.dj/']
+    ],
+    'Sudan': [
+      ['Central Bank of Sudan','Central banking and financial institution supervision','https://cbos.gov.sd/']
+    ],
+    'Somalia': [
+      ['Central Bank of Somalia','Central banking and financial institution supervision','https://centralbank.gov.so/']
+    ],
+    'State of Palestine': [
+      ['Palestine Monetary Authority','Central banking and financial institution supervision','https://www.pma.ps/']
+    ],
+    'Libya': [
+      ['Central Bank of Libya','Central banking and financial institution supervision','https://cbl.gov.ly/']
+    ],
+    'Mauritania': [
+      ['Central Bank of Mauritania','Central banking and financial institution supervision','https://www.bcm.mr/']
+    ],
+    'Andorra': [
+      ['Andorran Financial Authority (AFA)','Financial system supervision','https://www.afa.ad/en']
+    ],
+    'Croatia': [
+      ['Croatian National Bank','Central banking and banking supervision','https://www.hnb.hr/en'],
+      ['Croatian Financial Services Supervisory Agency (HANFA)','Capital markets, insurance and pensions','https://www.hanfa.hr/']
+    ],
+    'Latvia': [
+      ['Latvijas Banka (Bank of Latvia)','Central banking and financial supervision','https://www.bank.lv/en']
+    ],
+    'Lithuania': [
+      ['Bank of Lithuania','Central banking and financial supervision','https://www.lb.lt/en/']
+    ],
+    'Monaco': [
+      ['Commission de Contrôle des Activités Financières (CCAF)','Financial activities supervision','https://www.ccaf.mc/']
+    ],
+    'San Marino': [
+      ['Central Bank of the Republic of San Marino','Central banking and financial supervision','https://www.bcsm.sm/site/home.html']
+    ],
+    'Slovakia': [
+      ['National Bank of Slovakia','Central banking and financial supervision','https://nbs.sk/en/']
+    ],
+    'Slovenia': [
+      ['Bank of Slovenia','Central banking and financial supervision','https://www.bsi.si/en'],
+      ['Securities Market Agency Slovenia','Capital markets','https://www.a-tvp.si/eng/']
+    ],
+    'Cameroon': [
+      ['Bank of Central African States (BEAC)','Regional central bank for CEMAC member states','https://www.beac.int/'],
+      ['Central African Banking Commission (COBAC)','Regional banking supervision','https://www.sgcobac.org/']
+    ],
+    'Central African Republic': [
+      ['Bank of Central African States (BEAC)','Regional central bank for CEMAC member states','https://www.beac.int/'],
+      ['Central African Banking Commission (COBAC)','Regional banking supervision','https://www.sgcobac.org/']
+    ],
+    'Republic of the Congo': [
+      ['Bank of Central African States (BEAC)','Regional central bank for CEMAC member states','https://www.beac.int/'],
+      ['Central African Banking Commission (COBAC)','Regional banking supervision','https://www.sgcobac.org/']
+    ],
+    'Equatorial Guinea': [
+      ['Bank of Central African States (BEAC)','Regional central bank for CEMAC member states','https://www.beac.int/'],
+      ['Central African Banking Commission (COBAC)','Regional banking supervision','https://www.sgcobac.org/']
+    ],
+    'Chad': [
+      ['Bank of Central African States (BEAC)','Regional central bank for CEMAC member states','https://www.beac.int/'],
+      ['Central African Banking Commission (COBAC)','Regional banking supervision','https://www.sgcobac.org/']
+    ],
+    'DIFC / DFSA (UAE)': [
+      ['Dubai Financial Services Authority (DFSA)','Independent financial regulator for the Dubai International Financial Centre (DIFC)','https://www.dfsa.ae/']
+    ],
+    'ADGM / FSRA (UAE)': [
+      ['Abu Dhabi Global Market Financial Services Regulatory Authority (FSRA)','Financial regulator for Abu Dhabi Global Market (ADGM)','https://www.adgm.com/financial-services-regulatory-authority']
+    ],
+    'Turkmenistan': [
+      ['Central Bank of Turkmenistan — official government starting point','Confirm the current central-bank and financial-supervision portals through official government publications before relying on a specific instrument','https://www.turkmenistan.gov.tm/']
+    ],
+    'Holy See': [
+      ['Financial Information Authority (AIF)','Financial intelligence and supervision within its statutory remit','https://www.aif.va/']
+    ],
+    'France': [
+      ['Autorité de contrôle prudentiel et de résolution (ACPR)','Prudential supervision and insurance / banking oversight','https://acpr.banque-france.fr/en'],
+      ['Autorité des marchés financiers (AMF)','Securities and financial markets','https://www.amf-france.org/en'],
+      ['TRACFIN','Financial intelligence and AML/CFT','https://www.economie.gouv.fr/tracfin']
+    ],
+    'Germany': [
+      ['Federal Financial Supervisory Authority (BaFin)','Banking, securities, insurance and financial supervision','https://www.bafin.de/EN/Home/home_node.html'],
+      ['Deutsche Bundesbank','Central banking and banking supervision information','https://www.bundesbank.de/en']
+    ],
+    'Italy': [
+      ['Banca d’Italia','Central banking, banking supervision and payments','https://www.bancaditalia.it/?com.dotmarketing.htmlpage.language=1'],
+      ['Commissione Nazionale per le Società e la Borsa (CONSOB)','Securities markets and investment services','https://www.consob.it/web/consob-and-its-activities']
+    ],
+    'Spain': [
+      ['Banco de España','Central banking and credit institution supervision','https://www.bde.es/wbe/en/'],
+      ['Comisión Nacional del Mercado de Valores (CNMV)','Securities markets and investment services','https://www.cnmv.es/portal/home.aspx?lang=en']
+    ],
+    'Netherlands': [
+      ['De Nederlandsche Bank (DNB)','Prudential supervision and central banking','https://www.dnb.nl/en/'],
+      ['Authority for the Financial Markets (AFM)','Conduct supervision and financial markets','https://www.afm.nl/en']
+    ],
+    'Ireland': [
+      ['Central Bank of Ireland','Financial regulation, supervision and consumer protection','https://www.centralbank.ie/']
+    ],
+    'Poland': [
+      ['Polish Financial Supervision Authority (KNF)','Financial market supervision','https://www.knf.gov.pl/en/'],
+      ['National Bank of Poland','Central banking and monetary policy','https://nbp.pl/en/']
+    ],
+    'Sweden': [
+      ['Finansinspektionen','Financial markets and financial institution supervision','https://www.fi.se/en/'],
+      ['Sveriges Riksbank','Central banking and payments','https://www.riksbank.se/en-gb/']
+    ],
+    'Denmark': [
+      ['Danish Financial Supervisory Authority (Finanstilsynet)','Financial institution and market supervision','https://www.dfsa.dk/'],
+      ['Danmarks Nationalbank','Central banking and financial stability','https://www.nationalbanken.dk/en']
+    ],
+    'Belgium': [
+      ['National Bank of Belgium (NBB)','Prudential supervision and central banking','https://www.nbb.be/en'],
+      ['Financial Services and Markets Authority (FSMA)','Financial markets and conduct supervision','https://www.fsma.be/en']
+    ],
+    'Austria': [
+      ['Austrian Financial Market Authority (FMA)','Financial market supervision','https://www.fma.gv.at/en/'],
+      ['Oesterreichische Nationalbank (OeNB)','Central banking and financial stability','https://www.oenb.at/en/']
+    ],
+    'Portugal': [
+      ['Banco de Portugal','Central banking and banking supervision','https://www.bportugal.pt/en'],
+      ['Portuguese Securities Market Commission (CMVM)','Securities and investment services','https://www.cmvm.pt/']
+    ],
+    'Greece': [
+      ['Bank of Greece','Central banking and financial supervision','https://www.bankofgreece.gr/en/homepage'],
+      ['Hellenic Capital Market Commission','Capital markets and investment services','https://www.hcmc.gr/en_US/web/portal/home']
+    ],
+    'Finland': [
+      ['Finnish Financial Supervisory Authority (FIN-FSA)','Financial institution and market supervision','https://www.finanssivalvonta.fi/en/'],
+      ['Bank of Finland','Central banking and payment systems','https://www.suomenpankki.fi/en/']
+    ],
+    'Luxembourg': [
+      ['Commission de Surveillance du Secteur Financier (CSSF)','Financial sector supervision','https://www.cssf.lu/en/'],
+      ['Commission de Surveillance du Secteur des Assurances (CAA)','Insurance supervision','https://caa.public.lu/en.html']
+    ],
+    'Malta': [
+      ['Malta Financial Services Authority (MFSA)','Financial services regulation and supervision','https://www.mfsa.mt/'],
+      ['Central Bank of Malta','Central banking and payment systems','https://www.centralbankmalta.org/']
+    ],
+    'Iceland': [
+      ['Central Bank of Iceland','Central banking and financial supervision','https://www.cb.is/'],
+      ['Financial Supervisory Authority functions — Central Bank of Iceland','Financial supervision and market conduct','https://www.cb.is/']
+    ],
+    'Norway': [
+      ['Finanstilsynet — Financial Supervisory Authority of Norway','Financial institution and market supervision','https://www.finanstilsynet.no/en/'],
+      ['Norges Bank','Central banking and payment systems','https://www.norges-bank.no/en/']
+    ],
+    'Switzerland': [
+      ['Swiss Financial Market Supervisory Authority (FINMA)','Banking, insurance, securities and financial market supervision','https://www.finma.ch/en/'],
+      ['Swiss National Bank (SNB)','Central banking and financial stability','https://www.snb.ch/en']
+    ],
+    'Türkiye': [
+      ['Banking Regulation and Supervision Agency (BRSA / BDDK)','Banking regulation and supervision','https://www.bddk.org.tr/Content/English'],
+      ['Central Bank of the Republic of Türkiye (CBRT)','Central banking and payments','https://www.tcmb.gov.tr/wps/wcm/connect/EN/TCMB+EN'],
+      ['Capital Markets Board of Türkiye (CMB)','Capital markets','https://spk.gov.tr/Sayfa/Index/0/0/1']
+    ],
+    'Bahrain': [
+      ['Central Bank of Bahrain (CBB)','Integrated financial regulator and central bank','https://www.cbb.gov.bh/']
+    ],
+    'Qatar': [
+      ['Qatar Central Bank (QCB)','Central banking and financial institution supervision','https://www.qcb.gov.qa/en/'],
+      ['Qatar Financial Markets Authority (QFMA)','Capital markets','https://www.qfma.org.qa/']
+    ],
+    'Kuwait': [
+      ['Central Bank of Kuwait (CBK)','Central banking and banking supervision','https://www.cbk.gov.kw/en'],
+      ['Capital Markets Authority Kuwait','Capital markets regulation','https://www.cma.gov.kw/']
+    ],
+    'Oman': [
+      ['Central Bank of Oman (CBO)','Central banking and financial institution supervision','https://cbo.gov.om/'],
+      ['Financial Services Authority Oman','Capital markets and insurance supervision','https://fsa.gov.om/']
+    ],
+    'Jordan': [
+      ['Central Bank of Jordan (CBJ)','Central banking and financial sector supervision','https://www.cbj.gov.jo/'],
+      ['Jordan Securities Commission (JSC)','Securities markets','https://www.jsc.gov.jo/']
+    ],
+    'Israel': [
+      ['Bank of Israel','Central banking and banking supervision','https://www.boi.org.il/en/'],
+      ['Israel Securities Authority (ISA)','Securities markets','https://www.new.isa.gov.il/en/']
+    ],
+    'Nigeria': [
+      ['Central Bank of Nigeria (CBN)','Central banking and banking supervision','https://www.cbn.gov.ng/'],
+      ['Securities and Exchange Commission Nigeria','Capital markets','https://sec.gov.ng/'],
+      ['Nigeria Financial Intelligence Unit (NFIU)','Financial intelligence and AML/CFT','https://www.nfiu.gov.ng/']
+    ],
+    'Kenya': [
+      ['Central Bank of Kenya (CBK)','Central banking, banking and payment services','https://www.centralbank.go.ke/'],
+      ['Capital Markets Authority Kenya','Capital markets','https://www.cma.or.ke/'],
+      ['Financial Reporting Centre (FRC)','Financial intelligence and AML/CFT','https://www.frc.go.ke/']
+    ],
+    'Ghana': [
+      ['Bank of Ghana','Central banking, banking supervision and payments','https://www.bog.gov.gh/'],
+      ['Securities and Exchange Commission Ghana','Capital markets','https://sec.gov.gh/'],
+      ['Financial Intelligence Centre Ghana','Financial intelligence and AML/CFT','https://fic.gov.gh/']
+    ],
+    'Rwanda': [
+      ['National Bank of Rwanda (BNR)','Central banking and financial sector supervision','https://www.bnr.rw/']
+    ],
+    'Egypt': [
+      ['Central Bank of Egypt (CBE)','Central banking and banking supervision','https://www.cbe.org.eg/en'],
+      ['Financial Regulatory Authority (FRA)','Non-banking financial markets and services','https://fra.gov.eg/']
+    ],
+    'Morocco': [
+      ['Bank Al-Maghrib','Central banking and banking supervision','https://www.bkam.ma/en'],
+      ['Moroccan Capital Market Authority (AMMC)','Capital markets','https://www.ammc.ma/en']
+    ],
+    'Mauritius': [
+      ['Bank of Mauritius','Central banking and banking supervision','https://www.bom.mu/'],
+      ['Financial Services Commission Mauritius','Non-bank financial services supervision','https://www.fscmauritius.org/']
+    ],
+    'Tanzania': [
+      ['Bank of Tanzania','Central banking and financial institution supervision','https://www.bot.go.tz/'],
+      ['Capital Markets and Securities Authority Tanzania','Capital markets','https://www.cmsa.go.tz/']
+    ],
+    'Uganda': [
+      ['Bank of Uganda','Central banking and banking supervision','https://www.bou.or.ug/'],
+      ['Capital Markets Authority Uganda','Capital markets','https://cmauganda.co.ug/']
+    ],
+    'Ethiopia': [
+      ['National Bank of Ethiopia','Central banking and financial institution supervision','https://nbe.gov.et/']
+    ],
+    'Senegal / WAEMU': [
+      ['Central Bank of West African States (BCEAO)','Regional central bank and banking framework for WAEMU member states','https://www.bceao.int/en'],
+      ['Regional Council for Public Savings and Financial Markets (CREPMF)','Regional financial market supervision','https://www.crepmf.org/']
+    ],
+    'Côte d’Ivoire': [
+      ['Central Bank of West African States (BCEAO)','Regional central bank and banking framework','https://www.bceao.int/en'],
+      ['Regional Council for Public Savings and Financial Markets (CREPMF)','Regional financial market supervision','https://www.crepmf.org/']
+    ],
+    'Côte d’Ivoire / WAEMU regional record': [
+      ['Central Bank of West African States (BCEAO)','Regional central bank and banking framework for WAEMU member states','https://www.bceao.int/en'],
+      ['Regional Council for Public Savings and Financial Markets (CREPMF)','Regional financial market supervision','https://www.crepmf.org/']
+    ],
+    'CEMAC regional framework': [
+      ['Bank of Central African States (BEAC)','Regional central bank for CEMAC member states','https://www.beac.int/'],
+      ['Central African Banking Commission (COBAC)','Regional banking supervision','https://www.sgcobac.org/']
+    ],
+    'Mexico': [
+      ['Bank of Mexico (Banco de México)','Central banking and payment systems','https://www.banxico.org.mx/'],
+      ['National Banking and Securities Commission (CNBV)','Banking and securities institution supervision','https://www.gob.mx/cnbv'],
+      ['National Commission for the Protection and Defense of Users of Financial Services (CONDUSEF)','Financial consumer protection','https://www.condusef.gob.mx/']
+    ],
+    'Chile': [
+      ['Financial Market Commission (CMF)','Banking, insurance and securities supervision','https://www.cmfchile.cl/portal/principal/613/w3-channel.html'],
+      ['Central Bank of Chile','Central banking and payments','https://www.bcentral.cl/en/home']
+    ],
+    'Colombia': [
+      ['Financial Superintendence of Colombia','Financial institution and market supervision','https://www.superfinanciera.gov.co/'],
+      ['Banco de la República','Central banking and payments','https://www.banrep.gov.co/en']
+    ],
+    'Argentina': [
+      ['Central Bank of the Argentine Republic (BCRA)','Central banking and banking supervision','https://www.bcra.gob.ar/'],
+      ['National Securities Commission (CNV)','Capital markets','https://www.argentina.gob.ar/cnv']
+    ],
+    'Peru': [
+      ['Superintendence of Banking, Insurance and Private Pension Fund Administrators (SBS)','Banking, insurance and pension supervision','https://www.sbs.gob.pe/eng/'],
+      ['Superintendencia del Mercado de Valores (SMV)','Capital markets','https://www.smv.gob.pe/']
+    ],
+    'The Bahamas': [
+      ['Central Bank of The Bahamas','Central banking and financial institution supervision','https://www.centralbankbahamas.com/'],
+      ['Securities Commission of The Bahamas','Securities and capital markets','https://scb.gov.bs/']
+    ],
+    'Jamaica': [
+      ['Bank of Jamaica','Central banking and financial institution supervision','https://boj.org.jm/'],
+      ['Financial Services Commission Jamaica','Pensions, insurance and securities oversight','https://www.fscjamaica.org/']
+    ],
+    'Kazakhstan': [
+      ['National Bank of Kazakhstan','Central banking and monetary policy','https://nationalbank.kz/en'],
+      ['Agency for Regulation and Development of the Financial Market','Financial market supervision','https://www.gov.kz/memleket/entities/ardfm?lang=en']
+    ],
+    'Uzbekistan': [
+      ['Central Bank of the Republic of Uzbekistan','Central banking and financial institution supervision','https://cbu.uz/en/']
+    ],
+    'Thailand': [
+      ['Bank of Thailand','Central banking, payments and financial institution supervision','https://www.bot.or.th/en/home.html'],
+      ['Securities and Exchange Commission Thailand','Capital markets','https://www.sec.or.th/EN/Pages/Home.aspx'],
+      ['Anti-Money Laundering Office Thailand (AMLO)','AML/CFT authority','https://www.amlo.go.th/index.php/en']
+    ],
+    'Philippines': [
+      ['Bangko Sentral ng Pilipinas (BSP)','Central banking, banking supervision and payments','https://www.bsp.gov.ph/'],
+      ['Securities and Exchange Commission Philippines','Securities markets and corporate regulation','https://www.sec.gov.ph/'],
+      ['Anti-Money Laundering Council (AMLC)','Financial intelligence and AML/CFT','https://www.amlc.gov.ph/']
+    ],
+    'Vietnam': [
+      ['State Bank of Vietnam','Central banking and banking supervision','https://www.sbv.gov.vn/webcenter/portal/en/home'],
+      ['State Securities Commission of Vietnam','Securities markets','https://ssc.gov.vn/webcenter/portal/en/home']
+    ],
+    'Nepal': [
+      ['Nepal Rastra Bank','Central banking and financial institution supervision','https://www.nrb.org.np/'],
+      ['Securities Board of Nepal (SEBON)','Capital markets','https://www.sebon.gov.np/']
+    ],
+    'New Zealand': [
+      ['Reserve Bank of New Zealand (RBNZ)','Central banking and prudential regulation','https://www.rbnz.govt.nz/'],
+      ['Financial Markets Authority (FMA)','Financial markets and conduct regulation','https://www.fma.govt.nz/']
+    ],
+    'Chinese Taipei': [
+      ['Central Bank of the Republic of China (Taiwan)','Central banking and payment systems','https://www.cbc.gov.tw/en/mp-2.html'],
+      ['Financial Supervisory Commission (FSC)','Banking, insurance and securities supervision','https://www.fsc.gov.tw/en/']
+    ],
+    'Taiwan': [
+      ['Central Bank of the Republic of China (Taiwan)','Central banking and payment systems','https://www.cbc.gov.tw/en/mp-2.html'],
+      ['Financial Supervisory Commission (FSC)','Banking, insurance and securities supervision','https://www.fsc.gov.tw/en/']
+    ],
+    'Fiji': [
+      ['Reserve Bank of Fiji','Central banking and financial institution supervision','https://www.rbf.gov.fj/']
+    ],
+    'Macau SAR': [
+      ['Monetary Authority of Macao (AMCM)','Monetary and financial supervision','https://www.amcm.gov.mo/en']
+    ],
+    'Macao, China': [
+      ['Monetary Authority of Macao (AMCM)','Monetary and financial supervision','https://www.amcm.gov.mo/en']
+    ],
+    'Cayman Islands': [
+      ['Cayman Islands Monetary Authority (CIMA)','Financial services supervision','https://www.cima.ky/']
+    ],
+    'British Virgin Islands': [
+      ['British Virgin Islands Financial Services Commission','Financial services supervision','https://www.bvifsc.vg/']
+    ],
+    'Bermuda': [
+      ['Bermuda Monetary Authority (BMA)','Integrated financial regulator and monetary authority','https://www.bma.bm/']
+    ],
+    'Jersey': [
+      ['Jersey Financial Services Commission (JFSC)','Financial services supervision','https://www.jerseyfsc.org/']
+    ],
+    'Guernsey': [
+      ['Guernsey Financial Services Commission (GFSC)','Financial services supervision','https://www.gfsc.gg/']
+    ],
+    'Isle of Man': [
+      ['Isle of Man Financial Services Authority','Financial services supervision','https://www.iomfsa.im/']
+    ],
+    'Gibraltar': [
+      ['Gibraltar Financial Services Commission','Financial services supervision','https://www.fsc.gi/']
+    ],
+    'Curaçao': [
+      ['Centrale Bank van Curaçao en Sint Maarten (CBCS)','Central banking and financial sector supervision','https://www.centralbank.cw/']
+    ],
+    'Curaçao and Sint Maarten': [
+      ['Centrale Bank van Curaçao en Sint Maarten (CBCS)','Central banking and financial sector supervision','https://www.centralbank.cw/']
+    ],
+    'Sint Maarten': [
+      ['Centrale Bank van Curaçao en Sint Maarten (CBCS)','Central banking and financial sector supervision','https://www.centralbank.cw/']
+    ],
+    'Anguilla': [
+      ['Eastern Caribbean Central Bank (ECCB)','Central banking and banking supervision for ECCU members','https://www.eccb-centralbank.org/'],
+      ['Anguilla Financial Services Commission','Non-bank financial services oversight','https://fsc.org.ai/']
+    ],
+    'Antigua and Barbuda': [
+      ['Eastern Caribbean Central Bank (ECCB)','Central banking and banking supervision for ECCU members','https://www.eccb-centralbank.org/'],
+      ['Antigua and Barbuda Financial Services Regulatory Commission','Financial services oversight','https://www.fsrc.gov.ag/']
+    ],
+    'Dominica': [
+      ['Eastern Caribbean Central Bank (ECCB)','Central banking and banking supervision for ECCU members','https://www.eccb-centralbank.org/'],
+      ['Financial Services Unit Dominica','Non-bank financial services oversight','https://fsu.gov.dm/']
+    ],
+    'Grenada': [
+      ['Eastern Caribbean Central Bank (ECCB)','Central banking and banking supervision for ECCU members','https://www.eccb-centralbank.org/'],
+      ['Grenada Authority for the Regulation of Financial Institutions (GARFIN)','Non-bank financial services oversight','https://garfin.gd/']
+    ],
+    'Montserrat': [
+      ['Eastern Caribbean Central Bank (ECCB)','Central banking and banking supervision for ECCU members','https://www.eccb-centralbank.org/'],
+      ['Financial Services Commission Montserrat','Non-bank financial services oversight','https://www.fscmontserrat.org/']
+    ],
+    'Saint Kitts and Nevis': [
+      ['Eastern Caribbean Central Bank (ECCB)','Central banking and banking supervision for ECCU members','https://www.eccb-centralbank.org/'],
+      ['Nevis Financial Services Regulatory Commission','Financial services oversight','https://www.nevisfsrc.com/']
+    ],
+    'Saint Lucia': [
+      ['Eastern Caribbean Central Bank (ECCB)','Central banking and banking supervision for ECCU members','https://www.eccb-centralbank.org/'],
+      ['Financial Services Regulatory Authority Saint Lucia','Non-bank financial services oversight','https://www.fsrastlucia.org/']
+    ],
+    'Saint Vincent and the Grenadines': [
+      ['Eastern Caribbean Central Bank (ECCB)','Central banking and banking supervision for ECCU members','https://www.eccb-centralbank.org/'],
+      ['Financial Services Authority Saint Vincent and the Grenadines','Non-bank financial services oversight','https://fsasvg.com/']
+    ],
+    'Aruba': [
+      ['Central Bank of Aruba','Central banking and financial sector supervision','https://www.cbaruba.org/']
+    ],
+    'Belize': [
+      ['Central Bank of Belize','Central banking and financial institution supervision','https://www.centralbank.org.bz/'],
+      ['Financial Services Commission Belize','Non-bank financial services supervision','https://www.belizefsc.org.bz/']
+    ],
+    'Guyana': [
+      ['Bank of Guyana','Central banking and financial institution supervision','https://bankofguyana.org.gy/']
+    ],
+    'Suriname': [
+      ['Central Bank of Suriname','Central banking and financial institution supervision','https://www.cbvs.sr/']
+    ],
     'Bangladesh': [
       ['Bangladesh Bank','Banking, prudential regulation, payments and MFS','https://www.bb.org.bd/'],
       ['Bangladesh Financial Intelligence Unit (BFIU)','AML/CFT, financial intelligence, circulars and circular letters','https://www.bfiu.org.bd/index.php/legislation/circular'],
@@ -327,7 +1039,7 @@
   const filterSelect = (select, options, query, placeholder) => {
     const previous=select.value, q=(query||'').trim().toLocaleLowerCase();
     select.innerHTML=''; const first=document.createElement('option');first.value='';first.textContent=placeholder;select.appendChild(first);
-    options.filter(o=>!q || o.text.toLocaleLowerCase().includes(q)).forEach(o=>{const el=document.createElement('option');el.value=o.value;el.textContent=o.text;if(o.focus)el.dataset.focus=o.focus;if(o.url)el.dataset.url=o.url;select.appendChild(el);});
+    options.filter(o=>!q || o.text.toLocaleLowerCase().includes(q)).forEach(o=>{const el=document.createElement('option');el.value=o.value;el.textContent=o.text;if(o.focus)el.dataset.focus=o.focus;if(o.url)el.dataset.url=o.url;if(o.sourceKind)el.dataset.sourceKind=o.sourceKind;select.appendChild(el);});
     if(options.some(o=>o.value===previous)&&Array.from(select.options).some(o=>o.value===previous))select.value=previous;
   };
   countrySearch.addEventListener('input',()=>filterSelect(country,countryOptions,countrySearch.value,'Select a country / jurisdiction'));
@@ -338,25 +1050,41 @@
     ['IMF country information','Country and financial-sector reference material; not a substitute for the issuing regulator’s instrument register.','https://www.imf.org/en/Countries'],
     ['World Bank country data','Country context and development / financial-inclusion data; not a legal instrument source.','https://data.worldbank.org/country']
   ];
+  const discoveryOnlyJurisdictions = new Set(['Nauru','Niue','Palau','Tuvalu']);
   const renderAuthorities = () => {
     const mapped = sources[country.value] || [];
+    const discoveryOnly = discoveryOnlyJurisdictions.has(country.value);
     const list = mapped.length ? mapped : directorySources;
     authority.innerHTML = ''; authority.value='';
     const first=document.createElement('option'); first.value=''; first.textContent='Select authority / source directory'; authority.appendChild(first);
-    list.forEach(([name,focus,url])=>{const o=document.createElement('option');o.value=name;o.textContent=name; o.dataset.focus=focus; o.dataset.url=url; authority.appendChild(o);});
-    authorityOptions=Array.from(authority.options).slice(1).map(o=>({value:o.value,text:o.textContent,focus:o.dataset.focus,url:o.dataset.url}));
+    list.forEach(([name,focus,url])=>{
+      const o=document.createElement('option');
+      o.value=name;
+      o.textContent=(mapped.length&&!discoveryOnly)?name:'Discovery directory — '+name;
+      o.dataset.focus=focus;
+      o.dataset.url=url;
+      o.dataset.sourceKind=(mapped.length&&!discoveryOnly)?'country-source':'discovery-directory';
+      authority.appendChild(o);
+    });
+    authorityOptions=Array.from(authority.options).slice(1).map(o=>({value:o.value,text:o.textContent,focus:o.dataset.focus,url:o.dataset.url,sourceKind:o.dataset.sourceKind}));
     filterSelect(authority,authorityOptions,authoritySearch.value,'Select authority / source directory');
     updateSourceLink();
-    root.querySelector('#rcw-authority-help').textContent = mapped.length
-      ? 'Mapped official starting points are shown. Confirm the instrument, legal status, applicability and amendments on the issuing authority’s official site.'
-      : 'No country-specific authority mapping is available for this jurisdiction yet. Cross-jurisdiction directories are provided as discovery starting points only; they are not the local regulator and do not establish legal coverage.';
+    const help=root.querySelector('#rcw-authority-help');
+    if(mapped.length&&!discoveryOnly){
+      help.textContent='Country-specific official starting points are listed for '+country.value+'. Confirm the instrument, legal status, applicability and amendments on the issuing authority’s own website; this list is not a complete legal register.';
+    } else if(discoveryOnly){
+      help.textContent='A curated financial-regulator mapping is not yet available for '+country.value+'. Official government or legislation starting points are listed for discovery only; they are not a confirmed financial regulator and do not establish legal coverage. Identify the competent authority and verify its current official instrument before relying on it.';
+    } else {
+      help.textContent='A verified country-specific authority mapping has not yet been curated for '+(country.value||'this jurisdiction')+'. The options below are discovery directories only—not the local regulator—and do not establish legal coverage. Use them to identify the competent authority, then record its official instrument URL above.';
+    }
     renderEvidence();
   };
   const updateSourceLink = () => {
     const selected=authority.selectedOptions[0], url=selected&&selected.dataset.url?selected.dataset.url:'';
+    const discovery=selected&&selected.dataset.sourceKind==='discovery-directory';
     openSource.href=url||'#'; openSource.setAttribute('aria-disabled',url?'false':'true');
     openSource.style.pointerEvents=url?'auto':'none'; openSource.style.opacity=url?'1':'.55';
-    openSource.textContent=url?'Open selected official starting point ↗':'Select an authority to open its source';
+    openSource.textContent=url?(discovery?'Open selected discovery directory ↗':'Open selected official starting point ↗'):'Select an authority to open its source';
   };
   authoritySearch.addEventListener('input',()=>{filterSelect(authority,authorityOptions,authoritySearch.value,'Select authority / source directory');if(!authority.value)sourceUrl.value='';updateSourceLink();});
   const recordArray = () => country.value==='Bangladesh' ? bdCirculars.concat(bdLetters).map(r=>({date:r[0],number:r[1],scope:r[2],title:r[3],url:r[4],verification:r[5]})) : [];
