@@ -82,7 +82,7 @@
 }
 </script>
 
-<link rel="preload" href="styles.css?v=20261006-ui6" as="style">
+<link rel="preload" href="styles.css?v=20261015-desktoprailfix1" as="style">
 <link rel="stylesheet" href="styles.css?v=20261006-ui6">
 
 <style id="homepage-quick-access-critical">
@@ -283,6 +283,26 @@
 .knowledge-list .knowledge-video-entry:hover{background:linear-gradient(135deg,#e6f4f8 0%,#f3faf8 100%);transform:translateY(-2px);box-shadow:0 16px 34px rgba(16,32,59,.10)}
 @media(max-width:560px){.knowledge-list .knowledge-video-entry{padding:20px 24px}.knowledge-list .knowledge-video-entry b{font-size:18px}.knowledge-list .knowledge-video-entry::after{right:14px}.knowledge-list .knowledge-video-entry i{width:40px;height:40px}}
 </style>
+
+<style id="homepage-quick-access-layout-fix-20261015">
+/* Keep the mobile quick-access rail off desktop; do not render two tool menus at once. */
+@media (min-width:1181px){
+  body:not(.fih-page) .mobile-toolkit-tabs{display:none!important}
+  body:not(.fih-page) .desktop-side-tools{display:block!important;position:static!important;width:0!important;height:0!important;margin:0!important;padding:0!important;pointer-events:none!important}
+  body:not(.fih-page) .desktop-side-tools__rail{position:fixed!important;top:96px!important;bottom:18px!important;left:10px!important;right:auto!important;width:154px!important;max-width:154px!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:center!important;gap:8px!important;padding:0!important;overflow:visible!important;pointer-events:auto!important}
+  body:not(.fih-page) .desktop-side-tools__rail--right{left:auto!important;right:10px!important}
+  body:not(.fih-page) .desktop-side-tools__rail>a{display:flex!important;flex:0 0 46px!important;width:100%!important;min-width:0!important;max-width:none!important;height:46px!important;min-height:46px!important;margin:0!important;padding:7px 9px!important;align-items:center!important;justify-content:center!important;overflow:hidden!important;white-space:normal!important;text-align:center!important;box-sizing:border-box!important}
+  body:not(.fih-page) .desktop-side-tools__rail>a>b{display:block!important;width:100%!important;font-size:10.5px!important;line-height:1.15!important;white-space:normal!important;word-break:normal!important;overflow-wrap:normal!important;hyphens:auto!important}
+}
+@media (max-width:1180px){
+  body:not(.fih-page) .desktop-side-tools{display:none!important}
+  body:not(.fih-page) .nav nav,body:not(.fih-page) .nav-cta{display:none!important}
+  body:not(.fih-page) .nav .menu{display:block!important}
+  body:not(.fih-page) .nav.open nav{display:flex!important;position:absolute!important;top:78px!important;left:0!important;right:0!important;background:#fff!important;padding:18px 5vw!important;flex-direction:column!important;gap:0!important;border-bottom:1px solid #ddd!important;box-shadow:0 12px 24px rgba(16,32,59,.12)!important}
+  body:not(.fih-page) .nav.open nav a{display:block!important;padding:12px 4px!important;font-size:14px!important;white-space:normal!important}
+}
+</style>
+
 </head>
 
 <body>
