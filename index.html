@@ -285,6 +285,30 @@
 </style>
 
   <meta name="google-site-verification" content="R_oRJJgo9puggGmYKyeVYJwKrOjuiXgJvOUmUgD0AoE" />
+
+<style id="rt-homepage-compact-header-20261015">
+/* Compact, accessible homepage header and quick access; presentation only. */
+.quick-access-toggle{position:fixed!important;right:14px!important;top:88px!important;z-index:1305!important;display:flex!important;align-items:center!important;gap:7px!important;padding:7px 10px!important;border:1px solid #c9dbe7!important;border-radius:10px!important;background:#fff!important;color:#0956a8!important;box-shadow:0 4px 16px rgba(16,32,59,.12)!important;cursor:pointer!important;font:700 12px/1.2 Inter,Arial,sans-serif!important}
+.quick-access-toggle span{font-size:19px!important;line-height:1!important}
+.quick-access-toggle small{font-size:11px!important}
+.desktop-side-tools{display:none!important;pointer-events:none!important}
+.desktop-side-tools.quick-access-open{display:block!important;position:fixed!important;z-index:1300!important;inset:132px 12px auto auto!important;width:min(370px,calc(100vw - 24px))!important;height:auto!important;max-height:calc(100vh - 150px)!important;overflow:auto!important;padding:12px!important;border:1px solid #dbe6ec!important;border-radius:14px!important;background:rgba(255,255,255,.98)!important;box-shadow:0 16px 42px rgba(16,32,59,.2)!important;pointer-events:auto!important}
+.desktop-side-tools.quick-access-open .desktop-side-tools__rail{position:static!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important;width:100%!important;max-width:none!important;height:auto!important;max-height:none!important;margin:0 0 8px!important;padding:0!important;transform:none!important;pointer-events:auto!important}
+.desktop-side-tools.quick-access-open .desktop-side-tools__rail>a{height:auto!important;min-height:42px!important;max-height:none!important;padding:8px!important;border:1px solid #e0eaf0!important;border-radius:8px!important;background:linear-gradient(135deg,#f2f9ff,#f1fbf8)!important;color:#12324b!important;font-size:11px!important;line-height:1.25!important;transform:none!important}
+.desktop-side-tools.quick-access-open .desktop-side-tools__rail>a>b{font-size:11px!important;line-height:1.25!important}
+.mobile-toolkit-tabs{display:none!important}
+.nav{height:auto!important;min-height:66px!important;padding-top:8px!important;padding-bottom:8px!important;gap:10px!important}
+.nav .brand-logo{width:clamp(118px,13vw,158px)!important;max-width:158px!important;height:auto!important;max-height:48px!important;object-fit:contain!important}
+.nav nav{gap:6px!important}
+.nav nav a{font-size:10.5px!important;padding:6px 3px!important;line-height:1.2!important}
+.nav-cta{padding:8px 10px!important;font-size:10.5px!important;white-space:nowrap!important}
+.hero{min-height:0!important;padding-top:clamp(56px,7vw,82px)!important;padding-bottom:46px!important}
+.hero h1{font-size:clamp(42px,5.2vw,72px)!important;line-height:1.02!important;max-width:850px!important;letter-spacing:-.04em!important}
+.hero>p{font-size:16px!important;line-height:1.55!important;margin:24px 0!important;max-width:660px!important}
+@media(max-width:1180px){.quick-access-toggle{top:74px!important;right:10px!important}.desktop-side-tools.quick-access-open{inset:116px 10px auto auto!important}.nav{padding-left:16px!important;padding-right:16px!important}.nav nav{display:none!important}.nav .menu{display:block!important;margin-left:auto!important;font-size:22px!important}.nav-cta{display:none!important}.hero h1{font-size:clamp(36px,7vw,58px)!important}.hero{padding-top:46px!important}}
+@media(max-width:560px){.quick-access-toggle{top:70px!important;padding:6px 8px!important}.quick-access-toggle small{font-size:10px!important}.desktop-side-tools.quick-access-open{inset:110px 8px auto auto!important;width:calc(100vw - 16px)!important;max-height:calc(100vh - 125px)!important}.nav .brand-logo{width:118px!important;max-height:40px!important}.hero h1{font-size:clamp(34px,9vw,46px)!important}.hero>p{font-size:14px!important}}
+</style>
+
 </head>
 
 <body>
@@ -356,8 +380,9 @@
 
 </header>
 
-<!-- DESKTOP QUICK ACCESS: restored colourful, movable left/right rails -->
-<div class="desktop-side-tools" aria-label="Main site quick access">
+<!-- COMPACT QUICK ACCESS: expandable menu replaces fixed side rails -->
+<button class="quick-access-toggle" type="button" aria-expanded="false" aria-controls="quick-access-panel" aria-label="Open quick access menu"><span aria-hidden="true">☰</span><small>Quick access</small></button>
+<div class="desktop-side-tools" id="quick-access-panel" aria-label="Main site quick access">
   <nav class="desktop-side-tools__rail desktop-side-tools__rail--left" aria-label="Tools and readiness">
     <a href="/tradeguard/"><b>TradeGuard</b></a>
     <a href="/icms-2026/"><b>ICMS Toolkit</b></a>
@@ -400,6 +425,21 @@
   <a class="tool-tab tool-tab--assistant" href="https://chatgpt.com/g/g-6a09920b01348191b9b1628b69367d9b-regtech-nexus-ai" target="_blank" rel="noopener noreferrer"><b>AI Assistant</b><span>Ask RegTech AI ↗</span></a>
 </nav>
 <!-- /MOBILE TOOLKIT QUICK ACCESS -->
+<script>
+(function(){
+  var toggle=document.querySelector(".quick-access-toggle");
+  var panel=document.querySelector(".desktop-side-tools");
+  if(!toggle||!panel)return;
+  toggle.addEventListener("click",function(){
+    var open=toggle.getAttribute("aria-expanded")==="true";
+    toggle.setAttribute("aria-expanded",String(!open));
+    toggle.setAttribute("aria-label",open?"Open quick access menu":"Close quick access menu");
+    panel.classList.toggle("quick-access-open",!open);
+  });
+  panel.addEventListener("click",function(e){if(e.target.closest("a")){panel.classList.remove("quick-access-open");toggle.setAttribute("aria-expanded","false");toggle.setAttribute("aria-label","Open quick access menu");}});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"){panel.classList.remove("quick-access-open");toggle.setAttribute("aria-expanded","false");toggle.setAttribute("aria-label","Open quick access menu");}});
+})();
+</script>
 
 
 <main id="main-content">
