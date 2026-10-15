@@ -10,7 +10,7 @@
 <meta name="theme-color" content="#0956a8">
 <link rel="icon" type="image/png" href="/regtech-nexus-ai-logo-2026.png">
 <link rel="stylesheet" href="/styles.css?v=20261006-ui6">
-<link rel="stylesheet" href="/fintech-intelligence-hub/fintech-intelligence-hub.css?v=20261014-layout5">
+<link rel="stylesheet" href="/fintech-intelligence-hub/fintech-intelligence-hub.css?v=20261015-feedbackcompact1">
 <link rel="stylesheet" href="/fintech-intelligence-hub/fintech-inclusion-lab.css?v=20261014-printfix2">
 <link rel="stylesheet" href="/fintech-intelligence-hub/fintech-phase2-toolkit.css?v=20261015-reportquality1">
 <link rel="stylesheet" href="/fintech-intelligence-hub/regulatory-coverage-workbench.css?v=20261015-reportquality1">
@@ -580,15 +580,20 @@
 <footer class="gc-footer">
   <section class="fih-feedback" aria-labelledby="fih-feedback-title">
     <h2 id="fih-feedback-title">Feedback / মতামত</h2>
-    <p>Help improve this free resource. Submitting opens your email app with the feedback details addressed to RegTech Nexus AI; it does not send automatically.</p>
-    <form id="fih-feedback-form">
-      <div class="fih-feedback-grid">
-        <label for="fih-feedback-role">You are / আপনার পরিচয়<select id="fih-feedback-role" name="role"><option>Student / learner</option><option>FinTech founder / product team</option><option>Banking / financial services professional</option><option>Regulator / policymaker</option><option>Researcher / consultant</option><option>Other</option></select></label>
-        <label for="fih-feedback-topic">Feedback topic<select id="fih-feedback-topic" name="topic"><option>Country / authority / source link</option><option>Language / accessibility</option><option>Report / PDF export</option><option>Content accuracy</option><option>New feature request</option><option>Other</option></select></label>
-        <label class="fih-feedback-wide" for="fih-feedback-message">Your feedback / আপনার মতামত<textarea id="fih-feedback-message" name="message" rows="4" required placeholder="Tell us what worked, what failed, or what should improve. Please do not include confidential or personal banking data."></textarea></label>
+    <details class="fih-feedback-details">
+      <summary>Open feedback form / মতামত দিন</summary>
+      <div class="fih-feedback-content">
+        <p>Help improve this free resource. Submitting opens your email app with the feedback details addressed to RegTech Nexus AI; it does not send automatically.</p>
+        <form id="fih-feedback-form">
+          <div class="fih-feedback-grid">
+            <label for="fih-feedback-role">You are / আপনার পরিচয়<select id="fih-feedback-role" name="role"><option>Student / learner</option><option>FinTech founder / product team</option><option>Banking / financial services professional</option><option>Regulator / policymaker</option><option>Researcher / consultant</option><option>Other</option></select></label>
+            <label for="fih-feedback-topic">Feedback topic<select id="fih-feedback-topic" name="topic"><option>Country / authority / source link</option><option>Language / accessibility</option><option>Report / PDF export</option><option>Content accuracy</option><option>New feature request</option><option>Other</option></select></label>
+            <label class="fih-feedback-wide" for="fih-feedback-message">Your feedback / আপনার মতামত<textarea id="fih-feedback-message" name="message" rows="3" required placeholder="Tell us what worked, what failed, or what should improve. Please do not include confidential or personal banking data."></textarea></label>
+          </div>
+          <button type="submit" class="fih-feedback-submit">Prepare feedback email</button><p id="fih-feedback-status" role="status" aria-live="polite"></p>
+        </form>
       </div>
-      <button type="submit" class="fih-feedback-submit">Prepare feedback email</button><p id="fih-feedback-status" role="status" aria-live="polite"></p>
-    </form>
+    </details>
   </section>
   <a href="/" aria-label="RegTech Nexus AI home"><img src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="180" height="58" loading="lazy"></a><p><b>RegTech Nexus AI — Audit &amp; Regulatory Intelligence</b><br>Intelligence for a Regulated World.</p><nav aria-label="Footer links"><a href="/">Home</a><a href="/insights.html">Insights</a><a href="/student/">Student Knowledge Hub</a><a href="mailto:regtechnexusai@gmail.com">Contact</a></nav><small>Published by RegTech Nexus AI · Educational and decision-support resource; verify official sources before reliance.</small></footer>
 <script>
