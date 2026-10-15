@@ -874,3 +874,94 @@ body:has(.fih-hero) a{overflow-wrap:break-word;word-break:normal;hyphens:none}
 @media(prefers-reduced-motion:reduce){
   .fih-page .fih-start-card,.fih-page .fih-card{transition:none}
 }
+
+
+/* 2026-10-15 follow-up: complete color treatment for remaining hub panels and boxes.
+   Presentation only; no content, destinations, input names, or tool behavior changed. */
+.fih-page{
+  --fih-teal:#087f8c;
+  --fih-blue:#2563b8;
+  --fih-purple:#7040b8;
+  --fih-amber:#a6530b;
+  --fih-pale-teal:#f0faf8;
+  --fih-pale-blue:#f2f7ff;
+  --fih-pale-purple:#f8f5ff;
+  --fih-pale-amber:#fff8ef;
+}
+/* Inclusion lab, generated output, and regulatory coverage panels */
+.fih-page .fih-inclusion-lab,
+.fih-page #inclusion-impact-lab{border-top:5px solid var(--fih-teal);background:linear-gradient(180deg,#f0faf8 0,#fff 220px)}
+.fih-page .fih-inclusion-output,
+.fih-page .rcw-output{border:1px solid #b8ded9;border-top:5px solid var(--fih-teal);border-radius:12px;background:#f5fbfa;padding:clamp(16px,2.5vw,26px)}
+.fih-page .rcw-section{position:relative;border-top:5px solid var(--fih-amber);border-bottom:1px solid #e6d5c3;background:linear-gradient(180deg,#fff8ef 0,#fff 240px)}
+.fih-page .rcw-section:before{content:"";display:block;width:76px;height:4px;margin:0 0 18px;border-radius:0 0 5px 5px;background:var(--fih-amber)}
+.fih-page .rcw-card{border:1px solid #d9e5ec;border-top:4px solid var(--rcw-accent,#2563b8);border-radius:12px;background:#fff;box-shadow:0 6px 18px rgba(16,43,73,.06)}
+.fih-page .rcw-card:nth-child(4n+1){--rcw-accent:#087f8c}
+.fih-page .rcw-card:nth-child(4n+2){--rcw-accent:#2563b8}
+.fih-page .rcw-card:nth-child(4n+3){--rcw-accent:#7040b8}
+.fih-page .rcw-card:nth-child(4n){--rcw-accent:#a6530b}
+.fih-page .rcw-card h3,.fih-page .rcw-card h4{color:var(--rcw-accent,#2563b8)}
+.fih-page .rcw-sample-panel{border:1px solid #e7d6c3;border-left:5px solid #a6530b;border-radius:12px;background:#fff9f1;padding:clamp(16px,2.4vw,24px)}
+.fih-page .rcw-coverage-label{background:#fff0dc;border-color:#f0d1a9;color:#8b480d}
+.fih-page .rcw-note{border-left:4px solid #2563b8;background:#f2f7ff;border-radius:0 9px 9px 0;padding:14px 16px}
+/* Worked examples and interactive scenario boxes */
+.fih-page .fih-example-summary>div{border:1px solid #d7e4ec;border-top:4px solid var(--example-accent,#087f8c);background:#fff;box-shadow:0 4px 14px rgba(16,43,73,.045)}
+.fih-page .fih-example-summary>div:nth-child(3n+1){--example-accent:#087f8c}
+.fih-page .fih-example-summary>div:nth-child(3n+2){--example-accent:#2563b8}
+.fih-page .fih-example-summary>div:nth-child(3n){--example-accent:#7040b8}
+.fih-page .fih-example-summary span{color:var(--example-accent,#087f8c)}
+.fih-page .fih-table-wrap{border-top:4px solid #2563b8;box-shadow:0 5px 16px rgba(16,43,73,.045)}
+.fih-page .fih-example-table th{background:#eaf2ff;border-bottom:1px solid #cbdcf7}
+.fih-page .fih-scenario{border:1px solid #d8e4ec;border-top:4px solid var(--scenario-accent,#087f8c);background:#fff;box-shadow:0 5px 16px rgba(16,43,73,.045)}
+.fih-page .fih-scenario:nth-child(4n+1){--scenario-accent:#087f8c}
+.fih-page .fih-scenario:nth-child(4n+2){--scenario-accent:#2563b8}
+.fih-page .fih-scenario:nth-child(4n+3){--scenario-accent:#7040b8}
+.fih-page .fih-scenario:nth-child(4n){--scenario-accent:#a6530b}
+.fih-page .fih-scenario summary{background:color-mix(in srgb,var(--scenario-accent,#087f8c) 6%,white);color:#173952}
+.fih-page .fih-scenario summary:after,.fih-page .fih-scenario summary span{color:var(--scenario-accent,#087f8c)}
+.fih-page .fih-scenario summary span{background:color-mix(in srgb,var(--scenario-accent,#087f8c) 12%,white)}
+.fih-page .fih-scenario>div{border-top:1px solid #e5edf2;background:#fff}
+/* Intelligence brief: distinguish the working document from its guidance rail */
+.fih-page #intelligence-brief{background:linear-gradient(180deg,#f2f7ff 0,#fff 250px)}
+.fih-page .fih-brief-paper{border:1px solid #cbdcf7;border-top:5px solid #2563b8;border-radius:12px;background:#fff;box-shadow:0 8px 24px rgba(37,99,184,.075);padding:clamp(18px,2.4vw,30px)}
+.fih-page .fih-brief-side{border:1px solid #dfd0fb;border-top:5px solid #7040b8;border-radius:12px;background:#faf7ff;padding:clamp(18px,2.4vw,26px)}
+.fih-page .fih-brief-side h3,.fih-page .fih-brief-side h4{color:#5d3598}
+.fih-page .fih-brief-paper h3{color:#174b85}
+.fih-page .fih-brief-paper dl>div{border-bottom:1px solid #e5edf6}
+.fih-page .fih-brief-paper dt{color:#2459a6}
+.fih-page .fih-brief-header span:nth-child(4n+1){background:#e7f7f3;border-color:#bde5dc;color:#086b65}
+.fih-page .fih-brief-header span:nth-child(4n+2){background:#edf4ff;border-color:#cbdcf7;color:#2459a6}
+.fih-page .fih-brief-header span:nth-child(4n+3){background:#f3edff;border-color:#dfd0fb;color:#6540a5}
+.fih-page .fih-brief-header span:nth-child(4n){background:#fff3e6;border-color:#f2d5b2;color:#9b4b0c}
+/* Glossary, workflow, and topic cards */
+.fih-page #workflow-method{background:linear-gradient(180deg,#f0faf8 0,#fff 220px)}
+.fih-page .fih-steps>li:nth-child(5n+1){border-top:4px solid #087f8c;background:#f8fdfc}
+.fih-page .fih-steps>li:nth-child(5n+2){border-top:4px solid #2563b8;background:#f8faff}
+.fih-page .fih-steps>li:nth-child(5n+3){border-top:4px solid #7040b8;background:#fbf9ff}
+.fih-page .fih-steps>li:nth-child(5n+4){border-top:4px solid #a6530b;background:#fffaf4}
+.fih-page .fih-steps>li:nth-child(5n){border-top:4px solid #087f8c;background:#f8fdfc}
+.fih-page .fih-glossary-grid>div{border:1px solid #d8e4ec;border-top:4px solid var(--glossary-accent,#087f8c);border-radius:10px;background:#fff;box-shadow:0 4px 14px rgba(16,43,73,.045)}
+.fih-page .fih-glossary-grid>div:nth-child(4n+1){--glossary-accent:#087f8c}
+.fih-page .fih-glossary-grid>div:nth-child(4n+2){--glossary-accent:#2563b8}
+.fih-page .fih-glossary-grid>div:nth-child(4n+3){--glossary-accent:#7040b8}
+.fih-page .fih-glossary-grid>div:nth-child(4n){--glossary-accent:#a6530b}
+.fih-page .fih-glossary-grid>div h3,.fih-page .fih-glossary-grid>div h4{color:var(--glossary-accent,#087f8c)}
+.fih-page .fih-callout{border:1px solid #cbdcf7;border-left:5px solid #2563b8;border-radius:0 10px 10px 0;background:#f4f8ff;padding:18px 20px}
+.fih-page .fih-example-note{border-left:3px solid #a6530b;padding-left:12px}
+/* Feedback form and closing notes remain accessible on the dark footer */
+.fih-page .fih-feedback{border:1px solid #42617b;border-top:4px solid #087f8c;border-radius:10px;background:#142f4c;padding:18px}
+.fih-page .fih-feedback-details>summary{border-left:4px solid #7040b8;border-radius:0 7px 7px 0;background:#1a3b5b;padding:12px 14px}
+.fih-page .fih-feedback-content{border-top:1px solid #42617b;margin-top:12px}
+.fih-page .fih-feedback-submit{border-color:#b9e7e2;background:#e3f8f5;color:#14505a}
+.fih-page .fih-feedback-submit:hover{background:#fff}
+.fih-page .fih-disclaimer{border-top:4px solid #a6530b;border-left:4px solid #a6530b;background:#fff8ef}
+.fih-page .fih-phase2-note{border-left:4px solid #7040b8;background:#f8f5ff;border-radius:0 8px 8px 0;padding:12px 15px}
+.fih-page .fih-phase2-status{border-left:4px solid #087f8c;background:#f0faf8;border-radius:0 8px 8px 0;padding:12px 15px}
+.fih-page .fih-phase2-caution{border-left:4px solid #a6530b;background:#fff8ef;border-radius:0 8px 8px 0;padding:13px 15px}
+.fih-page .fih-phase2-sources{border:1px solid #bde5dc;border-top:4px solid #087f8c;border-radius:10px;background:#f4fbf9;padding:18px 20px}
+.fih-page .fih-phase2-source-record{border-left:4px solid #2563b8;background:#f4f8ff;padding:12px 15px}
+@media(max-width:760px){
+  .fih-page .fih-brief-paper,.fih-page .fih-brief-side{padding:17px 15px}
+  .fih-page .rcw-sample-panel{padding:16px}
+  .fih-page .fih-inclusion-output,.fih-page .rcw-output{padding:16px}
+}
