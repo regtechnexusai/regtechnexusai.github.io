@@ -602,3 +602,22 @@ body:has(.fih-hero) a{overflow-wrap:break-word;word-break:normal;hyphens:none}
     border-bottom:0;
   }
 }
+
+/* Compact, accessible footer feedback disclosure: keeps the site footer from expanding around a full form. */
+.gc-footer .fih-feedback{box-sizing:border-box;width:min(100%,900px);margin:0 auto 24px;padding:16px 18px;text-align:left;border:1px solid rgba(232,241,248,.28);border-radius:12px;background:rgba(255,255,255,.055)}
+.gc-footer .fih-feedback h2{margin:0 0 10px;color:#fff;font-size:clamp(18px,2.4vw,23px);line-height:1.3}
+.gc-footer .fih-feedback-details{border-top:1px solid rgba(232,241,248,.2);padding-top:10px}
+.gc-footer .fih-feedback-details>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;color:#fff;font-size:14px;font-weight:700;line-height:1.5}
+.gc-footer .fih-feedback-details>summary::marker{color:#9ce1e0}
+.gc-footer .fih-feedback-content{padding-top:12px}
+.gc-footer .fih-feedback-content>p{margin:0 0 14px;color:#d6e3ee;font-size:12px;line-height:1.6}
+.gc-footer .fih-feedback-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.gc-footer .fih-feedback-grid label{display:block;min-width:0;color:#f1f7fb;font-size:12px;font-weight:700;line-height:1.5}
+.gc-footer .fih-feedback-grid select,.gc-footer .fih-feedback-grid textarea{display:block;box-sizing:border-box;width:100%;max-width:100%;min-width:0;margin-top:6px;padding:10px 11px;border:1px solid #b9cbd9;border-radius:7px;background:#fff;color:#183047;font:inherit;font-weight:400}
+.gc-footer .fih-feedback-grid select{min-height:42px}
+.gc-footer .fih-feedback-grid textarea{min-height:76px;resize:vertical}
+.gc-footer .fih-feedback-wide{grid-column:1/-1}
+.gc-footer .fih-feedback-submit{margin-top:12px;padding:10px 15px;border:1px solid #9ce1e0;border-radius:7px;background:#dff7f5;color:#12334c;font:inherit;font-size:12px;font-weight:800;cursor:pointer}
+.gc-footer .fih-feedback-submit:hover{background:#fff}
+.gc-footer #fih-feedback-status{overflow-wrap:anywhere}
+@media(max-width:600px){.gc-footer .fih-feedback{padding:13px 12px;margin-bottom:20px}.gc-footer .fih-feedback-grid{grid-template-columns:minmax(0,1fr)}.gc-footer .fih-feedback-wide{grid-column:auto}.gc-footer .fih-feedback-details>summary{font-size:13px}}
