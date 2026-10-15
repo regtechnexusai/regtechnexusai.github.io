@@ -72,7 +72,7 @@
     lines.push('- If evidence is insufficient, defer the recommendation or explicitly qualify it.');
     lines.push('');
     lines.push('Prepared with RegTech Nexus AI FinTech Intelligence Hub. Educational decision support; not legal advice, certification or regulatory approval.');
-    return lines.join('\\n');
+    return lines.join('\n');
   }
   function renderBrief() {
     const out = document.getElementById('phase2-brief-output');
