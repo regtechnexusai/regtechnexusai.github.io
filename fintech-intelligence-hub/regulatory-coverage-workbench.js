@@ -1050,26 +1050,30 @@
     ['IMF country information','Country and financial-sector reference material; not a substitute for the issuing regulator’s instrument register.','https://www.imf.org/en/Countries'],
     ['World Bank country data','Country context and development / financial-inclusion data; not a legal instrument source.','https://data.worldbank.org/country']
   ];
+  const discoveryOnlyJurisdictions = new Set(['Nauru','Niue','Palau','Tuvalu']);
   const renderAuthorities = () => {
     const mapped = sources[country.value] || [];
+    const discoveryOnly = discoveryOnlyJurisdictions.has(country.value);
     const list = mapped.length ? mapped : directorySources;
     authority.innerHTML = ''; authority.value='';
     const first=document.createElement('option'); first.value=''; first.textContent='Select authority / source directory'; authority.appendChild(first);
     list.forEach(([name,focus,url])=>{
       const o=document.createElement('option');
       o.value=name;
-      o.textContent=mapped.length?name:'Discovery directory — '+name;
+      o.textContent=(mapped.length&&!discoveryOnly)?name:'Discovery directory — '+name;
       o.dataset.focus=focus;
       o.dataset.url=url;
-      o.dataset.sourceKind=mapped.length?'country-source':'discovery-directory';
+      o.dataset.sourceKind=(mapped.length&&!discoveryOnly)?'country-source':'discovery-directory';
       authority.appendChild(o);
     });
     authorityOptions=Array.from(authority.options).slice(1).map(o=>({value:o.value,text:o.textContent,focus:o.dataset.focus,url:o.dataset.url,sourceKind:o.dataset.sourceKind}));
     filterSelect(authority,authorityOptions,authoritySearch.value,'Select authority / source directory');
     updateSourceLink();
     const help=root.querySelector('#rcw-authority-help');
-    if(mapped.length){
+    if(mapped.length&&!discoveryOnly){
       help.textContent='Country-specific official starting points are listed for '+country.value+'. Confirm the instrument, legal status, applicability and amendments on the issuing authority’s own website; this list is not a complete legal register.';
+    } else if(discoveryOnly){
+      help.textContent='A curated financial-regulator mapping is not yet available for '+country.value+'. Official government or legislation starting points are listed for discovery only; they are not a confirmed financial regulator and do not establish legal coverage. Identify the competent authority and verify its current official instrument before relying on it.';
     } else {
       help.textContent='A verified country-specific authority mapping has not yet been curated for '+(country.value||'this jurisdiction')+'. The options below are discovery directories only—not the local regulator—and do not establish legal coverage. Use them to identify the competent authority, then record its official instrument URL above.';
     }
