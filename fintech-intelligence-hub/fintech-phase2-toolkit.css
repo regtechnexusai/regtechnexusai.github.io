@@ -172,3 +172,9 @@
   .fih-page .fih-phase2-action-table th:nth-child(4){width:38%}
   .fih-page .fih-phase2-action-table th,.fih-page .fih-phase2-action-table td{font-size:9pt;padding:6pt;overflow-wrap:anywhere;word-break:normal}
 }
+
+.fih-page .fih-phase2-source-record{margin:0 0 4px;padding:14px;border:1px solid #cbdce6;border-radius:10px;background:#f7fafc;min-width:0}
+.fih-page .fih-phase2-source-record legend{padding:0 6px;color:#174d6c;font-weight:800;font-size:.9rem}
+.fih-page .fih-phase2-source-record .fih-phase2-fields{margin-top:4px}
+.fih-page .fih-phase2-source-wide{grid-column:1/-1}
+@media(max-width:640px){.fih-page .fih-phase2-source-record{padding:11px}.fih-page .fih-phase2-source-wide{grid-column:auto}}
