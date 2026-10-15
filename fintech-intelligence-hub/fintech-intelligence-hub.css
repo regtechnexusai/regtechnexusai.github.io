@@ -621,3 +621,63 @@ body:has(.fih-hero) a{overflow-wrap:break-word;word-break:normal;hyphens:none}
 .gc-footer .fih-feedback-submit:hover{background:#fff}
 .gc-footer #fih-feedback-status{overflow-wrap:anywhere}
 @media(max-width:600px){.gc-footer .fih-feedback{padding:13px 12px;margin-bottom:20px}.gc-footer .fih-feedback-grid{grid-template-columns:minmax(0,1fr)}.gc-footer .fih-feedback-wide{grid-column:auto}.gc-footer .fih-feedback-details>summary{font-size:13px}}
+
+
+/* Hero action links: explicit contrast, sizing and stacking so all three shortcuts stay visible. */
+.fih-page .fih-hero .fih-hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:10px;
+  position:relative;
+  z-index:5;
+  width:100%;
+  margin-top:22px;
+}
+.fih-page .fih-hero .fih-hero-actions .fih-inclusion-hero-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 1 auto;
+  min-height:46px;
+  max-width:100%;
+  box-sizing:border-box;
+  padding:11px 15px;
+  border:2px solid #ffffff;
+  border-radius:9px;
+  background:#0756a3;
+  color:#ffffff !important;
+  font-size:14px;
+  font-weight:800;
+  line-height:1.45;
+  text-align:center;
+  text-decoration:none !important;
+  overflow-wrap:anywhere;
+  opacity:1;
+  visibility:visible;
+  box-shadow:0 4px 0 #063d78,0 8px 18px rgba(7,86,163,.2);
+  transition:background-color .15s ease,transform .15s ease,box-shadow .15s ease;
+}
+.fih-page .fih-hero .fih-hero-actions .fih-inclusion-hero-link:hover{
+  background:#063f7d;
+  color:#ffffff !important;
+  transform:translateY(-1px);
+  box-shadow:0 5px 0 #052f5d,0 10px 22px rgba(7,86,163,.25);
+}
+.fih-page .fih-hero .fih-hero-actions .fih-inclusion-hero-link:focus-visible{
+  outline:3px solid #f4c95d;
+  outline-offset:4px;
+}
+@media(max-width:700px){
+  .fih-page .fih-hero .fih-hero-actions{align-items:stretch}
+  .fih-page .fih-hero .fih-hero-actions .fih-inclusion-hero-link,
+  .fih-page .fih-hero .fih-hero-actions .fih-primary{
+    width:100%;
+    max-width:100%;
+    min-height:48px;
+    white-space:normal;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .fih-page .fih-hero .fih-hero-actions .fih-inclusion-hero-link{transition:none}
+}
