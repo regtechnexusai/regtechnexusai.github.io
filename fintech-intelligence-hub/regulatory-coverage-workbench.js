@@ -481,7 +481,7 @@
     } catch(e) { expectedHost=''; }
     const normalHost=stripWww(sourceHost);
     const domainMatches=Boolean(normalHost && expectedHost &&
-      (normalHost===expectedHost || normalHost.endsWith('.'+expectedHost) || expectedHost.endsWith('.'+normalHost)));
+      (normalHost===expectedHost || normalHost.endsWith('.'+expectedHost)));
     if(sourceHost && expectedHost && !domainMatches) warnings.push('Source domain does not match the selected authority’s mapped official starting point; mark source as UNVERIFIED until the exact official document is confirmed.');
     if(sourceHost && !expectedHost) warnings.push('No mapped official domain is available for the selected authority; manually verify the domain and exact document against an authoritative source.');
     if(!sourceHost) warnings.push('No source URL supplied; primary-source verification is outstanding.');
