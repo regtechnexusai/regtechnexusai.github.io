@@ -142,6 +142,7 @@
     const contextGaps = [];
     if (!field(readiness,'product')) contextGaps.push('product/service not specified');
     if (!field(readiness,'jurisdiction')) contextGaps.push('jurisdiction not specified');
+    const scopeComplete = contextGaps.length === 0;
     summary.textContent = (field(readiness,'product') || 'Product/service not specified') + ' — ' +
       (field(readiness,'jurisdiction') || 'jurisdiction not specified') + '. ' +
       (contextGaps.length ? 'ASSESSMENT BLOCKER: ' + contextGaps.join(' and ') + '; do not treat this as a scoped assessment. ' : '') +
@@ -151,11 +152,17 @@
       (licensingOpen ? 'CRITICAL GATE: regulatory perimeter / authorisation is not closed; do not treat the product as launch-ready. ' : '') +
       'This is a self-review tracker, not a readiness score, compliance finding or regulatory approval.';
     list.replaceChildren();
+    if (!scopeComplete) {
+      const blocker = document.createElement('p');
+      blocker.className = 'fih-phase2-caution';
+      blocker.textContent = 'ASSESSMENT BLOCKER: specify both the product/service and jurisdiction before interpreting this checklist as a scoped review.';
+      list.appendChild(blocker);
+    }
     if (!assessed.length) {
       const p = document.createElement('p');
       p.textContent = 'Not yet assessed. Select a status for each relevant area and document supporting evidence, a gap or an explained not-applicable rationale.';
       list.appendChild(p);
-    } else if (!needsAction.length) {
+    } else if (!needsAction.length && scopeComplete) {
       const p = document.createElement('p');
       p.textContent = 'No open follow-up was identified by the selected statuses. This does not establish compliance: a qualified reviewer must still confirm original sources, legal applicability, control effectiveness, approval and critical launch conditions.';
       list.appendChild(p);
