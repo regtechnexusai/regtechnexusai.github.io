@@ -711,3 +711,166 @@ body:has(.fih-hero) a{overflow-wrap:break-word;word-break:normal;hyphens:none}
   background:#803906;
   box-shadow:0 5px 0 #572604,0 10px 22px rgba(168,75,8,.28);
 }
+
+
+/* 2026-10-15: Executive-style section framing and colorful card accents.
+   Additive presentation only; existing content, links, tool logic and layouts remain intact. */
+.fih-page #main-content>.fih-language-tools{
+  position:relative;
+  border-bottom:1px solid #dce6ed;
+  box-shadow:inset 0 4px 0 transparent;
+}
+.fih-page #main-content>.fih-language-tools:before{
+  content:"FINTECH INTELLIGENCE HUB  /  START";
+  display:block;
+  width:max-content;
+  max-width:100%;
+  margin:0 0 12px;
+  padding:6px 11px;
+  border-left:4px solid #087f8c;
+  border-radius:0 5px 5px 0;
+  background:linear-gradient(90deg,#e4f7f4,#f2f7ff);
+  color:#17455c;
+  font-size:.68rem;
+  font-weight:850;
+  letter-spacing:.095em;
+}
+.fih-page .fih-hero{
+  border-top:5px solid transparent;
+  border-image:linear-gradient(90deg,#087f8c 0%,#1673c9 34%,#7040b8 67%,#d97706 100%) 1;
+}
+.fih-page .fih-hero:after{
+  content:"";
+  position:absolute;
+  width:190px;height:190px;
+  right:-70px;top:-70px;
+  border:22px solid rgba(112,64,184,.07);
+  border-radius:38% 62% 55% 45%;
+  transform:rotate(25deg);
+  pointer-events:none;
+}
+.fih-page .fih-section{
+  position:relative;
+  border-top:1px solid #e2eaf0;
+}
+.fih-page .fih-section:before{
+  content:"";
+  position:absolute;
+  left:clamp(18px,4.5vw,64px);
+  top:0;
+  width:76px;
+  height:4px;
+  border-radius:0 0 5px 5px;
+  background:var(--fih-section-accent,#087f8c);
+}
+.fih-page .fih-section:nth-of-type(4n+1){--fih-section-accent:#087f8c}
+.fih-page .fih-section:nth-of-type(4n+2){--fih-section-accent:#2563b8}
+.fih-page .fih-section:nth-of-type(4n+3){--fih-section-accent:#7040b8}
+.fih-page .fih-section:nth-of-type(4n){--fih-section-accent:#c56a12}
+.fih-page .fih-section-heading .fih-eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px;
+  border-radius:5px 12px 12px 5px;
+  background:color-mix(in srgb,var(--fih-section-accent,#087f8c) 10%,white);
+  color:var(--fih-section-accent,#087f8c);
+}
+.fih-page .fih-start-card,
+.fih-page .fih-card,
+.fih-page .fih-intelligence-grid>article,
+.fih-page .fih-audience-grid>article,
+.fih-page .fih-steps>li,
+.fih-page .fih-phase2-card,
+.fih-page .fih-phase2-sources,
+.fih-page .fih-callout,
+.fih-page .fih-disclaimer{
+  position:relative;
+  overflow:hidden;
+  border-top:4px solid var(--fih-box-accent,#087f8c);
+  box-shadow:0 7px 22px rgba(16,43,73,.065);
+}
+.fih-page .fih-start-card:nth-child(4n+1),
+.fih-page .fih-card:nth-child(4n+1),
+.fih-page .fih-intelligence-grid>article:nth-child(4n+1),
+.fih-page .fih-audience-grid>article:nth-child(4n+1){--fih-box-accent:#087f8c}
+.fih-page .fih-start-card:nth-child(4n+2),
+.fih-page .fih-card:nth-child(4n+2),
+.fih-page .fih-intelligence-grid>article:nth-child(4n+2),
+.fih-page .fih-audience-grid>article:nth-child(4n+2){--fih-box-accent:#2563b8}
+.fih-page .fih-start-card:nth-child(4n+3),
+.fih-page .fih-card:nth-child(4n+3),
+.fih-page .fih-intelligence-grid>article:nth-child(4n+3),
+.fih-page .fih-audience-grid>article:nth-child(4n+3){--fih-box-accent:#7040b8}
+.fih-page .fih-start-card:nth-child(4n),
+.fih-page .fih-card:nth-child(4n),
+.fih-page .fih-intelligence-grid>article:nth-child(4n),
+.fih-page .fih-audience-grid>article:nth-child(4n){--fih-box-accent:#c56a12}
+.fih-page .fih-start-number,
+.fih-page .fih-number,
+.fih-page .fih-mini-icon{
+  border-radius:7px;
+  background:color-mix(in srgb,var(--fih-box-accent,#087f8c) 12%,white);
+  color:var(--fih-box-accent,#087f8c);
+}
+.fih-page .fih-start-link{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:9px 12px;
+  border-radius:7px;
+  background:color-mix(in srgb,var(--fih-box-accent,#087f8c) 9%,white);
+  color:var(--fih-box-accent,#087f8c)!important;
+  font-weight:800;
+}
+.fih-page .fih-card:nth-child(4n+1) .fih-link{color:#087f8c!important}
+.fih-page .fih-card:nth-child(4n+2) .fih-link{color:#2563b8!important}
+.fih-page .fih-card:nth-child(4n+3) .fih-link{color:#7040b8!important}
+.fih-page .fih-card:nth-child(4n) .fih-link{color:#a6530b!important}
+.fih-page .fih-principle>div:first-child{border-left:4px solid #087f8c}
+.fih-page .fih-principle>div:last-child{border-left:4px solid #7040b8}
+.fih-page .fih-domain-band{border-top:4px solid #2563b8}
+.fih-page .fih-domain-list span:nth-child(4n+1){background:#e7f7f3;border-color:#bde5dc;color:#086b65}
+.fih-page .fih-domain-list span:nth-child(4n+2){background:#edf4ff;border-color:#cbdcf7;color:#2459a6}
+.fih-page .fih-domain-list span:nth-child(4n+3){background:#f3edff;border-color:#dfd0fb;color:#6540a5}
+.fih-page .fih-domain-list span:nth-child(4n){background:#fff3e6;border-color:#f2d5b2;color:#9b4b0c}
+.fih-page .fih-phase2-heading{border-left:5px solid #7040b8}
+.fih-page .fih-phase2-check{border-left:3px solid #087f8c}
+.fih-page .fih-phase2-case-grid>article:nth-child(4n+1){border-top:4px solid #087f8c}
+.fih-page .fih-phase2-case-grid>article:nth-child(4n+2){border-top:4px solid #2563b8}
+.fih-page .fih-phase2-case-grid>article:nth-child(4n+3){border-top:4px solid #7040b8}
+.fih-page .fih-phase2-case-grid>article:nth-child(4n){border-top:4px solid #c56a12}
+.fih-page .fih-phase2-privacy{
+  position:relative;
+  border-top:4px solid #c56a12;
+  border-radius:10px;
+  box-shadow:0 7px 22px rgba(16,43,73,.06);
+}
+.fih-page .gc-footer{
+  position:relative;
+  border-top:6px solid transparent;
+  border-image:linear-gradient(90deg,#087f8c,#2563b8,#7040b8,#c56a12) 1;
+}
+.fih-page .gc-footer:before{
+  content:"END OF HUB  /  NEXT STEPS: VERIFY · DOCUMENT · REVIEW";
+  display:block;
+  width:max-content;
+  max-width:100%;
+  margin:0 auto 22px;
+  padding:7px 12px;
+  border:1px solid #46627d;
+  border-radius:5px;
+  color:#d9eaf7;
+  font-size:.68rem;
+  font-weight:800;
+  letter-spacing:.075em;
+  text-align:center;
+}
+@media(max-width:760px){
+  .fih-page #main-content>.fih-language-tools:before{font-size:.61rem}
+  .fih-page .fih-hero:after{width:125px;height:125px;right:-55px;top:-45px;border-width:15px}
+  .fih-page .gc-footer:before{font-size:.6rem;letter-spacing:.035em}
+}
+@media(prefers-reduced-motion:reduce){
+  .fih-page .fih-start-card,.fih-page .fih-card{transition:none}
+}
