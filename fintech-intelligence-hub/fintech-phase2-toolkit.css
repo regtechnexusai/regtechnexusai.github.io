@@ -136,3 +136,12 @@
   body.fih-page[data-phase2-print] #phase2-work-products,body.fih-page[data-phase2-print] #phase2-work-products *{visibility:visible!important}
   body.fih-page[data-phase2-print] #phase2-work-products{isolation:isolate!important}
 }
+
+/* Report-quality correction: keep tables readable across printed pages. */
+@media print {
+  body.fih-page .fih-phase2-action-table thead { display: table-header-group !important; }
+  body.fih-page .fih-phase2-action-table tfoot { display: table-footer-group !important; }
+  body.fih-page .fih-phase2-action-table tr { break-inside: avoid !important; page-break-inside: avoid !important; }
+  body.fih-page .fih-phase2-action-table th,
+  body.fih-page .fih-phase2-action-table td { overflow-wrap: anywhere !important; word-break: normal !important; }
+}
