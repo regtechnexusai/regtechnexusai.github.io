@@ -481,6 +481,7 @@
     ];
     const domainRule=expectedDomains.find(([pattern])=>pattern.test(authorityKey));
     if(sourceHost && domainRule && !domainRule[1].some(d=>sourceHost===d || sourceHost.endsWith('.'+d))) warnings.push('Source domain does not match the selected authority’s expected domain; mark source as UNVERIFIED until the exact official document is confirmed.');
+    if(sourceHost && !domainRule) warnings.push('Source domain was not automatically matched to the selected authority; mark source as UNVERIFIED until a reviewer confirms the exact official document.');
     if(!sourceHost) warnings.push('No source URL supplied; primary-source verification is outstanding.');
     if(hypothetical) warnings.push('ILLUSTRATIVE SCENARIO — no legal instrument is cited. Instrument metadata is marked N/A and must not be read as a verified regulatory citation.');
     const instrumentMetadata = hypothetical ? {
