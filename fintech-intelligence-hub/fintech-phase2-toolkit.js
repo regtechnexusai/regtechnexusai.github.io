@@ -6,7 +6,7 @@
 
   const briefLabels = [
     ['title','Brief title'],['jurisdiction','Country / jurisdiction'],['question','Decision or question to answer'],
-    ['problem','Target users and problem'],['evidence','Evidence and primary sources'],['assumptions','Assumptions and limitations'],
+    ['problem','Target users and problem'],['sourceTitle','Primary source title'],['sourceAuthority','Primary source issuing authority'],['sourcePublishedDate','Primary source publication / issue date'],['sourceURL','Exact official document URL'],['sourceProvision','Relevant provision and claim supported'],['evidence','Additional evidence, sources and analysis'],['assumptions','Assumptions and limitations'],
     ['risks','Risk / control analysis'],['unknowns','Unresolved questions'],['recommendation','Recommendation and rationale'],
     ['actions','Next actions, owners, dates and closure evidence'],['sourceStatus','Evidence verification status'],['verifiedDate','Evidence last verified date'],['author','Prepared by / team'],['reviewdate','Review date'],['reviewer','Reviewer role / approval owner'],['approval','Approval status (self-reported)']
   ];
@@ -25,7 +25,7 @@
     ['technology','Technology, AI and model risk (conditional)']
   ];
   const statusLabel = {'not-assessed':'Not assessed','compliant':'Reported compliant — evidence reviewed by human','partial':'Partially compliant','gap':'Non-compliant / gap — action needed','pending':'Pending evidence','legal':'Legal interpretation required','na':'Not applicable — rationale required'};
-  const briefStatusLabel = {'not-checked':'Not checked','source-located':'Source located — document not fully reviewed','text-reviewed':'Primary text reviewed by a human','status-verified':'Current status and applicability checked by a human','legal-review':'Legal interpretation / review required','draft':'Draft — not approved','review':'Pending human review','approved':'Reviewed / approved through the organisation’s process'};
+  const briefStatusLabel = {'not-checked':'Not checked','source-located':'Source located — document not fully reviewed','text-reviewed':'Primary text reviewed by a human','status-verified':'Current status and applicability checked by a human','legal-review':'Legal interpretation / review required','draft':'Draft — not approved','review':'Pending human review','reviewed':'Review completed — approval recorded separately'};
   const field = (form, name) => {
     const el = form.elements.namedItem(name);
     return el ? String(el.value || '').trim() : '';
@@ -69,6 +69,13 @@
     if (!evidence && recommendation) lines.push('- RECOMMENDATION CONTROL: a recommendation is present without supporting evidence; treat it as provisional and defer the decision pending evidence and qualified review.');
     if (field(brief,'sourceStatus') === 'status-verified' && !field(brief,'verifiedDate')) lines.push('- VALIDATION WARNING: current-status verification is selected but no verification date is recorded.');
     if (field(brief,'sourceStatus') === 'not-checked' || !field(brief,'sourceStatus')) lines.push('- SOURCE STATUS: not checked; do not describe sources as verified.');
+    const primaryUrl = field(brief,'sourceURL');
+    if (!primaryUrl) lines.push('- PRIMARY SOURCE GAP: no exact official document URL was recorded in the structured source record.');
+    else {
+      try { const u = new URL(primaryUrl); if (!u.pathname || u.pathname === '/') lines.push('- PRIMARY SOURCE WARNING: the URL appears to be a homepage, not the exact instrument; replace it with the specific official document link.'); }
+      catch(e) { lines.push('- PRIMARY SOURCE WARNING: the source URL could not be parsed; verify and correct it manually.'); }
+    }
+    if (field(brief,'sourceStatus') === 'status-verified' && !field(brief,'sourceTitle')) lines.push('- VALIDATION WARNING: current-status verification is selected but the exact source title is missing.');
     lines.push('- If evidence is insufficient, defer the recommendation or explicitly qualify it.');
     lines.push('');
     lines.push('Prepared with RegTech Nexus AI FinTech Intelligence Hub. Educational decision support; not legal advice, certification or regulatory approval.');
@@ -109,7 +116,7 @@
     const rows = getReadinessRows();
     const assessed = rows.filter(r => r.status !== 'not-assessed');
     const reviewerRecorded = Boolean(field(readiness,'reviewer'));
-    const isClosed = r => (r.status === 'compliant' && Boolean(r.evidence) && reviewerRecorded) || (r.status === 'na' && Boolean(r.evidence));
+    const isClosed = r => Boolean(reviewerRecorded) && ((r.status === 'compliant' && Boolean(r.evidence)) || (r.status === 'na' && Boolean(r.evidence)));
     const needsAction = rows.filter(r => !isClosed(r));
     const compliantCount = rows.filter(r => r.status === 'compliant').length;
     const partialCount = rows.filter(r => r.status === 'partial').length;
@@ -132,8 +139,12 @@
       document.getElementById('phase2-readiness-status').textContent = 'Blank checklist: no findings generated. This tool does not determine legal compliance.';
       return;
     }
+    const contextGaps = [];
+    if (!field(readiness,'product')) contextGaps.push('product/service not specified');
+    if (!field(readiness,'jurisdiction')) contextGaps.push('jurisdiction not specified');
     summary.textContent = (field(readiness,'product') || 'Product/service not specified') + ' — ' +
       (field(readiness,'jurisdiction') || 'jurisdiction not specified') + '. ' +
+      (contextGaps.length ? 'ASSESSMENT BLOCKER: ' + contextGaps.join(' and ') + '; do not treat this as a scoped assessment. ' : '') +
       (assessed.length ? assessed.length + ' of ' + rows.length + ' item(s) assessed. ' : 'No items assessed yet. ') +
       'Reported compliant: ' + compliantCount + '; partially compliant: ' + partialCount + '; gaps: ' + gapCount + '; pending evidence: ' + pendingCount + '; legal interpretation required: ' + legalCount + '; not applicable: ' + naCount + '. ' +
       needsAction.length + ' item(s) remain open because of status, missing evidence/rationale or missing reviewer confirmation. ' +
@@ -156,6 +167,7 @@
       if (r.status === 'compliant' && !r.evidence) issue = ' — EVIDENCE REQUIRED BEFORE CLOSURE';
       else if (r.status === 'compliant' && !reviewerRecorded) issue = ' — REVIEWER ROLE REQUIRED';
       else if (r.status === 'na' && !r.evidence) issue = ' — APPLICABILITY RATIONALE REQUIRED';
+      else if ((r.status === 'na' || r.status === 'compliant') && !reviewerRecorded) issue = ' — REVIEWER ROLE REQUIRED';
       else if (r.status === 'not-assessed') issue = ' — ASSESSMENT REQUIRED';
       h.textContent = r.label + ' — ' + (statusLabel[r.status] || 'Status not recognised') + issue;
       const p = document.createElement('p');
