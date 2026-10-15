@@ -965,3 +965,84 @@ body:has(.fih-hero) a{overflow-wrap:break-word;word-break:normal;hyphens:none}
   .fih-page .rcw-sample-panel{padding:16px}
   .fih-page .fih-inclusion-output,.fih-page .rcw-output{padding:16px}
 }
+
+
+/* 2026-10-15: final colour-coverage pass for remaining FinTech Hub panels.
+   Scoped to this page only; presentation-only additions, no content or behaviour changes. */
+.fih-page .fih-section.fih-audience{
+  background:linear-gradient(135deg,#f0faf8 0%,#f7fbff 58%,#f4f1ff 100%);
+  border-top:1px solid #d9ebe8;border-bottom:1px solid #e2e5f2;
+}
+.fih-page .fih-section.fih-explainer{
+  background:linear-gradient(135deg,#f2f7ff 0%,#f8fbff 52%,#fff8ef 100%);
+  border-top:1px solid #dce7f4;border-bottom:1px solid #e9dfd1;
+}
+.fih-page .fih-section.fih-scenarios{
+  background:linear-gradient(135deg,#f4f1ff 0%,#f8fbff 52%,#effaf7 100%);
+  border-top:1px solid #e0d9f2;border-bottom:1px solid #d7ebe5;
+}
+.fih-page .fih-audience-grid>article{
+  border-top:4px solid #087f8c;background:linear-gradient(180deg,#f0fbf9 0%,#fff 72%);
+}
+.fih-page .fih-audience-grid>article:nth-child(4n+2){
+  border-top-color:#2563b8;background:linear-gradient(180deg,#f1f6ff 0%,#fff 72%);
+}
+.fih-page .fih-audience-grid>article:nth-child(4n+3){
+  border-top-color:#7040b8;background:linear-gradient(180deg,#f7f2ff 0%,#fff 72%);
+}
+.fih-page .fih-audience-grid>article:nth-child(4n){
+  border-top-color:#c56a12;background:linear-gradient(180deg,#fff7ed 0%,#fff 72%);
+}
+.fih-page .fih-explainer .fih-section-heading,
+.fih-page .fih-scenarios .fih-section-heading{
+  position:relative;
+}
+.fih-page .fih-explainer .fih-section-heading:after,
+.fih-page .fih-scenarios .fih-section-heading:after{
+  content:"";display:block;width:76px;height:4px;margin:18px auto 0;border-radius:99px;
+  background:linear-gradient(90deg,#087f8c 0 25%,#2563b8 25% 50%,#7040b8 50% 75%,#c56a12 75% 100%);
+}
+.fih-page .fih-scenario{
+  border-color:#d9dff0;
+  background:linear-gradient(180deg,#f7f4ff 0%,#fff 110px);
+  box-shadow:0 6px 20px rgba(52,52,105,.055);
+}
+.fih-page .fih-scenario:nth-child(4n+2){
+  border-color:#d2e4f5;background:linear-gradient(180deg,#f0f7ff 0%,#fff 110px);
+}
+.fih-page .fih-scenario:nth-child(4n+3){
+  border-color:#cce8df;background:linear-gradient(180deg,#effaf6 0%,#fff 110px);
+}
+.fih-page .fih-scenario:nth-child(4n){
+  border-color:#f0dcc8;background:linear-gradient(180deg,#fff6ed 0%,#fff 110px);
+}
+.fih-page .fih-scenario summary{font-weight:700}
+.fih-page .fih-scenario[open] summary{border-bottom:1px solid #dce5ed;background:rgba(255,255,255,.72)}
+.fih-page .fih-phase2-case{
+  border:1px solid #d9d0ef;border-top:4px solid #7040b8;
+  background:linear-gradient(135deg,#f8f4ff 0%,#fff 62%,#f2f8ff 100%);
+  box-shadow:0 8px 26px rgba(65,45,110,.07);
+}
+.fih-page .rcw-btn-primary{
+  color:#fff!important;background:linear-gradient(135deg,#087f8c 0%,#086b83 100%)!important;
+  border:1px solid #06636d!important;box-shadow:0 4px 0 #064f59!important;
+}
+.fih-page .rcw-btn-primary:hover{background:linear-gradient(135deg,#066b75 0%,#07566b 100%)!important}
+.fih-page .rcw-card:nth-child(4n+1){border-top:4px solid #087f8c}
+.fih-page .rcw-card:nth-child(4n+2){border-top:4px solid #2563b8}
+.fih-page .rcw-card:nth-child(4n+3){border-top:4px solid #7040b8}
+.fih-page .rcw-card:nth-child(4n){border-top:4px solid #c56a12}
+.fih-page .rcw-card{background:linear-gradient(180deg,#f7fbff 0%,#fff 150px)}
+.fih-page .rcw-card:nth-child(4n+1){background:linear-gradient(180deg,#effaf7 0%,#fff 150px)}
+.fih-page .rcw-card:nth-child(4n+3){background:linear-gradient(180deg,#f7f2ff 0%,#fff 150px)}
+.fih-page .rcw-card:nth-child(4n){background:linear-gradient(180deg,#fff6ed 0%,#fff 150px)}
+.fih-page .fih-start-card,.fih-page .fih-principle{
+  border-top:3px solid #2563b8;background:linear-gradient(180deg,#f2f7ff 0%,#fff 100%);
+}
+.fih-page .fih-start-grid>.fih-start-card:nth-child(4n+1){border-top-color:#087f8c;background:linear-gradient(180deg,#effaf7 0%,#fff 100%)}
+.fih-page .fih-start-grid>.fih-start-card:nth-child(4n+3){border-top-color:#7040b8;background:linear-gradient(180deg,#f7f2ff 0%,#fff 100%)}
+.fih-page .fih-start-grid>.fih-start-card:nth-child(4n){border-top-color:#c56a12;background:linear-gradient(180deg,#fff6ed 0%,#fff 100%)}
+@media(max-width:760px){
+  .fih-page .fih-section.fih-audience,.fih-page .fih-section.fih-explainer,.fih-page .fih-section.fih-scenarios{background:#f7fafc}
+  .fih-page .fih-audience-grid>article,.fih-page .fih-scenario,.fih-page .rcw-card{box-shadow:0 4px 14px rgba(16,43,73,.045)}
+}
