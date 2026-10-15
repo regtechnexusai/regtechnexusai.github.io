@@ -429,7 +429,16 @@
           <label>Country / jurisdiction<input name="jurisdiction" maxlength="160" placeholder="Name the market; use multi-jurisdiction if needed"></label>
           <label>Decision or question to answer<textarea name="question" rows="3" maxlength="1200" placeholder="What decision must the reader make?"></textarea></label>
           <label>Target users and problem<textarea name="problem" rows="3" maxlength="1600" placeholder="Who is affected, what is the barrier, and when does it occur?"></textarea></label>
-          <label>Evidence and primary sources<textarea name="evidence" rows="4" maxlength="3000" placeholder="For each material claim, record source title, issuing authority, exact document URL, publication/effective date, relevant provision and the fact it supports."></textarea></label>
+          <fieldset class="fih-phase2-source-record"><legend>Primary source record (repeat details in the evidence field for additional sources)</legend>
+            <div class="fih-phase2-fields">
+              <label>Source / instrument title<input name="sourceTitle" maxlength="240" placeholder="Exact title shown on the official document"></label>
+              <label>Issuing authority<input name="sourceAuthority" maxlength="180" placeholder="Official regulator, legislature or issuing body"></label>
+              <label>Publication / issue date<input name="sourcePublishedDate" type="date"></label>
+              <label>Exact official document URL<input name="sourceURL" type="url" maxlength="600" placeholder="Link directly to the circular, rule or official document"></label>
+              <label class="fih-phase2-source-wide">Relevant provision and claim supported<textarea name="sourceProvision" rows="2" maxlength="1200" placeholder="Section / paragraph and the specific claim this source supports"></textarea></label>
+            </div>
+          </fieldset>
+          <label>Evidence, additional sources and analysis<textarea name="evidence" rows="4" maxlength="3000" placeholder="For each additional material claim, record source title, authority, exact document URL, relevant provision, publication/effective date and the fact it supports. Separate sourced facts from your analysis."></textarea></label>
           <label>Evidence verification status<select name="sourceStatus"><option value="not-checked">Not checked</option><option value="source-located">Source located — document not fully reviewed</option><option value="text-reviewed">Primary text reviewed by a human</option><option value="status-verified">Current status and applicability checked by a human</option><option value="legal-review">Legal interpretation / review required</option></select></label>
           <label>Evidence last verified date<input name="verifiedDate" type="date"><small>Enter only the date on which a reviewer actually checked the source. This field is not independently verified by the tool.</small></label>
           <label>Assumptions and limitations<textarea name="assumptions" rows="3" maxlength="1600" placeholder="What has not been independently validated? What sample or data limitations apply?"></textarea></label>
@@ -440,7 +449,7 @@
           <label>Prepared by / team (optional)<input name="author" maxlength="160" placeholder="Team or role; avoid personal identifiers"></label>
           <label>Review date (optional)<input name="reviewdate" type="date"></label>
           <label>Reviewer role / approval owner (optional)<input name="reviewer" maxlength="160" placeholder="Role responsible for review or approval"></label>
-          <label>Approval status<select name="approval"><option value="draft">Draft — not approved</option><option value="review">Pending human review</option><option value="approved">Reviewed / approved through the organisation’s process</option></select></label>
+          <label>Workflow status (self-reported)<select name="approval"><option value="draft">Draft — not approved</option><option value="review">Pending human review</option><option value="reviewed">Review completed — approval recorded separately</option></select></label>
         </div>
         <div class="fih-phase2-actions"><button type="button" class="fih-phase2-btn fih-phase2-btn-primary" id="phase2-brief-generate">Generate brief preview</button><button type="button" class="fih-phase2-btn" id="phase2-brief-export">Export brief (.txt)</button><button type="button" class="fih-phase2-btn" id="phase2-brief-print">Print / Save as PDF</button><button type="reset" class="fih-phase2-btn">Reset fields</button></div>
         <p id="phase2-brief-status" class="fih-phase2-status" role="status" aria-live="polite">Complete the fields you can support. Partial drafts are allowed; missing evidence should remain visible rather than being invented.</p>
