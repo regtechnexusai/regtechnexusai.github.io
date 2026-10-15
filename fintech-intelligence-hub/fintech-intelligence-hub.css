@@ -681,3 +681,33 @@ body:has(.fih-hero) a{overflow-wrap:break-word;word-break:normal;hyphens:none}
 @media(prefers-reduced-motion:reduce){
   .fih-page .fih-hero .fih-hero-actions .fih-inclusion-hero-link{transition:none}
 }
+
+
+/* Distinct semantic colors for the three hero shortcuts. */
+.fih-page .fih-hero .fih-hero-actions a.fih-inclusion-hero-link[href="#inclusion-impact-lab"]{
+  background:#087f8c;
+  border-color:#ffffff;
+  box-shadow:0 4px 0 #055b64,0 8px 18px rgba(8,127,140,.22);
+}
+.fih-page .fih-hero .fih-hero-actions a.fih-inclusion-hero-link[href="#inclusion-impact-lab"]:hover{
+  background:#06636d;
+  box-shadow:0 5px 0 #04464d,0 10px 22px rgba(8,127,140,.28);
+}
+.fih-page .fih-hero .fih-hero-actions a.fih-inclusion-hero-link[href="#phase2-work-products"]{
+  background:#7040b8;
+  border-color:#ffffff;
+  box-shadow:0 4px 0 #4d2784,0 8px 18px rgba(112,64,184,.22);
+}
+.fih-page .fih-hero .fih-hero-actions a.fih-inclusion-hero-link[href="#phase2-work-products"]:hover{
+  background:#552e91;
+  box-shadow:0 5px 0 #3c2067,0 10px 22px rgba(112,64,184,.28);
+}
+.fih-page .fih-hero .fih-hero-actions a.fih-inclusion-hero-link[href="#regulatory-coverage-workbench"]{
+  background:#a84b08;
+  border-color:#ffffff;
+  box-shadow:0 4px 0 #743305,0 8px 18px rgba(168,75,8,.22);
+}
+.fih-page .fih-hero .fih-hero-actions a.fih-inclusion-hero-link[href="#regulatory-coverage-workbench"]:hover{
+  background:#803906;
+  box-shadow:0 5px 0 #572604,0 10px 22px rgba(168,75,8,.28);
+}
