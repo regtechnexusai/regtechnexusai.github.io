@@ -456,7 +456,8 @@
     return html;
   }
   function generate(){
-    const today=new Date().toISOString().slice(0,10);
+    const now=new Date();
+    const today=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');
     const authorityName=val(authority)||'[Authority not selected]';
     const selectedSource=authority.selectedOptions[0];
     const focus=selectedSource && selectedSource.dataset.focus ? selectedSource.dataset.focus : '';
@@ -471,18 +472,33 @@
     let sourceHost='';
     try { sourceHost=val(sourceUrl) ? new URL(val(sourceUrl)).hostname.toLowerCase() : ''; } catch(e) { warnings.push('Source URL is not a valid absolute URL; verify it manually.'); }
     const authorityKey=authorityName.toLowerCase();
-    const expectedDomains=[
-      [/people.?s bank of china|pboc/,['pbc.gov.cn']],
-      [/banca d.?italia/,['bancaditalia.it']],
-      [/consob/,['consob.it']],
-      [/fatf/,['fatf-gafi.org']],
-      [/argentina|banco central de la rep[uú]blica argentina|bcra/,['bcra.gob.ar']],
-      [/imf|international monetary fund/,['imf.org']]
-    ];
-    const domainRule=expectedDomains.find(([pattern])=>pattern.test(authorityKey));
-    if(sourceHost && domainRule && !domainRule[1].some(d=>sourceHost===d || sourceHost.endsWith('.'+d))) warnings.push('Source domain does not match the selected authority’s expected domain; mark source as UNVERIFIED until the exact official document is confirmed.');
-    if(sourceHost && !domainRule) warnings.push('Source domain was not automatically matched to the selected authority; mark source as UNVERIFIED until a reviewer confirms the exact official document.');
+    let expectedHost='';
+    try {
+      const selectedUrl=selectedSource && selectedSource.dataset.url ? new URL(selectedSource.dataset.url) : null;
+      expectedHost=selectedUrl ? selectedUrl.hostname.toLowerCase().replace(/^www\\./,'') : '';
+    } catch(e) { expectedHost=''; }
+    const normalHost=sourceHost.replace(/^www\\./,'');
+    const domainMatches=Boolean(normalHost && expectedHost &&
+      (normalHost===expectedHost || normalHost.endsWith('.'+expectedHost) || expectedHost.endsWith('.'+normalHost)));
+    if(sourceHost && expectedHost && !domainMatches) warnings.push('Source domain does not match the selected authority’s mapped official starting point; mark source as UNVERIFIED until the exact official document is confirmed.');
+    if(sourceHost && !expectedHost) warnings.push('No mapped official domain is available for the selected authority; manually verify the domain and exact document against an authoritative source.');
     if(!sourceHost) warnings.push('No source URL supplied; primary-source verification is outstanding.');
+    if(sourceHost && !hypothetical) {
+      try {
+        const parsedSource=new URL(val(sourceUrl));
+        if(parsedSource.pathname==='/' || parsedSource.pathname.replace(/\\/$/,'')==='' ) warnings.push('Source URL appears to be a general homepage, not the exact instrument; replace it with the specific circular, rule or document URL.');
+      } catch(e) {}
+    }
+    if(!hypothetical) {
+      warnings.push('The reference date is user-entered and does not itself prove that the source or current legal status was verified.');
+      if(!title) warnings.push('Instrument title is missing; the exact regulatory instrument has not been identified.');
+      if(!val(circularNo)) warnings.push('Instrument / circular reference number is missing; confirm whether the document has an official identifier.');
+      if(!val(issueDate)) warnings.push('Issue / publication date is missing or unverified.');
+      if(!effective) warnings.push('Effective date is not recorded; confirm the instrument’s commencement provision or document why it is not applicable.');
+      if(!val(decision)) warnings.push('Decision question is missing; applicability and relevance cannot yet be assessed.');
+      if(!val(facts)) warnings.push('No supporting facts or evidence supplied; no substantive conclusion can be drawn.');
+      if(!val(limitations)) warnings.push('Limitations are not recorded; identify missing evidence, status checks, scope and applicability questions.');
+    }
     if(hypothetical) warnings.push('ILLUSTRATIVE SCENARIO — no legal instrument is cited. Instrument metadata is marked N/A and must not be read as a verified regulatory citation.');
     const instrumentMetadata = hypothetical ? {
       authority:'N/A — illustrative scenario; no instrument cited',
@@ -507,7 +523,7 @@
       '',
       'REPORT METADATA',
       'Prepared on: '+today,
-      'Reference / verification date: '+(hypothetical?'N/A — illustrative scenario; no verification claimed':checked),
+      'Reference date (user-entered; verification not confirmed): '+(hypothetical?'N/A — illustrative scenario; no verification claimed':checked),
       'Jurisdiction: '+(val(country)||'[Not provided]'),
       'Issuing authority / source body: '+instrumentMetadata.authority,
       'Instrument type: '+instrumentMetadata.type,
