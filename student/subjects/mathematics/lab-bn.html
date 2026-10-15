@@ -68,6 +68,103 @@
  }
 }
 </style>
+<style id="math-lab-glossy-button-design">
+/* Premium 3D glossy, colourful Mathematics Lab controls — visual-only. */
+.course-header .course-nav a,
+.course-header .back,
+.lab .card > a,
+.lab .controls button,
+.lab .solution-actions button,
+.lab .print-practice,
+.lab button[data-action],
+.lab #run, .lab #eqsolve, .lab #plot, .lab #guide, .lab #prandom,
+.lab #printSolution, .lab #nativePrintSolution, .lab #eqprint, .lab #eqnativeprint,
+.lab #clearSolution, .lab #eqclear, .lab #reset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 10px 15px;
+  border: 1px solid rgba(255,255,255,.82);
+  border-radius: 12px;
+  color: #fff !important;
+  font-weight: 800 !important;
+  line-height: 1.35 !important;
+  text-decoration: none !important;
+  text-shadow: 0 1px 1px rgba(0,0,0,.22) !important;
+  background-image: linear-gradient(180deg,rgba(255,255,255,.42) 0%,rgba(255,255,255,.12) 38%,rgba(0,0,0,.06) 100%),linear-gradient(135deg,#2479d8,#1450a4) !important;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,.48), inset 0 -2px 0 rgba(0,0,0,.13), 0 4px 0 #103b78, 0 7px 13px rgba(16,52,98,.2) !important;
+  transition: transform .16s ease, box-shadow .16s ease, filter .16s ease;
+  cursor: pointer;
+}
+.course-header .course-nav a:nth-child(3n+2),
+.lab .card:nth-child(3n+2) > a,
+.lab .controls button:nth-child(4n+2),
+.lab .solution-actions button:nth-child(4n+2) {
+  background-image: linear-gradient(180deg,rgba(255,255,255,.48),rgba(255,255,255,.08)),linear-gradient(135deg,#9b5de5,#6036b4) !important;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,.5),inset 0 -2px 0 rgba(0,0,0,.14),0 4px 0 #48268b,0 7px 13px rgba(72,38,139,.2) !important;
+}
+.course-header .course-nav a:nth-child(3n),
+.lab .card:nth-child(3n) > a,
+.lab .controls button:nth-child(4n+3),
+.lab .solution-actions button:nth-child(4n+3) {
+  background-image: linear-gradient(180deg,rgba(255,255,255,.48),rgba(255,255,255,.08)),linear-gradient(135deg,#19a974,#08784f) !important;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,.5),inset 0 -2px 0 rgba(0,0,0,.14),0 4px 0 #075c3c,0 7px 13px rgba(7,92,60,.2) !important;
+}
+.lab .controls button:nth-child(4n+4),
+.lab .solution-actions button:nth-child(4n+4),
+.lab .card:nth-child(3n+1) > a {
+  background-image: linear-gradient(180deg,rgba(255,255,255,.48),rgba(255,255,255,.08)),linear-gradient(135deg,#f59e0b,#c45a08) !important;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,.5),inset 0 -2px 0 rgba(0,0,0,.14),0 4px 0 #984307,0 7px 13px rgba(152,67,7,.2) !important;
+}
+.course-header .back {
+  background-image: linear-gradient(180deg,rgba(255,255,255,.4),rgba(255,255,255,.08)),linear-gradient(135deg,#e34b86,#a91d58) !important;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,.48),inset 0 -2px 0 rgba(0,0,0,.14),0 4px 0 #7c1740,0 7px 13px rgba(124,23,64,.2) !important;
+}
+.course-header .course-nav a:hover,
+.course-header .back:hover,
+.lab .card > a:hover,
+.lab .controls button:hover,
+.lab .solution-actions button:hover,
+.lab .print-practice:hover,
+.lab button[data-action]:hover {
+  filter: brightness(1.08) saturate(1.12);
+  transform: translateY(-2px);
+}
+.course-header .course-nav a:active,
+.course-header .back:active,
+.lab .card > a:active,
+.lab .controls button:active,
+.lab .solution-actions button:active,
+.lab .print-practice:active,
+.lab button[data-action]:active {
+  transform: translateY(2px);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,.18), 0 1px 0 rgba(0,0,0,.15) !important;
+}
+.course-header .course-nav a:focus-visible,
+.course-header .back:focus-visible,
+.lab .card > a:focus-visible,
+.lab .controls button:focus-visible,
+.lab .solution-actions button:focus-visible,
+.lab .print-practice:focus-visible,
+.lab button[data-action]:focus-visible {
+  outline: 3px solid #fbbf24 !important;
+  outline-offset: 3px !important;
+}
+@media (max-width:700px) {
+ .course-header .course-nav a, .course-header .back, .lab .card > a,
+ .lab .controls button, .lab .solution-actions button, .lab .print-practice, .lab button[data-action] {
+   min-height: 42px; padding: 9px 12px; font-size: .9rem !important; white-space: normal;
+ }
+}
+@media (prefers-reduced-motion: reduce) {
+ .course-header .course-nav a, .course-header .back, .lab .card > a,
+ .lab .controls button, .lab .solution-actions button, .lab .print-practice, .lab button[data-action] {
+   transition: none;
+ }
+}
+</style>
 </head><body><header class="course-header"><div class="course-head"><a class="brand" href="../../"><img src="../../../regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI"><span>Student Knowledge Hub</span></a><nav class="course-nav" aria-label="Mathematics Lab"><a href="#calc">Calculators</a><a href="#visual">Visualise</a><a href="#problems">Practice</a><a href="#proofs">Proofs</a><a href="#projects">Projects</a><a href="#research">Research</a><a href="#dashboard">Dashboard</a></nav><a class="back" href="./">← Mathematics</a></div></header><main class="lab"><section class="hero"><span class="eyebrow">MATHEMATICS LAB · LOCAL · NO API REQUIRED</span><h1>Mathematics Lab</h1><p>Calculation, visualisation, proof study, problem solving, applied modelling এবং research preparation-এর জন্য একটি browser-based workspace।</p><div class="note" role="note"><b>Technology ও privacy:</b> calculation, equation solving এবং progress record আপনার browser-এই localভাবে চলে। PDF export-এর জন্য cdnjs থেকে version-pinned html2pdf.js library load হয়; আপনার equation বা ব্যক্তিগত input কোনো calculation API-তে পাঠানো হয় না।</div></section><section class="grid"><article class="card"><h3>🧮 Calculators</h3><p>Quadratic, derivative, integral, statistics, matrix, finance and risk tools.</p><a href="#calc">Open →</a></article><article class="card"><h3>📈 Visualisation</h3><p>Local function graphing and a trigonometric geometry visualiser.</p><a href="#visual">Open →</a></article><article class="card"><h3>🧠 Problem Bank</h3><p>Foundation through professional practice with solutions.</p><a href="#problems">Practice →</a></article><article class="card"><h3>📖 Theorem & Proof Library</h3><p>Core statements, hypotheses and proof sketches.</p><a href="#proofs">Study →</a></article><article class="card"><h3>💼 Applied Projects</h3><p>Finance, risk, AI/ML, engineering, cryptography and optimisation.</p><a href="#projects">Explore →</a></article><article class="card"><h3>🔬 Research Hub</h3><p>Research workflow, reproducibility and open-question exercises.</p><a href="#research">Explore →</a></article></section>
 <section id="calc" class="panel"><h2>🧮 Calculators & Solvers</h2><div class="controls"><select id="ct"><option value="q">Quadratic</option><option value="d">Numerical derivative of x³−2x+1</option><option value="i">Simpson integral of x²+1</option><option value="s">Statistics</option><option value="m">2×2 Matrix</option><option value="f">Compound growth</option><option value="r">Expected loss</option></select></div><div id="fields"></div><div class="controls"><button id="run" type="button">Calculate</button></div><div id="out" class="out">Values দিন।</div><div id="logic" class="solution-panel" aria-live="polite"><h3>🧠 Solution Logic</h3><div id="formula"></div><div id="steps"></div><div id="result"></div><div class="solution-actions"><button id="printSolution" type="button">⬇ Download PDF</button><button id="nativePrintSolution" type="button">🖨 Print / Save PDF</button><button id="clearSolution" type="button">Clear</button></div></div></section>
 <section id="equation-tutor" class="tutor-box"><h2>🧑‍🏫 Equation Tutor — অংক দিন, পদ্ধতি শিখুন</h2><p>একটি equation লিখুন—যেমন <code>3x+5=20</code>, <code>x^2-5x+6=0</code> বা <code>2(x+3)=14</code>। Tutor equation-এর structure বুঝে method নির্বাচন করবে, calculation দেখাবে, answer দেবে এবং verify করবে।</p><textarea id="eqinput" class="tutor-input" placeholder="আপনার equation লিখুন — যেমন: 2x^2-5x-3=0"></textarea><div class="controls"><button id="eqsolve">🧠 Solve & Teach</button><button id="eqclear" type="button">Clear</button><button id="eqprint" type="button">⬇ Download PDF</button><button id="eqnativeprint" type="button">🖨 Print / Save PDF</button></div><div id="eqresult" class="tutor-result" aria-live="polite"><div class="note">Equation লিখে <b>Solve & Teach</b> চাপুন।</div></div></section><section id="visual" class="panel"><h2>📈 Function & Geometry Visualiser</h2><div class="controls"><select id="gt"><option value="x2">y=x²</option><option value="x3">y=x³−2x</option><option value="sin">y=sin(x)</option><option value="exp">y=eˣ/5</option><option value="log">y=ln(x)</option></select><button id="plot">Plot</button><label>θ <input id="ang" type="range" min="5" max="85" value="45"></label><span id="angv">45°</span></div><canvas id="cv" width="1000" height="420" role="img" aria-label="Mathematics function graph visualisation"></canvas><div id="tri" class="out"></div><div class="logic-box visual-logic"><b>🧠 Graph/Geometry Logic</b><ol><li><b>Represent:</b> choose the function or angle and define the coordinate/triangle model.</li><li><b>Compute:</b> evaluate the selected function across x-values or calculate sin, cos and tan from θ.</li><li><b>Visualise:</b> map numerical values to canvas coordinates and draw axes and the curve.</li><li><b>Interpret:</b> connect the graph/ratio to the underlying mathematical relationship.</li><li><b>Verify:</b> compare behaviour with known properties such as symmetry, periodicity or domain restrictions.</li></ol></div></section>
