@@ -145,3 +145,36 @@
   body.fih-page .fih-phase2-action-table th,
   body.fih-page .fih-phase2-action-table td { overflow-wrap: anywhere !important; word-break: normal !important; }
 }
+
+/* Evidence/readiness quality-gate refinements */
+.fih-page .fih-phase2-form label small{display:block;margin-top:5px;color:#53697b;font-size:.78rem;font-weight:500;line-height:1.5}
+.fih-page .fih-phase2-check-fields select{box-sizing:border-box;width:100%;max-width:100%;min-width:0;min-height:42px;padding:9px 10px;border:1px solid #c4d4df;border-radius:8px;background:#fff;color:#18364e;font:inherit;font-size:.88rem}
+.fih-page .fih-phase2-check-fields select:focus,.fih-page .fih-phase2-fields input:focus,.fih-page .fih-phase2-fields textarea:focus{outline:3px solid rgba(11,104,148,.22);outline-offset:1px}
+.fih-page .fih-phase2-check-fields input,.fih-page .fih-phase2-check-fields select{overflow-wrap:anywhere}
+.fih-page .fih-phase2-case-grid ul{padding-left:1.2rem}
+.fih-page .fih-phase2-case-grid li{margin-bottom:.45rem;line-height:1.55}
+.fih-page .fih-phase2-action-table{width:100%;table-layout:fixed;border-collapse:collapse}
+.fih-page .fih-phase2-action-table th:nth-child(1){width:29%}
+.fih-page .fih-phase2-action-table th:nth-child(2){width:22%}
+.fih-page .fih-phase2-action-table th:nth-child(3){width:15%}
+.fih-page .fih-phase2-action-table th:nth-child(4){width:34%}
+.fih-page .fih-phase2-action-table th,.fih-page .fih-phase2-action-table td{vertical-align:top;white-space:normal;overflow-wrap:anywhere;word-break:normal;line-height:1.45}
+@media(max-width:680px){
+  .fih-page .fih-phase2-action-table{table-layout:auto;min-width:680px}
+  .fih-page .fih-phase2-table-wrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .fih-page .fih-phase2-check-fields{grid-template-columns:minmax(0,1fr)}
+}
+@media print{
+  .fih-page .fih-phase2-action-table{table-layout:fixed;min-width:0;width:100%}
+  .fih-page .fih-phase2-action-table th:nth-child(1){width:27%}
+  .fih-page .fih-phase2-action-table th:nth-child(2){width:21%}
+  .fih-page .fih-phase2-action-table th:nth-child(3){width:14%}
+  .fih-page .fih-phase2-action-table th:nth-child(4){width:38%}
+  .fih-page .fih-phase2-action-table th,.fih-page .fih-phase2-action-table td{font-size:9pt;padding:6pt;overflow-wrap:anywhere;word-break:normal}
+}
+
+.fih-page .fih-phase2-source-record{margin:0 0 4px;padding:14px;border:1px solid #cbdce6;border-radius:10px;background:#f7fafc;min-width:0}
+.fih-page .fih-phase2-source-record legend{padding:0 6px;color:#174d6c;font-weight:800;font-size:.9rem}
+.fih-page .fih-phase2-source-record .fih-phase2-fields{margin-top:4px}
+.fih-page .fih-phase2-source-wide{grid-column:1/-1}
+@media(max-width:640px){.fih-page .fih-phase2-source-record{padding:11px}.fih-page .fih-phase2-source-wide{grid-column:auto}}
