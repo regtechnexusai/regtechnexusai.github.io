@@ -49,7 +49,7 @@
       ['Central Bank of West African States (BCEAO)','Regional central bank and banking framework for WAEMU member states','https://www.bceao.int/en'],
       ['Regional Council for Public Savings and Financial Markets (CREPMF)','Regional financial market supervision','https://www.crepmf.org/']
     ],
-    'France': [
+    'Liechtenstein': [
       ['Financial Market Authority Liechtenstein (FMA)','Financial market supervision','https://www.fma-li.li/en']
     ],
     'Barbados': [
