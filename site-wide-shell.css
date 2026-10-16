@@ -89,3 +89,85 @@ body:not(.homepage-redesign) footer .brand-logo{
   }
   body:not(.homepage-redesign) header img{max-height:58px!important;max-width:190px}
 }
+
+
+/* Site-shell correction: match the homepage's blue/teal palette and explicitly cover TradeGuard.
+   Presentation only; no application or calculator logic is changed. */
+body:not(.homepage-redesign) footer,
+body:not(.homepage-redesign) footer.site-footer{
+  background:#102d4b!important;
+  color:#eaf1f7!important;
+  border-top:4px solid #168b91!important;
+  box-shadow:none!important;
+}
+body:not(.homepage-redesign) footer a,
+body:not(.homepage-redesign) footer.site-footer a,
+body:not(.homepage-redesign) footer nav a,
+body:not(.homepage-redesign) footer .legal a{
+  color:#d2e0ed!important;
+}
+body:not(.homepage-redesign) footer a:hover,
+body:not(.homepage-redesign) footer.site-footer a:hover,
+body:not(.homepage-redesign) footer nav a:hover,
+body:not(.homepage-redesign) footer .legal a:hover{
+  color:#ffffff!important;
+}
+body:not(.homepage-redesign) footer p,
+body:not(.homepage-redesign) footer span,
+body:not(.homepage-redesign) footer small{
+  color:#c5d4e1!important;
+}
+body:not(.homepage-redesign) footer .footer-note,
+body:not(.homepage-redesign) footer .legal{
+  border-color:#436079!important;
+  color:#c5d4e1!important;
+}
+
+/* TradeGuard uses its own .site-header.site-header-home and .site-footer classes.
+   Use explicit selectors so its component styles cannot override the shared shell. */
+body:not(.homepage-redesign) header.site-header,
+body:not(.homepage-redesign) header.site-header.site-header-home{
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:12px clamp(18px,5vw,72px)!important;
+  min-height:78px!important;
+  background:rgba(255,255,255,.97)!important;
+  color:#10203b!important;
+  border-bottom:1px solid #e8e8e8!important;
+  box-shadow:none!important;
+  position:sticky!important;
+  top:0!important;
+  z-index:1000!important;
+}
+body:not(.homepage-redesign) header.site-header a,
+body:not(.homepage-redesign) header.site-header nav a{
+  color:#10203b!important;
+}
+body:not(.homepage-redesign) header.site-header a:hover,
+body:not(.homepage-redesign) header.site-header nav a:hover{
+  color:#0956a8!important;
+}
+body:not(.homepage-redesign) header.site-header img{
+  max-width:248px!important;
+  max-height:62px!important;
+  height:auto!important;
+  object-fit:contain!important;
+}
+body:not(.homepage-redesign) footer.site-footer{
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:44px clamp(18px,5vw,72px) 24px!important;
+  background:#102d4b!important;
+  color:#eaf1f7!important;
+  border-top:4px solid #168b91!important;
+}
+body:not(.homepage-redesign) footer.site-footer .footer-links a,
+body:not(.homepage-redesign) footer.site-footer a{
+  color:#d2e0ed!important;
+}
+body:not(.homepage-redesign) footer.site-footer .footer-links a:hover,
+body:not(.homepage-redesign) footer.site-footer a:hover{
+  color:#ffffff!important;
+}
