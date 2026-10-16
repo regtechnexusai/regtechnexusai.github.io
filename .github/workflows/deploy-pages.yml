@@ -83,7 +83,7 @@ jobs:
           import re
 
           site = Path("site")
-          stylesheet = '<link rel="stylesheet" href="/site-wide-shell.css?v=20261016-shell-fix1" data-regtech-site-shell="true">'
+          stylesheet = '<link rel="stylesheet" href="/site-wide-shell.css?v=20261016-standard-shell1" data-regtech-site-shell="true">'
           protected = {
               "index.html",
               "googleb678d3f045b8f91e.html",
