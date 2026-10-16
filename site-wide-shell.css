@@ -320,3 +320,117 @@ body:not(.homepage-redesign) .page-end-marker{
     max-height:58px!important;
   }
 }
+
+
+/* TradeGuard final shell alignment — use the same proportions and logo treatment
+   as the main homepage while leaving TradeGuard content and functionality intact. */
+body:not(.homepage-redesign) header.site-header.site-header-home{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:clamp(14px,2.5vw,34px)!important;
+  min-height:82px!important;
+  height:auto!important;
+  padding:10px clamp(18px,5vw,72px)!important;
+  background:#fff!important;
+  color:#10203b!important;
+  border:0!important;
+  border-bottom:1px solid #dce5ef!important;
+  border-radius:0!important;
+  box-shadow:0 3px 14px rgba(16,32,59,.06)!important;
+  box-sizing:border-box!important;
+}
+body:not(.homepage-redesign) header.site-header.site-header-home .logo,
+body:not(.homepage-redesign) header.site-header.site-header-home .site-logo,
+body:not(.homepage-redesign) header.site-header.site-header-home .brand,
+body:not(.homepage-redesign) header.site-header.site-header-home a:has(>img){
+  display:flex!important;
+  align-items:center!important;
+  flex:0 1 auto!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+body:not(.homepage-redesign) header.site-header.site-header-home img{
+  display:block!important;
+  width:auto!important;
+  max-width:min(248px,38vw)!important;
+  height:auto!important;
+  max-height:62px!important;
+  object-fit:contain!important;
+  object-position:left center!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body:not(.homepage-redesign) header.site-header.site-header-home nav{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  flex-wrap:wrap!important;
+  gap:clamp(12px,1.6vw,24px)!important;
+  margin-left:auto!important;
+  background:transparent!important;
+}
+body:not(.homepage-redesign) header.site-header.site-header-home nav a{
+  color:#10203b!important;
+  text-decoration:none!important;
+  font-weight:600;
+}
+body:not(.homepage-redesign) header.site-header.site-header-home nav a:hover{
+  color:#0956a8!important;
+}
+body:not(.homepage-redesign) footer.site-footer{
+  display:grid!important;
+  grid-template-columns:minmax(220px,1.4fr) repeat(3,minmax(0,1fr))!important;
+  align-items:start!important;
+  gap:clamp(20px,3vw,42px)!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:clamp(36px,5vw,66px) clamp(18px,5vw,72px) 26px!important;
+  background:#102d4b!important;
+  color:#eaf1f7!important;
+  border:0!important;
+  border-top:4px solid #168b91!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  box-sizing:border-box!important;
+}
+body:not(.homepage-redesign) footer.site-footer img,
+body:not(.homepage-redesign) footer.site-footer .footer-logo,
+body:not(.homepage-redesign) footer.site-footer .brand-logo{
+  display:block!important;
+  width:auto!important;
+  max-width:min(230px,100%)!important;
+  height:auto!important;
+  max-height:66px!important;
+  object-fit:contain!important;
+  object-position:left center!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body:not(.homepage-redesign) footer.site-footer a{
+  color:#dce9f5!important;
+  text-decoration:none!important;
+}
+body:not(.homepage-redesign) footer.site-footer a:hover{color:#70d5df!important}
+body:not(.homepage-redesign) footer.site-footer p,
+body:not(.homepage-redesign) footer.site-footer span,
+body:not(.homepage-redesign) footer.site-footer small{color:#c5d4e1!important;line-height:1.7}
+@media(max-width:900px){
+  body:not(.homepage-redesign) header.site-header.site-header-home{gap:14px!important;padding:10px 4vw!important}
+  body:not(.homepage-redesign) header.site-header.site-header-home img{max-width:min(210px,42vw)!important;max-height:56px!important}
+  body:not(.homepage-redesign) footer.site-footer{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:560px){
+  body:not(.homepage-redesign) header.site-header.site-header-home{min-height:72px!important;padding:8px 5vw!important}
+  body:not(.homepage-redesign) header.site-header.site-header-home img{max-width:48vw!important;max-height:52px!important}
+  body:not(.homepage-redesign) footer.site-footer{grid-template-columns:1fr!important;gap:24px!important;padding:32px 6vw 24px!important}
+}
