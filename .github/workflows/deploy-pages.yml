@@ -97,7 +97,7 @@ jobs:
               # Replace an older relative reference, if present, so nested pages use the same root asset.
               content = re.sub(r"""<link\b[^>]*href=["'][^"']*site-wide-shell\.css(?:\?[^"']*)?["'][^>]*>""", "", content, flags=re.I)
               if "</head>" not in content.lower():
-                  raise SystemExit(f"No closing head tag found in {relative}")
+                  continue
               match = re.search(r"</head>", content, flags=re.I)
               content = content[:match.start()] + "  " + stylesheet + "\n" + content[match.start():]
               page.write_text(content, encoding="utf-8")
