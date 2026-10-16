@@ -202,6 +202,104 @@ body:not(.homepage-redesign) header.nav>button.menu{
 @media(prefers-reduced-motion:reduce){body:not(.homepage-redesign) header.nav *{scroll-behavior:auto!important;transition:none!important}}
 </style>
 
+
+<style id="ifrs-language-selector-alignment-20261016">
+/* Keep English, Bangla and the additional-language selector visually consistent on the IFRS page. */
+html body .rtnx-language-bar{
+  box-sizing:border-box!important;
+  width:min(1180px,92%)!important;
+  margin:0 auto!important;
+  padding:12px 0 14px!important;
+  display:flex!important;
+  flex-wrap:wrap!important;
+  justify-content:flex-end!important;
+  align-items:center!important;
+  gap:9px!important;
+}
+html body .rtnx-language-bar>a,
+html body .rtnx-language-bar .rtnx-language-select>button{
+  box-sizing:border-box!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:42px!important;
+  min-width:94px!important;
+  padding:10px 14px!important;
+  border:1px solid #cbd8e2!important;
+  border-radius:10px!important;
+  background:#fff!important;
+  color:#123c69!important;
+  box-shadow:0 2px 0 rgba(8,39,70,.08)!important;
+  font-size:13px!important;
+  font-weight:800!important;
+  line-height:1.15!important;
+  text-decoration:none!important;
+  white-space:nowrap!important;
+  cursor:pointer!important;
+}
+html body .rtnx-language-bar>a.rtnx-active{
+  background:#123c69!important;
+  border-color:#123c69!important;
+  color:#fff!important;
+}
+html body .rtnx-language-bar>a:hover,
+html body .rtnx-language-bar .rtnx-language-select>button:hover{
+  background:#eef6fb!important;
+  border-color:#148a9c!important;
+  color:#082746!important;
+}
+html body .rtnx-language-bar>a.rtnx-active:hover{
+  background:#082746!important;
+  color:#fff!important;
+}
+html body .rtnx-language-bar>a:focus-visible,
+html body .rtnx-language-bar .rtnx-language-select>button:focus-visible,
+html body .rtnx-language-menu a:focus-visible{
+  outline:3px solid #d99b21!important;
+  outline-offset:2px!important;
+}
+html body .rtnx-language-bar .rtnx-language-select{position:relative!important;flex:0 0 auto!important}
+html body .rtnx-language-bar .rtnx-language-select>button{min-width:170px!important}
+html body .rtnx-language-bar .rtnx-language-menu{
+  width:min(250px,calc(100vw - 28px))!important;
+  max-height:min(330px,60vh)!important;
+  box-sizing:border-box!important;
+}
+html body .rtnx-language-bar .rtnx-language-menu a{
+  display:block!important;
+  min-width:0!important;
+  min-height:38px!important;
+  padding:10px 12px!important;
+  border:0!important;
+  box-shadow:none!important;
+  border-radius:8px!important;
+  white-space:normal!important;
+  text-align:left!important;
+}
+@media(max-width:650px){
+  html body .rtnx-language-bar{
+    width:92%!important;
+    padding:10px 0 14px!important;
+    justify-content:flex-start!important;
+    gap:8px!important;
+  }
+  html body .rtnx-language-bar>a,
+  html body .rtnx-language-bar .rtnx-language-select>button{
+    min-height:42px!important;
+    min-width:0!important;
+    padding:10px 13px!important;
+    font-size:13px!important;
+  }
+  html body .rtnx-language-bar .rtnx-language-select>button{min-width:160px!important}
+}
+@media(max-width:360px){
+  html body .rtnx-language-bar{gap:6px!important}
+  html body .rtnx-language-bar>a,
+  html body .rtnx-language-bar .rtnx-language-select>button{padding:9px 10px!important;font-size:12px!important}
+  html body .rtnx-language-bar .rtnx-language-select>button{min-width:145px!important}
+}
+</style>
+
 </head><body>
 <header class="nav">
 
