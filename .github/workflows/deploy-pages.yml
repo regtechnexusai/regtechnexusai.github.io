@@ -99,7 +99,7 @@ jobs:
               if "</head>" not in content.lower():
                   raise SystemExit(f"No closing head tag found in {relative}")
               match = re.search(r"</head>", content, flags=re.I)
-              content = content[:match.start()] + "  " + stylesheet + "\\n" + content[match.start():]
+              content = content[:match.start()] + "  " + stylesheet + "\n" + content[match.start():]
               page.write_text(content, encoding="utf-8")
           PY
           touch site/.nojekyll
