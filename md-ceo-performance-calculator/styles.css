@@ -63,3 +63,28 @@
   .mdceo-page.mdceo-sample-print .case-study-table th:nth-child(6),.mdceo-page.mdceo-sample-print .case-study-table td:nth-child(6){width:13%}
   .mdceo-page.mdceo-sample-print .case-study-table th:nth-child(7),.mdceo-page.mdceo-sample-print .case-study-table td:nth-child(7){width:19%}
 }
+
+/* Targeted readability fix — MD/CEO Performance heading */
+.mdceo-page .mdceo-hero h1{
+  color:#ffffff !important;
+  font-weight:850;
+  line-height:1.08;
+  letter-spacing:-.025em;
+  text-shadow:0 2px 14px rgba(0,0,0,.28);
+  max-width:1000px;
+  overflow-wrap:normal;
+  text-wrap:balance;
+}
+.mdceo-page .mdceo-hero h1 span{
+  color:#b8f5ff !important;
+  font-weight:850;
+  text-shadow:0 2px 12px rgba(0,0,0,.3);
+  -webkit-text-stroke:.2px rgba(255,255,255,.25);
+}
+@media(max-width:600px){
+  .mdceo-page .mdceo-hero h1{
+    font-size:clamp(2.35rem,9vw,3.4rem);
+    line-height:1.12;
+    letter-spacing:-.02em;
+  }
+}
