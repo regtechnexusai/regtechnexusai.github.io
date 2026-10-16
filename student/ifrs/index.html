@@ -1359,7 +1359,7 @@ const root=document.getElementById('ifrs-quiz-bank');
 const options=document.getElementById('ifrs-options');
 if(!root||!options||options.querySelector('.ifrs-quiz-option'))return;
 /* Detach any earlier print listener so one tap opens one print-preview tab only. */
-const stalePrint=$('ifrs-quiz-print');if(stalePrint&&stalePrint.parentNode){const cleanPrint=stalePrint.cloneNode(true);stalePrint.parentNode.replaceChild(cleanPrint,stalePrint);}
+const stalePrint=document.getElementById('ifrs-quiz-print');if(stalePrint&&stalePrint.parentNode){const cleanPrint=stalePrint.cloneNode(true);stalePrint.parentNode.replaceChild(cleanPrint,stalePrint);}
 const questions=[
 ["Concepts","What is the primary objective of general-purpose financial reporting?","Provide useful financial information to existing and potential investors, lenders and other creditors","Guarantee an entity will remain profitable","Calculate tax payable only","Replace management’s internal reports",0,"The objective focuses on useful information for decisions about providing resources to the entity."],
 ["Concepts","Which is a fundamental qualitative characteristic of useful financial information?","Comparability","Relevance","Timeliness","Understandability",1,"Relevance and faithful representation are the fundamental qualitative characteristics."],
