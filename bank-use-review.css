@@ -197,3 +197,22 @@ body.bank-review-page .bank-review-notice {
   }
   body.bank-review-page .review-table th { color:#203d5e !important; }
 }
+
+
+/* 2026-10-16: make the opening hero headline high-contrast on mobile and desktop. */
+body.bank-review-page .bank-review-hero h1 {
+  color:#ffffff !important;
+  text-shadow:0 2px 10px rgba(0,14,32,.22);
+  font-weight:850;
+  opacity:1 !important;
+}
+body.bank-review-page .bank-review-hero h1 span {
+  color:#b8fff4 !important;
+  -webkit-text-fill-color:#b8fff4 !important;
+  text-shadow:0 2px 10px rgba(0,14,32,.2);
+  opacity:1 !important;
+}
+body.bank-review-page .bank-review-hero .kicker {
+  color:#b8fff4 !important;
+  opacity:1 !important;
+}
