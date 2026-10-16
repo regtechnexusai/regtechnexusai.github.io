@@ -430,13 +430,13 @@ html body #ifrs-quick-tools{padding:14px 0 20px!important;background:#f4f8fb!imp
   <div class="c">
     <div class="ifrs-quick-heading">
       <div><span class="tag">START HERE</span><h2>Find your learning tools</h2></div>
-      <p>Choose a numbered option to go directly to the lesson, calculator or exam practice.</p>
+      <p>Choose a tool to go directly to the lesson, calculator or exam practice.</p>
     </div>
     <div class="ifrs-quick-grid">
-      <a class="ifrs-quick-card" href="#foundation"><span class="ifrs-quick-number">01</span><span><strong>Learn the basics</strong><small>IFRS foundations and standards</small></span><span class="ifrs-quick-arrow" aria-hidden="true">→</span></a>
-      <a class="ifrs-quick-card" href="#ifrs-calculation-lab"><span class="ifrs-quick-number">02</span><span><strong>Open calculators</strong><small>12 educational accounting calculators</small></span><span class="ifrs-quick-arrow" aria-hidden="true">→</span></a>
-      <a class="ifrs-quick-card" href="#ifrs-quiz-bank"><span class="ifrs-quick-number">03</span><span><strong>Mock exam &amp; quiz</strong><small>Timed mock exam and 94-question practice bank</small></span><span class="ifrs-quick-arrow" aria-hidden="true">→</span></a>
-      <a class="ifrs-quick-card" href="#guided-cases"><span class="ifrs-quick-number">04</span><span><strong>Practise case studies</strong><small>Apply standards to guided examples</small></span><span class="ifrs-quick-arrow" aria-hidden="true">→</span></a>
+      <a class="ifrs-quick-card" href="#foundation"><span><strong>Learn the basics</strong><small>IFRS foundations and standards</small></span><span class="ifrs-quick-arrow" aria-hidden="true">→</span></a>
+      <a class="ifrs-quick-card" href="#ifrs-calculation-lab"><span><strong>Open calculators</strong><small>12 educational accounting calculators</small></span><span class="ifrs-quick-arrow" aria-hidden="true">→</span></a>
+      <a class="ifrs-quick-card" href="#ifrs-quiz-bank"><span><strong>Mock exam &amp; quiz</strong><small>Timed mock exam and 94-question practice bank</small></span><span class="ifrs-quick-arrow" aria-hidden="true">→</span></a>
+      <a class="ifrs-quick-card" href="#guided-cases"><span><strong>Practise case studies</strong><small>Apply standards to guided examples</small></span><span class="ifrs-quick-arrow" aria-hidden="true">→</span></a>
     </div>
   </div>
 </section>
@@ -1145,5 +1145,164 @@ html body section#ifrs-toolkit-20261016.ifrs-toolkit #ifrs-calculation-lab{borde
 }
 @media(prefers-reduced-motion:reduce){html body #ifrs-quick-tools .ifrs-quick-card{transition:none!important;transform:none!important}}
 </style>
+
+
+<style id="ifrs-final-layout-and-calculator-repair-20261016">
+/* Compact quick links: no number badges, no oversized cards. */
+html body #ifrs-quick-tools{padding:12px 0 16px!important}
+html body #ifrs-quick-tools .ifrs-quick-heading{margin-bottom:9px!important}
+html body #ifrs-quick-tools .ifrs-quick-card{
+  min-height:66px!important;padding:10px 13px!important;gap:9px!important;
+  border-radius:12px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.38),0 3px 0 rgba(18,45,70,.1),0 6px 12px rgba(18,45,70,.1)!important;
+}
+html body #ifrs-quick-tools .ifrs-quick-card>span:nth-child(1){display:none!important}
+html body #ifrs-quick-tools .ifrs-quick-card>span:nth-child(2){flex:1 1 auto!important;min-width:0!important}
+html body #ifrs-quick-tools .ifrs-quick-card strong{font-size:.86rem!important;line-height:1.25!important}
+html body #ifrs-quick-tools .ifrs-quick-card small{font-size:.69rem!important;line-height:1.3!important;margin-top:3px!important}
+html body #ifrs-quick-tools .ifrs-quick-arrow{flex:0 0 auto!important;font-size:1.05rem!important}
+@media(max-width:560px){
+ html body #ifrs-quick-tools .ifrs-quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+ html body #ifrs-quick-tools .ifrs-quick-card{min-height:64px!important;padding:9px 10px!important}
+ html body #ifrs-quick-tools .ifrs-quick-card strong{font-size:.8rem!important}
+ html body #ifrs-quick-tools .ifrs-quick-card small{font-size:.66rem!important}
+}
+@media(max-width:360px){html body #ifrs-quick-tools .ifrs-quick-grid{grid-template-columns:1fr!important}}
+
+/* Repair the page header: logo, menu control and links share one consistent shell. */
+html body:not(.homepage-redesign) header.nav{
+ display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:center!important;
+ gap:12px!important;width:100%!important;max-width:none!important;min-height:68px!important;
+ margin:0!important;padding:8px clamp(12px,2.4vw,34px)!important;box-sizing:border-box!important;
+ background:#123c69!important;color:#fff!important;border:0!important;border-bottom:1px solid rgba(255,255,255,.2)!important;
+ border-radius:0!important;box-shadow:0 4px 14px rgba(8,39,70,.16)!important;overflow:visible!important;
+}
+html body:not(.homepage-redesign) header.nav>a.brand{display:flex!important;align-items:center!important;flex:0 0 auto!important;min-width:0!important}
+html body:not(.homepage-redesign) header.nav>a.brand img.brand-logo{display:block!important;width:auto!important;height:auto!important;max-width:165px!important;max-height:48px!important;object-fit:contain!important;background:transparent!important;border:0!important;border-radius:0!important;padding:0!important}
+html body:not(.homepage-redesign) header.nav>nav#main-nav{
+ display:flex!important;flex:1 1 auto!important;min-width:0!important;align-items:center!important;justify-content:flex-end!important;
+ gap:5px!important;overflow-x:auto!important;overflow-y:hidden!important;white-space:nowrap!important;scrollbar-width:none!important;
+ background:transparent!important;padding:2px 0!important;margin:0!important;box-shadow:none!important;border:0!important;
+}
+html body:not(.homepage-redesign) header.nav>nav#main-nav::-webkit-scrollbar{display:none!important}
+html body:not(.homepage-redesign) header.nav>nav#main-nav>a{
+ display:inline-flex!important;flex:0 0 auto!important;align-items:center!important;justify-content:center!important;
+ width:auto!important;min-height:34px!important;padding:6px 8px!important;box-sizing:border-box!important;
+ border:1px solid rgba(255,255,255,.58)!important;border-radius:7px!important;background:#fff!important;color:#123c69!important;
+ font-size:10.5px!important;line-height:1.2!important;font-weight:800!important;text-decoration:none!important;white-space:nowrap!important;
+}
+html body:not(.homepage-redesign) header.nav>nav#main-nav .nav-menu-heading{display:none!important}
+html body:not(.homepage-redesign) header.nav>button.menu{
+ display:none!important;flex:0 0 auto!important;align-items:center!important;justify-content:center!important;
+ min-width:42px!important;min-height:42px!important;margin:0 0 0 auto!important;padding:6px 10px!important;
+ border:1px solid rgba(255,255,255,.65)!important;border-radius:9px!important;background:#fff!important;color:#123c69!important;
+ font-size:23px!important;line-height:1!important;cursor:pointer!important;
+}
+html body:not(.homepage-redesign) header.nav>a.nav-cta{display:inline-flex!important;flex:0 0 auto!important;align-items:center!important;justify-content:center!important;min-height:36px!important;padding:8px 10px!important;border-radius:8px!important;background:#13a39b!important;color:#fff!important;font-size:11px!important;font-weight:900!important;text-decoration:none!important;white-space:nowrap!important}
+@media(max-width:1100px){
+ html body:not(.homepage-redesign) header.nav{flex-wrap:wrap!important;gap:8px!important;padding:8px 4vw!important}
+ html body:not(.homepage-redesign) header.nav>a.brand img.brand-logo{max-width:150px!important;max-height:44px!important}
+ html body:not(.homepage-redesign) header.nav>button.menu{display:inline-flex!important}
+ html body:not(.homepage-redesign) header.nav>a.nav-cta{display:none!important}
+ html body:not(.homepage-redesign) header.nav>nav#main-nav{
+  display:none!important;position:absolute!important;top:100%!important;left:0!important;right:0!important;z-index:1001!important;
+  max-height:calc(100dvh - 70px)!important;overflow-y:auto!important;overflow-x:hidden!important;flex-direction:column!important;
+  align-items:stretch!important;justify-content:flex-start!important;gap:6px!important;padding:12px 4vw 18px!important;
+  margin:0!important;white-space:normal!important;background:#fff!important;border-bottom:1px solid #dce5ef!important;
+  box-shadow:0 14px 24px rgba(16,32,59,.14)!important;
+ }
+ html body:not(.homepage-redesign) header.nav.open>nav#main-nav{display:flex!important}
+ html body:not(.homepage-redesign) header.nav>nav#main-nav .nav-menu-heading{display:block!important;width:100%!important;margin:6px 0 0!important;padding:8px 3px 4px!important;border-top:1px solid #e5edf1!important;color:#0956a8!important;font-size:10px!important;font-weight:800!important;letter-spacing:.1em!important;text-transform:uppercase!important}
+ html body:not(.homepage-redesign) header.nav>nav#main-nav>a{display:flex!important;width:100%!important;min-height:40px!important;justify-content:flex-start!important;white-space:normal!important;overflow-wrap:anywhere!important;padding:9px 11px!important;border:1px solid #e3ebf0!important;border-radius:8px!important;background:#f8fbfd!important;color:#203c55!important;font-size:13px!important;font-weight:650!important}
+}
+@media(max-width:380px){html body:not(.homepage-redesign) header.nav>a.brand img.brand-logo{max-width:132px!important}}
+
+/* Calculator lab layout and inputs remain usable on phones and desktop. */
+html body #ifrs-calculation-lab{min-width:0!important}
+html body #ifrs-calculation-lab select,
+html body #ifrs-calculation-lab input,
+html body #ifrs-calculation-lab textarea{width:100%!important;max-width:100%!important;box-sizing:border-box!important}
+html body #ifrs-calculation-lab .ifrs-tool-actions{display:flex!important;flex-wrap:wrap!important;gap:8px!important}
+html body #ifrs-calculation-lab .ifrs-tool-btn{min-height:40px!important;padding:9px 12px!important}
+html body #ifrs-calculation-lab .ifrs-tool-result{white-space:pre-wrap!important;overflow-wrap:anywhere!important}
+</style>
+
+
+<script id="ifrs-calculation-lab-recovery-20261016">
+(function(){
+ 'use strict';
+ const $=id=>document.getElementById(id);
+ const select=$('ifrs-calc-type'),fieldsBox=$('ifrs-calc-fields'),result=$('ifrs-calc-result'),note=$('ifrs-calc-note'),status=$('ifrs-calc-export-status');
+ if(!select||!fieldsBox||!result||!note||!status)return;
+ /* Replace controls to detach any stale listeners left by the prior script. */
+ function fresh(id){const old=$(id);if(!old)return null;const n=old.cloneNode(true);old.parentNode.replaceChild(n,old);return n}
+ const typeSelect=fresh('ifrs-calc-type'),run=fresh('ifrs-calc-run'),clear=fresh('ifrs-calc-clear'),copy=fresh('ifrs-calc-copy'),print=fresh('ifrs-calc-print'),csv=fresh('ifrs-calc-csv');
+ const specs={
+ ecl:[['ecl-pd','Probability of default (PD) %','3'],['ecl-lgd','Loss given default (LGD) %','45'],['ecl-ead','Exposure at default (EAD)','100000']],
+ lease:[['lease-payment','Payment per period','10000'],['lease-rate','Discount rate per period %','5'],['lease-periods','Number of end-of-period payments','5']],
+ revenue:[['rev-price','Total transaction price','120000'],['rev-ssp1','Stand-alone selling price — item A','80000'],['rev-ssp2','Stand-alone selling price — item B','40000']],
+ nrv:[['nrv-cost','Inventory cost','25000'],['nrv-selling','Estimated selling price','22000'],['nrv-completion','Estimated completion and selling costs','1500']],
+ 'ecl-scenarios':[['sc1-prob','Scenario 1 probability %','50'],['sc1-pd','Scenario 1 PD %','3'],['sc1-lgd','Scenario 1 LGD %','45'],['sc1-ead','Scenario 1 EAD','100000'],['sc2-prob','Scenario 2 probability %','30'],['sc2-pd','Scenario 2 PD %','8'],['sc2-lgd','Scenario 2 LGD %','55'],['sc2-ead','Scenario 2 EAD','100000'],['sc3-prob','Scenario 3 probability %','20'],['sc3-pd','Scenario 3 PD %','15'],['sc3-lgd','Scenario 3 LGD %','65'],['sc3-ead','Scenario 3 EAD','100000'],['sc-disc','Illustrative discount factor (0–1)','1']],
+ eir:[['eir-opening','Opening amortised cost','100000'],['eir-rate','Effective interest rate per period %','8'],['eir-cash','Cash received/(paid) at period end','12000'],['eir-periods','Number of periods','5']],
+ 'lease-schedule':[['ls-payment','Lease payment per period','10000'],['ls-rate','Discount rate per period %','5'],['ls-periods','Number of end-of-period payments','5']],
+ 'revenue-timeline':[['rt-price','Transaction price','120000'],['rt-ssp1','Stand-alone selling price — obligation A','80000'],['rt-ssp2','Stand-alone selling price — obligation B','40000'],['rt-progress1','Obligation A satisfied %','100'],['rt-progress2','Obligation B satisfied %','0']],
+ depreciation:[['dep-cost','Asset cost','100000'],['dep-residual','Residual value','10000'],['dep-life','Useful life in years','5']],
+ inventory:[['inv-units','Units held','100'],['inv-cost','Cost per unit','25'],['inv-selling','Estimated selling price per unit','23'],['inv-costs','Completion and selling costs per unit','2']],
+ impairment:[['imp-carry','Carrying amount of asset / CGU','150000'],['imp-fvlcd','Fair value less costs of disposal','110000'],['imp-viu','Value in use','125000']],
+ 'deferred-tax':[['dt-diff','Temporary difference (positive taxable; negative deductible)','50000'],['dt-rate','Applicable tax rate %','25']]
+ };
+ const notes={
+ ecl:'Illustration only: EAD × PD × LGD. This is not a complete IFRS 9 model.',
+ lease:'Ordinary annuity with equal end-of-period payments; simplified IFRS 16 illustration.',
+ revenue:'Relative stand-alone selling price allocation; consider the full IFRS 15 requirements.',
+ nrv:'Illustrative IAS 2 comparison of cost and net realisable value.',
+ 'ecl-scenarios':'Scenario probabilities must total 100%; simplified educational model, not a complete IFRS 9 estimate.',
+ eir:'Opening amortised cost plus effective interest less period-end cash flow; simplified illustration.',
+ 'lease-schedule':'Simplified equal-payment lease liability schedule; not a complete IFRS 16 measurement.',
+ 'revenue-timeline':'Relative price allocation multiplied by entered satisfaction percentages; verify IFRS 15 timing.',
+ depreciation:'Straight-line illustration: (cost − residual value) ÷ useful life.',
+ inventory:'Illustrative total cost and write-down using per-unit NRV.',
+ impairment:'Recoverable amount is the higher of value in use and fair value less costs of disposal.',
+ 'deferred-tax':'Temporary difference × tax rate; recognition exceptions and tax-base analysis are not assessed.'
+ };
+ const num=id=>Number($(id)?.value);
+ const fmt=n=>new Intl.NumberFormat(undefined,{maximumFractionDigits:2}).format(n);
+ function render(){
+  const t=typeSelect.value;fieldsBox.innerHTML='';
+  (specs[t]||[]).forEach(([id,label,value])=>{const l=document.createElement('label');l.htmlFor=id;l.textContent=label;const i=document.createElement('input');i.id=id;i.type='number';i.step='any';i.value=value;i.inputMode='decimal';if(id==='dt-diff')i.min='-1000000000000';else i.min='0';fieldsBox.append(l,i)});
+  note.textContent=notes[t]||'Educational illustration only; verify applicable standards and assumptions.';
+  result.textContent='Review the assumptions, then select Calculate.';
+  status.textContent='Calculator ready. Enter assumptions and select Calculate.';
+ }
+ function calculate(){
+  const t=typeSelect.value;let v='',ok=true;
+  const all=(ids)=>ids.map(num);
+  if(t==='ecl'){const [pd,lgd,ead]=all(['ecl-pd','ecl-lgd','ecl-ead']);ok=[pd,lgd,ead].every(Number.isFinite)&&pd>=0&&pd<=100&&lgd>=0&&lgd<=100&&ead>=0;if(ok)v='Illustrative ECL: '+fmt(ead*pd/100*lgd/100)+'. Formula: EAD × PD × LGD.'}
+  else if(t==='lease'||t==='lease-schedule'){const ids=t==='lease'?['lease-payment','lease-rate','lease-periods']:['ls-payment','ls-rate','ls-periods'];const [p,rate,n]=all(ids),r=rate/100;ok=[p,rate,n].every(Number.isFinite)&&p>=0&&rate>=0&&Number.isInteger(n)&&n>0;if(ok){let balance=r===0?p*n:p*(1-Math.pow(1+r,-n))/r;const initial=balance,rows=[];for(let i=1;i<=n;i++){const interest=balance*r,closing=balance+interest-p;rows.push('P'+i+': opening '+fmt(balance)+', interest '+fmt(interest)+', payment '+fmt(p)+', closing '+fmt(Math.max(0,closing)));balance=closing}v=t==='lease'?'Illustrative present value: '+fmt(initial)+'. Assumes '+n+' equal end-of-period payments.':'Initial illustrative lease liability: '+fmt(initial)+'.\n'+rows.join('\n')}}
+  else if(t==='revenue'||t==='revenue-timeline'){const ids=t==='revenue'?['rev-price','rev-ssp1','rev-ssp2']:['rt-price','rt-ssp1','rt-ssp2'];const [p,a,b]=all(ids),sum=a+b;ok=[p,a,b].every(Number.isFinite)&&p>=0&&a>0&&b>0;if(ok){const aa=p*a/sum,bb=p*b/sum;if(t==='revenue')v='Illustrative allocation — item A: '+fmt(aa)+'; item B: '+fmt(bb)+'. Total: '+fmt(p)+'.';else{const [pa,pb]=all(['rt-progress1','rt-progress2']);ok=[pa,pb].every(Number.isFinite)&&pa>=0&&pa<=100&&pb>=0&&pb<=100;if(ok)v='Allocated A: '+fmt(aa)+'; recognised: '+fmt(aa*pa/100)+'. Allocated B: '+fmt(bb)+'; recognised: '+fmt(bb*pb/100)+'. Total recognised: '+fmt(aa*pa/100+bb*pb/100)+'.'}}}
+  else if(t==='nrv'){const [cost,selling,completion]=all(['nrv-cost','nrv-selling','nrv-completion']);ok=[cost,selling,completion].every(Number.isFinite)&&cost>=0&&selling>=0&&completion>=0;if(ok){const nrv=selling-completion;v='Illustrative NRV: '+fmt(nrv)+'. Potential write-down: '+fmt(Math.max(0,cost-nrv))+'.'}}
+  else if(t==='ecl-scenarios'){const probs=all(['sc1-prob','sc2-prob','sc3-prob']),pds=all(['sc1-pd','sc2-pd','sc3-pd']),lgds=all(['sc1-lgd','sc2-lgd','sc3-lgd']),eads=all(['sc1-ead','sc2-ead','sc3-ead']),disc=num('sc-disc');ok=[...probs,...pds,...lgds,...eads,disc].every(Number.isFinite)&&probs.every(x=>x>=0&&x<=100)&&pds.every(x=>x>=0&&x<=100)&&lgds.every(x=>x>=0&&x<=100)&&eads.every(x=>x>=0)&&Math.abs(probs.reduce((a,b)=>a+b,0)-100)<.001&&disc>=0&&disc<=1;if(ok){const parts=probs.map((p,i)=>p/100*pds[i]/100*lgds[i]/100*eads[i]*disc);v='Probability-weighted illustrative ECL: '+fmt(parts.reduce((a,b)=>a+b,0))+'. Scenario contributions: '+parts.map((x,i)=>'S'+(i+1)+' '+fmt(x)).join('; ')+'.'}}
+  else if(t==='eir'){const [opening,rate,cash,n]=all(['eir-opening','eir-rate','eir-cash','eir-periods']);ok=[opening,rate,cash,n].every(Number.isFinite)&&opening>=0&&rate>=0&&Number.isInteger(n)&&n>0;if(ok){let b=opening,rows=[];for(let i=1;i<=n;i++){const interest=b*rate/100,closing=b+interest-cash;rows.push('P'+i+': opening '+fmt(b)+', interest '+fmt(interest)+', cash '+fmt(cash)+', closing '+fmt(closing));b=closing}v=rows.join('\n')+'\nClosing balance: '+fmt(b)+'.'}}
+  else if(t==='depreciation'){const [cost,res,life]=all(['dep-cost','dep-residual','dep-life']);ok=[cost,res,life].every(Number.isFinite)&&cost>=0&&res>=0&&res<=cost&&Number.isInteger(life)&&life>0;if(ok)v='Annual straight-line depreciation: '+fmt((cost-res)/life)+'. Depreciable amount: '+fmt(cost-res)+'.'}
+  else if(t==='inventory'){const [units,cost,selling,costs]=all(['inv-units','inv-cost','inv-selling','inv-costs']);ok=[units,cost,selling,costs].every(Number.isFinite)&&units>=0&&cost>=0&&selling>=0&&costs>=0;if(ok)v='Inventory cost: '+fmt(units*cost)+'. NRV per unit: '+fmt(selling-costs)+'. Total illustrative write-down: '+fmt(Math.max(0,cost-(selling-costs))*units)+'.'}
+  else if(t==='impairment'){const [carrying,fvlcd,viu]=all(['imp-carry','imp-fvlcd','imp-viu']);ok=[carrying,fvlcd,viu].every(Number.isFinite)&&carrying>=0&&fvlcd>=0&&viu>=0;if(ok){const recoverable=Math.max(fvlcd,viu);v='Recoverable amount: '+fmt(recoverable)+'. Illustrative impairment loss: '+fmt(Math.max(0,carrying-recoverable))+'.'}}
+  else if(t==='deferred-tax'){const [diff,rate]=all(['dt-diff','dt-rate']);ok=Number.isFinite(diff)&&Number.isFinite(rate)&&rate>=0&&rate<=100;if(ok)v=(diff>=0?'Illustrative deferred tax liability: ':'Illustrative deferred tax asset: ')+fmt(Math.abs(diff)*rate/100)+'.'}
+  result.textContent=ok&&v?v:'Please check the entered values. Percentages must be 0–100 and periods must be positive whole numbers.';
+  status.textContent=ok&&v?'Calculation updated. You can copy, print/save as PDF, or download CSV.':'Input validation: please correct the highlighted assumptions and calculate again.';
+  return report();
+ }
+ function report(){const selected=typeSelect.options[typeSelect.selectedIndex];return {name:selected?selected.text:typeSelect.value,inputs:Array.from(fieldsBox.querySelectorAll('input')).map(i=>({label:(fieldsBox.querySelector('label[for="'+i.id+'"]')||{}).textContent||i.id,value:i.value})),result:result.textContent,note:note.textContent,date:new Date().toISOString().slice(0,10)}}
+ function csvCell(x){return '"'+String(x??'').replace(/"/g,'""')+'"'}
+ function csvText(r){const rows=[['Report','IFRS Learning & Professional Practice Hub — Calculation Lab'],['Calculator',r.name],['Date',r.date],['Input','Value'],...r.inputs.map(x=>[x.label,x.value]),['Result',r.result],['Educational note',r.note],['Disclaimer','Educational illustration only; verify applicable standards and assumptions.']];return '\uFEFF'+rows.map(row=>row.map(csvCell).join(',')).join('\r\n')}
+ function safe(x){return String(x??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+ function download(name,content,mime){const u=URL.createObjectURL(new Blob([content],{type:mime}));const a=document.createElement('a');a.href=u;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1200)}
+ typeSelect.addEventListener('change',render);
+ run?.addEventListener('click',calculate);
+ clear?.addEventListener('click',render);
+ copy?.addEventListener('click',async()=>{const r=report(),txt='IFRS CALCULATION LAB REPORT\nCalculator: '+r.name+'\nDate: '+r.date+'\n\nINPUTS\n'+r.inputs.map(x=>x.label+': '+x.value).join('\n')+'\n\nRESULT\n'+r.result+'\n\nNOTE\n'+r.note+'\n\nEducational illustration only; not an accounting determination or audit opinion.';try{await navigator.clipboard.writeText(txt);status.textContent='Calculation report copied to clipboard.'}catch(e){const a=document.createElement('textarea');a.value=txt;document.body.append(a);a.select();let ok=false;try{ok=document.execCommand('copy')}catch(_){}a.remove();status.textContent=ok?'Calculation report copied to clipboard.':'Clipboard access was blocked. Select and copy the result manually.'}});
+ csv?.addEventListener('click',()=>{const r=report();download('ifrs-calculation-'+typeSelect.value+'-'+r.date+'.csv',csvText(r),'text/csv;charset=utf-8;');status.textContent='CSV download requested.'});
+ print?.addEventListener('click',()=>{const r=report(),w=window.open('','_blank');if(!w){status.textContent='Print window blocked. Allow pop-ups, then retry.';return}w.document.open();w.document.write('<!doctype html><html><head><meta charset="utf-8"><title>IFRS Calculation Report</title><style>body{font:15px/1.55 Arial,sans-serif;max-width:850px;margin:32px auto;padding:0 22px;color:#182433}h1{font-size:24px}.result{white-space:pre-wrap;background:#f5f7fa;padding:14px}table{border-collapse:collapse;width:100%}td,th{text-align:left;padding:8px;border-bottom:1px solid #d7dee8}</style></head><body><h1>IFRS Calculation Lab Report</h1><p><b>Calculator:</b> '+safe(r.name)+'<br><b>Prepared:</b> '+r.date+'</p><h2>Inputs</h2><table>'+r.inputs.map(x=>'<tr><th>'+safe(x.label)+'</th><td>'+safe(x.value)+'</td></tr>').join('')+'</table><h2>Result</h2><div class="result">'+safe(r.result)+'</div><h2>Note</h2><p>'+safe(r.note)+'</p><p>Educational illustration only; obtain professional review.</p><script>window.onload=function(){setTimeout(function(){window.print()},250)};<\\/script></body></html>');w.document.close();status.textContent='Print report opened. Choose Save as PDF in the print dialog.'});
+ render();calculate();
+})();
+</script>
 
 </body></html>
