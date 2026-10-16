@@ -59,3 +59,141 @@ body.bank-review-page .rt-back-home{display:none!important}
  body.bank-review-page footer#contact .brand-logo{width:248px!important;max-width:78vw!important;height:80px!important;max-height:58px!important}
  body.bank-review-page .bank-review-hero{padding-top:56px!important}
 }
+
+
+/* 2026-10-16: improve Bank-use Review contrast and give major sections distinct, restrained colour identities.
+   Presentation-only overrides; preserve all page content, controls and review logic. */
+body.bank-review-page {
+  color:#172b43 !important;
+  background:#f1f6fb !important;
+}
+body.bank-review-page main > .bank-review-section {
+  position:relative;
+  margin:22px auto;
+  width:calc(100% - clamp(24px,5vw,80px));
+  padding:clamp(32px,4.5vw,64px) clamp(22px,4vw,60px);
+  border:1px solid #cbd9e8;
+  border-top:5px solid #168b91;
+  border-radius:20px;
+  box-shadow:0 10px 28px rgba(21,47,78,.07);
+  background:#ffffff !important;
+}
+body.bank-review-page main > .bank-review-overview {
+  background:linear-gradient(135deg,#eef8ff 0%,#f4fbff 100%) !important;
+  border-color:#b8d9f0;
+  border-top-color:#1676b8;
+}
+body.bank-review-page main > #tool-register {
+  background:linear-gradient(135deg,#f0fbf7 0%,#f8fffc 100%) !important;
+  border-color:#b8e3d5;
+  border-top-color:#168b75;
+}
+body.bank-review-page main > #technical-posture {
+  background:linear-gradient(135deg,#f5f2ff 0%,#fcfaff 100%) !important;
+  border-color:#d5c9f2;
+  border-top-color:#7252b8;
+}
+body.bank-review-page main > #conditions {
+  background:linear-gradient(135deg,#fff7eb 0%,#fffdf8 100%) !important;
+  border-color:#f0d4a8;
+  border-top-color:#c47a16;
+}
+body.bank-review-page main > .bank-review-close {
+  background:linear-gradient(135deg,#102d4b 0%,#154e72 58%,#116c78 100%) !important;
+  border-color:#167f8c;
+  border-top-color:#53d0ca;
+}
+body.bank-review-page .bank-review-section h2,
+body.bank-review-page .bank-review-section h3,
+body.bank-review-page .bank-review-section .section-intro h2 {
+  color:#142b45 !important;
+}
+body.bank-review-page .bank-review-section p,
+body.bank-review-page .review-card p,
+body.bank-review-page .condition-list li {
+  color:#344b63 !important;
+}
+body.bank-review-page .bank-review-section .kicker {
+  color:#075c78 !important;
+  font-weight:900;
+}
+body.bank-review-page .bank-review-close .kicker { color:#a8f3ef !important; }
+body.bank-review-page .bank-review-close h2 { color:#ffffff !important; }
+body.bank-review-page .bank-review-close p { color:#f0f7ff !important; }
+body.bank-review-page .bank-review-close .review-footer-note { color:#d6e8f5 !important; }
+body.bank-review-page .review-stat-grid article {
+  background:linear-gradient(145deg,#153c62,#0d5877) !important;
+  border:1px solid #267a9a;
+  box-shadow:0 7px 16px rgba(10,54,88,.12);
+}
+body.bank-review-page .review-table-wrap {
+  border-color:#b9d9d0;
+  box-shadow:0 6px 18px rgba(21,65,68,.06);
+}
+body.bank-review-page .review-table caption {
+  background:#dff5ee !important;
+  color:#143c3b !important;
+  border-bottom-color:#b8e3d5;
+}
+body.bank-review-page .review-table th {
+  background:#e8f0fb !important;
+  color:#203d5e !important;
+  font-size:11px;
+}
+body.bank-review-page .review-table td {
+  color:#263d55 !important;
+}
+body.bank-review-page .review-table td small {
+  color:#405870 !important;
+}
+body.bank-review-page .review-table td a {
+  color:#064f91 !important;
+  text-decoration:underline;
+  text-decoration-color:#a6c8e8;
+  text-underline-offset:2px;
+}
+body.bank-review-page .review-table tbody tr:nth-child(odd) { background:#ffffff; }
+body.bank-review-page .review-table tbody tr:nth-child(even) { background:#f1f7fc; }
+body.bank-review-page .review-table tbody tr:hover { background:#e5f6f2; }
+body.bank-review-page .status.pilot { background:#ffe3e3 !important; color:#861b1b !important; }
+body.bank-review-page .status.advisory { background:#dceeff !important; color:#064d7b !important; }
+body.bank-review-page .status.planning { background:#ffedc2 !important; color:#704500 !important; }
+body.bank-review-page .status.research { background:#dff3df !important; color:#20552c !important; }
+body.bank-review-page .review-card-grid .review-card {
+  box-shadow:0 6px 16px rgba(21,47,78,.06);
+}
+body.bank-review-page .review-card-grid .review-card:nth-child(4n+1) {
+  background:#eaf5ff !important; border-color:#bddcf4;
+}
+body.bank-review-page .review-card-grid .review-card:nth-child(4n+2) {
+  background:#eaf9f3 !important; border-color:#bce5d5;
+}
+body.bank-review-page .review-card-grid .review-card:nth-child(4n+3) {
+  background:#f2edff !important; border-color:#d6c9f7;
+}
+body.bank-review-page .review-card-grid .review-card:nth-child(4n) {
+  background:#fff4e5 !important; border-color:#f0d4aa;
+}
+body.bank-review-page .review-card-number { background:#174f7a !important; }
+body.bank-review-page .condition-list li {
+  background:#ffffff !important;
+  border-color:#e6cda5 !important;
+  box-shadow:0 4px 12px rgba(90,61,18,.045);
+}
+body.bank-review-page .condition-list li:before { color:#92540b !important; }
+body.bank-review-page .condition-list strong { color:#17324e !important; }
+body.bank-review-page .review-footer-note { color:#3f5870 !important; }
+body.bank-review-page .bank-review-notice {
+  color:#4d3508 !important;
+  background:#fff3d6 !important;
+  border-color:#e8bd62 !important;
+}
+@media(max-width:680px) {
+  body.bank-review-page main > .bank-review-section {
+    width:calc(100% - 24px);
+    margin:14px auto;
+    padding:30px 18px;
+    border-radius:16px;
+  }
+  body.bank-review-page .review-table th { color:#203d5e !important; }
+}
