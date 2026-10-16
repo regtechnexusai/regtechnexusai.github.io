@@ -343,6 +343,77 @@ html body #ifrs-quick-tools{padding:14px 0 20px!important;background:#f4f8fb!imp
 @media(prefers-reduced-motion:reduce){.ifrs-quick-card{transition:none!important}.ifrs-quick-card:hover{transform:none!important}}
 </style>
 
+
+<style id="ifrs-homepage-header-match-20261016">
+/* Header matches the live homepage shell; IFRS learning content and calculator logic are untouched. */
+body:not(.homepage-redesign) header.nav{
+  height:78px!important;min-height:78px!important;display:flex!important;flex-direction:row!important;
+  align-items:center!important;justify-content:space-between!important;gap:0!important;
+  padding:0 3vw!important;background:rgba(255,255,255,.96)!important;
+  border:0!important;border-bottom:1px solid #e8e8e8!important;border-radius:0!important;
+  box-shadow:none!important;backdrop-filter:blur(12px)!important;-webkit-backdrop-filter:blur(12px)!important;
+  position:sticky!important;top:0!important;z-index:1000!important;box-sizing:border-box!important;
+}
+body:not(.homepage-redesign) header.nav>a.brand{display:flex!important;align-items:center!important;flex:0 0 auto!important;margin:0!important;padding:0!important;background:transparent!important;border:0!important}
+body:not(.homepage-redesign) header.nav>a.brand img.brand-logo{
+  display:block!important;width:228px!important;height:72px!important;max-width:22vw!important;max-height:62px!important;
+  object-fit:contain!important;background:transparent!important;border:0!important;border-radius:0!important;padding:0!important;box-shadow:none!important;
+}
+body:not(.homepage-redesign) header.nav>nav#main-nav{
+  display:flex!important;flex:1 1 auto!important;min-width:0!important;align-items:center!important;justify-content:flex-end!important;
+  gap:8px!important;margin:0 0 0 auto!important;padding:0!important;overflow-x:auto!important;overflow-y:hidden!important;
+  white-space:nowrap!important;scrollbar-width:none!important;background:transparent!important;border:0!important;
+}
+body:not(.homepage-redesign) header.nav>nav#main-nav::-webkit-scrollbar{display:none!important}
+body:not(.homepage-redesign) header.nav>nav#main-nav .nav-menu-heading{display:none!important}
+body:not(.homepage-redesign) header.nav>nav#main-nav>a{
+  display:inline-flex!important;flex:0 0 auto!important;align-items:center!important;justify-content:center!important;
+  min-height:38px!important;margin:0!important;padding:7px 4px!important;border:0!important;border-radius:0!important;
+  background:transparent!important;color:#34445b!important;font-size:11.5px!important;font-weight:650!important;
+  line-height:1.25!important;text-decoration:none!important;white-space:nowrap!important;box-shadow:none!important;
+}
+body:not(.homepage-redesign) header.nav>nav#main-nav>a:hover,
+body:not(.homepage-redesign) header.nav>nav#main-nav>a:focus-visible{color:#0956a8!important;background:transparent!important}
+body:not(.homepage-redesign) header.nav>a.nav-cta{
+  display:inline-flex!important;flex:0 0 auto!important;align-items:center!important;justify-content:center!important;
+  margin:0 0 0 8px!important;padding:10px 12px!important;min-height:42px!important;
+  border:1px solid #10203b!important;border-radius:0!important;background:#10203b!important;color:#fff!important;
+  font-size:11px!important;font-weight:800!important;text-decoration:none!important;white-space:nowrap!important;
+}
+body:not(.homepage-redesign) header.nav>button.menu{display:none!important}
+@media(max-width:1100px){
+ body:not(.homepage-redesign) header.nav{height:auto!important;min-height:72px!important;padding:8px 4vw!important;gap:12px!important}
+ body:not(.homepage-redesign) header.nav>a.brand img.brand-logo{width:188px!important;height:61px!important;max-width:54vw!important;max-height:54px!important}
+ body:not(.homepage-redesign) header.nav>button.menu{
+   display:block!important;flex:0 0 auto!important;margin-left:auto!important;padding:8px 10px!important;
+   border:0!important;background:transparent!important;color:#10203b!important;font-size:22px!important;cursor:pointer!important;
+ }
+ body:not(.homepage-redesign) header.nav>a.nav-cta{display:none!important}
+ body:not(.homepage-redesign) header.nav>nav#main-nav{
+   display:none!important;position:absolute!important;top:100%!important;left:0!important;right:0!important;
+   z-index:1001!important;max-height:calc(100dvh - 74px)!important;overflow-y:auto!important;overflow-x:hidden!important;
+   flex-direction:column!important;align-items:stretch!important;justify-content:flex-start!important;gap:7px!important;
+   padding:20px 4vw!important;margin:0!important;white-space:normal!important;background:#fff!important;
+   border-bottom:1px solid #ddd!important;box-shadow:0 14px 24px rgba(16,32,59,.13)!important;
+ }
+ body:not(.homepage-redesign) header.nav.open>nav#main-nav{display:flex!important}
+ body:not(.homepage-redesign) header.nav>nav#main-nav .nav-menu-heading{
+   display:block!important;width:100%!important;margin:8px 0 2px!important;padding:8px 4px 5px!important;
+   border-top:1px solid #e5edf1!important;color:#0956a8!important;font-size:10px!important;font-weight:800!important;
+   letter-spacing:.12em!important;text-transform:uppercase!important;
+ }
+ body:not(.homepage-redesign) header.nav>nav#main-nav .nav-menu-heading:first-child{border-top:0!important;margin-top:0!important}
+ body:not(.homepage-redesign) header.nav>nav#main-nav>a{
+   display:flex!important;width:100%!important;min-height:42px!important;box-sizing:border-box!important;
+   justify-content:flex-start!important;white-space:normal!important;overflow-wrap:anywhere!important;
+   padding:10px 12px!important;border:1px solid #e3ebf0!important;border-radius:9px!important;
+   background:#f8fbfd!important;color:#203c55!important;font-size:13px!important;font-weight:650!important;
+ }
+ body:not(.homepage-redesign) header.nav>nav#main-nav>a:hover{background:#edf7fb!important;border-color:#b8d8e6!important;color:#075b8a!important}
+}
+@media(max-width:560px){body:not(.homepage-redesign) header.nav>a.brand img.brand-logo{width:188px!important;max-width:54vw!important;height:61px!important}}
+</style>
+
 </head><body>
 <header class="nav">
 
@@ -366,39 +437,23 @@ html body #ifrs-quick-tools{padding:14px 0 20px!important;background:#f4f8fb!imp
   </button>
 
   <nav id="main-nav" aria-label="Main navigation">
-
     <span class="nav-menu-heading">Explore</span>
-
-    <a href="#work">What we do</a>
-
+    <a href="/#work">What we do</a>
     <a href="/#solutions">Solutions</a>
-
     <a href="/global-financial-systems.html">Readiness tools</a>
-
     <a href="/fintech-intelligence-hub/">FinTech Intelligence Hub</a>
-
     <a href="/insights.html">Insights</a>
-
     <a href="/case-studies/">Case Studies</a>
-
     <a href="/insights.html#launch-updates">Updates</a>
-
     <a href="/blog.html">Blog</a>
     <a href="/#knowledge">Knowledge</a>
-
     <a href="/international-regulatory-calculators.html">Regulatory Calculators</a>
 
     <span class="nav-menu-heading">Student learning</span>
     <a href="/student/">Student Knowledge Hub</a>
-    <a href="#ifrs-toolkit-20261016">IFRS Practice Toolkit</a>
-    <a href="#ifrs-quiz-bank">50-Question Quiz</a>
-    <a href="#ifrs-calculation-lab">Calculation Lab</a>
-    <a href="#ifrs-workpaper">Workpaper Builder</a>
 
     <a href="/#about">About</a>
-
     <a href="/#contact">Contact</a>
-
     <a
       href="https://chatgpt.com/g/g-6a09920b01348191b9b1628b69367d9b-regtech-nexus-ai"
       target="_blank"
@@ -407,20 +462,19 @@ html body #ifrs-quick-tools{padding:14px 0 20px!important;background:#f4f8fb!imp
       AI Assistant ↗
     </a>
 
-  
     <span class="nav-menu-heading">Quick Access Tools</span>
     <a href="/tradeguard/">TradeGuard</a>
     <a href="/icms-2026/">ICMS Toolkit</a>
     <a href="/bank-use-review.html">Bank Use Review</a>
     <a href="/md-ceo-performance-calculator/">MD/CEO KPI</a>
     <a href="/payscale-2026/">PayScale 2026</a>
-    <a href="global-financial-systems.html#assessment">International Readiness</a>
+    <a href="/global-financial-systems.html#assessment">International Readiness</a>
     <a href="/regulatory-gap-analyzer/">Policy Gap Analyzer</a>
     <a href="/sanctions-screening/">Sanctions Screening</a>
     <a href="/derivatives/">Derivatives Risk &amp; Compliance</a>
-</nav>
+  </nav>
 
-  <a class="nav-cta nav-cta-gloss" href="#solutions">
+  <a class="nav-cta nav-cta-gloss" href="/#solutions">
     Explore solutions ↗
   </a>
 
