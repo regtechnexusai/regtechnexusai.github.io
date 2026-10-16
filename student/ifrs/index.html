@@ -300,6 +300,49 @@ html body .rtnx-language-bar .rtnx-language-menu a{
 }
 </style>
 
+
+<style id="ifrs-compact-top-and-quick-tools-20261016">
+/* Reduce excess space on desktop and mobile; keep the language controls compact. */
+html body .rtnx-language-bar{padding:4px 0 6px!important;gap:8px!important}
+html body .rtnx-language-bar>a,html body .rtnx-language-bar .rtnx-language-select>button{min-height:38px!important;padding:8px 12px!important}
+html body .rtnx-language-bar .rtnx-language-select>button{min-width:160px!important}
+html body .hero{padding:30px 0 28px!important}
+html body .hero h1{margin-top:10px!important;margin-bottom:12px!important}
+html body .hero .lead{margin-top:0!important;margin-bottom:0!important}
+html body #ifrs-quick-tools{padding:14px 0 20px!important;background:#f4f8fb!important;scroll-margin-top:90px}
+.ifrs-quick-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:12px}
+.ifrs-quick-heading h2{margin:5px 0 0!important;font-size:clamp(1.2rem,2.2vw,1.55rem)!important;line-height:1.2!important}
+.ifrs-quick-heading p{max-width:440px;margin:0;color:#627181;font-size:.85rem;line-height:1.45}
+.ifrs-quick-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.ifrs-quick-card{display:flex;align-items:center;gap:10px;min-width:0;min-height:82px;padding:13px 12px;background:#fff;border:1px solid #d7e3ec;border-radius:13px;box-shadow:0 4px 12px rgba(16,39,64,.045);text-decoration:none!important;color:#123c69!important;transition:border-color .15s,box-shadow .15s,transform .15s}
+.ifrs-quick-card:hover{border-color:#148a9c;box-shadow:0 7px 17px rgba(16,39,64,.09);transform:translateY(-1px)}
+.ifrs-quick-number{display:flex;flex:0 0 35px;width:35px;height:35px;align-items:center;justify-content:center;border-radius:10px;background:#eaf5fb;color:#123c69;font-size:.9rem;font-weight:900}
+.ifrs-quick-card:nth-child(2) .ifrs-quick-number{background:#e6f7f1;color:#08745f}
+.ifrs-quick-card:nth-child(3) .ifrs-quick-number{background:#f2edff;color:#6845a2}
+.ifrs-quick-card:nth-child(4) .ifrs-quick-number{background:#fff4df;color:#8b5a08}
+.ifrs-quick-card>span:nth-child(2){display:block;min-width:0;flex:1}
+.ifrs-quick-card strong{display:block;font-size:.88rem;line-height:1.3;color:#123c69}
+.ifrs-quick-card small{display:block;margin-top:4px;color:#687887;font-size:.72rem;line-height:1.35}
+.ifrs-quick-arrow{color:#148a9c;font-size:1.15rem;font-weight:900}
+@media(max-width:900px){.ifrs-quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ifrs-quick-heading{align-items:flex-start;flex-direction:column;gap:6px}.ifrs-quick-heading p{max-width:none}}
+@media(max-width:560px){
+ html body .rtnx-language-bar{padding:3px 0 5px!important;gap:6px!important}
+ html body .rtnx-language-bar>a,html body .rtnx-language-bar .rtnx-language-select>button{min-height:36px!important;padding:7px 10px!important;font-size:12px!important}
+ html body .rtnx-language-bar .rtnx-language-select>button{min-width:145px!important}
+ html body .hero{padding:22px 0 20px!important}
+ html body .hero h1{font-size:clamp(1.8rem,8vw,2.35rem)!important;line-height:1.12!important}
+ html body #ifrs-quick-tools{padding:10px 0 16px!important}
+ .ifrs-quick-grid{gap:8px}
+ .ifrs-quick-card{gap:8px;min-height:84px;padding:10px 9px;border-radius:11px}
+ .ifrs-quick-number{flex-basis:30px;width:30px;height:30px;border-radius:8px;font-size:.8rem}
+ .ifrs-quick-card strong{font-size:.79rem}
+ .ifrs-quick-card small{font-size:.67rem}
+ .ifrs-quick-arrow{font-size:1rem}
+}
+@media(max-width:360px){.ifrs-quick-grid{grid-template-columns:1fr}.ifrs-quick-card{min-height:70px}}
+@media(prefers-reduced-motion:reduce){.ifrs-quick-card{transition:none!important}.ifrs-quick-card:hover{transform:none!important}}
+</style>
+
 </head><body>
 <header class="nav">
 
@@ -383,6 +426,20 @@ html body .rtnx-language-bar .rtnx-language-menu a{
 
 </header>
 <main><section class="hero"><div class="c"><span class="tag">IFRS LEARNING</span><h1>IFRS Learning &amp; Professional Practice Hub</h1><p class="lead">A global-facing learning and practice hub for students, accountants, auditors, banking and finance professionals. Build IFRS knowledge, work through scenarios, organise evidence and verify current authoritative sources.</p></div></section>
+<section id="ifrs-quick-tools" aria-label="Quick access to IFRS learning tools">
+  <div class="c">
+    <div class="ifrs-quick-heading">
+      <div><span class="tag">START HERE</span><h2>Find your learning tools</h2></div>
+      <p>Choose a numbered option to go directly to the lesson, calculator or exam practice.</p>
+    </div>
+    <div class="ifrs-quick-grid">
+      <a class="ifrs-quick-card" href="#foundation"><span class="ifrs-quick-number">01</span><span><strong>Learn the basics</strong><small>IFRS foundations and standards</small></span><span class="ifrs-quick-arrow" aria-hidden="true">→</span></a>
+      <a class="ifrs-quick-card" href="#ifrs-calculation-lab"><span class="ifrs-quick-number">02</span><span><strong>Open calculators</strong><small>12 educational accounting calculators</small></span><span class="ifrs-quick-arrow" aria-hidden="true">→</span></a>
+      <a class="ifrs-quick-card" href="#ifrs-quiz-bank"><span class="ifrs-quick-number">03</span><span><strong>Mock exam &amp; quiz</strong><small>Timed mock exam and 94-question practice bank</small></span><span class="ifrs-quick-arrow" aria-hidden="true">→</span></a>
+      <a class="ifrs-quick-card" href="#guided-cases"><span class="ifrs-quick-number">04</span><span><strong>Practise case studies</strong><small>Apply standards to guided examples</small></span><span class="ifrs-quick-arrow" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
 <section id="ifrs-pathways" style="padding:28px 0;background:#f4f8fb"><div class="c"><span class="tag">ONE HUB · TWO PATHWAYS</span><div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:16px"><article class="card" style="border-top:5px solid #148a9c"><span class="tag">STUDENT KNOWLEDGE HUB</span><h2>Learn IFRS step by step</h2><p>Build understanding from core concepts to standard-specific decisions using guided explanations, worked scenarios, self-checks and authoritative sources.</p><p><strong>For:</strong> students, graduates, exam candidates and early-career learners.</p><a class="btn" href="#foundation">Start learning ↓</a></article><article class="card" style="border-top:5px solid #7252a5"><span class="tag">PROFESSIONAL PRACTICE HUB</span><h2>Apply IFRS in real work</h2><p>Structure accounting analysis, audit workpapers, financial statement review, ECL discussions, evidence requests and governance review points.</p><p><strong>For:</strong> accountants, auditors, bankers, analysts, lecturers and finance teams.</p><a class="btn" href="#professional-practice">Explore professional practice ↓</a></article></div><p class="source" style="margin-top:14px"><strong>Global-use principle:</strong> Confirm the applicable reporting jurisdiction, reporting period, effective date, local endorsement and licensed authoritative text before reaching a conclusion.</p></div></section>
 <section class="learning-path" aria-label="Learning path"><div class="c"><div class="learning-path-grid"><div class="learning-step"><b>01 · LEARN</b><strong>Build the foundation</strong><span>Read the core concepts and definitions.</span></div><div class="learning-step"><b>02 · PRACTICE</b><strong>Apply the concept</strong><span>Use the examples and control or reporting context.</span></div><div class="learning-step"><b>03 · SELF-CHECK</b><strong>Test yourself</strong><span>Reveal answers and identify gaps.</span></div><div class="learning-step"><b>04 · EVIDENCE</b><strong>Verify sources</strong><span>Use authoritative material for current requirements.</span></div></div></div></section>
 <section id="foundation"><div class="c"><h2>Financial Reporting Foundation</h2><div class="grid"><article class="card"><h3>Purpose of Reporting</h3><p>Financial reporting communicates information about an entity's financial position, financial performance and cash flows to users making economic decisions.</p></article><article class="card"><h3>Conceptual Framework</h3><p>Study the objectives, qualitative characteristics, elements, recognition and measurement concepts that support financial reporting.</p></article><article class="card"><h3>Recognition & Measurement</h3><p>Learn why accounting conclusions depend on the applicable standard, facts, definitions, recognition criteria and measurement basis.</p></article></div></div></section>
