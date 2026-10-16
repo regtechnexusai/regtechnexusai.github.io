@@ -76,6 +76,32 @@ jobs:
           PY
 
 
+      - name: Apply unified site header/footer styles
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          site = Path("site")
+          stylesheet = '<link rel="stylesheet" href="/site-wide-shell.css?v=20261016-header-footer" data-regtech-site-shell="true">'
+          protected = {
+              "index.html",
+              "googleb678d3f045b8f91e.html",
+              "fintech-intelligence-hub/googleb678d3f045b8f91e.html",
+          }
+          for page in site.rglob("*.html"):
+              relative = page.relative_to(site).as_posix()
+              if relative in protected:
+                  continue
+              content = page.read_text(encoding="utf-8")
+              # Replace an older relative reference, if present, so nested pages use the same root asset.
+              content = re.sub(r'<link\\b[^>]*href=["\\'][^"\\']*site-wide-shell\\.css(?:\\?[^"\\']*)?["\\'][^>]*>', "", content, flags=re.I)
+              if "</head>" not in content.lower():
+                  raise SystemExit(f"No closing head tag found in {relative}")
+              match = re.search(r"</head>", content, flags=re.I)
+              content = content[:match.start()] + "  " + stylesheet + "\\n" + content[match.start():]
+              page.write_text(content, encoding="utf-8")
+          PY
           touch site/.nojekyll
 
       - name: Configure Pages
