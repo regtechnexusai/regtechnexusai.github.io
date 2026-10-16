@@ -210,6 +210,92 @@
 
 <link rel="stylesheet" href="/site-wide-shell.css?v=20261015-v1">
 <script src="/site-wide-shell.js?v=20261015-v1" defer></script>
+
+<style id="founder-card-and-work-section-fix">
+/* Founder profile: one continuous, light-pink framed card from heading through disclaimer. */
+body.homepage-redesign .authority-section#founder{
+  box-sizing:border-box;
+  width:min(1220px, calc(100% - 40px));
+  max-width:1220px;
+  margin:clamp(28px,4vw,56px) auto;
+  padding:clamp(24px,4vw,52px);
+  display:grid;
+  grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);
+  align-items:start;
+  gap:clamp(24px,4vw,52px);
+  background:#fff4f8;
+  border:2px solid #efb7ce;
+  border-radius:24px;
+  box-shadow:0 12px 32px rgba(167,72,111,.09);
+  overflow:hidden;
+}
+body.homepage-redesign .authority-section#founder .authority-intro,
+body.homepage-redesign .authority-section#founder .authority-copy{
+  min-width:0;
+}
+body.homepage-redesign .authority-section#founder .authority-intro h2{
+  color:#7d294d;
+}
+body.homepage-redesign .authority-section#founder .authority-intro .kicker{
+  color:#a23d68;
+}
+body.homepage-redesign .authority-section#founder .authority-copy{
+  align-self:start;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+}
+body.homepage-redesign .authority-section#founder .authority-copy p{
+  color:#59434d;
+  line-height:1.8;
+}
+body.homepage-redesign .authority-section#founder .authority-copy h3{
+  color:#7d294d;
+  margin-top:26px;
+}
+body.homepage-redesign .authority-section#founder .authority-note{
+  margin-top:24px;
+  border-left:4px solid #d66b98;
+  background:#ffe6ef;
+  color:#563545;
+}
+/* Keep the What We Do section as its own intact, responsive section. */
+body.homepage-redesign #work.section.intro{
+  display:grid;
+  grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+  align-items:center;
+  gap:clamp(28px,6vw,88px);
+  box-sizing:border-box;
+  width:100%;
+  min-width:0;
+}
+body.homepage-redesign #work.section.intro > div{min-width:0}
+body.homepage-redesign #work.section.intro h2{max-width:14ch}
+body.homepage-redesign #work.section.intro p{overflow-wrap:anywhere}
+@media(max-width:900px){
+  body.homepage-redesign .authority-section#founder{
+    grid-template-columns:minmax(0,1fr);
+    width:calc(100% - 32px);
+    padding:28px;
+    gap:24px;
+  }
+  body.homepage-redesign #work.section.intro{
+    grid-template-columns:minmax(0,1fr);
+    gap:22px;
+  }
+}
+@media(max-width:560px){
+  body.homepage-redesign .authority-section#founder{
+    width:calc(100% - 24px);
+    margin:24px auto;
+    padding:20px 18px;
+    border-radius:18px;
+  }
+}
+</style>
+
 </head>
 
 <body class="homepage-redesign">
