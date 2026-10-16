@@ -724,7 +724,7 @@ function calcCsv(report){
 function safeText(value){return String(value??'').replace(/[&<>"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]))}
 byId('ifrs-calc-copy').addEventListener('click',async()=>{
  const r=getCalcReport();
- const text='IFRS CALCULATION LAB REPORT\\nCalculator: '+r.name+'\\nDate: '+r.date+'\\n\\nINPUTS\\n'+r.inputs.map(x=>x.label+': '+x.value).join('\\n')+'\\n\\nRESULT\\n'+r.result+'\\n\\nNOTE\\n'+r.note+'\\n\\nEducational illustration only; not an accounting determination or audit opinion.';
+ const text='IFRS CALCULATION LAB REPORT\nCalculator: '+r.name+'\nDate: '+r.date+'\n\nINPUTS\n'+r.inputs.map(x=>x.label+': '+x.value).join('\n')+'\n\nRESULT\n'+r.result+'\n\nNOTE\n'+r.note+'\n\nEducational illustration only; not an accounting determination or audit opinion.';
  try{await navigator.clipboard.writeText(text);byId('ifrs-calc-export-status').textContent='Calculation report copied to clipboard.'}
  catch(e){const area=document.createElement('textarea');area.value=text;area.style.position='fixed';area.style.opacity='0';document.body.appendChild(area);area.select();let ok=false;try{ok=document.execCommand('copy')}catch(err){}area.remove();byId('ifrs-calc-export-status').textContent=ok?'Calculation report copied to clipboard.':'Clipboard access was blocked. Select and copy the result manually.'}
 });
