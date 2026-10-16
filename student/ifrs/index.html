@@ -948,6 +948,61 @@ html body #ifrs-toolkit-20261016 .ifrs-tool-btn:focus-visible{outline:3px solid 
 }
 </style>
 
+
+<style id="ifrs-quick-tools-full-color-and-practice-zone-20261016">
+/* Number badges stay neutral; the WHOLE quick-access button receives its color. */
+html body #ifrs-quick-tools .ifrs-quick-card{
+  color:#fff!important;border:1px solid rgba(255,255,255,.7)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.52),inset 0 -4px 0 rgba(0,0,0,.13),0 5px 0 rgba(18,45,70,.12),0 10px 18px rgba(18,45,70,.13)!important;
+}
+html body #ifrs-quick-tools .ifrs-quick-card:nth-child(1){background:linear-gradient(145deg,#17aaa1 0%,#078982 55%,#066b68 100%)!important}
+html body #ifrs-quick-tools .ifrs-quick-card:nth-child(2){background:linear-gradient(145deg,#438fea 0%,#1769c2 55%,#104b91 100%)!important}
+html body #ifrs-quick-tools .ifrs-quick-card:nth-child(3){background:linear-gradient(145deg,#9675e7 0%,#7048c6 55%,#4b2c91 100%)!important}
+html body #ifrs-quick-tools .ifrs-quick-card:nth-child(4){background:linear-gradient(145deg,#f4a64e 0%,#df751e 55%,#a94712 100%)!important}
+html body #ifrs-quick-tools .ifrs-quick-card strong,
+html body #ifrs-quick-tools .ifrs-quick-card small,
+html body #ifrs-quick-tools .ifrs-quick-card .ifrs-quick-arrow{color:#fff!important}
+html body #ifrs-quick-tools .ifrs-quick-card small{color:rgba(255,255,255,.96)!important}
+/* Keep 01–04 black and visually quiet, so the full-color card is the focus. */
+html body #ifrs-quick-tools .ifrs-quick-number,
+html body #ifrs-quick-tools .ifrs-quick-card:nth-child(n) .ifrs-quick-number{
+  background:rgba(255,255,255,.91)!important;color:#111827!important;
+  border:1px solid rgba(255,255,255,.9)!important;
+  box-shadow:inset 0 1px 0 #fff,0 2px 4px rgba(0,0,0,.12)!important;
+}
+html body #ifrs-quick-tools .ifrs-quick-card:hover{
+  transform:translateY(-3px)!important;filter:saturate(1.08) brightness(1.025);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.58),inset 0 -3px 0 rgba(0,0,0,.1),0 7px 0 rgba(18,45,70,.1),0 15px 24px rgba(18,45,70,.2)!important;
+}
+html body #ifrs-quick-tools .ifrs-quick-card:active{transform:translateY(1px)!important}
+/* One continuous tinted zone wraps the complete 94-question bank + 12-calculator toolkit. */
+html body section#ifrs-toolkit-20261016.ifrs-toolkit{
+  background:#eaf2f9!important;
+  border-top:1px solid #cbdbea!important;border-bottom:1px solid #cbdbea!important;
+  padding-top:28px!important;padding-bottom:30px!important;
+}
+html body section#ifrs-toolkit-20261016.ifrs-toolkit>.c{
+  background:transparent!important;
+}
+html body section#ifrs-toolkit-20261016.ifrs-toolkit>.c>h2{
+  padding:14px 18px!important;margin:10px 0 14px!important;
+  color:#123c69!important;background:linear-gradient(100deg,#d8eaf7 0%,#e7e8f8 100%)!important;
+  border-left:5px solid #148a9c!important;border-radius:12px!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 4px 12px rgba(16,39,64,.07)!important;
+}
+html body section#ifrs-toolkit-20261016.ifrs-toolkit .ifrs-tool-card{
+  background:#fff!important;border:1px solid #d2dfeb!important;
+  border-radius:15px!important;
+  box-shadow:0 5px 0 rgba(18,60,105,.045),0 10px 22px rgba(16,39,64,.07)!important;
+}
+html body section#ifrs-toolkit-20261016.ifrs-toolkit #ifrs-quiz-bank{border-top:4px solid #7652c7!important}
+html body section#ifrs-toolkit-20261016.ifrs-toolkit #ifrs-calculation-lab{border-top:4px solid #148a9c!important}
+@media(max-width:720px){
+ html body section#ifrs-toolkit-20261016.ifrs-toolkit{padding-top:20px!important;padding-bottom:22px!important}
+}
+@media(prefers-reduced-motion:reduce){html body #ifrs-quick-tools .ifrs-quick-card{transition:none!important;transform:none!important}}
+</style>
+
 </body></html>');w.document.close();byId('ifrs-quiz-export-status').textContent='Print view contains '+list.length+' answered question(s) only. Full-bank export and copy controls are unavailable.'});
 byId('ifrs-mock-start').addEventListener('click',()=>{loadQuiz(true);mockExamActive=true;mockExamSubmitted=false;mockSecondsRemaining=Number(byId('ifrs-mock-duration').value)*60;byId('ifrs-mock-start').disabled=true;byId('ifrs-mock-duration').disabled=true;byId('ifrs-mock-finish').disabled=false;byId('ifrs-quiz-export-status').textContent='Mock exam started. Correct answers and explanations remain hidden until submission.';startMockTimer();renderQuestion()});byId('ifrs-mock-finish').addEventListener('click',()=>finishMockExam(false));byId('ifrs-topic').addEventListener('change',()=>loadQuiz(true));byId('ifrs-next').addEventListener('click',()=>{if(mockExamSubmitted)return;if(quizIndex<quizPool.length){if(mockExamActive&&quizIndex===quizPool.length-1){finishMockExam(false);return}quizIndex++;renderQuestion();saveQuizProgress()}});byId('ifrs-reset').addEventListener('click',()=>loadQuiz(true));loadQuiz(true);
 const calcFields=byId('ifrs-calc-fields');
