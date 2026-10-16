@@ -314,6 +314,8 @@ body:not(.homepage-redesign) header.nav>button.menu{
 <div id="ifrs-calc-fields"></div><div class="ifrs-tool-result" id="ifrs-calc-result" aria-live="polite">Enter assumptions to calculate.</div>
 <p class="ifrs-tool-help" id="ifrs-calc-note">This simplified calculator is for learning only; it is not a complete IFRS measurement model.</p>
 <div class="ifrs-tool-actions"><button type="button" class="ifrs-tool-btn" id="ifrs-calc-run">Calculate</button><button type="button" class="ifrs-tool-btn secondary" id="ifrs-calc-clear">Clear inputs</button></div>
+<div class="ifrs-tool-actions" aria-label="Export calculation result"><button type="button" class="ifrs-tool-btn secondary" id="ifrs-calc-copy">Copy result</button><button type="button" class="ifrs-tool-btn secondary" id="ifrs-calc-print">Print / Save PDF</button><button type="button" class="ifrs-tool-btn secondary" id="ifrs-calc-csv">Download CSV</button></div>
+<p class="ifrs-tool-help" id="ifrs-calc-export-status" aria-live="polite">After calculating, copy the result, print/save it as PDF, or download inputs and results as CSV.</p>
 </article>
 <article class="ifrs-tool-card" id="ifrs-workpaper">
 <span class="tag">WORKPAPER BUILDER</span><h3>Structure an accounting issue</h3>
@@ -695,7 +697,57 @@ if(t==='inventory'){const units=val('inv-units'),cost=val('inv-cost'),selling=va
 if(t==='impairment'){const carrying=val('imp-carry'),fvlcd=val('imp-fvlcd'),viu=val('imp-viu');valid=[carrying,fvlcd,viu].every(Number.isFinite)&&carrying>=0&&fvlcd>=0&&viu>=0;if(valid){const recoverable=Math.max(fvlcd,viu);result='Recoverable amount (higher of the two measures): '+fmt(recoverable)+'. Illustrative impairment loss: '+fmt(Math.max(0,carrying-recoverable))+'.'}}
 if(t==='deferred-tax'){const diff=val('dt-diff'),rate=val('dt-rate');valid=Number.isFinite(diff)&&Number.isFinite(rate)&&rate>=0&&rate<=100;if(valid)result=(diff>=0?'Illustrative deferred tax liability':'Illustrative deferred tax asset')+': '+fmt(Math.abs(diff)*rate/100)+' (currency units), before recognition exceptions and other IAS 12 considerations.'}
 byId('ifrs-calc-result').textContent=valid?result:'Please enter valid non-negative numbers. Percentages must be between 0 and 100; periods must be a positive whole number.'}
-byId('ifrs-calc-type').addEventListener('change',renderCalcFields);byId('ifrs-calc-run').addEventListener('click',calc);byId('ifrs-calc-clear').addEventListener('click',()=>{renderCalcFields()});renderCalcFields();calc();
+
+function getCalcReport(){
+ const select=byId('ifrs-calc-type');
+ const name=select.options[select.selectedIndex]?.text||select.value;
+ const inputs=Array.from(calcFields.querySelectorAll('input')).map(input=>{
+   const label=calcFields.querySelector('label[for="'+input.id+'"]');
+   return {label:label?label.textContent:input.id,value:input.value};
+ });
+ return {name,inputs,result:byId('ifrs-calc-result').textContent,note:byId('ifrs-calc-note').textContent,date:new Date().toISOString().slice(0,10)};
+}
+function csvCell(value){return '"'+String(value??'').replace(/"/g,'""')+'"'}
+function downloadText(filename,text,mime){
+ const blob=new Blob([text],{type:mime});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement('a');a.href=url;a.download=filename;a.style.display='none';
+ document.body.appendChild(a);a.click();a.remove();
+ setTimeout(()=>URL.revokeObjectURL(url),1500);
+}
+function calcCsv(report){
+ const rows=[['Report','IFRS Learning & Professional Practice Hub — Calculation Lab'],['Calculator',report.name],['Date',report.date],['Input','Value']];
+ report.inputs.forEach(x=>rows.push([x.label,x.value]));
+ rows.push(['Result',report.result],['Educational note',report.note],['Disclaimer','Educational illustration only; verify applicable standards, assumptions and professional requirements.']);
+ return '\uFEFF'+rows.map(row=>row.map(csvCell).join(',')).join('\r\n');
+}
+function safeText(value){return String(value??'').replace(/[&<>"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]))}
+byId('ifrs-calc-copy').addEventListener('click',async()=>{
+ const r=getCalcReport();
+ const text='IFRS CALCULATION LAB REPORT\\nCalculator: '+r.name+'\\nDate: '+r.date+'\\n\\nINPUTS\\n'+r.inputs.map(x=>x.label+': '+x.value).join('\\n')+'\\n\\nRESULT\\n'+r.result+'\\n\\nNOTE\\n'+r.note+'\\n\\nEducational illustration only; not an accounting determination or audit opinion.';
+ try{await navigator.clipboard.writeText(text);byId('ifrs-calc-export-status').textContent='Calculation report copied to clipboard.'}
+ catch(e){const area=document.createElement('textarea');area.value=text;area.style.position='fixed';area.style.opacity='0';document.body.appendChild(area);area.select();let ok=false;try{ok=document.execCommand('copy')}catch(err){}area.remove();byId('ifrs-calc-export-status').textContent=ok?'Calculation report copied to clipboard.':'Clipboard access was blocked. Select and copy the result manually.'}
+});
+byId('ifrs-calc-csv').addEventListener('click',()=>{
+ const r=getCalcReport();
+ const filename='ifrs-calculation-'+byId('ifrs-calc-type').value+'-'+r.date+'.csv';
+ downloadText(filename,calcCsv(r),'text/csv;charset=utf-8;');
+ byId('ifrs-calc-export-status').textContent='CSV download requested: '+filename;
+});
+byId('ifrs-calc-print').addEventListener('click',()=>{
+ const r=getCalcReport();
+ const w=window.open('','_blank');
+ if(!w){byId('ifrs-calc-export-status').textContent='The print window was blocked. Allow pop-ups for this site, then try Print / Save PDF again.';return}
+ const inputRows=r.inputs.map(x=>'<tr><th>'+safeText(x.label)+'</th><td>'+safeText(x.value)+'</td></tr>').join('');
+ w.document.open();
+ w.document.write('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>IFRS Calculation Report</title><style>body{font:15px/1.55 Arial,sans-serif;color:#182433;max-width:850px;margin:32px auto;padding:0 22px}h1{font-size:24px;margin-bottom:6px}h2{font-size:17px;margin-top:26px}table{width:100%;border-collapse:collapse}th,td{text-align:left;vertical-align:top;padding:9px;border-bottom:1px solid #d7dee8}th{width:38%;background:#f3f6fa}.result,.note{white-space:pre-wrap;background:#f5f7fa;padding:14px;border-radius:8px}.disclaimer{font-size:12px;color:#4b5563;margin-top:28px}@media print{body{margin:0 auto;padding:0 8mm}.no-print{display:none}}</style></head><body><h1>IFRS Calculation Lab Report</h1><p><strong>Calculator:</strong> '+safeText(r.name)+'<br><strong>Prepared:</strong> '+safeText(r.date)+'</p><h2>Inputs and assumptions</h2><table>'+inputRows+'</table><h2>Result</h2><div class="result">'+safeText(r.result)+'</div><h2>Calculation note</h2><div class="note">'+safeText(r.note)+'</div><p class="disclaimer">Educational illustration only. This report is not an accounting determination, audit opinion, legal advice or compliance determination. Verify current authoritative standards, local adoption, assumptions and evidence. Do not rely on this output without appropriate professional review.</p><p class="no-print"><button onclick="window.print()">Print / Save as PDF</button></p><script>window.onload=function(){setTimeout(function(){window.print()},250)};<\/script></body></html>');
+ w.document.close();
+ byId('ifrs-calc-export-status').textContent='Print report opened. Choose “Save as PDF” in the print dialog to create a PDF file.';
+});
+byId('ifrs-calc-type').addEventListener('change',()=>{renderCalcFields();byId('ifrs-calc-export-status').textContent='Calculator changed. Review the inputs, then calculate and export.'});
+byId('ifrs-calc-run').addEventListener('click',()=>{calc();byId('ifrs-calc-export-status').textContent='Calculation updated. You can now copy, print/save as PDF, or download CSV.'});
+byId('ifrs-calc-clear').addEventListener('click',()=>{renderCalcFields();byId('ifrs-calc-export-status').textContent='Inputs reset to the calculator defaults.'});
+renderCalcFields();calc();
 const wpFields=['wp-jurisdiction','wp-standard','wp-period','wp-issue','wp-facts','wp-analysis','wp-conclusion'];
 function makeWorkpaper(){const get=id=>byId(id).value.trim()||'[Not provided — verification required]';return 'REGTECH NEXUS AI — IFRS ACCOUNTING ANALYSIS WORKPAPER DRAFT\nDRAFT — HUMAN REVIEW REQUIRED\n\nFramework / jurisdiction: '+get('wp-jurisdiction')+'\nStandard / topic: '+get('wp-standard')+'\nReporting period / date: '+get('wp-period')+'\nPrepared on: '+new Date().toISOString().slice(0,10)+'\n\n1. ACCOUNTING QUESTION\n'+get('wp-issue')+'\n\n2. KNOWN FACTS AND EVIDENCE\n'+get('wp-facts')+'\n\n3. ANALYSIS, ASSUMPTIONS AND ALTERNATIVES\n'+get('wp-analysis')+'\n\n4. PRELIMINARY CONCLUSION / OPEN ITEMS\n'+get('wp-conclusion')+'\n\n5. REVIEW CHECKLIST\nAuthoritative source/version identified: '+(byId('wp-source').checked?'Yes — confirm source reference is attached':'No — verification required')+'\nSupporting evidence and gaps identified: '+(byId('wp-evidence').checked?'Yes — confirm evidence is retained':'No — evidence review required')+'\nIndependent review/sign-off: '+(byId('wp-review').checked?'Acknowledged as required':'Pending / not confirmed')+'\n\n6. MANDATORY REVIEW NOTE\nThis is a structured draft, not an accounting determination or audit opinion. Verify the current licensed authoritative standard, effective date, local adoption, regulator requirements, entity facts, calculations and evidence. Resolve open items and obtain appropriate professional review before use. Do not include confidential or restricted information.'}
 byId('wp-generate').addEventListener('click',()=>{byId('wp-output').value=makeWorkpaper();byId('wp-output').focus()});
