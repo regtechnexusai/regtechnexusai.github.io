@@ -3,7 +3,9 @@
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlsplit, unquote
-import argparse, datetime, re, sys\nfrom urllib.request import Request, urlopen\nfrom urllib.error import URLError, HTTPError
+import argparse, datetime, re, sys
+from urllib.request import Request, urlopen
+from urllib.error import URLError, HTTPError
 ROOT=Path(__file__).resolve().parents[2]
 CRITICAL=["index.html","tool-assurance/index.html","regulatory-source-register/index.html","bank-use-review.html","regulatory-gap-analyzer/index.html","icms-2026/index.html","international-regulatory-calculators.html","payscale-2026/index.html","md-ceo-performance-calculator/index.html","explainable-ai.html","derivatives/index.html"]
 class Parser(HTMLParser):
