@@ -208,7 +208,7 @@ const select=document.getElementById('language-select');
 const morePanel=document.getElementById('more-language-panel');
 function setLanguage(lang){const d=dict[lang]||dict.en;document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(d[k]!==undefined)el.innerHTML=d[k];});select.value=lang;try{localStorage.setItem('mukul-language',lang)}catch(e){}}
 select.addEventListener('change',()=>{if(select.value==='more'){morePanel.hidden=false;setLanguage('en');return;}morePanel.hidden=true;setLanguage(select.value);const gt=document.querySelector('.goog-te-combo');if(gt){gt.value=select.value;gt.dispatchEvent(new Event('change'));}});
-try{const saved=localStorage.getItem('mukul-language');if(saved&&dict[saved])setLanguage(saved)}catch(e){}
+let initialLanguage='bn';try{const saved=localStorage.getItem('mukul-language');if(saved&&dict[saved])initialLanguage=saved}catch(e){}setLanguage(initialLanguage);
 window.googleTranslateElementInit=function(){new google.translate.TranslateElement({pageLanguage:'en',includedLanguages:'ar,bn,zh-CN,fr,hi,id,ja,ko,pt,es,sw,ur',autoDisplay:false,layout:google.translate.TranslateElement.InlineLayout.SIMPLE},'google_translate_element');};
 })();
 </script>
