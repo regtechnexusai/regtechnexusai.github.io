@@ -129,10 +129,7 @@
   }
 
   function ensureShellStyles() {
-    var found = Array.prototype.some.call(document.querySelectorAll('link[rel="stylesheet"]'), function (link) {
-      return /\/site-wide-shell\.css(?:\?|$)/.test(link.getAttribute("href") || "");
-    });
-    if (found && !document.querySelector('link[data-rt-shell-latest="true"]')) {
+    if (!document.querySelector('link[data-rt-shell-latest="true"]')) {
       var css = make("link", { "rel": "stylesheet", "href": "/site-wide-shell.css?v=20261017-v2", "data-rt-shell-latest": "true" });
       document.head.appendChild(css);
     }
