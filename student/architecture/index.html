@@ -163,6 +163,10 @@ footer.architecture-footer:before{
  .arch-footer-legal{flex-direction:column;gap:5px}
 }
 @media(prefers-reduced-motion:reduce){.arch-footer-contact{transition:none}}
+
+/* Explicit image element ensures the actual brand logo renders in the footer. */
+.architecture-footer .arch-footer-logo{display:block;width:180px;height:64px;max-width:100%;object-fit:contain;object-position:left center;margin:0 0 16px;padding:0;border:0;border-radius:0;background:none;box-shadow:none}
+@media(max-width:480px){.architecture-footer .arch-footer-logo{width:164px;height:58px}}
 </style><style id="architecture-layout-repair-20261003">
 /* Architecture Studio — layout repair and responsive normalization. Existing content preserved. */
 :root{--arch-max:1180px}
@@ -571,7 +575,7 @@ main>section:nth-of-type(odd){background:#fff}
   <div class="wrap">
     <div class="arch-footer-main">
       <div class="arch-footer-brand">
-        <span class="footer-logo" aria-hidden="true"></span>
+        <img class="arch-footer-logo" src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI logo" width="180" height="64" loading="lazy" decoding="async">
         <strong class="notranslate" translate="no">RegTech Nexus AI</strong>
         <p class="arch-footer-tagline">Student Knowledge Hub · Architecture Studio</p>
         <p class="arch-footer-description">Learn design, building technology, codes, BIM, research and responsible AI through structured practice and evidence-led study.</p>
