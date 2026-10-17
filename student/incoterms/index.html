@@ -22,12 +22,55 @@
 <style id="arch-shared-override">
 :root{--arch-p:#123c69;--arch-pd:#082746;--arch-a:#148a9c;--arch-gold:#d99b21;--arch-violet:#7a56c7}
 header{background:var(--arch-p)!important;border-bottom:1px solid rgba(255,255,255,.22)!important;box-shadow:0 4px 18px rgba(8,39,70,.22)!important}.head{min-height:74px!important}.brand{color:#fff!important}.head nav{flex:1!important;display:flex!important;gap:7px!important;overflow-x:auto!important;white-space:nowrap!important;flex-wrap:nowrap!important;scrollbar-width:none!important;scroll-snap-type:none!important;scroll-behavior:auto!important}.head nav::-webkit-scrollbar{display:none}.head nav a{min-height:44px!important;display:inline-flex!important;align-items:center!important;padding:9px 12px!important;border-radius:11px!important;border:1px solid rgba(255,255,255,.55)!important;background:#fff!important;color:var(--arch-p)!important;flex:0 0 auto!important;font-weight:900!important}.head nav a:nth-child(1){border-bottom:4px solid var(--arch-a)!important;background:#effaf6!important}.head nav a:nth-child(2){border-bottom:4px solid #1677d2!important;background:#eef5ff!important}.case-study-section{padding:36px 0 10px}.case-study-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.case-study-card{background:#fff;border:1px solid #d7e1ea;border-top:4px solid var(--arch-gold);border-radius:15px;padding:18px;box-shadow:0 9px 24px rgba(16,39,64,.07)}.case-study-card:nth-child(2n){border-top-color:var(--arch-violet)}.case-study-card:nth-child(3n){border-top-color:var(--arch-a)}.case-study-card h3{color:var(--arch-p);margin:7px 0}.case-study-card p,.case-study-card li{color:#596877;font-size:.9rem;line-height:1.55}.case-study-card ul{padding-left:20px}.case-level{display:inline-block;padding:4px 8px;border-radius:999px;background:#edf6fb;border:1px solid #d7e6ef;color:#29587b;font-size:.68rem;font-weight:900}.case-note{margin-top:10px;padding:10px 12px;background:#f7fbfd;border-left:4px solid var(--arch-a);border-radius:9px;font-size:.82rem;color:#526473}@media(max-width:620px){.head{align-items:center!important;flex-direction:row!important;flex-wrap:nowrap!important;padding:10px 0!important}.brand{font-size:.78rem!important}.head nav{flex:1!important}.case-study-grid{grid-template-columns:1fr}}
-</style>\n<link rel="stylesheet" href="/amazon-resources.css?v=20261008-1">\n<script src="/amazon-resources.js?v=20261008-1" defer></script>\n
+</style>
+<link rel="stylesheet" href="/amazon-resources.css?v=20261008-1">
+<script src="/amazon-resources.js?v=20261008-1" defer></script>
+
 <link rel="stylesheet" href="/site-wide-shell.css?v=20261015-v1">
 <script src="/site-wide-shell.js?v=20261015-v1" defer></script>
+<style id="incoterms-header-footer-link-fix-20261017">
+/* Consistent, responsive Student Hub shell; no trade-learning or checklist logic changes. */
+body:not(.homepage-redesign) header.student-subpage-header{position:sticky!important;top:0!important;z-index:1000!important;width:100%;background:#fff!important;color:#10203b!important;border-bottom:1px solid #e4eaf0!important;box-shadow:0 4px 18px rgba(16,32,59,.06)!important}
+body:not(.homepage-redesign) .subpage-head{position:relative;min-height:78px!important;display:flex;align-items:center;justify-content:space-between;gap:18px;padding-top:8px;padding-bottom:8px}
+body:not(.homepage-redesign) .subpage-brand{display:flex;align-items:center;gap:12px;min-width:0;text-decoration:none!important;color:#10203b!important;font-weight:850;font-size:.94rem;white-space:nowrap}
+body:not(.homepage-redesign) .subpage-brand img{display:block;width:clamp(125px,14vw,190px)!important;max-width:190px!important;max-height:58px!important;height:auto!important;object-fit:contain}
+body:not(.homepage-redesign) #incoterms-nav{display:flex;align-items:center;justify-content:flex-end;gap:4px;min-width:0;overflow:visible;white-space:nowrap}
+body:not(.homepage-redesign) #incoterms-nav a{display:inline-flex;align-items:center;padding:10px 9px!important;border-radius:8px!important;color:#263b53!important;font-size:.78rem!important;font-weight:750;text-decoration:none!important}
+body:not(.homepage-redesign) #incoterms-nav a:hover,body:not(.homepage-redesign) #incoterms-nav a:focus-visible{background:#edf5ff!important;color:#0956a8!important}
+body:not(.homepage-redesign) #incoterms-nav a.subpage-nav-cta{background:#102d4b!important;color:#fff!important;border:1px solid #102d4b!important;padding:11px 13px!important}
+body:not(.homepage-redesign) .subpage-menu-toggle{display:none;flex:0 0 auto;width:44px;height:44px;border:1px solid #d9e5f0;border-radius:10px;background:#f5f9ff;color:#102d4b;font-size:1.25rem;font-weight:800;cursor:pointer}
+body:not(.homepage-redesign) footer.student-subpage-footer{margin-top:36px;background:#102d4b!important;color:#eaf1f7!important;border-top:4px solid #168b91!important;padding:30px 0 26px}
+body:not(.homepage-redesign) .subpage-footer-inner{display:flex;align-items:center;gap:28px}
+body:not(.homepage-redesign) .subpage-footer-brand img{display:block;width:160px;max-width:100%;height:auto;max-height:62px;object-fit:contain;background:#fff;border-radius:8px;padding:4px}
+body:not(.homepage-redesign) .subpage-footer-inner strong{color:#fff}
+body:not(.homepage-redesign) .subpage-footer-inner p{margin:6px 0 10px;color:#c5d4e1}
+body:not(.homepage-redesign) .subpage-footer-inner a{color:#e2edf7;text-underline-offset:3px}
+@media(max-width:1120px){
+ body:not(.homepage-redesign) .subpage-brand span{display:none}
+ body:not(.homepage-redesign) #incoterms-nav{gap:2px}
+ body:not(.homepage-redesign) #incoterms-nav a{padding:9px 7px!important;font-size:.74rem!important}
+}
+@media(max-width:900px){
+ body:not(.homepage-redesign) .subpage-head{min-height:72px!important}
+ body:not(.homepage-redesign) .subpage-menu-toggle{display:inline-flex;align-items:center;justify-content:center;margin-left:auto}
+ body:not(.homepage-redesign) #incoterms-nav{display:none!important}
+ body:not(.homepage-redesign) .subpage-head.is-menu-open #incoterms-nav{display:flex!important;position:absolute;top:100%;left:0;right:0;max-height:min(72vh,600px);overflow-y:auto;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:3px;padding:14px 16px 18px;background:#fff;border:1px solid #dce4ec;border-radius:0 0 14px 14px;box-shadow:0 14px 24px rgba(16,32,59,.14);white-space:normal}
+ body:not(.homepage-redesign) .subpage-head.is-menu-open #incoterms-nav a{width:100%;padding:12px!important;font-size:.92rem!important}
+ body:not(.homepage-redesign) .subpage-head.is-menu-open #incoterms-nav a.subpage-nav-cta{justify-content:center;margin-top:5px}
+}
+@media(max-width:600px){
+ body:not(.homepage-redesign) .subpage-head{width:92%;gap:10px}
+ body:not(.homepage-redesign) .subpage-brand img{width:min(190px,56vw)!important;max-width:56vw!important;max-height:55px!important}
+ body:not(.homepage-redesign) .subpage-footer-inner{align-items:flex-start;flex-direction:column;gap:15px}
+}
+</style>
 </head>
 <body>
-<header><div class="wrap head"><div class="brand">RegTech Nexus AI — Student Knowledge Hub</div><nav><a href="../">Student Hub</a><a href="#explorer">11 Rules</a><a href="#review">Review</a><a href="#risk">Risk Map</a><a href="#learning">Learning Path</a></nav></div></header>
+<header class="student-subpage-header"><div class="wrap head subpage-head">
+<a class="subpage-brand" href="/" aria-label="RegTech Nexus AI homepage"><img src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="190" height="62"><span>Student Knowledge Hub</span></a>
+<button class="subpage-menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="incoterms-nav">☰</button>
+<nav id="incoterms-nav" aria-label="Incoterms learning navigation"><a href="/">Home</a><a href="../">Student Hub</a><a href="#explorer">11 Rules</a><a href="#review">Transaction Review</a><a href="#risk">Risk Map</a><a href="#learning">Learning Path</a><a class="subpage-nav-cta" href="#review">Start a Review ↗</a></nav>
+</div></header>
 <main>
 <section class="hero"><div class="wrap">
 <div class="pills"><span class="pill">Professional Learning Track</span><span class="pill">Incoterms® 2020</span><span class="pill">Trade Risk & Compliance</span></div>
@@ -90,7 +133,10 @@ header{background:var(--arch-p)!important;border-bottom:1px solid rgba(255,255,2
 </div></section>
 <section><div class="wrap"><div class="notice"><strong>Important:</strong> Incoterms® rules are not a substitute for a contract of sale. Confirm the applicable edition and rule, transaction-specific contractual terms, customs/tax requirements, insurance arrangements and documentary-credit requirements with the relevant professionals and authorities.</div><p class="source">Primary reference: International Chamber of Commerce (ICC), Incoterms® rules / Incoterms® 2020 materials. This Student Hub page uses original educational explanations and review prompts; it does not reproduce ICC rule text.</p></div></section>
 </main>
-<footer><div class="wrap"><strong>RegTech Nexus AI — Student Knowledge Hub</strong><p>Professional learning, AI, research and practical knowledge tools.</p><a href="../">Return to Student Knowledge Hub →</a></div></footer>
+<footer class="student-subpage-footer"><div class="wrap subpage-footer-inner">
+<a class="subpage-footer-brand" href="/" aria-label="RegTech Nexus AI homepage"><img src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="190" height="62"></a>
+<div><strong>RegTech Nexus AI · Student Knowledge Hub</strong><p>Structured learning for trade, risk, research and professional practice.</p><a href="../">Return to Student Knowledge Hub →</a> <span aria-hidden="true"> · </span> <a href="mailto:regtechnexusai@gmail.com">Contact</a></div>
+</div></footer>
 <script>
 const data={
 EXW:{name:"Ex Works",mode:"Any mode(s)",focus:"Goods are made available at the agreed place; review loading and export-clearance responsibilities carefully."},
@@ -120,4 +166,17 @@ if(!document.getElementById('case-studies')){const footer=document.querySelector
 function fbIncQ(n){const e=document.getElementById('fbIncA'+n);e.style.display=e.style.display==='block'?'none':'block'}
 </script>
 <script src="/student/assets/language-switcher.js" defer></script><script src="/site-search.js" defer></script>
+<script id="incoterms-responsive-menu-20261017">
+(function(){
+  const head=document.querySelector('.subpage-head');
+  const toggle=document.querySelector('.subpage-menu-toggle');
+  const nav=document.getElementById('incoterms-nav');
+  if(!head||!toggle||!nav)return;
+  function closeMenu(){head.classList.remove('is-menu-open');toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','Open navigation menu');toggle.textContent='☰';}
+  toggle.addEventListener('click',function(){const open=!head.classList.contains('is-menu-open');head.classList.toggle('is-menu-open',open);toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'Close navigation menu':'Open navigation menu');toggle.textContent=open?'×':'☰';});
+  nav.addEventListener('click',function(event){if(event.target.closest('a'))closeMenu();});
+  document.addEventListener('keydown',function(event){if(event.key==='Escape')closeMenu();});
+  window.addEventListener('resize',function(){if(window.innerWidth>900)closeMenu();});
+})();
+</script>
 </body></html>
