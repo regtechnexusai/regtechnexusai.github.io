@@ -1320,7 +1320,7 @@ section#ai + section .card-grid .card:nth-child(6){border-top-color:#2f80ed;back
 /* Student Hub presentation refresh: homepage-aligned shell; learning functionality is unchanged. */
 body:not(.homepage-redesign){font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif!important;color:#172b43!important;background:#f6f9fd!important;line-height:1.68}
 body:not(.homepage-redesign) h1,body:not(.homepage-redesign) h2,body:not(.homepage-redesign) h3,body:not(.homepage-redesign) h4{font-family:Manrope,Inter,ui-sans-serif,system-ui,sans-serif;letter-spacing:-.035em}
-body:not(.homepage-redesign) header.nav.site-header{height:auto!important;min-height:78px!important;display:flex!important;align-items:center!important;gap:18px!important;padding:0 5vw!important;background:rgba(255,255,255,.97)!important;border:0!important;border-bottom:1px solid #e8e8e8!important;border-radius:0!important;box-shadow:0 3px 14px rgba(16,32,59,.06)!important;backdrop-filter:blur(12px);position:sticky!important;top:0!important;z-index:1000!important}
+body:not(.homepage-redesign) header.nav.site-header{height:auto!important;min-height:78px!important;display:flex!important;align-items:center!important;gap:18px!important;flex-wrap:nowrap!important;justify-content:space-between!important;width:100%!important;padding:0 5vw!important;background:rgba(255,255,255,.97)!important;border:0!important;border-bottom:1px solid #e8e8e8!important;border-radius:0!important;box-shadow:0 3px 14px rgba(16,32,59,.06)!important;backdrop-filter:blur(12px);position:sticky!important;top:0!important;z-index:1000!important}
 body:not(.homepage-redesign) header.nav.site-header .brand{display:flex;align-items:center;flex:0 0 auto;text-decoration:none}
 body:not(.homepage-redesign) header.nav.site-header .brand img{display:block;width:190px!important;max-width:22vw!important;height:auto!important;max-height:62px!important;object-fit:contain;background:transparent!important}
 body:not(.homepage-redesign) header.nav.site-header nav{display:flex;align-items:center;justify-content:flex-end;gap:8px;min-width:0;flex:1 1 auto;margin-left:auto;font-size:11.5px}
@@ -2993,5 +2993,34 @@ document.getElementById('aiAnswerModal')?.addEventListener('click',e=>{if(e.targ
 </script>
 
 <script src="/student/assets/language-switcher.js?v=20261003-5" defer></script><script src="/site-search.js" defer></script>
+
+<script id="student-hub-homepage-menu-20261017">
+(function(){
+  "use strict";
+  var header=document.querySelector("header.nav.site-header");
+  var menu=header&&header.querySelector(".menu");
+  var nav=header&&header.querySelector("#main-nav");
+  if(!header||!menu||!nav)return;
+  menu.addEventListener("click",function(){
+    var open=header.classList.toggle("open");
+    menu.setAttribute("aria-expanded",String(open));
+    menu.setAttribute("aria-label",open?"Close menu":"Open menu");
+  });
+  nav.querySelectorAll("a").forEach(function(link){
+    link.addEventListener("click",function(){
+      header.classList.remove("open");
+      menu.setAttribute("aria-expanded","false");
+      menu.setAttribute("aria-label","Open menu");
+    });
+  });
+  document.addEventListener("keydown",function(event){
+    if(event.key==="Escape"){
+      header.classList.remove("open");
+      menu.setAttribute("aria-expanded","false");
+      menu.setAttribute("aria-label","Open menu");
+    }
+  });
+})();
+</script>
 </body>
 </html>
