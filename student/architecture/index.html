@@ -108,7 +108,62 @@ main>section .check-row{padding:10px 12px}
  main>section .resource-grid{grid-template-columns:1fr}
  main>section .card,main>section .resource,main>section .course-card,main>section .case,main>section .layout-card,main>section .calc,main>section .book{padding:14px}
 }
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.studio-nav{scroll-behavior:auto!important}.ar-direction-guide .arrow.pulse{animation:none!important}.btn:hover,.studio-nav a:hover{transform:none!important}}</style><style id="architecture-layout-repair-20261003">
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.studio-nav{scroll-behavior:auto!important}.ar-direction-guide .arrow.pulse{animation:none!important}.btn:hover,.studio-nav a:hover{transform:none!important}}
+/* Architecture footer redesign — intentionally scoped to this page footer. */
+footer.architecture-footer{
+  display:block;position:relative;margin:0;padding:0;border:0;text-align:left;
+  color:#eaf2fa;background:linear-gradient(135deg,#071d34 0%,#103c5d 58%,#0d5260 100%);
+  font-size:1rem;font-weight:400;letter-spacing:normal;isolation:isolate;overflow:hidden
+}
+footer.architecture-footer:before{
+  content:"";position:absolute;inset:0 0 auto;height:5px;
+  background:linear-gradient(90deg,#26b6ad 0%,#7dd3c7 36%,#e8bd69 70%,#c93c83 100%)
+}
+.architecture-footer .wrap{position:relative;padding-top:40px;padding-bottom:18px}
+.arch-footer-main{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(160px,.8fr) minmax(180px,.9fr);gap:clamp(24px,4vw,58px);padding-bottom:30px}
+.arch-footer-brand{max-width:440px}
+.architecture-footer .footer-logo{width:78px;height:52px;margin:0 0 16px;border:1px solid rgba(255,255,255,.35);border-radius:11px;box-shadow:0 7px 20px rgba(0,0,0,.2)}
+.arch-footer-brand>strong{display:block;margin:0;color:#fff;font-size:1.28rem;line-height:1.3;font-weight:900;letter-spacing:-.02em}
+.arch-footer-tagline{margin:6px 0 12px!important;color:#9de2db!important;font-size:.82rem;font-weight:800;letter-spacing:.035em}
+.arch-footer-description{max-width:390px;margin:0 0 18px!important;color:#d0deea!important;font-size:.9rem;line-height:1.7}
+.arch-footer-contact{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid rgba(157,226,219,.5);border-radius:10px;background:rgba(255,255,255,.07);color:#fff!important;text-decoration:none;font-size:.86rem;font-weight:850;transition:background .18s ease,border-color .18s ease}
+.arch-footer-contact:hover{background:rgba(255,255,255,.14);border-color:#9de2db}
+.arch-footer-group{display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-width:0;padding-top:6px}
+.arch-footer-group h2{margin:0 0 7px;color:#fff;font-size:.9rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.arch-footer-group a{display:flex;justify-content:space-between;align-items:baseline;gap:12px;width:100%;color:#d8e6f1!important;text-decoration:none;font-size:.86rem;font-weight:650;line-height:1.45}
+.arch-footer-group a span{color:#8ed9d1;font-size:.76rem;flex:0 0 auto}
+.arch-footer-group a:hover{color:#fff!important;text-decoration:underline;text-decoration-color:#8ed9d1;text-underline-offset:4px}
+.arch-footer-bottom{border-top:1px solid rgba(222,239,250,.2);padding-top:17px}
+.architecture-footer .arch-verification{max-width:none;margin:0 0 12px;color:#b9ccda;font-size:.75rem;line-height:1.6}
+.architecture-footer .arch-verification strong{display:inline;color:#fff;font-weight:850}
+.architecture-footer .arch-disclaimer{display:flex;flex-wrap:wrap;gap:5px 12px;max-width:none;margin:0;padding:12px 14px;border:1px solid rgba(232,189,105,.3);border-left:3px solid #e8bd69;border-radius:9px;background:rgba(4,18,32,.25);color:#d0deea;font-size:.76rem;line-height:1.65}
+.architecture-footer .arch-disclaimer strong{display:block;color:#f2d79f;font-weight:900}
+.architecture-footer .arch-disclaimer span{display:block;flex:1 1 520px}
+.arch-trust{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}
+.arch-trust>div{padding:10px 11px;border:1px solid rgba(222,239,250,.16);border-radius:9px;background:rgba(255,255,255,.045);min-width:0}
+.arch-trust b,.arch-trust span{display:block}
+.arch-trust b{margin-bottom:4px;color:#9de2db;font-size:.69rem;letter-spacing:.04em;text-transform:uppercase}
+.arch-trust span{color:#d5e1eb;font-size:.73rem;line-height:1.45;overflow-wrap:anywhere}
+.architecture-footer .arch-trust a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.arch-footer-legal{display:flex;justify-content:space-between;gap:12px;margin-top:17px;padding-top:13px;border-top:1px solid rgba(222,239,250,.13);color:#a9bdcc;font-size:.72rem;letter-spacing:.02em}
+@media(max-width:760px){
+ .arch-footer-main{grid-template-columns:1fr 1fr;gap:26px 20px}
+ .arch-footer-brand{grid-column:1/-1;max-width:560px}
+ .arch-footer-group{padding-top:0}
+ .arch-trust{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:480px){
+ .architecture-footer .wrap{padding-top:30px;padding-bottom:14px}
+ .arch-footer-main{grid-template-columns:1fr;gap:23px;padding-bottom:24px}
+ .arch-footer-brand{grid-column:auto}
+ .arch-footer-group{gap:9px}
+ .arch-footer-group a{font-size:.88rem}
+ .arch-trust{grid-template-columns:1fr;gap:8px}
+ .arch-trust>div{padding:9px 11px}
+ .arch-footer-legal{flex-direction:column;gap:5px}
+}
+@media(prefers-reduced-motion:reduce){.arch-footer-contact{transition:none}}
+</style><style id="architecture-layout-repair-20261003">
 /* Architecture Studio — layout repair and responsive normalization. Existing content preserved. */
 :root{--arch-max:1180px}
 .wrap{width:min(var(--arch-max),calc(100% - 32px))}
@@ -512,7 +567,39 @@ main>section:nth-of-type(odd){background:#fff}
 
 <section><div class="wrap"><div class="callout"><strong>Responsible study rule:</strong> use external projects, books, standards and images as references; cite the source, respect copyright, distinguish your own design from precedent, and never treat an AI-generated statement as a verified code requirement. For professional work, the applicable authority, licensed professional and current code edition remain decisive.</div></div></section>
 </main>
-<footer><div class="wrap"><span class="footer-logo" aria-hidden="true"></span><strong class="notranslate" translate="no">RegTech Nexus AI — Student Knowledge Hub</strong><p>Architecture Live Learning Studio · Design · Technology · Research · Practice</p><p class="arch-footer-links"><a href="/">RegTech Nexus AI Home</a> <span aria-hidden="true">·</span> <a href="../">Return to Student Knowledge Hub</a> <span aria-hidden="true">·</span> <a href="https://regtechnexusai.com/student/architecture/index-bn.html" lang="bn">বাংলা সংস্করণ</a></p><div class="arch-verification" aria-label="Page verification metadata"><strong>Page review:</strong> 2 October 2026 · External source links and learning content reviewed for this release; availability of third-party pages may change.</div><div class="arch-disclaimer">Learning aid only — not professional architectural, engineering or code-compliance approval.<br>Verify applicable authority, code edition, measurements and technical calculations before professional use.<br>Contact: <a href="mailto:regtechnexusai@gmail.com">regtechnexusai@gmail.com</a></div></div></footer>
+<footer class="architecture-footer">
+  <div class="wrap">
+    <div class="arch-footer-main">
+      <div class="arch-footer-brand">
+        <span class="footer-logo" aria-hidden="true"></span>
+        <strong class="notranslate" translate="no">RegTech Nexus AI</strong>
+        <p class="arch-footer-tagline">Student Knowledge Hub · Architecture Studio</p>
+        <p class="arch-footer-description">Learn design, building technology, codes, BIM, research and responsible AI through structured practice and evidence-led study.</p>
+        <a class="arch-footer-contact" href="mailto:regtechnexusai@gmail.com">Contact the learning team <span aria-hidden="true">↗</span></a>
+      </div>
+      <nav class="arch-footer-group" aria-label="Website navigation">
+        <h2>Explore</h2>
+        <a href="/">RegTech Nexus AI Home <span aria-hidden="true">↗</span></a>
+        <a href="../">Student Knowledge Hub <span aria-hidden="true">↗</span></a>
+        <a href="#curriculum">Architecture curriculum <span aria-hidden="true">↑</span></a>
+        <a href="#standards">Standards &amp; code navigator <span aria-hidden="true">↑</span></a>
+      </nav>
+      <nav class="arch-footer-group" aria-label="Architecture learning navigation">
+        <h2>Continue learning</h2>
+        <a href="#case-study">Global case-study lab <span aria-hidden="true">↑</span></a>
+        <a href="#practice">Project practice &amp; evidence <span aria-hidden="true">↑</span></a>
+        <a href="#resources">Learning resources <span aria-hidden="true">↑</span></a>
+        <a href="https://regtechnexusai.com/student/architecture/index-bn.html" lang="bn">বাংলা সংস্করণ <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+    <div class="arch-footer-bottom">
+      <div class="arch-verification" aria-label="Page verification metadata"><strong>Page review:</strong> 2 October 2026 · External source links and learning content reviewed for this release; third-party availability may change.</div>
+      <div class="arch-disclaimer"><strong>Educational-use notice</strong><span>Learning aid only — not professional architectural, engineering or code-compliance approval. Verify the applicable authority, code edition, measurements and technical calculations before professional use.</span></div>
+      <div class="arch-trust-placeholder" aria-hidden="true"></div>
+      <div class="arch-footer-legal"><span>© RegTech Nexus AI</span><span>Learn · Practise · Verify · Document</span></div>
+    </div>
+  </div>
+</footer>
 
 <script>
 const items=[
