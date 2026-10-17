@@ -2,6 +2,8 @@ name: Functional regression — public tools
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
   pull_request:
     paths:
       - ".github/scripts/functional_regression.py"
