@@ -1315,21 +1315,108 @@ section#ai + section .card-grid .card:nth-child(6){border-top-color:#2f80ed;back
 }
 </style>
 
+
+<style id="student-hub-homepage-aligned-redesign-20261017">
+/* Student Hub presentation refresh: homepage-aligned shell; learning functionality is unchanged. */
+body:not(.homepage-redesign){font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif!important;color:#172b43!important;background:#f6f9fd!important;line-height:1.68}
+body:not(.homepage-redesign) h1,body:not(.homepage-redesign) h2,body:not(.homepage-redesign) h3,body:not(.homepage-redesign) h4{font-family:Manrope,Inter,ui-sans-serif,system-ui,sans-serif;letter-spacing:-.035em}
+body:not(.homepage-redesign) header.nav.site-header{height:auto!important;min-height:78px!important;display:flex!important;align-items:center!important;gap:18px!important;padding:0 5vw!important;background:rgba(255,255,255,.97)!important;border:0!important;border-bottom:1px solid #e8e8e8!important;border-radius:0!important;box-shadow:0 3px 14px rgba(16,32,59,.06)!important;backdrop-filter:blur(12px);position:sticky!important;top:0!important;z-index:1000!important}
+body:not(.homepage-redesign) header.nav.site-header .brand{display:flex;align-items:center;flex:0 0 auto;text-decoration:none}
+body:not(.homepage-redesign) header.nav.site-header .brand img{display:block;width:190px!important;max-width:22vw!important;height:auto!important;max-height:62px!important;object-fit:contain;background:transparent!important}
+body:not(.homepage-redesign) header.nav.site-header nav{display:flex;align-items:center;justify-content:flex-end;gap:8px;min-width:0;flex:1 1 auto;margin-left:auto;font-size:11.5px}
+body:not(.homepage-redesign) header.nav.site-header nav a{display:inline-flex;align-items:center;padding:7px 5px;color:#10203b!important;font-size:11.5px;font-weight:650;line-height:1.25;text-decoration:none;white-space:nowrap;border-radius:7px}
+body:not(.homepage-redesign) header.nav.site-header nav a:hover,body:not(.homepage-redesign) header.nav.site-header nav a:focus-visible{color:#0956a8!important;background:#edf5fb;outline-offset:2px}
+body:not(.homepage-redesign) header.nav.site-header .nav-menu-heading{display:none}
+body:not(.homepage-redesign) header.nav.site-header .menu{display:none;margin-left:auto;border:0;background:transparent;color:#10203b!important;font-size:26px;line-height:1;padding:9px;cursor:pointer}
+body:not(.homepage-redesign) header.nav.site-header .nav-cta{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;margin-left:8px;padding:11px 13px;border:1px solid #10203b!important;border-radius:8px;background:#10203b!important;color:#fff!important;font-size:11px;font-weight:800;text-decoration:none;white-space:nowrap;box-shadow:0 4px 0 #071b31,0 8px 18px rgba(16,32,59,.12);transition:transform .18s ease,box-shadow .18s ease}
+body:not(.homepage-redesign) header.nav.site-header .nav-cta:hover{transform:translateY(-2px);box-shadow:0 6px 0 #071b31,0 11px 22px rgba(16,32,59,.17)}
+body:not(.homepage-redesign) .student-learning-poster{position:relative;padding:30px 0 42px;background:radial-gradient(circle at 8% 10%,rgba(9,86,168,.12),transparent 26%),radial-gradient(circle at 92% 18%,rgba(217,70,143,.10),transparent 24%),linear-gradient(135deg,#f2f8ff 0%,#fff7fb 52%,#f0fbf8 100%);border-bottom:1px solid #dce7f0}
+body:not(.homepage-redesign) .student-learning-poster .poster-shell{border:1px solid #d7e3ef;border-radius:22px;background:rgba(255,255,255,.96);box-shadow:0 20px 55px rgba(16,39,64,.12)}
+body:not(.homepage-redesign) .poster-head{background:linear-gradient(120deg,#102d4b 0%,#0956a8 52%,#168b91 100%);padding:clamp(24px,3.5vw,38px)}
+body:not(.homepage-redesign) .poster-head h2{font-size:clamp(1.9rem,3.5vw,3rem);font-weight:850;letter-spacing:-.045em;line-height:1.06}
+body:not(.homepage-redesign) .poster-head p{font-size:1rem;line-height:1.7;max-width:760px}
+body:not(.homepage-redesign) .poster-kicker{letter-spacing:.13em;color:#cceff1}
+body:not(.homepage-redesign) .poster-badge{border-radius:999px;background:rgba(255,255,255,.14);font-size:.72rem}
+body:not(.homepage-redesign) .poster-levels{background:#f7faff}
+body:not(.homepage-redesign) .poster-level{transition:transform .18s ease,box-shadow .18s ease;border-color:#dbe6f0}
+body:not(.homepage-redesign) .poster-level:hover{transform:translateY(-3px);box-shadow:0 8px 18px rgba(16,39,64,.09)}
+body:not(.homepage-redesign) .poster-level strong{font-size:.9rem}
+body:not(.homepage-redesign) .poster-pillar{border-radius:15px;box-shadow:0 4px 12px rgba(16,39,64,.04);transition:transform .18s ease,box-shadow .18s ease}
+body:not(.homepage-redesign) .poster-pillar:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(16,39,64,.09)}
+body:not(.homepage-redesign) .poster-section-label{color:#0956a8}
+body:not(.homepage-redesign) .poster-footer{background:linear-gradient(110deg,#102d4b,#0956a8);border-radius:14px}
+body:not(.homepage-redesign) .hero{position:relative;overflow:hidden;background:radial-gradient(circle at 88% 12%,rgba(22,139,145,.13),transparent 26%),radial-gradient(circle at 10% 85%,rgba(217,70,143,.09),transparent 28%),linear-gradient(135deg,#f5f9ff 0%,#fff 54%,#f4fbfa 100%);padding:clamp(44px,7vw,86px) 0 clamp(42px,6vw,68px);border-bottom:1px solid #dce7f0}
+body:not(.homepage-redesign) .hero h1{font-size:clamp(2.5rem,6vw,4.7rem);line-height:1.02;font-weight:850;letter-spacing:-.055em;color:#102d4b}
+body:not(.homepage-redesign) .hero .eyebrow{background:#e8f3ff;color:#0956a8;border:1px solid #cfe2f7;border-radius:999px;padding:7px 12px;font-size:.74rem;letter-spacing:.08em}
+body:not(.homepage-redesign) .hero p{font-size:clamp(1rem,1.5vw,1.13rem);line-height:1.8;color:#526579}
+body:not(.homepage-redesign) .hero-card{border:1px solid #dbe7f0;border-top:5px solid #168b91;border-radius:20px;box-shadow:0 16px 40px rgba(16,39,64,.1);padding:clamp(20px,3vw,30px)}
+body:not(.homepage-redesign) .hero-card h2{color:#102d4b;font-size:1.45rem}
+body:not(.homepage-redesign) .btn-primary{background:#0956a8;border-color:#0956a8;color:#fff}
+body:not(.homepage-redesign) .btn-secondary{background:#fff;border-color:#cddbe8;color:#102d4b}
+body:not(.homepage-redesign) .section-heading h2,body:not(.homepage-redesign) .progress-dashboard-head h2,body:not(.homepage-redesign) .student-personalize h2{color:#102d4b;font-weight:850}
+body:not(.homepage-redesign) .site-footer{background:#102d4b!important;color:#eaf1f7!important;border-top:4px solid #168b91!important;padding:clamp(30px,5vw,52px) 0 20px!important}
+body:not(.homepage-redesign) .site-footer .footer-grid{grid-template-columns:1.35fr 1fr 1fr 1.2fr 1fr;gap:clamp(18px,2.5vw,34px)}
+body:not(.homepage-redesign) .site-footer .footer-brand img{width:230px!important;max-width:100%!important;max-height:70px!important;height:auto!important;padding:0!important;background:transparent!important;border:0!important;border-radius:0!important}
+body:not(.homepage-redesign) .site-footer .footer-home-brand{display:inline-block;margin-bottom:10px}
+body:not(.homepage-redesign) .site-footer .footer-grid b{display:block;color:#fff;font-size:.92rem;margin:0 0 14px}
+body:not(.homepage-redesign) .site-footer .footer-grid a{color:#d2e0ed!important;font-size:.84rem;line-height:1.55;text-decoration:none;margin:8px 0}
+body:not(.homepage-redesign) .site-footer .footer-grid a:hover{color:#fff!important;text-decoration:underline}
+body:not(.homepage-redesign) .site-footer p{color:#c5d4e1!important}
+body:not(.homepage-redesign) .site-footer .footer-bottom{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:28px;padding-top:18px;border-top:1px solid #436079;color:#c5d4e1;font-size:.78rem}
+body:not(.homepage-redesign) .site-footer .footer-bottom a{display:inline;color:#fff!important}
+@media(max-width:1100px){
+ body:not(.homepage-redesign) header.nav.site-header{height:auto!important;min-height:78px!important;flex-wrap:wrap;padding:8px 5vw!important}
+ body:not(.homepage-redesign) header.nav.site-header nav,body:not(.homepage-redesign) header.nav.site-header .nav-cta{display:none}
+ body:not(.homepage-redesign) header.nav.site-header .menu{display:block}
+ body:not(.homepage-redesign) header.nav.site-header.open nav{display:flex;position:absolute;top:100%;left:0;right:0;max-height:min(72vh,620px);overflow-y:auto;background:#fff;padding:18px 5vw 24px;flex-direction:column;align-items:stretch;gap:3px;border-bottom:1px solid #dce4ec;box-shadow:0 14px 24px rgba(16,32,59,.12)}
+ body:not(.homepage-redesign) header.nav.site-header.open nav .nav-menu-heading{display:block;margin:12px 0 4px;padding:5px 8px;color:#0956a8;font-size:.7rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+ body:not(.homepage-redesign) header.nav.site-header.open nav a{white-space:normal;font-size:.92rem;padding:11px 10px}
+ body:not(.homepage-redesign) .site-footer .footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ body:not(.homepage-redesign) .site-footer .footer-brand{grid-column:1/-1}
+}
+@media(max-width:650px){
+ body:not(.homepage-redesign) header.nav.site-header{padding:8px 4vw!important;gap:10px!important}
+ body:not(.homepage-redesign) header.nav.site-header .brand img{width:min(190px,62vw)!important;max-width:62vw!important;max-height:58px!important}
+ body:not(.homepage-redesign) .student-learning-poster{padding:14px 0 25px}
+ body:not(.homepage-redesign) .poster-head{padding:23px 18px 20px}
+ body:not(.homepage-redesign) .hero{padding:44px 0 38px}
+ body:not(.homepage-redesign) .hero h1{font-size:clamp(2.25rem,10vw,3.2rem)}
+ body:not(.homepage-redesign) .site-footer .footer-grid{grid-template-columns:1fr;gap:22px}
+ body:not(.homepage-redesign) .site-footer .footer-brand{grid-column:auto}
+ body:not(.homepage-redesign) .site-footer .footer-bottom{align-items:flex-start;flex-direction:column;gap:10px}
+}
+@media(prefers-reduced-motion:reduce){body:not(.homepage-redesign) .poster-level,body:not(.homepage-redesign) .poster-pillar,body:not(.homepage-redesign) header.nav.site-header .nav-cta{transition:none}}
+</style>
 </head>
 
 <body><a class="skip-link" href="#main-content">Skip to content</a>
 
-  <header class="site-header">
-  <div class="container header-inner">
-    <a class="brand" href="../" aria-label="RegTech Nexus AI home">
-      <img src="../regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="190" height="62">
-    </a>
-    <nav class="nav" aria-label="Student Knowledge Hub navigation">
-      <a href="#study">Study</a><a href="bangla/">বাংলা</a><a href="#ai">AI</a><a href="#research">Research</a>
-      <a href="#career">Career</a><a href="#tools">Tools</a><a href="knowledge-updates/">Knowledge Updates</a><a href="../">Main Site</a>
-    </nav>
-    <a class="nav-cta" href="https://chatgpt.com/g/g-6a09920b01348191b9b1628b69367d9b-regtech-nexus-ai" target="_blank" rel="noopener noreferrer">AI Study Coach ↗</a>
-  </div>
+  <header class="nav site-header" aria-label="RegTech Nexus AI navigation">
+  <a class="brand" href="/" aria-label="RegTech Nexus AI home">
+    <img class="brand-logo" src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="190" height="62" decoding="async">
+  </a>
+  <button class="menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="main-nav">☰</button>
+  <nav id="main-nav" aria-label="Main navigation">
+    <span class="nav-menu-heading">Explore</span>
+    <a href="/#work">What we do</a>
+    <a href="/#solutions">Solutions</a>
+    <a href="/global-financial-systems.html">Readiness tools</a>
+    <a href="/fintech-intelligence-hub/">FinTech Intelligence Hub</a>
+    <a href="/insights.html">Insights</a>
+    <a href="/case-studies/">Case Studies</a>
+    <a href="/blog.html">Blog</a>
+    <a href="/#knowledge">Knowledge</a>
+    <a href="/international-regulatory-calculators.html">Regulatory Calculators</a>
+    <span class="nav-menu-heading">Student learning</span>
+    <a href="#study">Study subjects</a>
+    <a href="#ai">AI Study Coach</a>
+    <a href="#research">Research skills</a>
+    <a href="#career">Career</a>
+    <a href="#tools">Student tools</a>
+    <a href="knowledge-updates/">Knowledge Updates</a>
+    <a href="/sanctions-screening/">Official sanctions resources</a>
+  </nav>
+  <a class="nav-cta nav-cta-gloss" href="#study">Explore learning ↗</a>
 </header>
 
     <!-- STUDENT LEARNING MAP — front-page poster; existing sections remain below -->
@@ -2339,30 +2426,55 @@ section#ai + section .card-grid .card:nth-child(6){border-top-color:#2f80ed;back
 
   <!-- MAIN-SITE STYLE STUDENT FOOTER -->
   <footer class="site-footer" id="student-contact">
-    <div class="container footer-grid">
-      <div class="footer-brand">
-        <img src="../regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="230" height="70">
-        <p>Audit · Regulatory Intelligence · Compliance · Risk · Technology</p>
-        <p><strong>Student Knowledge Hub</strong><br>Free learning, AI, research, academic and career tools.</p>
-      </div>
-      <div>
-        <b>Student Learning</b>
-        <a href="#study">Study Subjects</a><a href="#ai">AI Learning</a><a href="#research">Research Skills</a>
-        <a href="#career">Career</a><a href="#tools">Free Student Tools</a>
-      </div>
-      <div>
-        <b>RegTech Nexus AI</b>
-        <a href="../">Main Website</a><a href="../insights.html">Insights</a><a href="../blog.html">Blog</a>
-        <a href="../contact.html">Contact</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="privacy.html">Student Privacy</a><a href="ai-use.html">AI Use & Integrity</a>
-      </div>
-      
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="footer-home-brand" href="/" aria-label="RegTech Nexus AI home"><img src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="230" height="70"></a>
+      <p>Audit · Regulatory Intelligence · Compliance · Risk · Technology</p>
+      <p><strong>Student Knowledge Hub</strong><br>Free learning, AI, research, academic and career tools.</p>
     </div>
-    <div class="container footer-bottom">
-      <span>© 2026 RegTech Nexus AI</span>
-      <span>Student resources are for educational purposes.</span>
-      <a href="../">Return to RegTech Nexus AI ↗</a>
+    <div>
+      <b>Solutions</b>
+      <a href="/tradeguard/">TradeGuard</a>
+      <a href="/icms-2026/">ICMS Toolkit</a>
+      <a href="/regulatory-gap-analyzer/">Policy Gap Analyzer</a>
+      <a href="/global-financial-systems.html">International Readiness Tools</a>
+      <a href="/#solutions">All Solutions</a>
     </div>
-  </footer>
+    <div>
+      <b>Expertise</b>
+      <a href="/#capabilities">Audit &amp; Regulatory Intelligence</a>
+      <a href="/#capabilities">Compliance &amp; Financial Crime</a>
+      <a href="/#capabilities">Risk &amp; Governance</a>
+      <a href="/explainable-ai.html">Responsible AI</a>
+    </div>
+    <div>
+      <b>Knowledge &amp; Learning</b>
+      <a href="#study">Study Subjects</a>
+      <a href="#ai">AI Study Coach</a>
+      <a href="#research">Research Skills</a>
+      <a href="#career">Career Preparation</a>
+      <a href="#tools">Free Student Tools</a>
+      <a href="knowledge-updates/">Knowledge Updates</a>
+      <a href="/insights.html">Research &amp; Insights</a>
+      <a href="/blog.html">Blog</a>
+    </div>
+    <div>
+      <b>Connect &amp; Legal</b>
+      <a href="https://www.linkedin.com/company/regtech-nexus-ai/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+      <a href="https://www.facebook.com/regtechnexusai" target="_blank" rel="noopener noreferrer">Facebook ↗</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+      <a href="privacy.html">Student Privacy</a>
+      <a href="ai-use.html">AI Use &amp; Integrity</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© 2026 RegTech Nexus AI</span>
+    <span>Student resources are for educational purposes.</span>
+    <a href="/">Return to RegTech Nexus AI ↗</a>
+  </div>
+</footer>
 
   <script>
     function buildPrompt() {
