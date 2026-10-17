@@ -93,9 +93,10 @@ def test_payscale_scenario_validation_and_export_controls(page: Page):
         assert validity["valid"], f"PayScale form has unfilled/invalid required controls: {validity['invalid']}"
         before_result = page.locator("body").inner_text()
         form.get_by_role("button", name=re.compile("হিসাব দেখুন|calculate", re.I)).click()
+        # Wait for the client-side calculator to render before comparing visible output.
+        expect(page.locator("body")).not_to_contain_text("ইনপুট অপেক্ষমাণ", timeout=10000)
         after_result = page.locator("body").inner_text()
         assert after_result != before_result, "PayScale result did not change after valid input."
-        assert "ইনপুট অপেক্ষমাণ" not in after_result, "PayScale remained in its waiting-for-input state."
         expect(page.locator("body")).to_contain_text(re.compile("ফলাফল|basic pay|মূল বেতন", re.I))
 
     export = page.get_by_role("button", name=re.compile("print|pdf|copy|export|প্রিন্ট|কপি", re.I))
