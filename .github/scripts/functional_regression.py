@@ -66,11 +66,21 @@ def test_payscale_scenario_validation_and_export_controls(page: Page):
         expect(page.locator("#form-error")).to_contain_text(re.compile("target basic pay", re.I))
     else:
         # Alternate published layout: ensure its real calculator can be exercised.
+        scope_yes = page.get_by_label(re.compile("হ্যাঁ.*সাধারণ সরকারি চাকরি|S.R.O. 347", re.I)).first
+        if scope_yes.count():
+            scope_yes.check()
+        calculation_type = page.get_by_label(re.compile("হিসাবের ধরন", re.I)).first
+        if calculation_type.count() and calculation_type.evaluate("(e) => e.tagName.toLowerCase() === 'select'"):
+            type_options = calculation_type.locator("option").evaluate_all("(els) => els.map(e => ({value:e.value,text:e.textContent})).filter(o => o.value)")
+            if type_options:
+                preferred = next((o["value"] for o in type_options if "গ্রেড" in o["text"] or "grade" in o["text"].lower()), type_options[0]["value"])
+                calculation_type.select_option(preferred)
         grade = page.get_by_label(re.compile("বর্তমান গ্রেড|grade", re.I)).first
         if grade.count():
-            grade_options = grade.locator("option").evaluate_all("(els) => els.map(e => e.value).filter(v => v)")
+            grade_options = grade.locator("option").evaluate_all("(els) => els.map(e => ({value:e.value,text:e.textContent})).filter(o => o.value)")
             if grade_options:
-                grade.select_option(grade_options[0])
+                grade_ten = next((o["value"] for o in grade_options if "গ্রেড ১০" in o["text"] or "grade 10" in o["text"].lower()), None)
+                grade.select_option(grade_ten or grade_options[0]["value"])
         basic = page.get_by_label(re.compile("30 June 2026|current basic pay|মূল বেতন", re.I)).first
         basic.fill("37900")
         before_result = page.locator("body").inner_text()
