@@ -562,3 +562,14 @@ body:not(.homepage-redesign) footer.rt-shell-existing-footer .legal a{display:in
   body:not(.homepage-redesign) footer.rt-shell-existing-footer > div{grid-column:1/-1!important}
 }
 @media(prefers-reduced-motion:reduce){body:not(.homepage-redesign) .rt-shell-header .rt-shell-menu{transition:none!important}}
+
+
+/* Preserve existing page-specific footer containers while applying the common shell palette. */
+body:not(.homepage-redesign) footer.rt-shell-existing-footer:has(> .wrap),
+body:not(.homepage-redesign) footer.rt-shell-existing-footer:has(> .container){
+  display:block!important;width:100%!important;max-width:none!important;
+}
+body:not(.homepage-redesign) footer.rt-shell-existing-footer:has(> .wrap) > .wrap,
+body:not(.homepage-redesign) footer.rt-shell-existing-footer:has(> .container) > .container{
+  display:block!important;width:100%!important;max-width:1200px!important;margin-left:auto!important;margin-right:auto!important;
+}
