@@ -1,0 +1,34 @@
+name: Regulatory source and static regression checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "17 3 17 * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: source-regression-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  static-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run static regression checks
+        run: python .github/scripts/regression_check.py
+      - name: Upload regression report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: regulatory-source-and-regression-report
+          path: quality-assurance/regression-report.md
+          if-no-files-found: warn
+          retention-days: 90
