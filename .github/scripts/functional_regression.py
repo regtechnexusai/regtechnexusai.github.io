@@ -73,7 +73,11 @@ def test_payscale_scenario_validation_and_export_controls(page: Page):
                 grade.select_option(grade_options[0])
         basic = page.get_by_label(re.compile("30 June 2026|current basic pay|মূল বেতন", re.I)).first
         basic.fill("37900")
+        before_result = page.locator("body").inner_text()
         page.get_by_role("button", name=re.compile("হিসাব দেখুন|calculate", re.I)).click()
+        after_result = page.locator("body").inner_text()
+        assert after_result != before_result, "PayScale result did not change after valid input."
+        assert "ইনপুট অপেক্ষমাণ" not in after_result, "PayScale remained in its waiting-for-input state."
         expect(page.locator("body")).to_contain_text(re.compile("ফলাফল|basic pay|মূল বেতন", re.I))
 
     export = page.get_by_role("button", name=re.compile("print|pdf|copy|export|প্রিন্ট|কপি", re.I))
@@ -157,9 +161,13 @@ def test_tradeguard_input_validation_assessment_and_exports(page: Page):
 
     # Keep the test limited to the public demo's on-page review flow.
     submit = page.locator("form button[type='submit']").first
-    if submit.count() and submit.is_visible():
-        submit.click()
-        expect(page.locator("body")).to_contain_text(re.compile("review|result|risk|required|HS Code", re.I), timeout=15000)
+    assert submit.count() > 0 and submit.is_visible(), "TradeGuard assessment submit control was not available."
+    before_result = page.locator("body").inner_text()
+    submit.click()
+    after_result = page.locator("body").inner_text()
+    assert after_result != before_result, "TradeGuard output did not change after submitting synthetic inputs."
+    assert "Your review result will appear here" not in after_result, "TradeGuard remained in its unassessed placeholder state."
+    expect(page.locator("body")).to_contain_text(re.compile("review|result|risk|required|HS Code", re.I), timeout=15000)
 
     # Validate an advertised export action if the demo exposes it.
     txt_button = page.get_by_role("button", name=re.compile("download txt", re.I))
