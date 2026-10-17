@@ -59,3 +59,30 @@
   }
   .fih-page .fih-site-header .menu:active{transform:translateY(1px)!important;box-shadow:0 1px 0 #dce7ee!important}
 }
+
+
+/* Match homepage behaviour at desktop and mobile: persistent three-line button, collapsed dropdown until activated. */
+.fih-page > header.fih-site-header{position:relative!important}
+.fih-page .fih-site-header .menu{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  flex:0 0 44px!important;width:44px!important;height:42px!important;margin:0 0 0 auto!important;padding:0!important;
+  border:1px solid #d5e3eb!important;border-radius:12px!important;
+  background:linear-gradient(180deg,#fff,#f5f9fc)!important;color:#123b62!important;
+  box-shadow:0 3px 0 #dce7ee,0 7px 16px rgba(16,43,73,.07)!important;
+  font-size:22px!important;line-height:1!important;cursor:pointer!important;
+  transition:transform .18s ease,box-shadow .18s ease,background .18s ease!important;order:2!important;
+}
+.fih-page .fih-site-header .menu:hover{transform:translateY(-1px)!important;box-shadow:0 4px 0 #dce7ee,0 10px 20px rgba(16,43,73,.10)!important}
+.fih-page .fih-site-header .menu:active{transform:translateY(1px)!important;box-shadow:0 1px 0 #dce7ee!important}
+.fih-page .fih-site-header .nav-cta{display:none!important}
+.fih-page .fih-site-header nav{
+  display:none!important;position:absolute!important;top:calc(100% + 8px)!important;right:clamp(12px,3vw,38px)!important;left:auto!important;
+  z-index:100!important;width:min(620px,calc(100vw - 24px))!important;max-width:calc(100vw - 24px)!important;
+  max-height:calc(100dvh - 100px)!important;overflow-x:hidden!important;overflow-y:auto!important;
+  box-sizing:border-box!important;margin:0!important;padding:14px!important;border:1px solid #dce7ed!important;border-radius:18px!important;
+  background:rgba(255,255,255,.99)!important;box-shadow:0 22px 55px rgba(16,43,73,.18)!important;
+}
+.fih-page .fih-site-header nav.is-open{display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:flex-start!important;gap:6px!important}
+.fih-page .fih-site-header nav a{display:block!important;padding:10px 12px!important;border-radius:9px!important;color:#10203b!important;font-size:14px!important;font-weight:650!important;text-decoration:none!important}
+.fih-page .fih-site-header nav a:hover{background:#eef6fa!important;color:#087f8c!important;text-decoration:none!important}
+@media(max-width:520px){.fih-page .fih-site-header .menu{flex-basis:42px!important;width:42px!important;height:40px!important}}
