@@ -30,3 +30,32 @@
 @media(max-width:1100px){.fih-page > header.fih-site-header{gap:12px;padding:10px 18px}.fih-page .fih-site-header .brand-logo{max-width:180px}.fih-page .fih-site-header nav{gap:9px}.fih-page .fih-site-header nav a{font-size:12px}.fih-page .fih-site-header .nav-cta{padding:9px 12px;font-size:12px}}
 @media(max-width:780px){.fih-page > header.fih-site-header{min-height:72px;flex-wrap:wrap}.fih-page .fih-site-header .brand-logo{max-width:min(190px,55vw);max-height:52px}.fih-page .fih-site-header .menu{display:inline-flex;align-items:center;justify-content:center;margin-left:auto;padding:8px 12px;border:1px solid #dce5ef;border-radius:10px;background:#f4f8fc;color:#102d4b;font-size:22px;cursor:pointer}.fih-page .fih-site-header nav{display:none;order:3;flex:0 0 100%;width:100%;margin:0;padding:16px 0 6px;border-top:1px solid #e1e9f1;align-items:flex-start;justify-content:flex-start;gap:12px}.fih-page .fih-site-header nav.is-open{display:flex;flex-direction:column}.fih-page .fih-site-header nav a{font-size:14px}.fih-page .fih-site-header .nav-cta{order:2;padding:9px 12px;font-size:12px}.fih-page .fih-site-footer .fih-footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.fih-page .fih-site-footer .fih-footer-brand{grid-column:1/-1}}
 @media(max-width:520px){.fih-page .fih-site-header .nav-cta{max-width:46%;text-align:center;white-space:normal}.fih-page .fih-site-footer .fih-footer-grid{grid-template-columns:1fr;gap:24px;padding:30px 20px 22px}.fih-page .fih-site-footer .fih-footer-brand,.fih-page .fih-site-footer .fih-footer-note,.fih-page .fih-site-footer .fih-footer-legal{grid-column:1}.fih-page .fih-site-footer .fih-footer-legal{gap:12px}.fih-page .fih-site-footer .fih-feedback{padding:24px 20px}.fih-page .fih-language-tools{align-items:flex-start}}
+
+
+/* Match the main homepage's raised three-line menu button; preserve the existing mobile toggle behavior. */
+@media(max-width:780px){
+  .fih-page .fih-site-header .menu{
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    flex:0 0 44px!important;
+    width:44px!important;
+    height:42px!important;
+    margin:0 0 0 auto!important;
+    padding:0!important;
+    border:1px solid #d5e3eb!important;
+    border-radius:12px!important;
+    background:linear-gradient(180deg,#fff,#f5f9fc)!important;
+    color:#123b62!important;
+    box-shadow:0 3px 0 #dce7ee,0 7px 16px rgba(16,43,73,.07)!important;
+    font-size:22px!important;
+    line-height:1!important;
+    cursor:pointer!important;
+    transition:transform .18s ease,box-shadow .18s ease,background .18s ease!important;
+  }
+  .fih-page .fih-site-header .menu:hover{
+    transform:translateY(-1px)!important;
+    box-shadow:0 4px 0 #dce7ee,0 10px 20px rgba(16,43,73,.10)!important;
+  }
+  .fih-page .fih-site-header .menu:active{transform:translateY(1px)!important;box-shadow:0 1px 0 #dce7ee!important}
+}
