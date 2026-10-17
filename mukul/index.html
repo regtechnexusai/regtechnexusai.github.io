@@ -228,7 +228,7 @@ const select=document.getElementById('language-select');
 const morePanel=document.getElementById('more-language-panel');
 function setLanguage(lang){const d=dict[lang]||dict.en;currentLanguage=lang;document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(d[k]!==undefined)el.innerHTML=d[k];});select.value=lang;try{localStorage.setItem('mukul-language',lang)}catch(e){}}
 function clearGoogleTranslation(){let hadCookie=document.cookie.split(';').some(c=>c.trim().startsWith('googtrans='));if(hadCookie){document.cookie='googtrans=; Max-Age=0; path=/';document.cookie='googtrans=; Max-Age=0; path=/; domain='+location.hostname;document.cookie='googtrans=; Max-Age=0; path=/; domain=.regtechnexusai.com';window.location.reload();return true;}return false;}
-select.addEventListener('change',()=>{if(select.value==='more'){morePanel.hidden=false;setLanguage('en');select.value='more';return;}morePanel.hidden=true;if(clearGoogleTranslation())return;setLanguage(select.value);});
+select.addEventListener('change',()=>{if(select.value==='more'){morePanel.hidden=false;setLanguage('en');select.value='more';return;}morePanel.hidden=true;const chosen=select.value;setLanguage(chosen);if(clearGoogleTranslation())return;});
 let initialLanguage='bn';try{const saved=localStorage.getItem('mukul-language');if(saved&&dict[saved])initialLanguage=saved}catch(e){}setLanguage(initialLanguage);
 window.googleTranslateElementInit=function(){new google.translate.TranslateElement({pageLanguage:'en',includedLanguages:'ar,bn,zh-CN,fr,hi,id,ja,ko,pt,es,sw,ur',autoDisplay:false,layout:google.translate.TranslateElement.InlineLayout.SIMPLE},'google_translate_element');};
 })();
