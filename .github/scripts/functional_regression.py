@@ -65,15 +65,42 @@ def test_payscale_scenario_validation_and_export_controls(page: Page):
         page.locator("#calculator-form").get_by_role("button", name=re.compile("calculate", re.I)).click()
         expect(page.locator("#form-error")).to_contain_text(re.compile("target basic pay", re.I))
     else:
+        # Follow the page's intended entry path before interacting with the staged calculator.
+        current_employee = page.get_by_role("link", name=re.compile("CURRENT EMPLOYEE", re.I)).first
+        if current_employee.count():
+            current_employee.click()
         # Alternate published layout: ensure its real calculator can be exercised.
+        scope_yes = page.get_by_label(re.compile("হ্যাঁ.*সাধারণ সরকারি চাকরি|S.R.O. 347", re.I)).first
+        if scope_yes.count():
+            scope_yes.check()
+        calculation_type = page.get_by_label(re.compile("হিসাবের ধরন", re.I)).first
+        if calculation_type.count() and calculation_type.evaluate("(e) => e.tagName.toLowerCase() === 'select'"):
+            type_options = calculation_type.locator("option").evaluate_all("(els) => els.map(e => ({value:e.value,text:e.textContent})).filter(o => o.value)")
+            if type_options:
+                preferred = next((o["value"] for o in type_options if "গ্রেড" in o["text"] or "grade" in o["text"].lower()), type_options[0]["value"])
+                calculation_type.select_option(preferred)
         grade = page.get_by_label(re.compile("বর্তমান গ্রেড|grade", re.I)).first
         if grade.count():
-            grade_options = grade.locator("option").evaluate_all("(els) => els.map(e => e.value).filter(v => v)")
+            grade_options = grade.locator("option").evaluate_all("(els) => els.map(e => ({value:e.value,text:e.textContent})).filter(o => o.value)")
             if grade_options:
-                grade.select_option(grade_options[0])
+                grade_ten = next((o["value"] for o in grade_options if "গ্রেড ১০" in o["text"] or "grade 10" in o["text"].lower()), None)
+                grade.select_option(grade_ten or grade_options[0]["value"])
         basic = page.get_by_label(re.compile("30 June 2026|current basic pay|মূল বেতন", re.I)).first
         basic.fill("37900")
-        page.get_by_role("button", name=re.compile("হিসাব দেখুন|calculate", re.I)).click()
+        form = basic.locator("xpath=ancestor::form[1]")
+        for required_select in form.locator("select[required]").all():
+            if not required_select.input_value():
+                choices = required_select.locator("option").evaluate_all("(els) => els.map(e => e.value).filter(v => v)")
+                if choices:
+                    required_select.select_option(choices[0])
+        validity = form.evaluate("(f) => ({valid:f.checkValidity(), invalid:[...f.querySelectorAll(':invalid')].map(e => ({id:e.id,name:e.name,type:e.type,value:e.value,tag:e.tagName}))})")
+        assert validity["valid"], f"PayScale form has unfilled/invalid required controls: {validity['invalid']}"
+        before_result = page.locator("body").inner_text()
+        form.get_by_role("button", name=re.compile("হিসাব দেখুন|calculate", re.I)).click()
+        # Wait for the client-side calculator to render before comparing visible output.
+        expect(page.locator("body")).not_to_contain_text("ইনপুট অপেক্ষমাণ", timeout=10000)
+        after_result = page.locator("body").inner_text()
+        assert after_result != before_result, "PayScale result did not change after valid input."
         expect(page.locator("body")).to_contain_text(re.compile("ফলাফল|basic pay|মূল বেতন", re.I))
 
     export = page.get_by_role("button", name=re.compile("print|pdf|copy|export|প্রিন্ট|কপি", re.I))
@@ -157,9 +184,13 @@ def test_tradeguard_input_validation_assessment_and_exports(page: Page):
 
     # Keep the test limited to the public demo's on-page review flow.
     submit = page.locator("form button[type='submit']").first
-    if submit.count() and submit.is_visible():
-        submit.click()
-        expect(page.locator("body")).to_contain_text(re.compile("review|result|risk|required|HS Code", re.I), timeout=15000)
+    assert submit.count() > 0 and submit.is_visible(), "TradeGuard assessment submit control was not available."
+    before_result = page.locator("body").inner_text()
+    submit.click()
+    after_result = page.locator("body").inner_text()
+    assert after_result != before_result, "TradeGuard output did not change after submitting synthetic inputs."
+    assert "Your review result will appear here" not in after_result, "TradeGuard remained in its unassessed placeholder state."
+    expect(page.locator("body")).to_contain_text(re.compile("review|result|risk|required|HS Code", re.I), timeout=15000)
 
     # Validate an advertised export action if the demo exposes it.
     txt_button = page.get_by_role("button", name=re.compile("download txt", re.I))
