@@ -49,7 +49,7 @@ def test_international_regulatory_calculator_valid_invalid_and_print(page: Page)
 def test_payscale_scenario_validation_and_export_controls(page: Page):
     open_tool(page, "/payscale-2026/", "PayScale 2026")
     # Support the current staged-scenario form if present.
-    if page.locator("#calculator-form").count():
+    if page.locator("#calculator-form").count() and page.locator("#target-basic").count():
         page.locator("#current-basic").fill("10000")
         page.locator("#target-basic").fill("20000")
         page.locator("#phase-one").fill("40")
@@ -66,12 +66,17 @@ def test_payscale_scenario_validation_and_export_controls(page: Page):
         expect(page.locator("#form-error")).to_contain_text(re.compile("target basic pay", re.I))
     else:
         # Alternate published layout: ensure its real calculator can be exercised.
-        basic = page.get_by_label(re.compile("30 June 2026|current basic pay", re.I)).first
+        grade = page.get_by_label(re.compile("বর্তমান গ্রেড|grade", re.I)).first
+        if grade.count():
+            grade_options = grade.locator("option").evaluate_all("(els) => els.map(e => e.value).filter(v => v)")
+            if grade_options:
+                grade.select_option(grade_options[0])
+        basic = page.get_by_label(re.compile("30 June 2026|current basic pay|মূল বেতন", re.I)).first
         basic.fill("37900")
         page.get_by_role("button", name=re.compile("হিসাব দেখুন|calculate", re.I)).click()
         expect(page.locator("body")).to_contain_text(re.compile("ফলাফল|basic pay|মূল বেতন", re.I))
 
-    export = page.get_by_role("button", name=re.compile("print|save.*pdf|copy.*result|export", re.I))
+    export = page.get_by_role("button", name=re.compile("print|pdf|copy|export|প্রিন্ট|কপি", re.I))
     assert export.count() > 0, "No PayScale print/PDF, copy or export action was found."
     # Verify one available export/print control without producing a physical file.
     chosen = export.first
@@ -85,6 +90,8 @@ def test_payscale_scenario_validation_and_export_controls(page: Page):
 
 def test_md_ceo_kpi_sample_calculation_and_csv_export(page: Page):
     open_tool(page, "/md-ceo-performance-calculator/", "MD/CEO")
+    sample_details = page.locator("details.mdceo-case-study")
+    sample_details.locator("summary").click()
     page.locator("#load-sample-case").click()
     page.locator("#process-assessment").click()
     expect(page.locator("#result-actions")).to_be_visible(timeout=15000)
