@@ -89,6 +89,24 @@
     }
   }
 
+  function normalizeShellLinks() {
+    var rootRoutes = [
+      "index.html", "contact.html", "visitor-feedback.html", "privacy.html", "terms.html",
+      "global-financial-systems.html", "international-regulatory-calculators.html", "insights.html",
+      "blog.html", "regulatory-explainers.html", "frameworks-toolkit.html", "publications.html",
+      "bank-use-review.html", "explainable-ai.html", "agentic-ai-governance.html", "ai-ready-banking.html",
+      "ai-banking-playbook.html", "tbml-over-invoicing.html", "fintech-intelligence-hub/",
+      "case-studies/", "tradeguard/", "icms-2026/", "payscale-2026/", "regulatory-gap-analyzer/",
+      "derivatives/", "student/", "sanctions-screening/"
+    ];
+    document.querySelectorAll("header a[href], footer a[href]").forEach(function (link) {
+      var href = link.getAttribute("href") || "";
+      if (!href || href.charAt(0) === "/" || href.charAt(0) === "#" || /^[a-z][a-z0-9+.-]*:/i.test(href)) return;
+      var pathOnly = href.split(/[?#]/)[0];
+      if (rootRoutes.indexOf(pathOnly) !== -1) link.setAttribute("href", "/" + href);
+    });
+  }
+
   function bindMenu() {
     var header = document.querySelector("body > header.rt-shell-header");
     if (!header) return;
@@ -146,6 +164,7 @@
     ensureShellStyles();
     addStandardHeader();
     addStandardFooter();
+    normalizeShellLinks();
     bindMenu();
     addBackHome();
   }
