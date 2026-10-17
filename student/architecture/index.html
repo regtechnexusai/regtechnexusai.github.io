@@ -288,6 +288,24 @@ main>section:nth-of-type(odd){background:#fff}
 <script src="/amazon-resources.js?v=20261008-1" defer></script>
 
 <link rel="stylesheet" href="/site-wide-shell.css?v=20261015-v1">
+<style id="architecture-logo-render-fix-20261017">
+/* Keep the Architecture logo inside its fixed logo frame; the site-wide shell otherwise forces header images to width:auto!important. */
+body:not(.homepage-redesign) header .brand-lockup a.brand-logo img.brand-logo-image{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  margin:0!important;
+  padding:0!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+</style>
 <script src="/site-wide-shell.js?v=20261015-v1" defer></script>
 <style id="architecture-link-shell-fix-20261017">
 .arch-footer-links{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0!important}
@@ -298,7 +316,7 @@ main>section:nth-of-type(odd){background:#fff}
 </head>
 <body>
 <header><div class="wrap head">
-<div class="brand-lockup notranslate" translate="no"><a class="brand-logo" href="../" aria-label="RegTech Nexus AI Student Knowledge Hub"><img class="brand-logo-image" src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI logo" width="180" height="64" loading="eager" decoding="async"></a><div><div class="brand">RegTech Nexus AI</div><div class="brand-sub">Student Knowledge Hub · Architecture Studio</div></div></div>
+<div class="brand-lockup notranslate" translate="no"><a class="brand-logo" href="../" aria-label="RegTech Nexus AI Student Knowledge Hub"><img class="brand-logo-image" src="/regtech-nexus-ai-logo-2026.png?v=20261017-logo-fix2" alt="RegTech Nexus AI logo" width="180" height="64" loading="eager" decoding="async" onerror="this.onerror=null;this.src='/regtech-nexus-ai-logo.png?v=20261017-logo-fix2'"></a><div><div class="brand">RegTech Nexus AI</div><div class="brand-sub">Student Knowledge Hub · Architecture Studio</div></div></div>
 <nav class="studio-nav" aria-label="Architecture learning navigation">
 <a class="nav-student" href="../">Student Hub</a>
 <a class="nav-curriculum" href="#curriculum">Curriculum</a>
