@@ -83,8 +83,16 @@ def test_payscale_scenario_validation_and_export_controls(page: Page):
                 grade.select_option(grade_ten or grade_options[0]["value"])
         basic = page.get_by_label(re.compile("30 June 2026|current basic pay|মূল বেতন", re.I)).first
         basic.fill("37900")
+        form = basic.locator("xpath=ancestor::form[1]")
+        for required_select in form.locator("select[required]").all():
+            if not required_select.input_value():
+                choices = required_select.locator("option").evaluate_all("(els) => els.map(e => e.value).filter(v => v)")
+                if choices:
+                    required_select.select_option(choices[0])
+        validity = form.evaluate("(f) => ({valid:f.checkValidity(), invalid:[...f.querySelectorAll(':invalid')].map(e => ({id:e.id,name:e.name,type:e.type,value:e.value,tag:e.tagName}))})")
+        assert validity["valid"], f"PayScale form has unfilled/invalid required controls: {validity['invalid']}"
         before_result = page.locator("body").inner_text()
-        page.get_by_role("button", name=re.compile("হিসাব দেখুন|calculate", re.I)).click()
+        form.get_by_role("button", name=re.compile("হিসাব দেখুন|calculate", re.I)).click()
         after_result = page.locator("body").inner_text()
         assert after_result != before_result, "PayScale result did not change after valid input."
         assert "ইনপুট অপেক্ষমাণ" not in after_result, "PayScale remained in its waiting-for-input state."
