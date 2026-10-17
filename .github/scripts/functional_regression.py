@@ -65,6 +65,10 @@ def test_payscale_scenario_validation_and_export_controls(page: Page):
         page.locator("#calculator-form").get_by_role("button", name=re.compile("calculate", re.I)).click()
         expect(page.locator("#form-error")).to_contain_text(re.compile("target basic pay", re.I))
     else:
+        # Follow the page's intended entry path before interacting with the staged calculator.
+        current_employee = page.get_by_role("link", name=re.compile("CURRENT EMPLOYEE", re.I)).first
+        if current_employee.count():
+            current_employee.click()
         # Alternate published layout: ensure its real calculator can be exercised.
         scope_yes = page.get_by_label(re.compile("হ্যাঁ.*সাধারণ সরকারি চাকরি|S.R.O. 347", re.I)).first
         if scope_yes.count():
