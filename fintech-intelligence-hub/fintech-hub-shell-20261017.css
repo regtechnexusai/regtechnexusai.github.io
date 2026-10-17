@@ -1,0 +1,32 @@
+/* FinTech Intelligence Hub — main-site header/footer alignment. Scoped to this page only. */
+.fih-page > header.fih-site-header{position:relative;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:clamp(12px,2vw,26px);width:100%;min-height:82px;padding:10px clamp(18px,4vw,64px);background:#fff;color:#10203b;border:0;border-bottom:1px solid #dce5ef;border-radius:0;box-shadow:0 3px 14px rgba(16,32,59,.06);box-sizing:border-box}
+.fih-page .fih-site-header .brand{display:flex;align-items:center;flex:0 1 auto;min-width:0;margin:0;padding:0;background:transparent;border:0;box-shadow:none}
+.fih-page .fih-site-header .brand-logo{display:block;width:auto;height:auto;max-width:min(220px,22vw);max-height:62px;object-fit:contain;object-position:left center}
+.fih-page .fih-site-header nav{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:clamp(10px,1.2vw,18px);margin-left:auto;background:transparent}
+.fih-page .fih-site-header nav a{color:#10203b;text-decoration:none;font-weight:650;font-size:13px;line-height:1.4}
+.fih-page .fih-site-header nav a:hover{color:#087f8c;text-decoration:underline;text-underline-offset:4px}
+.fih-page .fih-site-header .nav-cta{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;padding:11px 16px;border-radius:999px;background:linear-gradient(135deg,#0956a8,#087f8c);color:#fff!important;text-decoration:none;font-size:13px;font-weight:750;box-shadow:0 5px 14px #0956a82b}
+.fih-page .fih-site-header .menu{display:none}
+.fih-page > footer.fih-site-footer{display:block;width:100%;max-width:none;margin:0;padding:0;background:#102d4b;color:#eaf1f7;border:0;border-top:4px solid #168b91;border-radius:0;box-shadow:none;box-sizing:border-box}
+.fih-page .fih-site-footer .fih-footer-grid{display:grid;grid-template-columns:minmax(220px,1.4fr) repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,42px);padding:clamp(34px,5vw,62px) clamp(18px,4vw,64px) 24px}
+.fih-page .fih-site-footer .fih-footer-brand img{display:block;width:auto;max-width:min(230px,100%);height:auto;max-height:66px;object-fit:contain;object-position:left center;margin-bottom:16px}
+.fih-page .fih-site-footer .fih-footer-brand p{margin:7px 0;color:#eaf1f7}
+.fih-page .fih-site-footer .fih-footer-brand .fih-footer-scope{color:#c5d4e1;font-size:.9rem}
+.fih-page .fih-site-footer .fih-footer-links{display:flex;flex-direction:column;align-items:flex-start;gap:11px}
+.fih-page .fih-site-footer .fih-footer-links>b{margin-bottom:4px;color:#fff;font-size:1rem}
+.fih-page .fih-site-footer .fih-footer-links a,.fih-page .fih-site-footer .fih-footer-legal a{color:#dce9f5;text-decoration:none}
+.fih-page .fih-site-footer .fih-footer-links a:hover,.fih-page .fih-site-footer .fih-footer-legal a:hover{color:#70d5df;text-decoration:underline;text-underline-offset:3px}
+.fih-page .fih-site-footer .fih-footer-note{grid-column:1/-1;margin:8px 0 0;padding:18px 0;border-top:1px solid #ffffff29;color:#c5d4e1;line-height:1.7}
+.fih-page .fih-site-footer .fih-footer-legal{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:18px;padding-top:16px;border-top:1px solid #ffffff29;color:#c5d4e1;font-size:.88rem}
+.fih-page .fih-site-footer .fih-feedback{padding:28px clamp(18px,4vw,64px);border-bottom:1px solid #ffffff29}
+.fih-page .fih-site-footer .fih-feedback h2{margin:0 0 12px;color:#fff;font-size:1.35rem}
+.fih-page .fih-site-footer .fih-feedback p{color:#c7d7e7}
+.fih-page .fih-site-footer .fih-feedback summary{color:#fff;font-weight:700;cursor:pointer}
+.fih-page .fih-language-tools{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;padding:12px clamp(18px,4vw,64px);background:#f4f8fc;border-bottom:1px solid #dce5ef}
+.fih-page .fih-language-tools__intro{display:flex;flex-direction:column;gap:3px}
+.fih-page .fih-language-tools__intro strong{color:#102d4b}
+.fih-page .fih-language-tools__intro span{color:#52677d;font-size:.88rem}
+.fih-page #google_translate_element{min-height:30px}
+@media(max-width:1100px){.fih-page > header.fih-site-header{gap:12px;padding:10px 18px}.fih-page .fih-site-header .brand-logo{max-width:180px}.fih-page .fih-site-header nav{gap:9px}.fih-page .fih-site-header nav a{font-size:12px}.fih-page .fih-site-header .nav-cta{padding:9px 12px;font-size:12px}}
+@media(max-width:780px){.fih-page > header.fih-site-header{min-height:72px;flex-wrap:wrap}.fih-page .fih-site-header .brand-logo{max-width:min(190px,55vw);max-height:52px}.fih-page .fih-site-header .menu{display:inline-flex;align-items:center;justify-content:center;margin-left:auto;padding:8px 12px;border:1px solid #dce5ef;border-radius:10px;background:#f4f8fc;color:#102d4b;font-size:22px;cursor:pointer}.fih-page .fih-site-header nav{display:none;order:3;flex:0 0 100%;width:100%;margin:0;padding:16px 0 6px;border-top:1px solid #e1e9f1;align-items:flex-start;justify-content:flex-start;gap:12px}.fih-page .fih-site-header nav.is-open{display:flex;flex-direction:column}.fih-page .fih-site-header nav a{font-size:14px}.fih-page .fih-site-header .nav-cta{order:2;padding:9px 12px;font-size:12px}.fih-page .fih-site-footer .fih-footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.fih-page .fih-site-footer .fih-footer-brand{grid-column:1/-1}}
+@media(max-width:520px){.fih-page .fih-site-header .nav-cta{max-width:46%;text-align:center;white-space:normal}.fih-page .fih-site-footer .fih-footer-grid{grid-template-columns:1fr;gap:24px;padding:30px 20px 22px}.fih-page .fih-site-footer .fih-footer-brand,.fih-page .fih-site-footer .fih-footer-note,.fih-page .fih-site-footer .fih-footer-legal{grid-column:1}.fih-page .fih-site-footer .fih-footer-legal{gap:12px}.fih-page .fih-site-footer .fih-feedback{padding:24px 20px}.fih-page .fih-language-tools{align-items:flex-start}}
