@@ -142,7 +142,7 @@ const path = require('node:path');
   await page.waitForTimeout(250);
   if (!(await page.title()).includes('MUKUL')) throw new Error('Farm Records title missing');
   await page.locator('#farm-form button[type="submit"]').click();
-  if (!(await page.locator('#status').innerText()).includes('Enter at least one')) throw new Error('Empty Farm Records form should not save a blank record');
+  if (!(await page.locator('#status').innerText()).includes('অন্তত একটি তথ্য দিন')) throw new Error('Empty Farm Records form should not save a blank record');
   await page.locator('input[name="district"]').fill('Khulna');
   await page.locator('input[name="crop"]').fill('Rice');
   await page.locator('input[name="soil_ph"]').fill('6.2');
