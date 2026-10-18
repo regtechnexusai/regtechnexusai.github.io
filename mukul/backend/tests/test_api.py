@@ -74,3 +74,33 @@ def test_invalid_image_is_rejected():
     )
     assert response.status_code == 422
     assert response.json()["detail"] == "unreadable_image"
+
+def test_mime_and_decoded_format_must_match():
+    response = client.post(
+        "/v1/plant-assessments",
+        data={
+            "crop": "rice",
+            "language": "en",
+            "consent": "true",
+            "consent_policy_version": "pilot-privacy-v1",
+        },
+        files={"media": ("leaf.jpg", tiny_png(), "image/jpeg")},
+    )
+    assert response.status_code == 415
+    assert response.json()["detail"] == "media_type_format_mismatch"
+
+
+def test_feature_flag_alone_never_enables_unconfigured_model(monkeypatch):
+    monkeypatch.setenv("MUKUL_INFERENCE_ENABLED", "true")
+    response = client.post(
+        "/v1/plant-assessments",
+        data={
+            "crop": "wheat",
+            "language": "bn",
+            "consent": "true",
+            "consent_policy_version": "pilot-privacy-v1",
+        },
+        files={"media": ("leaf.png", tiny_png(), "image/png")},
+    )
+    assert response.status_code == 503
+    assert response.json()["detail"] == "validated_model_adapter_not_configured"
