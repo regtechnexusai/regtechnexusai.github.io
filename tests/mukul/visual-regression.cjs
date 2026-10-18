@@ -69,7 +69,7 @@ const path = require('node:path');
   if (resultText.includes('undefined')) throw new Error('MUKUL result contains undefined text');
   if (!resultText.includes('water level') || !resultText.includes('Media selected for this session: 1')) throw new Error('Wilting guidance or media count missing');
   if (!resultText.includes('not a diagnosis') || !resultText.includes('IRRI Rice Knowledge Bank')) throw new Error('Rice safety boundary or authoritative learning reference missing');
-  for (const value of ['Khulna / Dighalia', 'Aman', 'BRRI dhan example', '45 days', '2026-10-10', '5 শতক', 'Yes, increasing', 'Standing water', 'Rain after irrigation']) {
+  for (const value of ['Khulna / Dighalia', 'Aman', 'BRRI dhan example', '45 Days', '2026-10-10', '5 শতক', 'Yes, increasing', 'Standing water', 'Rain after irrigation']) {
     if (!resultText.includes(value)) throw new Error('Submitted local context missing from result: ' + value);
   }
   if (!resultText.includes('not uploaded or analysed the media with AI')) throw new Error('Local-only media limitation missing');
