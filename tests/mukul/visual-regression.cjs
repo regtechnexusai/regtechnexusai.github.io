@@ -42,6 +42,31 @@ const path = require('node:path');
   await page.locator('#crop-photos').setInputFiles(samplePath);
   await page.waitForTimeout(150);
   if (!(await page.locator('#media-preview img').count())) throw new Error('Selected gallery photo was not previewed locally');
+
+  // Functional regression: guidance must match the selected observation and must never
+  // render missing translation keys as the literal text "undefined".
+  await page.locator('#help-region').selectOption('bangladesh');
+  await page.locator('#help-crop').selectOption('rice');
+  await page.locator('#help-symptom').selectOption('wilt');
+  await page.locator('#crop-help-form button[type="submit"]').click();
+  let resultText = await page.locator('#crop-help-result').innerText();
+  if (resultText.includes('undefined')) throw new Error('MUKUL result contains undefined text');
+  if (!resultText.includes('water level') || !resultText.includes('Media selected for this session: 1')) throw new Error('Wilting guidance or media count missing');
+  if (!resultText.includes('not a diagnosis') || !resultText.includes('IRRI Rice Knowledge Bank')) throw new Error('Rice safety boundary or authoritative learning reference missing');
+  if (!resultText.includes('not uploaded or analysed the media with AI')) throw new Error('Local-only media limitation missing');
+
+  await page.locator('#help-symptom').selectOption('spots');
+  await page.locator('#crop-help-form button[type="submit"]').click();
+  resultText = await page.locator('#crop-help-result').innerText();
+  if (!resultText.includes('spot colour, shape, size') || resultText.includes('water level')) throw new Error('Symptom-specific guidance did not update for leaf spots');
+
+  await page.locator('#language-select').selectOption('bn');
+  await page.locator('#help-symptom').selectOption('spots');
+  await page.locator('#crop-help-form button[type="submit"]').click();
+  resultText = await page.locator('#crop-help-result').innerText();
+  if (resultText.includes('undefined') || !resultText.includes('দাগের রং, আকৃতি, আকার')) throw new Error('Bangla symptom-specific result failed');
+  if (!resultText.includes('রোগ নির্ণয় নয়') || !resultText.includes('এই সেশনে নির্বাচিত মিডিয়া: 1')) throw new Error('Bangla safety boundary or media count missing');
+  await page.locator('#language-select').selectOption('en');
   await page.screenshot({ path: path.join(artifacts, 'mukul-desktop.png'), fullPage: true });
   const desktopWidth = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
   if (desktopWidth.scroll > desktopWidth.client + 2) throw new Error('Desktop horizontal overflow: ' + JSON.stringify(desktopWidth));
