@@ -23,12 +23,15 @@ const path = require('node:path');
   await page.waitForSelector('#crop-media-intake', { timeout: 20000 });
   await page.waitForSelector('#check-photo-quality', { timeout: 10000 });
   await page.locator('#language-select').selectOption('bn');
+  await page.waitForFunction(() => (document.querySelector('#crop-media-intake')?.innerText || '').includes('ছবি'), null, { timeout: 15000 });
   const bn = await page.locator('#crop-media-intake').innerText();
   if (!bn.includes('ছবি')) throw new Error('Live Bangla language switch did not update media intake');
   await page.locator('#language-select').selectOption('en');
+  await page.waitForFunction(() => (document.querySelector('#photo-quality-note')?.innerText || '').toLowerCase().includes('no image is uploaded'), null, { timeout: 15000 });
   const en = await page.locator('#crop-media-intake').innerText();
-  if (!en.toLowerCase().includes('photo') || !en.toLowerCase().includes('no image is uploaded')) {
-    throw new Error('Live English labels or local-only privacy statement missing');
+  const privacyNote = await page.locator('#photo-quality-note').innerText();
+  if (!en.toLowerCase().includes('photo') || !privacyNote.toLowerCase().includes('no image is uploaded')) {
+    throw new Error('Live English labels or local-only privacy statement missing: ' + JSON.stringify({ mediaText: en.slice(0, 500), privacyNote }));
   }
   await page.screenshot({ path: path.join(artifacts, 'mukul-live-desktop.png'), fullPage: true });
   const desktop = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
