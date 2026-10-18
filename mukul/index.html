@@ -32,6 +32,25 @@
 
 /* Result-only print layout: users can print or save the generated checklist as PDF. */
 @media print{body.print-result-mode{margin:0!important;background:#fff!important}body.print-result-mode *{visibility:hidden!important}body.print-result-mode #crop-help-result,body.print-result-mode #crop-help-result *{visibility:visible!important}body.print-result-mode #crop-help-result{display:block!important;position:absolute!important;inset:0 auto auto 0!important;width:100%!important;margin:0!important;padding:12mm!important;border:0!important;border-radius:0!important;background:#fff!important;color:#111!important;box-shadow:none!important;font-size:11pt!important}body.print-result-mode #crop-help-result h4,body.print-result-mode #crop-help-result h5{color:#174c35!important;break-after:avoid}body.print-result-mode #crop-help-result p,body.print-result-mode #crop-help-result li{color:#222!important;orphans:3;widows:3}body.print-result-mode #crop-help-result .notice{break-inside:avoid;background:#fff!important;border:1px solid #aaa!important;color:#222!important}body.print-result-mode #crop-help-result a{color:#174c35!important;text-decoration:underline!important}body.print-result-mode #crop-help-result .help-sources{display:flex!important;flex-wrap:wrap!important;gap:8px!important}body.print-result-mode #crop-help-result ul{padding-left:20px!important}body.print-result-mode #crop-help-result li{break-inside:avoid}}
+
+/* Front-page crop helper: make the practical tool the first thing visitors can try. */
+.free-help-front{padding:clamp(24px,4vw,52px) 0 34px;background:radial-gradient(ellipse at 12% 0%,#e2f4cf 0,transparent 42%),linear-gradient(135deg,#f5faed 0%,#fff 58%,#eef8e9 100%);border-bottom:1px solid #dcebd7}
+.free-help-front .container{max-width:1120px}
+.free-help-front .section-heading{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(240px,.9fr);align-items:end;gap:18px;margin-bottom:18px}
+.free-help-front .section-heading .kicker{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border-radius:999px;background:#e1f1d4;border:1px solid #c5dfb4;color:#245b35;font-weight:900;letter-spacing:.08em;font-size:11px}
+.free-help-front .section-heading h2{font-size:clamp(28px,4vw,43px);line-height:1.1;letter-spacing:-.035em;max-width:760px;margin:12px 0 0;color:#174c35}
+.free-help-front .section-heading p{margin:0;padding:14px 16px;border-left:3px solid #8ebd69;background:#ffffffb8;border-radius:0 12px 12px 0;color:#4d6253;font-size:14px;line-height:1.65}
+.free-help-front .free-help{grid-template-columns:minmax(0,1fr);gap:14px}
+.free-help-front .free-help-panel{padding:clamp(18px,3vw,30px);border:1px solid #d4e5cd;border-radius:22px;box-shadow:0 12px 34px #174c3510}
+.free-help-front .free-help-panel>h3{font-size:clamp(21px,2.4vw,27px)}
+.free-help-front .help-form{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:18px;row-gap:12px}
+.free-help-front .help-form>label,.free-help-front .help-form>select,.free-help-front .help-form>.field-grid,.free-help-front .help-form>.inline-fields,.free-help-front .help-form>.media-intake,.free-help-front .help-form>.media-buttons,.free-help-front .help-form>.media-status,.free-help-front .help-form>button,.free-help-front .help-form>.media-preview{grid-column:1/-1}
+.free-help-front .help-form>label[for="help-crop"],.free-help-front .help-form>label[for="help-region"],.free-help-front .help-form>label[for="help-symptom"]{grid-column:1/-1;margin-bottom:-8px}
+.free-help-front .help-form select{min-height:46px}
+.free-help-front .help-form button[type="submit"]{min-height:48px;font-size:15px;font-weight:900;box-shadow:0 4px 0 #9bbf7f;background:linear-gradient(180deg,#d9f4a9,#b8e36e);color:#173d25;border:1px solid #a6d36a;border-radius:13px}
+.free-help-front .help-form button[type="submit"]:hover{filter:saturate(1.08);transform:translateY(-1px)}
+.free-help-front .media-intake{background:#f8fcf5;border-color:#d6e7ce}
+@media(max-width:700px){.free-help-front{padding:22px 0 26px}.free-help-front .section-heading{grid-template-columns:1fr;gap:10px}.free-help-front .section-heading p{font-size:13px}.free-help-front .help-form{grid-template-columns:minmax(0,1fr)}.free-help-front .help-form>*{grid-column:1/-1!important}}
 </style>
 </head>
 <body>
@@ -57,6 +76,49 @@
   </div>
 </header>
 <main id="main-content">
+<section class="section soft free-help-front" id="free-help" data-image-slots="leaf-photo-assessment,field-observation-guide">
+ <div class="container">
+  <div class="section-heading"><div><span class="kicker" data-i18n="freeHelpKicker">FREE AGRICULTURE HELP</span><h2 data-i18n="freeHelpTitle">Useful crop guidance, free for everyone.</h2></div><p data-i18n="freeHelpIntro">Start with a crop and the symptoms you observe. This first-stage helper gives safe next steps and links to trusted knowledge; it does not claim to diagnose a plant disease.</p></div>
+  <div class="free-help">
+   <div class="free-help-panel"><h3 data-i18n="freeHelpFormTitle">Describe what you see</h3><p data-i18n="freeHelpFormText">No account. No fee. Share only the details needed to guide your next step.</p>
+    <form class="help-form" id="crop-help-form">
+     <label for="help-crop" data-i18n="cropLabel">Crop</label><select id="help-crop" required><option value="rice" data-i18n="cropRice">Rice</option><option value="maize" data-i18n="cropMaize">Maize / corn</option><option value="wheat" data-i18n="cropWheat">Wheat</option><option value="vegetables" data-i18n="cropVegetables">Vegetables</option><option value="fruit" data-i18n="cropFruit">Fruit crops</option><option value="other" data-i18n="cropOther">Other crop</option></select>
+     <label for="help-region" data-i18n="regionLabel">Country or region</label><select id="help-region" required><option value="global" data-i18n="regionGlobal">Not specified / global</option><option value="bangladesh" data-i18n="regionBangladesh">Bangladesh</option><option value="nepal" data-i18n="regionNepal">Nepal</option><option value="india" data-i18n="regionIndia">India</option><option value="east-africa" data-i18n="regionEastAfrica">East Africa</option><option value="other" data-i18n="regionOther">Other country or region</option></select>
+          <div class="field-grid">
+      <label for="help-district" data-i18n="districtLabel">District / Upazila</label><input id="help-district" name="district" type="text" maxlength="120" placeholder="e.g., Khulna / Dighalia" data-i18n-placeholder="districtPlaceholder">
+      <label for="help-season" data-i18n="seasonLabel">Rice season</label><select id="help-season"><option value="unknown" data-i18n="seasonUnknown">Not sure / not applicable</option><option value="boro" data-i18n="seasonBoro">Boro</option><option value="aus" data-i18n="seasonAus">Aus</option><option value="aman" data-i18n="seasonAman">Aman</option><option value="other" data-i18n="seasonOther">Other season</option></select>
+      <label for="help-variety" data-i18n="varietyLabel">Crop variety / name</label><input id="help-variety" name="variety" type="text" maxlength="120" placeholder="If known" data-i18n-placeholder="varietyPlaceholder">
+      <label for="help-age" data-i18n="cropAgeLabel">Crop age</label><div class="inline-fields"><input id="help-age" type="number" min="0" max="500" step="1" inputmode="numeric" placeholder="e.g., 45" aria-label="Crop age"><select id="help-age-unit" aria-label="Crop age unit"><option value="days" data-i18n="ageDays">Days</option><option value="weeks" data-i18n="ageWeeks">Weeks</option></select></div>
+      <label for="help-stage" data-i18n="stageLabel">Crop growth stage</label><select id="help-stage"><option value="unknown" data-i18n="stageUnknown">Not sure</option><option value="seedling" data-i18n="stageSeedling">Seedling</option><option value="vegetative" data-i18n="stageVegetative">Vegetative / tillering</option><option value="reproductive" data-i18n="stageReproductive">Reproductive / flowering</option><option value="ripening" data-i18n="stageRipening">Ripening / near harvest</option></select>
+      <label for="help-start-date" data-i18n="startDateLabel">When did symptoms begin?</label><input id="help-start-date" type="date">
+      <label for="help-area" data-i18n="affectedAreaLabel">Affected area</label><div class="inline-fields"><input id="help-area" type="number" min="0" step="any" inputmode="decimal" placeholder="e.g., 5" aria-label="Affected area"><select id="help-area-unit" aria-label="Affected area unit"><option value="shotok" data-i18n="unitShotok">শতক</option><option value="acre" data-i18n="unitAcre">Acres</option><option value="hectare" data-i18n="unitHectare">Hectares</option><option value="percent" data-i18n="unitPercent">Percent of field</option></select></div>
+      <label for="help-spread" data-i18n="spreadLabel">Is the problem spreading?</label><select id="help-spread"><option value="unknown" data-i18n="spreadUnknown">Not sure</option><option value="yes" data-i18n="spreadYes">Yes, increasing</option><option value="no" data-i18n="spreadNo">No, appears stable</option></select>
+      <label for="help-field-condition" data-i18n="fieldConditionLabel">Water / soil condition</label><select id="help-field-condition"><option value="unknown" data-i18n="conditionUnknown">Not sure</option><option value="standing" data-i18n="conditionStanding">Standing water</option><option value="wet" data-i18n="conditionWet">Very wet / poor drainage</option><option value="normal" data-i18n="conditionNormal">Usual moisture</option><option value="dry" data-i18n="conditionDry">Dry / low water</option></select>
+      <label for="help-management" data-i18n="managementLabel">Recent field management (optional)</label><textarea id="help-management" rows="3" maxlength="1000" placeholder="Recent weather, irrigation, fertiliser or spray history (if known)" data-i18n-placeholder="managementPlaceholder"></textarea>
+     </div>
+     <label for="help-symptom" data-i18n="symptomLabel">Main observation</label><select id="help-symptom" required><option value="yellow" data-i18n="symYellow">Yellowing or discoloured leaves</option><option value="spots" data-i18n="symSpots">Spots, lesions or unusual marks</option><option value="wilt" data-i18n="symWilt">Wilting or drying</option><option value="pests" data-i18n="symPests">Visible insects or feeding damage</option><option value="growth" data-i18n="symGrowth">Poor growth or low yield</option><option value="storage" data-i18n="symStorage">Storage or post-harvest issue</option><option value="other" data-i18n="symOther">Other / unsure</option></select>
+     <div class="media-intake" id="crop-media-intake">
+      <h4 data-i18n="mediaTitle">Photo, video or live camera (optional)</h4>
+      <p data-i18n="mediaIntro">Add clear views of the whole plant and affected leaf, stem, grass blade, fruit or root. Photos stay on this device in this prototype; no AI visual analysis is connected yet.</p>
+      <label for="crop-photos" data-i18n="mediaPhotoLabel">Upload up to 5 photos</label><input id="crop-photos" type="file" accept="image/*" multiple>
+      <label for="crop-video-file" data-i18n="mediaVideoLabel">Upload one short video (maximum 20 MB)</label><input id="crop-video-file" type="file" accept="video/*">
+      <div class="media-buttons"><button type="button" id="start-live-camera" data-i18n="cameraStart">Open live camera</button><button type="button" id="capture-live-frame" data-i18n="cameraCapture" hidden>Capture photo</button><button type="button" id="record-live-video" data-i18n="cameraRecord" hidden>Record 20-second clip</button><button type="button" id="stop-recording" data-i18n="cameraStopRecord" hidden>Stop recording</button><button type="button" id="stop-live-camera" data-i18n="cameraStop" hidden>Close camera</button></div>
+      <div class="media-buttons" aria-label="Media controls"><button type="button" id="delete-media" data-i18n="deleteMedia">Delete selected media</button><button type="button" id="refresh-media" data-i18n="refreshMedia">Refresh preview</button><button type="button" id="reset-crop-form" data-i18n="resetForm">Reset form</button></div>
+      <video id="live-camera-preview" class="media-video" autoplay playsinline muted hidden></video>
+      <div id="media-preview" class="media-preview" aria-live="polite"></div>
+      <button type="button" class="photo-check-button" id="check-photo-quality">Check photo quality on this device</button>
+      <div class="photo-quality-results" id="photo-quality-results" aria-live="polite"></div>
+      <p class="photo-quality-note" id="photo-quality-note">Local image-quality checks only: resolution, brightness and sharpness. No image is uploaded; this does not identify plant diseases.</p>
+      <p class="media-status" id="media-status" data-i18n="mediaPrivacy">Media is previewed locally. Automated disease recognition is not active; do not rely on this prototype for diagnosis or treatment.</p>
+     </div>
+     <button class="btn" type="submit" data-i18n="getGuidance">Get free next steps →</button>
+    </form>
+   </div>
+   <div class="free-help-panel"><h3 data-i18n="helpResultTitle">Your next-step guide</h3><p data-i18n="helpResultIntro">Choose the crop and observation to see a cautious checklist and authoritative starting points.</p><div class="help-result" id="crop-help-result" role="status" aria-live="polite"></div>
+   <div class="media-buttons result-actions" id="crop-result-actions" hidden><button type="button" id="print-crop-result" data-i18n="printResult">Print / Save result as PDF</button></div><div class="notice"><strong data-i18n="freeBoundaryTitle">Safety first:</strong> <span data-i18n="freeBoundaryText">Symptoms can have several causes. Do not apply pesticides or fertilisers based only on this tool. For severe or spreading damage, contact a qualified local agricultural extension officer and follow official product labels.</span></div></div>
+  </div>
+ </div>
+</section>
 <section class="hero" id="top">
  <div class="hero-grid">
   <div>
@@ -120,49 +182,7 @@
   <p class="sample-note" data-i18n="sampleDisclaimer">Illustrative categories only. Product availability, prices and seller credentials must be verified before any future transaction.</p>
  </div>
 </section>
-<section class="section soft" id="free-help" data-image-slots="leaf-photo-assessment,field-observation-guide">
- <div class="container">
-  <div class="section-heading"><div><span class="kicker" data-i18n="freeHelpKicker">FREE AGRICULTURE HELP</span><h2 data-i18n="freeHelpTitle">Useful crop guidance, free for everyone.</h2></div><p data-i18n="freeHelpIntro">Start with a crop and the symptoms you observe. This first-stage helper gives safe next steps and links to trusted knowledge; it does not claim to diagnose a plant disease.</p></div>
-  <div class="free-help">
-   <div class="free-help-panel"><h3 data-i18n="freeHelpFormTitle">Describe what you see</h3><p data-i18n="freeHelpFormText">No account. No fee. Share only the details needed to guide your next step.</p>
-    <form class="help-form" id="crop-help-form">
-     <label for="help-crop" data-i18n="cropLabel">Crop</label><select id="help-crop" required><option value="rice" data-i18n="cropRice">Rice</option><option value="maize" data-i18n="cropMaize">Maize / corn</option><option value="wheat" data-i18n="cropWheat">Wheat</option><option value="vegetables" data-i18n="cropVegetables">Vegetables</option><option value="fruit" data-i18n="cropFruit">Fruit crops</option><option value="other" data-i18n="cropOther">Other crop</option></select>
-     <label for="help-region" data-i18n="regionLabel">Country or region</label><select id="help-region" required><option value="global" data-i18n="regionGlobal">Not specified / global</option><option value="bangladesh" data-i18n="regionBangladesh">Bangladesh</option><option value="nepal" data-i18n="regionNepal">Nepal</option><option value="india" data-i18n="regionIndia">India</option><option value="east-africa" data-i18n="regionEastAfrica">East Africa</option><option value="other" data-i18n="regionOther">Other country or region</option></select>
-          <div class="field-grid">
-      <label for="help-district" data-i18n="districtLabel">District / Upazila</label><input id="help-district" name="district" type="text" maxlength="120" placeholder="e.g., Khulna / Dighalia" data-i18n-placeholder="districtPlaceholder">
-      <label for="help-season" data-i18n="seasonLabel">Rice season</label><select id="help-season"><option value="unknown" data-i18n="seasonUnknown">Not sure / not applicable</option><option value="boro" data-i18n="seasonBoro">Boro</option><option value="aus" data-i18n="seasonAus">Aus</option><option value="aman" data-i18n="seasonAman">Aman</option><option value="other" data-i18n="seasonOther">Other season</option></select>
-      <label for="help-variety" data-i18n="varietyLabel">Crop variety / name</label><input id="help-variety" name="variety" type="text" maxlength="120" placeholder="If known" data-i18n-placeholder="varietyPlaceholder">
-      <label for="help-age" data-i18n="cropAgeLabel">Crop age</label><div class="inline-fields"><input id="help-age" type="number" min="0" max="500" step="1" inputmode="numeric" placeholder="e.g., 45" aria-label="Crop age"><select id="help-age-unit" aria-label="Crop age unit"><option value="days" data-i18n="ageDays">Days</option><option value="weeks" data-i18n="ageWeeks">Weeks</option></select></div>
-      <label for="help-stage" data-i18n="stageLabel">Crop growth stage</label><select id="help-stage"><option value="unknown" data-i18n="stageUnknown">Not sure</option><option value="seedling" data-i18n="stageSeedling">Seedling</option><option value="vegetative" data-i18n="stageVegetative">Vegetative / tillering</option><option value="reproductive" data-i18n="stageReproductive">Reproductive / flowering</option><option value="ripening" data-i18n="stageRipening">Ripening / near harvest</option></select>
-      <label for="help-start-date" data-i18n="startDateLabel">When did symptoms begin?</label><input id="help-start-date" type="date">
-      <label for="help-area" data-i18n="affectedAreaLabel">Affected area</label><div class="inline-fields"><input id="help-area" type="number" min="0" step="any" inputmode="decimal" placeholder="e.g., 5" aria-label="Affected area"><select id="help-area-unit" aria-label="Affected area unit"><option value="shotok" data-i18n="unitShotok">শতক</option><option value="acre" data-i18n="unitAcre">Acres</option><option value="hectare" data-i18n="unitHectare">Hectares</option><option value="percent" data-i18n="unitPercent">Percent of field</option></select></div>
-      <label for="help-spread" data-i18n="spreadLabel">Is the problem spreading?</label><select id="help-spread"><option value="unknown" data-i18n="spreadUnknown">Not sure</option><option value="yes" data-i18n="spreadYes">Yes, increasing</option><option value="no" data-i18n="spreadNo">No, appears stable</option></select>
-      <label for="help-field-condition" data-i18n="fieldConditionLabel">Water / soil condition</label><select id="help-field-condition"><option value="unknown" data-i18n="conditionUnknown">Not sure</option><option value="standing" data-i18n="conditionStanding">Standing water</option><option value="wet" data-i18n="conditionWet">Very wet / poor drainage</option><option value="normal" data-i18n="conditionNormal">Usual moisture</option><option value="dry" data-i18n="conditionDry">Dry / low water</option></select>
-      <label for="help-management" data-i18n="managementLabel">Recent field management (optional)</label><textarea id="help-management" rows="3" maxlength="1000" placeholder="Recent weather, irrigation, fertiliser or spray history (if known)" data-i18n-placeholder="managementPlaceholder"></textarea>
-     </div>
-     <label for="help-symptom" data-i18n="symptomLabel">Main observation</label><select id="help-symptom" required><option value="yellow" data-i18n="symYellow">Yellowing or discoloured leaves</option><option value="spots" data-i18n="symSpots">Spots, lesions or unusual marks</option><option value="wilt" data-i18n="symWilt">Wilting or drying</option><option value="pests" data-i18n="symPests">Visible insects or feeding damage</option><option value="growth" data-i18n="symGrowth">Poor growth or low yield</option><option value="storage" data-i18n="symStorage">Storage or post-harvest issue</option><option value="other" data-i18n="symOther">Other / unsure</option></select>
-     <div class="media-intake" id="crop-media-intake">
-      <h4 data-i18n="mediaTitle">Photo, video or live camera (optional)</h4>
-      <p data-i18n="mediaIntro">Add clear views of the whole plant and affected leaf, stem, grass blade, fruit or root. Photos stay on this device in this prototype; no AI visual analysis is connected yet.</p>
-      <label for="crop-photos" data-i18n="mediaPhotoLabel">Upload up to 5 photos</label><input id="crop-photos" type="file" accept="image/*" multiple>
-      <label for="crop-video-file" data-i18n="mediaVideoLabel">Upload one short video (maximum 20 MB)</label><input id="crop-video-file" type="file" accept="video/*">
-      <div class="media-buttons"><button type="button" id="start-live-camera" data-i18n="cameraStart">Open live camera</button><button type="button" id="capture-live-frame" data-i18n="cameraCapture" hidden>Capture photo</button><button type="button" id="record-live-video" data-i18n="cameraRecord" hidden>Record 20-second clip</button><button type="button" id="stop-recording" data-i18n="cameraStopRecord" hidden>Stop recording</button><button type="button" id="stop-live-camera" data-i18n="cameraStop" hidden>Close camera</button></div>
-      <div class="media-buttons" aria-label="Media controls"><button type="button" id="delete-media" data-i18n="deleteMedia">Delete selected media</button><button type="button" id="refresh-media" data-i18n="refreshMedia">Refresh preview</button><button type="button" id="reset-crop-form" data-i18n="resetForm">Reset form</button></div>
-      <video id="live-camera-preview" class="media-video" autoplay playsinline muted hidden></video>
-      <div id="media-preview" class="media-preview" aria-live="polite"></div>
-      <button type="button" class="photo-check-button" id="check-photo-quality">Check photo quality on this device</button>
-      <div class="photo-quality-results" id="photo-quality-results" aria-live="polite"></div>
-      <p class="photo-quality-note" id="photo-quality-note">Local image-quality checks only: resolution, brightness and sharpness. No image is uploaded; this does not identify plant diseases.</p>
-      <p class="media-status" id="media-status" data-i18n="mediaPrivacy">Media is previewed locally. Automated disease recognition is not active; do not rely on this prototype for diagnosis or treatment.</p>
-     </div>
-     <button class="btn" type="submit" data-i18n="getGuidance">Get free next steps →</button>
-    </form>
-   </div>
-   <div class="free-help-panel"><h3 data-i18n="helpResultTitle">Your next-step guide</h3><p data-i18n="helpResultIntro">Choose the crop and observation to see a cautious checklist and authoritative starting points.</p><div class="help-result" id="crop-help-result" role="status" aria-live="polite"></div>
-   <div class="media-buttons result-actions" id="crop-result-actions" hidden><button type="button" id="print-crop-result" data-i18n="printResult">Print / Save result as PDF</button></div><div class="notice"><strong data-i18n="freeBoundaryTitle">Safety first:</strong> <span data-i18n="freeBoundaryText">Symptoms can have several causes. Do not apply pesticides or fertilisers based only on this tool. For severe or spreading damage, contact a qualified local agricultural extension officer and follow official product labels.</span></div></div>
-  </div>
- </div>
-</section>
+
 <section class="section" id="knowledge" data-image-slots="crop-growth-guide,healthy-and-stressed-leaf-guide">
  <div class="container">
   <div class="section-heading"><div><span class="kicker" data-i18n="knowledgeKicker">AGRICULTURAL KNOWLEDGE</span><h2 data-i18n="knowledgeTitle">Practical guidance, grounded in sources.</h2></div><p data-i18n="knowledgeIntro">The intended knowledge layer will prioritise traceable references, local adaptation, publication dates and clear limits on automated advice.</p></div>
