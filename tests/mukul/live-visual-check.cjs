@@ -10,7 +10,7 @@ const path = require('node:path');
   // Keep the check self-contained: allow only the user's own site; block third-party assets.
   await page.route('**/*', route => {
     const url = new URL(route.request().url());
-    if (url.hostname === 'regtechnexusai.com' || url.hostname === 'www.regtechnexusai.com') return route.continue();
+    if (['regtechnexusai.com', 'www.regtechnexusai.com', 'regtechnexusai.github.io'].includes(url.hostname)) return route.continue();
     return route.abort();
   });
   const base = process.env.MUKUL_LIVE_URL || 'https://regtechnexusai.com/mukul/';
