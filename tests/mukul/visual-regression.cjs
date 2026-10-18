@@ -56,7 +56,7 @@ const path = require('node:path');
   // Functional regression: guidance must match the selected observation and must never
   // render missing translation keys as the literal text "undefined".
   // Local context intake: all requested fields exist, accept user input, and appear in the generated checklist.
-  for (const selector of ['#help-district', '#help-season', '#help-variety', '#help-age', '#help-age-unit', '#help-stage', '#help-start-date', '#help-area', '#help-area-unit', '#help-spread', '#help-field-condition', '#help-management']) {
+  for (const selector of ['#help-district', '#help-season', '#help-variety', '#help-age', '#help-age-unit', '#help-stage', '#help-start-date', '#help-area', '#help-area-unit', '#help-spread', '#help-field-condition', '#help-management', '#help-leaf-age', '#help-yellow-pattern', '#help-other-signs']) {
     if (!(await page.locator(selector).count())) throw new Error('Missing local context field: ' + selector);
   }
   await page.locator('#help-district').fill('Khulna / Dighalia');
@@ -71,6 +71,9 @@ const path = require('node:path');
   await page.locator('#help-spread').selectOption('yes');
   await page.locator('#help-field-condition').selectOption('standing');
   await page.locator('#help-management').fill('Rain after irrigation');
+  await page.locator('#help-leaf-age').selectOption('old');
+  await page.locator('#help-yellow-pattern').selectOption('patches');
+  await page.locator('#help-other-signs').selectOption('insects');
   await page.locator('#help-region').selectOption('bangladesh');
   await page.locator('#help-crop').selectOption('rice');
   await page.locator('#help-symptom').selectOption('wilt');
@@ -79,7 +82,8 @@ const path = require('node:path');
   if (resultText.includes('undefined')) throw new Error('MUKUL result contains undefined text');
   if (!resultText.includes('water level') || !resultText.includes('Media selected for this session: 1')) throw new Error('Wilting guidance or media count missing');
   if (!resultText.includes('not a diagnosis') || !resultText.includes('IRRI Rice Knowledge Bank')) throw new Error('Rice safety boundary or authoritative learning reference missing');
-  for (const value of ['Khulna / Dighalia', 'Aman', 'BRRI dhan example', '45 Days', '2026-10-10', '5 শতক', 'Yes, increasing', 'Standing water', 'Rain after irrigation']) {
+  if (!resultText.includes('The problem is spreading') || !resultText.includes('check whether normal drainage paths are blocked') || !resultText.includes('do not guess doses')) throw new Error('Spreading warning, wet-field guidance or no-dose safety boundary missing');
+  for (const value of ['Khulna / Dighalia', 'Aman', 'BRRI dhan example', '45 Days', '2026-10-10', '5 শতক', 'Yes, increasing', 'Standing water', 'Rain after irrigation', 'Older / lower leaves', 'Patches in parts of the field', 'Insects near leaves or plant base']) {
     if (!resultText.includes(value)) throw new Error('Submitted local context missing from result: ' + value);
   }
   if (!resultText.includes('not uploaded or analysed the media with AI')) throw new Error('Local-only media limitation missing');
