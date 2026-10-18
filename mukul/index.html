@@ -536,10 +536,16 @@ async function runOnnx(file){
  const canvas=document.createElement("canvas");canvas.width=224;canvas.height=224;
  const ctx=canvas.getContext("2d",{willReadFrequently:true});ctx.drawImage(bitmap,0,0,224,224);bitmap.close();
  const pixels=ctx.getImageData(0,0,224,224).data;
- /* The published model input is NHWC: [batch, height, width, channels]. */
+ /* Build the tensor layout from the loaded model metadata to avoid NCHW/NHWC mismatches. */
+ const metadata=(session.inputMetadata&&session.inputMetadata[0])||{};
+ const expected=metadata.dimensions||metadata.shape||[];
+ const isNhwc=expected.length===4&&Number(expected[1])===224&&Number(expected[2])===224&&Number(expected[3])===3;
+ const isNchw=expected.length===4&&Number(expected[1])===3&&Number(expected[2])===224&&Number(expected[3])===224;
+ if(expected.length===4&&!isNhwc&&!isNchw)throw new Error("Unsupported ONNX input dimensions: "+JSON.stringify(expected));
+ const nhwc=isNhwc||!isNchw;
  const input=new Float32Array(1*224*224*3),mean=[.485,.456,.406],std=[.229,.224,.225];
- for(let i=0;i<224*224;i++){const j=i*4,k=i*3;input[k]=(pixels[j]/255-mean[0])/std[0];input[k+1]=(pixels[j+1]/255-mean[1])/std[1];input[k+2]=(pixels[j+2]/255-mean[2])/std[2];}
- const tensor=new ort.Tensor("float32",input,[1,224,224,3]);
+ for(let i=0;i<224*224;i++){const j=i*4,k=i*3,r=(pixels[j]/255-mean[0])/std[0],g=(pixels[j+1]/255-mean[1])/std[1],b=(pixels[j+2]/255-mean[2])/std[2];if(nhwc){input[k]=r;input[k+1]=g;input[k+2]=b;}else{input[i]=r;input[224*224+i]=g;input[2*224*224+i]=b;}}
+ const tensor=new ort.Tensor("float32",input,nhwc?[1,224,224,3]:[1,3,224,224]);
  const feeds={};feeds[session.inputNames[0]]=tensor;
  const result=await session.run(feeds),out=result[session.outputNames[0]]||result[Object.keys(result)[0]];
  if(!out||!out.data||out.data.length<4)throw new Error("Unexpected ONNX output shape; stop and review the model adapter.");
