@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 330" role="img" aria-labelledby="title desc">
+<title id="title">MUKUL Agriculture Hub</title><desc id="desc">MUKUL wordmark in green with integrated leaf details, Agriculture Hub, and the tagline Smarter Farming, Healthier Tomorrow.</desc>
+<defs>
+ <linearGradient id="green" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#66c51d"/><stop offset=".48" stop-color="#07833c"/><stop offset="1" stop-color="#004b2d"/></linearGradient>
+ <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9bdf27"/><stop offset=".5" stop-color="#2b9d28"/><stop offset="1" stop-color="#005b34"/></linearGradient>
+ <clipPath id="lStem"><rect x="825" y="67" width="40" height="157" rx="3"/></clipPath>
+</defs>
+<g fill="url(#green)" font-family="Arial, Helvetica, sans-serif" font-size="166" font-weight="900" letter-spacing="-7">
+ <text x="55" y="215">M</text>
+ <text x="245" y="215" transform="rotate(-4 300 150)">U</text>
+ <text x="420" y="215">K</text>
+ <text x="600" y="215" transform="rotate(4 665 150)">U</text>
+ <text x="790" y="215">L</text>
+</g>
+<!-- Subtle leaves woven into the letterforms, never extending beyond the wordmark -->
+<path d="M72 91 C85 48 125 42 151 57 C135 87 109 104 72 91Z" fill="url(#leaf)"/>
+<path d="M79 88 Q111 75 142 59" fill="none" stroke="#f4ffe8" stroke-width="3" stroke-linecap="round"/>
+<path d="M438 166 C451 123 483 109 508 113 C499 143 473 164 438 166Z" fill="url(#leaf)"/>
+<path d="M444 160 Q471 140 500 117" fill="none" stroke="#f4ffe8" stroke-width="2.5" stroke-linecap="round"/>
+<g clip-path="url(#lStem)">
+ <path d="M831 179 C830 144 843 119 860 104 C870 132 861 159 831 179Z" fill="url(#leaf)"/>
+ <path d="M833 174 Q847 144 858 110" fill="none" stroke="#f4ffe8" stroke-width="2.5" stroke-linecap="round"/>
+</g>
+<text x="500" y="270" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800" fill="#16713b">Agriculture Hub</text>
+<path d="M205 291 H333 M667 291 H795" stroke="#16713b" stroke-width="3" stroke-linecap="round"/>
+<circle cx="500" cy="291" r="4.5" fill="#16823b"/>
+<text x="500" y="319" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" letter-spacing="1.4" fill="#43564d">Smarter Farming  •  Healthier Tomorrow</text>
+</svg>
