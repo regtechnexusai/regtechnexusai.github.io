@@ -136,7 +136,30 @@ const path = require('node:path');
   await page.locator('#language').selectOption('bn');
   if (!(await page.locator('body').innerText()).includes('মূল পৃষ্ঠা')) throw new Error('Knowledge page Bangla switch failed');
   await page.locator('#language').selectOption('en');
+
+  // Farm Records publishing preview: save, summary, bilingual switch, CSV, privacy page and mobile layout.
+  await page.goto(base + '/mukul/farm-records/', { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(250);
+  if (!(await page.title()).includes('MUKUL')) throw new Error('Farm Records title missing');
+  await page.locator('input[name="district"]').fill('Khulna');
+  await page.locator('input[name="crop"]').fill('Rice');
+  await page.locator('input[name="soil_ph"]').fill('6.2');
+  await page.locator('#farm-form button[type="submit"]').click();
+  if (!(await page.locator('#summary').innerText()).includes('Khulna')) throw new Error('Farm record was not rendered in summary');
+  await page.locator('#language').selectOption('en');
+  if (!(await page.locator('body').innerText()).includes('Farm and crop details')) throw new Error('Farm Records English switch failed');
+  const csvDownloadPromise = page.waitForEvent('download');
+  await page.locator('#export').click();
+  const csvDownload = await csvDownloadPromise;
+  if (csvDownload.suggestedFilename() !== 'mukul-farm-record.csv') throw new Error('Farm Records CSV download filename mismatch');
+  await page.goto(base + '/mukul/farm-records/privacy.html', { waitUntil: 'domcontentloaded' });
+  if (!(await page.title()).includes('Privacy')) throw new Error('Farm Records privacy page failed to load');
+  await page.goto(base + '/mukul/farm-records/', { waitUntil: 'domcontentloaded' });
+  await page.setViewportSize({ width: 390, height: 844 });
+  const farmMobileWidth = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
+  if (farmMobileWidth.scroll > farmMobileWidth.client + 2) throw new Error('Farm Records mobile horizontal overflow: ' + JSON.stringify(farmMobileWidth));
+
   if (failures.length) throw new Error('Browser JavaScript errors: ' + failures.join(' | '));
   await browser.close();
-  console.log('MUKUL browser regression passed: bilingual labels, media controls, unique IDs, mobile/desktop overflow, and local-only screenshot capture.');
+  console.log('MUKUL browser regression passed: main site, knowledge page, Farm Records save/summary, bilingual UI, CSV download, privacy page, and mobile/desktop overflow.');
 })().catch(error => { console.error(error); process.exit(1); });
