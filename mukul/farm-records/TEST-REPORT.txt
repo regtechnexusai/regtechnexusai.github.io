@@ -1,0 +1,13 @@
+MUKUL Farm Records v0.4 — Pre-publication static review
+Date: 18 October 2026
+
+PASS — HTML, inline CSS and JavaScript are packaged in a standalone page.
+PASS — Manifest and service worker reference local files in this directory.
+PASS — Safety boundary is visible: no disease diagnosis and no dosage estimates.
+PASS — Local-only storage and data-loss limitation are disclosed.
+PASS — Privacy notice and source register are included.
+PASS — CSV export mitigates common spreadsheet formula-prefix injection.
+
+NOT YET TESTED — Live browser/mobile install, CSV/print in a real browser, deployed HTTPS, offline behavior on the deployed URL, and service-worker cache update.
+
+Status: REVIEW PR ONLY; NOT YET PUBLISHED.
