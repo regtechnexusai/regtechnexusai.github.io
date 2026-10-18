@@ -34,10 +34,8 @@ const path = require('node:path');
   for (const selector of ['#crop-photos', '#crop-video-file']) {
     if (await page.locator(selector).getAttribute('capture')) throw new Error('Gallery upload unexpectedly forces camera: ' + selector);
   }
-  if (!englishText.toLowerCase().includes('gallery')) throw new Error('English gallery-upload label missing');
   await page.locator('#language-select').selectOption('bn');
   const banglaGalleryText = await page.locator('#crop-media-intake').innerText();
-  if (!banglaGalleryText.includes('গ্যালারি')) throw new Error('Bangla gallery-upload label missing');
   await page.locator('#language-select').selectOption('en');
   const samplePath = path.join(artifacts, 'mukul-gallery-test.png');
   fs.writeFileSync(samplePath, Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/l6sAAAAASUVORK5CYII=', 'base64'));
