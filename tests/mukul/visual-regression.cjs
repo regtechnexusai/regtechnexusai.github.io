@@ -29,6 +29,19 @@ const path = require('node:path');
   for (const selector of ['#crop-photos', '#crop-video-file', '#start-live-camera', '#capture-live-frame', '#stop-live-camera']) {
     if (!(await page.locator(selector).count())) throw new Error('Missing media control: ' + selector);
   }
+  // Gallery/file inputs must not use capture=environment, which can force Android browsers
+  // to open the camera instead of the photo gallery/file picker.
+  for (const selector of ['#crop-photos', '#crop-video-file']) {
+    if (await page.locator(selector).getAttribute('capture')) throw new Error('Gallery upload unexpectedly forces camera: ' + selector);
+  }
+  await page.locator('#language-select').selectOption('bn');
+  const banglaGalleryText = await page.locator('#crop-media-intake').innerText();
+  await page.locator('#language-select').selectOption('en');
+  const samplePath = path.join(artifacts, 'mukul-gallery-test.png');
+  fs.writeFileSync(samplePath, Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/l6sAAAAASUVORK5CYII=', 'base64'));
+  await page.locator('#crop-photos').setInputFiles(samplePath);
+  await page.waitForTimeout(150);
+  if (!(await page.locator('#media-preview img').count())) throw new Error('Selected gallery photo was not previewed locally');
   await page.screenshot({ path: path.join(artifacts, 'mukul-desktop.png'), fullPage: true });
   const desktopWidth = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
   if (desktopWidth.scroll > desktopWidth.client + 2) throw new Error('Desktop horizontal overflow: ' + JSON.stringify(desktopWidth));
