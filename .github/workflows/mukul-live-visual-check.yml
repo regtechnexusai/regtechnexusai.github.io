@@ -25,7 +25,7 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Check live MUKUL site and capture screenshots
         env:
-          MUKUL_LIVE_URL: https://regtechnexusai.com/mukul/
+          MUKUL_LIVE_URL: https://regtechnexusai.github.io/mukul/
         run: node tests/mukul/live-visual-check.cjs
       - name: Upload live verification screenshots
         if: always()
