@@ -1,0 +1,46 @@
+name: MUKUL visual and interaction regression
+
+on:
+  pull_request:
+    paths:
+      - "mukul/**"
+      - ".github/workflows/mukul-visual-regression.yml"
+      - "tests/mukul/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install Playwright
+        run: |
+          npm init -y
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Start local static server
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/mukul-server.log 2>&1 &
+          echo $! > /tmp/mukul-server.pid
+          for i in $(seq 1 30); do
+            if curl --silent --fail http://127.0.0.1:4173/mukul/ > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/mukul-server.log
+          exit 1
+      - name: Check bilingual UI and capture screenshots
+        run: node tests/mukul/visual-regression.cjs
+      - name: Upload verification screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mukul-browser-verification
+          path: artifacts/mukul-*.png
+          if-no-files-found: warn
+          retention-days: 14
