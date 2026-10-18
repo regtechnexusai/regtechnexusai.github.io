@@ -109,6 +109,9 @@ const path = require('node:path');
 
   await page.locator('#language-select').selectOption('bn');
   if (!(await page.locator('#help-district').getAttribute('placeholder')).includes('যেমন')) throw new Error('Bangla local-context placeholder did not translate');
+  // Re-add the sample image after the preceding delete-media check so this case
+  // independently verifies the Bangla result's local-only media count.
+  await page.locator('#crop-photos').setInputFiles(samplePath);
   await page.locator('#help-symptom').selectOption('spots');
   await page.locator('#crop-help-form button[type="submit"]').click();
   resultText = await page.locator('#crop-help-result').innerText();
