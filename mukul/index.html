@@ -225,6 +225,20 @@ body{top:0!important}
        <div class="ai-warning"><strong>গুরুত্বপূর্ণ:</strong> এটি রোগ নির্ণয় নয় এবং চিকিৎসা/কীটনাশক/সারের পরামর্শ দেয় না। ONNX ফলাফল কেবল মডেলের পরীক্ষামূলক শ্রেণি-অনুমান। Vision API ব্যবহার করলে ছবিটি Google-এ পাঠানো হবে। API key এই পৃষ্ঠায় সুরক্ষিতভাবে রাখা যায় না—এটি শুধু পরীক্ষার জন্য, উৎপাদন ব্যবহারের জন্য নয়। বিনামূল্যের API স্তরে তথ্য পণ্য উন্নয়নে ব্যবহৃত হতে পারে; সংবেদনশীল ছবি পাঠাবেন না।</div>
        <div class="ai-controls">
         <div>
+         <label for="mukul-reference-label">বিশেষজ্ঞ-যাচাইকৃত রেফারেন্স শ্রেণি / Expert-verified reference label (ঐচ্ছিক / optional)</label>
+         <select id="mukul-reference-label">
+          <option value="not-verified">এখনো বিশেষজ্ঞ যাচাই করেননি / Not yet expert-verified</option>
+          <option value="healthy">সুস্থ / Healthy</option>
+          <option value="bacterial_leaf_blight">Bacterial leaf blight</option>
+          <option value="brown_spot">Brown spot</option>
+          <option value="leaf_blast">Leaf blast</option>
+          <option value="tungro">Tungro</option>
+          <option value="sheath_blight">Sheath blight</option>
+          <option value="other_uncertain">অন্যান্য / অনিশ্চিত / Other or uncertain</option>
+         </select>
+         <label class="ai-consent" for="mukul-bangladesh-field"><input id="mukul-bangladesh-field" type="checkbox"><span>এই ছবি বাংলাদেশের ধানের জমি থেকে তোলা / This photo is from a Bangladesh rice field</span></label>
+        </div>
+        <div>
          <label for="mukul-gemini-key">Gemini API key (শুধু এই সেশনের পরীক্ষা; সংরক্ষণ করা হবে না)</label>
          <input id="mukul-gemini-key" type="password" autocomplete="off" spellcheck="false" placeholder="Paste a restricted test API key" maxlength="300">
         </div>
@@ -235,6 +249,8 @@ body{top:0!important}
         <button type="button" id="mukul-run-vision" class="secondary">শুধু Vision API / Run Vision API</button>
         <button type="button" id="mukul-run-compare">দুটিই চালিয়ে তুলনা / Run both & compare</button>
         <button type="button" id="mukul-download-compare" class="secondary" hidden>তুলনার ফলাফল ডাউনলোড / Export comparison</button>
+        <button type="button" id="mukul-save-test-record" class="secondary" hidden>টেস্ট সেটে যোগ করুন / Add to test set</button>
+        <button type="button" id="mukul-export-test-set" class="secondary" hidden>পুরো টেস্ট সেট ডাউনলোড / Download test set</button>
        </div>
        <div class="mukul-ai-status" id="mukul-ai-status" role="status" aria-live="polite">প্রথমে সর্বোচ্চ ১০ MB-এর একটি পরিষ্কার ছবি নির্বাচন করুন। / Select one clear photo (10 MB max) first.</div>
        <div class="mukul-ai-results">
@@ -484,7 +500,7 @@ let initialLanguage='bn';try{const saved=localStorage.getItem('mukul-language');
 "use strict";
 const $=id=>document.getElementById(id);
 const photoInput=$("crop-photos"),keyInput=$("mukul-gemini-key"),consent=$("mukul-gemini-consent");
-const status=$("mukul-ai-status"),onnxOutput=$("mukul-onnx-result"),visionOutput=$("mukul-vision-result"),exportBtn=$("mukul-download-compare");
+const status=$("mukul-ai-status"),onnxOutput=$("mukul-onnx-result"),visionOutput=$("mukul-vision-result"),exportBtn=$("mukul-download-compare"),saveRecordBtn=$("mukul-save-test-record"),exportSetBtn=$("mukul-export-test-set"),referenceInput=$("mukul-reference-label"),bangladeshInput=$("mukul-bangladesh-field");
 const MODEL_URL="https://huggingface.co/nihal4/rice-disease-model/resolve/main/rice_disease_resnet50.onnx";
 const MODEL_ID="gemini-3.8-flash";
 const classes=[
@@ -493,7 +509,7 @@ const classes=[
  {en:"Leaf blast (classifier candidate)",bn:"লিফ ব্লাস্ট (মডেলের সম্ভাব্য শ্রেণি)"},
  {en:"Rice tungro (classifier candidate)",bn:"রাইস টুংরো (মডেলের সম্ভাব্য শ্রেণি)"}
 ];
-let sessionPromise=null,lastComparison=null;
+let sessionPromise=null,lastComparison=null,benchmarkRecords=[];
 const bn=()=>document.documentElement.lang==="bn";
 function say(en,bnText){return bn()?bnText:en;}
 function setStatus(en,bnText,isError=false){status.textContent=say(en,bnText);status.style.color=isError?"#a12622":"";}
@@ -529,7 +545,7 @@ async function runOnnx(file){
  let values=Array.from(out.data).slice(0,4),sum=values.reduce((a,b)=>a+b,0);
  if(values.some(v=>v<0||v>1)||sum<.9||sum>1.1){const mx=Math.max(...values),ex=values.map(v=>Math.exp(v-mx)),tot=ex.reduce((a,b)=>a+b,0);values=ex.map(v=>v/tot);}
  const ranked=values.map((score,index)=>({index,score})).sort((a,b)=>b.score-a.score);
- const top=ranked[0],resultObj={model:"nihal4/rice-disease-model (ResNet50 ONNX)",candidate:classes[top.index],score:top.score,all:ranked.map(x=>({class:classes[x.index],score:x.score})),photo:file.name||"selected-photo"};
+ const top=ranked[0],resultObj={model:"nihal4/rice-disease-model (ResNet50 ONNX)",candidate:classes[top.index],score:top.score,all:ranked.map(x=>({class:classes[x.index],score:x.score})),photo:"selected-image"};
  onnxOutput.textContent=say("Experimental classifier candidate (NOT a diagnosis): ","মডেলের পরীক্ষামূলক সম্ভাব্য শ্রেণি (রোগ নির্ণয় নয়): ")+(bn()?resultObj.candidate.bn:resultObj.candidate.en)+"\n"+say("Model score (not calibrated probability): ","মডেলের স্কোর (যাচাইকৃত সম্ভাব্যতার মান নয়): ")+(top.score*100).toFixed(1)+"%\n\n"+ranked.map(x=>(bn()?classes[x.index].bn:classes[x.index].en)+": "+(x.score*100).toFixed(1)+"%").join("\n")+"\n\n"+say("This four-class model may be wrong or out of scope on field photos. It has not been independently validated for MUKUL; do not use for treatment decisions.","বাস্তব মাঠের ছবিতে চার-শ্রেণির এই মডেল ভুল করতে পারে বা সমস্যাটি এর শ্রেণির বাইরে হতে পারে। MUKUL-এর জন্য স্বাধীন যাচাই হয়নি; চিকিৎসা নির্ধারণে ব্যবহার করবেন না।");
  return resultObj;
 }
@@ -548,13 +564,16 @@ async function runVision(file,key){
  const textValue=(body.candidates&&body.candidates[0]&&body.candidates[0].content&&body.candidates[0].content.parts||[]).map(p=>p.text||"").join("\n").trim();
  if(!textValue)throw new Error("Vision API returned no readable text. Check model access and API quota.");
  visionOutput.textContent=textValue;
- return {model:MODEL_ID,text:textValue,photo:file.name||"selected-photo",provider:"Google Gemini API"};
+ return {model:MODEL_ID,text:textValue,photo:"selected-image",provider:"Google Gemini API"};
 }
-function refreshExportButton(){exportBtn.hidden=!(lastComparison&&lastComparison.onnx&&lastComparison.vision);}
+function refreshExportButton(){const ready=!!(lastComparison&&lastComparison.onnx&&lastComparison.vision);exportBtn.hidden=!ready;saveRecordBtn.hidden=!ready;exportSetBtn.hidden=benchmarkRecords.length===0;}
 $("mukul-run-onnx").addEventListener("click",async()=>{const btn=$("mukul-run-onnx");btn.disabled=true;try{const f=selectedPhoto();const result=await runOnnx(f);lastComparison={...(lastComparison||{}),photo:f.name||"selected-photo",timestamp:new Date().toISOString(),onnx:result};setStatus("Local ONNX analysis finished. It is a research-only candidate, not a diagnosis.","ONNX পরীক্ষা শেষ। এটি শুধু গবেষণার সম্ভাব্য শ্রেণি, রোগ নির্ণয় নয়।");refreshExportButton();}catch(e){onnxOutput.textContent=e.message||String(e);setStatus(e.message||"Local model failed.",e.message||"স্থানীয় মডেল চালানো যায়নি।",true);}finally{btn.disabled=false;}});
 $("mukul-run-vision").addEventListener("click",async()=>{const btn=$("mukul-run-vision"),key=keyInput.value.trim();btn.disabled=true;try{const f=selectedPhoto();const result=await runVision(f,key);lastComparison={...(lastComparison||{}),photo:f.name||"selected-photo",timestamp:new Date().toISOString(),vision:result};setStatus("Vision API response received. The image was sent to Google.","Vision API-এর উত্তর পাওয়া গেছে। ছবিটি Google-এ পাঠানো হয়েছে।");refreshExportButton();}catch(e){visionOutput.textContent=e.message||String(e);setStatus(e.message||"Vision API failed.",e.message||"Vision API চালানো যায়নি।",true);}finally{keyInput.value="";btn.disabled=false;}});
-$("mukul-run-compare").addEventListener("click",async()=>{const btn=$("mukul-run-compare"),key=keyInput.value.trim();btn.disabled=true;exportBtn.hidden=true;lastComparison=null;try{const f=selectedPhoto();if(!key)throw new Error(say("Enter a Gemini API key to run both systems.","দুটি ব্যবস্থা চালাতে Gemini API key দিন।"));if(!consent.checked)throw new Error(say("Tick the consent box before sending the photo to Google.","ছবি Google-এ পাঠানোর আগে সম্মতির বাক্সে টিক দিন।"));const base={photo:f.name||"selected-photo",timestamp:new Date().toISOString()};let onnx=null,vision=null;try{onnx=await runOnnx(f);}catch(e){onnxOutput.textContent=say("ONNX error: ","ONNX ত্রুটি: ")+(e.message||String(e));}try{vision=await runVision(f,key);}catch(e){visionOutput.textContent=say("Vision API error: ","Vision API ত্রুটি: ")+(e.message||String(e));}lastComparison={...base,onnx,vision,comparisonNote:"Outputs are not equivalent: ONNX gives a four-class candidate label; Gemini gives a visual description. Neither is a diagnosis."};refreshExportButton();if(onnx&&vision)setStatus("Both results are ready. Review them as research outputs only; they are not ground truth.","দুটি ফলাফল প্রস্তুত। এগুলো শুধু গবেষণার ফল, সত্য-নির্ধারক বা রোগ নির্ণয় নয়।");else setStatus("Only one system returned a result. Check the error and retry.","একটি ব্যবস্থার ফল পাওয়া যায়নি। ত্রুটি দেখে আবার চেষ্টা করুন।",true);}catch(e){setStatus(e.message||"Comparison could not start.",e.message||"তুলনা শুরু করা যায়নি।",true);}finally{keyInput.value="";btn.disabled=false;}});
+$("mukul-run-compare").addEventListener("click",async()=>{const btn=$("mukul-run-compare"),key=keyInput.value.trim();btn.disabled=true;exportBtn.hidden=true;lastComparison=null;try{const f=selectedPhoto();if(!key)throw new Error(say("Enter a Gemini API key to run both systems.","দুটি ব্যবস্থা চালাতে Gemini API key দিন।"));if(!consent.checked)throw new Error(say("Tick the consent box before sending the photo to Google.","ছবি Google-এ পাঠানোর আগে সম্মতির বাক্সে টিক দিন।"));const base={photo:"selected-image",timestamp:new Date().toISOString()};let onnx=null,vision=null;try{onnx=await runOnnx(f);}catch(e){onnxOutput.textContent=say("ONNX error: ","ONNX ত্রুটি: ")+(e.message||String(e));}try{vision=await runVision(f,key);}catch(e){visionOutput.textContent=say("Vision API error: ","Vision API ত্রুটি: ")+(e.message||String(e));}lastComparison={...base,onnx,vision,comparisonNote:"Outputs are not equivalent: ONNX gives a four-class candidate label; Gemini gives a visual description. Neither is a diagnosis."};refreshExportButton();if(onnx&&vision)setStatus("Both results are ready. Review them as research outputs only; they are not ground truth.","দুটি ফলাফল প্রস্তুত। এগুলো শুধু গবেষণার ফল, সত্য-নির্ধারক বা রোগ নির্ণয় নয়।");else setStatus("Only one system returned a result. Check the error and retry.","একটি ব্যবস্থার ফল পাওয়া যায়নি। ত্রুটি দেখে আবার চেষ্টা করুন।",true);}catch(e){setStatus(e.message||"Comparison could not start.",e.message||"তুলনা শুরু করা যায়নি।",true);}finally{keyInput.value="";btn.disabled=false;}});
 exportBtn.addEventListener("click",()=>{if(!lastComparison)return;const blob=new Blob([JSON.stringify({...lastComparison,disclaimer:"Research-only output; no disease diagnosis or treatment recommendation. Vision API image was sent to Google only after explicit consent."},null,2)],{type:"application/json;charset=utf-8"});const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="mukul-ai-image-comparison-"+new Date().toISOString().slice(0,10)+".json";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);});
+async function sha256(file){try{if(!crypto.subtle)return null;const bytes=await file.arrayBuffer(),hash=await crypto.subtle.digest("SHA-256",bytes);return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,"0")).join("");}catch(e){return null;}}
+saveRecordBtn.addEventListener("click",async()=>{if(!lastComparison||!lastComparison.onnx||!lastComparison.vision)return;saveRecordBtn.disabled=true;try{const f=selectedPhoto(),hash=await sha256(f);const record={recordId:"MUKUL-"+String(benchmarkRecords.length+1).padStart(4,"0"),timestamp:new Date().toISOString(),photoId:hash||("session-photo-"+(benchmarkRecords.length+1)),photoSizeBytes:f.size,sha256:hash,bangladeshRiceField:bangladeshInput.checked,referenceLabel:referenceInput.value,referenceVerified:referenceInput.value!=="not-verified",cropVariety:($("help-variety")&&$("help-variety").value||"").trim(),riceSeason:$("help-season")?$("help-season").value:"",onnx:lastComparison.onnx,vision:lastComparison.vision,disclaimer:"Research-only outputs. A reference label is ground truth only if independently verified by a qualified rice/agriculture expert. No diagnosis or treatment recommendation."};benchmarkRecords.push(record);exportSetBtn.hidden=false;setStatus("Added record "+record.recordId+". Records are held in this browser session until you download the test set.","রেকর্ড "+record.recordId+" যোগ হয়েছে। টেস্ট সেট ডাউনলোড না করা পর্যন্ত রেকর্ডগুলো শুধু এই ব্রাউজার সেশনে থাকবে।");}catch(e){setStatus(e.message||"Could not save the test record.",e.message||"টেস্ট রেকর্ড যোগ করা যায়নি।",true);}finally{saveRecordBtn.disabled=false;}});
+exportSetBtn.addEventListener("click",()=>{if(!benchmarkRecords.length)return;const verified=benchmarkRecords.filter(r=>r.referenceVerified).length,bangladesh=benchmarkRecords.filter(r=>r.bangladeshRiceField).length;const payload={datasetName:"MUKUL experimental rice image model comparison",createdAt:new Date().toISOString(),recordCount:benchmarkRecords.length,expertVerifiedLabelCount:verified,bangladeshRiceFieldCount:bangladesh,warning:"This export is a research log, not proof of model accuracy. Verify labels independently. The image files themselves are not included; SHA-256 hashes help link records to locally retained images. Vision API photos were sent to Google only after consent.",records:benchmarkRecords};const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="mukul-rice-image-benchmark-"+new Date().toISOString().slice(0,10)+".json";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);});
 photoInput.addEventListener("change",()=>{onnxOutput.textContent=say("Not run yet.","এখনো চালানো হয়নি।");visionOutput.textContent=say("Not run yet.","এখনো চালানো হয়নি।");lastComparison=null;refreshExportButton();});
 })();
 </script>
