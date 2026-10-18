@@ -34,7 +34,7 @@ These sources can support a later controlled evaluation, subject to downloading 
 | Tomato | Tomato leaf dataset — https://huggingface.co/datasets/Project-AgML/tomato_leaf_disease_detection | CC BY 4.0; 689 field images from Bangladesh, seven categories; verify source split and class definitions before use |
 | Potato | Potato Leaf Disease Dataset — https://data.mendeley.com/datasets/d5b3fzpw3g/1 | CC BY 4.0; 804 original field images from BARI's Khulshi research station, six classes; augmented images must not be counted as independent field samples |
 | Maize | MLD: A Multi-Class Maize Leaf Disease Image Dataset from Bangladesh — https://data.mendeley.com/datasets/3myfctrgk3/1 | CC BY 4.0; 1,996 images from Jhenaidah, four classes; review the mix of disease/pest labels and capture conditions |
-| Wheat | No sufficiently verified Bangladesh field-disease dataset was established in this review | A documented, appropriately licensed Bangladesh field set is still needed before a five-crop release claim |
+| Wheat | Disease Dataset of Wheat — https://data.mendeley.com/datasets/5gc7hwydwg/1 | CC BY 4.0; 1,603 original images described as field-collected in Bangladesh across five classes; augmented variants are synthetic derivatives, not independent field samples |
 
 The sources above are proposed evaluation material, not evidence that the candidate model recognises those classes. Class names differ across datasets, and some include pests, nutrient/environmental stress, or healthy leaves alongside diseases.
 
