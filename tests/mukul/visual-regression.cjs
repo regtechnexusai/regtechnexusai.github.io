@@ -149,7 +149,7 @@ const path = require('node:path');
   await page.locator('#farm-form button[type="submit"]').click();
   if (!(await page.locator('#summary').innerText()).includes('Khulna')) throw new Error('Farm record was not rendered in summary');
   if (!(await page.locator('#report').innerText()).includes('পরবর্তী করণীয়')) throw new Error('Farm Records Bangla actionable report was not generated');
-  if (!(await page.locator('#report').innerText()).includes('Soil-test information')) throw new Error('Farm Records soil-test section missing');
+  if (!(await page.locator('#report').innerText()).includes('২. মাটির পরীক্ষার তথ্য')) throw new Error('Farm Records Bangla soil-test section missing');
   if (!(await page.locator('.site-header .brand-logo').count())) throw new Error('Farm Records is missing the shared MUKUL header logo');
   if (!(await page.locator('.site-footer .footer-logo').count())) throw new Error('Farm Records is missing the shared MUKUL footer logo');
   if (!(await page.locator('.site-header a[href="/mukul/farm-records/"]').count())) throw new Error('Farm Records current-page navigation link missing');
