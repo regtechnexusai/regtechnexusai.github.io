@@ -42,6 +42,12 @@ const path = require('node:path');
   await page.locator('#crop-photos').setInputFiles(samplePath);
   await page.waitForTimeout(150);
   if (!(await page.locator('#media-preview img').count())) throw new Error('Selected gallery photo was not previewed locally');
+  for (const selector of ['#delete-media', '#refresh-media', '#reset-crop-form']) {
+    if (!(await page.locator(selector).count())) throw new Error('Missing media action: ' + selector);
+  }
+  await page.locator('#refresh-media').click();
+  if (!(await page.locator('#media-preview img').count())) throw new Error('Refresh did not preserve and redraw selected media');
+
 
   // Functional regression: guidance must match the selected observation and must never
   // render missing translation keys as the literal text "undefined".
@@ -73,6 +79,20 @@ const path = require('node:path');
     if (!resultText.includes(value)) throw new Error('Submitted local context missing from result: ' + value);
   }
   if (!resultText.includes('not uploaded or analysed the media with AI')) throw new Error('Local-only media limitation missing');
+  if (await page.locator('#crop-result-actions').isHidden()) throw new Error('Result print/PDF action did not appear');
+  await page.evaluate(() => { window.__printCalled = false; window.print = () => { window.__printCalled = true; }; });
+  await page.locator('#print-crop-result').click();
+  if (!(await page.locator('body').evaluate(el => el.classList.contains('print-result-mode')))) throw new Error('Result-only print mode did not activate');
+  if (!(await page.evaluate(() => window.__printCalled))) throw new Error('Print/PDF action did not call browser print');
+  await page.evaluate(() => window.dispatchEvent(new Event('afterprint')));
+  await page.locator('#delete-media').click();
+  if ((await page.locator('#media-preview img').count()) || (await page.locator('#crop-photos').inputValue())) throw new Error('Delete media did not clear selected photos');
+  if (!(await page.locator('#crop-help-result').isVisible())) throw new Error('Delete media unexpectedly cleared generated result');
+  await page.locator('#reset-crop-form').click();
+  if (await page.locator('#crop-help-result').isVisible()) throw new Error('Reset did not clear generated result');
+  if (!(await page.locator('#crop-result-actions').isHidden())) throw new Error('Reset did not hide result print/PDF action');
+  await page.locator('#help-district').fill('Khulna / Dighalia');
+
 
   await page.locator('#help-symptom').selectOption('spots');
   await page.locator('#crop-help-form button[type="submit"]').click();
