@@ -51,6 +51,32 @@
 .free-help-front .help-form button[type="submit"]:hover{filter:saturate(1.08);transform:translateY(-1px)}
 .free-help-front .media-intake{background:#f8fcf5;border-color:#d6e7ce}
 @media(max-width:700px){.free-help-front{padding:22px 0 26px}.free-help-front .section-heading{grid-template-columns:1fr;gap:10px}.free-help-front .section-heading p{font-size:13px}.free-help-front .help-form{grid-template-columns:minmax(0,1fr)}.free-help-front .help-form>*{grid-column:1/-1!important}}
+
+/* Focused header, translation and footer repair */
+.site-header{isolation:isolate}
+.header-inner{min-height:66px;padding:8px 20px;gap:14px}
+.brand{min-width:148px;gap:9px}
+.brand-mark{width:39px;height:39px;border-radius:12px;font-size:19px}
+.brand-copy strong{font-size:17px}
+.main-nav{gap:8px;font-size:12px}
+.main-nav a{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:7px 9px;border:1px solid #e0e9e1;border-radius:10px;background:linear-gradient(180deg,#fff,#f5f9f2);white-space:nowrap}
+.main-nav a:hover{background:#eaf4df;border-color:#c7ddba;box-shadow:0 2px 0 #d5e5ca}
+.header-actions{gap:8px}
+.language-select{padding:8px 8px;border-radius:10px}
+.header-actions>.btn{padding:10px 13px;border-radius:11px;font-size:12px;background:linear-gradient(180deg,#2b7950,#174c35);box-shadow:0 3px 0 #0f3825}
+.more-language-panel,#google_translate_element,.goog-te-banner-frame,.skiptranslate iframe{display:none!important}
+body{top:0!important}
+.goog-te-gadget{font-size:0!important}
+.goog-logo-link,.goog-te-gadget span{display:none!important}
+.site-footer{padding:32px 22px 18px;background:linear-gradient(135deg,#174c35,#103c2b)}
+.footer-grid{gap:22px}
+.footer-brand strong{font-size:19px}
+.footer-col h3{display:inline-block;padding:6px 10px;border:1px solid #ffffff2b;border-radius:8px;background:#ffffff0c;font-size:12px}
+.footer-col a{padding:5px 8px;margin:5px 0;border:1px solid #ffffff14;border-radius:8px;width:fit-content;max-width:100%}
+.footer-bottom{margin-top:22px;padding-top:14px}
+@media(max-width:1000px){.header-inner{min-height:62px;padding:7px 14px;gap:9px}.main-nav{gap:5px;font-size:11px}.main-nav a{padding:6px 7px}.brand{min-width:115px}.brand-mark{width:35px;height:35px}.header-actions>.btn{display:none}}
+@media(max-width:760px){.header-inner{min-height:62px;padding:8px 13px}.main-nav{top:62px;left:10px;right:10px;padding:12px}.main-nav a{justify-content:flex-start;width:100%;border-radius:9px;padding:10px 11px}.menu-toggle{padding:6px 10px;font-size:21px}.language-select{max-width:105px;padding:8px 5px}}
+
 </style>
 </head>
 <body>
@@ -68,9 +94,9 @@
     <div class="header-actions">
       <label class="skip-link" for="language-select" data-i18n="chooseLanguage">Choose language</label>
       <select id="language-select" class="language-select" aria-label="Choose language / ভাষা নির্বাচন">
-        <option value="en">English</option><option value="bn">বাংলা</option><option value="more">🌐 Select language…</option>
+        <option value="en">English</option><option value="bn">বাংলা</option>
       </select>
-      <div id="more-language-panel" class="more-language-panel" hidden><span data-i18n="moreLangHint">More languages · powered by Google Translate</span><div id="google_translate_element"></div></div>
+      
       <a class="btn" href="#contact" data-i18n="navJoin">Get involved ↗</a>
     </div>
   </div>
@@ -324,11 +350,10 @@ const select=document.getElementById('language-select');
 const morePanel=document.getElementById('more-language-panel');
 function setLanguage(lang){const d=dict[lang]||dict.en;currentLanguage=lang;document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(d[k]!==undefined)el.innerHTML=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const k=el.dataset.i18nPlaceholder;if(d[k]!==undefined)el.placeholder=d[k];});select.value=lang;try{localStorage.setItem('mukul-language',lang)}catch(e){}}
 function clearGoogleTranslation(){let hadCookie=document.cookie.split(';').some(c=>c.trim().startsWith('googtrans='));if(hadCookie){document.cookie='googtrans=; Max-Age=0; path=/';document.cookie='googtrans=; Max-Age=0; path=/; domain='+location.hostname;document.cookie='googtrans=; Max-Age=0; path=/; domain=.regtechnexusai.com';window.location.reload();return true;}return false;}
-select.addEventListener('change',()=>{if(select.value==='more'){morePanel.hidden=false;setLanguage('en');select.value='more';return;}morePanel.hidden=true;const chosen=select.value;setLanguage(chosen);if(clearGoogleTranslation())return;});
+select.addEventListener('change',()=>{const chosen=select.value;setLanguage(chosen);if(clearGoogleTranslation())return;});
 let initialLanguage='bn';try{const saved=localStorage.getItem('mukul-language');if(saved&&dict[saved])initialLanguage=saved}catch(e){}setLanguage(initialLanguage);updateQualityLabels();
-window.googleTranslateElementInit=function(){new google.translate.TranslateElement({pageLanguage:'en',includedLanguages:'ar,bn,zh-CN,fr,hi,id,ja,ko,pt,es,sw,ur',autoDisplay:false,layout:google.translate.TranslateElement.InlineLayout.SIMPLE},'google_translate_element');};
 })();
 </script>
-<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+
 </body>
 </html>
