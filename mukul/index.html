@@ -162,6 +162,25 @@ body{top:0!important}
 .mukul-ai-meta{font-size:.85rem;color:#52665a}
 @media(max-width:680px){.mukul-ai-results{grid-template-columns:1fr}.mukul-ai-lab{padding:13px}}
 </style>
+
+<style id="mukul-mobile-crop-helper-overflow-fix">
+/* Mobile-only fix: keep the crop-help heading, intro and form inside the viewport. */
+@media (max-width: 700px) {
+  .free-help-front { width: 100%; max-width: 100%; overflow-x: clip; }
+  .free-help-front .container { width: 100%; max-width: 100%; margin-inline: auto; padding-inline: 16px; box-sizing: border-box; }
+  .free-help-front .section-heading,
+  .free-help-front .section-heading > div,
+  .free-help-front .section-heading h2,
+  .free-help-front .section-heading p,
+  .free-help-front .free-help,
+  .free-help-front .free-help-panel { min-width: 0; max-width: 100%; box-sizing: border-box; }
+  .free-help-front .section-heading h2 { font-size: clamp(25px, 7vw, 36px); line-height: 1.18; letter-spacing: -0.02em; overflow-wrap: anywhere; word-break: normal; }
+  .free-help-front .free-help-panel { padding: 18px 16px; }
+  .free-help-front .help-form input,
+  .free-help-front .help-form select,
+  .free-help-front .help-form textarea { width: 100%; min-width: 0; max-width: 100%; box-sizing: border-box; }
+}
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main-content" data-i18n="skipContent">Skip to content</a>
