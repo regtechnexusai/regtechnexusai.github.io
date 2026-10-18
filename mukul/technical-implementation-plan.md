@@ -1,79 +1,72 @@
 # MUKUL Technical Implementation Plan
 **Prepared:** 18 October 2026  
-**Scope:** Free-first, safety-led agricultural guidance; preserve the existing page and its current calculations/decision logic.
+**Scope:** Free-first, safety-led agricultural guidance; preserve existing report logic and unrelated site functionality.
 
-## 1. Current-state audit (verified in `mukul/index.html`)
-- The current crop helper is a static HTML/CSS/JavaScript experience; the reviewed page has no connected backend endpoint for image inference.
-- Crop guidance is generated in the browser from form answers and pre-authored symptom guidance.
-- Selected photos/videos are previewed locally. The page explicitly says media is not uploaded or analysed by AI.
-- Photo-quality checks are local heuristics for dimensions, brightness and sharpness. They are not crop-disease tests.
-- The report already includes cautious next steps, limitations, expert photo-evidence guidance and links to agricultural references.
-- The report can be printed/saved as PDF. **Implemented 18 Oct 2026:** a separate plain-text download action now exports the generated report and direct reference URLs locally in the browser.
-- No paid model, API key, server, sensor, or external image-analysis service was added. This keeps this change free of model/API charges and avoids exposing credentials.
+## 1. Current-state audit
+- The page is a static HTML/CSS/JavaScript experience; it has no secure server-side API gateway.
+- Existing crop guidance is generated in the browser from form answers and pre-authored guidance.
+- Photos and videos are previewed locally by default; the separate Gemini Vision test sends a selected image to Google only after explicit user consent.
+- Existing local photo-quality checks estimate dimensions, brightness and sharpness. They do not establish disease or cause.
+- The page retains cautious next steps, expert photo-evidence guidance, print/PDF and plain-text report export.
+- **Committed experimental integration:** ONNX Runtime Web image classification, opt-in Gemini Vision API comparison, side-by-side results, one-comparison JSON export and session-only benchmark record/test-set JSON export.
+- ONNX model: `nihal4/rice-disease-model`, ResNet50, four classes, Apache-2.0, approximately 98.2 MB. Its model card reports 98.47% validation accuracy; that is not independent Bangladesh field accuracy.
+- Gemini Vision uses `gemini-3.8-flash`. A user-entered API key is not stored in localStorage or the repository and is cleared after the request. However, because the call originates in the browser, the key is visible to the browser runtime and this is **test-only, not production-secure**.
+- **Runtime status:** JavaScript syntax and repository wiring were statically checked. A real image inference, successful API request with a valid user key, and live deployment have not yet been verified.
 
-## 2. Implementation principles
-1. Do not diagnose crop disease from a photo until a suitable model has been tested on independent, real field images and reviewed by qualified agricultural specialists.
-2. Do not invent pesticide/fertiliser doses or present a general checklist as a treatment recommendation.
-3. Keep form and report generation working if an AI/API provider is unavailable.
-4. Collect the minimum necessary personal/location data; get informed consent before uploading any photo or field record.
-5. Do not place provider API keys in public client-side JavaScript.
-6. Keep new functionality additive; do not change existing formulas, scoring, or unrelated site architecture.
+## 2. Safety and privacy principles
+1. AI output is research-only and must not be treated as a disease diagnosis.
+2. The ONNX classifier's candidate label is limited to its four training classes and can be wrong or out of scope.
+3. Gemini is prompted to describe only visible observations and limitations; it must not name/confirm diseases or recommend treatments.
+4. Do not generate pesticide/fertiliser doses or treatment instructions from image model output.
+5. The Vision API requires a clear opt-in checkbox because the selected image leaves the device and is sent to Google. Free-tier terms may allow content use to improve Google products; users should review the provider's current terms and avoid sensitive images.
+6. Do not use the browser-entered API key workflow in production. Use a secure server-side gateway with secrets management, rate limits, consent, upload validation and retention controls.
+7. Keep the existing form/report fallback functional if a model, CDN or API fails.
+8. Preserve existing calculations, formulas, scoring and unrelated architecture.
 
-## 3. Staged delivery plan
+## 3. Implemented experimental features
+- Run ONNX locally in the browser using ONNX Runtime Web; first run may download about 98.2 MB from Hugging Face.
+- Run Gemini 3.8 Flash Vision after key entry and explicit consent.
+- Compare both on the same first selected image. The two outputs are different types: ONNX emits a four-class candidate label; Gemini emits a non-diagnostic visual description. They are not directly equivalent predictions.
+- Export a single comparison as JSON.
+- Optionally mark a photo as from a Bangladesh rice field and record an expert-verified reference class. A reference label is valid ground truth only if independently confirmed by a qualified expert.
+- Add comparisons to a session-only test set and export JSON containing the result metadata, optional reference label and SHA-256 photo fingerprint where Web Crypto is available. The actual image files are not included.
+- The model key is never hardcoded. API requests may still fail because of invalid key, quota, browser CORS, network access or model availability; these cases need runtime testing.
 
-### Phase 0 — completed today
-- Add a client-side `.txt` report export beside print/PDF.
-- Include report text and direct source URLs in the exported file.
-- Preserve the existing media privacy statement and non-diagnostic limitations.
-- No API calls or backend costs introduced.
+## 4. Bangladesh field-image evaluation plan
+1. Collect photos with permission across varieties, growth stages, districts, seasons, lighting, symptom severity, healthy plants and look-alike causes.
+2. Use an independent expert to label the reference class; preserve an “other / uncertain” category.
+3. Keep original images in a controlled location and link them to exported records using the SHA-256 hash; do not upload private images without consent.
+4. Separate test data by field, plant or collection session to prevent leakage between training and evaluation.
+5. Compare ONNX and Gemini on exactly the same images. The current JSON export records outputs but does not itself calculate diagnostic performance metrics.
+6. Calculate per-class precision/recall, confusion matrix, calibration, abstention rate and performance by field condition only after expert-verified labels are available.
+7. Do not present the model as reliable or use it for treatment decisions until independent validation and agricultural specialist review are complete.
 
-### Phase 1 — regression and accessibility checks
-- Test required fields, optional fields, every crop/region/symptom selection, Bengali/English language changes, photo/video preview, camera permission denial, oversized/unsupported media, form reset, print/PDF and text download.
-- Verify exported text contains the generated report and official-source URLs, and does not claim image analysis.
-- Test Android Chrome and desktop browsers; verify keyboard navigation and screen-reader status updates.
-- Fix only defects found in this scoped workflow; do not alter unrelated page sections.
+## 5. Remaining implementation work
+### Immediate
+- Test ONNX model loading and inference in Android Chrome and desktop browsers using actual field photos.
+- Test Gemini API with a user-provided, restricted test key and confirm success/error handling, quota behaviour and consent gating.
+- Test image file size/type limits, no-photo state, network failure, key clearing, language switching, form reset, report print/PDF and text export.
+- Verify that the current live website has deployed the repository commit.
 
-### Phase 2 — no-cost reliability improvements
-- Keep guidance content versioned and source-reviewed, with source title, jurisdiction, publication/update date and last-checked date.
-- Add a clear “last reviewed” field only when it is backed by a real review record.
-- Consider offline caching only after checking the site's existing service-worker/PWA configuration to avoid duplicate workers or broken cache behavior.
-- Add a simple feedback route only if a secure, consent-aware destination is available; do not pretend a local form submits data when it does not.
+### Before public launch
+- Move Gemini requests to a secure backend; do not rely on direct-browser key entry for public production use.
+- Decide whether the 98.2 MB model download is acceptable for mobile data. If not, evaluate a properly licensed quantized model or a small model trained and validated on Bangladesh field images.
+- Add robust benchmark analysis and specialist review.
+- Review privacy notices, image retention, user consent, API data terms and model attribution.
 
-### Phase 3 — field-image model pilot (not production diagnosis)
-- Compare a locally run ONNX model with one vision API on the same independently labelled dataset.
-- Start with consented Bangladesh rice-field images across varieties, growth stages, lighting, symptom severity and look-alike causes.
-- Separate training/validation/test by field, plant or collection session to reduce leakage.
-- Have qualified experts label uncertain examples; retain an “unknown / cannot assess” outcome.
-- Report per-class precision/recall, confusion matrix, calibration, abstention rate and results by field conditions—not only overall accuracy.
-- Do not publish a disease label or treatment recommendation until an agreed acceptance threshold and expert-review protocol are met.
+### Later
+- Add weather data only after checking source coverage, freshness, licensing and cost.
+- Pilot satellite/GIS features for suitable plot sizes and cloud conditions.
+- Expand to more crops/languages only with local evidence and reviewed knowledge.
 
-### Phase 4 — secure backend only if the pilot justifies it
-- Use a server-side gateway for any paid or private API; keep keys out of the browser and repository.
-- Apply rate limits, upload size/type validation, retention controls, consent and deletion procedures.
-- Record model/provider/version, source references and uncertainty for auditability.
-- Maintain the current form-based guidance as a safe fallback.
-- Recheck provider pricing, free-tier limits, data use and commercial terms immediately before selection.
-
-### Phase 5 — weather, satellite and additional crops
-- Integrate only after verifying geographic coverage, licensing, resolution, freshness, costs and user value.
-- Start with weather alerts from a suitable documented source; treat forecast data as contextual evidence, not proof of crop disease.
-- Pilot satellite/GIS features for suitable plot sizes and cloud conditions before exposing them to smallholder farmers.
-- Add further crops and languages only with locally reviewed knowledge and test data.
-
-## 4. Cost position
-- Current form/report generation, local image-quality heuristics and the new text export: no model/API usage fees.
-- Hosting, domain, maintenance, human expert review and data collection may still have costs.
-- ONNX inference can avoid per-image API charges, but device performance, model licence, storage and validation still need checking.
-- Any third-party API must be costed from current provider terms; a free tier must not be described as unlimited or permanent.
-
-## 5. Acceptance criteria before public AI image claims
-- A documented, independently held field test set with expert references.
-- Results by class and field condition, including false positives and “unknown” cases.
-- Specialist approval of the user-facing wording and escalation guidance.
-- Privacy/security review and a verified rollback/fallback path.
-- No unsupported claim that the model is “world-class” or diagnostically accurate without evidence.
+## 6. Cost position
+- Local image inference avoids per-image API fees, but the model download uses data and can be heavy on low-end phones.
+- Gemini usage may be free within a current eligible quota or incur charges; the free tier is limited and has different data-use terms from paid tiers.
+- Hosting, maintenance, expert review and field-image collection may still cost money.
+- Do not describe any third-party free tier as unlimited or permanent.
 
 ## Status
-**Code change committed:** client-side text report export.  
-**Not yet implemented:** AI image inference, backend, weather/satellite APIs, model training, expert-labeled field test set, or production diagnosis.  
-**Live deployment:** must be checked separately; a repository commit alone does not prove that the public website has deployed or passed browser-level tests.
+**Code committed:** local text report export; experimental ONNX inference UI; opt-in Gemini Vision test; side-by-side comparison; optional expert-reference/Bangladesh-field metadata; session-only benchmark collection and JSON export.  
+**Not yet verified:** real browser inference with an actual photo, successful Gemini request with a valid key, live deployment, and model accuracy on independent Bangladesh field photos.  
+**Not yet implemented:** secure server-side API gateway, validated model training/fine-tuning, performance metrics, production diagnosis, weather/satellite APIs.  
+**Deployment caution:** a GitHub commit alone does not prove that the public website is live or that end-to-end browser tests pass.
