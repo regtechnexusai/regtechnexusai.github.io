@@ -69,8 +69,13 @@ def validate_image_bytes(raw: bytes, content_type: str | None) -> None:
         raise HTTPException(status_code=415, detail="unsupported_media_type")
     try:
         with Image.open(io.BytesIO(raw)) as image:
-            if image.format not in {"JPEG", "PNG", "WEBP"}:
-                raise HTTPException(status_code=415, detail="unsupported_media_format")
+            expected_format = {
+                "image/jpeg": "JPEG",
+                "image/png": "PNG",
+                "image/webp": "WEBP",
+            }[content_type]
+            if image.format != expected_format:
+                raise HTTPException(status_code=415, detail="media_type_format_mismatch")
             image.verify()
     except (UnidentifiedImageError, OSError, ValueError):
         raise HTTPException(status_code=422, detail="unreadable_image") from None
