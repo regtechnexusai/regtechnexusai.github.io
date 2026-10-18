@@ -9,7 +9,7 @@ The backend test suite was executed locally against the branch's API and test lo
 
 - Result: **7 passed**
 - Coverage includes health status, inference disabled by default, missing consent, unsupported crop, invalid image, declared MIME vs decoded image-format mismatch, and the guarantee that setting the feature flag alone does not enable a model.
-- This is a local run; the GitHub Actions workflow file has been added, but no completed GitHub Actions run for that workflow has been confirmed yet.
+- GitHub Actions backend-test run #5 completed successfully on the latest documentation commit; the backend-test job and the repository static-regression workflow both reported success. The local run independently reproduced the 7/7 result.
 - These tests validate API guardrails, not disease-model accuracy, deployment security, camera behavior, or privacy compliance.
 
 ## 2. Candidate model and licence review
