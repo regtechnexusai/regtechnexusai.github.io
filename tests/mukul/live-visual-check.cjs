@@ -25,9 +25,17 @@ const path = require('node:path');
   const bn = await page.locator('#crop-media-intake').innerText();
   if (!bn.includes('ছবি')) throw new Error('Bangla language switch failed; visible text: ' + bn.slice(0, 300));
   await page.locator('#language-select').selectOption('en');
+  // Switching back from Google Translate may intentionally reload to clear its cookie.
+  // Wait until the new document has finished applying the saved English selection.
+  await page.waitForFunction(() => {
+    const note = (document.querySelector('#photo-quality-note')?.innerText || '').toLowerCase();
+    const intake = (document.querySelector('#crop-media-intake')?.innerText || '').toLowerCase();
+    return note.includes('no image is uploaded') && intake.includes('photo');
+  }, null, { timeout: 20000 });
   const en = await page.locator('#crop-media-intake').innerText();
-  if (!en.toLowerCase().includes('photo') || !en.toLowerCase().includes('uploaded')) {
-    throw new Error('English labels/local-only privacy note missing; visible text: ' + en.slice(0, 300));
+  const privacyNote = await page.locator('#photo-quality-note').innerText();
+  if (!en.toLowerCase().includes('photo') || !privacyNote.toLowerCase().includes('no image is uploaded')) {
+    throw new Error('English labels/local-only privacy note missing; visible text: ' + en.slice(0, 300) + ' | note: ' + privacyNote);
   }
 
   // Generate a synthetic test image locally in the browser; no online images are used.
