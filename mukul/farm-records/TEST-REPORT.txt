@@ -1,4 +1,4 @@
-MUKUL Farm Records v0.4 — Pre-publication static review
+MUKUL Farm Records v0.5 — Pre-publication static review
 Date: 18 October 2026
 
 PASS — HTML, inline CSS and JavaScript are packaged in a standalone page.
@@ -7,6 +7,9 @@ PASS — Safety boundary is visible: no disease diagnosis and no dosage estimate
 PASS — Local-only storage and data-loss limitation are disclosed.
 PASS — Privacy notice and source register are included.
 PASS — CSV export mitigates common spreadsheet formula-prefix injection.
+PASS — Farm report summarizes entered data, flags missing core fields, gives cautious next steps, and links to BARC crop-zoning/FRG references without classifying soil values or prescribing doses.
+PASS — Header/footer use the MUKUL homepage logo and visual system; bilingual links and mobile navigation are included.
+PASS — Service-worker cache name advanced to v0.5 to prevent stale v0.4 page assets after update.
 
 NOT YET TESTED — Live browser/mobile install, CSV/print in a real browser, deployed HTTPS, offline behavior on the deployed URL, and service-worker cache update.
 
