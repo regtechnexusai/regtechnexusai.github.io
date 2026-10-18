@@ -6,6 +6,12 @@ on:
       - "mukul/**"
       - ".github/workflows/mukul-visual-regression.yml"
       - "tests/mukul/**"
+  push:
+    branches: [main]
+    paths:
+      - "mukul/**"
+      - ".github/workflows/mukul-visual-regression.yml"
+      - "tests/mukul/**"
   workflow_dispatch:
 
 permissions:
