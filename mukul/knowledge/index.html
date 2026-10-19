@@ -13,10 +13,10 @@
 @media(max-width:760px){.header-inner{padding:10px 14px;gap:9px}.brand small{display:none}.navlink{display:none}.language{max-width:112px;font-size:12px}.hero{padding:43px 0 35px}.hero p{font-size:15px}.grid{grid-template-columns:1fr}.sources{grid-template-columns:repeat(2,minmax(0,1fr))}.section{padding:42px 0}.card{padding:19px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
-<link rel="stylesheet" href="/mukul/shared-shell.css?v=20261019-1">
+<link rel="stylesheet" href="/mukul/shared-shell.css?v=20261019-2">
 </head>
 <body>
-<header class="site-header header">
+<header class="site-header">
 <div class="header-inner">
 <a class="brand" href="/mukul/" aria-label="MUKUL Agriculture Hub home"><img class="brand-logo" src="/mukul/mukul-logo.svg" alt="MUKUL Agriculture Hub — Smarter Farming, Healthier Tomorrow" width="400" height="132"></a>
 <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="main-nav">☰</button>
@@ -78,5 +78,6 @@
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
 <script>
 (function(){const btn=document.querySelector('.menu-toggle'),nav=document.querySelector('#main-nav');if(!btn||!nav)return;function close(){nav.classList.remove('open');btn.setAttribute('aria-expanded','false');btn.setAttribute('aria-label','Open menu');btn.textContent='☰'}btn.addEventListener('click',function(){const open=btn.getAttribute('aria-expanded')!=='true';nav.classList.toggle('open',open);btn.setAttribute('aria-expanded',String(open));btn.setAttribute('aria-label',open?'Close menu':'Open menu');btn.textContent=open?'×':'☰'});nav.addEventListener('click',function(e){if(e.target.closest('a'))close()});document.addEventListener('click',function(e){if(!btn.contains(e.target)&&!nav.contains(e.target))close()});document.addEventListener('keydown',function(e){if(e.key==='Escape')close()})})();
-</script>\n</body>
+</script>
+</body>
 </html>
