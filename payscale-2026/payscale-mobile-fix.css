@@ -1,0 +1,40 @@
+/* PayScale page-only mobile contrast repair. No calculator logic touched. */
+@media (max-width: 620px) {
+  body { color: #10203b; }
+  .hero {
+    color: #10203b !important;
+    background: #ffffff !important;
+    padding: 28px 20px 26px !important;
+    min-height: 0 !important;
+  }
+  .hero h1, .hero h1 span { color: #10203b !important; opacity: 1 !important; }
+  .hero > p, .hero p, .hero-subtitle { color: #334761 !important; opacity: 1 !important; }
+  .eyebrow, .kicker { color: #087da5 !important; opacity: 1 !important; }
+  .hero-proof, .hero-proof span, .hero-proof li { color: #344a65 !important; opacity: 1 !important; }
+  .effective-badge {
+    color: #18304d !important;
+    background: #eaf3ff !important;
+    border: 1px solid #b8cce6 !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+  }
+  .effective-badge span { color: #3b526f !important; opacity: 1 !important; }
+  .effective-badge strong { color: #087a58 !important; opacity: 1 !important; }
+  .release-banner, .update-note {
+    color: #f7faff !important;
+    background: linear-gradient(135deg, #253e62, #344b70) !important;
+    border-color: #647d9f !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+  }
+  .release-banner p, .update-note p { color: #f1f5fc !important; opacity: 1 !important; }
+  .release-banner strong, .update-note strong { color: #ffe6a8 !important; opacity: 1 !important; }
+  .release-banner a, .update-note a { color: #8eeaff !important; opacity: 1 !important; text-decoration: underline !important; }
+  .quick-choice-section .choice-card, .choice-card {
+    opacity: 1 !important;
+    filter: none !important;
+  }
+  .choice-card strong { color: #ffffff !important; opacity: 1 !important; }
+  .choice-card p { color: #f1f7ff !important; opacity: 1 !important; }
+  .choice-card .choice-kicker { color: #c4f4ff !important; opacity: 1 !important; }
+}
