@@ -1,0 +1,49 @@
+/* MUKUL shared header/footer presentation layer. Page tools and content remain unchanged. */
+:root{--mukul-green:#174c35;--mukul-green2:#246b49;--mukul-lime:#d9ef9a;--mukul-line:#dce6df;--mukul-muted:#607168}
+.site-header,.header,.mukul-shared-header{position:sticky;top:0;z-index:1000;width:100%;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--mukul-line);box-sizing:border-box}
+.site-header .header-inner,.header .header-inner,.mukul-shared-header .header-inner{max-width:1240px;min-height:78px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:18px;box-sizing:border-box}
+.site-header .brand,.header .brand,.mukul-shared-header .brand{display:flex;align-items:center;gap:10px;min-width:0;flex:0 1 auto;color:var(--mukul-green);text-decoration:none}
+.site-header img.brand-logo,.header img.brand-logo,.mukul-shared-header img.brand-logo{display:block;width:clamp(175px,20vw,225px);max-width:100%;height:auto;max-height:76px;object-fit:contain;object-position:left center;flex-shrink:0}
+.site-header .main-nav,.header .main-nav,.mukul-shared-header .main-nav{display:flex;align-items:center;justify-content:center;gap:clamp(8px,1.25vw,17px);margin-left:auto;font-size:12px;font-weight:750}
+.site-header .main-nav a,.header .main-nav a,.mukul-shared-header .main-nav a{color:var(--mukul-green);text-decoration:none;white-space:nowrap}
+.site-header .main-nav a:hover,.header .main-nav a:hover,.mukul-shared-header .main-nav a:hover,.site-header .main-nav a[aria-current=page],.header .main-nav a[aria-current=page]{color:var(--mukul-green2);text-decoration:underline;text-underline-offset:4px}
+.site-header .header-actions,.header .header-actions,.mukul-shared-header .header-actions{display:flex;align-items:center;gap:8px;margin-left:0}
+.site-header .language-select,.header .language,.header .language-select,.mukul-shared-header select{max-width:138px;min-width:0;border:1px solid var(--mukul-line);border-radius:11px;padding:9px;background:#fff;color:#172820;font-size:12px}
+.site-header .menu-toggle,.header .menu-toggle,.mukul-shared-header .menu-toggle{display:none;flex:0 0 auto;border:1px solid var(--mukul-line);border-radius:11px;padding:8px 12px;background:#fff;color:var(--mukul-green);font-size:22px;line-height:1.2}
+.site-footer,body>footer{box-sizing:border-box;width:100%;margin-top:36px;background:#143c2b;color:#e6f0e9;border-top:4px solid var(--mukul-lime)}
+.site-footer a,body>footer a{color:#e0ebe4}
+.site-footer a:hover,body>footer a:hover{color:var(--mukul-lime)}
+.site-footer .footer-grid{grid-template-columns:minmax(0,1.5fr) repeat(3,minmax(0,1fr));gap:28px}
+.site-footer .footer-brand,.site-footer .footer-col{min-width:0}
+.site-footer .footer-logo-link{display:inline-flex;max-width:100%;align-items:center}
+.site-footer img.footer-logo{display:block;width:min(100%,230px);max-width:100%;height:auto;max-height:90px;object-fit:contain;object-position:left center}
+.site-footer .footer-col a{overflow-wrap:anywhere;line-height:1.6}
+.site-footer .footer-bottom{max-width:1190px;margin:28px auto 0;padding-top:17px;border-top:1px solid #ffffff35;display:flex;justify-content:space-between;align-items:flex-start;gap:10px 18px;flex-wrap:wrap;color:#d1e0d6;font-size:11px;line-height:1.6}
+.site-footer .footer-bottom>span{min-width:0;max-width:100%;overflow-wrap:anywhere}
+body>footer .foot{max-width:1190px;margin:0 auto;padding:28px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px 20px;flex-wrap:wrap;color:#e6f0e9;font-size:12px;line-height:1.7}
+body>footer .foot a{color:#e0ebe4;text-decoration:underline;text-underline-offset:3px}
+.mukul-legal-header{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:12px 24px}
+.mukul-legal-header img{display:block;width:min(220px,65vw);height:auto;max-height:72px;object-fit:contain}
+.mukul-legal-header nav{display:flex;gap:14px;flex-wrap:wrap;margin-left:auto;font-size:12px;font-weight:700}
+.mukul-legal-header nav a{color:var(--mukul-green);text-decoration:none}
+@media(max-width:1000px){.site-header .header-inner,.header .header-inner,.mukul-shared-header .header-inner{gap:10px;padding:10px 16px}.site-header .main-nav,.header .main-nav,.mukul-shared-header .main-nav{gap:9px;font-size:11px}.site-header img.brand-logo,.header img.brand-logo,.mukul-shared-header img.brand-logo{width:175px}}
+@media(max-width:760px){
+ .site-header .header-inner,.header .header-inner,.mukul-shared-header .header-inner{min-height:70px;padding:9px 14px;gap:8px}
+ .site-header .menu-toggle,.header .menu-toggle,.mukul-shared-header .menu-toggle{display:block;margin-left:auto}
+ .site-header .main-nav,.header .main-nav,.mukul-shared-header .main-nav{display:none;position:absolute;top:100%;left:12px;right:12px;margin:0;padding:12px;background:#fff;border:1px solid var(--mukul-line);border-radius:15px;box-shadow:0 14px 32px #173e291c;flex-direction:column;align-items:stretch;gap:0;max-height:calc(100vh - 90px);overflow:auto;font-size:13px}
+ .site-header .main-nav.open,.header .main-nav.open,.mukul-shared-header .main-nav.open{display:flex}
+ .site-header .main-nav a,.header .main-nav a,.mukul-shared-header .main-nav a{white-space:normal;padding:11px 8px;border-bottom:1px solid #edf2ed}
+ .site-header .main-nav a:last-child,.header .main-nav a:last-child,.mukul-shared-header .main-nav a:last-child{border-bottom:0}
+ .site-header img.brand-logo,.header img.brand-logo,.mukul-shared-header img.brand-logo{width:min(42vw,190px);max-height:58px}
+ .site-header .language-select,.header .language,.header .language-select,.mukul-shared-header select{max-width:105px;font-size:11px;padding:8px 5px}
+ .site-footer,body>footer{margin-top:28px}
+ .site-footer{padding:30px 17px 18px}
+ .site-footer .footer-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 16px}
+ .site-footer .footer-brand{grid-column:1/-1}
+ .site-footer img.footer-logo{width:min(100%,210px);max-height:76px}
+ .site-footer .footer-bottom{margin-top:22px;gap:8px}
+ body>footer .foot{padding:24px 17px;align-items:flex-start}
+ .mukul-legal-header{padding:10px 14px;gap:10px}
+ .mukul-legal-header nav{margin-left:0}
+}
+@media(max-width:420px){.site-footer{padding:26px 16px 16px}.site-footer .footer-grid{grid-template-columns:minmax(0,1fr)}.site-footer .footer-brand{grid-column:auto}.site-footer .footer-bottom,body>footer .foot{display:grid;grid-template-columns:minmax(0,1fr)}}
