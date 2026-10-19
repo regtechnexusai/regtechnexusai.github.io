@@ -13,12 +13,28 @@
 @media(max-width:760px){.header-inner{padding:10px 14px;gap:9px}.brand small{display:none}.navlink{display:none}.language{max-width:112px;font-size:12px}.hero{padding:43px 0 35px}.hero p{font-size:15px}.grid{grid-template-columns:1fr}.sources{grid-template-columns:repeat(2,minmax(0,1fr))}.section{padding:42px 0}.card{padding:19px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
-</head>
+<link rel="stylesheet" href="/mukul/shared-shell.css?v=20261019-1">\n</head>
 <body>
-<header class="header"><div class="header-inner">
-<a class="brand" href="/mukul/" aria-label="MUKUL Agriculture Hub home"><span class="mark">M</span><span>MUKUL<small data-en="AGRICULTURE HUB" data-bn="কৃষি হাব">AGRICULTURE HUB</small></span></a>
-<span class="spacer"></span><a class="navlink" href="/mukul/" data-en="Home" data-bn="মূল পৃষ্ঠা">Home</a><a class="navlink" href="#guides" data-en="Learning guides" data-bn="শেখার নির্দেশিকা">Learning guides</a>
-<label class="sr" for="language">Choose language / ভাষা নির্বাচন</label><select class="language" id="language" aria-label="Choose language / ভাষা নির্বাচন"><option value="en">English</option><option value="bn">বাংলা</option><option value="more">🌐 Select language…</option></select><div id="more-language-panel" class="more-language-panel" hidden><span data-en="More languages · powered by Google Translate" data-bn="অন্যান্য ভাষা · Google Translate দ্বারা">More languages · powered by Google Translate</span><div id="google_translate_element"></div></div>
+<header class="site-header header">
+<div class="header-inner">
+<a class="brand" href="/mukul/" aria-label="MUKUL Agriculture Hub home"><img class="brand-logo" src="/mukul/mukul-logo.svg" alt="MUKUL Agriculture Hub — Smarter Farming, Healthier Tomorrow" width="400" height="132"></a>
+<button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="main-nav">☰</button>
+<nav class="main-nav" id="main-nav" aria-label="Main navigation">
+<a href="/mukul/" data-en="Home" data-bn="মূল পৃষ্ঠা">Home</a>
+<a href="/mukul/#mission" data-en="Our mission" data-bn="আমাদের লক্ষ্য">Our mission</a>
+<a href="/mukul/#platform" data-en="Platform" data-bn="প্ল্যাটফর্ম">Platform</a>
+<a href="/mukul/#market" data-en="Market" data-bn="বাজার">Market</a>
+<a href="/mukul/#knowledge" data-en="Knowledge" data-bn="জ্ঞান">Knowledge</a>
+<a href="/mukul/knowledge/" aria-current="page" data-en="Learning guides" data-bn="শেখার নির্দেশিকা">Learning guides</a>
+<a href="/mukul/farm-records/" data-en="Farm records" data-bn="জমির রেকর্ড">Farm records</a>
+<a href="/mukul/#trade" data-en="Global trade" data-bn="আন্তর্জাতিক বাণিজ্য">Global trade</a>
+<a href="/mukul/#sources" data-en="Sources" data-bn="তথ্যসূত্র">Sources</a>
+</nav>
+<div class="header-actions">
+<label class="sr" for="language">Choose language / ভাষা নির্বাচন</label>
+<select class="language" id="language" aria-label="Choose language / ভাষা নির্বাচন"><option value="en">English</option><option value="bn">বাংলা</option><option value="more">🌐 Select language…</option></select>
+<div id="more-language-panel" class="more-language-panel" hidden><span data-en="More languages · powered by Google Translate" data-bn="অন্যান্য ভাষা · Google Translate দ্বারা">More languages · powered by Google Translate</span><div id="google_translate_element"></div></div>
+</div>
 </div></header>
 <main>
 <section class="hero"><div class="wrap">
@@ -52,5 +68,7 @@
 (()=>{const select=document.getElementById('language'),panel=document.getElementById('more-language-panel');function setLang(lang){document.documentElement.lang=lang;document.querySelectorAll('[data-en][data-bn]').forEach(el=>{el.textContent=el.dataset[lang]||el.dataset.en});select.value=lang;try{localStorage.setItem('mukul-language',lang)}catch(e){}}function clearGoogleTranslation(){const hadCookie=document.cookie.split(';').some(c=>c.trim().startsWith('googtrans='));if(hadCookie){document.cookie='googtrans=; Max-Age=0; path=/';document.cookie='googtrans=; Max-Age=0; path=/; domain='+location.hostname;document.cookie='googtrans=; Max-Age=0; path=/; domain=.regtechnexusai.com';window.location.reload();return true;}return false;}select.addEventListener('change',()=>{if(select.value==='more'){panel.hidden=false;setLang('en');select.value='more';return;}panel.hidden=true;const chosen=select.value;setLang(chosen);if(clearGoogleTranslation())return;});let initial='bn';try{const saved=localStorage.getItem('mukul-language');if(saved==='bn'||saved==='en')initial=saved}catch(e){}setLang(initial);document.getElementById('year').textContent=new Date().getFullYear();window.googleTranslateElementInit=function(){new google.translate.TranslateElement({pageLanguage:'en',includedLanguages:'ar,bn,zh-CN,fr,hi,id,ja,ko,pt,es,sw,ur',autoDisplay:false,layout:google.translate.TranslateElement.InlineLayout.SIMPLE},'google_translate_element');};})();
 </script>
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
-</body>
+<script>
+(function(){const btn=document.querySelector('.menu-toggle'),nav=document.querySelector('#main-nav');if(!btn||!nav)return;function close(){nav.classList.remove('open');btn.setAttribute('aria-expanded','false');btn.setAttribute('aria-label','Open menu');btn.textContent='☰'}btn.addEventListener('click',function(){const open=btn.getAttribute('aria-expanded')!=='true';nav.classList.toggle('open',open);btn.setAttribute('aria-expanded',String(open));btn.setAttribute('aria-label',open?'Close menu':'Open menu');btn.textContent=open?'×':'☰'});nav.addEventListener('click',function(e){if(e.target.closest('a'))close()});document.addEventListener('click',function(e){if(!btn.contains(e.target)&&!nav.contains(e.target))close()});document.addEventListener('keydown',function(e){if(e.key==='Escape')close()})})();
+</script>\n</body>
 </html>
