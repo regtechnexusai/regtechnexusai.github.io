@@ -211,6 +211,61 @@ body .site-footer .footer-bottom>span{min-width:0!important;max-width:100%!impor
   .free-help-front .help-form textarea { width: 100%; min-width: 0; max-width: 100%; box-sizing: border-box; }
 }
 </style>
+
+<style id="mukul-mobile-ai-lab-layout-fix">
+/* Fix the AI consent row collapsing into a narrow side column on mobile. */
+@media (max-width: 700px) {
+  .mukul-ai-lab,
+  .mukul-ai-lab * { box-sizing: border-box; min-width: 0; }
+  .mukul-ai-lab { width: 100%; max-width: 100%; overflow-wrap: anywhere; }
+  .mukul-ai-lab .ai-controls {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100%;
+    max-width: 100%;
+    gap: 12px;
+  }
+  .mukul-ai-lab .ai-controls > div,
+  .mukul-ai-lab .ai-controls > label {
+    grid-column: 1 / -1 !important;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .mukul-ai-lab .ai-consent {
+    display: flex !important;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    white-space: normal;
+  }
+  .mukul-ai-lab .ai-consent input {
+    flex: 0 0 18px;
+    width: 18px;
+    min-width: 18px;
+    margin: 4px 0 0;
+  }
+  .mukul-ai-lab .ai-consent span {
+    display: block;
+    flex: 1 1 auto;
+    width: auto;
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    line-height: 1.6;
+  }
+  .mukul-ai-lab .ai-controls input[type="password"],
+  .mukul-ai-lab .ai-controls select {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .mukul-ai-results { grid-template-columns: minmax(0, 1fr) !important; }
+}
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main-content" data-i18n="skipContent">Skip to content</a>
