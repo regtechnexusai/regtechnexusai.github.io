@@ -96,3 +96,89 @@ body .site-header .main-nav a{display:inline-flex;align-items:center;justify-con
 body .site-header .main-nav a:hover,body .site-header .main-nav a[aria-current="page"]{background:#eaf4df;border-color:#c7ddba;color:#174c35;text-decoration:none;box-shadow:0 2px 0 #d5e5ca}
 @media(max-width:1100px){body .site-header .main-nav{gap:5px!important}body .site-header .main-nav a{padding:6px 7px;font-size:11px}}
 @media(max-width:760px){body .site-header .main-nav a{display:flex;width:100%;justify-content:flex-start;min-height:40px;padding:10px 11px;border-radius:9px;background:#fff;border:0;border-bottom:1px solid #eef2ee;box-shadow:none}body .site-header .main-nav a:hover,body .site-header .main-nav a[aria-current="page"]{background:#f4f8f2;box-shadow:none}}
+
+
+/* MUKUL footer redesign v4: enforce the same spacious, dark navy footer across every MUKUL page. */
+body footer.site-footer.mukul-global-footer{
+  display:block!important;position:relative!important;float:none!important;clear:both!important;
+  width:100%!important;max-width:none!important;box-sizing:border-box!important;
+  margin:48px 0 0!important;padding:58px clamp(18px,5vw,76px) 26px!important;
+  background:#0a1b36!important;color:#f4f7fb!important;border:0!important;
+  border-top:1px solid #34445e!important;border-radius:0!important;box-shadow:none!important;
+  overflow:visible!important;font-family:Inter,Arial,sans-serif!important;
+}
+body footer.site-footer.mukul-global-footer *{box-sizing:border-box}
+body footer.site-footer.mukul-global-footer .footer-grid{
+  display:grid!important;grid-template-columns:minmax(220px,1.55fr) repeat(4,minmax(0,1fr))!important;
+  gap:clamp(20px,2.7vw,40px)!important;width:100%!important;max-width:1320px!important;
+  margin:0 auto!important;padding:0!important;align-items:start!important;
+}
+body footer.site-footer.mukul-global-footer .footer-brand,
+body footer.site-footer.mukul-global-footer .footer-col{
+  display:flex!important;flex-direction:column!important;align-items:flex-start!important;
+  min-width:0!important;max-width:100%!important;gap:12px!important;
+  background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;
+}
+body footer.site-footer.mukul-global-footer .footer-logo-link{
+  display:inline-flex!important;width:min(100%,248px)!important;max-width:100%!important;
+  align-items:center!important;justify-content:flex-start!important;padding:3px!important;margin:0 0 4px!important;
+  background:#fff!important;border:0!important;border-radius:2px!important;box-shadow:none!important;
+}
+body footer.site-footer.mukul-global-footer img.footer-logo{
+  display:block!important;width:100%!important;max-width:242px!important;height:auto!important;
+  max-height:78px!important;object-fit:contain!important;object-position:left center!important;
+}
+body footer.site-footer.mukul-global-footer .footer-brand p,
+body footer.site-footer.mukul-global-footer .footer-col p{
+  margin:0!important;padding:0!important;max-width:270px!important;background:transparent!important;
+  color:#b8c8d9!important;font-size:12px!important;line-height:1.75!important;overflow-wrap:anywhere!important;
+}
+body footer.site-footer.mukul-global-footer .footer-col h3{
+  display:block!important;margin:2px 0 5px!important;padding:0!important;background:transparent!important;
+  color:#b8c8d9!important;border:0!important;border-radius:0!important;box-shadow:none!important;
+  font-size:11px!important;font-weight:800!important;line-height:1.5!important;letter-spacing:.12em!important;
+  text-transform:uppercase!important;
+}
+body footer.site-footer.mukul-global-footer .footer-col a{
+  display:block!important;width:auto!important;max-width:100%!important;margin:0!important;padding:0!important;
+  background:transparent!important;color:#e0e8f1!important;border:0!important;border-radius:0!important;
+  box-shadow:none!important;font-size:14px!important;font-weight:500!important;line-height:1.65!important;
+  white-space:normal!important;overflow-wrap:anywhere!important;text-decoration:none!important;
+}
+body footer.site-footer.mukul-global-footer .footer-col a:hover,
+body footer.site-footer.mukul-global-footer .footer-col a:focus-visible{
+  background:transparent!important;color:#65d4df!important;text-decoration:underline!important;text-underline-offset:4px;
+}
+body footer.site-footer.mukul-global-footer .footer-bottom{
+  display:flex!important;grid-column:1/-1!important;justify-content:space-between!important;align-items:flex-start!important;
+  gap:14px 24px!important;flex-wrap:wrap!important;width:100%!important;max-width:1320px!important;
+  margin:34px auto 0!important;padding:22px 0 0!important;border:0!important;border-top:1px solid #33445e!important;
+  color:#aab8ca!important;font-size:11px!important;line-height:1.7!important;
+}
+body footer.site-footer.mukul-global-footer .footer-bottom>span{
+  display:block!important;min-width:0!important;max-width:100%!important;margin:0!important;padding:0!important;
+  color:inherit!important;overflow-wrap:anywhere!important;background:transparent!important;
+}
+body footer.site-footer.mukul-global-footer .footer-legal-links{
+  display:flex!important;flex-wrap:wrap!important;gap:10px 22px!important;margin-left:auto!important;
+}
+body footer.site-footer.mukul-global-footer .footer-bottom a{
+  display:inline-block!important;color:#d4deea!important;font-size:12px!important;line-height:1.6!important;
+  text-decoration:none!important;white-space:normal!important;
+}
+body footer.site-footer.mukul-global-footer .footer-bottom a:hover{color:#65d4df!important;text-decoration:underline!important}
+@media(max-width:1100px){
+ body footer.site-footer.mukul-global-footer{padding:44px 24px 24px!important}
+ body footer.site-footer.mukul-global-footer .footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:28px 24px!important}
+ body footer.site-footer.mukul-global-footer .footer-brand{grid-column:1/-1!important}
+ body footer.site-footer.mukul-global-footer .footer-legal-links{margin-left:0!important}
+}
+@media(max-width:600px){
+ body footer.site-footer.mukul-global-footer{margin-top:30px!important;padding:36px 20px 22px!important}
+ body footer.site-footer.mukul-global-footer .footer-grid{grid-template-columns:minmax(0,1fr)!important;gap:24px!important}
+ body footer.site-footer.mukul-global-footer .footer-brand{grid-column:auto!important}
+ body footer.site-footer.mukul-global-footer .footer-brand p,
+ body footer.site-footer.mukul-global-footer .footer-col p{max-width:100%!important}
+ body footer.site-footer.mukul-global-footer .footer-bottom{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:12px!important;margin-top:26px!important;padding-top:18px!important}
+ body footer.site-footer.mukul-global-footer .footer-legal-links{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:9px!important}
+}
