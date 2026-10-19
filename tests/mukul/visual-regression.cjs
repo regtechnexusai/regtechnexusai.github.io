@@ -22,6 +22,19 @@ const path = require('node:path');
   if (mainOrder[0] !== 'free-help') throw new Error('Free crop guidance section must be the first section after the site header');
   if (!(mainOrder.indexOf('top') > mainOrder.indexOf('free-help'))) throw new Error('Introductory hero should remain below the crop guidance form');
   if (!(await page.locator('#crop-help-form').isVisible())) throw new Error('Crop guidance form is not immediately visible on landing page');
+  // Mobile layout regression: crop-help content must stay within a narrow phone viewport.
+  await page.setViewportSize({ width: 360, height: 800 });
+  await page.waitForTimeout(100);
+  const mobileLayout = await page.evaluate(() => {
+    const selectors = ['.free-help-front .section-heading .kicker', '.free-help-front .section-heading h2', '.free-help-front .section-heading p', '.free-help-front .free-help-panel'];
+    return { viewport: document.documentElement.clientWidth, documentWidth: document.documentElement.scrollWidth,
+      boxes: selectors.map(selector => { const r = document.querySelector(selector).getBoundingClientRect(); return { selector, left: r.left, right: r.right, width: r.width }; }) };
+  });
+  if (mobileLayout.documentWidth > mobileLayout.viewport + 1) throw new Error('MUKUL mobile page has horizontal overflow: ' + JSON.stringify(mobileLayout));
+  for (const box of mobileLayout.boxes) {
+    if (box.left < 8 || box.right > mobileLayout.viewport - 8) throw new Error('MUKUL mobile crop-help content is clipped: ' + JSON.stringify(box));
+  }
+  await page.setViewportSize({ width: 1440, height: 1000 });
   const homeIds = await page.locator('[id]').evaluateAll(nodes => nodes.map(n => n.id));
   if (new Set(homeIds).size !== homeIds.length) throw new Error('Duplicate IDs on MUKUL homepage');
   await page.locator('#language-select').selectOption('bn');
