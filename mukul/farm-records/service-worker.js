@@ -1,5 +1,5 @@
-const CACHE='mukul-farm-records-v0.6';
-const FILES=['./','./index.html','./styles.css','./manifest.webmanifest','./privacy.html','./source-register.html','./icons/mukul-icon.svg','/mukul/shared-shell.css?v=20261019-5'];
+const CACHE='mukul-farm-records-v0.7';
+const FILES=['./','./index.html','./styles.css','./manifest.webmanifest','./privacy.html','./source-register.html','./icons/mukul-icon.svg','/mukul/shared-shell.css?v=20261019-6'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(FILES)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('mukul-farm-records-')&&key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',event=>{
