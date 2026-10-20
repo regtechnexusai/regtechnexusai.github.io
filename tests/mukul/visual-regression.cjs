@@ -106,14 +106,14 @@ const path = require('node:path');
   await page.locator('#crop-help-form button[type="submit"]').click();
   let resultText = await page.locator('#crop-help-result').innerText();
   if (resultText.includes('undefined')) throw new Error('MUKUL result contains undefined text');
-  if (!resultText.toLowerCase().includes('water level')) throw new Error('Wilting guidance missing; selected symptom=' + await page.locator('#help-symptom').inputValue() + '; language=' + await page.locator('#language-select').inputValue() + '; result=' + resultText.slice(0, 3500));
+  if (!resultText.toLowerCase().includes('water level')) throw new Error('Wilting guidance missing; selected symptom=' + await page.locator('#help-symptom').inputValue() + '; language=' + await page.locator('#language-select').inputValue());
   if (!(await page.locator('#media-preview img').count())) throw new Error('Selected media preview missing before report assertions');
   if (!resultText.includes('not a diagnosis') || !resultText.includes('IRRI Rice Knowledge Bank')) throw new Error('Rice safety boundary or authoritative learning reference missing');
   if (!resultText.includes('The problem is spreading') || !resultText.includes('check whether normal drainage paths are blocked') || !resultText.includes('do not guess doses')) throw new Error('Spreading warning, wet-field guidance or no-dose safety boundary missing');
   for (const value of ['Khulna / Dighalia', 'Aman', 'BRRI dhan example', '45 Days', '2026-10-10', '5 শতক', 'Yes, increasing', 'Standing water', 'Rain after irrigation', 'Older / lower leaves', 'Patches in parts of the field', 'Insects near leaves or plant base']) {
     if (!resultText.includes(value)) throw new Error('Submitted local context missing from result: ' + value);
   }
-  if (!resultText.includes('not uploaded or analysed the media with AI')) throw new Error('Local-only media limitation missing');
+  if (!resultText.includes('no request from this form to send a photo to Google Vision API was recorded') || !resultText.includes('not a diagnosis from photos')) throw new Error('Local-only media limitation or no-diagnosis boundary missing');
   if (await page.locator('#crop-result-actions').isHidden()) throw new Error('Result print/PDF action did not appear');
   await page.evaluate(() => { window.__printCalled = false; window.print = () => { window.__printCalled = true; }; });
   await page.locator('#print-crop-result').click();
