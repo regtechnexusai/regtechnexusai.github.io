@@ -101,6 +101,8 @@ const path = require('node:path');
   await page.locator('#help-region').selectOption('bangladesh');
   await page.locator('#help-crop').selectOption('rice');
   await page.locator('#help-symptom').selectOption('wilt');
+  // Assert the known English output below regardless of the preceding bilingual UI checks.
+  await page.locator('#language-select').selectOption('en');
   await page.locator('#crop-help-form button[type="submit"]').click();
   let resultText = await page.locator('#crop-help-result').innerText();
   if (resultText.includes('undefined')) throw new Error('MUKUL result contains undefined text');
