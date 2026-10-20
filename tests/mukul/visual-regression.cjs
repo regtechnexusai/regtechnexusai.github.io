@@ -35,7 +35,7 @@ const path = require('node:path');
     if (box.left < 8 || box.right > mobileLayout.viewport - 8) throw new Error('MUKUL mobile crop-help content is clipped: ' + JSON.stringify(box));
   }
   const consentLayout = await page.evaluate(() => {
-    const label = document.querySelector('#mukul-gemini-consent');
+    const label = document.querySelector('label[for="mukul-gemini-consent"]');
     const span = label && label.querySelector('span');
     if (!label || !span) return { missing: true };
     const lr = label.getBoundingClientRect(), sr = span.getBoundingClientRect();
