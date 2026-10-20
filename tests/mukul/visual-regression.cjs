@@ -143,7 +143,7 @@ const path = require('node:path');
   await page.locator('#crop-help-form button[type="submit"]').click();
   resultText = await page.locator('#crop-help-result').innerText();
   if (resultText.includes('undefined') || !resultText.includes('দাগের রং, আকৃতি, আকার')) throw new Error('Bangla symptom-specific result failed');
-  if (!resultText.includes('রোগ নির্ণয় নয়') || !resultText.includes('এই সেশনে নির্বাচিত মিডিয়া: 1')) throw new Error('Bangla safety boundary or media count missing');
+  if (!resultText.includes('রোগ নির্ণয় নয়') || !resultText.includes('এই সেশনে নির্বাচিত ছবি: 1')) throw new Error('Bangla safety boundary or photo count missing; result=' + resultText.slice(0, 2500));
   await page.locator('#language-select').selectOption('en');
   await page.screenshot({ path: path.join(artifacts, 'mukul-desktop.png'), fullPage: true });
   const desktopWidth = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
