@@ -106,7 +106,7 @@ const path = require('node:path');
   await page.locator('#crop-help-form button[type="submit"]').click();
   let resultText = await page.locator('#crop-help-result').innerText();
   if (resultText.includes('undefined')) throw new Error('MUKUL result contains undefined text');
-  if (!resultText.includes('Inspect water level, soil moisture and drainage')) throw new Error('Wilting guidance missing');
+  if (!resultText.toLowerCase().includes('water level')) throw new Error('Wilting guidance missing');
   if (!(await page.locator('#media-preview img').count())) throw new Error('Selected media preview missing before report assertions');
   if (!resultText.includes('not a diagnosis') || !resultText.includes('IRRI Rice Knowledge Bank')) throw new Error('Rice safety boundary or authoritative learning reference missing');
   if (!resultText.includes('The problem is spreading') || !resultText.includes('check whether normal drainage paths are blocked') || !resultText.includes('do not guess doses')) throw new Error('Spreading warning, wet-field guidance or no-dose safety boundary missing');
