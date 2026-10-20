@@ -10,6 +10,77 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PayScale 2026 Calculator | RegTech Nexus AI</title><meta name="description" content="A live, rule-transparent PayScale 2026 planning calculator. Enter the applicable current and target basic pay and verify assumptions against authoritative sources."><link rel="canonical" href="https://regtechnexusai.com/payscale-2026/"><meta name="robots" content="index,follow"><meta name="author" content="RegTech Nexus AI"><meta name="theme-color" content="#0956a8"><link rel="icon" type="image/jpeg" href="../regtech-nexus-ai-logo.jpg"><meta property="og:type" content="website"><meta property="og:site_name" content="RegTech Nexus AI"><meta property="og:title" content="PayScale 2026 Calculator | RegTech Nexus AI"><meta property="og:description" content="A live, rule-transparent PayScale 2026 planning calculator. Enter the applicable current and target basic pay and verify assumptions against authoritative sources."><meta property="og:url" content="https://regtechnexusai.com/payscale-2026/"><meta property="og:image" content="https://regtechnexusai.com/regtech-nexus-ai-logo.jpg"><meta property="og:image:alt" content="RegTech Nexus AI logo"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="PayScale 2026 Calculator | RegTech Nexus AI"><meta name="twitter:description" content="A live, rule-transparent PayScale 2026 planning calculator. Enter the applicable current and target basic pay and verify assumptions against authoritative sources."><meta name="twitter:image" content="https://regtechnexusai.com/regtech-nexus-ai-logo.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"PayScale 2026 Calculator","url":"https://regtechnexusai.com/payscale-2026/","applicationCategory":"BusinessApplication","operatingSystem":"Any","description":"A live, rule-transparent planning calculator using user-entered current and target basic pay and phase assumptions.","publisher":{"@type":"Organization","name":"RegTech Nexus AI","url":"https://regtechnexusai.com/"}}</script><link rel="stylesheet" href="../styles.css">
 <link rel="stylesheet" href="/site-wide-shell.css?v=20261015-v1">
 <script src="/site-wide-shell.js?v=20261015-v1" defer></script>
+<style id="payscale-visual-contrast-fix">
+/* PayScale 2026: presentation-only contrast and responsive polish.
+   Intentionally leaves form fields, IDs, calculator markup, and scripts unchanged. */
+body.calculator-page{background:#f4f8fc;color:#142b43}
+body.calculator-page .nav{padding-inline:clamp(16px,4vw,64px);gap:clamp(12px,2vw,28px);min-height:78px}
+body.calculator-page .nav .brand{flex:0 0 auto;min-width:0}
+body.calculator-page .nav .brand-logo{display:block;width:auto;height:auto;max-width:min(228px,23vw);max-height:48px;object-fit:contain}
+body.calculator-page .nav nav{align-items:center;gap:clamp(10px,1.55vw,24px)}
+body.calculator-page .nav nav a{font-size:13px;font-weight:650;white-space:nowrap}
+body.calculator-page .nav .nav-cta{margin-left:clamp(8px,1.5vw,22px);background:linear-gradient(135deg,#087c91,#0956a8)!important;color:#fff!important;border:1px solid #087c91!important;border-radius:9px;padding:12px 16px;font-weight:750;box-shadow:0 4px 12px rgba(9,86,168,.18)}
+body.calculator-page .calculator-hero{padding:clamp(48px,7vw,88px) clamp(20px,7vw,100px) 48px;background:radial-gradient(circle at 88% 12%,rgba(0,157,166,.13),transparent 28%),linear-gradient(135deg,#fff 0%,#f0f7fc 72%,#e8f5f6 100%);border-bottom:1px solid #d9e7ef}
+body.calculator-page .calculator-hero .kicker{display:inline-block;color:#075c83;background:#e0f3f5;border:1px solid #b9e2e7;border-radius:999px;padding:8px 12px;margin-bottom:18px;font-size:11px;letter-spacing:.12em}
+body.calculator-page .calculator-hero h1{color:#102a43;line-height:1.04;font-size:clamp(38px,5.5vw,68px);letter-spacing:-.04em}
+body.calculator-page .calculator-hero h1 span{color:#087d8b}
+body.calculator-page .calculator-hero p{color:#3d5369;font-size:clamp(15px,1.5vw,18px);line-height:1.75;max-width:820px}
+body.calculator-page .calculator-wrap{max-width:1180px;padding:36px clamp(16px,4vw,56px) 84px}
+body.calculator-page .calculator-card{padding:clamp(18px,3.2vw,36px);border:1px solid #d5e1eb;border-radius:18px;background:#fff;box-shadow:0 16px 42px rgba(16,42,67,.09)}
+body.calculator-page .calculator-field label{color:#18334e;font-size:14px;line-height:1.5}
+body.calculator-page .calculator-field small{color:#4c6074;font-size:13px;line-height:1.6}
+body.calculator-page .calculator-field input{min-height:48px;border:1px solid #9fb3c5;border-radius:9px;background:#fff;color:#102a43}
+body.calculator-page .calculator-field input::placeholder{color:#687b8e;opacity:1}
+body.calculator-page .calculator-field input:focus-visible{outline:3px solid rgba(0,125,139,.25);outline-offset:2px;border-color:#087d8b}
+body.calculator-page .calculator-actions{gap:12px;margin:24px 0}
+body.calculator-page .calculator-actions .btn{min-height:46px;border-radius:9px;font-weight:750;cursor:pointer}
+body.calculator-page .calculator-actions .btn.primary{background:linear-gradient(135deg,#075da8,#087d8b);border-color:#075da8;box-shadow:0 4px 0 #06456f,0 8px 18px rgba(7,93,168,.18)}
+body.calculator-page .calculator-actions .btn.ghost{background:#fff;color:#173a56;border:1px solid #9eb3c5}
+body.calculator-page .calculator-result{border-top:1px solid #d6e2eb}
+body.calculator-page .calculator-result h2{color:#102a43;font-size:clamp(24px,3vw,30px)}
+body.calculator-page .result-item{background:#f0f6fb;border:1px solid #d5e3ee;border-radius:12px;padding:16px}
+body.calculator-page .result-item span{color:#3e566d;font-weight:650;line-height:1.5}
+body.calculator-page .result-item strong{color:#075e9e;font-size:clamp(21px,2.5vw,27px);overflow-wrap:anywhere}
+body.calculator-page .calculator-note{border:1px solid #e7c56d;border-left:5px solid #a96500;border-radius:10px;background:#fff5d9;color:#49340d;padding:17px 18px;font-size:14px;line-height:1.75}
+body.calculator-page .calculator-note strong{color:#754400}
+body.calculator-page .calculator-source{color:#4d6074;font-size:13px;line-height:1.7}
+body.calculator-page .calculator-source a{color:#075d9d;text-decoration:underline;text-underline-offset:3px;font-weight:700}
+body.calculator-page .form-error{color:#a11d24;font-weight:700}
+body.calculator-page :is(a,button,input,select,textarea):focus-visible{outline:3px solid #087d8b;outline-offset:3px}
+body.calculator-page footer .brand-logo{width:auto;max-width:min(220px,100%);max-height:64px;object-fit:contain}
+@media(max-width:1000px){
+ body.calculator-page .nav{gap:12px}
+ body.calculator-page .nav nav{gap:11px}
+ body.calculator-page .nav nav a{font-size:12px}
+ body.calculator-page .nav .nav-cta{padding:10px 12px;font-size:11px}
+}
+@media(max-width:760px){
+ body.calculator-page .nav{min-height:68px;padding:10px 16px;flex-wrap:wrap}
+ body.calculator-page .nav .brand-logo{max-width:174px;max-height:42px}
+ body.calculator-page .nav .menu{display:block;margin-left:auto;color:#102a43!important;background:#e8f3f8;border:1px solid #c8dbe8;border-radius:8px;padding:7px 11px}
+ body.calculator-page .nav nav{display:none;flex:1 0 100%;width:100%;margin:0;padding:10px 0 4px;flex-wrap:wrap;gap:8px}
+ body.calculator-page .nav nav a{white-space:normal;padding:9px 10px;background:#f0f6fa;border:1px solid #d9e5ee;border-radius:7px;font-size:13px}
+ body.calculator-page .nav .nav-cta{margin:0 0 0 8px;padding:10px 11px;font-size:11px}
+ body.calculator-page .calculator-hero{padding:42px 20px 30px}
+ body.calculator-page .calculator-hero h1{font-size:clamp(36px,10vw,52px)}
+ body.calculator-page .calculator-hero p{font-size:15px;line-height:1.7;margin-top:18px}
+ body.calculator-page .calculator-wrap{padding:22px 14px 56px}
+ body.calculator-page .calculator-card{padding:17px;border-radius:14px}
+ body.calculator-page .calculator-grid{gap:18px}
+ body.calculator-page .calculator-field label{font-size:14px}
+ body.calculator-page .calculator-field small{font-size:13px}
+ body.calculator-page .calculator-actions{display:grid;grid-template-columns:minmax(0,1fr) auto}
+ body.calculator-page .calculator-actions .btn{padding:13px 14px}
+ body.calculator-page .result-grid{grid-template-columns:1fr}
+ body.calculator-page .result-item{padding:14px}
+}
+@media(max-width:390px){
+ body.calculator-page .nav .brand-logo{max-width:140px;max-height:38px}
+ body.calculator-page .nav .nav-cta{font-size:10px;padding:9px}
+ body.calculator-page .calculator-actions{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){body.calculator-page *{scroll-behavior:auto!important;transition:none!important}}
+</style>
 </head><body class="calculator-page"><a class="skip-link" href="#main-content">Skip to main content</a><header class="nav"><a class="brand" href="../index.html#work" aria-label="RegTech Nexus AI home"><img class="brand-logo" src="../regtech-nexus-ai-logo.jpg" alt="RegTech Nexus AI" width="228" height="72"></a><button class="menu" aria-label="Open menu" aria-expanded="false" aria-controls="main-nav">☰</button><nav id="main-nav" aria-label="Main navigation"><a href="../index.html#work">What we do</a><a href="../index.html#solutions">Solutions</a><a href="../insights.html">Insights</a><a href="../blog.html">Blog</a><a href="../index.html#knowledge">Knowledge</a><a href="../index.html#about">About</a><a href="../contact.html">Contact</a><a href="../index.html#ai-assistant">AI Assistant ↗</a></nav><a class="nav-cta" href="../index.html#solutions">Explore solutions ↗</a></header><main id="main-content"><section class="calculator-hero"><div class="kicker">ON-DOMAIN DIGITAL TOOL</div><h1>PayScale 2026<br><span>Calculator.</span></h1><p>Use user-entered official inputs to model a possible basic-pay transition. This is a browser-based planning aid—not a government pay-fixation portal, bank payroll system or entitlement decision. Banks and financial institutions must verify any separate applicable instrument before use.</p></section><section class="calculator-wrap"><div class="calculator-card"><form id="calculator-form" novalidate><div class="calculator-grid"><div class="calculator-field"><label for="current-basic">Current basic pay (BDT)</label><input id="current-basic" name="current-basic" type="number" min="0" step="1" inputmode="numeric" placeholder="e.g. 22000" required><small>Enter the current basic pay used in your verified record.</small></div><div class="calculator-field"><label for="target-basic">Applicable target basic pay (BDT)</label><input id="target-basic" name="target-basic" type="number" min="0" step="1" inputmode="numeric" placeholder="e.g. 44000" required><small>Enter the target/basic amount from the applicable official source or approved institutional schedule.</small></div><div class="calculator-field"><label for="phase-one">Phase 1 share of the difference (%)</label><input id="phase-one" name="phase-one" type="number" min="0" max="100" step="0.01" value="40" required><small>Illustrative default only. Edit it to match the verified rule.</small></div><div class="calculator-field"><label for="phase-two">Phase 2 share of the difference (%)</label><input id="phase-two" name="phase-two" type="number" min="0" max="100" step="0.01" value="70" required><small>Illustrative default only. Edit it to match the verified rule.</small></div><div class="calculator-field"><label for="phase-three">Phase 3 share of the difference (%)</label><input id="phase-three" name="phase-three" type="number" min="0" max="100" step="0.01" value="100" required><small>Illustrative default only. Edit it to match the verified rule.</small></div></div><p id="form-error" class="form-error" role="alert"></p><div class="calculator-actions"><button class="btn primary" type="submit">Calculate scenario →</button><button class="btn ghost" type="reset">Reset</button></div></form><div id="calculator-result" class="calculator-result" aria-live="polite"><h2>Scenario output</h2><div class="result-grid"><div class="result-item"><span>Total difference</span><strong id="difference-output">—</strong></div><div class="result-item"><span>Phase 1 basic pay</span><strong id="phase-one-output">—</strong></div><div class="result-item"><span>Phase 2 basic pay</span><strong id="phase-two-output">—</strong></div><div class="result-item"><span>Phase 3 basic pay</span><strong id="phase-three-output">—</strong></div><div class="result-item"><span>Target basic pay</span><strong id="target-output">—</strong></div></div><div class="calculator-note"><strong>Important:</strong> This calculator does not embed an official government salary table or make an official pay-fixation decision. Verify the target pay, grade step, effective date, phase percentages, allowances, deductions and arrears with the applicable Gazette, service rule and authorised accounts office.</div><p class="calculator-source">The earlier external calculator is not silently copied into this package because its source was not available for verification. This on-domain version is a transparent scenario calculator. <a href="../contact.html">Contact us about the verified source →</a></p></div></div></section></main><footer id="contact"><div class="footer-brand"><div class="brand"><img class="brand-logo" src="../regtech-nexus-ai-logo.jpg" alt="RegTech Nexus AI" width="248" height="80"></div><p>Audit · Regulatory Intelligence · Compliance · Risk · Technology</p></div><div><b>Solutions</b><a href="../tradeguard/">TradeGuard</a><a href="./">PayScale 2026 Calculator</a><a href="../index.html#solutions">All Solutions</a></div><div><b>Knowledge</b><a href="../insights.html">Research &amp; Insights</a><a href="../blog.html">Blog</a><a href="../regulatory-explainers.html">Regulatory Explainers</a><a href="../frameworks-toolkit.html">Frameworks &amp; Toolkits</a><a href="../publications.html">Publications</a></div><div><b>Connect</b><a href="https://www.linkedin.com/company/regtech-nexus-ai/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://www.facebook.com/regtechnexusai" target="_blank" rel="noopener noreferrer">Facebook</a><a href="../contact.html">Contact</a></div><p class="footer-note">Unofficial review-support calculator. Verify every input and output against authoritative sources and professional judgment.</p><div class="legal"><span>© 2026 RegTech Nexus AI</span><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></div></footer><script src="../script.js" defer></script><script src="calculator.js" defer></script><script src="../site-email.js?v=20260928-email-routing" defer></script><script src="/site-search.js" defer></script>
 </body></html>
 
