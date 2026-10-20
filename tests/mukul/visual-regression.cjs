@@ -78,6 +78,8 @@ const path = require('node:path');
   // Functional regression: guidance must match the selected observation and must never
   // render missing translation keys as the literal text "undefined".
   // Local context intake: all requested fields exist, accept user input, and appear in the generated checklist.
+  // These fields are intentionally inside a collapsed optional-details disclosure.
+  await page.locator('.crop-optional-details > summary').click();
   for (const selector of ['#help-district', '#help-season', '#help-variety', '#help-age', '#help-age-unit', '#help-stage', '#help-start-date', '#help-area', '#help-area-unit', '#help-spread', '#help-field-condition', '#help-management', '#help-leaf-age', '#help-yellow-pattern', '#help-other-signs']) {
     if (!(await page.locator(selector).count())) throw new Error('Missing local context field: ' + selector);
   }
