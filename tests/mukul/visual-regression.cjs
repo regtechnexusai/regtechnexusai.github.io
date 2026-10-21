@@ -8,9 +8,19 @@ const path = require('node:path');
   fs.mkdirSync(artifacts, { recursive: true });
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
   // Keep verification self-contained: no third-party scripts, web fonts, or online images.
+  let mockedVisionRequests = 0;
   await page.route('**/*', route => {
     const url = new URL(route.request().url());
     if (url.hostname === '127.0.0.1' || url.hostname === 'localhost') return route.continue();
+    // Simulate an upstream API outage locally. Never send test images or API keys to Google.
+    if (url.hostname === 'generativelanguage.googleapis.com' && url.pathname.includes(':generateContent')) {
+      mockedVisionRequests += 1;
+      return route.fulfill({
+        status: 503,
+        contentType: 'application/json',
+        body: JSON.stringify({ error: { message: 'Mocked upstream outage for regression testing' } })
+      });
+    }
     return route.abort();
   });
   const failures = [];
@@ -99,6 +109,21 @@ const path = require('node:path');
   }
   await page.locator('#refresh-media').click();
   if (!(await page.locator('#media-preview img').count())) throw new Error('Refresh did not preserve and redraw selected media');
+
+  // Privacy/security regression: a photo must not be sent without explicit consent.
+  await page.locator('#mukul-gemini-key').fill('dummy-test-key-never-sent');
+  await page.locator('#mukul-run-vision').click();
+  const noConsentStatus = await page.locator('#mukul-ai-status').innerText();
+  if (!noConsentStatus.includes('Explicit consent is required')) throw new Error('Vision analysis did not clearly block a request without explicit consent: ' + noConsentStatus);
+  if (mockedVisionRequests !== 0) throw new Error('Vision API request was attempted without consent');
+  // Error-path regression: the upstream 503 is mocked locally and must be surfaced safely.
+  await page.locator('#mukul-gemini-consent').check();
+  await page.locator('#mukul-run-vision').click();
+  const outageStatus = await page.locator('#mukul-ai-status').innerText();
+  if (mockedVisionRequests !== 1) throw new Error('Expected exactly one locally mocked Vision request during the outage test');
+  if (!outageStatus.includes('Mocked upstream outage for regression testing')) throw new Error('Vision API outage message was not surfaced to the user: ' + outageStatus);
+  if ((await page.locator('#mukul-gemini-key').inputValue()) !== '') throw new Error('Vision API key input was not cleared after the failed request');
+  await page.locator('#mukul-gemini-consent').uncheck();
 
 
   // Functional regression: guidance must match the selected observation and must never
