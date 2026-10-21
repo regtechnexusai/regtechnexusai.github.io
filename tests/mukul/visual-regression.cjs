@@ -111,6 +111,7 @@ const path = require('node:path');
   if (!(await page.locator('#media-preview img').count())) throw new Error('Refresh did not preserve and redraw selected media');
 
   // Privacy/security regression: a photo must not be sent without explicit consent.
+  await page.locator('.mukul-ai-lab-disclosure > summary').click();
   await page.locator('#mukul-gemini-key').fill('dummy-test-key-never-sent');
   await page.locator('#mukul-run-vision').click();
   const noConsentStatus = await page.locator('#mukul-ai-status').innerText();
