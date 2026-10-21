@@ -7,7 +7,7 @@ on:
       - ".github/workflows/mukul-visual-regression.yml"
       - "tests/mukul/**"
   push:
-    branches: [main]
+    branches: [main, mukul-expansion-staging]
     paths:
       - "mukul/**"
       - ".github/workflows/mukul-visual-regression.yml"

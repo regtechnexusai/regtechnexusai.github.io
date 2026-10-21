@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "status": "proposal",
+  "enabled": false,
+  "releasePolicy": {
+    "requireLocalAgronomistReview": true,
+    "requirePrivacyAndLegalReview": true,
+    "requireRegressionTests": true,
+    "blockProductionOnAnyFailure": true,
+    "preserveExistingFeatures": true
+  },
+  "markets": {
+    "india-west-bengal": {
+      "status": "candidate",
+      "countryCode": "IN",
+      "region": "West Bengal",
+      "defaultLanguage": "bn",
+      "supportedLanguages": ["bn", "en"],
+      "priorityCrops": ["rice"],
+      "contentStatus": "not-reviewed",
+      "localPartnerStatus": "not-confirmed"
+    },
+    "ghana-pilot-candidate": {
+      "status": "candidate",
+      "countryCode": "GH",
+      "region": null,
+      "defaultLanguage": "en",
+      "supportedLanguages": ["en", "tw"],
+      "priorityCrops": ["maize", "cassava", "rice"],
+      "contentStatus": "not-reviewed",
+      "localPartnerStatus": "not-confirmed",
+      "note": "Candidate only; crop priorities, language coverage, and regional fit require local partner and agronomist validation."
+    }
+  },
+  "safety": {
+    "diagnosisClaim": false,
+    "uncertainAdviceEscalationRequired": true,
+    "collectOnlyNecessaryData": true,
+    "imageUploadRequiresExplicitConsent": true,
+    "neverEmbedSecretsInClientConfig": true
+  }
+}

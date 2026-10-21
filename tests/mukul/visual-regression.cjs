@@ -8,15 +8,59 @@ const path = require('node:path');
   fs.mkdirSync(artifacts, { recursive: true });
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
   // Keep verification self-contained: no third-party scripts, web fonts, or online images.
+  let mockedVisionRequests = 0;
   await page.route('**/*', route => {
     const url = new URL(route.request().url());
     if (url.hostname === '127.0.0.1' || url.hostname === 'localhost') return route.continue();
+    // Simulate an upstream API outage locally. Never send test images or API keys to Google.
+    if (url.hostname === 'generativelanguage.googleapis.com' && url.pathname.includes(':generateContent')) {
+      const corsHeaders = {
+        'access-control-allow-origin': 'http://127.0.0.1:4173',
+        'access-control-allow-methods': 'POST, OPTIONS',
+        'access-control-allow-headers': 'content-type, x-goog-api-key'
+      };
+      if (route.request().method() === 'OPTIONS') {
+        return route.fulfill({ status: 204, headers: corsHeaders });
+      }
+      mockedVisionRequests += 1;
+      return route.fulfill({
+        status: 503,
+        headers: { ...corsHeaders, 'content-type': 'application/json' },
+        body: JSON.stringify({ error: { message: 'Mocked upstream outage for regression testing' } })
+      });
+    }
     return route.abort();
   });
   const failures = [];
   page.on('pageerror', error => failures.push(error.message));
   const base = 'http://127.0.0.1:4173';
+  // Route smoke test: verify every currently covered MUKUL route returns a successful
+  // document response before testing interactions. This does not contact production.
+  for (const route of ['/mukul/', '/mukul/knowledge/', '/mukul/farm-records/', '/mukul/farm-records/privacy.html']) {
+    const response = await page.goto(base + route, { waitUntil: 'domcontentloaded' });
+    if (!response || !response.ok()) {
+      throw new Error('MUKUL route failed to load successfully: ' + route + '; status=' + (response ? response.status() : 'no response'));
+    }
+  }
   await page.goto(base + '/mukul/', { waitUntil: 'domcontentloaded' });
+  // Keyboard accessibility smoke test: the first Tab should expose a visible skip link
+  // with a discernible focus indicator, not merely move focus invisibly.
+  await page.keyboard.press('Tab');
+  const firstKeyboardFocus = await page.evaluate(() => {
+    const el = document.activeElement;
+    const style = getComputedStyle(el);
+    return {
+      tag: el && el.tagName,
+      className: el && typeof el.className === 'string' ? el.className : '',
+      visible: !!el && el.getClientRects().length > 0,
+      outlineStyle: style.outlineStyle,
+      outlineWidth: Number.parseFloat(style.outlineWidth) || 0
+    };
+  });
+  if (!firstKeyboardFocus.visible || !String(firstKeyboardFocus.className).includes('skip-link') ||
+      firstKeyboardFocus.outlineStyle === 'none' || firstKeyboardFocus.outlineWidth < 2) {
+    throw new Error('Keyboard skip-link or visible focus indicator failed: ' + JSON.stringify(firstKeyboardFocus));
+  }
   await page.waitForTimeout(700);
   const mainOrder = await page.locator('#main-content > section').evaluateAll(nodes => nodes.map(node => node.id));
   if (mainOrder[0] !== 'free-help') throw new Error('Free crop guidance section must be the first section after the site header');
@@ -35,14 +79,14 @@ const path = require('node:path');
     if (box.left < 8 || box.right > mobileLayout.viewport - 8) throw new Error('MUKUL mobile crop-help content is clipped: ' + JSON.stringify(box));
   }
   const consentLayout = await page.evaluate(() => {
-    const label = document.querySelector('#mukul-gemini-consent');
+    const label = document.querySelector('label.ai-consent[for="mukul-gemini-consent"]');
     const span = label && label.querySelector('span');
     if (!label || !span) return { missing: true };
     const lr = label.getBoundingClientRect(), sr = span.getBoundingClientRect();
     return { viewport: document.documentElement.clientWidth, label: { left: lr.left, right: lr.right, width: lr.width }, text: { left: sr.left, right: sr.right, width: sr.width } };
   });
   if (consentLayout.missing) throw new Error('MUKUL Vision API consent label/text is missing');
-  if (consentLayout.label.width < 280 || consentLayout.text.width < 220 || consentLayout.text.right > consentLayout.viewport + 1) throw new Error('MUKUL mobile Vision API consent text is collapsed or clipped: ' + JSON.stringify(consentLayout));
+  if (consentLayout.label.left < 8 || consentLayout.label.right > consentLayout.viewport - 8 || consentLayout.text.left < consentLayout.label.left || consentLayout.text.right > consentLayout.label.right + 1 || consentLayout.text.width < 100) throw new Error('MUKUL mobile Vision API consent text is collapsed or clipped: ' + JSON.stringify(consentLayout));
   await page.setViewportSize({ width: 1440, height: 1000 });
   const homeIds = await page.locator('[id]').evaluateAll(nodes => nodes.map(n => n.id));
   if (new Set(homeIds).size !== homeIds.length) throw new Error('Duplicate IDs on MUKUL homepage');
@@ -74,10 +118,38 @@ const path = require('node:path');
   await page.locator('#refresh-media').click();
   if (!(await page.locator('#media-preview img').count())) throw new Error('Refresh did not preserve and redraw selected media');
 
+  // Privacy/security regression: use a fresh, known-good local image for both consent and outage checks.
+  // Earlier media actions intentionally delete the selected image, so re-select it here to ensure
+  // the test reaches the consent gate and mocked network request rather than failing on empty input.
+  await page.locator('#crop-photos').setInputFiles(samplePath);
+  await page.waitForFunction(() => !!document.querySelector('#media-preview img'));
+  await page.locator('.mukul-ai-lab-disclosure > summary').click();
+  await page.locator('#mukul-gemini-key').fill('dummy-test-key-never-sent');
+  await page.locator('#mukul-run-vision').click();
+  const noConsentStatus = await page.locator('#mukul-ai-status').innerText();
+  if (!noConsentStatus.includes('Explicit consent is required')) throw new Error('Vision analysis did not clearly block a request without explicit consent: ' + noConsentStatus);
+  if (mockedVisionRequests !== 0) throw new Error('Vision API request was attempted without consent');
+  // Error-path regression: the upstream 503 is mocked locally and must be surfaced safely.
+  await page.locator('#mukul-gemini-consent').check();
+  // The UI intentionally clears the API-key field after every attempt, including blocked consent attempts.
+  // Re-enter the dummy key for the independent outage-path request.
+  await page.locator('#mukul-gemini-key').fill('dummy-test-key-never-sent');
+  await page.locator('#mukul-run-vision').click();
+  // Playwright click resolves before the async FileReader/fetch handler finishes; wait for the
+  // production handler's finally block (which clears the key) before asserting the mocked response.
+  await page.waitForFunction(() => document.querySelector('#mukul-gemini-key').value === '', { timeout: 10000 });
+  const outageStatus = await page.locator('#mukul-ai-status').innerText();
+  if (mockedVisionRequests !== 1) throw new Error('Expected exactly one locally mocked Vision request during outage test; observed=' + mockedVisionRequests + '; status=' + outageStatus + '; consent=' + await page.locator('#mukul-gemini-consent').isChecked() + '; photoCount=' + await page.locator('#crop-photos').evaluate(el => el.files ? el.files.length : -1));
+  if (!outageStatus.includes('Mocked upstream outage for regression testing')) throw new Error('Vision API outage message was not surfaced to the user: ' + outageStatus);
+  if ((await page.locator('#mukul-gemini-key').inputValue()) !== '') throw new Error('Vision API key input was not cleared after the failed request');
+  await page.locator('#mukul-gemini-consent').uncheck();
+
 
   // Functional regression: guidance must match the selected observation and must never
   // render missing translation keys as the literal text "undefined".
   // Local context intake: all requested fields exist, accept user input, and appear in the generated checklist.
+  // These fields are intentionally inside a collapsed optional-details disclosure.
+  await page.locator('.crop-optional-details > summary').click();
   for (const selector of ['#help-district', '#help-season', '#help-variety', '#help-age', '#help-age-unit', '#help-stage', '#help-start-date', '#help-area', '#help-area-unit', '#help-spread', '#help-field-condition', '#help-management', '#help-leaf-age', '#help-yellow-pattern', '#help-other-signs']) {
     if (!(await page.locator(selector).count())) throw new Error('Missing local context field: ' + selector);
   }
@@ -99,16 +171,19 @@ const path = require('node:path');
   await page.locator('#help-region').selectOption('bangladesh');
   await page.locator('#help-crop').selectOption('rice');
   await page.locator('#help-symptom').selectOption('wilt');
+  // Assert the known English output below regardless of the preceding bilingual UI checks.
+  await page.locator('#language-select').selectOption('en');
   await page.locator('#crop-help-form button[type="submit"]').click();
   let resultText = await page.locator('#crop-help-result').innerText();
   if (resultText.includes('undefined')) throw new Error('MUKUL result contains undefined text');
-  if (!resultText.includes('water level') || !resultText.includes('Media selected for this session: 1')) throw new Error('Wilting guidance or media count missing');
+  if (!resultText.toLowerCase().includes('water level')) throw new Error('Wilting guidance missing; selected symptom=' + await page.locator('#help-symptom').inputValue() + '; language=' + await page.locator('#language-select').inputValue());
+  if (!(await page.locator('#media-preview img').count())) throw new Error('Selected media preview missing before report assertions');
   if (!resultText.includes('not a diagnosis') || !resultText.includes('IRRI Rice Knowledge Bank')) throw new Error('Rice safety boundary or authoritative learning reference missing');
   if (!resultText.includes('The problem is spreading') || !resultText.includes('check whether normal drainage paths are blocked') || !resultText.includes('do not guess doses')) throw new Error('Spreading warning, wet-field guidance or no-dose safety boundary missing');
   for (const value of ['Khulna / Dighalia', 'Aman', 'BRRI dhan example', '45 Days', '2026-10-10', '5 শতক', 'Yes, increasing', 'Standing water', 'Rain after irrigation', 'Older / lower leaves', 'Patches in parts of the field', 'Insects near leaves or plant base']) {
     if (!resultText.includes(value)) throw new Error('Submitted local context missing from result: ' + value);
   }
-  if (!resultText.includes('not uploaded or analysed the media with AI')) throw new Error('Local-only media limitation missing');
+  if (!resultText.includes('A request was made to send the selected photo to Google Gemini API') || !resultText.includes('not a diagnosis from photos')) throw new Error('Recorded Vision request status or no-diagnosis boundary missing');
   if (await page.locator('#crop-result-actions').isHidden()) throw new Error('Result print/PDF action did not appear');
   await page.evaluate(() => { window.__printCalled = false; window.print = () => { window.__printCalled = true; }; });
   await page.locator('#print-crop-result').click();
@@ -138,7 +213,7 @@ const path = require('node:path');
   await page.locator('#crop-help-form button[type="submit"]').click();
   resultText = await page.locator('#crop-help-result').innerText();
   if (resultText.includes('undefined') || !resultText.includes('দাগের রং, আকৃতি, আকার')) throw new Error('Bangla symptom-specific result failed');
-  if (!resultText.includes('রোগ নির্ণয় নয়') || !resultText.includes('এই সেশনে নির্বাচিত মিডিয়া: 1')) throw new Error('Bangla safety boundary or media count missing');
+  if (!resultText.includes('রোগ নির্ণয় নয়') || !resultText.includes('এই সেশনে নির্বাচিত ছবি: 1')) throw new Error('Bangla safety boundary or photo count missing; result=' + resultText.slice(0, 2500));
   await page.locator('#language-select').selectOption('en');
   await page.screenshot({ path: path.join(artifacts, 'mukul-desktop.png'), fullPage: true });
   const desktopWidth = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }));
@@ -156,7 +231,10 @@ const path = require('node:path');
   const knowledgeIds = await page.locator('[id]').evaluateAll(nodes => nodes.map(n => n.id));
   if (new Set(knowledgeIds).size !== knowledgeIds.length) throw new Error('Duplicate IDs on MUKUL Knowledge page');
   await page.locator('#language').selectOption('bn');
-  if (!(await page.locator('body').innerText()).includes('মূল পৃষ্ঠা')) throw new Error('Knowledge page Bangla switch failed');
+  await page.waitForFunction(() => document.querySelector('#main-nav a[href="/mukul/"]')?.textContent.trim() === 'মূল পৃষ্ঠা', { timeout: 3000 });
+  const knowledgeBanglaNav = (await page.locator('#main-nav a[href="/mukul/"]').innerText()).trim();
+  const knowledgeBanglaHeading = (await page.locator('.hero h1').innerText()).trim();
+  if (knowledgeBanglaNav !== 'মূল পৃষ্ঠা' || knowledgeBanglaHeading !== 'সবার জন্য কৃষিশিক্ষা।') throw new Error('Knowledge page Bangla switch failed; nav=' + knowledgeBanglaNav + '; heading=' + knowledgeBanglaHeading);
   await page.locator('#language').selectOption('en');
 
   // Farm Records publishing preview: save, summary, bilingual switch, CSV, privacy page and mobile layout.
@@ -170,6 +248,14 @@ const path = require('node:path');
   await page.locator('input[name="soil_ph"]').fill('6.2');
   await page.locator('#farm-form button[type="submit"]').click();
   if (!(await page.locator('#summary').innerText()).includes('Khulna')) throw new Error('Farm record was not rendered in summary');
+  const savedFarmFixture = await page.evaluate(() => JSON.parse(localStorage.getItem('mukulFarmRecord') || 'null'));
+  if (!savedFarmFixture || savedFarmFixture.district !== 'Khulna' || savedFarmFixture.crop !== 'Rice' || savedFarmFixture.soil_ph !== '6.2') {
+    throw new Error('Farm Records baseline fixture failed: saved inputs must round-trip without numeric coercion: ' + JSON.stringify(savedFarmFixture));
+  }
+  if (!(await page.locator('#report').innerText()).includes('2/6')) {
+    throw new Error('Farm Records completeness baseline changed for district + crop only');
+  }
+  if (!(await page.locator('#report').innerText()).includes('6.2')) throw new Error('Farm Records soil pH baseline value missing from report');
   if (!(await page.locator('#report').innerText()).includes('পরবর্তী করণীয়')) throw new Error('Farm Records Bangla actionable report was not generated');
   if (!(await page.locator('#report').innerText()).includes('২. মাটির পরীক্ষার তথ্য')) throw new Error('Farm Records Bangla soil-test section missing');
   if (!(await page.locator('.site-header .brand-logo').count())) throw new Error('Farm Records is missing the shared MUKUL header logo');

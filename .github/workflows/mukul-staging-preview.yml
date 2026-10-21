@@ -1,0 +1,85 @@
+name: MUKUL staging preview package
+
+on:
+  push:
+    branches:
+      - mukul-expansion-staging
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "mukul/**"
+      - ".github/workflows/mukul-staging-preview.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mukul-staging-preview-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  package-preview:
+    name: Validate and package isolated MUKUL preview
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout staging source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Validate expansion configuration remains disabled
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path("mukul/international/expansion-config.json")
+          config = json.loads(path.read_text(encoding="utf-8"))
+          assert config.get("schemaVersion") == 1, "Unsupported schema version"
+          assert config.get("status") == "proposal", "Expansion must remain a proposal"
+          assert config.get("enabled") is False, "Expansion must remain disabled"
+          assert not any(
+              market.get("status") != "candidate"
+              or market.get("contentStatus") != "not-reviewed"
+              or market.get("localPartnerStatus") != "not-confirmed"
+              for market in config.get("markets", {}).values()
+          ), "Candidate markets must remain unapproved until review"
+          homepage = Path("mukul/index.html").read_text(encoding="utf-8")
+          assert "expansion-config.json" not in homepage, "Inactive config must not be imported by the live homepage"
+          print("Expansion guardrails passed; no market has been activated.")
+          PY
+
+      - name: Check required MUKUL entry points
+        run: |
+          set -eu
+          test -s mukul/index.html
+          test -s mukul/knowledge/index.html
+          test -s mukul/farm-records/index.html
+          test -s mukul/farm-records/privacy.html
+          echo "Required MUKUL entry points are present."
+
+      - name: Build preview manifest
+        run: |
+          python3 - <<'PY'
+          import hashlib
+          from pathlib import Path
+
+          root = Path("mukul")
+          rows = []
+          for path in sorted(p for p in root.rglob("*") if p.is_file()):
+              digest = hashlib.sha256(path.read_bytes()).hexdigest()
+              rows.append(f"{digest}  {path.as_posix()}")
+          Path("mukul-preview-sha256.txt").write_text("\n".join(rows) + "\n", encoding="utf-8")
+          print(f"Manifest covers {len(rows)} files.")
+          PY
+
+      - name: Upload isolated preview package (not deployed)
+        uses: actions/upload-artifact@v4
+        with:
+          name: mukul-staging-preview-${{ github.sha }}
+          path: |
+            mukul/
+            mukul-preview-sha256.txt
+          if-no-files-found: error
+          retention-days: 14
