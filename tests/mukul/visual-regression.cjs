@@ -14,10 +14,18 @@ const path = require('node:path');
     if (url.hostname === '127.0.0.1' || url.hostname === 'localhost') return route.continue();
     // Simulate an upstream API outage locally. Never send test images or API keys to Google.
     if (url.hostname === 'generativelanguage.googleapis.com' && url.pathname.includes(':generateContent')) {
+      const corsHeaders = {
+        'access-control-allow-origin': 'http://127.0.0.1:4173',
+        'access-control-allow-methods': 'POST, OPTIONS',
+        'access-control-allow-headers': 'content-type, x-goog-api-key'
+      };
+      if (route.request().method() === 'OPTIONS') {
+        return route.fulfill({ status: 204, headers: corsHeaders });
+      }
       mockedVisionRequests += 1;
       return route.fulfill({
         status: 503,
-        contentType: 'application/json',
+        headers: { ...corsHeaders, 'content-type': 'application/json' },
         body: JSON.stringify({ error: { message: 'Mocked upstream outage for regression testing' } })
       });
     }
