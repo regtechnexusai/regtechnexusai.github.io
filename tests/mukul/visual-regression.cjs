@@ -183,7 +183,7 @@ const path = require('node:path');
   for (const value of ['Khulna / Dighalia', 'Aman', 'BRRI dhan example', '45 Days', '2026-10-10', '5 শতক', 'Yes, increasing', 'Standing water', 'Rain after irrigation', 'Older / lower leaves', 'Patches in parts of the field', 'Insects near leaves or plant base']) {
     if (!resultText.includes(value)) throw new Error('Submitted local context missing from result: ' + value);
   }
-  if (!resultText.includes('no request from this form to send a photo to Google Vision API was recorded') || !resultText.includes('not a diagnosis from photos')) throw new Error('Local-only media limitation or no-diagnosis boundary missing');
+  if (!resultText.includes('A request was made to send the selected photo to Google Gemini API') || !resultText.includes('not a diagnosis from photos')) throw new Error('Recorded Vision request status or no-diagnosis boundary missing');
   if (await page.locator('#crop-result-actions').isHidden()) throw new Error('Result print/PDF action did not appear');
   await page.evaluate(() => { window.__printCalled = false; window.print = () => { window.__printCalled = true; }; });
   await page.locator('#print-crop-result').click();
