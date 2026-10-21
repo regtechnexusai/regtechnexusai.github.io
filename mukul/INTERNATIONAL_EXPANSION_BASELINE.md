@@ -19,15 +19,15 @@ Working branch: `mukul-expansion-staging`
 - Static regression workflow passed on commit `dd688ef893cbfd9eb530f8b7ec177d8c7b52f4cf`: [Run #216](https://github.com/regtechnexusai/regtechnexusai.github.io/actions/runs/39534352410).
 - Browser regression workflow passed on the same commit, including bilingual UI checks and screenshot upload: [Run #139](https://github.com/regtechnexusai/regtechnexusai.github.io/actions/runs/39534352570).
 - These CI results cover the automated checks implemented in the repository; they do **not** establish that every release checklist item below has passed.
-- Added staging-only static guardrails in `.github/scripts/regression_check.py` (commit `a51c2521fc10ed0750ddf7dd85629e8b73432586`) to parse the candidate JSON when present, require `enabled: false`, enforce review/safety flags, keep all markets in candidate/unreviewed state, and flag homepage imports of the inactive config. These checks do not alter calculator or crop-help logic. A fresh CI result for this commit has not yet been confirmed.
+- Added staging-only static guardrails in `.github/scripts/regression_check.py` (commit `a51c2521fc10ed0750ddf7dd85629e8b73432586`) to parse the candidate JSON when present, require `enabled: false`, enforce review/safety flags, keep all markets in candidate/unreviewed state, and flag homepage imports of the inactive config. These checks do not alter calculator or crop-help logic. Fresh CI passed on commit `278b047bed45c484d261502ab3c0c359b278a762`: [Static Regression Run #221](https://github.com/regtechnexusai/regtechnexusai.github.io/actions/runs/39534929821) and [MUKUL Browser Regression Run #144](https://github.com/regtechnexusai/regtechnexusai.github.io/actions/runs/39534929822).
 - No verified staging deployment URL or isolated preview environment has been confirmed. Git branch isolation is not proof of a deployed staging site.
 
 ## Regression checklist — required before release
 - [ ] Homepage and all existing MUKUL routes load; internal links and footer links resolve.
 - [ ] Crop-help form: required fields, submit, validation, and error states.
 - [ ] AI image-analysis: consent checkbox, upload constraints, request/error states, and results.
-- [x] Automated bilingual UI checks in CI passed (see Browser Regression Run #139); full translation coverage still requires review.
-- [x] Automated narrow-mobile and desktop horizontal-overflow checks in CI passed for the tested pages (see Browser Regression Run #139); broader tablet/accessibility review remains open.
+- [x] Automated bilingual UI checks in CI passed (Browser Regression Run #144); full translation coverage still requires review.
+- [x] Automated narrow-mobile and desktop horizontal-overflow checks in CI passed for the tested pages (Browser Regression Run #144); broader tablet/accessibility review remains open.
 - [ ] Existing calculations and input/output pairs unchanged, verified with dedicated baseline fixtures.
 - [ ] Keyboard navigation, labels, focus visibility, and contrast.
 - [ ] Network/API failures handled without exposing secrets or user data.
