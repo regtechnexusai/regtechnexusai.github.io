@@ -204,6 +204,14 @@ const path = require('node:path');
   await page.locator('input[name="soil_ph"]').fill('6.2');
   await page.locator('#farm-form button[type="submit"]').click();
   if (!(await page.locator('#summary').innerText()).includes('Khulna')) throw new Error('Farm record was not rendered in summary');
+  const savedFarmFixture = await page.evaluate(() => JSON.parse(localStorage.getItem('mukulFarmRecord') || 'null'));
+  if (!savedFarmFixture || savedFarmFixture.district !== 'Khulna' || savedFarmFixture.crop !== 'Rice' || savedFarmFixture.soil_ph !== '6.2') {
+    throw new Error('Farm Records baseline fixture failed: saved inputs must round-trip without numeric coercion: ' + JSON.stringify(savedFarmFixture));
+  }
+  if (!(await page.locator('#report').innerText()).includes('Core details completed: 2/6')) {
+    throw new Error('Farm Records completeness baseline changed for district + crop only');
+  }
+  if (!(await page.locator('#report').innerText()).includes('6.2')) throw new Error('Farm Records soil pH baseline value missing from report');
   if (!(await page.locator('#report').innerText()).includes('পরবর্তী করণীয়')) throw new Error('Farm Records Bangla actionable report was not generated');
   if (!(await page.locator('#report').innerText()).includes('২. মাটির পরীক্ষার তথ্য')) throw new Error('Farm Records Bangla soil-test section missing');
   if (!(await page.locator('.site-header .brand-logo').count())) throw new Error('Farm Records is missing the shared MUKUL header logo');
