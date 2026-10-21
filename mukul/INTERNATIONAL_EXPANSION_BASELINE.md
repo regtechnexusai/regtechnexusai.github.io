@@ -21,6 +21,7 @@ Working branch: `mukul-expansion-staging`
 - These CI results cover the automated checks implemented in the repository; they do **not** establish that every release checklist item below has passed.
 - Latest browser regression passed on commit `01b3ac4e4acb0daef4e38d64ef48f05bda12d749`: [MUKUL Browser Regression Run #146](https://github.com/regtechnexusai/regtechnexusai.github.io/actions/runs/39535607539). This run includes a keyboard smoke test that tabs to the homepage skip link and verifies a visible focus indicator. It does not constitute a full accessibility audit.
 - Added staging-only static guardrails in `.github/scripts/regression_check.py` (commit `a51c2521fc10ed0750ddf7dd85629e8b73432586`) to parse the candidate JSON when present, require `enabled: false`, enforce review/safety flags, keep all markets in candidate/unreviewed state, and flag homepage imports of the inactive config. These checks do not alter calculator or crop-help logic. Fresh CI passed on commit `278b047bed45c484d261502ab3c0c359b278a762`: [Static Regression Run #221](https://github.com/regtechnexusai/regtechnexusai.github.io/actions/runs/39534929821) and [MUKUL Browser Regression Run #144](https://github.com/regtechnexusai/regtechnexusai.github.io/actions/runs/39534929822).
+- Latest verification on commit `43978e1254e1e5c747997a12ed3d02ff84381963`: [MUKUL Browser Regression Run #150](https://github.com/regtechnexusai/regtechnexusai.github.io/actions/runs/39536921543) and [Static Regression Run #227](https://github.com/regtechnexusai/regtechnexusai.github.io/actions/runs/39536921525) both passed. The browser run includes a Farm Records input/output smoke fixture; it does not prove every calculator across the full repository is unchanged.
 - No verified staging deployment URL or isolated preview environment has been confirmed. Git branch isolation is not proof of a deployed staging site.
 
 ## Regression checklist — required before release
@@ -29,7 +30,8 @@ Working branch: `mukul-expansion-staging`
 - [ ] AI image-analysis: consent checkbox, upload constraints, request/error states, and results.
 - [x] Automated bilingual UI checks in CI passed (Browser Regression Run #144); full translation coverage still requires review.
 - [x] Automated narrow-mobile and desktop horizontal-overflow checks in CI passed for the tested pages (Browser Regression Run #144); broader tablet/accessibility review remains open.
-- [ ] Existing calculations and input/output pairs unchanged, verified with dedicated baseline fixtures.
+- [ ] Existing calculations and input/output pairs unchanged, verified with dedicated baseline fixtures across every applicable feature.
+- [x] Farm Records smoke fixture verifies saved district/crop/soil-pH values round-trip unchanged and the current `2/6` completeness output for district + crop only (Browser Regression Run #150). This is a narrow regression fixture, not a complete calculator baseline.
 - [x] Homepage skip-link is reachable by keyboard and shows a visible focus indicator (Browser Regression Run #146). Full keyboard navigation, form-label coverage, and contrast review remain open.
 - [ ] Network/API failures handled without exposing secrets or user data.
 - [ ] New country configuration parses and unsupported countries/languages fail safely.
