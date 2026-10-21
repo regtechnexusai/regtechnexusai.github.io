@@ -16,6 +16,14 @@ const path = require('node:path');
   const failures = [];
   page.on('pageerror', error => failures.push(error.message));
   const base = 'http://127.0.0.1:4173';
+  // Route smoke test: verify every currently covered MUKUL route returns a successful
+  // document response before testing interactions. This does not contact production.
+  for (const route of ['/mukul/', '/mukul/knowledge/', '/mukul/farm-records/', '/mukul/farm-records/privacy.html']) {
+    const response = await page.goto(base + route, { waitUntil: 'domcontentloaded' });
+    if (!response || !response.ok()) {
+      throw new Error('MUKUL route failed to load successfully: ' + route + '; status=' + (response ? response.status() : 'no response'));
+    }
+  }
   await page.goto(base + '/mukul/', { waitUntil: 'domcontentloaded' });
   // Keyboard accessibility smoke test: the first Tab should expose a visible skip link
   // with a discernible focus indicator, not merely move focus invisibly.
