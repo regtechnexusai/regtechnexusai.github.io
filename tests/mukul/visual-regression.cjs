@@ -131,6 +131,9 @@ const path = require('node:path');
   if (mockedVisionRequests !== 0) throw new Error('Vision API request was attempted without consent');
   // Error-path regression: the upstream 503 is mocked locally and must be surfaced safely.
   await page.locator('#mukul-gemini-consent').check();
+  // The UI intentionally clears the API-key field after every attempt, including blocked consent attempts.
+  // Re-enter the dummy key for the independent outage-path request.
+  await page.locator('#mukul-gemini-key').fill('dummy-test-key-never-sent');
   await page.locator('#mukul-run-vision').click();
   const outageStatus = await page.locator('#mukul-ai-status').innerText();
   if (mockedVisionRequests !== 1) throw new Error('Expected exactly one locally mocked Vision request during the outage test');
