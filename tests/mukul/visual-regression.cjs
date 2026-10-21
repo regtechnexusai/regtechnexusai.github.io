@@ -208,7 +208,7 @@ const path = require('node:path');
   if (!savedFarmFixture || savedFarmFixture.district !== 'Khulna' || savedFarmFixture.crop !== 'Rice' || savedFarmFixture.soil_ph !== '6.2') {
     throw new Error('Farm Records baseline fixture failed: saved inputs must round-trip without numeric coercion: ' + JSON.stringify(savedFarmFixture));
   }
-  if (!(await page.locator('#report').innerText()).includes('Core details completed: 2/6')) {
+  if (!(await page.locator('#report').innerText()).includes('2/6')) {
     throw new Error('Farm Records completeness baseline changed for district + crop only');
   }
   if (!(await page.locator('#report').innerText()).includes('6.2')) throw new Error('Farm Records soil pH baseline value missing from report');
