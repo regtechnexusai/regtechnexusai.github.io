@@ -161,7 +161,9 @@ const path = require('node:path');
   const knowledgeIds = await page.locator('[id]').evaluateAll(nodes => nodes.map(n => n.id));
   if (new Set(knowledgeIds).size !== knowledgeIds.length) throw new Error('Duplicate IDs on MUKUL Knowledge page');
   await page.locator('#language').selectOption('bn');
-  if (!(await page.locator('body').innerText()).includes('মূল পৃষ্ঠা')) throw new Error('Knowledge page Bangla switch failed');
+  await page.waitForFunction(() => document.querySelector('#main-nav a[href="/mukul/"]')?.textContent.trim() === 'মূল পৃষ্ঠা', { timeout: 3000 });
+  const knowledgeBanglaText = await page.locator('body').innerText();
+  if (!knowledgeBanglaText.includes('মূল পৃষ্ঠা') || !knowledgeBanglaText.includes('সবার জন্য কৃষিশিক্ষা।')) throw new Error('Knowledge page Bangla switch failed; nav=' + await page.locator('#main-nav a[href="/mukul/"]').innerText() + '; heading=' + await page.locator('.hero h1').innerText());
   await page.locator('#language').selectOption('en');
 
   // Farm Records publishing preview: save, summary, bilingual switch, CSV, privacy page and mobile layout.
