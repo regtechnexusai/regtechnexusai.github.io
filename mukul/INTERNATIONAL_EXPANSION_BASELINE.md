@@ -12,20 +12,22 @@ Working branch: `mukul-expansion-staging`
 - Do not publish market guidance until local agronomists have reviewed it and country/privacy requirements have been checked.
 - No production release until the existing feature baseline and the new-market checks below pass.
 
-## Baseline snapshot (read-only inspection)
-- `mukul/index.html` exists on the staging branch; blob SHA observed: `885820716fdfea02e3e8eacb1551bc23ac1b5d10`.
-- `mukul/shared-shell.css` exists on the staging branch; blob SHA observed: `72569feb502a8d71b6c047afdad924b973d61c85`.
-- The homepage contains existing crop-help and AI image-analysis UI. These are protected from this change.
-- No automated browser run or live functional test has been executed in this session. Therefore all runtime regression checks remain **NOT RUN**, not passed.
+## Baseline snapshot
+- `mukul/index.html` baseline blob SHA recorded before the optional-field fix: `885820716fdfea02e3e8eacb1551bc23ac1b5d10`.
+- `mukul/shared-shell.css` baseline blob SHA observed: `72569feb502a8d71b6c047afdad924b973d61c85`.
+- The homepage contains existing crop-help and AI image-analysis UI. These are protected from the international expansion configuration.
+- Static regression workflow passed on commit `dd688ef893cbfd9eb530f8b7ec177d8c7b52f4cf`: [Run #216](https://github.com/regtechnexusai/regtechnexusai.github.io/actions/runs/39534352410).
+- Browser regression workflow passed on the same commit, including bilingual UI checks and screenshot upload: [Run #139](https://github.com/regtechnexusai/regtechnexusai.github.io/actions/runs/39534352570).
+- These CI results cover the automated checks implemented in the repository; they do **not** establish that every release checklist item below has passed.
 - No verified staging deployment URL or isolated preview environment has been confirmed. Git branch isolation is not proof of a deployed staging site.
 
 ## Regression checklist — required before release
 - [ ] Homepage and all existing MUKUL routes load; internal links and footer links resolve.
 - [ ] Crop-help form: required fields, submit, validation, and error states.
 - [ ] AI image-analysis: consent checkbox, upload constraints, request/error states, and results.
-- [ ] Language selector and all existing translations.
-- [ ] Responsive layouts at narrow mobile, tablet, and desktop widths; no horizontal overflow.
-- [ ] Existing calculations and input/output pairs unchanged.
+- [x] Automated bilingual UI checks in CI passed (see Browser Regression Run #139); full translation coverage still requires review.
+- [x] Automated narrow-mobile and desktop horizontal-overflow checks in CI passed for the tested pages (see Browser Regression Run #139); broader tablet/accessibility review remains open.
+- [ ] Existing calculations and input/output pairs unchanged, verified with dedicated baseline fixtures.
 - [ ] Keyboard navigation, labels, focus visibility, and contrast.
 - [ ] Network/API failures handled without exposing secrets or user data.
 - [ ] New country configuration parses and unsupported countries/languages fail safely.
@@ -35,4 +37,6 @@ Working branch: `mukul-expansion-staging`
 - [ ] All blocking checks pass before opening a production release PR.
 
 ## Implementation status
-This baseline record is committed on the staging branch before adding the isolated country configuration. Country profiles are proposals only; they do not enable new advice or alter the live site.
+The international configuration remains an inactive proposal: `enabled: false`. It is not imported by existing pages and does not enable new market advice. The optional photo-part field no longer has native `required` validation while inside the optional experimental section, so it does not block the main crop-help form when that optional tool is unused.
+
+**Release status: BLOCKED / NOT READY.** CI is green for the implemented static and browser tests, but required domain, privacy, calculator-fixture, accessibility, and staging-preview gates remain open. Do not mark the PR ready or merge it until those gates are addressed and verified.
