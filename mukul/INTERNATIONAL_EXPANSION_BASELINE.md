@@ -19,6 +19,7 @@ Working branch: `mukul-expansion-staging`
 - Static regression workflow passed on commit `dd688ef893cbfd9eb530f8b7ec177d8c7b52f4cf`: [Run #216](https://github.com/regtechnexusai/regtechnexusai.github.io/actions/runs/39534352410).
 - Browser regression workflow passed on the same commit, including bilingual UI checks and screenshot upload: [Run #139](https://github.com/regtechnexusai/regtechnexusai.github.io/actions/runs/39534352570).
 - These CI results cover the automated checks implemented in the repository; they do **not** establish that every release checklist item below has passed.
+- Added staging-only static guardrails in `.github/scripts/regression_check.py` (commit `a51c2521fc10ed0750ddf7dd85629e8b73432586`) to parse the candidate JSON when present, require `enabled: false`, enforce review/safety flags, keep all markets in candidate/unreviewed state, and flag homepage imports of the inactive config. These checks do not alter calculator or crop-help logic. A fresh CI result for this commit has not yet been confirmed.
 - No verified staging deployment URL or isolated preview environment has been confirmed. Git branch isolation is not proof of a deployed staging site.
 
 ## Regression checklist — required before release
