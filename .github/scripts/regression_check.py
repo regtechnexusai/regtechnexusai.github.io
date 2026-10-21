@@ -3,7 +3,7 @@
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlsplit, unquote
-import argparse, datetime, re, sys
+import argparse, datetime, json, re, sys
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 ROOT=Path(__file__).resolve().parents[2]
@@ -70,6 +70,36 @@ try:
   if response.status < 200 or response.status >= 400:add("HIGH","https://regtechnexusai.com/tradeguard/","Public TradeGuard route returned HTTP "+str(response.status))
 except (URLError,HTTPError,TimeoutError) as exc:
  add("MEDIUM","https://regtechnexusai.com/tradeguard/","Public route smoke test inconclusive: "+str(exc))
+# MUKUL international-expansion guardrails: only validate if the proposal exists.
+# This intentionally does not import or activate the config in any application page.
+config_path=ROOT/"mukul"/"international"/"expansion-config.json"
+if config_path.exists():
+ try:
+  config=json.loads(config_path.read_text(encoding="utf-8"))
+  if config.get("schemaVersion") != 1:add("HIGH",config_path.relative_to(ROOT).as_posix(),"Unsupported or missing schemaVersion.")
+  if config.get("status") != "proposal":add("HIGH",config_path.relative_to(ROOT).as_posix(),"Expansion config must remain a proposal until release approval.")
+  if config.get("enabled") is not False:add("HIGH",config_path.relative_to(ROOT).as_posix(),"Expansion config must remain disabled before all release gates pass.")
+  policy=config.get("releasePolicy",{})
+  for key in ("requireLocalAgronomistReview","requirePrivacyAndLegalReview","requireRegressionTests","blockProductionOnAnyFailure","preserveExistingFeatures"):
+   if policy.get(key) is not True:add("HIGH",config_path.relative_to(ROOT).as_posix(),"Required releasePolicy guardrail must be true: "+key)
+  markets=config.get("markets")
+  if not isinstance(markets,dict) or not markets:add("HIGH",config_path.relative_to(ROOT).as_posix(),"At least one candidate market must be defined.")
+  else:
+   for market_id,market in markets.items():
+    if not isinstance(market,dict):add("HIGH",config_path.relative_to(ROOT).as_posix(),"Market entry must be an object: "+str(market_id));continue
+    if market.get("status") != "candidate":add("HIGH",config_path.relative_to(ROOT).as_posix(),"Market must remain candidate until approved: "+str(market_id))
+    if market.get("contentStatus") != "not-reviewed":add("HIGH",config_path.relative_to(ROOT).as_posix(),"Market content must remain marked not-reviewed until expert review: "+str(market_id))
+    if market.get("localPartnerStatus") != "not-confirmed":add("HIGH",config_path.relative_to(ROOT).as_posix(),"Local partner status must not be assumed confirmed: "+str(market_id))
+  safety=config.get("safety",{})
+  for key in ("diagnosisClaim","uncertainAdviceEscalationRequired","collectOnlyNecessaryData","imageUploadRequiresExplicitConsent","neverEmbedSecretsInClientConfig"):
+   expected=False if key=="diagnosisClaim" else True
+   if safety.get(key) is not expected:add("HIGH",config_path.relative_to(ROOT).as_posix(),"Unsafe or missing safety setting: "+key)
+  homepage=ROOT/"mukul"/"index.html"
+  if homepage.exists() and re.search(r"international/expansion-config\\.json|expansion-config\\.json",homepage.read_text(encoding="utf-8",errors="replace"),re.I):
+   add("HIGH","mukul/index.html","Inactive international config must not be imported or activated by the existing homepage.")
+  checked.append(config_path.relative_to(ROOT).as_posix())
+ except (OSError,json.JSONDecodeError) as exc:
+  add("HIGH",config_path.relative_to(ROOT).as_posix(),"Expansion config could not be read as valid JSON: "+str(exc))
 now=datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 lines=["# Automated Static Regression Report","", "Run: "+now, "Repository: "+ROOT.name, "Critical pages checked: "+str(len(checked))+"/"+str(len(CRITICAL)), "Scope: required-page presence, metadata, duplicate IDs, local links/assets and fragments.", "Limitation: not live browser testing, regulatory correctness review, accessibility audit or penetration test.", "", "## Pages checked"]
 lines += ["- "+x for x in checked] or ["- None"]
