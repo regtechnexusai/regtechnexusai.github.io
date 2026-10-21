@@ -95,7 +95,7 @@ if config_path.exists():
    expected=False if key=="diagnosisClaim" else True
    if safety.get(key) is not expected:add("HIGH",config_path.relative_to(ROOT).as_posix(),"Unsafe or missing safety setting: "+key)
   homepage=ROOT/"mukul"/"index.html"
-  if homepage.exists() and re.search(r"international/expansion-config\\.json|expansion-config\\.json",homepage.read_text(encoding="utf-8",errors="replace"),re.I):
+  if homepage.exists() and re.search(r"international/expansion-config\.json|expansion-config\.json",homepage.read_text(encoding="utf-8",errors="replace"),re.I):
    add("HIGH","mukul/index.html","Inactive international config must not be imported or activated by the existing homepage.")
   checked.append(config_path.relative_to(ROOT).as_posix())
  except (OSError,json.JSONDecodeError) as exc:
