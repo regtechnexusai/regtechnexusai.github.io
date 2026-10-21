@@ -17,6 +17,24 @@ const path = require('node:path');
   page.on('pageerror', error => failures.push(error.message));
   const base = 'http://127.0.0.1:4173';
   await page.goto(base + '/mukul/', { waitUntil: 'domcontentloaded' });
+  // Keyboard accessibility smoke test: the first Tab should expose a visible skip link
+  // with a discernible focus indicator, not merely move focus invisibly.
+  await page.keyboard.press('Tab');
+  const firstKeyboardFocus = await page.evaluate(() => {
+    const el = document.activeElement;
+    const style = getComputedStyle(el);
+    return {
+      tag: el && el.tagName,
+      className: el && typeof el.className === 'string' ? el.className : '',
+      visible: !!el && el.getClientRects().length > 0,
+      outlineStyle: style.outlineStyle,
+      outlineWidth: Number.parseFloat(style.outlineWidth) || 0
+    };
+  });
+  if (!firstKeyboardFocus.visible || !String(firstKeyboardFocus.className).includes('skip-link') ||
+      firstKeyboardFocus.outlineStyle === 'none' || firstKeyboardFocus.outlineWidth < 2) {
+    throw new Error('Keyboard skip-link or visible focus indicator failed: ' + JSON.stringify(firstKeyboardFocus));
+  }
   await page.waitForTimeout(700);
   const mainOrder = await page.locator('#main-content > section').evaluateAll(nodes => nodes.map(node => node.id));
   if (mainOrder[0] !== 'free-help') throw new Error('Free crop guidance section must be the first section after the site header');
