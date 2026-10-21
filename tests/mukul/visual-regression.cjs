@@ -135,6 +135,9 @@ const path = require('node:path');
   // Re-enter the dummy key for the independent outage-path request.
   await page.locator('#mukul-gemini-key').fill('dummy-test-key-never-sent');
   await page.locator('#mukul-run-vision').click();
+  // Playwright click resolves before the async FileReader/fetch handler finishes; wait for the
+  // production handler's finally block (which clears the key) before asserting the mocked response.
+  await page.waitForFunction(() => document.querySelector('#mukul-gemini-key').value === '', { timeout: 10000 });
   const outageStatus = await page.locator('#mukul-ai-status').innerText();
   if (mockedVisionRequests !== 1) throw new Error('Expected exactly one locally mocked Vision request during outage test; observed=' + mockedVisionRequests + '; status=' + outageStatus + '; consent=' + await page.locator('#mukul-gemini-consent').isChecked() + '; photoCount=' + await page.locator('#crop-photos').evaluate(el => el.files ? el.files.length : -1));
   if (!outageStatus.includes('Mocked upstream outage for regression testing')) throw new Error('Vision API outage message was not surfaced to the user: ' + outageStatus);
