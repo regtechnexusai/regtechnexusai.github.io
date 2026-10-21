@@ -118,7 +118,11 @@ const path = require('node:path');
   await page.locator('#refresh-media').click();
   if (!(await page.locator('#media-preview img').count())) throw new Error('Refresh did not preserve and redraw selected media');
 
-  // Privacy/security regression: a photo must not be sent without explicit consent.
+  // Privacy/security regression: use a fresh, known-good local image for both consent and outage checks.
+  // Earlier media actions intentionally delete the selected image, so re-select it here to ensure
+  // the test reaches the consent gate and mocked network request rather than failing on empty input.
+  await page.locator('#crop-photos').setInputFiles(samplePath);
+  await page.waitForFunction(() => !!document.querySelector('#media-preview img'));
   await page.locator('.mukul-ai-lab-disclosure > summary').click();
   await page.locator('#mukul-gemini-key').fill('dummy-test-key-never-sent');
   await page.locator('#mukul-run-vision').click();
