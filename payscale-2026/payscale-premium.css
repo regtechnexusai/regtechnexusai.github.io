@@ -43,3 +43,23 @@ body.payscale-main-page{margin:0;color:var(--rtx-ink);background:radial-gradient
 @media(max-width:620px){.payscale-main-page{font-size:15px}.payscale-main-page .shell{width:calc(100% - 22px);padding:11px 0 22px}.payscale-main-page .hero{padding:20px 17px;border-radius:20px;gap:14px}.payscale-main-page .brand-logo-frame{width:min(235px,100%);padding:9px}.payscale-main-page .brand-logo{max-width:215px}.payscale-main-page .brand-header-nav{margin-bottom:14px}.payscale-main-page .hero h1{font-size:clamp(1.65rem,7.2vw,2.25rem);line-height:1.4}.payscale-main-page .hero-subtitle{font-size:.94rem}.payscale-main-page .effective-badge{padding:7px 10px}.payscale-main-page .glass-card,.payscale-main-page .about-tool,.payscale-main-page .provenance-card,.payscale-main-page .retirement-section{margin-top:14px;padding:16px 13px;border-radius:15px}.payscale-main-page .quick-choice-section,.payscale-main-page .about-tool-grid,.payscale-main-page .source-summary-grid,.payscale-main-page .retirement-input-grid,.payscale-main-page .retirement-summary-grid{grid-template-columns:minmax(0,1fr)}.payscale-main-page .choice-card{min-height:0;padding:20px 17px;border-radius:15px}.payscale-main-page .choice-card strong{font-size:1.17rem}.payscale-main-page .notice{gap:10px}.payscale-main-page .notice-icon{flex-basis:31px;width:31px;height:31px}.payscale-main-page .unofficial-banner{flex-direction:column;gap:8px;padding:14px}.payscale-main-page .section-heading{flex-direction:column}.payscale-main-page .footer{grid-template-columns:minmax(0,1fr);padding:17px 13px}.payscale-main-page .footer-links{grid-column:auto;gap:10px 14px}.payscale-main-page .footer-branding img{width:85px}.payscale-main-page .pension-result-actions{flex-direction:column}.payscale-main-page .pension-result-actions>*{width:100%;text-align:center}.payscale-main-page th,.payscale-main-page td{padding:9px 10px;font-size:.9rem}}
 @media(prefers-reduced-motion:reduce){.payscale-main-page *,.payscale-main-page *:before,.payscale-main-page *:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 @media print{.payscale-main-page{background:#fff;color:#000}.payscale-main-page .shell{width:100%;padding:0}.payscale-main-page .hero,.payscale-main-page .glass-card,.payscale-main-page .retirement-section,.payscale-main-page .footer{box-shadow:none;break-inside:avoid}.payscale-main-page .print-hide,.payscale-main-page .quick-choice-section{display:none!important}}
+
+
+/* Mobile contrast hardening — appended after the original premium rules. */
+.payscale-main-page .hero{background:linear-gradient(125deg,#07182d 0%,#103d63 62%,#087b85 100%) !important;color:#fff !important}
+.payscale-main-page .hero h1,.payscale-main-page .hero .hero-subtitle,.payscale-main-page .hero .brand-header-nav,.payscale-main-page .hero .brand-header-nav a,.payscale-main-page .hero .brand-nav-current,.payscale-main-page .hero .hero-proof span{color:#fff !important}
+.payscale-main-page .hero .eyebrow{color:#a9eff0 !important}
+.payscale-main-page .hero .hero-proof span{background:rgba(255,255,255,.10) !important;border-color:rgba(255,255,255,.3) !important}
+.payscale-main-page .hero .brand-logo-frame{background:#fff !important}
+.payscale-main-page .glass-card,.payscale-main-page .about-tool,.payscale-main-page .provenance-card,.payscale-main-page .retirement-section,.payscale-main-page .footer{background:#fff !important;color:#10243b !important}
+.payscale-main-page .glass-card p,.payscale-main-page .about-tool p,.payscale-main-page .provenance-card p,.payscale-main-page .footer-meta,.payscale-main-page .footer-contact{color:#40536a !important}
+.payscale-main-page .hero-proof span{opacity:1 !important}
+.payscale-main-page .notice strong,.payscale-main-page .about-tool h2,.payscale-main-page .provenance-card h2,.payscale-main-page .section-heading h2,.payscale-main-page h3{color:#10243b}
+.payscale-main-page .footer-branding strong,.payscale-main-page .footer-branding small{color:#10243b !important}
+@media(max-width:620px){
+ .payscale-main-page .hero{padding:20px 17px !important}
+ .payscale-main-page .hero h1{color:#fff !important;font-size:clamp(1.65rem,7.2vw,2.25rem) !important}
+ .payscale-main-page .hero .hero-subtitle{color:#f2f7fc !important}
+ .payscale-main-page .hero .hero-proof span{color:#fff !important}
+ .payscale-main-page .glass-card,.payscale-main-page .about-tool,.payscale-main-page .provenance-card,.payscale-main-page .retirement-section,.payscale-main-page .footer{color:#10243b !important;background:#fff !important}
+}
