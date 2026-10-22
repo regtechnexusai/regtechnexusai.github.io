@@ -3201,3 +3201,93 @@ body.homepage-redesign .nav .nav-cta-gloss:focus-visible{
   /* Keep the desktop-only header CTA from crowding the compact mobile header. */
   body.homepage-redesign .nav .nav-cta-gloss{display:none!important}
 }
+
+
+/* PayScale mobile contrast repair — scoped to the calculator page only. */
+body.payscale-main-page {
+  color: #f4f7fc;
+}
+body.payscale-main-page .shell,
+body.payscale-main-page .shell * {
+  text-shadow: none;
+}
+@media (max-width: 1100px) {
+  body.payscale-main-page .shell {
+    width: min(calc(100% - 28px), 920px) !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin-inline: auto !important;
+  }
+  body.payscale-main-page .shell > .hero {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 14px !important;
+    background: #fff !important;
+    color: #142b45 !important;
+  }
+  body.payscale-main-page .shell > .hero h1 { color: #142b45 !important; }
+  body.payscale-main-page .shell > .hero .hero-subtitle { color: #344b64 !important; }
+  body.payscale-main-page .shell > .hero .hero-proof { color: #344b64 !important; }
+  body.payscale-main-page .shell > .hero .brand-nav-current,
+  body.payscale-main-page .shell > .hero .brand-nav-divider { color: #41556d !important; opacity: 1 !important; }
+  body.payscale-main-page .shell > .hero .eyebrow { color: #087e9b !important; }
+  body.payscale-main-page .shell > .hero .brand-home-link {
+    color: #fff !important;
+    background: #123653 !important;
+    border-color: #2e668e !important;
+  }
+  body.payscale-main-page .shell > .hero .effective-badge {
+    grid-column: auto !important;
+    color: #edf4ff !important;
+    background: #123153 !important;
+  }
+  body.payscale-main-page .quick-choice-section {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 14px !important;
+  }
+  body.payscale-main-page .choice-card {
+    min-width: 0 !important;
+    min-height: 0 !important;
+    padding: 18px 42px 18px 18px !important;
+    color: #f8fbff !important;
+    border: 1px solid #789bc2 !important;
+    border-radius: 15px !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+  body.payscale-main-page .choice-card-salary { background: #173f69 !important; }
+  body.payscale-main-page .choice-card-pension { background: #35366f !important; }
+  body.payscale-main-page .choice-card .choice-kicker { color: #9deaff !important; opacity: 1 !important; }
+  body.payscale-main-page .choice-card strong { color: #fff !important; font-size: 17px !important; line-height: 1.45 !important; }
+  body.payscale-main-page .choice-card p { color: #e5efff !important; font-size: 14px !important; line-height: 1.6 !important; opacity: 1 !important; }
+  body.payscale-main-page .choice-arrow { color: #fff !important; }
+  body.payscale-main-page .glass-card:not(.hero) {
+    color: #edf4ff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  body.payscale-main-page .glass-card:not(.hero) :is(h1,h2,h3,h4,strong,b) { color: #fff !important; opacity: 1 !important; }
+  body.payscale-main-page .glass-card:not(.hero) :is(p,li,small,label,summary) { color: #e6efff !important; opacity: 1 !important; }
+  body.payscale-main-page .glass-card:not(.hero) a { color: #9cecff !important; }
+  body.payscale-main-page .unofficial-banner,
+  body.payscale-main-page .compliance-note,
+  body.payscale-main-page .disclaimer,
+  body.payscale-main-page .result-disclaimer,
+  body.payscale-main-page .update-note {
+    background: #292f3b !important;
+    color: #fff0d0 !important;
+    border-color: #c49a54 !important;
+    opacity: 1 !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  body.payscale-main-page .unofficial-banner :is(p,strong),
+  body.payscale-main-page .compliance-note :is(p,strong),
+  body.payscale-main-page .disclaimer :is(p,strong),
+  body.payscale-main-page .result-disclaimer :is(p,strong),
+  body.payscale-main-page .update-note :is(p,strong) { color: #fff0d0 !important; opacity: 1 !important; }
+  body.payscale-main-page .footer-branding img { background: #fff !important; padding: 8px !important; border-radius: 10px !important; }
+}
