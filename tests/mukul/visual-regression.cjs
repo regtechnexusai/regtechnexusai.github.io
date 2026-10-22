@@ -48,7 +48,7 @@ const path = require('node:path');
   if (!(await page.locator('#market-title').innerText()).includes('Bangladesh')) throw new Error('International hub default market missing');
   await page.locator('#market-select').selectOption('west-bengal');
   if (!(await page.locator('#market-status').innerText()).includes('Candidate')) throw new Error('West Bengal must remain a candidate market');
-  if (!(await page.locator('#market-summary').innerText()).includes('not approved')) throw new Error('West Bengal candidate disclaimer missing');
+  if (!(await page.locator('#market-summary').innerText()).includes('approved or enabled')) throw new Error('West Bengal candidate disclaimer missing');
   await page.locator('#market-select').selectOption('ghana');
   if (!(await page.locator('#market-status').innerText()).includes('Candidate')) throw new Error('Ghana must remain a candidate market');
   await page.locator('#intl-language').selectOption('bn');
