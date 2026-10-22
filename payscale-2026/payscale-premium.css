@@ -63,3 +63,49 @@ body.payscale-main-page{margin:0;color:var(--rtx-ink);background:radial-gradient
  .payscale-main-page .hero .hero-proof span{color:#fff !important}
  .payscale-main-page .glass-card,.payscale-main-page .about-tool,.payscale-main-page .provenance-card,.payscale-main-page .retirement-section,.payscale-main-page .footer{color:#10243b !important;background:#fff !important}
 }
+
+/* Live-route contrast correction v3 — presentation only; no calculator logic changed. */
+html body.payscale-main-page{color:#10243b!important;background:#f3f6fb!important}
+body.payscale-main-page .shell{color:#10243b!important}
+body.payscale-main-page .hero{
+  background:linear-gradient(128deg,#071a32 0%,#103d62 58%,#087f8c 100%)!important;
+  color:#fff!important;border:1px solid rgba(255,255,255,.2)!important;
+  box-shadow:0 24px 60px rgba(7,26,50,.22)!important
+}
+body.payscale-main-page .hero :is(h1,h2,h3,p,.eyebrow,.hero-subtitle,.brand-nav-current,.brand-nav-divider,.hero-proof span,.effective-badge,.effective-badge strong){color:#fff!important}
+body.payscale-main-page .hero .hero-proof span,
+body.payscale-main-page .hero .effective-badge{background:rgba(255,255,255,.12)!important;border-color:rgba(255,255,255,.35)!important}
+body.payscale-main-page .hero a{color:#fff!important}
+body.payscale-main-page .release-banner,
+body.payscale-main-page .notice.glass-card,
+body.payscale-main-page .about-tool,
+body.payscale-main-page .provenance-card,
+body.payscale-main-page .source-summary,
+body.payscale-main-page .scale-section,
+body.payscale-main-page .governance-card,
+body.payscale-main-page .method-card,
+body.payscale-main-page .retirement-section{
+  color:#10243b!important;background:#fff!important;border-color:#d9e3ee!important
+}
+body.payscale-main-page :is(.release-banner,.notice.glass-card,.about-tool,.provenance-card,.source-summary,.scale-section,.governance-card,.method-card,.retirement-section) :is(h1,h2,h3,h4,strong,p,small,li,summary,span,label,td,th,caption){color:#10243b!important}
+body.payscale-main-page .method-card :is(h3,p,.method-index){color:#10243b!important}
+body.payscale-main-page .method-card .method-index{background:#e6f3f7!important;border:1px solid #b8dce4!important}
+body.payscale-main-page .disclaimer{background:#071a32!important;color:#fff!important;border-color:#244d70!important}
+body.payscale-main-page .disclaimer :is(strong,p,span){color:#fff!important}
+body.payscale-main-page .footer{background:#071a32!important;color:#fff!important;border-color:#244d70!important}
+body.payscale-main-page .footer :is(strong,small,span,a){color:#fff!important}
+body.payscale-main-page .footer-branding img{max-width:min(100%,260px)!important;height:auto!important;object-fit:contain!important}
+body.payscale-main-page :is(.choice-card,.choice-card-salary,.choice-card-pension){color:#fff!important}
+body.payscale-main-page .choice-card :is(strong,p,span){color:inherit!important}
+body.payscale-main-page :is(input,select,textarea){color:#10243b!important;background:#fff!important;border-color:#c7d4e2!important}
+body.payscale-main-page :is(.field-help,.table-note,.gross-footnote){color:#42556b!important}
+@media(max-width:700px){
+ body.payscale-main-page .hero{padding:22px 17px!important;gap:16px!important}
+ body.payscale-main-page .hero-copy{min-width:0!important}
+ body.payscale-main-page .hero-proof{display:flex!important;flex-wrap:wrap!important;gap:7px!important}
+ body.payscale-main-page .hero-proof span{font-size:.78rem!important;line-height:1.35!important}
+ body.payscale-main-page .method-grid{grid-template-columns:1fr!important}
+ body.payscale-main-page .footer-branding{align-items:flex-start!important;flex-wrap:wrap!important}
+ body.payscale-main-page .footer-branding img{width:210px!important}
+ body.payscale-main-page .table-wrap{max-width:100%!important;overflow-x:auto!important}
+}
