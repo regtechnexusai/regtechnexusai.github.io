@@ -36,12 +36,28 @@ const path = require('node:path');
   const base = 'http://127.0.0.1:4173';
   // Route smoke test: verify every currently covered MUKUL route returns a successful
   // document response before testing interactions. This does not contact production.
-  for (const route of ['/mukul/', '/mukul/knowledge/', '/mukul/farm-records/', '/mukul/farm-records/privacy.html']) {
+  for (const route of ['/mukul/', '/mukul/knowledge/', '/mukul/farm-records/', '/mukul/farm-records/privacy.html', '/mukul/international/']) {
     const response = await page.goto(base + route, { waitUntil: 'domcontentloaded' });
     if (!response || !response.ok()) {
       throw new Error('MUKUL route failed to load successfully: ' + route + '; status=' + (response ? response.status() : 'no response'));
     }
   }
+  // International hub smoke tests: selection is informational, bilingual and does not activate candidate markets.
+  await page.goto(base + '/mukul/international/', { waitUntil: 'domcontentloaded' });
+  if (!(await page.title()).includes('International')) throw new Error('International hub title missing');
+  if (!(await page.locator('#market-title').innerText()).includes('Bangladesh')) throw new Error('International hub default market missing');
+  await page.locator('#market-select').selectOption('west-bengal');
+  if (!(await page.locator('#market-status').innerText()).includes('Candidate')) throw new Error('West Bengal must remain a candidate market');
+  if (!(await page.locator('#market-summary').innerText()).includes('not approved')) throw new Error('West Bengal candidate disclaimer missing');
+  await page.locator('#market-select').selectOption('ghana');
+  if (!(await page.locator('#market-status').innerText()).includes('Candidate')) throw new Error('Ghana must remain a candidate market');
+  await page.locator('#intl-language').selectOption('bn');
+  if (!(await page.locator('h1').innerText()).includes('দায়িত্বশীল')) throw new Error('International hub Bengali language switch failed');
+  await page.locator('#market-select').selectOption('global');
+  if (!(await page.locator('#market-title').innerText()).includes('বিশ্বব্যাপী')) throw new Error('Global learning option did not render in Bengali');
+  await page.locator('#intl-language').selectOption('en');
+  await page.goto(base + '/mukul/', { waitUntil: 'domcontentloaded' });
+  if (!(await page.locator('a[href="/mukul/international/"]').count())) throw new Error('MUKUL homepage does not link to international hub');
   await page.goto(base + '/mukul/', { waitUntil: 'domcontentloaded' });
   // Keyboard accessibility smoke test: the first Tab should expose a visible skip link
   // with a discernible focus indicator, not merely move focus invisibly.
