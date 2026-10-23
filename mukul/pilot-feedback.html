@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="index,follow">
+<meta name="description" content="MUKUL farmer pilot review: test the prototype, record usability feedback, and identify issues before wider release.">
+<link rel="canonical" href="https://regtechnexusai.com/mukul/pilot-feedback.html">
+<link rel="stylesheet" href="/mukul/shared-shell.css?v=20261019-6">
+<title>MUKUL | কৃষক ব্যবহার পরীক্ষা ও মতামত</title>
+<style>
+:root{color-scheme:light;--green:#174c35;--ink:#172820;--muted:#607168;--line:#dce6df;--soft:#f4f8f2}
+*{box-sizing:border-box}body{margin:0;font:16px/1.65 system-ui,Arial,sans-serif;color:var(--ink);background:#fff}main{max-width:980px;margin:auto;padding:28px 18px 56px}h1,h2,h3{line-height:1.2;color:var(--green)}h1{font-size:clamp(28px,5vw,42px);margin:.4em 0}h2{font-size:23px;margin-top:28px}.intro{font-size:17px;color:var(--muted);max-width:760px}.notice{border:1px solid #ead7a1;background:#fff8e8;color:#5b4b2b;border-radius:12px;padding:14px;margin:18px 0}.panel{border:1px solid var(--line);border-radius:16px;padding:18px;margin:16px 0;background:#fff}.field{display:grid;gap:6px;margin:14px 0}.field label,.question{font-weight:750}.field input,.field select,.field textarea{width:100%;min-height:44px;padding:10px 12px;border:1px solid #b9cbbf;border-radius:10px;font:inherit;color:var(--ink);background:#fff}.field textarea{min-height:100px;resize:vertical}.rating{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:10px 0 18px}.rating label{display:flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:10px;padding:10px 8px;font-size:13px}.checklist{display:grid;gap:10px}.checklist label{display:flex;align-items:flex-start;gap:10px}.checklist input{margin-top:6px;min-width:18px;min-height:18px}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.actions button{min-height:46px;padding:11px 16px;border:1px solid var(--green);border-radius:11px;background:var(--green);color:#fff;font-weight:800;font:inherit;cursor:pointer}.actions button.secondary{background:#fff;color:var(--green)}.status{margin-top:12px;padding:12px;border-radius:10px;background:var(--soft);color:var(--green);overflow-wrap:anywhere}.small{font-size:13px;color:var(--muted)}:focus-visible{outline:3px solid #d59b2a;outline-offset:3px}@media(max-width:560px){main{padding:20px 14px 40px}.panel{padding:14px}.rating{grid-template-columns:1fr 1fr}.rating label{min-height:42px}}
+</style>
+</head>
+<body>
+<header class="mukul-shared-header"><div class="header-inner">
+<a class="brand" href="/mukul/" aria-label="MUKUL Agriculture Hub home"><img class="brand-logo" src="/mukul/mukul-logo.svg" alt="MUKUL Agriculture Hub — Smarter Farming, Healthier Tomorrow" width="400" height="132"></a>
+<button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="main-nav">☰</button>
+<nav class="main-nav" id="main-nav" aria-label="Main navigation"><a href="/mukul/">হোম</a><a href="/mukul/#knowledge">জ্ঞানভান্ডার</a><a href="/mukul/farm-records/">খামারের রেকর্ড</a><a href="/mukul/farm-records/privacy.html">গোপনীয়তা</a></nav>
+</div></header>
+<main>
+<p class="small"><a href="/mukul/">MUKUL হোম</a> / কৃষক ব্যবহার পরীক্ষা</p>
+<h1>কৃষক ব্যবহার পরীক্ষা ও মতামত</h1>
+<p class="intro">MUKUL সহজে বোঝা যায় কি না, মোবাইলে ঠিকমতো চলে কি না এবং নির্দেশনাগুলো সহায়ক কি না—তা বাস্তব ব্যবহারকারীর মাধ্যমে যাচাই করার জন্য এই ফর্ম।</p>
+<div class="notice"><strong>পরীক্ষামূলক সংস্করণ:</strong> এটি রোগ নির্ণয় বা চিকিৎসা-পরামর্শের বিকল্প নয়। জরুরি ফসল সমস্যায় স্থানীয় কৃষি সম্প্রসারণ কর্মকর্তা বা যোগ্য বিশেষজ্ঞের সহায়তা নিন।</div>
+<section class="panel">
+<h2>১. পরীক্ষার প্রেক্ষাপট</h2>
+<div class="field"><label for="role">আপনি কে?</label><select id="role"><option value="farmer">কৃষক</option><option value="extension">কৃষি সম্প্রসারণ কর্মকর্তা</option><option value="student">শিক্ষার্থী</option><option value="other">অন্যান্য</option></select></div>
+<div class="field"><label for="device">কোন ডিভাইসে ব্যবহার করেছেন?</label><select id="device"><option>Android phone</option><option>iPhone</option><option>Computer / laptop</option><option>Other</option></select></div>
+<div class="field"><label for="network">ইন্টারনেট সংযোগ</label><select id="network"><option>Mobile data — good</option><option>Mobile data — slow/unstable</option><option>Wi-Fi</option><option>Offline / no connection</option></select></div>
+<div class="field"><label for="task">কোন কাজটি পরীক্ষা করেছেন?</label><select id="task"><option>Find crop-care guidance</option><option>Use the crop helper form</option><option>Open farm records</option><option>Find a trusted source</option><option>Browse the knowledge hub</option><option>Other</option></select></div>
+</section>
+<section class="panel">
+<h2>২. ব্যবহারযোগ্যতার মূল্যায়ন</h2>
+<p class="question">নিচের প্রতিটি বিষয়ে ১ (খুব কঠিন/খারাপ) থেকে ৫ (খুব সহজ/ভালো) রেটিং দিন।</p>
+<div id="ratings"></div>
+<div class="field"><label for="issue">কোথায় সমস্যা হয়েছে? কী লেখা বা বোতাম বুঝতে অসুবিধা হয়েছে?</label><textarea id="issue" placeholder="সমস্যাটি সংক্ষেপে লিখুন"></textarea></div>
+<div class="field"><label for="helpful">সবচেয়ে সহায়ক বিষয় কী ছিল?</label><textarea id="helpful" placeholder="যে বিষয়টি কাজে লেগেছে"></textarea></div>
+<div class="field"><label for="improve">প্রথমে কোন পরিবর্তনটি করা উচিত?</label><textarea id="improve" placeholder="আপনার অগ্রাধিকার"></textarea></div>
+<div class="field"><label for="extra">অতিরিক্ত মন্তব্য (ঐচ্ছিক)</label><textarea id="extra"></textarea></div>
+</section>
+<section class="panel">
+<h2>৩. নিরাপত্তা ও বোঝাপড়া</h2>
+<div class="checklist">
+<label><input type="checkbox" id="understood"> বুঝেছি যে MUKUL-এর তথ্য সাধারণ সহায়তা; নিশ্চিত রোগ নির্ণয় নয়।</label>
+<label><input type="checkbox" id="privacy"> গোপনীয়তার নোটিশ দেখেছি এবং কী তথ্য ব্রাউজারে থাকে তা বুঝেছি।</label>
+<label><input type="checkbox" id="safe"> বুঝেছি যে কোনো সার/কীটনাশকের মাত্রা অনুমান করে প্রয়োগ করা উচিত নয়।</label>
+</div>
+</section>
+<div class="actions"><button id="download">মতামত ফাইল ডাউনলোড</button><button class="secondary" id="reset" type="button">ফর্ম পরিষ্কার করুন</button></div>
+<p class="small">গোপনীয়তা: এই ফর্ম কোনো সার্ভারে তথ্য পাঠায় না এবং স্বয়ংক্রিয়ভাবে জমা দেয় না। ডাউনলোড বোতাম চাপলে মতামত JSON ফাইল হিসেবে আপনার ডিভাইসে তৈরি হবে। নাম, ফোন, জাতীয় পরিচয়পত্র বা জমির সুনির্দিষ্ট অবস্থান লিখবেন না। প্রকল্প টিমকে পাঠাতে চাইলে আপনি নিজে ফাইলটি সংযুক্ত করতে পারেন।</p>
+<div class="status" id="status" role="status" aria-live="polite">এখনো কোনো ফাইল তৈরি হয়নি।</div>
+</main>
+<footer class="site-footer mukul-global-footer"><div class="footer-grid">
+<div class="footer-brand"><a class="footer-logo-link" href="/mukul/" aria-label="MUKUL home"><img class="footer-logo" src="/mukul/mukul-logo.svg" alt="MUKUL Agriculture Hub — Smarter Farming, Healthier Tomorrow" width="400" height="132" loading="lazy" decoding="async"></a><p>কৃষিজ্ঞান, খামারের রেকর্ড ও দায়িত্বশীল সিদ্ধান্ত সহায়তা।</p><p>Project initiative by <a href="https://regtechnexusai.com/" target="_blank" rel="noopener noreferrer"><strong>RegTech Nexus AI</strong></a></p></div>
+<div class="footer-col"><h3>প্ল্যাটফর্ম</h3><a href="/mukul/">হোম</a><a href="/mukul/knowledge/">জ্ঞানভান্ডার</a><a href="/mukul/farm-records/">খামারের রেকর্ড</a></div>
+<div class="footer-col"><h3>নীতি ও যাচাই</h3><a href="/mukul/farm-records/privacy.html">গোপনীয়তা ও সীমাবদ্ধতা</a><a href="/mukul/farm-records/source-register.html">তথ্যসূত্র যাচাই</a><a href="/mukul/pilot-feedback.html">কৃষক ব্যবহার পরীক্ষা</a></div>
+<div class="footer-col"><h3>যোগাযোগ</h3><a href="mailto:regtechnexusai@gmail.com">প্রকল্প টিমকে ইমেইল</a><a href="https://regtechnexusai.com/" target="_blank" rel="noopener noreferrer">RegTech Nexus AI ↗</a></div>
+</div><div class="footer-bottom"><span>© 2026 MUKUL · পরীক্ষামূলক সংস্করণ</span><span>রোগ নির্ণয় বা ইনপুটের মাত্রা নির্ধারণ করে না।</span></div></footer>
+<script>
+const labels=["সহজে পেজ খুঁজে পেয়েছি","লেখা ও নির্দেশনা বুঝতে পেরেছি","মোবাইলে ফর্ম ব্যবহার করতে পেরেছি","তথ্যসূত্র খুঁজে পেয়েছি","সামগ্রিক অভিজ্ঞতা"];
+const host=document.getElementById("ratings");
+labels.forEach((label,i)=>{const box=document.createElement("div");box.className="field";const title=document.createElement("div");title.className="question";title.textContent=(i+1)+". "+label;box.appendChild(title);const choices=document.createElement("div");choices.className="rating";for(let n=1;n<=5;n++){const l=document.createElement("label"),r=document.createElement("input");r.type="radio";r.name="rating"+i;r.value=String(n);if(n===3)r.checked=true;l.append(r,document.createTextNode(" "+n));choices.appendChild(l)}box.appendChild(choices);host.appendChild(box)});
+function buildRecord(){const ratings={};labels.forEach((label,i)=>{const chosen=document.querySelector('input[name="rating'+i+'"]:checked');ratings[label]=chosen?Number(chosen.value):null});return {form:"MUKUL pilot usability feedback",schemaVersion:1,createdAt:new Date().toISOString(),role:document.getElementById("role").value,device:document.getElementById("device").value,network:document.getElementById("network").value,task:document.getElementById("task").value,ratings,issue:document.getElementById("issue").value.trim(),helpful:document.getElementById("helpful").value.trim(),priorityImprovement:document.getElementById("improve").value.trim(),extra:document.getElementById("extra").value.trim(),understoodNonDiagnosis:document.getElementById("understood").checked,reviewedPrivacyNotice:document.getElementById("privacy").checked,understoodInputSafety:document.getElementById("safe").checked,storage:"Generated locally on this device only; not transmitted to MUKUL."}}
+document.getElementById("download").addEventListener("click",()=>{const data=buildRecord();const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json;charset=utf-8"});const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="mukul-pilot-feedback-"+new Date().toISOString().slice(0,10)+".json";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);document.getElementById("status").textContent="মতামত ফাইল তৈরি হয়েছে। ফাইলটি আপনার ডিভাইসে সংরক্ষিত হয়েছে; সার্ভারে পাঠানো হয়নি।"});
+document.getElementById("reset").addEventListener("click",()=>{document.querySelectorAll('input[type="checkbox"]').forEach(el=>el.checked=false);document.querySelectorAll('input[type="radio"]').forEach(el=>el.checked=false);document.querySelectorAll("textarea").forEach(el=>el.value="");document.getElementById("role").selectedIndex=0;document.getElementById("device").selectedIndex=0;document.getElementById("network").selectedIndex=0;document.getElementById("task").selectedIndex=0;document.querySelectorAll('input[type="radio"][value="3"]').forEach(el=>el.checked=true);document.getElementById("status").textContent="ফর্ম পরিষ্কার করা হয়েছে।"});
+</script>
+<script>(function(){const b=document.querySelector('.menu-toggle'),n=document.querySelector('#main-nav');if(!b||!n)return;function close(){n.classList.remove('open');b.setAttribute('aria-expanded','false');b.setAttribute('aria-label','Open menu');b.textContent='☰'}b.addEventListener('click',function(){const o=b.getAttribute('aria-expanded')!=='true';n.classList.toggle('open',o);b.setAttribute('aria-expanded',String(o));b.setAttribute('aria-label',o?'Close menu':'Open menu');b.textContent=o?'×':'☰'});n.addEventListener('click',function(e){if(e.target.closest('a'))close()});document.addEventListener('click',function(e){if(!b.contains(e.target)&&!n.contains(e.target))close()});document.addEventListener('keydown',function(e){if(e.key==='Escape')close()})})();</script>
+</body></html>
