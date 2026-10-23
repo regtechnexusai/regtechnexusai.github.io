@@ -350,3 +350,29 @@ body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-bott
  body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-bottom{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:12px!important;margin-top:26px!important;padding-top:18px!important}
  body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-legal-links{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:9px!important}
 }
+
+
+/* v7 QUALITY HARDENING: responsive controls, overflow safety and reduced-motion support. */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{overflow-wrap:anywhere}
+img,video,canvas{max-width:100%}
+button,input,select,textarea{max-width:100%}
+:where(a,button,input,select,textarea,[tabindex]):focus-visible{outline:3px solid #d59b2a!important;outline-offset:3px!important}
+@media(max-width:760px){
+  body{overflow-x:hidden}
+  .header-inner{min-width:0}
+  .main-nav{max-width:calc(100vw - 24px)}
+  .free-help-front input:not([type="checkbox"]):not([type="radio"]),
+  .free-help-front select,
+  .free-help-front textarea{min-height:44px}
+  .free-help-front button,.free-help-front .btn,.media-buttons button{min-height:44px}
+  .free-help-front .inline-fields{min-width:0;flex-wrap:wrap}
+  .free-help-front .inline-fields>*{min-width:0;flex:1 1 140px}
+  .market-tools input,.market-tools select{min-height:44px}
+  .market-grid,.feature-grid,.pathway-grid,.source-grid{min-width:0}
+  .footer-logo-link,.brand-logo{max-width:100%;height:auto}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto!important}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
