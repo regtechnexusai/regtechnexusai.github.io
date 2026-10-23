@@ -28,6 +28,11 @@
 #google_translate_element .goog-te-gadget{display:block!important;min-height:40px}
 #google_translate_element .goog-te-combo{display:block!important;visibility:visible!important;opacity:1!important;width:100%;max-width:100%;min-height:42px;padding:8px 10px;border:1px solid #b8cfc1;border-radius:10px;background:#fff;color:var(--ink);font:inherit}
 #translate-status.error{color:#9b3327}
+
+/* Google Translate's tap-to-show-original balloon can cover the quiz controls
+   on mobile. Keep translation available but suppress the intrusive tooltip. */
+#goog-gt-tt,.goog-te-balloon-frame,.goog-tooltip{display:none!important;visibility:hidden!important}
+.goog-text-highlight{background-color:transparent!important;box-shadow:none!important}
 .print-source-url{display:none}
 .footer.site-footer{margin-top:30px;padding:32px 22px 18px;background:linear-gradient(135deg,#174c35,#103c2b);color:#e2eee6}
 .footer-grid{max-width:1190px;margin:auto;display:grid;grid-template-columns:1.4fr repeat(3,minmax(0,1fr));gap:22px}
