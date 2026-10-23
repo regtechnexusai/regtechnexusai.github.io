@@ -294,7 +294,35 @@ const path = require('node:path');
   if (!(await page.locator('#main-nav').isVisible())) throw new Error('Farm Records mobile menu did not open');
   if (!(await page.locator('#main-nav a[href="/mukul/knowledge/"]').count())) throw new Error('Farm Records shared navigation is missing Learning guides');
 
+  // Crop Quizzes regression: exercise the actual question and answer path on desktop and touch.
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto(base + '/mukul/knowledge/crop-quizzes.html', { waitUntil: 'domcontentloaded' });
+  if (!(await page.title()).includes('Crop Quizzes')) throw new Error('Crop Quizzes page title missing');
+  await page.locator('#start').click();
+  if (!(await page.locator('#play').isVisible())) throw new Error('Crop quiz did not start');
+  if (await page.locator('.answer').count() !== 4) throw new Error('Crop quiz should show four answer options');
+  await page.locator('.answer').first().click();
+  if (failures.length) throw new Error('JavaScript error during desktop quiz answer selection: ' + failures.join(' | '));
+  const answerDebug = await page.evaluate(() => ({ answered: window.answered, nextDisabled: document.querySelector('#next').disabled, feedback: document.querySelector('#feedback').textContent, selected: document.querySelector('.answer')?.dataset.answerIndex }));
+  if (await page.locator('#next').isDisabled()) throw new Error('Crop quiz desktop answer click did not enable Next; state=' + JSON.stringify(answerDebug));
+  if (await page.locator('#feedback').isHidden()) throw new Error('Crop quiz desktop answer click did not show feedback');
+  if (await page.locator('.answer:not(:disabled)').count() !== 0) throw new Error('Crop quiz options were not disabled after selection');
+  await page.locator('#next').click();
+  if (!(await page.locator('#progress-label').innerText()).includes('2/5')) throw new Error('Crop quiz did not advance after an answer');
+
+  const touchContext = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1, isMobile: true, hasTouch: true });
+  const touchPage = await touchContext.newPage();
+  touchPage.on('pageerror', error => failures.push('touch quiz: ' + error.message));
+  await touchPage.goto(base + '/mukul/knowledge/crop-quizzes.html', { waitUntil: 'domcontentloaded' });
+  await touchPage.locator('#start').tap();
+  if (!(await touchPage.locator('#play').isVisible())) throw new Error('Crop quiz did not start on touch viewport');
+  await touchPage.locator('.answer').first().tap();
+  if (await touchPage.locator('#next').isDisabled()) throw new Error('Crop quiz mobile tap did not enable Next');
+  if (await touchPage.locator('#feedback').isHidden()) throw new Error('Crop quiz mobile tap did not show feedback');
+  if (await touchPage.locator('.answer:not(:disabled)').count() !== 0) throw new Error('Crop quiz mobile options were not disabled after selection');
+  await touchContext.close();
+
   if (failures.length) throw new Error('Browser JavaScript errors: ' + failures.join(' | '));
   await browser.close();
-  console.log('MUKUL browser regression passed: main site, knowledge page, Farm Records save/summary, bilingual UI, CSV download, privacy page, and mobile/desktop overflow.');
+  console.log('MUKUL browser regression passed: main site, knowledge page, Crop Quizzes desktop and touch answer selection, Farm Records save/summary, bilingual UI, CSV download, privacy page, and mobile/desktop overflow.');
 })().catch(error => { console.error(error); process.exit(1); });
