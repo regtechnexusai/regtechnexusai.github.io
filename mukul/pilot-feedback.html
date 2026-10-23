@@ -33,7 +33,7 @@
 </section>
 <section class="panel">
 <h2>২. ব্যবহারযোগ্যতার মূল্যায়ন</h2>
-<p class="question">নিচের প্রতিটি বিষয়ে ১ (খুব কঠিন/খারাপ) থেকে ५ (খুব সহজ/ভালো) রেটিং দিন।</p>
+<p class="question">নিচের প্রতিটি বিষয়ে ১ (খুব কঠিন/খারাপ) থেকে ৫ (খুব সহজ/ভালো) রেটিং দিন।</p>
 <div id="ratings"></div>
 <div class="field"><label for="issue">কোথায় সমস্যা হয়েছে? কী লেখা বা বোতাম বুঝতে অসুবিধা হয়েছে?</label><textarea id="issue" placeholder="সমস্যাটি সংক্ষেপে লিখুন"></textarea></div>
 <div class="field"><label for="helpful">সবচেয়ে সহায়ক বিষয় কী ছিল?</label><textarea id="helpful" placeholder="যে বিষয়টি কাজে লেগেছে"></textarea></div>
@@ -66,4 +66,5 @@ function buildRecord(){const ratings={};labels.forEach((label,i)=>{const chosen=
 document.getElementById("download").addEventListener("click",()=>{const data=buildRecord();const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json;charset=utf-8"});const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="mukul-pilot-feedback-"+new Date().toISOString().slice(0,10)+".json";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);document.getElementById("status").textContent="মতামত ফাইল তৈরি হয়েছে। ফাইলটি আপনার ডিভাইসে সংরক্ষিত হয়েছে; সার্ভারে পাঠানো হয়নি।"});
 document.getElementById("reset").addEventListener("click",()=>{document.querySelectorAll('input[type="checkbox"]').forEach(el=>el.checked=false);document.querySelectorAll('input[type="radio"]').forEach(el=>el.checked=false);document.querySelectorAll("textarea").forEach(el=>el.value="");document.getElementById("role").selectedIndex=0;document.getElementById("device").selectedIndex=0;document.getElementById("network").selectedIndex=0;document.getElementById("task").selectedIndex=0;document.querySelectorAll('input[type="radio"][value="3"]').forEach(el=>el.checked=true);document.getElementById("status").textContent="ফর্ম পরিষ্কার করা হয়েছে।"});
 </script>
+<script>(function(){const b=document.querySelector('.menu-toggle'),n=document.querySelector('#main-nav');if(!b||!n)return;function close(){n.classList.remove('open');b.setAttribute('aria-expanded','false');b.setAttribute('aria-label','Open menu');b.textContent='☰'}b.addEventListener('click',function(){const o=b.getAttribute('aria-expanded')!=='true';n.classList.toggle('open',o);b.setAttribute('aria-expanded',String(o));b.setAttribute('aria-label',o?'Close menu':'Open menu');b.textContent=o?'×':'☰'});n.addEventListener('click',function(e){if(e.target.closest('a'))close()});document.addEventListener('click',function(e){if(!b.contains(e.target)&&!n.contains(e.target))close()});document.addEventListener('keydown',function(e){if(e.key==='Escape')close()})})();</script>
 </body></html>
