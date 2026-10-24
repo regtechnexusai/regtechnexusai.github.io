@@ -97,7 +97,6 @@ body .site-header .main-nav a:hover,body .site-header .main-nav a[aria-current="
 @media(max-width:1100px){body .site-header .main-nav{gap:5px!important}body .site-header .main-nav a{padding:6px 7px;font-size:11px}}
 @media(max-width:760px){body .site-header .main-nav a{display:flex;width:100%;justify-content:flex-start;min-height:40px;padding:10px 11px;border-radius:9px;background:#fff;border:0;border-bottom:1px solid #eef2ee;box-shadow:none}body .site-header .main-nav a:hover,body .site-header .main-nav a[aria-current="page"]{background:#f4f8f2;box-shadow:none}}
 
-
 /* MUKUL footer redesign v4: enforce the same spacious, dark navy footer across every MUKUL page. */
 body footer.site-footer.mukul-global-footer{
   display:block!important;position:relative!important;float:none!important;clear:both!important;
@@ -197,8 +196,7 @@ html body footer.site-footer.mukul-global-footer *{box-sizing:border-box!importa
 html body footer.site-footer.mukul-global-footer .footer-grid{
  display:grid!important;grid-template-columns:minmax(220px,1.55fr) repeat(4,minmax(0,1fr))!important;
  gap:clamp(20px,2.7vw,40px)!important;width:100%!important;max-width:1320px!important;
- margin:0 auto!important;padding:0!important;align-items:start!important;
-}
+ margin:0 auto!important;padding:0!important;align-items:start!important;}
 html body footer.site-footer.mukul-global-footer .footer-brand,
 html body footer.site-footer.mukul-global-footer .footer-col{
  display:flex!important;flex-direction:column!important;align-items:flex-start!important;
@@ -297,8 +295,7 @@ body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-logo
 body:not(.homepage-redesign) footer.site-footer.mukul-global-footer img.footer-logo{
  display:block!important;width:100%!important;max-width:242px!important;height:auto!important;max-height:78px!important;
  object-fit:contain!important;object-position:left center!important;background:transparent!important;border:0!important;box-shadow:none!important;
-}
-body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-brand p,
+}body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-brand p,
 body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-col p{
  margin:0!important;padding:0!important;max-width:270px!important;background:transparent!important;
  color:#b8c8d9!important;font-size:12px!important;line-height:1.75!important;overflow-wrap:anywhere!important;
@@ -356,3 +353,8 @@ body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-bott
 html body footer.site-footer.mukul-global-footer .footer-logo-link{display:inline-flex!important;width:min(100%,260px)!important;max-width:100%!important;padding:3px!important;background:#fff!important;overflow:visible!important}
 html body footer.site-footer.mukul-global-footer img.footer-logo{display:block!important;width:100%!important;max-width:254px!important;height:auto!important;max-height:80px!important;object-fit:contain!important;object-position:left center!important}
 @media(max-width:600px){html body footer.site-footer.mukul-global-footer .footer-logo-link{width:min(100%,220px)!important}html body footer.site-footer.mukul-global-footer img.footer-logo{max-width:214px!important;max-height:68px!important}}
+
+/* 2026-10-24 hotfix: compact MUKUL footer logo on phones and desktop. */
+body .site-footer.mukul-global-footer .footer-logo-link{display:inline-flex!important;width:min(100%,180px)!important;max-width:180px!important;min-width:0!important;flex:0 1 180px!important}
+body .site-footer.mukul-global-footer img.footer-logo{display:block!important;width:100%!important;max-width:180px!important;height:auto!important;max-height:62px!important;object-fit:contain!important}
+@media(max-width:600px){body .site-footer.mukul-global-footer .footer-logo-link{width:min(100%,160px)!important;max-width:160px!important;flex-basis:160px!important}body .site-footer.mukul-global-footer img.footer-logo{max-width:160px!important;max-height:52px!important}}
