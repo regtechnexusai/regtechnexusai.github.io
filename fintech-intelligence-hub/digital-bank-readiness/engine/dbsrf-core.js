@@ -148,7 +148,7 @@
           return artifact.questionLinks.some(function (link) {
             return link && link.questionId === id && link.relevance === "Relevant" && link.sufficiency === "Sufficient" &&
               typeof link.reviewer === "string" && link.reviewer.trim() &&
-              typeof link.reviewedAt === "string" && /^\\d{4}-\\d{2}-\\d{2}$/.test(link.reviewedAt) &&
+              typeof link.reviewedAt === "string" && /^\d{4}-\d{2}-\d{2}$/.test(link.reviewedAt) &&
               !Number.isNaN(Date.parse(link.reviewedAt)) && new Date(link.reviewedAt).toISOString().slice(0,10) === link.reviewedAt;
           });
         });
