@@ -19,7 +19,7 @@ function renderQuestions(){
    '<div class="dbsr-field dbsr-hidden" data-na="'+q.id+'"><label for="just-'+q.id+'">N/A justification</label><textarea id="just-'+q.id+'" data-field="justification" data-qid="'+q.id+'" placeholder="At least 20 characters: explain why this question is not applicable to the assessed scope."></textarea></div>'+
    '<div class="dbsr-field dbsr-hidden" data-na="'+q.id+'"><label for="approver-'+q.id+'">Approver identifier</label><input id="approver-'+q.id+'" data-field="approvedBy" data-qid="'+q.id+'" placeholder="Reviewer or approver ID"></div></div>'+
    '<div class="dbsr-checks dbsr-hidden" data-na="'+q.id+'"><label><input type="checkbox" data-field="applicabilityVerified" data-qid="'+q.id+'"> Applicability independently verified</label></div>'+
-   (q.criticalGate?'<div class="dbsr-checks dbsr-hidden" data-assessed="'+q.id+'"><label><input type="checkbox" data-field="criticalFindingConfirmed" data-qid="'+q.id+'"> Reviewer confirms a critical finding</label><label><input type="checkbox" data-field="reviewerVerified" data-qid="'+q.id+'"> Reviewer verification completed</label></div>':'')+
+   (q.criticalGate?'<div class="dbsr-checks dbsr-hidden" data-assessed="'+q.id+'"><label><input type="checkbox" data-field="criticalFindingConfirmed" data-qid="'+q.id+'"> Reviewer confirms a critical finding <span class="dbsr-print-check" data-print-check="critical-'+q.id+'"></span></label><label><input type="checkbox" data-field="reviewerVerified" data-qid="'+q.id+'"> Reviewer verification completed <span class="dbsr-print-check" data-print-check="verified-'+q.id+'"></span></label></div>':'')+
    '</article>').join("")+'</section>';
  }).join("");
 }
@@ -89,6 +89,16 @@ function renderValidationErrors(errors){
  host.className="dbsr-message error";
  host.querySelectorAll("[data-error-jump]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();const target=$("status-"+a.dataset.errorJump);target?.scrollIntoView({behavior:"smooth",block:"center"});target?.focus();}));
 }
+function updatePrintableCheckboxes(){
+ core.QUESTIONS.filter(q=>q.criticalGate).forEach(q=>{
+  const critical=document.querySelector('[data-field="criticalFindingConfirmed"][data-qid="'+q.id+'"]');
+  const verified=document.querySelector('[data-field="reviewerVerified"][data-qid="'+q.id+'"]');
+  const a=document.querySelector('[data-print-check="critical-'+q.id+'"]');
+  const b=document.querySelector('[data-print-check="verified-'+q.id+'"]');
+  if(a)a.textContent="Critical finding confirmed: "+(critical&&critical.checked?"Yes":"No");
+  if(b)b.textContent="Reviewer verification completed: "+(verified&&verified.checked?"Yes":"No");
+ });
+}
 function updateResults(){
  const evidenceValidation=Array.isArray(evidenceArtifacts)?evidenceApi.validateInventory(evidenceArtifacts):{valid:false};
  const assessment=core.assess({answers:answers,evidenceArtifacts:evidenceValidation.valid?evidenceArtifacts:null});
@@ -135,6 +145,7 @@ function updateResults(){
  $("dbsr-gates").innerHTML=(assessment.criticalGates||[]).map(g=>'<div class="dbsr-gate"><strong>'+escapeHtml(g.questionId)+' — '+escapeHtml(g.status)+'</strong><span class="dbsr-muted">'+escapeHtml(g.rationale)+'</span></div>').join("")||'<div class="dbsr-empty">No critical-gate results available yet.</div>';
  if(evidenceArtifacts===null){$("dbsr-message").textContent="Evidence inventory JSON is invalid. Fix the JSON before exporting.";$("dbsr-message").className="dbsr-message error";}else if(!assessment.valid){renderValidationErrors(errors);}else if(evidenceWarnings.length){renderValidationErrors([]);$("dbsr-message").innerHTML="<strong>"+evidenceWarnings.length+" evidence/review warning(s)</strong><ul>"+evidenceWarnings.map(w=>'<li><a href="#status-'+escapeHtml(w.qid)+'">'+escapeHtml(w.qid)+'</a> '+escapeHtml(w.text)+'</li>').join("")+"</ul>";$("dbsr-message").className="dbsr-message error";}else{renderValidationErrors([]);}
  $("dbsr-evidence-summary").textContent=evidenceArtifacts===null?"Invalid JSON":(evidenceApi.validateInventory(evidenceArtifacts).valid?evidenceApi.validateInventory(evidenceArtifacts).summary.artifactCount+" artifact(s), "+evidenceApi.validateInventory(evidenceArtifacts).summary.questionLinks+" question link(s).":"Evidence inventory errors: "+evidenceApi.validateInventory(evidenceArtifacts).errors.join(" "));
+ updatePrintableCheckboxes();
  const printSummary=$("dbsr-print-summary"); if(printSummary) printSummary.innerHTML="<h2>Assessment review summary</h2><p>Answered: "+answered+"/28 · Needs correction/review: "+new Set([...invalidQids,...evidenceWarnings.map(w=>w.qid)]).size+" question(s) · Evidence artifacts: "+(Array.isArray(evidenceArtifacts)?evidenceArtifacts.length:"invalid inventory")+"</p>"+(errors.length||evidenceWarnings.length?'<ul>'+errors.map(e=>'<li>'+escapeHtml(e)+'</li>').concat(evidenceWarnings.map(w=>'<li>'+escapeHtml(w.qid)+': '+escapeHtml(w.text)+'</li>')).join("")+'</ul>':"<p>No current validation or evidence-link warnings.</p>")+"<h3>Evidence inventory</h3><pre>"+escapeHtml(JSON.stringify(Array.isArray(evidenceArtifacts)?evidenceArtifacts:[],null,2))+"</pre>";
 }
 function finalizeAssessment(){
