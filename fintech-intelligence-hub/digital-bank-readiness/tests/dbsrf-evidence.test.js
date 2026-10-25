@@ -19,8 +19,8 @@ test("one artifact may map to multiple questions with separate relevance/suffici
 });
 test("multiple artifacts can map to the same question", () => {
   const list = [
-    artifact("EV-001", [{questionId:"AML-03",relevance:"Relevant",sufficiency:"Sufficient"}]),
-    artifact("EV-002", [{questionId:"AML-03",relevance:"Relevant",sufficiency:"Partially sufficient"}])
+    artifact("EV-001", [{questionId:"AML-03",relevance:"Relevant",sufficiency:"Sufficient",reviewer:"reviewer-1",reviewedAt:"2026-10-25"}]),
+    artifact("EV-002", [{questionId:"AML-03",relevance:"Relevant",sufficiency:"Partially sufficient",reviewer:"reviewer-2",reviewedAt:"2026-10-25"}])
   ];
   assert.equal(evidence.validateInventory(list).valid, true);
   assert.equal(evidence.getQuestionEvidence(list,"AML-03").length, 2);
@@ -51,4 +51,13 @@ test("evidence is not treated as reviewed-sufficient without reviewer and review
   const result = evidence.summarizeQuestionEvidence(list,"GOV-03");
   assert.equal(result.reviewedSufficientArtifacts,0);
   assert.match(result.status,/not established/);
+});
+
+test("reviewed-sufficient evidence requires reviewer and review date", () => {
+  const list = [artifact("EV-010", [
+    {questionId:"REP-01",relevance:"Relevant",sufficiency:"Sufficient"}
+  ])];
+  const result = evidence.validateInventory(list);
+  assert.equal(result.valid,false);
+  assert.match(result.errors.join(" "),/reviewer and valid reviewedAt date/);
 });
