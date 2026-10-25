@@ -70,7 +70,8 @@ function renderQuestionValues(){
  });
 }
 function updateResults(){
- const assessment=core.assess({answers:answers,evidenceArtifacts:evidenceArtifacts});
+ const evidenceValidation=Array.isArray(evidenceArtifacts)?evidenceApi.validateInventory(evidenceArtifacts):{valid:false};
+ const assessment=core.assess({answers:answers,evidenceArtifacts:evidenceValidation.valid?evidenceArtifacts:null});
  $("dbsr-assessed").textContent=String(assessment.coverage.assessedQuestions||0);
  $("dbsr-resolved").textContent=String(assessment.coverage.resolvedQuestions||0);
  $("dbsr-unresolved").textContent=String(assessment.coverage.unresolvedQuestions||0);
