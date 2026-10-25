@@ -19,5 +19,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - name: Validate browser UI JavaScript syntax
+        run: node --check fintech-intelligence-hub/digital-bank-readiness/assets/dbsrf-ui.js
       - name: Run DBSRF core tests
         run: node --test fintech-intelligence-hub/digital-bank-readiness/tests/*.test.js
