@@ -740,3 +740,316 @@ html body main a:not(.button):not([class*="btn"]){
     box-shadow:0 5px 16px rgba(16,43,73,.06)!important;
   }
 }
+
+
+/* ============================================================
+   MUKUL visual system refresh — RegTech Nexus AI palette
+   Presentation-only CSS. Do not alter scripts, forms, algorithms,
+   calculators, validation, data handling, or decision logic.
+   Palette: Nexus blue, rose, mint/teal, sky, and restrained gold.
+   ============================================================ */
+:root{
+  --mukul-nexus-blue:#0956a8;
+  --mukul-nexus-navy:#0b1b34;
+  --mukul-nexus-rose:#c84f83;
+  --mukul-nexus-rose-soft:#fff1f7;
+  --mukul-nexus-mint:#168b78;
+  --mukul-nexus-mint-soft:#eaf8f2;
+  --mukul-nexus-sky:#238cc0;
+  --mukul-nexus-sky-soft:#edf7ff;
+  --mukul-nexus-gold:#b58a32;
+  --mukul-nexus-gold-soft:#fff8e8;
+  --mukul-nexus-lilac:#7561b5;
+  --mukul-nexus-lilac-soft:#f4f0ff;
+}
+html body{
+  background:linear-gradient(180deg,#f6f9ff 0%,#f8fbfc 34%,#f7fbf8 72%,#fff9fc 100%);
+}
+html body main{
+  background:transparent;
+}
+html body main section{
+  position:relative;
+}
+html body main .hero,
+html body main .hero-grid{
+  background:linear-gradient(125deg,#eef6ff 0%,#f6f1ff 42%,#eaf8f2 100%)!important;
+  border:1px solid #d5e4f1!important;
+  border-radius:24px!important;
+  box-shadow:0 12px 34px rgba(11,45,86,.07)!important;
+}
+html body main .hero h1,
+html body main .hero-grid h1{
+  color:var(--mukul-nexus-navy);
+}
+html body main .hero h1 span,
+html body main .hero .accent,
+html body main .hero-grid .accent{
+  color:var(--mukul-nexus-blue);
+}
+html body main .section-heading{
+  position:relative;
+  padding-bottom:12px;
+  margin-bottom:20px;
+}
+html body main .section-heading:after{
+  content:"";
+  display:block;
+  width:76px;
+  height:4px;
+  margin-top:10px;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--mukul-nexus-blue),var(--mukul-nexus-rose),var(--mukul-nexus-mint));
+}
+html body main .feature-card,
+html body main .info-card,
+html body main .market-panel,
+html body main .market-card,
+html body main .source-card,
+html body main .report-panel,
+html body main .free-help-panel,
+html body main .search-box,
+html body main .more-language-panel,
+html body main .language-panel,
+html body main .panel,
+html body main .card,
+html body main .info-box,
+html body main .content-card,
+html body main .resource-card,
+html body main .tool-card,
+html body main .guide-card,
+html body main .quiz-card,
+html body main .result-card,
+html body main .notice,
+html body main .callout,
+html body main .cta-panel,
+html body main .hero-note,
+html body main .source-item,
+html body main .stat-card,
+html body main .resource,
+html body main .resultlist,
+html body main .authorgrid,
+html body main .language-panel-wrap,
+html body main .sample-result,
+html body main .help-result,
+html body main .mukul-ai-result,
+html body main .photo-quality-results,
+html body main .status,
+html body main .grid>.panel,
+html body main .grid>.card,
+html body main .grid>.resource,
+html body main .grid>.info-card{
+  background:linear-gradient(145deg,#fff 0%,#f5f9ff 100%)!important;
+  border:1px solid #d8e4f1!important;
+  border-top:4px solid var(--mukul-nexus-blue)!important;
+  border-radius:17px!important;
+  box-shadow:0 8px 24px rgba(18,45,83,.065)!important;
+}
+html body main .feature-card:nth-child(5n+1),
+html body main .info-card:nth-child(5n+1),
+html body main .market-card:nth-child(5n+1),
+html body main .source-card:nth-child(5n+1),
+html body main .card:nth-child(5n+1),
+html body main .resource:nth-child(5n+1),
+html body main .grid>*:nth-child(5n+1){
+  border-top-color:var(--mukul-nexus-blue)!important;
+  background:linear-gradient(145deg,#fff 0%,var(--mukul-nexus-sky-soft) 100%)!important;
+}
+html body main .feature-card:nth-child(5n+2),
+html body main .info-card:nth-child(5n+2),
+html body main .market-card:nth-child(5n+2),
+html body main .source-card:nth-child(5n+2),
+html body main .card:nth-child(5n+2),
+html body main .resource:nth-child(5n+2),
+html body main .grid>*:nth-child(5n+2){
+  border-top-color:var(--mukul-nexus-rose)!important;
+  background:linear-gradient(145deg,#fff 0%,var(--mukul-nexus-rose-soft) 100%)!important;
+}
+html body main .feature-card:nth-child(5n+3),
+html body main .info-card:nth-child(5n+3),
+html body main .market-card:nth-child(5n+3),
+html body main .source-card:nth-child(5n+3),
+html body main .card:nth-child(5n+3),
+html body main .resource:nth-child(5n+3),
+html body main .grid>*:nth-child(5n+3){
+  border-top-color:var(--mukul-nexus-mint)!important;
+  background:linear-gradient(145deg,#fff 0%,var(--mukul-nexus-mint-soft) 100%)!important;
+}
+html body main .feature-card:nth-child(5n+4),
+html body main .info-card:nth-child(5n+4),
+html body main .market-card:nth-child(5n+4),
+html body main .source-card:nth-child(5n+4),
+html body main .card:nth-child(5n+4),
+html body main .resource:nth-child(5n+4),
+html body main .grid>*:nth-child(5n+4){
+  border-top-color:var(--mukul-nexus-lilac)!important;
+  background:linear-gradient(145deg,#fff 0%,var(--mukul-nexus-lilac-soft) 100%)!important;
+}
+html body main .feature-card:nth-child(5n),
+html body main .info-card:nth-child(5n),
+html body main .market-card:nth-child(5n),
+html body main .source-card:nth-child(5n),
+html body main .card:nth-child(5n),
+html body main .resource:nth-child(5n),
+html body main .grid>*:nth-child(5n){
+  border-top-color:var(--mukul-nexus-gold)!important;
+  background:linear-gradient(145deg,#fff 0%,var(--mukul-nexus-gold-soft) 100%)!important;
+}
+html body main .feature-card:hover,
+html body main .info-card:hover,
+html body main .market-card:hover,
+html body main .source-card:hover,
+html body main .card:hover,
+html body main .resource-card:hover,
+html body main .tool-card:hover,
+html body main .guide-card:hover,
+html body main .resource:hover{
+  transform:translateY(-3px);
+  box-shadow:0 15px 32px rgba(9,86,168,.13)!important;
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+html body main .notice,
+html body main .hero-note{
+  border-left:5px solid var(--mukul-nexus-sky)!important;
+  background:linear-gradient(120deg,#edf7ff 0%,#f3f0ff 100%)!important;
+}
+html body main .notice[role="alert"],
+html body main .warning,
+html body main .disclaimer{
+  border-top-color:var(--mukul-nexus-gold)!important;
+  border-left-color:var(--mukul-nexus-gold)!important;
+  background:linear-gradient(120deg,#fff8e8 0%,#fffdf7 100%)!important;
+}
+html body main .success,
+html body main .success-panel,
+html body main .status.success{
+  border-top-color:var(--mukul-nexus-mint)!important;
+  background:linear-gradient(120deg,#eaf8f2 0%,#f8fffb 100%)!important;
+}
+html body main .cta-panel{
+  background:linear-gradient(125deg,#0b1b34 0%,#0956a8 54%,#168b78 100%)!important;
+  border:1px solid rgba(255,255,255,.35)!important;
+  border-top:4px solid var(--mukul-nexus-rose)!important;
+  color:#fff!important;
+}
+html body main .cta-panel h1,
+html body main .cta-panel h2,
+html body main .cta-panel h3,
+html body main .cta-panel p,
+html body main .cta-panel li{
+  color:#fff!important;
+}
+html body main .feature-icon,
+html body main .market-card-top,
+html body main .section-kicker,
+html body main .eyebrow{
+  color:var(--mukul-nexus-blue);
+}
+html body main .feature-icon{
+  background:linear-gradient(135deg,#e7f2ff,#f9eaf3)!important;
+  border:1px solid #d9e4f3;
+  border-radius:14px;
+}
+html body main button,
+html body main .button,
+html body main a.button,
+html body main .btn,
+html body main input[type="submit"],
+html body main input[type="button"]{
+  border-radius:11px;
+  transition:filter .16s ease,transform .16s ease,box-shadow .16s ease;
+}
+html body main button:not(.secondary):not(.ghost),
+html body main .button:not(.secondary):not(.ghost),
+html body main .btn:not(.secondary):not(.ghost),
+html body main input[type="submit"]{
+  box-shadow:0 5px 14px rgba(9,86,168,.12);
+}
+html body main button:hover,
+html body main .button:hover,
+html body main .btn:hover,
+html body main input[type="submit"]:hover{
+  filter:saturate(1.08);
+}
+html body main input:not([type="checkbox"]):not([type="radio"]),
+html body main select,
+html body main textarea{
+  background-color:#fff;
+  border-color:#cbdbea;
+  border-radius:10px;
+}
+html body main input:focus,
+html body main select:focus,
+html body main textarea:focus{
+  outline:3px solid rgba(200,79,131,.20);
+  outline-offset:1px;
+  border-color:var(--mukul-nexus-blue);
+}
+html body main table{
+  border-color:#d7e4f0;
+  border-radius:12px;
+  overflow:hidden;
+}
+html body main thead,
+html body main th{
+  background:linear-gradient(100deg,#eaf3ff,#f8eef5)!important;
+  color:#102b49;
+}
+html body main tbody tr:nth-child(even){
+  background:#f4f9ff;
+}
+html body main hr{
+  border:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,#b8d0e7,#edc3d5,#b8d9d0,transparent);
+}
+@media(max-width:760px){
+  html body main .hero,
+  html body main .hero-grid{border-radius:17px!important}
+  html body main .feature-card,
+  html body main .info-card,
+  html body main .market-panel,
+  html body main .market-card,
+  html body main .source-card,
+  html body main .report-panel,
+  html body main .free-help-panel,
+  html body main .search-box,
+  html body main .more-language-panel,
+  html body main .language-panel,
+  html body main .panel,
+  html body main .card,
+  html body main .info-box,
+  html body main .content-card,
+  html body main .resource-card,
+  html body main .tool-card,
+  html body main .guide-card,
+  html body main .quiz-card,
+  html body main .result-card,
+  html body main .notice,
+  html body main .callout,
+  html body main .cta-panel,
+  html body main .hero-note,
+  html body main .stat-card,
+  html body main .resource,
+  html body main .grid>*{
+    border-radius:13px!important;
+    box-shadow:0 5px 16px rgba(18,45,83,.055)!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  html body main .feature-card,
+  html body main .info-card,
+  html body main .market-card,
+  html body main .source-card,
+  html body main .card,
+  html body main .resource,
+  html body main button,
+  html body main .button,
+  html body main .btn{transition:none!important}
+  html body main .feature-card:hover,
+  html body main .info-card:hover,
+  html body main .market-card:hover,
+  html body main .source-card:hover,
+  html body main .card:hover,
+  html body main .resource:hover{transform:none!important}
+}
