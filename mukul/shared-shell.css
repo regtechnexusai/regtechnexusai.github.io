@@ -582,3 +582,161 @@ html body footer.site-footer.mukul-global-footer .footer-bottom>span.footer-lega
  html body footer.site-footer.mukul-global-footer .footer-bottom{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:12px!important;}
  html body footer.site-footer.mukul-global-footer .footer-bottom>span.footer-legal-links{display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:flex-start!important;gap:8px!important;width:100%!important;}
 }
+
+
+/* RegTech Nexus AI visual system — MUKUL site-wide card and content theme
+   Palette aligned to the main RegTech Nexus AI site: blue, teal, cyan, ink and restrained gold.
+   This is presentation-only; existing content, forms, and application logic are untouched. */
+:root{
+  --mukul-rtnx-blue:#0956a8;
+  --mukul-rtnx-teal:#0a7f8c;
+  --mukul-rtnx-cyan:#65d4df;
+  --mukul-rtnx-ink:#17263d;
+  --mukul-rtnx-muted:#5d6b7c;
+  --mukul-rtnx-line:#d8e3e8;
+  --mukul-rtnx-surface:#f2f8fb;
+  --mukul-rtnx-soft:#e7f6fb;
+  --mukul-rtnx-gold:#b99a4a;
+}
+html body{
+  color:var(--mukul-rtnx-ink);
+}
+html body main .feature-card,
+html body main .info-card,
+html body main .market-panel,
+html body main .market-card,
+html body main .source-card,
+html body main .report-panel,
+html body main .free-help-panel,
+html body main .search-box,
+html body main .more-language-panel,
+html body main .language-panel,
+html body main .panel,
+html body main .card,
+html body main .info-box,
+html body main .content-card,
+html body main .resource-card,
+html body main .tool-card,
+html body main .guide-card,
+html body main .quiz-card,
+html body main .result-card,
+html body main .notice,
+html body main .callout,
+html body main .cta-panel,
+html body main .hero-note,
+html body main .market-card,
+html body main .source-item,
+html body main .stat-card{
+  background:linear-gradient(145deg,#ffffff 0%,var(--mukul-rtnx-surface) 100%)!important;
+  border:1px solid var(--mukul-rtnx-line)!important;
+  border-top:3px solid var(--mukul-rtnx-teal)!important;
+  border-radius:16px!important;
+  box-shadow:0 8px 24px rgba(16,43,73,.07)!important;
+}
+html body main .feature-card:nth-child(4n+1),
+html body main .info-card:nth-child(4n+1),
+html body main .market-card:nth-child(4n+1),
+html body main .source-card:nth-child(4n+1),
+html body main .card:nth-child(4n+1){border-top-color:var(--mukul-rtnx-blue)!important}
+html body main .feature-card:nth-child(4n+2),
+html body main .info-card:nth-child(4n+2),
+html body main .market-card:nth-child(4n+2),
+html body main .source-card:nth-child(4n+2),
+html body main .card:nth-child(4n+2){border-top-color:var(--mukul-rtnx-teal)!important}
+html body main .feature-card:nth-child(4n+3),
+html body main .info-card:nth-child(4n+3),
+html body main .market-card:nth-child(4n+3),
+html body main .source-card:nth-child(4n+3),
+html body main .card:nth-child(4n+3){border-top-color:var(--mukul-rtnx-gold)!important}
+html body main .feature-card:nth-child(4n),
+html body main .info-card:nth-child(4n),
+html body main .market-card:nth-child(4n),
+html body main .source-card:nth-child(4n),
+html body main .card:nth-child(4n){border-top-color:#218dbe!important}
+html body main .feature-card:hover,
+html body main .info-card:hover,
+html body main .market-card:hover,
+html body main .source-card:hover,
+html body main .card:hover,
+html body main .resource-card:hover,
+html body main .tool-card:hover,
+html body main .guide-card:hover{
+  box-shadow:0 14px 32px rgba(9,86,168,.13)!important;
+  transform:translateY(-2px);
+  transition:box-shadow .18s ease,transform .18s ease;
+}
+html body main .hero,
+html body main .hero-grid{
+  border-color:var(--mukul-rtnx-line);
+}
+html body main .hero-note,
+html body main .notice,
+html body main .callout{
+  background:linear-gradient(120deg,#e7f6fb 0%,#eef6f4 100%)!important;
+  border-left:4px solid var(--mukul-rtnx-blue)!important;
+}
+html body main .cta-panel{
+  background:linear-gradient(120deg,#0a1b36 0%,#063f85 55%,#087e9c 100%)!important;
+  border:1px solid rgba(101,212,223,.55)!important;
+  color:#fff!important;
+}
+html body main .cta-panel h1,
+html body main .cta-panel h2,
+html body main .cta-panel h3,
+html body main .cta-panel p{color:#fff!important}
+html body main button,
+html body main .button,
+html body main a.button,
+html body main input[type="submit"],
+html body main input[type="button"]{
+  border-radius:10px;
+}
+html body main button:not(.secondary):not(.ghost),
+html body main input[type="submit"]{
+  accent-color:var(--mukul-rtnx-blue);
+}
+html body main input:not([type="checkbox"]):not([type="radio"]),
+html body main select,
+html body main textarea{
+  border-color:var(--mukul-rtnx-line);
+  border-radius:10px;
+}
+html body main input:focus,
+html body main select:focus,
+html body main textarea:focus{
+  outline:3px solid rgba(101,212,223,.32);
+  outline-offset:1px;
+  border-color:var(--mukul-rtnx-blue);
+}
+html body main a:not(.button):not([class*="btn"]){
+  text-underline-offset:3px;
+}
+@media(max-width:760px){
+  html body main .feature-card,
+  html body main .info-card,
+  html body main .market-panel,
+  html body main .market-card,
+  html body main .source-card,
+  html body main .report-panel,
+  html body main .free-help-panel,
+  html body main .search-box,
+  html body main .more-language-panel,
+  html body main .language-panel,
+  html body main .panel,
+  html body main .card,
+  html body main .info-box,
+  html body main .content-card,
+  html body main .resource-card,
+  html body main .tool-card,
+  html body main .guide-card,
+  html body main .quiz-card,
+  html body main .result-card,
+  html body main .notice,
+  html body main .callout,
+  html body main .cta-panel,
+  html body main .hero-note,
+  html body main .stat-card{
+    border-radius:13px!important;
+    box-shadow:0 5px 16px rgba(16,43,73,.06)!important;
+  }
+}
