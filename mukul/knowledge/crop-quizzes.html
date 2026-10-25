@@ -102,6 +102,29 @@ html body main .crop{
 }
 @media(prefers-reduced-motion:reduce){html body *{scroll-behavior:auto!important}}
 </style>
+
+<style id="mukul-crop-quiz-print-fix">
+@page{size:auto;margin:12mm}
+@media print{
+ html,body{height:auto!important;min-height:0!important;background:#fff!important;overflow:visible!important}
+ html body>header.head,
+ html body>footer.site-footer,
+ html body>footer.mukul-global-footer,
+ html body>main.wrap>section.panel:not(#quiz-panel),
+ html body #ready,
+ html body #play,
+ html body #again,
+ html body #print-result,
+ html body #quiz-panel~section{display:none!important;visibility:hidden!important}
+ html body>main.wrap{display:block!important;width:100%!important;max-width:none!important;margin:0!important;padding:0!important;overflow:visible!important}
+ html body #quiz-panel{display:block!important;visibility:visible!important;width:100%!important;margin:0!important;padding:0!important;border:0!important;box-shadow:none!important;break-inside:auto!important;page-break-inside:auto!important}
+ html body #result{display:block!important;visibility:visible!important}
+ html body #review{padding-left:22px!important;margin-top:10px!important}
+ html body #review li{break-inside:avoid!important;page-break-inside:avoid!important;margin:0 0 10px!important}
+ html body #review p{margin:4px 0!important}
+ html body .mukul-global-footer,html body .site-footer{display:none!important}
+}
+</style>
 </head><body>
 <header class="head"><a href="/mukul/"><img class="logo" src="/mukul/mukul-logo.webp" alt="MUKUL Agriculture Hub" onerror="this.style.display='none'"></a><select id="lang" class="lang" aria-label="Language"><option value="bn">বাংলা</option><option value="en">English</option></select><a class="back" href="/mukul/knowledge/" data-bn="← শেখার নির্দেশিকা" data-en="← Learning Guide">← শেখার নির্দেশিকা</a></header>
 <main class="wrap"><section class="hero"><p><strong>MUKUL · FREE LEARNING · PRACTICE</strong></p><h1 data-bn="বিশ্বের শীর্ষ ১০ ফসল: কুইজ লাইব্রেরি" data-en="Global Top 10 Crops: Quiz Library">বিশ্বের শীর্ষ ১০ ফসল: কুইজ লাইব্রেরি</h1><p data-bn="FAO-র ২০২৪ সালের উৎপাদন-পরিমাণের ভিত্তিতে তালিকা। প্রতিটি কুইজে বীজ/জাত, জমি, রোপণ, পানি, পুষ্টি, সমন্বিত বালাই ব্যবস্থাপনা, ফসল কাটা, সংরক্ষণ ও খামার রেকর্ডের মতো বিষয় অন্তর্ভুক্ত করার ভিত্তি রাখা হয়েছে।" data-en="List based on FAO 2024 production volumes. The question framework covers seed/variety, land, planting, water, nutrients, IPM, harvest, storage and farm records.">FAO-র ২০২৪ সালের উৎপাদন-পরিমাণের ভিত্তিতে তালিকা। প্রতিটি কুইজে বীজ/জাত, জমি, রোপণ, পানি, পুষ্টি, সমন্বিত বালাই ব্যবস্থাপনা, ফসল কাটা, সংরক্ষণ ও খামার রেকর্ডের মতো বিষয় অন্তর্ভুক্ত করার ভিত্তি রাখা হয়েছে।</p></section>
