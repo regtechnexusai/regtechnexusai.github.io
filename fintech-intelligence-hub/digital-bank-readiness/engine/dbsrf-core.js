@@ -112,8 +112,8 @@
         if (typeof answer.justification !== "string" || answer.justification.trim().length < MIN_NA_JUSTIFICATION_LENGTH) {
           errors.push(id + ": N/A justification must contain at least " + MIN_NA_JUSTIFICATION_LENGTH + " non-whitespace characters.");
         }
-        if (answer.approvedBy !== undefined && (typeof answer.approvedBy !== "string" || !answer.approvedBy.trim())) {
-          errors.push(id + ": approvedBy must be a non-empty string when supplied.");
+        if (answer.applicabilityVerified === true && (typeof answer.approvedBy !== "string" || !answer.approvedBy.trim())) {
+          errors.push(id + ": Enter an approver ID to mark this N/A as verified.");
         }
         if (answer.applicabilityVerified === true && (typeof answer.approvedBy !== "string" || !answer.approvedBy.trim())) {
           errors.push(id + ": verified N/A requires an approver identifier.");
