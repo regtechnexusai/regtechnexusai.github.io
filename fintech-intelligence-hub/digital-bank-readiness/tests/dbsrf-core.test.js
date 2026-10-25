@@ -133,7 +133,7 @@ test("confirmed critical failure requires reviewer verification and evidence ID"
   assert.equal(result.criticalGates.find(g => g.questionId === "PRU-01").status, "Critical failure confirmed");
   assert.equal(result.reportingStatus, "Critical failure confirmed — maturity score is diagnostic only; readiness interpretation overridden");
   assert.equal(result.scoreDisposition, "diagnostic-only-critical-failure");
-  assert.equal(result.maturityScore, 75);
+  assert.equal(result.maturityScore, 72.32);
 });
 
 test("invalid confirmed-failure claim without evidence is rejected", () => {
@@ -186,7 +186,8 @@ test("confirmed critical finding requires an inventory artifact reviewed as rele
     criticalFindingConfirmed: true, reviewerVerified: true
   };
   a.evidenceArtifacts = [{
-    id: "EV-AML-03", status: "Reviewed",
+    id: "EV-AML-03", version: 1, artifactDate: "2026-10-25", owner: "AML control owner",
+    confidence: "High", status: "Reviewed",
     questionLinks: [{
       questionId: "AML-03", relevance: "Relevant", sufficiency: "Sufficient",
       reviewer: "reviewer-01", reviewedAt: "2026-10-25"
