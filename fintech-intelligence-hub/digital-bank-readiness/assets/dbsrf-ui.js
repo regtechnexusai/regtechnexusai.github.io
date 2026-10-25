@@ -95,12 +95,25 @@ function updateResults(){
  const errors=Array.isArray(assessment.errors)?assessment.errors:[];
  const invalidQids=new Set(errors.map(e=>{const m=String(e).match(/\b([A-Z]{3}-\d{2})\b/);return m?m[1]:null;}).filter(Boolean));
  const answered=core.QUESTIONS.filter(q=>answers[q.id]&&answers[q.id].status).length;
- const invalidCount=invalidQids.size;
  const validAnswered=core.QUESTIONS.filter(q=>answers[q.id]&&answers[q.id].status&&!invalidQids.has(q.id)).length;
  const unresolved=Math.max(0,core.QUESTIONS.length-answered);
+ const evidenceWarnings=[];
+ if(Array.isArray(evidenceArtifacts)){
+  const inventoryIds=new Set(evidenceArtifacts.filter(a=>a&&typeof a.id==="string").map(a=>a.id));
+  core.QUESTIONS.forEach(q=>{
+   const a=answers[q.id]; if(!a||a.status!=="assessed")return;
+   const ids=Array.isArray(a.evidenceIds)?a.evidenceIds:[];
+   ids.forEach(eid=>{if(!inventoryIds.has(eid))evidenceWarnings.push({qid:q.id,text:"Evidence ID "+eid+" is not present in the evidence inventory."});});
+   if(a.score>=3&&ids.length===0)evidenceWarnings.push({qid:q.id,text:"Score "+a.score+" needs supporting evidence or a documented confidence limitation."});
+   if(a.evidenceConfidence==="High"&&ids.length===0)evidenceWarnings.push({qid:q.id,text:"High evidence confidence is selected but no artifact ID is linked."});
+   if(a.criticalFindingConfirmed===true&&a.score>=3)evidenceWarnings.push({qid:q.id,text:"Score "+a.score+" and a critical-finding flag coexist. Please confirm both against reviewed evidence; the score is not automatically capped."});
+   if(a.status==="na"&&["AML-04","CON-03"].includes(q.id))evidenceWarnings.push({qid:q.id,text:"Core digital-bank question marked N/A. Escalation and documented applicability approval are required."});
+  });
+ }
  $("dbsr-assessed").textContent=String(validAnswered);
  $("dbsr-resolved").textContent=String(validAnswered);
  $("dbsr-unresolved").textContent=String(unresolved);
+ $("dbsr-needs-correction").textContent=String(new Set([...invalidQids,...evidenceWarnings.map(w=>w.qid)]).size);
  $("dbsr-pillar-count").textContent=String(new Set(core.QUESTIONS.filter(q=>answers[q.id]&&answers[q.id].status&&!invalidQids.has(q.id)).map(q=>q.pillarId)).size)+" / 7";
  $("dbsr-progress").style.width=(validAnswered/core.QUESTIONS.length*100)+"%";
  $("dbsr-score").textContent=assessment.maturityScore===null?"—":assessment.maturityScore.toFixed(2)+"%";
@@ -120,8 +133,9 @@ function updateResults(){
   $("meta-"+pid).textContent=prefix+" · "+pillarValid+"/4 valid answers · "+Math.max(0,4-pillarAnswered)+" unanswered";
  });
  $("dbsr-gates").innerHTML=(assessment.criticalGates||[]).map(g=>'<div class="dbsr-gate"><strong>'+escapeHtml(g.questionId)+' — '+escapeHtml(g.status)+'</strong><span class="dbsr-muted">'+escapeHtml(g.rationale)+'</span></div>').join("")||'<div class="dbsr-empty">No critical-gate results available yet.</div>';
- if(evidenceArtifacts===null){$("dbsr-message").textContent="Evidence inventory JSON is invalid. Fix the JSON before exporting.";$("dbsr-message").className="dbsr-message error";}else if(!assessment.valid){renderValidationErrors(errors);}else{renderValidationErrors([]);}
+ if(evidenceArtifacts===null){$("dbsr-message").textContent="Evidence inventory JSON is invalid. Fix the JSON before exporting.";$("dbsr-message").className="dbsr-message error";}else if(!assessment.valid){renderValidationErrors(errors);}else if(evidenceWarnings.length){renderValidationErrors([]);$("dbsr-message").innerHTML="<strong>"+evidenceWarnings.length+" evidence/review warning(s)</strong><ul>"+evidenceWarnings.map(w=>'<li><a href="#status-'+escapeHtml(w.qid)+'">'+escapeHtml(w.qid)+'</a> '+escapeHtml(w.text)+'</li>').join("")+"</ul>";$("dbsr-message").className="dbsr-message error";}else{renderValidationErrors([]);}
  $("dbsr-evidence-summary").textContent=evidenceArtifacts===null?"Invalid JSON":(evidenceApi.validateInventory(evidenceArtifacts).valid?evidenceApi.validateInventory(evidenceArtifacts).summary.artifactCount+" artifact(s), "+evidenceApi.validateInventory(evidenceArtifacts).summary.questionLinks+" question link(s).":"Evidence inventory errors: "+evidenceApi.validateInventory(evidenceArtifacts).errors.join(" "));
+ const printSummary=$("dbsr-print-summary"); if(printSummary) printSummary.innerHTML="<h2>Assessment review summary</h2><p>Answered: "+answered+"/28 · Needs correction/review: "+new Set([...invalidQids,...evidenceWarnings.map(w=>w.qid)]).size+" question(s) · Evidence artifacts: "+(Array.isArray(evidenceArtifacts)?evidenceArtifacts.length:"invalid inventory")+"</p>"+(errors.length||evidenceWarnings.length?'<ul>'+errors.map(e=>'<li>'+escapeHtml(e)+'</li>').concat(evidenceWarnings.map(w=>'<li>'+escapeHtml(w.qid)+': '+escapeHtml(w.text)+'</li>')).join("")+'</ul>':"<p>No current validation or evidence-link warnings.</p>")+"<h3>Evidence inventory</h3><pre>"+escapeHtml(JSON.stringify(Array.isArray(evidenceArtifacts)?evidenceArtifacts:[],null,2))+"</pre>";
 }
 function finalizeAssessment(){
  syncFromInputs();
