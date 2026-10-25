@@ -20,4 +20,4 @@ jobs:
         with:
           node-version: "22"
       - name: Run DBSRF core tests
-        run: node --test fintech-intelligence-hub/digital-bank-readiness/tests/dbsrf-core.test.js
+        run: node --test fintech-intelligence-hub/digital-bank-readiness/tests/*.test.js
