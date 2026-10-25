@@ -102,13 +102,14 @@
 <div class="dbsr-actions"><a class="dbsr-btn" href="#assessment">Start / continue assessment</a><a class="dbsr-btn secondary" href="#export-tools">Encrypted export &amp; import</a></div>
 </section>
 <section class="dbsr-grid" aria-label="Assessment status">
-<article class="dbsr-panel"><h2>Assessment coverage</h2><div class="dbsr-metric"><span id="dbsr-resolved">0</span> / 28</div><p class="dbsr-muted">Resolved questions (assessed or approved N/A)</p><div class="dbsr-progress" aria-label="Assessment completion"><span id="dbsr-progress"></span></div><p class="dbsr-muted">Scored questions: <strong id="dbsr-assessed">0</strong> · Unresolved: <strong id="dbsr-unresolved">28</strong> · Pillars with assessed questions: <strong id="dbsr-pillar-count">0 / 7</strong></p></article>
+<article class="dbsr-panel"><h2>Assessment coverage</h2><div class="dbsr-metric"><span id="dbsr-resolved">0</span> / 28</div><p class="dbsr-muted">Resolved questions (assessed or approved N/A)</p><div class="dbsr-progress" aria-label="Assessment completion"><span id="dbsr-progress"></span></div><p class="dbsr-muted">Scored questions: <strong id="dbsr-assessed">0</strong> · Needs correction: <strong id="dbsr-needs-correction">0</strong> · Unanswered: <strong id="dbsr-unresolved">28</strong> · Pillars with assessed questions: <strong id="dbsr-pillar-count">0 / 7</strong></p></article>
 <article class="dbsr-panel"><h2>Internal maturity result</h2><div class="dbsr-metric" id="dbsr-score">—</div><p id="dbsr-band" class="dbsr-muted">Not available</p><p id="dbsr-status" class="dbsr-status warn">Assessment incomplete — maturity score withheld</p><p class="dbsr-muted">A numeric result is withheld until all questions are assessed or have a verified, approved N/A, and at least five pillars contain assessed questions.</p></article>
 </section>
 <div id="dbsr-message" class="dbsr-message" role="status" aria-live="polite">Ready. Complete each question that applies to the assessment scope.</div>
 <section class="dbsr-section" id="assessment">
 <div class="dbsr-section-head"><div><p class="dbsr-kicker">Assessment workspace</p><h2 class="dbsr-section-title">Seven pillars · 28 core questions</h2><p class="dbsr-muted">Score guide: 0 Absent · 1 Ad hoc · 2 Designed · 3 Implemented · 4 Tested and sustained. Evidence confidence is separate from the score. <strong>(*) Critical Supervisory Gate: a confirmed critical failure overrides the readiness interpretation; it does not automatically cap the numeric score.</strong></p></div><div class="dbsr-actions"><button class="dbsr-btn secondary" id="dbsr-recalculate" type="button">Recalculate</button><button class="dbsr-btn secondary" id="dbsr-print" type="button">Print / save view</button></div></div>
 <div id="dbsr-pillars" class="dbsr-pillars"></div>
+<div id="dbsr-print-summary" class="dbsr-print-summary"></div>
 <div class="dbsr-finalize-panel" id="dbsr-final-review">
   <h3>Finish assessment</h3>
   <p>When you have completed the seven pillars and checked the evidence register, click below. The framework will validate the entries, calculate the internal result where permitted, and show what needs attention next.</p>
@@ -140,11 +141,13 @@
       {
         "questionId": "GOV-01",
         "relevance": "Relevant",
-        "sufficiency": "Not assessed"
+        "sufficiency": "Not assessed",
+        "reviewer": "",
+        "reviewedAt": ""
       }
     ]
   }
-]</code></pre><p class="dbsr-muted">Allowed confidence: High, Moderate, Low, Unverified. Allowed artifact status: Draft, Collected, Reviewed, Superseded, Rejected. Each link requires a known question ID, relevance and sufficiency. Mark a link as reviewed only when reviewer and review date are recorded in the data.</p></details>
+]</code></pre><p class="dbsr-muted">Allowed confidence: High, Moderate, Low, Unverified. Allowed artifact status: Draft, Collected, Reviewed, Superseded, Rejected. Each link requires a known question ID, relevance and sufficiency. For each question link, record reviewer and reviewedAt (YYYY-MM-DD). A critical finding is confirmed only when the artifact is Reviewed, the link is Relevant and Sufficient, and reviewer/date are valid.</p></details>
 </div>
 </section>
 <section class="dbsr-section" id="export-tools">
