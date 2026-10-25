@@ -170,3 +170,27 @@ $("year").textContent=new Date().getFullYear();refreshTopicLabels();updateCount(
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async onerror="document.getElementById('translate-status').textContent='Google Translate could not load. Use the browser Translate menu or try again later.';document.getElementById('translate-status').classList.add('error')"></script>
 </body></html>
 <style>/* Use the common MUKUL logo without a white card in the footer. */ #footer-logo{width:min(180px,100%)!important;max-height:64px!important;background:transparent!important;border:0!important;border-radius:0!important;padding:0!important;object-fit:contain!important}</style>
+
+<style id="mukul-quiz-footer-mobile-fix">
+/* Quiz page: prevent shared-shell grid rules from squeezing footer columns on phones. */
+html body footer.site-footer.mukul-global-footer .footer-grid,
+html body footer.site-footer.mukul-global-footer .footer-grid:has(>.footer-col:nth-child(5)){
+  grid-template-columns:minmax(0,1fr)!important;
+  gap:24px!important;
+}
+html body footer.site-footer.mukul-global-footer .footer-brand{grid-column:auto!important;min-width:0!important;width:100%!important}
+html body footer.site-footer.mukul-global-footer .footer-col{min-width:0!important;width:100%!important;overflow-wrap:anywhere!important}
+html body footer.site-footer.mukul-global-footer .footer-col h3,
+html body footer.site-footer.mukul-global-footer .footer-col a,
+html body footer.site-footer.mukul-global-footer .footer-col p{max-width:100%!important;word-break:normal!important;overflow-wrap:anywhere!important}
+html body footer.site-footer.mukul-global-footer .footer-col a{line-height:1.65!important}
+@media(max-width:760px){
+  html body footer.site-footer.mukul-global-footer{padding:32px 20px 24px!important}
+  html body footer.site-footer.mukul-global-footer .footer-grid,
+  html body footer.site-footer.mukul-global-footer .footer-grid:has(>.footer-col:nth-child(5)){grid-template-columns:minmax(0,1fr)!important;gap:22px!important}
+  html body footer.site-footer.mukul-global-footer .footer-brand{grid-column:auto!important}
+  html body footer.site-footer.mukul-global-footer .footer-logo-link{width:min(100%,220px)!important}
+  html body footer.site-footer.mukul-global-footer img.footer-logo{width:100%!important;max-width:220px!important;height:auto!important}
+  html body footer.site-footer.mukul-global-footer .footer-bottom{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:10px!important}
+}
+</style>
