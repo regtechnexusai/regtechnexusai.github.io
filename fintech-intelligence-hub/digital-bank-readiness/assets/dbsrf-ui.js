@@ -82,10 +82,10 @@ function updateResults(){
  $("dbsr-status").className="dbsr-status "+(assessment.reportingStatus==="Critical failure confirmed"?"bad":assessment.maturityScore!==null?"good":"warn");
  $("dbsr-pillars").querySelectorAll(".dbsr-pillar").forEach(el=>{
   const id=el.querySelector("h3").id.replace("pillar-","");
-  const p=assessment.pillars.find(x=>x.id===id);
-  $("meta-"+id).textContent=(p.score===null?"No score":p.score.toFixed(2)+"%")+" · "+p.assessedQuestions+"/4 assessed · "+p.approvedNAQuestions+" approved N/A · "+p.unresolvedQuestions+" unresolved";
+  const p=assessment.valid?assessment.pillars.find(x=>x.id===id):null;
+  $("meta-"+id).textContent=!p?"Resolve invalid answer fields to calculate this pillar.":(p.score===null?"No score":p.score.toFixed(2)+"%")+" · "+p.assessedQuestions+"/4 assessed · "+p.approvedNAQuestions+" approved N/A · "+p.unresolvedQuestions+" unresolved";
  });
- $("dbsr-gates").innerHTML=assessment.criticalGates.map(g=>'<div class="dbsr-gate"><strong>'+escapeHtml(g.questionId)+' — '+escapeHtml(g.status)+'</strong><span class="dbsr-muted">'+escapeHtml(g.rationale)+'</span></div>').join("");
+ $("dbsr-gates").innerHTML=assessment.valid?assessment.criticalGates.map(g=>'<div class="dbsr-gate"><strong>'+escapeHtml(g.questionId)+' — '+escapeHtml(g.status)+'</strong><span class="dbsr-muted">'+escapeHtml(g.rationale)+'</span></div>').join(""):'<div class="dbsr-empty">Resolve invalid answer fields before critical-gate results can be calculated.</div>';
  $("dbsr-message").textContent=evidenceArtifacts===null?"Evidence inventory JSON is invalid. Fix the JSON before exporting.":(assessment.valid?"Assessment recalculated.":"Some answer fields need attention: "+assessment.errors.join(" "));
  $("dbsr-message").className="dbsr-message"+(evidenceArtifacts===null||!assessment.valid?" error":"");
  $("dbsr-evidence-summary").textContent=evidenceArtifacts===null?"Invalid JSON":(evidenceApi.validateInventory(evidenceArtifacts).valid?
