@@ -20,3 +20,21 @@ a{color:var(--db-blue)}button,input,select,textarea{font:inherit}button,a{touch-
 .dbsr-final-review-result.reviewed{border-left:5px solid #15939f;background:#f5fcfc}
 @media(max-width:760px){.dbsr-finalize-panel{padding:16px}.dbsr-finalize-btn{width:100%}}
 @media print{.dbsr-finalize-btn{display:none!important}.dbsr-finalize-panel{break-inside:avoid;page-break-inside:avoid}}
+
+/* Assessment review and print/save improvements */
+.dbsr-print-summary{display:none;margin:18px 0;padding:16px;border:1px solid var(--db-line);border-radius:10px;background:#fff}
+.dbsr-print-summary pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:9pt}
+.dbsr-print-check{display:none}
+@media print{
+ .nav,.menu,.dbsr-header,.dbsr-nav,.dbsr-site-shell,.dbsr-site-shell *,.dbsr-actions,.dbsr-footer,.dbsr-finalize-btn{display:none!important}
+ .dbsr-print-summary{display:block!important;break-inside:auto;page-break-inside:auto}
+ .dbsr-question,.dbsr-panel,.dbsr-evidence-panel{break-inside:avoid;page-break-inside:avoid}
+ .dbsr-pillar{break-inside:auto;page-break-inside:auto}
+ .dbsr-question{margin:8px 0;padding:10px}
+ .dbsr-print-check{display:inline!important;font-weight:700}
+ .dbsr-checks input[type=checkbox]{display:none!important}
+ .dbsr-checks label{display:block}
+ .dbsr-evidence-panel details{display:block}
+ .dbsr-evidence-panel details pre{white-space:pre-wrap;overflow-wrap:anywhere}
+ body{background:#fff;font-size:10pt}
+}
