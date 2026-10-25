@@ -79,3 +79,50 @@ pre{max-width:100%;overflow:auto;border-radius:9px;background:#102b49;color:#eef
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
 @media print{body{background:#fff}.dbsr-hero,.dbsr-panel,.dbsr-pillar,.dbsr-question,.dbsr-evidence-panel{box-shadow:none}}
+
+/* Full-page brand pass: every assessment component, from introduction through export, uses the homepage palette. */
+body .dbsr-main{color:#102b49}
+body .dbsr-hero,
+body .dbsr-panel,
+body .dbsr-pillar,
+body .dbsr-question,
+body .dbsr-evidence-panel,
+body .dbsr-gate,
+body .dbsr-empty,
+body .dbsr-validation-summary,
+body .dbsr-message,
+body details{border-radius:14px}
+body .dbsr-panel{background:linear-gradient(145deg,#fff 0%,#f7fbff 100%);border-top:3px solid #0956a8}
+body .dbsr-pillar{background:linear-gradient(145deg,#fff 0%,#f5faff 100%);border-top:3px solid #15939f}
+body .dbsr-question{background:linear-gradient(145deg,#f8fbff 0%,#eef6ff 100%);border-color:#cfdfef}
+body .dbsr-question:nth-of-type(odd){background:linear-gradient(145deg,#fff 0%,#f3f9ff 100%)}
+body .dbsr-evidence-panel{background:linear-gradient(145deg,#fff 0%,#f2f8fc 100%);border-top:3px solid #155eef}
+body .dbsr-gate{background:#f3fafb;border-color:#b7dfe0;border-left:4px solid #15939f}
+body .dbsr-note:not(.dbsr-warning){background:linear-gradient(100deg,#eaf4ff,#f4faff);border-left-color:#0956a8}
+body .dbsr-warning{background:linear-gradient(100deg,#fff4d9,#fffaf0);border-left-color:#b17a16}
+body .dbsr-qid{background:linear-gradient(135deg,#e6f2ff,#d9efff);color:#084887;border-color:#b9d9f5}
+body .dbsr-section-title{padding-bottom:8px;border-bottom:2px solid #d8eaf5}
+body .dbsr-panel h2,body .dbsr-section-title,body .dbsr-pillar h3{color:#102b49}
+body .dbsr-field label,body .dbsr-label{color:#173d61}
+body .dbsr-field input,body .dbsr-field select,body .dbsr-field textarea,body .dbsr-textarea{background:#fff;border:1px solid #b8cde0;border-radius:9px;box-shadow:inset 0 1px 2px rgba(16,43,73,.035)}
+body .dbsr-field input:focus,body .dbsr-field select:focus,body .dbsr-field textarea:focus,body .dbsr-textarea:focus{background:#fbfdff;border-color:#155eef;box-shadow:0 0 0 3px rgba(21,94,239,.13)}
+body .dbsr-btn,body button.dbsr-btn,body a.dbsr-btn{background:linear-gradient(135deg,#1768b8 0%,#0956a8 55%,#102b49 100%);color:#fff;border:1px solid #0956a8;border-radius:10px;font-weight:800;box-shadow:0 3px 0 #082f64,0 7px 14px rgba(9,86,168,.16)}
+body .dbsr-btn.secondary{background:linear-gradient(135deg,#fff,#eaf5ff);color:#0956a8;border-color:#9fc4e5;box-shadow:0 2px 0 #cbddea}
+body .dbsr-btn.danger{background:linear-gradient(135deg,#fff,#fff0f1);color:#a22a32;border-color:#d9a1a5;box-shadow:0 2px 0 #f0d2d4}
+body .dbsr-actions .dbsr-btn{min-height:44px;padding:11px 17px}
+body .dbsr-progress{background:#dce8f3}
+body .dbsr-progress span{background:linear-gradient(90deg,#155eef 0%,#0956a8 55%,#15939f 100%)}
+body .dbsr-status.good{display:inline-block;padding:2px 8px;border-radius:999px;background:#e5f6ed;color:#176b4d}
+body .dbsr-status.warn{display:inline-block;padding:2px 8px;border-radius:999px;background:#fff3d6;color:#875b00}
+body .dbsr-status.bad{display:inline-block;padding:2px 8px;border-radius:999px;background:#ffeaec;color:#a22a32}
+body .dbsr-message{background:linear-gradient(100deg,#e8f8ef,#f5fcf8);border-color:#b9e2cf;color:#17573d}
+body .dbsr-message.error{background:linear-gradient(100deg,#fff0f0,#fff8f8);border-color:#efc2c5;color:#8e1f27}
+body .dbsr-privacy{border-left:3px solid #15939f;background:#edf6ff;border-radius:0 10px 10px 0}
+body .dbsr-empty{background:linear-gradient(135deg,#f7fbff,#edf6fc);border:1px dashed #9dbbd4}
+body .dbsr-validation-summary{background:linear-gradient(100deg,#fff1f1,#fffafa);border-left-color:#a22a32}
+body .dbsr-section{scroll-margin-top:18px}
+body .dbsr-question:focus-within,body .dbsr-panel:focus-within,body .dbsr-evidence-panel:focus-within{border-color:#7db6e7;box-shadow:0 0 0 3px rgba(9,86,168,.10)}
+@media(max-width:760px){
+ body .dbsr-panel,body .dbsr-pillar,body .dbsr-question,body .dbsr-evidence-panel{border-radius:13px}
+ body .dbsr-actions .dbsr-btn{width:100%}
+}
