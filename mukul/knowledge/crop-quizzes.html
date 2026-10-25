@@ -104,24 +104,20 @@ html body main .crop{
 </style>
 
 <style id="mukul-crop-quiz-print-fix">
-@page{size:auto;margin:12mm}
+@page{size:auto;margin:8mm}
 @media print{
- html,body{height:auto!important;min-height:0!important;background:#fff!important;overflow:visible!important}
- html body>header.head,
- html body>footer.site-footer,
- html body>footer.mukul-global-footer,
- html body>main.wrap>section.panel:not(#quiz-panel),
- html body #ready,
- html body #play,
- html body #again,
- html body #print-result,
- html body #quiz-panel~section{display:none!important;visibility:hidden!important}
- html body>main.wrap{display:block!important;width:100%!important;max-width:none!important;margin:0!important;padding:0!important;overflow:visible!important}
- html body #quiz-panel{display:block!important;visibility:visible!important;width:100%!important;margin:0!important;padding:0!important;border:0!important;box-shadow:none!important;break-inside:auto!important;page-break-inside:auto!important}
- html body #result{display:block!important;visibility:visible!important}
- html body #review{padding-left:22px!important;margin-top:10px!important}
- html body #review li{break-inside:avoid!important;page-break-inside:avoid!important;margin:0 0 10px!important}
- html body #review p{margin:4px 0!important}
+ html,body{display:block!important;height:auto!important;min-height:0!important;margin:0!important;padding:0!important;background:#fff!important;color:#111!important;overflow:visible!important;font-size:9.5pt!important;line-height:1.28!important}
+ body *{visibility:visible!important;box-shadow:none!important;text-shadow:none!important}
+ html body>header.head,html body>footer.site-footer,html body>footer.mukul-global-footer,html body>main.wrap>section.panel:not(#quiz-panel),html body #ready,html body #play,html body #again,html body #print-result,html body #quiz-panel~section{display:none!important;visibility:hidden!important;height:0!important;min-height:0!important;margin:0!important;padding:0!important;border:0!important}
+ html body>main.wrap{display:block!important;position:static!important;width:100%!important;max-width:none!important;height:auto!important;min-height:0!important;margin:0!important;padding:0!important;overflow:visible!important;break-after:auto!important;page-break-after:auto!important}
+ html body #quiz-panel{display:block!important;position:static!important;visibility:visible!important;width:100%!important;height:auto!important;min-height:0!important;margin:0!important;padding:0!important;border:0!important;break-before:auto!important;break-after:auto!important;break-inside:auto!important;page-break-before:auto!important;page-break-after:auto!important;page-break-inside:auto!important}
+ html body #result{display:block!important;position:static!important;visibility:visible!important;height:auto!important;min-height:0!important;margin:0!important;padding:0!important;overflow:visible!important}
+ html body #result h2{font-size:15pt!important;margin:0 0 4px!important;break-after:avoid!important}
+ html body #score,html body #summary{margin:2px 0!important;font-size:10pt!important}
+ html body #review{padding-left:20px!important;margin:6px 0 0!important}
+ html body #review li{break-inside:auto!important;page-break-inside:auto!important;margin:0 0 6px!important;padding:0!important}
+ html body #review li br{display:none!important}
+ html body #review p{margin:2px 0 0!important;font-size:9pt!important;line-height:1.25!important}
  html body .mukul-global-footer,html body .site-footer{display:none!important}
 }
 </style>
