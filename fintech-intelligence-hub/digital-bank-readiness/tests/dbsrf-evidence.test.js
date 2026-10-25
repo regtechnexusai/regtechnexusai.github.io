@@ -43,3 +43,12 @@ test("unlinked question list is explicit", () => {
   assert.equal(result.valid, true);
   assert.equal(result.summary.unlinkedQuestionIds.length, 28);
 });
+
+test("evidence is not treated as reviewed-sufficient without reviewer and review date", () => {
+  const list = [artifact("EV-009", [
+    {questionId:"GOV-03",relevance:"Relevant",sufficiency:"Sufficient"}
+  ])];
+  const result = evidence.summarizeQuestionEvidence(list,"GOV-03");
+  assert.equal(result.reviewedSufficientArtifacts,0);
+  assert.match(result.status,/not established/);
+});
