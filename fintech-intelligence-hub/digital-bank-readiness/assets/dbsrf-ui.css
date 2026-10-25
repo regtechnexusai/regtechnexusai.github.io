@@ -7,3 +7,16 @@ a{color:var(--db-blue)}button,input,select,textarea{font:inherit}button,a{touch-
 /* Executive-readability refinements */
 .dbsr-validation-summary{margin:12px 0;padding:14px 16px;border:1px solid #d99a9a;border-left:5px solid var(--db-red);border-radius:8px;background:#fff7f7;color:#5f1720}.dbsr-validation-summary h3{margin:0 0 8px;font-size:1rem}.dbsr-validation-summary ul{margin:6px 0 0;padding-left:1.35rem}.dbsr-validation-summary li{margin:5px 0}.dbsr-validation-summary code{font-weight:800}.dbsr-invalid{border-color:var(--db-red)!important;box-shadow:0 0 0 1px #a22a3220}.dbsr-critical-legend{font-size:.93rem}
 @media print{.dbsr-question,.dbsr-pillar,.dbsr-panel,.dbsr-validation-summary,.dbsr-section-head{break-inside:avoid;page-break-inside:avoid}.dbsr-pillar h3{break-after:avoid;page-break-after:avoid}.dbsr-section{break-inside:auto;page-break-inside:auto}.dbsr-evidence-panel{break-inside:avoid;page-break-inside:avoid}.dbsr-message{display:none!important}a{color:#000;text-decoration:none}}
+
+.dbsr-finalize-panel{margin-top:20px;padding:20px;border:1px solid #9dbbd9;border-radius:14px;background:linear-gradient(145deg,#f4f9ff,#e8f2fc);box-shadow:inset 0 3px 0 #fff,0 8px 20px #102b4910}
+.dbsr-finalize-panel h3{margin:0 0 8px;color:#102b49;font-size:1.2rem}
+.dbsr-finalize-panel p{max-width:850px}
+.dbsr-finalize-btn{background:linear-gradient(180deg,#1769c2,#0956a8);border-color:#0956a8;min-height:50px;padding:12px 20px;font-size:1rem;box-shadow:inset 0 2px 0 #ffffff45,0 4px 10px #0956a822}
+.dbsr-final-review-result{margin-top:14px;padding:14px 16px;border:1px solid #d9e2ec;border-radius:10px;background:#fff;scroll-margin-top:18px}
+.dbsr-final-review-result h4{margin:8px 0;font-size:1rem;color:#102b49}
+.dbsr-final-review-result ul,.dbsr-final-review-result ol{padding-left:1.35rem}
+.dbsr-final-review-result li{margin:6px 0;overflow-wrap:anywhere}
+.dbsr-final-review-result.needs-action{border-left:5px solid #a66b00;background:#fffaf0}
+.dbsr-final-review-result.reviewed{border-left:5px solid #15939f;background:#f5fcfc}
+@media(max-width:760px){.dbsr-finalize-panel{padding:16px}.dbsr-finalize-btn{width:100%}}
+@media print{.dbsr-finalize-btn{display:none!important}.dbsr-finalize-panel{break-inside:avoid;page-break-inside:avoid}}
