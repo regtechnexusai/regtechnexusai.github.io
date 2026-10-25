@@ -295,6 +295,36 @@ body .site-footer .footer-bottom>span{min-width:0!important;max-width:100%!impor
     min-width: 0;
   }  .mukul-ai-results { grid-template-columns: minmax(0, 1fr) !important; }
 }
+</style><style id="mukul-home-mobile-header-final-fix">
+html body .site-header{width:100%!important;max-width:none!important;overflow:visible!important}
+html body .site-header .header-inner{
+ box-sizing:border-box!important;width:100%!important;max-width:1240px!important;
+ min-height:0!important;padding:12px 16px!important;gap:10px!important;
+ display:flex!important;flex-wrap:wrap!important;align-items:center!important;
+}
+html body .site-header .brand{
+ display:flex!important;flex:0 0 100%!important;width:100%!important;min-width:0!important;
+ margin:0!important;align-items:center!important;justify-content:flex-start!important;
+}
+html body .site-header .brand img.brand-logo{
+ display:block!important;width:190px!important;max-width:min(190px,62vw)!important;
+ min-width:0!important;height:auto!important;max-height:58px!important;object-fit:contain!important;
+ object-position:left center!important;flex:0 1 auto!important;
+}
+html body .site-header .header-inner .menu-toggle{margin-left:auto!important}
+html body .site-header .header-inner .language-select{max-width:42vw!important;min-width:0!important}
+html body .site-header .header-inner .header-actions{display:flex!important;flex:0 1 auto!important;min-width:0!important;max-width:100%!important;margin-left:auto!important;gap:8px!important}
+@media(min-width:761px){
+ html body .site-header .header-inner{flex-wrap:nowrap!important;padding:12px 24px!important;gap:16px!important}
+ html body .site-header .brand{flex:0 1 220px!important;width:auto!important}
+ html body .site-header .brand img.brand-logo{width:210px!important;max-width:210px!important;max-height:62px!important}
+ html body .site-header .header-inner .header-actions{margin-left:auto!important}
+}
+@media(max-width:420px){
+ html body .site-header .header-inner{padding:10px 14px!important;gap:8px!important}
+ html body .site-header .brand img.brand-logo{width:175px!important;max-width:62vw!important;max-height:52px!important}
+ html body .site-header .header-inner .language-select{max-width:40vw!important;font-size:13px!important}
+}
 </style></head>
 <body>
 <a class="skip-link" href="#main-content" data-i18n="skipContent">Skip to content</a>
