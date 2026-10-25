@@ -20,18 +20,16 @@ footer#contact .legal{grid-column:1/-1;display:flex;gap:18px;align-items:center;
 footer#contact .legal span{margin-right:auto;color:#d2deed}
 footer#contact .legal a{display:inline-block;margin:0}
 @media(max-width:1120px){.nav{align-items:center;flex-wrap:wrap}.nav .brand-logo{width:170px}.nav nav{justify-content:flex-start;gap:10px 14px}.nav .nav-cta{margin-left:auto}footer#contact{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:760px){
- .nav{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;padding:12px 16px}
- .nav .brand-logo{width:155px;max-width:100%;max-height:54px}
- .nav .menu{display:inline-flex;align-items:center;justify-content:center;width:44px;height:42px;border:1px solid #b9c8d9;border-radius:8px;background:#fff;color:#10203b;font-size:24px;cursor:pointer}
- .nav nav{display:none;grid-column:1/-1;width:100%;max-height:65vh;overflow-y:auto;flex-direction:column;align-items:stretch;gap:0;margin:0;padding:6px 0;border-top:1px solid #dce5ef}
- .nav.nav-open nav{display:flex}
- .nav nav a{display:block;padding:10px 4px;font-size:14px;line-height:1.35;border-bottom:1px solid #edf1f6;overflow-wrap:anywhere}
- .nav nav .nav-menu-heading{display:block;padding:10px 4px 5px;color:#0956a8;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}
- .nav .nav-cta{grid-column:1/-1;width:100%;margin:0;min-height:42px}
- footer#contact{grid-template-columns:1fr;gap:18px;padding:28px 18px 22px}
- footer#contact .footer-brand .brand-logo{width:205px;max-width:100%}
- footer#contact .footer-note,footer#contact .legal{grid-column:1}
- footer#contact .legal{gap:12px}
- footer#contact .legal span{width:100%}
+/* Mobile/tablet header: keep the homepage brand visible but collapse all links behind a menu. */
+@media(max-width:900px){
+ body header.nav{display:grid!important;grid-template-columns:minmax(0,1fr) 44px!important;align-items:center!important;justify-content:initial!important;gap:10px!important;flex-wrap:nowrap!important;padding:10px 16px!important;min-height:72px!important}
+ body header.nav .brand{display:flex!important;align-items:center!important;min-width:0!important}
+ body header.nav .brand-logo{display:block!important;width:155px!important;max-width:100%!important;height:auto!important;max-height:54px!important;object-fit:contain!important}
+ body header.nav button.menu{display:inline-flex!important;align-items:center!important;justify-content:center!important;grid-column:2!important;width:44px!important;height:42px!important;margin:0!important;padding:0!important;border:1px solid #b9c8d9!important;border-radius:8px!important;background:#fff!important;color:#10203b!important;font-size:24px!important;line-height:1!important;cursor:pointer!important}
+ body header.nav nav#main-nav{display:none!important;grid-column:1/-1!important;width:100%!important;max-height:60vh!important;overflow-y:auto!important;flex-direction:column!important;align-items:stretch!important;gap:0!important;margin:0!important;padding:6px 0!important;border-top:1px solid #dce5ef!important}
+ body header.nav.nav-open nav#main-nav{display:flex!important}
+ body header.nav nav#main-nav a{display:block!important;padding:10px 4px!important;font-size:14px!important;line-height:1.35!important;border-bottom:1px solid #edf1f6!important;overflow-wrap:anywhere!important;color:#203650!important;text-decoration:none!important}
+ body header.nav nav#main-nav .nav-menu-heading{display:block!important;padding:10px 4px 5px!important;color:#0956a8!important;font-size:11px!important;font-weight:800!important;text-transform:uppercase!important;letter-spacing:.08em!important}
+ body header.nav a.nav-cta{display:flex!important;grid-column:1/-1!important;width:100%!important;margin:0!important;min-height:42px!important;justify-content:center!important}
 }
+@media(max-width:760px){footer#contact{grid-template-columns:1fr;gap:18px;padding:28px 18px 22px}footer#contact .footer-brand .brand-logo{width:205px;max-width:100%}footer#contact .footer-note,footer#contact .legal{grid-column:1}footer#contact .legal{gap:12px}footer#contact .legal span{width:100%}}
