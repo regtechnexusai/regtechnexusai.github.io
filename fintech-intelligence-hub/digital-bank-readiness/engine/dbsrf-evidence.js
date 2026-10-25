@@ -57,6 +57,10 @@
         if (link.reviewedAt !== undefined && !validDate(link.reviewedAt)) errors.push(p + ": reviewedAt must be YYYY-MM-DD.");
         if (link.reviewer !== undefined && (typeof link.reviewer !== "string" || !link.reviewer.trim())) errors.push(p + ": reviewer must be non-empty when supplied.");
         if (link.notes !== undefined && typeof link.notes !== "string") errors.push(p + ": notes must be a string when supplied.");
+        if (artifact.status === "Reviewed" && link.relevance === "Relevant" && link.sufficiency === "Sufficient" &&
+            (typeof link.reviewer !== "string" || !link.reviewer.trim() || !validDate(link.reviewedAt))) {
+          errors.push(p + ": reviewed-sufficient evidence requires reviewer and valid reviewedAt date.");
+        }
         if ((link.relevance === "Not assessed" || link.sufficiency === "Not assessed") &&
             (link.reviewer !== undefined || link.reviewedAt !== undefined)) {
           errors.push(p + ": reviewer and reviewedAt must not imply completion when relevance/sufficiency is Not assessed.");
