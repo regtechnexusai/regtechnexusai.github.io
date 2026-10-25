@@ -93,7 +93,9 @@
     const links = getQuestionEvidence(artifacts, questionId);
     const usable = links.filter(function (x) {
       return x.artifactStatus === "Reviewed" && x.relevance === "Relevant" &&
-        x.sufficiency === "Sufficient" && x.confidence !== "Unverified";
+        x.sufficiency === "Sufficient" && x.confidence !== "Unverified" &&
+        typeof x.reviewer === "string" && x.reviewer.trim().length > 0 &&
+        typeof x.reviewedAt === "string" && x.reviewedAt.length > 0;
     });
     return {
       questionId: questionId,
