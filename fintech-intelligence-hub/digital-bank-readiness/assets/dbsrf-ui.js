@@ -71,37 +71,57 @@ function renderQuestionValues(){
 }
 function renderValidationErrors(errors){
  const host=$("dbsr-message");
+ document.querySelectorAll(".dbsr-field-error").forEach(el=>el.remove());
+ document.querySelectorAll(".dbsr-field input,.dbsr-field select,.dbsr-field textarea").forEach(el=>el.removeAttribute("aria-invalid"));
  if(!Array.isArray(errors)||!errors.length){host.innerHTML="Assessment recalculated.";host.className="dbsr-message";return;}
- const items=errors.map(err=>{const raw=String(err);const match=raw.match(/\b([A-Z]{3}-\d{2})\b/);const qid=match?match[1]:"General";return "<li><code>["+escapeHtml(qid)+"]</code> "+escapeHtml(raw.replace(/^"+qid+"\s*:?\s*/,""))+"</li>";}).join("");
- host.innerHTML="<div class=\"dbsr-validation-summary\" role=\"alert\"><h3>"+errors.length+" issue(s) require resolution before scoring</h3><ul>"+items+"</ul></div>";
+ const parsed=errors.map(err=>{const raw=String(err);const match=raw.match(/\b([A-Z]{3}-\d{2})\b/);return {raw,qid:match?match[1]:null};});
+ parsed.forEach((item,i)=>{
+  if(!item.qid)return;
+  const card=document.querySelector('.dbsr-question[data-qid="'+item.qid+'"]');if(!card)return;
+  const fieldMatch=item.raw.match(/(score|confidence|evidence|reviewer|approved|justification|status|N\/A|applicability)/i);
+  let field=null;
+  if(fieldMatch){const word=fieldMatch[1].toLowerCase();const key=word.includes("score")?"score":word.includes("confidence")?"evidenceConfidence":word.includes("evidence")?"evidenceIds":word.includes("reviewer")?"reviewerVerified":word.includes("approved")?"approvedBy":word.includes("justification")||word==="n/a"?"justification":word.includes("applicability")?"applicabilityVerified":"status";field=card.querySelector('[data-field="'+key+'"]');}
+  field=field||card.querySelector('[data-field="status"]');
+  if(field){field.setAttribute("aria-invalid","true");const wrap=field.closest(".dbsr-field")||field.parentElement;const msg=document.createElement("div");msg.className="dbsr-field-error";msg.id="err-"+item.qid+"-"+i;msg.textContent=item.raw.replace(item.qid,"").replace(/^[\s:—-]+/,"");wrap.appendChild(msg);field.setAttribute("aria-describedby",msg.id);}
+ });
+ const items=parsed.map((item,i)=>'<li>'+(item.qid?'<a href="#status-'+escapeHtml(item.qid)+'" data-error-jump="'+escapeHtml(item.qid)+'"><strong>'+escapeHtml(item.qid)+'</strong></a> ':'')+escapeHtml(item.raw.replace(item.qid||"","").replace(/^[\s:—-]+/,""))+'</li>').join("");
+ host.innerHTML="<div class=\"dbsr-validation-summary\" role=\"alert\"><h3>"+errors.length+" issue(s) need attention</h3><p>Correct the fields listed below. Other valid answers remain counted.</p><ul>"+items+"</ul></div>";
  host.className="dbsr-message error";
+ host.querySelectorAll("[data-error-jump]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();const target=$("status-"+a.dataset.errorJump);target?.scrollIntoView({behavior:"smooth",block:"center"});target?.focus();}));
 }
 function updateResults(){
  const evidenceValidation=Array.isArray(evidenceArtifacts)?evidenceApi.validateInventory(evidenceArtifacts):{valid:false};
  const assessment=core.assess({answers:answers,evidenceArtifacts:evidenceValidation.valid?evidenceArtifacts:null});
- $("dbsr-assessed").textContent=String(assessment.coverage.assessedQuestions||0);
- $("dbsr-resolved").textContent=String(assessment.coverage.resolvedQuestions||0);
- $("dbsr-unresolved").textContent=String(assessment.coverage.unresolvedQuestions||0);
- $("dbsr-pillar-count").textContent=String(assessment.coverage.assessedPillars||0)+" / 7";
- $("dbsr-progress").style.width=((assessment.coverage.resolvedQuestions||0)/28*100)+"%";
+ const errors=Array.isArray(assessment.errors)?assessment.errors:[];
+ const invalidQids=new Set(errors.map(e=>{const m=String(e).match(/\b([A-Z]{3}-\d{2})\b/);return m?m[1]:null;}).filter(Boolean));
+ const answered=core.QUESTIONS.filter(q=>answers[q.id]&&answers[q.id].status).length;
+ const invalidCount=invalidQids.size;
+ const validAnswered=core.QUESTIONS.filter(q=>answers[q.id]&&answers[q.id].status&&!invalidQids.has(q.id)).length;
+ const unresolved=Math.max(0,core.QUESTIONS.length-answered);
+ $("dbsr-assessed").textContent=String(validAnswered);
+ $("dbsr-resolved").textContent=String(validAnswered);
+ $("dbsr-unresolved").textContent=String(unresolved);
+ $("dbsr-pillar-count").textContent=String(new Set(core.QUESTIONS.filter(q=>answers[q.id]&&answers[q.id].status&&!invalidQids.has(q.id)).map(q=>q.pillarId)).size)+" / 7";
+ $("dbsr-progress").style.width=(validAnswered/core.QUESTIONS.length*100)+"%";
  $("dbsr-score").textContent=assessment.maturityScore===null?"—":assessment.maturityScore.toFixed(2)+"%";
- $("dbsr-band").textContent=assessment.scoreDisposition==="diagnostic-only-critical-failure"
-  ?(assessment.maturityBand||"Internal band")+" · diagnostic only; critical failure overrides readiness interpretation"
-  :(assessment.maturityBand||"Not available");
+ $("dbsr-band").textContent=assessment.scoreDisposition==="diagnostic-only-critical-failure"?(assessment.maturityBand||"Internal band")+" · diagnostic only; critical failure overrides readiness interpretation":(assessment.maturityBand||"Not available");
  $("dbsr-status").textContent=assessment.reportingStatus||"Assessment unavailable";
  const criticalOverride=String(assessment.reportingStatus||"").includes("Critical failure confirmed");
  const gateException=String(assessment.reportingStatus||"").includes("Critical-gate N/A exception");
  $("dbsr-status").className="dbsr-status "+(criticalOverride||gateException?"bad":assessment.maturityScore!==null?"good":"warn");
  $("dbsr-pillars").querySelectorAll(".dbsr-pillar").forEach(el=>{
-  const id=el.querySelector("h3").id.replace("pillar-","");
-  const p=assessment.valid?assessment.pillars.find(x=>x.id===id):null;
-  $("meta-"+id).textContent=!p?"Resolve invalid answer fields to calculate this pillar.":(p.score===null?"No score":p.score.toFixed(2)+"%")+" · "+p.assessedQuestions+"/4 assessed · "+p.approvedNAQuestions+" approved N/A · "+p.unresolvedQuestions+" unresolved";
+  const pid=el.querySelector("h3").id.replace("pillar-","");
+  const qs=core.QUESTIONS.filter(q=>q.pillarId===pid);
+  const pillarErrors=qs.filter(q=>invalidQids.has(q.id)).length;
+  const pillarAnswered=qs.filter(q=>answers[q.id]&&answers[q.id].status).length;
+  const pillarValid=qs.filter(q=>answers[q.id]&&answers[q.id].status&&!invalidQids.has(q.id)).length;
+  const p=assessment.pillars&&assessment.pillars.find(x=>x.id===pid);
+  const prefix=pillarAnswered===0?"Not assessed yet":pillarErrors?"Partially assessed · "+pillarErrors+" question(s) need correction":p&&p.score!==null?p.score.toFixed(2)+"%":"Answers recorded";
+  $("meta-"+pid).textContent=prefix+" · "+pillarValid+"/4 valid answers · "+Math.max(0,4-pillarAnswered)+" unanswered";
  });
- $("dbsr-gates").innerHTML=assessment.valid?assessment.criticalGates.map(g=>'<div class="dbsr-gate"><strong>'+escapeHtml(g.questionId)+' — '+escapeHtml(g.status)+'</strong><span class="dbsr-muted">'+escapeHtml(g.rationale)+'</span></div>').join(""):'<div class="dbsr-empty">Resolve invalid answer fields before critical-gate results can be calculated.</div>';
- if(evidenceArtifacts===null){$("dbsr-message").textContent="Evidence inventory JSON is invalid. Fix the JSON before exporting.";$("dbsr-message").className="dbsr-message error";}else if(!assessment.valid){renderValidationErrors(assessment.errors);}else{renderValidationErrors([]);}
- $("dbsr-evidence-summary").textContent=evidenceArtifacts===null?"Invalid JSON":(evidenceApi.validateInventory(evidenceArtifacts).valid?
-  evidenceApi.validateInventory(evidenceArtifacts).summary.artifactCount+" artifact(s), "+evidenceApi.validateInventory(evidenceArtifacts).summary.questionLinks+" question link(s).":
-  "Evidence inventory errors: "+evidenceApi.validateInventory(evidenceArtifacts).errors.join(" "));
+ $("dbsr-gates").innerHTML=(assessment.criticalGates||[]).map(g=>'<div class="dbsr-gate"><strong>'+escapeHtml(g.questionId)+' — '+escapeHtml(g.status)+'</strong><span class="dbsr-muted">'+escapeHtml(g.rationale)+'</span></div>').join("")||'<div class="dbsr-empty">No critical-gate results available yet.</div>';
+ if(evidenceArtifacts===null){$("dbsr-message").textContent="Evidence inventory JSON is invalid. Fix the JSON before exporting.";$("dbsr-message").className="dbsr-message error";}else if(!assessment.valid){renderValidationErrors(errors);}else{renderValidationErrors([]);}
+ $("dbsr-evidence-summary").textContent=evidenceArtifacts===null?"Invalid JSON":(evidenceApi.validateInventory(evidenceArtifacts).valid?evidenceApi.validateInventory(evidenceArtifacts).summary.artifactCount+" artifact(s), "+evidenceApi.validateInventory(evidenceArtifacts).summary.questionLinks+" question link(s).":"Evidence inventory errors: "+evidenceApi.validateInventory(evidenceArtifacts).errors.join(" "));
 }
 function payload(){syncFromInputs();if(evidenceArtifacts===null)throw new Error("Evidence inventory JSON is invalid.");const ev=evidenceApi.validateInventory(evidenceArtifacts);if(!ev.valid)throw new Error(ev.errors.join("\n"));return {schemaVersion:1,product:"DBSRF",exportedAt:new Date().toISOString(),assessment:{answers:answers},evidenceArtifacts:evidenceArtifacts};}
 function downloadText(name,text){const blob=new Blob([text],{type:"application/json;charset=utf-8"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
