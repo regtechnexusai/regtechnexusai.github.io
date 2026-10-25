@@ -11,6 +11,7 @@
 
   const MAX_SCORE = 4;
   const MIN_ASSESSED_PILLARS = 5;
+  const MIN_NA_JUSTIFICATION_LENGTH = 20;
   const MATURITY_BANDS = [
     { min: 0, max: 19.999999, label: "Initial / severely underdeveloped" },
     { min: 20, max: 39.999999, label: "Early-stage" },
@@ -107,10 +108,31 @@
             (answer.reviewerVerified !== true || !Array.isArray(answer.evidenceIds) || answer.evidenceIds.length === 0)) {
           errors.push(id + ": a confirmed critical finding requires reviewerVerified=true and at least one evidence ID.");
         }
+        if (answer.criticalFindingConfirmed === true && assessment.evidenceArtifacts !== undefined) {
+          if (!Array.isArray(assessment.evidenceArtifacts)) {
+            errors.push(id + ": evidence inventory must be valid before a critical finding can be confirmed.");
+          } else {
+            const traceable = answer.evidenceIds.some(function (evidenceId) {
+              return assessment.evidenceArtifacts.some(function (artifact) {
+                if (!artifact || artifact.id !== evidenceId || artifact.status !== "Reviewed" ||
+                    !Array.isArray(artifact.questionLinks)) return false;
+                return artifact.questionLinks.some(function (link) {
+                  return link && link.questionId === id &&
+                    link.relevance === "Relevant" && link.sufficiency === "Sufficient" &&
+                    typeof link.reviewer === "string" && link.reviewer.trim().length > 0 &&
+                    typeof link.reviewedAt === "string" && /^\d{4}-\d{2}-\d{2}$/.test(link.reviewedAt) &&
+                    !Number.isNaN(Date.parse(link.reviewedAt)) &&
+                    new Date(link.reviewedAt).toISOString().slice(0, 10) === link.reviewedAt;
+                });
+              });
+            });
+            if (!traceable) errors.push(id + ": a confirmed critical finding requires at least one inventory artifact linked to this question with Reviewed status, Relevant/Sufficient review, reviewer and valid review date.");
+          }
+        }
       }
       if (answer.status === "na") {
-        if (typeof answer.justification !== "string" || !answer.justification.trim()) {
-          errors.push(id + ": N/A requires a written justification.");
+        if (typeof answer.justification !== "string" || answer.justification.trim().length < MIN_NA_JUSTIFICATION_LENGTH) {
+          errors.push(id + ": N/A justification must contain at least " + MIN_NA_JUSTIFICATION_LENGTH + " non-whitespace characters.");
         }
         if (answer.approvedBy !== undefined && (typeof answer.approvedBy !== "string" || !answer.approvedBy.trim())) {
           errors.push(id + ": approvedBy must be a non-empty string when supplied.");
@@ -149,8 +171,8 @@
         status = "Critical gate unassessed";
         rationale = "The answer is missing or N/A applicability has not been verified and approved.";
       } else if (answer.status === "na") {
-        status = "Gate not applicable — verified";
-        rationale = "Applicability exclusion is justified and approved; retain the rationale for review.";
+        status = "Critical gate N/A exception — escalation required";
+        rationale = "Approved N/A does not count as a passed critical gate. Obtain designated governance review; the aggregate maturity score is withheld until the exception is resolved.";
       } else if (answer.score <= 1 && answer.criticalFindingConfirmed === true && answer.reviewerVerified === true &&
                  Array.isArray(answer.evidenceIds) && answer.evidenceIds.length > 0) {
         status = "Critical failure confirmed";
@@ -208,27 +230,37 @@
     const unresolvedQuestions = QUESTIONS.length - resolvedQuestions;
     const criticalGates = evaluateCriticalGates(answers);
     const confirmed = criticalGates.some(function (g) { return g.status === "Critical failure confirmed"; });
+    const criticalGateNAException = criticalGates.some(function (g) {
+      return g.status === "Critical gate N/A exception — escalation required";
+    });
     const needsVerification = criticalGates.some(function (g) {
       return g.status === "Critical issue — verification required" || g.status === "Critical gate unassessed";
     });
 
     const enoughPillars = assessedPillars.length >= MIN_ASSESSED_PILLARS;
     const complete = unresolvedQuestions === 0;
-    const maturityScore = complete && enoughPillars
+    const maturityScore = complete && enoughPillars && !criticalGateNAException
       ? Math.round((assessedPillars.reduce(function (sum, p) { return sum + p.score; }, 0) / assessedPillars.length) * 100) / 100
       : null;
 
     let reportingStatus;
-    if (confirmed) reportingStatus = "Critical failure confirmed";
+    if (confirmed && criticalGateNAException) reportingStatus = "Critical failure confirmed; critical-gate N/A exception — maturity score withheld";
+    else if (confirmed) reportingStatus = "Critical failure confirmed — maturity score is diagnostic only; readiness interpretation overridden";
+    else if (criticalGateNAException) reportingStatus = "Critical-gate N/A exception requires escalation — maturity score withheld";
     else if (needsVerification) reportingStatus = "Critical issue or gate requires verification";
     else if (!complete) reportingStatus = "Assessment incomplete — maturity score withheld";
     else if (!enoughPillars) reportingStatus = "Insufficient coverage — maturity score withheld";
     else reportingStatus = "Internal maturity result available — not a compliance conclusion";
 
+    const scoreDisposition = criticalGateNAException ? "withheld-critical-gate-na-exception" :
+      confirmed ? "diagnostic-only-critical-failure" :
+      maturityScore === null ? "withheld-incomplete-or-insufficient-coverage" : "internal-maturity-only";
+
     return {
       valid: true,
       errors: [],
       reportingStatus: reportingStatus,
+      scoreDisposition: scoreDisposition,
       maturityScore: maturityScore,
       maturityBand: maturityScore === null ? null : getMaturityBand(maturityScore).label,
       coverage: {
@@ -255,6 +287,7 @@
   return Object.freeze({
     MAX_SCORE: MAX_SCORE,
     MIN_ASSESSED_PILLARS: MIN_ASSESSED_PILLARS,
+    MIN_NA_JUSTIFICATION_LENGTH: MIN_NA_JUSTIFICATION_LENGTH,
     PILLARS: PILLARS,
     QUESTIONS: QUESTIONS,
     validateAssessment: validateAssessment,
