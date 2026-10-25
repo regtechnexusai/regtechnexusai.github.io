@@ -1,0 +1,23 @@
+name: MUKUL Crop Quiz Regression
+on:
+  push:
+    paths:
+      - 'mukul/knowledge/crop-quizzes.html'
+      - 'tests/mukul-crop-quizzes.test.cjs'
+      - '.github/workflows/mukul-crop-quizzes-regression.yml'
+  pull_request:
+    paths:
+      - 'mukul/knowledge/crop-quizzes.html'
+      - 'tests/mukul-crop-quizzes.test.cjs'
+      - '.github/workflows/mukul-crop-quizzes-regression.yml'
+  workflow_dispatch:
+jobs:
+  quiz-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run source-level quiz regression tests
+        run: node tests/mukul-crop-quizzes.test.cjs
