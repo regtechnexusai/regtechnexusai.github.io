@@ -136,6 +136,29 @@ test("confirmed critical failure requires reviewer verification and evidence ID"
   assert.equal(result.maturityScore, 72.32);
 });
 
+
+test("reviewer-confirmed critical failure overrides even a high self-assessment score", () => {
+  const a = fullAssessment(4);
+  a.answers["PRU-01"] = {
+    status: "assessed", score: 4, evidenceConfidence: "High", evidenceIds: ["EV-CAP-002"],
+    criticalFindingConfirmed: true, reviewerVerified: true
+  };
+  a.evidenceArtifacts = [{
+    id: "EV-CAP-002", version: 1, artifactDate: "2026-10-25", owner: "Prudential control owner",
+    confidence: "High", status: "Reviewed",
+    questionLinks: [{
+      questionId: "PRU-01", relevance: "Relevant", sufficiency: "Sufficient",
+      reviewer: "reviewer-03", reviewedAt: "2026-10-25"
+    }]
+  }];
+  const result = core.assess(a);
+  assert.equal(result.valid, true);
+  assert.equal(result.maturityScore, 100);
+  assert.equal(result.criticalGates.find(g => g.questionId === "PRU-01").status, "Critical failure confirmed");
+  assert.match(result.reportingStatus, /readiness interpretation overridden/);
+  assert.equal(result.scoreDisposition, "diagnostic-only-critical-failure");
+});
+
 test("invalid confirmed-failure claim without evidence is rejected", () => {
   const a = fullAssessment(3);
   a.answers["PRU-01"] = {
