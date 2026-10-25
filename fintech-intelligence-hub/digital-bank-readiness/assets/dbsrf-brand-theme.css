@@ -1,0 +1,81 @@
+/* RegTech Nexus AI homepage visual system for DBSRF. Presentation-only; assessment logic unchanged. */
+:root{
+ --db-ink:#102b49;
+ --db-blue:#0956a8;
+ --db-line:#d8e3ee;
+ --db-soft:#f2f7fc;
+ --db-muted:#53677d;
+ --db-green:#176b4d;
+ --db-amber:#875b00;
+ --db-red:#a22a32;
+ --rnx-teal:#15939f;
+ --rnx-navy:#102b49;
+ --rnx-cobalt:#155eef;
+}
+html{background:#f3f7fb}
+body{background:#f3f7fb;color:var(--db-ink);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+a{color:var(--db-blue);text-underline-offset:3px}
+::selection{background:#d7edff;color:#102b49}
+.dbsr-main{max-width:1240px}
+.dbsr-hero{border:1px solid #dce6f0;border-radius:22px;background:linear-gradient(135deg,#fff 0%,#fbfdff 68%,#f0f8fb 100%);box-shadow:0 10px 34px rgba(16,43,73,.07)}
+.dbsr-kicker{color:#17658d;letter-spacing:.12em}
+.dbsr-hero h1{color:#102b49;letter-spacing:-.035em}
+.dbsr-lead{color:#42566d}
+.dbsr-note{border-left:4px solid #0956a8;border-radius:0 12px 12px 0;background:#eaf4ff;color:#263f59}
+.dbsr-warning{border-left-color:#b17a16;background:#fff6df;color:#4b3a19}
+.dbsr-grid{gap:18px}
+.dbsr-panel,.dbsr-pillar,.dbsr-question,.dbsr-evidence-panel{border:1px solid #dce6f0;border-radius:15px;background:#fff;box-shadow:0 5px 18px rgba(16,43,73,.045);transition:border-color .18s ease,box-shadow .18s ease}
+.dbsr-panel:hover,.dbsr-pillar:hover,.dbsr-evidence-panel:hover{border-color:#bdd4e8;box-shadow:0 8px 24px rgba(16,43,73,.07)}
+.dbsr-panel h2,.dbsr-section-title,.dbsr-pillar h3{color:#102b49}
+.dbsr-metric{color:#123d63;font-variant-numeric:tabular-nums}
+.dbsr-muted{color:#53677d}
+.dbsr-progress{height:10px;background:#e2ebf4;border-radius:99px}
+.dbsr-progress span{background:linear-gradient(90deg,#0956a8 0%,#15939f 100%);border-radius:99px}
+.dbsr-section{margin:34px 0}
+.dbsr-section-head{align-items:flex-start}
+.dbsr-section-head .dbsr-kicker{margin-top:0}
+.dbsr-question{background:#fafdff;border-radius:12px;box-shadow:none}
+.dbsr-question:focus-within{border-color:#7db6e7;box-shadow:0 0 0 3px rgba(9,86,168,.10)}
+.dbsr-qid{color:#0956a8;background:#e6f2ff;border:1px solid #d2e7fc;border-radius:6px}
+.dbsr-qprompt{color:#173653}
+.dbsr-field label,.dbsr-label{color:#263f59}
+.dbsr-field input,.dbsr-field select,.dbsr-field textarea,.dbsr-textarea{border:1px solid #c5d3e1;border-radius:9px;background:#fff;color:#102b49;transition:border-color .15s ease,box-shadow .15s ease}
+.dbsr-field input:hover,.dbsr-field select:hover,.dbsr-field textarea:hover,.dbsr-textarea:hover{border-color:#8daecb}
+.dbsr-field input:focus,.dbsr-field select:focus,.dbsr-field textarea:focus,.dbsr-textarea:focus{outline:none;border-color:#0956a8;box-shadow:0 0 0 3px rgba(9,86,168,.12)}
+.dbsr-checks input{accent-color:#0956a8}
+.dbsr-btn{border:1px solid #0956a8;border-radius:10px;background:linear-gradient(145deg,#1768b8 0%,#0956a8 58%,#084887 100%);color:#fff;font-weight:750;box-shadow:0 3px 0 #073c70,0 6px 12px rgba(9,86,168,.12);transition:transform .15s ease,box-shadow .15s ease,filter .15s ease}
+.dbsr-btn:hover{filter:brightness(1.05);transform:translateY(-1px);box-shadow:0 4px 0 #073c70,0 9px 16px rgba(9,86,168,.16)}
+.dbsr-btn:active{transform:translateY(1px);box-shadow:0 1px 0 #073c70}
+.dbsr-btn.secondary{background:linear-gradient(145deg,#fff 0%,#f0f8ff 100%);color:#0956a8;border-color:#9fc4e5;box-shadow:0 2px 0 #d3e2ef}
+.dbsr-btn.secondary:hover{background:#eaf5ff}
+.dbsr-btn.danger{background:linear-gradient(145deg,#fff,#fff2f2);color:#a22a32;border-color:#d9a1a5;box-shadow:0 2px 0 #f0d2d4}
+.dbsr-status.good{color:#176b4d}
+.dbsr-status.warn{color:#875b00}
+.dbsr-status.bad{color:#a22a32}
+.dbsr-message{border:1px solid #b9e2cf;background:#eaf8f0;color:#17573d;border-radius:10px}
+.dbsr-message.error{border-color:#efc2c5;background:#fff0f0;color:#8e1f27}
+.dbsr-empty{border-color:#bfd0df;background:#f8fbfe;border-radius:10px}
+.dbsr-gate{border:1px solid #dce6f0;border-left:4px solid #15939f;border-radius:10px;background:#fff}
+.dbsr-privacy{padding:12px 14px;border-radius:9px;background:#edf6ff;color:#334d67}
+.dbsr-validation-summary{border-color:#e6b8bc;border-left-color:#a22a32;border-radius:11px;background:#fff7f7;color:#5f1720}
+.dbsr-invalid{border-color:#a22a32!important}
+details{border:1px solid #dce6f0;border-radius:10px;padding:12px;background:#f9fcff}
+summary{color:#0956a8;font-weight:750;cursor:pointer}
+pre{max-width:100%;overflow:auto;border-radius:9px;background:#102b49;color:#eef7ff;padding:14px}
+.dbsr-footer{border-top:6px solid #15939f;background:#102b49;color:#fff}
+.dbsr-footer a{color:#e4f3ff}
+@media(max-width:760px){
+ .dbsr-main{padding:14px}
+ .dbsr-hero{padding:22px 18px;border-radius:17px}
+ .dbsr-hero h1{font-size:clamp(1.8rem,7vw,2.35rem)}
+ .dbsr-lead{font-size:1rem;line-height:1.65}
+ .dbsr-grid,.dbsr-pillars{grid-template-columns:1fr}
+ .dbsr-panel,.dbsr-pillar,.dbsr-evidence-panel{padding:15px}
+ .dbsr-section{margin:28px 0}
+ .dbsr-section-head{gap:8px}
+ .dbsr-question{padding:12px}
+ .dbsr-actions{gap:10px}
+ .dbsr-btn{min-height:44px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+@media print{body{background:#fff}.dbsr-hero,.dbsr-panel,.dbsr-pillar,.dbsr-question,.dbsr-evidence-panel{box-shadow:none}}
