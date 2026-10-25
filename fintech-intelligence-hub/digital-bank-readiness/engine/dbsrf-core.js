@@ -246,6 +246,8 @@
     let reportingStatus;
     if (confirmed && criticalGateNAException) reportingStatus = "Critical failure confirmed; critical-gate N/A exception — maturity score withheld";
     else if (confirmed) reportingStatus = "Critical failure confirmed — maturity score is diagnostic only; readiness interpretation overridden";
+    else if (criticalGateNAException && !complete) reportingStatus = "Critical-gate N/A exception requires escalation; assessment incomplete — maturity score withheld";
+    else if (criticalGateNAException && !enoughPillars) reportingStatus = "Critical-gate N/A exception requires escalation; insufficient coverage — maturity score withheld";
     else if (criticalGateNAException) reportingStatus = "Critical-gate N/A exception requires escalation — maturity score withheld";
     else if (needsVerification) reportingStatus = "Critical issue or gate requires verification";
     else if (!complete) reportingStatus = "Assessment incomplete — maturity score withheld";
