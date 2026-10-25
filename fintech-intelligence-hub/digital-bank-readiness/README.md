@@ -1,12 +1,14 @@
 # Digital Bank Supervisory Readiness Framework (DBSRF) — Phase 1 core
 
-This is an **additive, isolated development module** under the existing FinTech Intelligence Hub. It does not replace or modify ICMS, TradeGuard, regulatory calculators, existing scoring logic, or site architecture.
+This is an **additive, isolated Phase 1 module** under the existing FinTech Intelligence Hub. A standalone assessment interface is available at `index.html` and is linked from the Hub. It does not replace or modify ICMS, TradeGuard, regulatory calculators, existing scoring logic, or the site's existing architecture.
 
 ## Included in this change
 
 - `engine/dbsrf-core.js`: dependency-free core assessment engine, seven pillars and 28 core questions.
 - `engine/dbsrf-evidence.js`: evidence inventory validation, many-to-many question mapping and per-question relevance/sufficiency review.
 - `engine/dbsrf-storage.js`: password-protected export/import using PBKDF2-SHA-256 and AES-256-GCM through Web Crypto; no plaintext fallback.
+- `assets/dbsrf-ui.js` and `assets/dbsrf-ui.css`: responsive, standalone browser interface with no external analytics or network connection configured; assessment data remains in memory until the user exports it.
+- `index.html`: the DBSRF interface, linked from the existing FinTech Intelligence Hub.
 - `tests/*.test.js`: automated scoring, evidence and encrypted-storage tests using Node's built-in test runner.
 - This README: scoring contract and boundaries.
 
@@ -32,4 +34,4 @@ node --test fintech-intelligence-hub/digital-bank-readiness/tests/*.test.js
 
 The maturity bands are internal methodology labels, not regulator ratings. This engine does not determine licensing eligibility, legal compliance, financial soundness, or supervisory approval. Jurisdiction-specific legal mapping must be independently verified against current official sources and is intentionally not asserted by this Phase 1 core.
 
-The modules are not yet a production assessment interface. Browser integration, persistence decisions, full security review, jurisdiction modules and end-to-end privacy testing remain follow-on work. Password-protected export protects the exported file when used correctly; it does not by itself secure browser memory, the device, or a compromised page. Do not describe the prototype as zero-knowledge or regulator-approved.
+The interface is an early-stage prototype, not a production supervisory assessment product. Jurisdiction modules, accessibility/usability review, browser privacy/network verification and independent security review remain follow-on work. Password-protected export protects the exported file when used correctly; it does not by itself secure browser memory, the device, or a compromised page. Do not describe the prototype as zero-knowledge or regulator-approved.
