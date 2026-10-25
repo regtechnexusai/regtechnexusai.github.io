@@ -150,3 +150,9 @@ body .dbsr-gate{background-color:#f1f9fa}
 body .dbsr-warning{background-image:linear-gradient(180deg,rgba(177,122,22,.12),rgba(255,255,255,.02) 45%,rgba(177,122,22,.08));}
 body .dbsr-btn{box-shadow:inset 0 2px 0 rgba(255,255,255,.25),inset 0 -3px 0 rgba(0,0,0,.12),0 3px 0 #082f64,0 7px 14px rgba(9,86,168,.16)}
 @media(prefers-reduced-motion:reduce){body .dbsr-hero,body .dbsr-panel,body .dbsr-pillar,body .dbsr-question,body .dbsr-evidence-panel{transition:none}}
+
+.dbsr-field-error{margin-top:5px;padding:7px 9px;border-left:3px solid #a22a32;border-radius:0 6px 6px 0;background:#fff0f0;color:#8e1f27;font-size:.86rem;line-height:1.4}
+.dbsr-field [aria-invalid="true"]{border-color:#a22a32!important;box-shadow:0 0 0 2px rgba(162,42,50,.10)}
+.dbsr-validation-summary li{margin:7px 0}
+.dbsr-validation-summary a{color:#0956a8;text-underline-offset:3px}
+.dbsr-validation-summary a:focus-visible{outline:3px solid #83baff;outline-offset:2px}
