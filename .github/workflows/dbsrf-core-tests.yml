@@ -1,0 +1,23 @@
+name: DBSRF Core Tests
+on:
+  pull_request:
+    paths:
+      - "fintech-intelligence-hub/digital-bank-readiness/**"
+      - ".github/workflows/dbsrf-core-tests.yml"
+  push:
+    branches: [main]
+    paths:
+      - "fintech-intelligence-hub/digital-bank-readiness/**"
+      - ".github/workflows/dbsrf-core-tests.yml"
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Run DBSRF core tests
+        run: node --test fintech-intelligence-hub/digital-bank-readiness/tests/dbsrf-core.test.js
