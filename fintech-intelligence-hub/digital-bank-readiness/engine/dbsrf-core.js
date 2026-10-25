@@ -104,31 +104,9 @@
         if (answer.evidenceIds !== undefined && (!Array.isArray(answer.evidenceIds) || answer.evidenceIds.some(function (x) { return typeof x !== "string" || !x.trim(); }))) {
           errors.push(id + ": evidenceIds must be an array of non-empty strings.");
         }
-        if (answer.criticalFindingConfirmed === true &&
-            (answer.reviewerVerified !== true || !Array.isArray(answer.evidenceIds) || answer.evidenceIds.length === 0)) {
-          errors.push(id + ": a confirmed critical finding requires reviewerVerified=true and at least one evidence ID.");
-        }
-        if (answer.criticalFindingConfirmed === true && assessment.evidenceArtifacts !== undefined) {
-          if (!Array.isArray(assessment.evidenceArtifacts)) {
-            errors.push(id + ": evidence inventory must be valid before a critical finding can be confirmed.");
-          } else {
-            const traceable = answer.evidenceIds.some(function (evidenceId) {
-              return assessment.evidenceArtifacts.some(function (artifact) {
-                if (!artifact || artifact.id !== evidenceId || artifact.status !== "Reviewed" || artifact.confidence === "Unverified" ||
-                    !Array.isArray(artifact.questionLinks)) return false;
-                return artifact.questionLinks.some(function (link) {
-                  return link && link.questionId === id &&
-                    link.relevance === "Relevant" && link.sufficiency === "Sufficient" &&
-                    typeof link.reviewer === "string" && link.reviewer.trim().length > 0 &&
-                    typeof link.reviewedAt === "string" && /^\d{4}-\d{2}-\d{2}$/.test(link.reviewedAt) &&
-                    !Number.isNaN(Date.parse(link.reviewedAt)) &&
-                    new Date(link.reviewedAt).toISOString().slice(0, 10) === link.reviewedAt;
-                });
-              });
-            });
-            if (!traceable) errors.push(id + ": a confirmed critical finding requires at least one inventory artifact linked to this question with Reviewed status, Relevant/Sufficient review, reviewer and valid review date.");
-          }
-        }
+        // Critical-finding evidence is evaluated separately from the maturity score.
+        // Missing or unreviewed evidence must not invalidate the numeric answer.
+
       }
       if (answer.status === "na") {
         if (typeof answer.justification !== "string" || answer.justification.trim().length < MIN_NA_JUSTIFICATION_LENGTH) {
@@ -162,7 +140,20 @@
     return MATURITY_BANDS.find(function (band) { return score >= band.min && score <= band.max; }) || null;
   }
 
-  function evaluateCriticalGates(answers) {
+  function evaluateCriticalGates(answers, evidenceArtifacts) {
+    function hasReviewedEvidence(id, answer) {
+      return Array.isArray(evidenceArtifacts) && Array.isArray(answer.evidenceIds) && answer.evidenceIds.some(function (evidenceId) {
+        return evidenceArtifacts.some(function (artifact) {
+          if (!artifact || artifact.id !== evidenceId || artifact.status !== "Reviewed" || artifact.confidence === "Unverified" || !Array.isArray(artifact.questionLinks)) return false;
+          return artifact.questionLinks.some(function (link) {
+            return link && link.questionId === id && link.relevance === "Relevant" && link.sufficiency === "Sufficient" &&
+              typeof link.reviewer === "string" && link.reviewer.trim() &&
+              typeof link.reviewedAt === "string" && /^\\d{4}-\\d{2}-\\d{2}$/.test(link.reviewedAt) &&
+              !Number.isNaN(Date.parse(link.reviewedAt)) && new Date(link.reviewedAt).toISOString().slice(0,10) === link.reviewedAt;
+          });
+        });
+      });
+    }
     return QUESTIONS.filter(function (q) { return q.criticalGate; }).map(function (q) {
       const answer = answers[q.id];
       let status;
@@ -173,10 +164,14 @@
       } else if (answer.status === "na") {
         status = "Critical gate N/A exception — escalation required";
         rationale = "Approved N/A does not count as a passed critical gate. Obtain designated governance review; the aggregate maturity score is withheld until the exception is resolved.";
-      } else if (answer.criticalFindingConfirmed === true && answer.reviewerVerified === true &&
-                 Array.isArray(answer.evidenceIds) && answer.evidenceIds.length > 0) {
-        status = "Critical failure confirmed";
-        rationale = "A reviewer-confirmed finding is linked to at least one evidence artifact.";
+       } else if (answer.criticalFindingConfirmed === true) {
+        if (answer.reviewerVerified === true && hasReviewedEvidence(q.id, answer)) {
+          status = "Critical failure confirmed";
+          rationale = "A reviewer-confirmed finding is linked to reviewed, relevant and sufficient evidence.";
+        } else {
+          status = "Critical finding unconfirmed — reviewed evidence pending";
+          rationale = "The maturity score is retained separately. Complete reviewer verification and link reviewed evidence with a valid review date before confirming this gate.";
+        }
       } else if (answer.score <= 1) {
         status = "Critical issue — verification required";
         rationale = "Low self-assessment score is a risk signal, not by itself a verified legal or supervisory conclusion.";
@@ -228,7 +223,7 @@
     const assessedQuestions = QUESTIONS.filter(function (q) { return answers[q.id] && answers[q.id].status === "assessed"; }).length;
     const approvedNAQuestions = QUESTIONS.filter(function (q) { return isApprovedNA(answers[q.id]); }).length;
     const unresolvedQuestions = QUESTIONS.length - resolvedQuestions;
-    const criticalGates = evaluateCriticalGates(answers);
+    const criticalGates = evaluateCriticalGates(answers, assessment.evidenceArtifacts);
     const confirmed = criticalGates.some(function (g) { return g.status === "Critical failure confirmed"; });
     const criticalGateNAException = criticalGates.some(function (g) {
       return g.status === "Critical gate N/A exception — escalation required";
