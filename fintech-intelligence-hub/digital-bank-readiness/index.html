@@ -37,7 +37,7 @@
 </section>
 <div id="dbsr-message" class="dbsr-message" role="status" aria-live="polite">Ready. Complete each question that applies to the assessment scope.</div>
 <section class="dbsr-section" id="assessment">
-<div class="dbsr-section-head"><div><p class="dbsr-kicker">Assessment workspace</p><h2 class="dbsr-section-title">Seven pillars · 28 core questions</h2><p class="dbsr-muted">Score guide: 0 Absent · 1 Ad hoc · 2 Designed · 3 Implemented · 4 Tested and sustained. Evidence confidence is separate from the score.</p></div><div class="dbsr-actions"><button class="dbsr-btn secondary" id="dbsr-recalculate" type="button">Recalculate</button><button class="dbsr-btn secondary" id="dbsr-print" type="button">Print / save view</button></div></div>
+<div class="dbsr-section-head"><div><p class="dbsr-kicker">Assessment workspace</p><h2 class="dbsr-section-title">Seven pillars · 28 core questions</h2><p class="dbsr-muted">Score guide: 0 Absent · 1 Ad hoc · 2 Designed · 3 Implemented · 4 Tested and sustained. Evidence confidence is separate from the score. <strong>(*) Critical Supervisory Gate: a confirmed critical failure overrides the readiness interpretation; it does not automatically cap the numeric score.</strong></p></div><div class="dbsr-actions"><button class="dbsr-btn secondary" id="dbsr-recalculate" type="button">Recalculate</button><button class="dbsr-btn secondary" id="dbsr-print" type="button">Print / save view</button></div></div>
 <div id="dbsr-pillars" class="dbsr-pillars"></div>
 </section>
 <section class="dbsr-section" aria-labelledby="critical-gates-title">
@@ -49,7 +49,7 @@
 <div class="dbsr-section-head"><div><p class="dbsr-kicker">Evidence register</p><h2 class="dbsr-section-title">Evidence inventory (JSON)</h2><p class="dbsr-muted">One artifact can link to several question IDs. Review relevance and sufficiency separately for each question.</p></div></div>
 <div class="dbsr-evidence-panel">
 <p class="dbsr-privacy">Use the structure below as a starter. Do not paste confidential documents or sensitive information. Artifact IDs entered on each question should match the inventory.</p>
-<label class="dbsr-label" for="dbsr-evidence-json">Evidence artifacts</label>
+<div class="dbsr-actions"><button class="dbsr-btn secondary" id="dbsr-sample-evidence" type="button">Load sample evidence template</button></div><p class="dbsr-muted">The template is illustrative only—not verified evidence. Replace it with reviewed, accurate records before using an assessment for decisions.</p><label class="dbsr-label" for="dbsr-evidence-json">Evidence artifacts</label>
 <textarea id="dbsr-evidence-json" class="dbsr-textarea" spellcheck="false" aria-describedby="dbsr-evidence-summary"></textarea>
 <p id="dbsr-evidence-summary" class="dbsr-muted">No artifacts yet.</p>
 <details><summary>Evidence record format</summary><pre><code>[
