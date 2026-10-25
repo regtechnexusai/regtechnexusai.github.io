@@ -109,6 +109,12 @@
 <section class="dbsr-section" id="assessment">
 <div class="dbsr-section-head"><div><p class="dbsr-kicker">Assessment workspace</p><h2 class="dbsr-section-title">Seven pillars · 28 core questions</h2><p class="dbsr-muted">Score guide: 0 Absent · 1 Ad hoc · 2 Designed · 3 Implemented · 4 Tested and sustained. Evidence confidence is separate from the score. <strong>(*) Critical Supervisory Gate: a confirmed critical failure overrides the readiness interpretation; it does not automatically cap the numeric score.</strong></p></div><div class="dbsr-actions"><button class="dbsr-btn secondary" id="dbsr-recalculate" type="button">Recalculate</button><button class="dbsr-btn secondary" id="dbsr-print" type="button">Print / save view</button></div></div>
 <div id="dbsr-pillars" class="dbsr-pillars"></div>
+<div class="dbsr-finalize-panel" id="dbsr-final-review">
+  <h3>Finish assessment</h3>
+  <p>When you have completed the seven pillars and checked the evidence register, click below. The framework will validate the entries, calculate the internal result where permitted, and show what needs attention next.</p>
+  <button class="dbsr-btn dbsr-finalize-btn" id="dbsr-finalize" type="button">Finish assessment &amp; calculate results</button>
+  <div id="dbsr-final-review-result" class="dbsr-final-review-result" role="status" aria-live="polite">Your final review has not been run yet.</div>
+</div>
 </section>
 <section class="dbsr-section" aria-labelledby="critical-gates-title">
 <div class="dbsr-section-head"><div><p class="dbsr-kicker">Risk signals</p><h2 id="critical-gates-title" class="dbsr-section-title">Critical-gate review</h2></div></div>
