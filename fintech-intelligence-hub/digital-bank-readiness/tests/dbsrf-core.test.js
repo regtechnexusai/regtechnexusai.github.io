@@ -212,6 +212,26 @@ test("confirmed critical finding cannot reference an artifact absent from the in
   assert.match(result.errors.join(" "), /inventory artifact linked to this question/);
 });
 
+
+test("unverified-confidence evidence cannot substantiate a confirmed critical finding", () => {
+  const a = fullAssessment(3);
+  a.answers["ICT-02"] = {
+    status: "assessed", score: 0, evidenceConfidence: "Unverified", evidenceIds: ["EV-IAM-01"],
+    criticalFindingConfirmed: true, reviewerVerified: true
+  };
+  a.evidenceArtifacts = [{
+    id: "EV-IAM-01", version: 1, artifactDate: "2026-10-25", owner: "ICT control owner",
+    confidence: "Unverified", status: "Reviewed",
+    questionLinks: [{
+      questionId: "ICT-02", relevance: "Relevant", sufficiency: "Sufficient",
+      reviewer: "reviewer-02", reviewedAt: "2026-10-25"
+    }]
+  }];
+  const result = core.assess(a);
+  assert.equal(result.valid, false);
+  assert.match(result.errors.join(" "), /linked to this question/);
+});
+
 test("maturity bands use the defined internal boundaries", () => {
   assert.equal(core.getMaturityBand(19).label, "Initial / severely underdeveloped");
   assert.equal(core.getMaturityBand(20).label, "Early-stage");
