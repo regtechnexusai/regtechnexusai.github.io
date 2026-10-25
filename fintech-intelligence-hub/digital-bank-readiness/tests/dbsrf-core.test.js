@@ -123,16 +123,15 @@ test("low critical-gate score is an issue requiring verification, not automatica
   assert.equal(result.reportingStatus, "Critical issue or gate requires verification");
 });
 
-test("confirmed critical failure requires reviewer verification and evidence ID", () => {
+test("critical finding without reviewed inventory evidence remains unconfirmed without invalidating score", () => {
   const a = fullAssessment(3);
   a.answers["PRU-01"] = {
     status: "assessed", score: 0, evidenceConfidence: "High", evidenceIds: ["EV-CAP-001"],
     criticalFindingConfirmed: true, reviewerVerified: true
   };
   const result = core.assess(a);
-  assert.equal(result.criticalGates.find(g => g.questionId === "PRU-01").status, "Critical failure confirmed");
-  assert.equal(result.reportingStatus, "Critical failure confirmed — maturity score is diagnostic only; readiness interpretation overridden");
-  assert.equal(result.scoreDisposition, "diagnostic-only-critical-failure");
+  assert.equal(result.valid, true);
+  assert.equal(result.criticalGates.find(g => g.questionId === "PRU-01").status, "Critical finding unconfirmed — reviewed evidence pending");
   assert.equal(result.maturityScore, 72.32);
 });
 
@@ -159,13 +158,16 @@ test("reviewer-confirmed critical failure overrides even a high self-assessment 
   assert.equal(result.scoreDisposition, "diagnostic-only-critical-failure");
 });
 
-test("invalid confirmed-failure claim without evidence is rejected", () => {
+test("critical-finding flag without evidence is unconfirmed, while score remains valid", () => {
   const a = fullAssessment(3);
   a.answers["PRU-01"] = {
     status: "assessed", score: 0, evidenceConfidence: "High", evidenceIds: [],
     criticalFindingConfirmed: true, reviewerVerified: true
   };
-  assert.equal(core.validateAssessment(a).valid, false);
+  const result = core.assess(a);
+  assert.equal(result.valid, true);
+  assert.equal(result.maturityScore, 72.32);
+  assert.equal(result.criticalGates.find(g => g.questionId === "PRU-01").status, "Critical finding unconfirmed — reviewed evidence pending");
 });
 
 test("missing critical gate is explicitly unassessed", () => {
@@ -219,8 +221,9 @@ test("confirmed critical finding requires an inventory artifact reviewed as rele
   assert.equal(core.validateAssessment(a).valid, true);
   a.evidenceArtifacts[0].questionLinks[0].questionId = "AML-02";
   const result = core.assess(a);
-  assert.equal(result.valid, false);
-  assert.match(result.errors.join(" "), /linked to this question/);
+  assert.equal(result.valid, true);
+  assert.equal(result.maturityScore, 72.32);
+  assert.equal(result.criticalGates.find(g => g.questionId === "AML-03").status, "Critical finding unconfirmed — reviewed evidence pending");
 });
 
 test("confirmed critical finding cannot reference an artifact absent from the inventory", () => {
@@ -231,8 +234,8 @@ test("confirmed critical finding cannot reference an artifact absent from the in
   };
   a.evidenceArtifacts = [];
   const result = core.assess(a);
-  assert.equal(result.valid, false);
-  assert.match(result.errors.join(" "), /inventory artifact linked to this question/);
+  assert.equal(result.valid, true);
+  assert.equal(result.criticalGates.find(g => g.questionId === "REP-01").status, "Critical finding unconfirmed — reviewed evidence pending");
 });
 
 
@@ -251,8 +254,8 @@ test("unverified-confidence evidence cannot substantiate a confirmed critical fi
     }]
   }];
   const result = core.assess(a);
-  assert.equal(result.valid, false);
-  assert.match(result.errors.join(" "), /linked to this question/);
+  assert.equal(result.valid, true);
+  assert.equal(result.criticalGates.find(g => g.questionId === "ICT-02").status, "Critical finding unconfirmed — reviewed evidence pending");
 });
 
 test("maturity bands use the defined internal boundaries", () => {
