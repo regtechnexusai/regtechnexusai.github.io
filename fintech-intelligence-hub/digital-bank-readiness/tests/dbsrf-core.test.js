@@ -112,7 +112,7 @@ test("fewer than five assessed pillars blocks aggregate maturity", () => {
   const result = core.assess(a);
   assert.equal(result.coverage.assessedPillars, 4);
   assert.equal(result.maturityScore, null);
-  assert.match(result.reportingStatus, /Insufficient coverage/);
+  assert.match(result.reportingStatus, /maturity score withheld/);
 });
 
 test("low critical-gate score is an issue requiring verification, not automatically a confirmed failure", () => {
