@@ -70,16 +70,20 @@ function renderQuestionValues(){
  });
 }
 function updateResults(){
- const assessment=core.assess({answers:answers});
+ const assessment=core.assess({answers:answers,evidenceArtifacts:evidenceArtifacts});
  $("dbsr-assessed").textContent=String(assessment.coverage.assessedQuestions||0);
  $("dbsr-resolved").textContent=String(assessment.coverage.resolvedQuestions||0);
  $("dbsr-unresolved").textContent=String(assessment.coverage.unresolvedQuestions||0);
  $("dbsr-pillar-count").textContent=String(assessment.coverage.assessedPillars||0)+" / 7";
  $("dbsr-progress").style.width=((assessment.coverage.resolvedQuestions||0)/28*100)+"%";
  $("dbsr-score").textContent=assessment.maturityScore===null?"—":assessment.maturityScore.toFixed(2)+"%";
- $("dbsr-band").textContent=assessment.maturityBand||"Not available";
+ $("dbsr-band").textContent=assessment.scoreDisposition==="diagnostic-only-critical-failure"
+  ?(assessment.maturityBand||"Internal band")+" · diagnostic only; critical failure overrides readiness interpretation"
+  :(assessment.maturityBand||"Not available");
  $("dbsr-status").textContent=assessment.reportingStatus||"Assessment unavailable";
- $("dbsr-status").className="dbsr-status "+(assessment.reportingStatus==="Critical failure confirmed"?"bad":assessment.maturityScore!==null?"good":"warn");
+ const criticalOverride=String(assessment.reportingStatus||"").includes("Critical failure confirmed");
+ const gateException=String(assessment.reportingStatus||"").includes("Critical-gate N/A exception");
+ $("dbsr-status").className="dbsr-status "+(criticalOverride||gateException?"bad":assessment.maturityScore!==null?"good":"warn");
  $("dbsr-pillars").querySelectorAll(".dbsr-pillar").forEach(el=>{
   const id=el.querySelector("h3").id.replace("pillar-","");
   const p=assessment.valid?assessment.pillars.find(x=>x.id===id):null;
