@@ -172,6 +172,20 @@ html body header.head .back{
  html body header.head .lang{font-size:14px!important;padding:9px 8px!important}
  html body header.head .back{font-size:14px!important;padding:9px 8px!important}
 }
+</style><style id="mukul-header-logo-size-enforcement">
+html body header.head>a:first-child{flex:0 0 100%!important;width:100%!important;max-width:100%!important}
+html body header.head>a:first-child>img.logo{
+ width:235px!important;max-width:min(235px,62vw)!important;
+ min-width:0!important;height:auto!important;max-height:58px!important;
+ object-fit:contain!important;object-position:left center!important;
+}
+@media(min-width:700px){
+ html body header.head>a:first-child{flex:0 1 235px!important;width:auto!important}
+ html body header.head>a:first-child>img.logo{width:220px!important;max-width:220px!important;max-height:62px!important}
+}
+@media(max-width:360px){
+ html body header.head>a:first-child>img.logo{width:210px!important;max-width:62vw!important;max-height:52px!important}
+}
 </style></head><body>
 <header class="head"><a href="/mukul/"><img class="logo" src="/mukul/mukul-logo.webp" alt="MUKUL Agriculture Hub" onerror="this.style.display='none'"></a><select id="lang" class="lang" aria-label="Language"><option value="bn">বাংলা</option><option value="en">English</option></select><a class="back" href="/mukul/knowledge/" data-bn="← শেখার নির্দেশিকা" data-en="← Learning Guide">← শেখার নির্দেশিকা</a></header>
 <main class="wrap"><section class="hero"><p><strong>MUKUL · FREE LEARNING · PRACTICE</strong></p><h1 data-bn="বিশ্বের শীর্ষ ১০ ফসল: কুইজ লাইব্রেরি" data-en="Global Top 10 Crops: Quiz Library">বিশ্বের শীর্ষ ১০ ফসল: কুইজ লাইব্রেরি</h1><p data-bn="FAOSTAT-এর ২০২৪ সালের বৈশ্বিক উৎপাদন-পরিমাণ অনুযায়ী তালিকাটি সাজানো হয়েছে। প্রতিটি কুইজে বীজ ও জাত, জমি প্রস্তুতি, রোপণ, সেচ, পুষ্টি ব্যবস্থাপনা, সমন্বিত বালাই ব্যবস্থাপনা (IPM), ফসল কাটা, সংরক্ষণ ও খামারের রেকর্ড নিয়ে প্রশ্ন রয়েছে।" data-en="Crops are listed by global production volume in 2024, using FAOSTAT data. Quizzes cover seeds and varieties, land preparation, planting, irrigation, nutrient management, integrated pest management (IPM), harvesting, storage and farm records.">FAO-র ২০২৪ সালের উৎপাদন-পরিমাণের ভিত্তিতে তালিকা। প্রতিটি কুইজে বীজ/জাত, জমি, রোপণ, পানি, পুষ্টি, সমন্বিত বালাই ব্যবস্থাপনা, ফসল কাটা, সংরক্ষণ ও খামার রেকর্ডের মতো বিষয় অন্তর্ভুক্ত করার ভিত্তি রাখা হয়েছে।</p></section>
