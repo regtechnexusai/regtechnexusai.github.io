@@ -17,9 +17,11 @@ This is an **additive, isolated Phase 1 module** under the existing FinTech Inte
 - Question maturity score: integer 0–4.
 - Pillar score: sum of assessed scores divided by (4 × assessed questions in that pillar), expressed as a percentage.
 - Overall maturity: equal-weighted average of pillar percentages; available only when every question is assessed or has an approved, applicability-verified N/A status and at least five pillars contain assessed questions.
-- N/A requires a written justification. It is considered resolved only when applicability verification and an approver identifier are recorded. Approved N/A questions are excluded from the score denominator and disclosed.
+- N/A requires a written justification of at least 20 non-whitespace characters. It is considered resolved only when applicability verification and an approver identifier are recorded. Approved N/A questions are excluded from the score denominator and disclosed.
+- A critical-gate N/A is never treated as a passed gate. Even when applicability is verified and approved, it is flagged as a governance exception requiring escalation, and the aggregate maturity score is withheld until the exception is resolved.
 - An all-N/A pillar has no score and does not count toward minimum pillar coverage.
-- Critical gates are reported separately and take precedence over maturity in the reporting status. A low score alone is not a confirmed legal or supervisory failure. A confirmed critical failure requires explicit reviewer confirmation and at least one linked evidence ID.
+- Critical gates are reported separately and take precedence over maturity in the reporting status. A low score alone is not a confirmed legal or supervisory failure. A confirmed critical failure requires explicit reviewer confirmation and an evidence artifact in the inventory that is linked to that same question, has `Reviewed` status, and has question-specific `Relevant`/`Sufficient` review with reviewer and valid review date.
+- Score override policy: a confirmed critical failure does not falsify or erase the calculated numeric maturity score; it remains visible for diagnostic transparency, but the reporting status explicitly overrides any readiness interpretation and the maturity band is labeled diagnostic-only. A critical-gate N/A exception withholds the aggregate score. If both conditions occur, the critical failure is reported and the score is withheld because of the N/A exception.
 - Evidence confidence (High, Moderate, Low, Unverified) is separate from the maturity score.
 
 ## Run tests
