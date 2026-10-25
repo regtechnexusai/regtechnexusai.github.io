@@ -126,3 +126,27 @@ body .dbsr-question:focus-within,body .dbsr-panel:focus-within,body .dbsr-eviden
  body .dbsr-panel,body .dbsr-pillar,body .dbsr-question,body .dbsr-evidence-panel{border-radius:13px}
  body .dbsr-actions .dbsr-btn{width:100%}
 }
+
+/* Subtle top-and-bottom tonal shading on every card/box for depth, without reducing contrast. */
+body .dbsr-hero,
+body .dbsr-panel,
+body .dbsr-pillar,
+body .dbsr-question,
+body .dbsr-evidence-panel,
+body .dbsr-gate,
+body .dbsr-empty,
+body .dbsr-validation-summary,
+body .dbsr-note,
+body .dbsr-message,
+body .dbsr-privacy,
+body details{
+ background-image:linear-gradient(180deg,rgba(21,94,239,.075) 0%,rgba(255,255,255,.0) 24%,rgba(21,94,239,.025) 72%,rgba(21,94,239,.09) 100%);
+ box-shadow:inset 0 3px 0 rgba(21,94,239,.11),inset 0 -4px 0 rgba(21,94,239,.09),0 5px 18px rgba(16,43,73,.045);
+}
+body .dbsr-pillar{background-color:#f6fbff}
+body .dbsr-question{background-color:#f8fbff}
+body .dbsr-evidence-panel{background-color:#f4f9ff}
+body .dbsr-gate{background-color:#f1f9fa}
+body .dbsr-warning{background-image:linear-gradient(180deg,rgba(177,122,22,.12),rgba(255,255,255,.02) 45%,rgba(177,122,22,.08));}
+body .dbsr-btn{box-shadow:inset 0 2px 0 rgba(255,255,255,.25),inset 0 -3px 0 rgba(0,0,0,.12),0 3px 0 #082f64,0 7px 14px rgba(9,86,168,.16)}
+@media(prefers-reduced-motion:reduce){body .dbsr-hero,body .dbsr-panel,body .dbsr-pillar,body .dbsr-question,body .dbsr-evidence-panel{transition:none}}
