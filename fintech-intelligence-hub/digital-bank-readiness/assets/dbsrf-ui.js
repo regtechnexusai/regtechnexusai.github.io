@@ -69,6 +69,13 @@ function renderQuestionValues(){
   setVisibility(q.id);
  });
 }
+function renderValidationErrors(errors){
+ const host=$("dbsr-message");
+ if(!Array.isArray(errors)||!errors.length){host.innerHTML="Assessment recalculated.";host.className="dbsr-message";return;}
+ const items=errors.map(err=>{const raw=String(err);const match=raw.match(/\b([A-Z]{3}-\d{2})\b/);const qid=match?match[1]:"General";return "<li><code>["+escapeHtml(qid)+"]</code> "+escapeHtml(raw.replace(/^"+qid+"\s*:?\s*/,""))+"</li>";}).join("");
+ host.innerHTML="<div class=\"dbsr-validation-summary\" role=\"alert\"><h3>"+errors.length+" issue(s) require resolution before scoring</h3><ul>"+items+"</ul></div>";
+ host.className="dbsr-message error";
+}
 function updateResults(){
  const evidenceValidation=Array.isArray(evidenceArtifacts)?evidenceApi.validateInventory(evidenceArtifacts):{valid:false};
  const assessment=core.assess({answers:answers,evidenceArtifacts:evidenceValidation.valid?evidenceArtifacts:null});
@@ -91,8 +98,7 @@ function updateResults(){
   $("meta-"+id).textContent=!p?"Resolve invalid answer fields to calculate this pillar.":(p.score===null?"No score":p.score.toFixed(2)+"%")+" · "+p.assessedQuestions+"/4 assessed · "+p.approvedNAQuestions+" approved N/A · "+p.unresolvedQuestions+" unresolved";
  });
  $("dbsr-gates").innerHTML=assessment.valid?assessment.criticalGates.map(g=>'<div class="dbsr-gate"><strong>'+escapeHtml(g.questionId)+' — '+escapeHtml(g.status)+'</strong><span class="dbsr-muted">'+escapeHtml(g.rationale)+'</span></div>').join(""):'<div class="dbsr-empty">Resolve invalid answer fields before critical-gate results can be calculated.</div>';
- $("dbsr-message").textContent=evidenceArtifacts===null?"Evidence inventory JSON is invalid. Fix the JSON before exporting.":(assessment.valid?"Assessment recalculated.":"Some answer fields need attention: "+assessment.errors.join(" "));
- $("dbsr-message").className="dbsr-message"+(evidenceArtifacts===null||!assessment.valid?" error":"");
+ if(evidenceArtifacts===null){$("dbsr-message").textContent="Evidence inventory JSON is invalid. Fix the JSON before exporting.";$("dbsr-message").className="dbsr-message error";}else if(!assessment.valid){renderValidationErrors(assessment.errors);}else{renderValidationErrors([]);}
  $("dbsr-evidence-summary").textContent=evidenceArtifacts===null?"Invalid JSON":(evidenceApi.validateInventory(evidenceArtifacts).valid?
   evidenceApi.validateInventory(evidenceArtifacts).summary.artifactCount+" artifact(s), "+evidenceApi.validateInventory(evidenceArtifacts).summary.questionLinks+" question link(s).":
   "Evidence inventory errors: "+evidenceApi.validateInventory(evidenceArtifacts).errors.join(" "));
@@ -106,6 +112,10 @@ $("dbsr-pillars").addEventListener("change",e=>{
  setVisibility(target.dataset.qid);syncFromInputs();
 });
 $("dbsr-evidence-json").value="[]";
+$("dbsr-sample-evidence").addEventListener("click",()=>{
+ const sample=[{id:"SAMPLE-EV-001",version:1,artifactDate:"2026-10-25",owner:"Illustrative control owner",confidence:"Unverified",status:"Collected",questionLinks:[{questionId:"GOV-01",relevance:"Relevant",sufficiency:"Not assessed"}]}];
+ evidenceArtifacts=sample;$("dbsr-evidence-json").value=JSON.stringify(sample,null,2);syncFromInputs();showMessage("Illustrative sample loaded. It is not verified evidence; replace or remove it before assessing real controls.",false);
+});
 $("dbsr-recalculate").addEventListener("click",()=>syncFromInputs());
 $("dbsr-print").addEventListener("click",()=>{syncFromInputs();window.print();});
 $("dbsr-clear").addEventListener("click",()=>{
