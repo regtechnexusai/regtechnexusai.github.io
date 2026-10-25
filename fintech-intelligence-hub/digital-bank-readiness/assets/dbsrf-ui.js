@@ -123,6 +123,42 @@ function updateResults(){
  if(evidenceArtifacts===null){$("dbsr-message").textContent="Evidence inventory JSON is invalid. Fix the JSON before exporting.";$("dbsr-message").className="dbsr-message error";}else if(!assessment.valid){renderValidationErrors(errors);}else{renderValidationErrors([]);}
  $("dbsr-evidence-summary").textContent=evidenceArtifacts===null?"Invalid JSON":(evidenceApi.validateInventory(evidenceArtifacts).valid?evidenceApi.validateInventory(evidenceArtifacts).summary.artifactCount+" artifact(s), "+evidenceApi.validateInventory(evidenceArtifacts).summary.questionLinks+" question link(s).":"Evidence inventory errors: "+evidenceApi.validateInventory(evidenceArtifacts).errors.join(" "));
 }
+function finalizeAssessment(){
+ syncFromInputs();
+ const review=$("dbsr-final-review-result");
+ const missing=core.QUESTIONS.filter(q=>!answers[q.id]||!answers[q.id].status);
+ const evidenceCheck=Array.isArray(evidenceArtifacts)?evidenceApi.validateInventory(evidenceArtifacts):{valid:false,errors:["Evidence inventory JSON is invalid."]};
+ const assessment=core.assess({answers:answers,evidenceArtifacts:evidenceCheck.valid?evidenceArtifacts:null});
+ const errors=Array.isArray(assessment.errors)?assessment.errors:[];
+ const blocks=[];
+ if(missing.length){
+  blocks.push('<h4>Still to complete: '+missing.length+' question(s)</h4><p>Choose an assessment status for each applicable question, or complete the N/A justification, independent verification and approver fields where appropriate.</p><ul>'+missing.map(q=>'<li><a href="#status-'+escapeHtml(q.id)+'" data-final-jump="'+escapeHtml(q.id)+'"><strong>'+escapeHtml(q.id)+'</strong></a> — '+escapeHtml(q.prompt)+'</li>').join("")+'</ul>');
+ }
+ if(errors.length){
+  blocks.push('<h4>Validation issues: '+errors.length+'</h4><ul>'+errors.map(e=>'<li>'+escapeHtml(e)+'</li>').join("")+'</ul>');
+ }
+ if(!evidenceCheck.valid){
+  blocks.push('<h4>Evidence register needs attention</h4><ul>'+((evidenceCheck.errors||["Check that the evidence register contains a valid JSON array."]).map(e=>'<li>'+escapeHtml(e)+'</li>').join(""))+'</ul>');
+ }
+ if(!missing.length&&!errors.length&&evidenceCheck.valid){
+  blocks.push('<h4>Assessment review complete</h4><p><strong>'+escapeHtml(assessment.reportingStatus||"Review complete")+'</strong></p>');
+  if(assessment.maturityScore!==null){
+   blocks.push('<p>Internal maturity indicator: <strong>'+assessment.maturityScore.toFixed(2)+'%</strong> · '+escapeHtml(assessment.maturityBand||"Internal band")+'. This is an internal methodology indicator, not a regulatory rating or compliance conclusion.</p>');
+  }else{
+   blocks.push('<p>A numeric result is withheld under the framework rules. Review the status above and the critical-gate panel below; do not treat a withheld score as a pass.</p>');
+  }
+  const gates=assessment.criticalGates||[];
+  if(gates.some(g=>g.status!=="No critical gate identified")){
+   blocks.push('<h4>Next: review risk signals</h4><p>At least one critical gate requires verification, escalation or documented professional review. Review the Critical-gate review section before interpreting the result.</p>');
+  }else{
+   blocks.push('<h4>Next steps</h4><ol><li>Review the evidence links and confidence for each answer.</li><li>Check the result against current official requirements for the relevant jurisdiction.</li><li>Document owners, remediation actions, due dates and retesting outside this self-assessment.</li></ol>');
+  }
+ }
+ review.innerHTML=blocks.join("");
+ review.className="dbsr-final-review-result "+(missing.length||errors.length||!evidenceCheck.valid?"needs-action":"reviewed");
+ review.querySelectorAll("[data-final-jump]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();const target=$("status-"+a.dataset.finalJump);target?.scrollIntoView({behavior:"smooth",block:"center"});target?.focus();}));
+ review.scrollIntoView({behavior:"smooth",block:"start"});
+}
 function payload(){syncFromInputs();if(evidenceArtifacts===null)throw new Error("Evidence inventory JSON is invalid.");const ev=evidenceApi.validateInventory(evidenceArtifacts);if(!ev.valid)throw new Error(ev.errors.join("\n"));return {schemaVersion:1,product:"DBSRF",exportedAt:new Date().toISOString(),assessment:{answers:answers},evidenceArtifacts:evidenceArtifacts};}
 function downloadText(name,text){const blob=new Blob([text],{type:"application/json;charset=utf-8"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 function showMessage(text,isError){$("dbsr-message").textContent=text;$("dbsr-message").className="dbsr-message"+(isError?" error":"");}
@@ -137,6 +173,7 @@ $("dbsr-sample-evidence").addEventListener("click",()=>{
  evidenceArtifacts=sample;$("dbsr-evidence-json").value=JSON.stringify(sample,null,2);syncFromInputs();showMessage("Illustrative sample loaded. It is not verified evidence; replace or remove it before assessing real controls.",false);
 });
 $("dbsr-recalculate").addEventListener("click",()=>syncFromInputs());
+$("dbsr-finalize").addEventListener("click",finalizeAssessment);
 $("dbsr-print").addEventListener("click",()=>{syncFromInputs();window.print();});
 $("dbsr-clear").addEventListener("click",()=>{
  if(!confirm("Clear all answers and evidence from this page? This cannot be undone unless you have an encrypted export."))return;
