@@ -5,7 +5,9 @@ This is an **additive, isolated development module** under the existing FinTech 
 ## Included in this change
 
 - `engine/dbsrf-core.js`: dependency-free core assessment engine, seven pillars and 28 core questions.
-- `tests/dbsrf-core.test.js`: automated tests using Node's built-in test runner.
+- `engine/dbsrf-evidence.js`: evidence inventory validation, many-to-many question mapping and per-question relevance/sufficiency review.
+- `engine/dbsrf-storage.js`: password-protected export/import using PBKDF2-SHA-256 and AES-256-GCM through Web Crypto; no plaintext fallback.
+- `tests/*.test.js`: automated scoring, evidence and encrypted-storage tests using Node's built-in test runner.
 - This README: scoring contract and boundaries.
 
 ## Scoring contract
@@ -23,11 +25,11 @@ This is an **additive, isolated development module** under the existing FinTech 
 From the repository root, with Node.js installed:
 
 ```sh
-node --test fintech-intelligence-hub/digital-bank-readiness/tests/dbsrf-core.test.js
+node --test fintech-intelligence-hub/digital-bank-readiness/tests/*.test.js
 ```
 
 ## Important boundaries
 
 The maturity bands are internal methodology labels, not regulator ratings. This engine does not determine licensing eligibility, legal compliance, financial soundness, or supervisory approval. Jurisdiction-specific legal mapping must be independently verified against current official sources and is intentionally not asserted by this Phase 1 core.
 
-The module is not yet a production assessment interface. Evidence inventory, encrypted export/import, persistence, security review, jurisdiction modules and live-browser integration remain separate follow-on work. Do not describe the prototype as zero-knowledge or regulator-approved.
+The modules are not yet a production assessment interface. Browser integration, persistence decisions, full security review, jurisdiction modules and end-to-end privacy testing remain follow-on work. Password-protected export protects the exported file when used correctly; it does not by itself secure browser memory, the device, or a compromised page. Do not describe the prototype as zero-knowledge or regulator-approved.
