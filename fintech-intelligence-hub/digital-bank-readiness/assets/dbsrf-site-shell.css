@@ -1,0 +1,23 @@
+/* Shared RegTech Nexus AI homepage shell, adapted for the standalone DBSRF page. */
+.nav{position:relative;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:12px clamp(16px,3vw,44px);background:#fff;border-bottom:1px solid #dce5ef;box-shadow:0 3px 16px rgba(16,32,59,.06)}
+.nav .brand{display:flex;align-items:center;flex:0 0 auto}
+.nav .brand-logo{display:block;width:190px;max-width:35vw;height:auto;max-height:62px;object-fit:contain}
+.nav .menu{display:none}
+.nav nav{display:flex;align-items:center;justify-content:flex-end;gap:clamp(7px,.8vw,13px);flex:1 1 auto;flex-wrap:wrap}
+.nav nav a,.nav nav .nav-menu-heading{color:#203650;text-decoration:none;font-size:11.5px;font-weight:650;line-height:1.35}
+.nav nav a:hover,.nav nav a:focus-visible{color:#0956a8;text-decoration:underline;text-underline-offset:3px}
+.nav nav .nav-menu-heading{display:none}
+.nav .nav-cta{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;border-radius:8px;padding:10px 13px;background:#0956a8;color:#fff;text-decoration:none;font-size:12px;font-weight:750}
+footer#contact{display:grid;grid-template-columns:1.4fr repeat(4,minmax(0,1fr));gap:28px;padding:38px clamp(16px,4vw,48px) 20px;background:#10203b;color:#fff;font-size:13px}
+footer#contact a{display:block;width:fit-content;max-width:100%;margin:8px 0;color:#e7f0fb;text-decoration:none;overflow-wrap:anywhere}
+footer#contact a:hover,footer#contact a:focus-visible{text-decoration:underline;text-underline-offset:3px}
+footer#contact .footer-brand .brand{display:block;margin-bottom:12px}
+footer#contact .footer-brand .brand-logo{display:block;width:230px;max-width:100%;height:auto;max-height:70px;object-fit:contain}
+footer#contact .footer-brand p,footer#contact .footer-note{color:#d2deed;line-height:1.6}
+footer#contact>div>b{display:block;margin-bottom:12px;color:#fff;font-size:13px}
+footer#contact .footer-note{grid-column:1/-1;border-top:1px solid #344760;padding-top:18px;margin:0}
+footer#contact .legal{grid-column:1/-1;display:flex;gap:18px;align-items:center;flex-wrap:wrap;border-top:1px solid #344760;padding-top:14px}
+footer#contact .legal span{margin-right:auto;color:#d2deed}
+footer#contact .legal a{display:inline-block;margin:0}
+@media(max-width:1120px){.nav{align-items:flex-start;flex-wrap:wrap}.nav .brand-logo{width:170px}.nav nav{justify-content:flex-start;gap:10px 14px}.nav .nav-cta{margin-left:auto}footer#contact{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.nav{gap:10px;padding:12px 16px}.nav .brand-logo{width:155px;max-width:58vw}.nav nav{width:100%;display:flex;justify-content:flex-start;gap:8px 14px}.nav nav a{font-size:12px}.nav .nav-cta{width:100%;margin:0;min-height:40px}footer#contact{grid-template-columns:1fr;gap:18px;padding:28px 18px 18px}footer#contact .footer-brand .brand-logo{width:205px}footer#contact .footer-note,footer#contact .legal{grid-column:1}footer#contact .legal{gap:12px}footer#contact .legal span{width:100%}}
