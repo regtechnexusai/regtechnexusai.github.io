@@ -173,7 +173,7 @@
       } else if (answer.status === "na") {
         status = "Critical gate N/A exception — escalation required";
         rationale = "Approved N/A does not count as a passed critical gate. Obtain designated governance review; the aggregate maturity score is withheld until the exception is resolved.";
-      } else if (answer.score <= 1 && answer.criticalFindingConfirmed === true && answer.reviewerVerified === true &&
+      } else if (answer.criticalFindingConfirmed === true && answer.reviewerVerified === true &&
                  Array.isArray(answer.evidenceIds) && answer.evidenceIds.length > 0) {
         status = "Critical failure confirmed";
         rationale = "A reviewer-confirmed finding is linked to at least one evidence artifact.";
