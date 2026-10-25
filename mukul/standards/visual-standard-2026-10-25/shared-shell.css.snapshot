@@ -1,0 +1,1055 @@
+/* MUKUL shared header/footer presentation layer. Page tools and content remain unchanged. */
+:root{--mukul-green:#174c35;--mukul-green2:#246b49;--mukul-lime:#d9ef9a;--mukul-line:#dce6df;--mukul-muted:#607168}
+.site-header,.header,.mukul-shared-header{position:sticky;top:0;z-index:1000;width:100%;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--mukul-line);box-sizing:border-box}
+.site-header .header-inner,.header .header-inner,.mukul-shared-header .header-inner{max-width:1240px;min-height:78px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:18px;box-sizing:border-box}
+.site-header .brand,.header .brand,.mukul-shared-header .brand{display:flex;align-items:center;gap:10px;min-width:0;flex:0 1 auto;color:var(--mukul-green);text-decoration:none}
+.site-header img.brand-logo,.header img.brand-logo,.mukul-shared-header img.brand-logo{display:block;width:clamp(175px,20vw,225px);max-width:100%;height:auto;max-height:76px;object-fit:contain;object-position:left center;flex-shrink:0}
+.site-header .main-nav,.header .main-nav,.mukul-shared-header .main-nav{display:flex;align-items:center;justify-content:center;gap:clamp(8px,1.25vw,17px);margin-left:auto;font-size:12px;font-weight:750}
+.site-header .main-nav a,.header .main-nav a,.mukul-shared-header .main-nav a{color:var(--mukul-green);text-decoration:none;white-space:nowrap}
+.site-header .main-nav a:hover,.header .main-nav a:hover,.mukul-shared-header .main-nav a:hover,.site-header .main-nav a[aria-current=page],.header .main-nav a[aria-current=page]{color:var(--mukul-green2);text-decoration:underline;text-underline-offset:4px}
+.site-header .header-actions,.header .header-actions,.mukul-shared-header .header-actions{display:flex;align-items:center;gap:8px;margin-left:0}
+.site-header .language-select,.header .language,.header .language-select,.mukul-shared-header select{max-width:138px;min-width:0;border:1px solid var(--mukul-line);border-radius:11px;padding:9px;background:#fff;color:#172820;font-size:12px}
+.site-header .menu-toggle,.header .menu-toggle,.mukul-shared-header .menu-toggle{display:none;flex:0 0 auto;border:1px solid var(--mukul-line);border-radius:11px;padding:8px 12px;background:#fff;color:var(--mukul-green);font-size:22px;line-height:1.2}
+.site-footer,body>footer{box-sizing:border-box;width:100%;margin-top:36px;background:#143c2b;color:#e6f0e9;border-top:4px solid var(--mukul-lime)}
+.site-footer a,body>footer a{color:#e0ebe4}
+.site-footer a:hover,body>footer a:hover{color:var(--mukul-lime)}
+.site-footer .footer-grid{grid-template-columns:minmax(0,1.5fr) repeat(3,minmax(0,1fr));gap:28px}
+.site-footer .footer-brand,.site-footer .footer-col{min-width:0}
+.site-footer .footer-logo-link{display:inline-flex;max-width:100%;align-items:center}
+.site-footer img.footer-logo{display:block;width:min(100%,230px);max-width:100%;height:auto;max-height:90px;object-fit:contain;object-position:left center}
+.site-footer .footer-col a{overflow-wrap:anywhere;line-height:1.6}
+.site-footer .footer-bottom{max-width:1190px;margin:28px auto 0;padding-top:17px;border-top:1px solid #ffffff35;display:flex;justify-content:space-between;align-items:flex-start;gap:10px 18px;flex-wrap:wrap;color:#d1e0d6;font-size:11px;line-height:1.6}
+.site-footer .footer-bottom>span{min-width:0;max-width:100%;overflow-wrap:anywhere}
+body>footer .foot{max-width:1190px;margin:0 auto;padding:28px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px 20px;flex-wrap:wrap;color:#e6f0e9;font-size:12px;line-height:1.7}
+body>footer .foot a{color:#e0ebe4;text-decoration:underline;text-underline-offset:3px}
+.mukul-legal-header{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:12px 24px}
+.mukul-legal-header img{display:block;width:min(220px,65vw);height:auto;max-height:72px;object-fit:contain}
+.mukul-legal-header nav{display:flex;gap:14px;flex-wrap:wrap;margin-left:auto;font-size:12px;font-weight:700}
+.mukul-legal-header nav a{color:var(--mukul-green);text-decoration:none}
+@media(max-width:1000px){.site-header .header-inner,.header .header-inner,.mukul-shared-header .header-inner{gap:10px;padding:10px 16px}.site-header .main-nav,.header .main-nav,.mukul-shared-header .main-nav{gap:9px;font-size:11px}.site-header img.brand-logo,.header img.brand-logo,.mukul-shared-header img.brand-logo{width:175px}}
+@media(max-width:760px){
+ .site-header .header-inner,.header .header-inner,.mukul-shared-header .header-inner{min-height:70px;padding:9px 14px;gap:8px}
+ .site-header .menu-toggle,.header .menu-toggle,.mukul-shared-header .menu-toggle{display:block;margin-left:auto}
+ .site-header .main-nav,.header .main-nav,.mukul-shared-header .main-nav{display:none;position:absolute;top:100%;left:12px;right:12px;margin:0;padding:12px;background:#fff;border:1px solid var(--mukul-line);border-radius:15px;box-shadow:0 14px 32px #173e291c;flex-direction:column;align-items:stretch;gap:0;max-height:calc(100vh - 90px);overflow:auto;font-size:13px}
+ .site-header .main-nav.open,.header .main-nav.open,.mukul-shared-header .main-nav.open{display:flex}
+ .site-header .main-nav a,.header .main-nav a,.mukul-shared-header .main-nav a{white-space:normal;padding:11px 8px;border-bottom:1px solid #edf2ed}
+ .site-header .main-nav a:last-child,.header .main-nav a:last-child,.mukul-shared-header .main-nav a:last-child{border-bottom:0}
+ .site-header img.brand-logo,.header img.brand-logo,.mukul-shared-header img.brand-logo{width:min(42vw,190px);max-height:58px}
+ .site-header .language-select,.header .language,.header .language-select,.mukul-shared-header select{max-width:105px;font-size:11px;padding:8px 5px}
+ .site-footer,body>footer{margin-top:28px}
+ .site-footer{padding:30px 17px 18px}
+ .site-footer .footer-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 16px}
+ .site-footer .footer-brand{grid-column:1/-1}
+ .site-footer img.footer-logo{width:min(100%,210px);max-height:76px}
+ .site-footer .footer-bottom{margin-top:22px;gap:8px}
+ body>footer .foot{padding:24px 17px;align-items:flex-start}
+ .mukul-legal-header{padding:10px 14px;gap:10px}
+ .mukul-legal-header nav{margin-left:0}
+}
+@media(max-width:420px){.site-footer{padding:26px 16px 16px}.site-footer .footer-grid{grid-template-columns:minmax(0,1fr)}.site-footer .footer-brand{grid-column:auto}.site-footer .footer-bottom,body>footer .foot{display:grid;grid-template-columns:minmax(0,1fr)}}
+
+
+/* MUKUL site-wide footer normalization v2: align every page with the homepage footer. */
+body .site-footer{display:block!important;box-sizing:border-box!important;width:100%!important;margin:36px 0 0!important;padding:42px 24px 22px!important;background:#143c2b!important;color:#e6f0e9!important;border:0!important;border-top:4px solid #d9ef9a!important;overflow:visible!important;font-family:inherit!important}
+body .site-footer .footer-grid{display:grid!important;grid-template-columns:minmax(0,1.5fr) repeat(3,minmax(0,1fr))!important;gap:28px!important;width:100%!important;max-width:1190px!important;margin:0 auto!important;padding:0!important;align-items:start!important}
+body .site-footer .footer-brand,body .site-footer .footer-col{display:block;min-width:0!important;max-width:100%!important}
+body .site-footer .footer-brand{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:10px!important}
+body .site-footer .footer-logo-link{display:inline-flex!important;align-items:center!important;justify-content:flex-start!important;width:min(100%,230px)!important;max-width:100%!important;padding:0!important;margin:0!important;background:transparent!important;border:0!important;box-shadow:none!important;overflow:visible!important}
+body .site-footer img.footer-logo{display:block!important;width:100%!important;max-width:230px!important;height:auto!important;max-height:90px!important;object-fit:contain!important;object-position:left center!important}
+body .site-footer .footer-brand p,body .site-footer .footer-col p{margin:8px 0!important;color:#c3d8ca!important;font-size:12px!important;line-height:1.7!important;overflow-wrap:anywhere!important}
+body .site-footer .footer-brand p a{display:inline!important;white-space:normal!important;overflow-wrap:anywhere!important}
+body .site-footer .footer-col h3{display:block!important;margin:4px 0 12px!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;color:#e4f2d6!important;font-size:12px!important;line-height:1.45!important}
+body .site-footer .footer-col a{display:block!important;width:auto!important;max-width:100%!important;margin:8px 0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;color:#e0ebe4!important;font-size:12px!important;line-height:1.6!important;white-space:normal!important;overflow-wrap:anywhere!important;text-decoration:none!important}
+body .site-footer .footer-col a:hover,body .site-footer .footer-col a:focus-visible{background:transparent!important;color:#d9ef9a!important;text-decoration:underline!important;text-underline-offset:3px}
+body .site-footer .footer-bottom{display:flex!important;justify-content:space-between!important;align-items:flex-start!important;gap:10px 18px!important;flex-wrap:wrap!important;width:100%!important;max-width:1190px!important;margin:28px auto 0!important;padding:17px 0 0!important;border:0!important;border-top:1px solid #ffffff35!important;color:#d1e0d6!important;font-size:11px!important;line-height:1.6!important}
+body .site-footer .footer-bottom>span{min-width:0!important;max-width:100%!important;overflow-wrap:anywhere!important}
+@media(max-width:1000px){body .site-footer .footer-grid{gap:22px!important}}
+@media(max-width:760px){body .site-footer{margin-top:28px!important;padding:30px 17px 18px!important}body .site-footer .footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:22px 16px!important}body .site-footer .footer-brand{grid-column:1/-1!important}body .site-footer .footer-logo-link{width:min(100%,210px)!important}body .site-footer img.footer-logo{max-width:210px!important;max-height:76px!important}body .site-footer .footer-bottom{margin-top:22px!important;gap:8px!important}}
+@media(max-width:420px){body .site-footer{padding:26px 16px 16px!important}body .site-footer .footer-grid{grid-template-columns:minmax(0,1fr)!important;gap:16px!important}body .site-footer .footer-brand{grid-column:auto!important}body .site-footer .footer-bottom{display:grid!important;grid-template-columns:minmax(0,1fr)!important}}
+/* Knowledge page: avoid its legacy .header rules overriding the shared site header. */
+.site-header .header-inner{max-width:1240px}
+.site-header .language{max-width:138px;min-width:0;border:1px solid #dce6df;border-radius:11px;padding:9px 10px;background:#fff;color:#172820;font-size:12px}
+@media(max-width:760px){.site-header .language{max-width:105px;padding:8px 5px;font-size:11px}}
+
+
+/* MUKUL global footer v3 — visual language adapted from the main RegTech Nexus AI footer. */
+body .site-footer.mukul-global-footer{display:block!important;position:relative!important;isolation:isolate!important;width:100%!important;box-sizing:border-box!important;margin:36px 0 0!important;padding:64px 6vw 30px!important;background:#0a1b36!important;color:#fff!important;border:0!important;border-top:1px solid #263b58!important;overflow:visible!important;font-family:Inter,Arial,sans-serif!important}
+body .site-footer.mukul-global-footer .footer-grid{display:grid!important;grid-template-columns:minmax(220px,1.5fr) repeat(4,minmax(0,1fr))!important;gap:35px!important;width:100%!important;max-width:1320px!important;margin:0 auto!important;padding:0!important;align-items:start!important}
+body .site-footer.mukul-global-footer .footer-brand{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:12px!important;grid-column:auto!important;min-width:0!important;max-width:100%!important}
+body .site-footer.mukul-global-footer .footer-logo-link{display:inline-flex!important;align-items:center!important;justify-content:flex-start!important;width:min(100%,248px)!important;max-width:100%!important;padding:2px!important;margin:0!important;background:#fff!important;border:0!important;border-radius:2px!important;box-shadow:none!important;overflow:visible!important}
+body .site-footer.mukul-global-footer img.footer-logo{display:block!important;width:100%!important;max-width:248px!important;height:auto!important;max-height:80px!important;object-fit:contain!important;object-position:left center!important}
+body .site-footer.mukul-global-footer .footer-brand p{margin:0!important;max-width:250px!important;color:#b8c8d9!important;font-size:12px!important;line-height:1.6!important;overflow-wrap:anywhere!important}
+body .site-footer.mukul-global-footer .footer-col{display:flex!important;flex-direction:column!important;gap:13px!important;min-width:0!important;max-width:100%!important}
+body .site-footer.mukul-global-footer .footer-col h3{display:block!important;margin:0 0 8px!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;color:#b8c8d9!important;font-size:11px!important;font-weight:700!important;line-height:1.5!important;letter-spacing:.1em!important;text-transform:uppercase!important}
+body .site-footer.mukul-global-footer .footer-col a{display:block!important;width:auto!important;max-width:100%!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;color:#e0e8f1!important;font-size:14px!important;line-height:1.5!important;white-space:normal!important;overflow-wrap:anywhere!important;text-decoration:none!important}
+body .site-footer.mukul-global-footer .footer-col a:hover,body .site-footer.mukul-global-footer .footer-col a:focus-visible{background:transparent!important;color:#65d4df!important;text-decoration:underline!important;text-underline-offset:3px}
+body .site-footer.mukul-global-footer .footer-col p{margin:0!important;color:#b8c8d9!important;font-size:12px!important;line-height:1.6!important;overflow-wrap:anywhere!important}
+body .site-footer.mukul-global-footer .footer-bottom{display:flex!important;grid-column:1/-1!important;justify-content:flex-start!important;align-items:center!important;gap:14px 25px!important;flex-wrap:wrap!important;width:100%!important;max-width:1320px!important;margin:35px auto 0!important;padding:25px 0 0!important;border:0!important;border-top:1px solid #33445e!important;color:#aab8ca!important;font-size:10px!important;line-height:1.6!important}
+body .site-footer.mukul-global-footer .footer-bottom>span{min-width:0!important;max-width:100%!important;overflow-wrap:anywhere!important}
+body .site-footer.mukul-global-footer .footer-legal-links{display:flex!important;flex-wrap:wrap!important;gap:12px 25px!important;margin-left:auto!important}
+body .site-footer.mukul-global-footer .footer-bottom a{color:#d4deea!important;font-size:12px!important;text-decoration:none!important}
+body .site-footer.mukul-global-footer .footer-bottom a:hover{color:#65d4df!important;text-decoration:underline!important}
+@media(max-width:1100px){body .site-footer.mukul-global-footer .footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:30px!important}body .site-footer.mukul-global-footer .footer-brand{grid-column:1/-1!important}body .site-footer.mukul-global-footer .footer-legal-links{margin-left:0!important}}
+@media(max-width:560px){body .site-footer.mukul-global-footer{padding:42px 6vw 26px!important}body .site-footer.mukul-global-footer .footer-grid{grid-template-columns:minmax(0,1fr)!important;gap:25px!important}body .site-footer.mukul-global-footer .footer-brand{grid-column:auto!important}body .site-footer.mukul-global-footer .footer-bottom{align-items:flex-start!important;flex-direction:column!important;gap:12px!important;margin-top:28px!important;padding-top:20px!important}body .site-footer.mukul-global-footer .footer-legal-links{display:flex!important;flex-direction:column!important;gap:10px!important}}
+/* Header alignment for content pages: mirror the homepage's outlined navigation treatment. */
+body .site-header .main-nav a{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:7px 9px;border:1px solid #e0e9e1;border-radius:10px;background:linear-gradient(180deg,#fff,#f5f9f2);white-space:nowrap;text-decoration:none}
+body .site-header .main-nav a:hover,body .site-header .main-nav a[aria-current="page"]{background:#eaf4df;border-color:#c7ddba;color:#174c35;text-decoration:none;box-shadow:0 2px 0 #d5e5ca}
+@media(max-width:1100px){body .site-header .main-nav{gap:5px!important}body .site-header .main-nav a{padding:6px 7px;font-size:11px}}
+@media(max-width:760px){body .site-header .main-nav a{display:flex;width:100%;justify-content:flex-start;min-height:40px;padding:10px 11px;border-radius:9px;background:#fff;border:0;border-bottom:1px solid #eef2ee;box-shadow:none}body .site-header .main-nav a:hover,body .site-header .main-nav a[aria-current="page"]{background:#f4f8f2;box-shadow:none}}
+
+/* MUKUL footer redesign v4: enforce the same spacious, dark navy footer across every MUKUL page. */
+body footer.site-footer.mukul-global-footer{
+  display:block!important;position:relative!important;float:none!important;clear:both!important;
+  width:100%!important;max-width:none!important;box-sizing:border-box!important;
+  margin:48px 0 0!important;padding:58px clamp(18px,5vw,76px) 26px!important;
+  background:#0a1b36!important;color:#f4f7fb!important;border:0!important;
+  border-top:1px solid #34445e!important;border-radius:0!important;box-shadow:none!important;
+  overflow:visible!important;font-family:Inter,Arial,sans-serif!important;
+}
+body footer.site-footer.mukul-global-footer *{box-sizing:border-box}
+body footer.site-footer.mukul-global-footer .footer-grid{
+  display:grid!important;grid-template-columns:minmax(220px,1.55fr) repeat(4,minmax(0,1fr))!important;
+  gap:clamp(20px,2.7vw,40px)!important;width:100%!important;max-width:1320px!important;
+  margin:0 auto!important;padding:0!important;align-items:start!important;
+}
+body footer.site-footer.mukul-global-footer .footer-brand,
+body footer.site-footer.mukul-global-footer .footer-col{
+  display:flex!important;flex-direction:column!important;align-items:flex-start!important;
+  min-width:0!important;max-width:100%!important;gap:12px!important;
+  background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;
+}
+body footer.site-footer.mukul-global-footer .footer-logo-link{
+  display:inline-flex!important;width:min(100%,248px)!important;max-width:100%!important;
+  align-items:center!important;justify-content:flex-start!important;padding:3px!important;margin:0 0 4px!important;
+  background:#fff!important;border:0!important;border-radius:2px!important;box-shadow:none!important;
+}
+body footer.site-footer.mukul-global-footer img.footer-logo{
+  display:block!important;width:100%!important;max-width:242px!important;height:auto!important;
+  max-height:78px!important;object-fit:contain!important;object-position:left center!important;
+}
+body footer.site-footer.mukul-global-footer .footer-brand p,
+body footer.site-footer.mukul-global-footer .footer-col p{
+  margin:0!important;padding:0!important;max-width:270px!important;background:transparent!important;
+  color:#b8c8d9!important;font-size:12px!important;line-height:1.75!important;overflow-wrap:anywhere!important;
+}
+body footer.site-footer.mukul-global-footer .footer-col h3{
+  display:block!important;margin:2px 0 5px!important;padding:0!important;background:transparent!important;
+  color:#b8c8d9!important;border:0!important;border-radius:0!important;box-shadow:none!important;
+  font-size:11px!important;font-weight:800!important;line-height:1.5!important;letter-spacing:.12em!important;
+  text-transform:uppercase!important;
+}
+body footer.site-footer.mukul-global-footer .footer-col a{
+  display:block!important;width:auto!important;max-width:100%!important;margin:0!important;padding:0!important;
+  background:transparent!important;color:#e0e8f1!important;border:0!important;border-radius:0!important;
+  box-shadow:none!important;font-size:14px!important;font-weight:500!important;line-height:1.65!important;
+  white-space:normal!important;overflow-wrap:anywhere!important;text-decoration:none!important;
+}
+body footer.site-footer.mukul-global-footer .footer-col a:hover,
+body footer.site-footer.mukul-global-footer .footer-col a:focus-visible{
+  background:transparent!important;color:#65d4df!important;text-decoration:underline!important;text-underline-offset:4px;
+}
+body footer.site-footer.mukul-global-footer .footer-bottom{
+  display:flex!important;grid-column:1/-1!important;justify-content:space-between!important;align-items:flex-start!important;
+  gap:14px 24px!important;flex-wrap:wrap!important;width:100%!important;max-width:1320px!important;
+  margin:34px auto 0!important;padding:22px 0 0!important;border:0!important;border-top:1px solid #33445e!important;
+  color:#aab8ca!important;font-size:11px!important;line-height:1.7!important;
+}
+body footer.site-footer.mukul-global-footer .footer-bottom>span{
+  display:block!important;min-width:0!important;max-width:100%!important;margin:0!important;padding:0!important;
+  color:inherit!important;overflow-wrap:anywhere!important;background:transparent!important;
+}
+body footer.site-footer.mukul-global-footer .footer-legal-links{
+  display:flex!important;flex-wrap:wrap!important;gap:10px 22px!important;margin-left:auto!important;
+}
+body footer.site-footer.mukul-global-footer .footer-bottom a{
+  display:inline-block!important;color:#d4deea!important;font-size:12px!important;line-height:1.6!important;
+  text-decoration:none!important;white-space:normal!important;
+}
+body footer.site-footer.mukul-global-footer .footer-bottom a:hover{color:#65d4df!important;text-decoration:underline!important}
+@media(max-width:1100px){
+ body footer.site-footer.mukul-global-footer{padding:44px 24px 24px!important}
+ body footer.site-footer.mukul-global-footer .footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:28px 24px!important}
+ body footer.site-footer.mukul-global-footer .footer-brand{grid-column:1/-1!important}
+ body footer.site-footer.mukul-global-footer .footer-legal-links{margin-left:0!important}
+}
+@media(max-width:600px){
+ body footer.site-footer.mukul-global-footer{margin-top:30px!important;padding:36px 20px 22px!important}
+ body footer.site-footer.mukul-global-footer .footer-grid{grid-template-columns:minmax(0,1fr)!important;gap:24px!important}
+ body footer.site-footer.mukul-global-footer .footer-brand{grid-column:auto!important}
+ body footer.site-footer.mukul-global-footer .footer-brand p,
+ body footer.site-footer.mukul-global-footer .footer-col p{max-width:100%!important}
+ body footer.site-footer.mukul-global-footer .footer-bottom{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:12px!important;margin-top:26px!important;padding-top:18px!important}
+ body footer.site-footer.mukul-global-footer .footer-legal-links{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:9px!important}
+}
+
+
+/* FINAL footer override v5 — one authoritative responsive footer across all MUKUL pages. */
+html body footer.site-footer.mukul-global-footer{
+ display:block!important;position:relative!important;float:none!important;clear:both!important;
+ width:100%!important;max-width:none!important;min-width:0!important;box-sizing:border-box!important;
+ margin:48px 0 0!important;padding:58px clamp(18px,5vw,76px) 26px!important;
+ background:#07172d!important;color:#f4f7fb!important;border:0!important;
+ border-top:1px solid #34445e!important;border-radius:0!important;box-shadow:none!important;
+ overflow:visible!important;font-family:Inter,Arial,sans-serif!important;
+}
+html body footer.site-footer.mukul-global-footer *{box-sizing:border-box!important}
+html body footer.site-footer.mukul-global-footer .footer-grid{
+ display:grid!important;grid-template-columns:minmax(220px,1.55fr) repeat(4,minmax(0,1fr))!important;
+ gap:clamp(20px,2.7vw,40px)!important;width:100%!important;max-width:1320px!important;
+ margin:0 auto!important;padding:0!important;align-items:start!important;}
+html body footer.site-footer.mukul-global-footer .footer-brand,
+html body footer.site-footer.mukul-global-footer .footer-col{
+ display:flex!important;flex-direction:column!important;align-items:flex-start!important;
+ min-width:0!important;max-width:100%!important;gap:12px!important;
+ margin:0!important;padding:0!important;background:transparent!important;border:0!important;
+ border-radius:0!important;box-shadow:none!important;
+}
+html body footer.site-footer.mukul-global-footer .footer-logo-link{
+ display:inline-flex!important;width:min(100%,248px)!important;max-width:100%!important;
+ align-items:center!important;justify-content:flex-start!important;padding:3px!important;margin:0 0 4px!important;
+ background:#fff!important;border:0!important;border-radius:2px!important;box-shadow:none!important;overflow:visible!important;
+}
+html body footer.site-footer.mukul-global-footer img.footer-logo{
+ display:block!important;width:100%!important;max-width:242px!important;height:auto!important;
+ max-height:78px!important;object-fit:contain!important;object-position:left center!important;
+}
+html body footer.site-footer.mukul-global-footer .footer-brand p,
+html body footer.site-footer.mukul-global-footer .footer-col p{
+ margin:0!important;padding:0!important;max-width:270px!important;background:transparent!important;
+ color:#b8c8d9!important;font-size:12px!important;line-height:1.75!important;overflow-wrap:anywhere!important;
+}
+html body footer.site-footer.mukul-global-footer .footer-col h3{
+ display:block!important;margin:2px 0 5px!important;padding:0!important;background:transparent!important;
+ color:#b8c8d9!important;border:0!important;border-radius:0!important;box-shadow:none!important;
+ font-size:11px!important;font-weight:800!important;line-height:1.5!important;letter-spacing:.12em!important;text-transform:uppercase!important;
+}
+html body footer.site-footer.mukul-global-footer .footer-col a{
+ display:block!important;width:auto!important;max-width:100%!important;margin:0!important;padding:0!important;
+ background:transparent!important;color:#e0e8f1!important;border:0!important;border-radius:0!important;box-shadow:none!important;
+ font-size:14px!important;font-weight:500!important;line-height:1.65!important;white-space:normal!important;
+ overflow-wrap:anywhere!important;text-decoration:none!important;
+}
+html body footer.site-footer.mukul-global-footer .footer-col a:hover,
+html body footer.site-footer.mukul-global-footer .footer-col a:focus-visible{
+ background:transparent!important;color:#65d4df!important;text-decoration:underline!important;text-underline-offset:4px;
+}
+html body footer.site-footer.mukul-global-footer .footer-bottom{
+ display:flex!important;grid-column:1/-1!important;justify-content:space-between!important;align-items:flex-start!important;
+ gap:14px 24px!important;flex-wrap:wrap!important;width:100%!important;max-width:1320px!important;
+ margin:34px auto 0!important;padding:22px 0 0!important;border:0!important;border-top:1px solid #33445e!important;
+ color:#aab8ca!important;font-size:11px!important;line-height:1.7!important;
+}
+html body footer.site-footer.mukul-global-footer .footer-bottom>span{
+ display:block!important;min-width:0!important;max-width:100%!important;margin:0!important;padding:0!important;
+ color:inherit!important;overflow-wrap:anywhere!important;background:transparent!important;
+}
+html body footer.site-footer.mukul-global-footer .footer-legal-links{
+ display:flex!important;flex-wrap:wrap!important;gap:10px 22px!important;margin-left:auto!important;
+}
+html body footer.site-footer.mukul-global-footer .footer-bottom a{
+ display:inline-block!important;color:#d4deea!important;font-size:12px!important;line-height:1.6!important;text-decoration:none!important;
+}
+html body footer.site-footer.mukul-global-footer .footer-bottom a:hover{color:#65d4df!important;text-decoration:underline!important}
+@media(max-width:1100px){
+ html body footer.site-footer.mukul-global-footer{padding:44px 24px 24px!important}
+ html body footer.site-footer.mukul-global-footer .footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:28px 24px!important}
+ html body footer.site-footer.mukul-global-footer .footer-brand{grid-column:1/-1!important}
+ html body footer.site-footer.mukul-global-footer .footer-legal-links{margin-left:0!important}
+}
+@media(max-width:600px){
+ html body footer.site-footer.mukul-global-footer{margin-top:30px!important;padding:36px 20px 22px!important}
+ html body footer.site-footer.mukul-global-footer .footer-grid{grid-template-columns:minmax(0,1fr)!important;gap:24px!important}
+ html body footer.site-footer.mukul-global-footer .footer-brand{grid-column:auto!important}
+ html body footer.site-footer.mukul-global-footer .footer-brand p,
+ html body footer.site-footer.mukul-global-footer .footer-col p{max-width:100%!important}
+ html body footer.site-footer.mukul-global-footer .footer-bottom{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:12px!important;margin-top:26px!important;padding-top:18px!important}
+ html body footer.site-footer.mukul-global-footer .footer-legal-links{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:9px!important}
+}
+
+/* v6 FIX: deploy-pages injects site-wide-shell.css after this file.
+   This higher-specificity MUKUL selector must win over its generic footer grid rules. */
+body:not(.homepage-redesign) footer.site-footer.mukul-global-footer{
+ display:block!important;float:none!important;clear:both!important;position:relative!important;isolation:isolate!important;
+ width:100%!important;max-width:none!important;min-width:0!important;box-sizing:border-box!important;
+ margin:48px 0 0!important;padding:58px clamp(18px,5vw,76px) 26px!important;
+ background:#07172d!important;color:#f4f7fb!important;border:0!important;
+ border-top:1px solid #34445e!important;border-radius:0!important;box-shadow:none!important;overflow:visible!important;
+ font-family:Inter,Arial,sans-serif!important;
+}
+body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-grid{
+ display:grid!important;grid-template-columns:minmax(220px,1.55fr) repeat(4,minmax(0,1fr))!important;
+ gap:clamp(20px,2.7vw,40px)!important;width:100%!important;max-width:1320px!important;
+ margin:0 auto!important;padding:0!important;align-items:start!important;
+}
+body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-brand,
+body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-col{
+ display:flex!important;flex-direction:column!important;align-items:flex-start!important;
+ min-width:0!important;max-width:100%!important;gap:12px!important;margin:0!important;padding:0!important;
+ background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;
+}
+body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-logo-link{
+ display:inline-flex!important;width:min(100%,248px)!important;max-width:100%!important;align-items:center!important;
+ justify-content:flex-start!important;padding:3px!important;margin:0 0 4px!important;
+ background:#fff!important;border:0!important;border-radius:2px!important;box-shadow:none!important;overflow:visible!important;
+}
+body:not(.homepage-redesign) footer.site-footer.mukul-global-footer img.footer-logo{
+ display:block!important;width:100%!important;max-width:242px!important;height:auto!important;max-height:78px!important;
+ object-fit:contain!important;object-position:left center!important;background:transparent!important;border:0!important;box-shadow:none!important;
+}body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-brand p,
+body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-col p{
+ margin:0!important;padding:0!important;max-width:270px!important;background:transparent!important;
+ color:#b8c8d9!important;font-size:12px!important;line-height:1.75!important;overflow-wrap:anywhere!important;
+}
+body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-col h3{
+ display:block!important;margin:2px 0 5px!important;padding:0!important;background:transparent!important;color:#b8c8d9!important;
+ border:0!important;border-radius:0!important;box-shadow:none!important;font-size:11px!important;font-weight:800!important;
+ line-height:1.5!important;letter-spacing:.12em!important;text-transform:uppercase!important;
+}
+body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-col a{
+ display:block!important;width:auto!important;max-width:100%!important;margin:0!important;padding:0!important;
+ background:transparent!important;color:#e0e8f1!important;border:0!important;border-radius:0!important;box-shadow:none!important;
+ font-size:14px!important;font-weight:500!important;line-height:1.65!important;white-space:normal!important;
+ overflow-wrap:anywhere!important;text-decoration:none!important;
+}
+body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-col a:hover,
+body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-col a:focus-visible{
+ background:transparent!important;color:#65d4df!important;text-decoration:underline!important;text-underline-offset:4px;
+}
+body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-bottom{
+ display:flex!important;grid-column:1/-1!important;justify-content:space-between!important;align-items:flex-start!important;
+ gap:14px 24px!important;flex-wrap:wrap!important;width:100%!important;max-width:1320px!important;
+ margin:34px auto 0!important;padding:22px 0 0!important;border:0!important;border-top:1px solid #33445e!important;
+ color:#aab8ca!important;font-size:11px!important;line-height:1.7!important;
+}
+body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-bottom>span{
+ display:block!important;min-width:0!important;max-width:100%!important;margin:0!important;padding:0!important;
+ color:inherit!important;overflow-wrap:anywhere!important;background:transparent!important;
+}
+body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-legal-links{
+ display:flex!important;flex-wrap:wrap!important;gap:10px 22px!important;margin-left:auto!important;
+}
+body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-bottom a{
+ display:inline-block!important;color:#d4deea!important;font-size:12px!important;line-height:1.6!important;text-decoration:none!important;
+}
+body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-bottom a:hover{color:#65d4df!important;text-decoration:underline!important}
+@media(max-width:1100px){
+ body:not(.homepage-redesign) footer.site-footer.mukul-global-footer{padding:44px 24px 24px!important}
+ body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:28px 24px!important}
+ body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-brand{grid-column:1/-1!important}
+ body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-legal-links{margin-left:0!important}
+}
+@media(max-width:600px){
+ body:not(.homepage-redesign) footer.site-footer.mukul-global-footer{margin-top:30px!important;padding:36px 20px 22px!important}
+ body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-grid{grid-template-columns:minmax(0,1fr)!important;gap:24px!important}
+ body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-brand{grid-column:auto!important}
+ body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-brand p,
+ body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-col p{max-width:100%!important}
+ body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-bottom{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:12px!important;margin-top:26px!important;padding-top:18px!important}
+ body:not(.homepage-redesign) footer.site-footer.mukul-global-footer .footer-legal-links{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:9px!important}
+}
+
+
+/* Footer logo sizing correction: controlled width across MUKUL pages. */
+html body footer.site-footer.mukul-global-footer .footer-logo-link{display:inline-flex!important;width:min(100%,260px)!important;max-width:100%!important;padding:3px!important;background:#fff!important;overflow:visible!important}
+html body footer.site-footer.mukul-global-footer img.footer-logo{display:block!important;width:100%!important;max-width:254px!important;height:auto!important;max-height:80px!important;object-fit:contain!important;object-position:left center!important}
+@media(max-width:600px){html body footer.site-footer.mukul-global-footer .footer-logo-link{width:min(100%,220px)!important}html body footer.site-footer.mukul-global-footer img.footer-logo{max-width:214px!important;max-height:68px!important}}
+
+/* 2026-10-24 hotfix: compact MUKUL footer logo on phones and desktop. */
+body .site-footer.mukul-global-footer .footer-logo-link{display:inline-flex!important;width:min(100%,180px)!important;max-width:180px!important;min-width:0!important;flex:0 1 180px!important}
+body .site-footer.mukul-global-footer img.footer-logo{display:block!important;width:100%!important;max-width:180px!important;height:auto!important;max-height:62px!important;object-fit:contain!important}
+@media(max-width:600px){body .site-footer.mukul-global-footer .footer-logo-link{width:min(100%,160px)!important;max-width:160px!important;flex-basis:160px!important}body .site-footer.mukul-global-footer img.footer-logo{max-width:160px!important;max-height:52px!important}}
+
+
+/* 2026-10-25 verified shell repair: prevent header collisions and footer column/legibility defects. */
+body .site-header .header-inner,
+body .header .header-inner,
+body .mukul-shared-header .header-inner{
+  width:100%!important;max-width:1400px!important;min-width:0!important;
+  padding-left:clamp(12px,2.4vw,30px)!important;padding-right:clamp(12px,2.4vw,30px)!important;
+  gap:clamp(6px,1vw,14px)!important;box-sizing:border-box!important;
+}
+body .site-header .brand,
+body .header .brand,
+body .mukul-shared-header .brand{min-width:0!important;flex:0 1 auto!important;}
+body .site-header img.brand-logo,
+body .header img.brand-logo,
+body .mukul-shared-header img.brand-logo{
+  width:clamp(145px,14vw,195px)!important;max-width:100%!important;max-height:66px!important;
+}
+body .site-header .main-nav,
+body .header .main-nav,
+body .mukul-shared-header .main-nav{
+  flex:1 1 auto!important;min-width:0!important;gap:4px!important;margin-left:auto!important;
+}
+body .site-header .main-nav a,
+body .header .main-nav a,
+body .mukul-shared-header .main-nav a{
+  min-width:0!important;padding:6px 5px!important;font-size:clamp(9px,.78vw,11px)!important;
+  line-height:1.25!important;white-space:nowrap!important;
+}
+body .site-header .header-actions,
+body .header .header-actions,
+body .mukul-shared-header .header-actions{flex:0 0 auto!important;gap:5px!important;min-width:0!important;}
+body .site-header .header-actions .btn{padding:8px 10px!important;font-size:11px!important;white-space:nowrap!important;}
+body .site-header .language-select,
+body .site-header .language,
+body .header .language-select,
+body .header .language,
+body .mukul-shared-header .language-select{max-width:92px!important;padding:7px 5px!important;font-size:11px!important;}
+
+/* A page may have four or five footer groups. Use the number actually present. */
+body footer.site-footer.mukul-global-footer .footer-grid{
+  grid-template-columns:minmax(0,1.35fr) repeat(3,minmax(0,1fr))!important;
+  gap:clamp(18px,2.3vw,32px)!important;
+}
+body footer.site-footer.mukul-global-footer .footer-grid:has(>.footer-col:nth-child(5)){
+  grid-template-columns:minmax(210px,1.45fr) repeat(4,minmax(0,1fr))!important;
+}
+body footer.site-footer.mukul-global-footer .footer-brand,
+body footer.site-footer.mukul-global-footer .footer-col{min-width:0!important;overflow-wrap:anywhere!important;}
+body footer.site-footer.mukul-global-footer .footer-bottom{
+  display:flex!important;justify-content:space-between!important;align-items:flex-start!important;
+  flex-wrap:wrap!important;gap:12px 24px!important;
+}
+body footer.site-footer.mukul-global-footer .footer-bottom>span{flex:0 1 auto!important;min-width:0!important;}
+body footer.site-footer.mukul-global-footer .footer-legal-links{
+  display:flex!important;flex:0 1 auto!important;flex-wrap:wrap!important;
+  gap:8px 18px!important;margin-left:auto!important;min-width:0!important;
+}
+body footer.site-footer.mukul-global-footer .footer-legal-links a{
+  display:inline-block!important;white-space:normal!important;overflow-wrap:anywhere!important;
+}
+@media(max-width:1180px) and (min-width:761px){
+  body .site-header .header-inner,body .header .header-inner,body .mukul-shared-header .header-inner{
+    flex-wrap:wrap!important;justify-content:space-between!important;padding-top:10px!important;padding-bottom:10px!important;
+  }
+  body .site-header .brand,body .header .brand,body .mukul-shared-header .brand{flex:0 1 auto!important;}
+  body .site-header .menu-toggle,body .header .menu-toggle,body .mukul-shared-header .menu-toggle{display:block!important;margin-left:auto!important;}
+  body .site-header .main-nav,body .header .main-nav,body .mukul-shared-header .main-nav{
+    display:none!important;position:absolute!important;top:100%!important;left:12px!important;right:12px!important;
+    margin:0!important;padding:12px!important;background:#fff!important;border:1px solid #dce6df!important;
+    border-radius:15px!important;box-shadow:0 14px 32px #173e291c!important;
+    flex-direction:column!important;align-items:stretch!important;gap:0!important;max-height:calc(100vh - 100px)!important;overflow:auto!important;
+  }
+  body .site-header .main-nav.open,body .header .main-nav.open,body .mukul-shared-header .main-nav.open{display:flex!important;}
+  body .site-header .main-nav a,body .header .main-nav a,body .mukul-shared-header .main-nav a{
+    display:flex!important;width:100%!important;justify-content:flex-start!important;padding:10px!important;
+    border:0!important;border-bottom:1px solid #eef2ee!important;background:#fff!important;font-size:13px!important;white-space:normal!important;
+  }
+  body .site-header .header-actions,body .header .header-actions,body .mukul-shared-header .header-actions{margin-left:0!important;}
+  body footer.site-footer.mukul-global-footer .footer-grid,
+  body footer.site-footer.mukul-global-footer .footer-grid:has(>.footer-col:nth-child(5)){
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:26px 22px!important;
+  }
+  body footer.site-footer.mukul-global-footer .footer-brand{grid-column:1/-1!important;}
+  body footer.site-footer.mukul-global-footer .footer-legal-links{margin-left:0!important;}
+}
+@media(max-width:760px){
+  body .site-header .header-inner,body .header .header-inner,body .mukul-shared-header .header-inner{
+    min-height:68px!important;flex-wrap:nowrap!important;gap:8px!important;padding:8px 12px!important;
+  }
+  body .site-header img.brand-logo,body .header img.brand-logo,body .mukul-shared-header img.brand-logo{
+    width:min(42vw,174px)!important;max-height:54px!important;
+  }
+  body .site-header .menu-toggle,body .header .menu-toggle,body .mukul-shared-header .menu-toggle{
+    display:block!important;margin-left:auto!important;flex:0 0 auto!important;
+  }
+  body .site-header .main-nav,body .header .main-nav,body .mukul-shared-header .main-nav{
+    display:none!important;position:absolute!important;top:100%!important;left:10px!important;right:10px!important;
+    margin:0!important;padding:10px!important;background:#fff!important;border:1px solid #dce6df!important;
+    border-radius:14px!important;box-shadow:0 14px 32px #173e291c!important;flex-direction:column!important;
+    align-items:stretch!important;gap:0!important;max-height:calc(100vh - 85px)!important;overflow:auto!important;
+  }
+  body .site-header .main-nav.open,body .header .main-nav.open,body .mukul-shared-header .main-nav.open{display:flex!important;}
+  body .site-header .main-nav a,body .header .main-nav a,body .mukul-shared-header .main-nav a{
+    display:flex!important;width:100%!important;justify-content:flex-start!important;min-height:40px!important;
+    padding:10px 11px!important;border:0!important;border-bottom:1px solid #eef2ee!important;border-radius:8px!important;
+    background:#fff!important;box-shadow:none!important;font-size:13px!important;white-space:normal!important;
+  }
+  body .site-header .header-actions,body .header .header-actions,body .mukul-shared-header .header-actions{gap:5px!important;}
+  body .site-header .header-actions .btn{display:none!important;}
+  body .site-header .language-select,body .site-header .language,body .header .language-select,
+  body .header .language,body .mukul-shared-header .language-select{max-width:100px!important;font-size:10px!important;}
+  body footer.site-footer.mukul-global-footer{padding:36px 20px 22px!important;margin-top:30px!important;}
+  body footer.site-footer.mukul-global-footer .footer-grid,
+  body footer.site-footer.mukul-global-footer .footer-grid:has(>.footer-col:nth-child(5)){
+    grid-template-columns:minmax(0,1fr)!important;gap:24px!important;
+  }
+  body footer.site-footer.mukul-global-footer .footer-brand{grid-column:auto!important;}
+  body footer.site-footer.mukul-global-footer .footer-bottom{flex-direction:column!important;align-items:flex-start!important;gap:12px!important;margin-top:26px!important;padding-top:18px!important;}
+  body footer.site-footer.mukul-global-footer .footer-legal-links{flex-direction:column!important;align-items:flex-start!important;gap:9px!important;margin-left:0!important;}
+}
+
+
+/* FINAL OVERRIDE 2026-10-25: resolve cascade conflicts in shared shell. */
+/* Keep the logo compact: no artificial white card or oversized reserved area. */
+html body footer.site-footer.mukul-global-footer .footer-brand .footer-logo-link{
+  display:inline-flex!important;flex:0 0 auto!important;width:180px!important;max-width:100%!important;
+  min-width:0!important;height:auto!important;padding:0!important;margin:0 0 8px!important;
+  background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;
+}
+html body footer.site-footer.mukul-global-footer img.footer-logo{
+  display:block!important;width:100%!important;max-width:180px!important;height:auto!important;
+  max-height:64px!important;object-fit:contain!important;object-position:left center!important;
+}
+/* Override the generic footer-bottom span rule, which was forcing legal links to behave like text. */
+html body footer.site-footer.mukul-global-footer .footer-bottom>span.footer-legal-links{
+  display:flex!important;flex:0 1 auto!important;flex-direction:row!important;flex-wrap:wrap!important;
+  align-items:center!important;justify-content:flex-start!important;gap:8px 20px!important;
+  min-width:0!important;max-width:100%!important;margin-left:auto!important;
+}
+html body footer.site-footer.mukul-global-footer .footer-bottom>span.footer-legal-links a{
+  display:inline-block!important;flex:0 0 auto!important;width:auto!important;max-width:100%!important;
+  margin:0!important;padding:0!important;white-space:normal!important;overflow-wrap:anywhere!important;
+}
+html body footer.site-footer.mukul-global-footer .footer-bottom{
+  display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr) auto!important;
+  align-items:start!important;column-gap:24px!important;row-gap:12px!important;
+}
+html body footer.site-footer.mukul-global-footer .footer-bottom>span{
+  display:block!important;min-width:0!important;max-width:100%!important;overflow-wrap:anywhere!important;
+}
+html body footer.site-footer.mukul-global-footer .footer-grid{
+  display:grid!important;grid-template-columns:minmax(180px,1.25fr) repeat(3,minmax(0,1fr))!important;
+  gap:clamp(18px,2.2vw,32px)!important;
+}
+html body footer.site-footer.mukul-global-footer .footer-grid>.footer-col:nth-child(5){
+  /* Grid template switches to five columns when the fifth group exists. */
+}
+html body footer.site-footer.mukul-global-footer .footer-grid:has(>.footer-col:nth-child(4)){
+  grid-template-columns:minmax(180px,1.25fr) repeat(3,minmax(0,1fr))!important;
+}
+html body footer.site-footer.mukul-global-footer .footer-grid:has(>.footer-col:nth-child(5)){
+  grid-template-columns:minmax(180px,1.2fr) repeat(4,minmax(0,1fr))!important;
+}
+html body .site-header .header-inner{
+  width:100%!important;max-width:1400px!important;gap:clamp(8px,1vw,16px)!important;
+}
+html body .site-header .brand{flex:0 1 190px!important;min-width:0!important;}
+html body .site-header img.brand-logo{width:clamp(145px,13vw,190px)!important;max-height:66px!important;}
+html body .site-header .main-nav{flex:1 1 auto!important;min-width:0!important;gap:clamp(4px,.5vw,8px)!important;}
+html body .site-header .main-nav a{padding:6px clamp(4px,.5vw,8px)!important;font-size:clamp(10px,.75vw,12px)!important;}
+html body .site-header .header-actions{flex:0 0 auto!important;gap:6px!important;}
+@media(max-width:1100px){
+ html body footer.site-footer.mukul-global-footer .footer-grid,
+ html body footer.site-footer.mukul-global-footer .footer-grid:has(>.footer-col:nth-child(5)){
+   grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ }
+ html body footer.site-footer.mukul-global-footer .footer-brand{grid-column:1/-1!important;}
+ html body footer.site-footer.mukul-global-footer .footer-bottom{
+   grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+ }
+ html body footer.site-footer.mukul-global-footer .footer-bottom>span.footer-legal-links{
+   grid-column:1/-1!important;margin-left:0!important;
+ }
+}
+@media(max-width:760px){
+ html body footer.site-footer.mukul-global-footer .footer-grid,
+ html body footer.site-footer.mukul-global-footer .footer-grid:has(>.footer-col:nth-child(5)){
+   grid-template-columns:minmax(0,1fr)!important;
+ }
+ html body footer.site-footer.mukul-global-footer .footer-brand{grid-column:auto!important;}
+ html body footer.site-footer.mukul-global-footer .footer-bottom{
+   display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:12px!important;
+ }
+ html body footer.site-footer.mukul-global-footer .footer-bottom>span.footer-legal-links{
+   display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:8px!important;margin-left:0!important;
+ }
+ html body .site-header .brand{flex:0 1 auto!important;}
+}
+
+
+/* FINAL OVERRIDE 2026-10-25: prevent footer metadata collision on wide screens. */
+html body footer.site-footer.mukul-global-footer .footer-bottom{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  align-items:start!important;
+  column-gap:24px!important;
+  row-gap:12px!important;
+}
+html body footer.site-footer.mukul-global-footer .footer-bottom>span{
+  min-width:0!important;max-width:100%!important;overflow-wrap:anywhere!important;
+}
+html body footer.site-footer.mukul-global-footer .footer-bottom>span.footer-legal-links{
+  grid-column:1/-1!important;display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;
+  align-items:center!important;justify-content:flex-end!important;gap:8px 24px!important;
+  width:100%!important;min-width:0!important;margin:0!important;
+}
+html body footer.site-footer.mukul-global-footer .footer-bottom>span.footer-legal-links a{
+  display:inline-block!important;width:auto!important;flex:0 0 auto!important;margin:0!important;padding:0!important;
+}
+@media(max-width:760px){
+ html body footer.site-footer.mukul-global-footer .footer-bottom{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:12px!important;}
+ html body footer.site-footer.mukul-global-footer .footer-bottom>span.footer-legal-links{display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:flex-start!important;gap:8px!important;width:100%!important;}
+}
+
+
+/* RegTech Nexus AI visual system — MUKUL site-wide card and content theme
+   Palette aligned to the main RegTech Nexus AI site: blue, teal, cyan, ink and restrained gold.
+   This is presentation-only; existing content, forms, and application logic are untouched. */
+:root{
+  --mukul-rtnx-blue:#0956a8;
+  --mukul-rtnx-teal:#0a7f8c;
+  --mukul-rtnx-cyan:#65d4df;
+  --mukul-rtnx-ink:#17263d;
+  --mukul-rtnx-muted:#5d6b7c;
+  --mukul-rtnx-line:#d8e3e8;
+  --mukul-rtnx-surface:#f2f8fb;
+  --mukul-rtnx-soft:#e7f6fb;
+  --mukul-rtnx-gold:#b99a4a;
+}
+html body{
+  color:var(--mukul-rtnx-ink);
+}
+html body main .feature-card,
+html body main .info-card,
+html body main .market-panel,
+html body main .market-card,
+html body main .source-card,
+html body main .report-panel,
+html body main .free-help-panel,
+html body main .search-box,
+html body main .more-language-panel,
+html body main .language-panel,
+html body main .panel,
+html body main .card,
+html body main .info-box,
+html body main .content-card,
+html body main .resource-card,
+html body main .tool-card,
+html body main .guide-card,
+html body main .quiz-card,
+html body main .result-card,
+html body main .notice,
+html body main .callout,
+html body main .cta-panel,
+html body main .hero-note,
+html body main .market-card,
+html body main .source-item,
+html body main .stat-card{
+  background:linear-gradient(145deg,#ffffff 0%,var(--mukul-rtnx-surface) 100%)!important;
+  border:1px solid var(--mukul-rtnx-line)!important;
+  border-top:3px solid var(--mukul-rtnx-teal)!important;
+  border-radius:16px!important;
+  box-shadow:0 8px 24px rgba(16,43,73,.07)!important;
+}
+html body main .feature-card:nth-child(4n+1),
+html body main .info-card:nth-child(4n+1),
+html body main .market-card:nth-child(4n+1),
+html body main .source-card:nth-child(4n+1),
+html body main .card:nth-child(4n+1){border-top-color:var(--mukul-rtnx-blue)!important}
+html body main .feature-card:nth-child(4n+2),
+html body main .info-card:nth-child(4n+2),
+html body main .market-card:nth-child(4n+2),
+html body main .source-card:nth-child(4n+2),
+html body main .card:nth-child(4n+2){border-top-color:var(--mukul-rtnx-teal)!important}
+html body main .feature-card:nth-child(4n+3),
+html body main .info-card:nth-child(4n+3),
+html body main .market-card:nth-child(4n+3),
+html body main .source-card:nth-child(4n+3),
+html body main .card:nth-child(4n+3){border-top-color:var(--mukul-rtnx-gold)!important}
+html body main .feature-card:nth-child(4n),
+html body main .info-card:nth-child(4n),
+html body main .market-card:nth-child(4n),
+html body main .source-card:nth-child(4n),
+html body main .card:nth-child(4n){border-top-color:#218dbe!important}
+html body main .feature-card:hover,
+html body main .info-card:hover,
+html body main .market-card:hover,
+html body main .source-card:hover,
+html body main .card:hover,
+html body main .resource-card:hover,
+html body main .tool-card:hover,
+html body main .guide-card:hover{
+  box-shadow:0 14px 32px rgba(9,86,168,.13)!important;
+  transform:translateY(-2px);
+  transition:box-shadow .18s ease,transform .18s ease;
+}
+html body main .hero,
+html body main .hero-grid{
+  border-color:var(--mukul-rtnx-line);
+}
+html body main .hero-note,
+html body main .notice,
+html body main .callout{
+  background:linear-gradient(120deg,#e7f6fb 0%,#eef6f4 100%)!important;
+  border-left:4px solid var(--mukul-rtnx-blue)!important;
+}
+html body main .cta-panel{
+  background:linear-gradient(120deg,#0a1b36 0%,#063f85 55%,#087e9c 100%)!important;
+  border:1px solid rgba(101,212,223,.55)!important;
+  color:#fff!important;
+}
+html body main .cta-panel h1,
+html body main .cta-panel h2,
+html body main .cta-panel h3,
+html body main .cta-panel p{color:#fff!important}
+html body main button,
+html body main .button,
+html body main a.button,
+html body main input[type="submit"],
+html body main input[type="button"]{
+  border-radius:10px;
+}
+html body main button:not(.secondary):not(.ghost),
+html body main input[type="submit"]{
+  accent-color:var(--mukul-rtnx-blue);
+}
+html body main input:not([type="checkbox"]):not([type="radio"]),
+html body main select,
+html body main textarea{
+  border-color:var(--mukul-rtnx-line);
+  border-radius:10px;
+}
+html body main input:focus,
+html body main select:focus,
+html body main textarea:focus{
+  outline:3px solid rgba(101,212,223,.32);
+  outline-offset:1px;
+  border-color:var(--mukul-rtnx-blue);
+}
+html body main a:not(.button):not([class*="btn"]){
+  text-underline-offset:3px;
+}
+@media(max-width:760px){
+  html body main .feature-card,
+  html body main .info-card,
+  html body main .market-panel,
+  html body main .market-card,
+  html body main .source-card,
+  html body main .report-panel,
+  html body main .free-help-panel,
+  html body main .search-box,
+  html body main .more-language-panel,
+  html body main .language-panel,
+  html body main .panel,
+  html body main .card,
+  html body main .info-box,
+  html body main .content-card,
+  html body main .resource-card,
+  html body main .tool-card,
+  html body main .guide-card,
+  html body main .quiz-card,
+  html body main .result-card,
+  html body main .notice,
+  html body main .callout,
+  html body main .cta-panel,
+  html body main .hero-note,
+  html body main .stat-card{
+    border-radius:13px!important;
+    box-shadow:0 5px 16px rgba(16,43,73,.06)!important;
+  }
+}
+
+
+/* ============================================================
+   MUKUL visual system refresh — RegTech Nexus AI palette
+   Presentation-only CSS. Do not alter scripts, forms, algorithms,
+   calculators, validation, data handling, or decision logic.
+   Palette: Nexus blue, rose, mint/teal, sky, and restrained gold.
+   ============================================================ */
+:root{
+  --mukul-nexus-blue:#0956a8;
+  --mukul-nexus-navy:#0b1b34;
+  --mukul-nexus-rose:#c84f83;
+  --mukul-nexus-rose-soft:#fff1f7;
+  --mukul-nexus-mint:#168b78;
+  --mukul-nexus-mint-soft:#eaf8f2;
+  --mukul-nexus-sky:#238cc0;
+  --mukul-nexus-sky-soft:#edf7ff;
+  --mukul-nexus-gold:#b58a32;
+  --mukul-nexus-gold-soft:#fff8e8;
+  --mukul-nexus-lilac:#7561b5;
+  --mukul-nexus-lilac-soft:#f4f0ff;
+}
+html body{
+  background:linear-gradient(180deg,#f6f9ff 0%,#f8fbfc 34%,#f7fbf8 72%,#fff9fc 100%);
+}
+html body main{
+  background:transparent;
+}
+html body main section{
+  position:relative;
+}
+html body main .hero,
+html body main .hero-grid{
+  background:linear-gradient(125deg,#eef6ff 0%,#f6f1ff 42%,#eaf8f2 100%)!important;
+  border:1px solid #d5e4f1!important;
+  border-radius:24px!important;
+  box-shadow:0 12px 34px rgba(11,45,86,.07)!important;
+}
+html body main .hero h1,
+html body main .hero-grid h1{
+  color:var(--mukul-nexus-navy);
+}
+html body main .hero h1 span,
+html body main .hero .accent,
+html body main .hero-grid .accent{
+  color:var(--mukul-nexus-blue);
+}
+html body main .section-heading{
+  position:relative;
+  padding-bottom:12px;
+  margin-bottom:20px;
+}
+html body main .section-heading:after{
+  content:"";
+  display:block;
+  width:76px;
+  height:4px;
+  margin-top:10px;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--mukul-nexus-blue),var(--mukul-nexus-rose),var(--mukul-nexus-mint));
+}
+html body main .feature-card,
+html body main .info-card,
+html body main .market-panel,
+html body main .market-card,
+html body main .source-card,
+html body main .report-panel,
+html body main .free-help-panel,
+html body main .search-box,
+html body main .more-language-panel,
+html body main .language-panel,
+html body main .panel,
+html body main .card,
+html body main .info-box,
+html body main .content-card,
+html body main .resource-card,
+html body main .tool-card,
+html body main .guide-card,
+html body main .quiz-card,
+html body main .result-card,
+html body main .notice,
+html body main .callout,
+html body main .cta-panel,
+html body main .hero-note,
+html body main .source-item,
+html body main .stat-card,
+html body main .resource,
+html body main .resultlist,
+html body main .authorgrid,
+html body main .language-panel-wrap,
+html body main .sample-result,
+html body main .help-result,
+html body main .mukul-ai-result,
+html body main .photo-quality-results,
+html body main .status,
+html body main .grid>.panel,
+html body main .grid>.card,
+html body main .grid>.resource,
+html body main .grid>.info-card{
+  background:linear-gradient(145deg,#fff 0%,#f5f9ff 100%)!important;
+  border:1px solid #d8e4f1!important;
+  border-top:4px solid var(--mukul-nexus-blue)!important;
+  border-radius:17px!important;
+  box-shadow:0 8px 24px rgba(18,45,83,.065)!important;
+}
+html body main .feature-card:nth-child(5n+1),
+html body main .info-card:nth-child(5n+1),
+html body main .market-card:nth-child(5n+1),
+html body main .source-card:nth-child(5n+1),
+html body main .card:nth-child(5n+1),
+html body main .resource:nth-child(5n+1),
+html body main .grid>*:nth-child(5n+1){
+  border-top-color:var(--mukul-nexus-blue)!important;
+  background:linear-gradient(145deg,#fff 0%,var(--mukul-nexus-sky-soft) 100%)!important;
+}
+html body main .feature-card:nth-child(5n+2),
+html body main .info-card:nth-child(5n+2),
+html body main .market-card:nth-child(5n+2),
+html body main .source-card:nth-child(5n+2),
+html body main .card:nth-child(5n+2),
+html body main .resource:nth-child(5n+2),
+html body main .grid>*:nth-child(5n+2){
+  border-top-color:var(--mukul-nexus-rose)!important;
+  background:linear-gradient(145deg,#fff 0%,var(--mukul-nexus-rose-soft) 100%)!important;
+}
+html body main .feature-card:nth-child(5n+3),
+html body main .info-card:nth-child(5n+3),
+html body main .market-card:nth-child(5n+3),
+html body main .source-card:nth-child(5n+3),
+html body main .card:nth-child(5n+3),
+html body main .resource:nth-child(5n+3),
+html body main .grid>*:nth-child(5n+3){
+  border-top-color:var(--mukul-nexus-mint)!important;
+  background:linear-gradient(145deg,#fff 0%,var(--mukul-nexus-mint-soft) 100%)!important;
+}
+html body main .feature-card:nth-child(5n+4),
+html body main .info-card:nth-child(5n+4),
+html body main .market-card:nth-child(5n+4),
+html body main .source-card:nth-child(5n+4),
+html body main .card:nth-child(5n+4),
+html body main .resource:nth-child(5n+4),
+html body main .grid>*:nth-child(5n+4){
+  border-top-color:var(--mukul-nexus-lilac)!important;
+  background:linear-gradient(145deg,#fff 0%,var(--mukul-nexus-lilac-soft) 100%)!important;
+}
+html body main .feature-card:nth-child(5n),
+html body main .info-card:nth-child(5n),
+html body main .market-card:nth-child(5n),
+html body main .source-card:nth-child(5n),
+html body main .card:nth-child(5n),
+html body main .resource:nth-child(5n),
+html body main .grid>*:nth-child(5n){
+  border-top-color:var(--mukul-nexus-gold)!important;
+  background:linear-gradient(145deg,#fff 0%,var(--mukul-nexus-gold-soft) 100%)!important;
+}
+html body main .feature-card:hover,
+html body main .info-card:hover,
+html body main .market-card:hover,
+html body main .source-card:hover,
+html body main .card:hover,
+html body main .resource-card:hover,
+html body main .tool-card:hover,
+html body main .guide-card:hover,
+html body main .resource:hover{
+  transform:translateY(-3px);
+  box-shadow:0 15px 32px rgba(9,86,168,.13)!important;
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+html body main .notice,
+html body main .hero-note{
+  border-left:5px solid var(--mukul-nexus-sky)!important;
+  background:linear-gradient(120deg,#edf7ff 0%,#f3f0ff 100%)!important;
+}
+html body main .notice[role="alert"],
+html body main .warning,
+html body main .disclaimer{
+  border-top-color:var(--mukul-nexus-gold)!important;
+  border-left-color:var(--mukul-nexus-gold)!important;
+  background:linear-gradient(120deg,#fff8e8 0%,#fffdf7 100%)!important;
+}
+html body main .success,
+html body main .success-panel,
+html body main .status.success{
+  border-top-color:var(--mukul-nexus-mint)!important;
+  background:linear-gradient(120deg,#eaf8f2 0%,#f8fffb 100%)!important;
+}
+html body main .cta-panel{
+  background:linear-gradient(125deg,#0b1b34 0%,#0956a8 54%,#168b78 100%)!important;
+  border:1px solid rgba(255,255,255,.35)!important;
+  border-top:4px solid var(--mukul-nexus-rose)!important;
+  color:#fff!important;
+}
+html body main .cta-panel h1,
+html body main .cta-panel h2,
+html body main .cta-panel h3,
+html body main .cta-panel p,
+html body main .cta-panel li{
+  color:#fff!important;
+}
+html body main .feature-icon,
+html body main .market-card-top,
+html body main .section-kicker,
+html body main .eyebrow{
+  color:var(--mukul-nexus-blue);
+}
+html body main .feature-icon{
+  background:linear-gradient(135deg,#e7f2ff,#f9eaf3)!important;
+  border:1px solid #d9e4f3;
+  border-radius:14px;
+}
+html body main button,
+html body main .button,
+html body main a.button,
+html body main .btn,
+html body main input[type="submit"],
+html body main input[type="button"]{
+  border-radius:11px;
+  transition:filter .16s ease,transform .16s ease,box-shadow .16s ease;
+}
+html body main button:not(.secondary):not(.ghost),
+html body main .button:not(.secondary):not(.ghost),
+html body main .btn:not(.secondary):not(.ghost),
+html body main input[type="submit"]{
+  box-shadow:0 5px 14px rgba(9,86,168,.12);
+}
+html body main button:hover,
+html body main .button:hover,
+html body main .btn:hover,
+html body main input[type="submit"]:hover{
+  filter:saturate(1.08);
+}
+html body main input:not([type="checkbox"]):not([type="radio"]),
+html body main select,
+html body main textarea{
+  background-color:#fff;
+  border-color:#cbdbea;
+  border-radius:10px;
+}
+html body main input:focus,
+html body main select:focus,
+html body main textarea:focus{
+  outline:3px solid rgba(200,79,131,.20);
+  outline-offset:1px;
+  border-color:var(--mukul-nexus-blue);
+}
+html body main table{
+  border-color:#d7e4f0;
+  border-radius:12px;
+  overflow:hidden;
+}
+html body main thead,
+html body main th{
+  background:linear-gradient(100deg,#eaf3ff,#f8eef5)!important;
+  color:#102b49;
+}
+html body main tbody tr:nth-child(even){
+  background:#f4f9ff;
+}
+html body main hr{
+  border:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,#b8d0e7,#edc3d5,#b8d9d0,transparent);
+}
+@media(max-width:760px){
+  html body main .hero,
+  html body main .hero-grid{border-radius:17px!important}
+  html body main .feature-card,
+  html body main .info-card,
+  html body main .market-panel,
+  html body main .market-card,
+  html body main .source-card,
+  html body main .report-panel,
+  html body main .free-help-panel,
+  html body main .search-box,
+  html body main .more-language-panel,
+  html body main .language-panel,
+  html body main .panel,
+  html body main .card,
+  html body main .info-box,
+  html body main .content-card,
+  html body main .resource-card,
+  html body main .tool-card,
+  html body main .guide-card,
+  html body main .quiz-card,
+  html body main .result-card,
+  html body main .notice,
+  html body main .callout,
+  html body main .cta-panel,
+  html body main .hero-note,
+  html body main .stat-card,
+  html body main .resource,
+  html body main .grid>*{
+    border-radius:13px!important;
+    box-shadow:0 5px 16px rgba(18,45,83,.055)!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  html body main .feature-card,
+  html body main .info-card,
+  html body main .market-card,
+  html body main .source-card,
+  html body main .card,
+  html body main .resource,
+  html body main button,
+  html body main .button,
+  html body main .btn{transition:none!important}
+  html body main .feature-card:hover,
+  html body main .info-card:hover,
+  html body main .market-card:hover,
+  html body main .source-card:hover,
+  html body main .card:hover,
+  html body main .resource:hover{transform:none!important}
+}
