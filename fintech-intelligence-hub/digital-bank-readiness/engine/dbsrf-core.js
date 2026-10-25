@@ -114,7 +114,7 @@
           } else {
             const traceable = answer.evidenceIds.some(function (evidenceId) {
               return assessment.evidenceArtifacts.some(function (artifact) {
-                if (!artifact || artifact.id !== evidenceId || artifact.status !== "Reviewed" ||
+                if (!artifact || artifact.id !== evidenceId || artifact.status !== "Reviewed" || artifact.confidence === "Unverified" ||
                     !Array.isArray(artifact.questionLinks)) return false;
                 return artifact.questionLinks.some(function (link) {
                   return link && link.questionId === id &&
