@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Digital Bank Supervisory Readiness Framework | RegTech Nexus AI</title>
+<meta name="description" content="A structured, evidence-led digital bank supervisory readiness self-assessment framework with global core questions and transparent limitations.">
+<link rel="canonical" href="https://regtechnexusai.com/fintech-intelligence-hub/digital-bank-readiness/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0956a8">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'">
+<link rel="icon" type="image/png" href="/regtech-nexus-ai-logo-2026.png">
+<link rel="stylesheet" href="./assets/dbsrf-ui.css">
+<script defer src="./engine/dbsrf-core.js"></script>
+<script defer src="./engine/dbsrf-evidence.js"></script>
+<script defer src="./engine/dbsrf-storage.js"></script>
+<script defer src="./assets/dbsrf-ui.js"></script>
+</head>
+<body>
+<header class="dbsr-header">
+<a class="dbsr-brand" href="/" aria-label="RegTech Nexus AI home">RegTech Nexus AI</a>
+<nav class="dbsr-nav" aria-label="Main navigation"><a href="/fintech-intelligence-hub/">FinTech Intelligence Hub</a><a href="/global-financial-systems.html">Regulatory Signal Labs</a><a href="/icms-2026/">ICMS Toolkit</a></nav>
+</header>
+<main class="dbsr-main">
+<section class="dbsr-hero">
+<p class="dbsr-kicker">FinTech Intelligence Hub · Global core · Phase 1</p>
+<h1>Digital Bank Supervisory Readiness Framework</h1>
+<p class="dbsr-lead">A structured self-assessment to organise supervisory-readiness questions, maturity evidence, gaps and review priorities for a digital banking business.</p>
+<div class="dbsr-note dbsr-warning"><strong>Important boundary:</strong> This is an independent, early-stage assessment aid—not a regulator rating, audit opinion, legal opinion, licence assessment, certification or compliance determination. Scores are internal methodology indicators only. Confirm applicable requirements with current official sources and qualified professionals.</div>
+<div class="dbsr-note"><strong>Data handling:</strong> The assessment is processed in this page's browser memory. This page does not intentionally send assessment data to a server and has no external analytics or network connection configured. Do not enter personal, account, confidential or other sensitive information. Browser extensions, a compromised device or modified page code can still expose data. Export files are encrypted only when you use the password-protected export function.</div>
+<div class="dbsr-actions"><a class="dbsr-btn" href="#assessment">Start / continue assessment</a><a class="dbsr-btn secondary" href="#export-tools">Encrypted export &amp; import</a></div>
+</section>
+<section class="dbsr-grid" aria-label="Assessment status">
+<article class="dbsr-panel"><h2>Assessment coverage</h2><div class="dbsr-metric"><span id="dbsr-resolved">0</span> / 28</div><p class="dbsr-muted">Resolved questions (assessed or approved N/A)</p><div class="dbsr-progress" aria-label="Assessment completion"><span id="dbsr-progress"></span></div><p class="dbsr-muted">Scored questions: <strong id="dbsr-assessed">0</strong> · Unresolved: <strong id="dbsr-unresolved">28</strong> · Pillars with assessed questions: <strong id="dbsr-pillar-count">0 / 7</strong></p></article>
+<article class="dbsr-panel"><h2>Internal maturity result</h2><div class="dbsr-metric" id="dbsr-score">—</div><p id="dbsr-band" class="dbsr-muted">Not available</p><p id="dbsr-status" class="dbsr-status warn">Assessment incomplete — maturity score withheld</p><p class="dbsr-muted">A numeric result is withheld until all questions are assessed or have a verified, approved N/A, and at least five pillars contain assessed questions.</p></article>
+</section>
+<div id="dbsr-message" class="dbsr-message" role="status" aria-live="polite">Ready. Complete each question that applies to the assessment scope.</div>
+<section class="dbsr-section" id="assessment">
+<div class="dbsr-section-head"><div><p class="dbsr-kicker">Assessment workspace</p><h2 class="dbsr-section-title">Seven pillars · 28 core questions</h2><p class="dbsr-muted">Score guide: 0 Absent · 1 Ad hoc · 2 Designed · 3 Implemented · 4 Tested and sustained. Evidence confidence is separate from the score.</p></div><div class="dbsr-actions"><button class="dbsr-btn secondary" id="dbsr-recalculate" type="button">Recalculate</button><button class="dbsr-btn secondary" id="dbsr-print" type="button">Print / save view</button></div></div>
+<div id="dbsr-pillars" class="dbsr-pillars"></div>
+</section>
+<section class="dbsr-section" aria-labelledby="critical-gates-title">
+<div class="dbsr-section-head"><div><p class="dbsr-kicker">Risk signals</p><h2 id="critical-gates-title" class="dbsr-section-title">Critical-gate review</h2></div></div>
+<p class="dbsr-muted">Critical-gate status takes precedence over maturity reporting. A low score alone is not a confirmed legal or supervisory failure; “no critical gate identified” does not establish compliance. A critical-gate N/A is an exception requiring escalation and withholds the aggregate score. When a critical failure is confirmed, the calculated score remains visible for diagnostic transparency only; the readiness interpretation is overridden.</p>
+<div id="dbsr-gates" class="dbsr-gate-list"></div>
+</section>
+<section class="dbsr-section" id="evidence-inventory">
+<div class="dbsr-section-head"><div><p class="dbsr-kicker">Evidence register</p><h2 class="dbsr-section-title">Evidence inventory (JSON)</h2><p class="dbsr-muted">One artifact can link to several question IDs. Review relevance and sufficiency separately for each question.</p></div></div>
+<div class="dbsr-evidence-panel">
+<p class="dbsr-privacy">Use the structure below as a starter. Do not paste confidential documents or sensitive information. Artifact IDs entered on each question should match the inventory.</p>
+<label class="dbsr-label" for="dbsr-evidence-json">Evidence artifacts</label>
+<textarea id="dbsr-evidence-json" class="dbsr-textarea" spellcheck="false" aria-describedby="dbsr-evidence-summary"></textarea>
+<p id="dbsr-evidence-summary" class="dbsr-muted">No artifacts yet.</p>
+<details><summary>Evidence record format</summary><pre><code>[
+  {
+    "id": "EV-001",
+    "version": 1,
+    "artifactDate": "2026-10-25",
+    "owner": "Control owner",
+    "confidence": "Moderate",
+    "status": "Collected",
+    "questionLinks": [
+      {
+        "questionId": "GOV-01",
+        "relevance": "Relevant",
+        "sufficiency": "Not assessed"
+      }
+    ]
+  }
+]</code></pre><p class="dbsr-muted">Allowed confidence: High, Moderate, Low, Unverified. Allowed artifact status: Draft, Collected, Reviewed, Superseded, Rejected. Each link requires a known question ID, relevance and sufficiency. Mark a link as reviewed only when reviewer and review date are recorded in the data.</p></details>
+</div>
+</section>
+<section class="dbsr-section" id="export-tools">
+<div class="dbsr-section-head"><div><p class="dbsr-kicker">Portable and protected</p><h2 class="dbsr-section-title">Encrypted export / import</h2><p class="dbsr-muted">No assessment is automatically saved to browser storage. Export before leaving the page if you need to preserve your work.</p></div></div>
+<div class="dbsr-evidence-panel">
+<div class="dbsr-fields">
+<div class="dbsr-field"><label for="dbsr-password">Export/import password (minimum 12 characters)</label><input id="dbsr-password" type="password" minlength="12" autocomplete="new-password" placeholder="Use a strong unique password"></div>
+<div class="dbsr-field"><label for="dbsr-import-file">Choose an encrypted export to import</label><input id="dbsr-import-file" class="dbsr-file" type="file" accept=".json,application/json"></div>
+</div>
+<div class="dbsr-actions"><button class="dbsr-btn" id="dbsr-export" type="button">Encrypt &amp; export JSON</button><button class="dbsr-btn secondary" id="dbsr-import" type="button">Decrypt &amp; import JSON</button><button class="dbsr-btn danger" id="dbsr-clear" type="button">Clear assessment</button></div>
+<p class="dbsr-muted">Export uses PBKDF2-SHA-256 and AES-256-GCM through Web Crypto. Keep the password separate from the export file. A lost password cannot be recovered. Imported content is validated before it replaces the current in-memory assessment.</p>
+</div>
+</section>
+<section class="dbsr-section">
+<div class="dbsr-panel"><h2>How to interpret results</h2><ul><li>Internal maturity bands are methodology labels, not official supervisory ratings.</li><li>Incomplete answers and unverified N/A exclusions prevent an aggregate score.</li><li>Evidence confidence is not the same as a maturity score.</li><li>Critical gate outcomes need documented professional review and jurisdiction-specific context.</li><li>International standards are not automatically domestic law; check legal status, applicability and effective date.</li></ul><p><strong>Method:</strong> DISCOVER → INSPECT → VERIFY → TEST → CHALLENGE → ASSESS → RISK-RATE → REMEDIATE → RETEST → ASSURE.</p></div>
+</section>
+</main>
+<footer class="dbsr-footer"><div class="dbsr-footer-inner"><div><strong>RegTech Nexus AI — Audit &amp; Regulatory Intelligence</strong><br>Independent research and decision-support resource.</div><div><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/contact.html">Contact</a></div><div><a href="/fintech-intelligence-hub/">FinTech Intelligence Hub</a></div></div></footer>
+</body>
+</html>
