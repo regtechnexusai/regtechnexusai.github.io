@@ -109,3 +109,13 @@ body.payscale-main-page :is(.field-help,.table-note,.gross-footnote){color:#4255
  body.payscale-main-page .footer-branding img{width:210px!important}
  body.payscale-main-page .table-wrap{max-width:100%!important;overflow-x:auto!important}
 }
+
+
+/* PayScale contrast hotfix v4: ensure readable text on every light card on mobile and desktop. */
+body.payscale-main-page :is(.governance-card,.method-card,.scale-section,.gross-section,.about-tool,.provenance-card,.source-summary,.release-banner,.notice.glass-card,.retirement-section,.retirement-reference,.retirement-audit-summary,.retirement-net-card,.retirement-net-placeholder,.gross-summary-grid,.gross-breakdown,.about-tool-grid article) { color:#10243b !important; background-color:#ffffff !important; }
+body.payscale-main-page :is(.governance-card,.method-card,.scale-section,.gross-section,.about-tool,.provenance-card,.source-summary,.release-banner,.notice.glass-card,.retirement-section,.retirement-reference,.retirement-audit-summary,.retirement-net-card,.retirement-net-placeholder,.gross-summary-grid,.gross-breakdown,.about-tool-grid article) :is(h1,h2,h3,h4,p,li,span,strong,b,small,label,summary,caption,td,th,div) { color:#263f58 !important; }
+body.payscale-main-page :is(.governance-card,.method-card,.scale-section,.gross-section,.about-tool,.provenance-card,.source-summary,.release-banner,.notice.glass-card,.retirement-section,.retirement-reference,.retirement-audit-summary,.retirement-net-card,.retirement-net-placeholder,.gross-summary-grid,.gross-breakdown,.about-tool-grid article) :is(.eyebrow,.field-help,.output-note,.table-note,.gross-footnote) { color:#52647a !important; }
+body.payscale-main-page :is(.governance-card,.method-card,.scale-section,.gross-section,.about-tool,.provenance-card,.source-summary,.release-banner,.notice.glass-card,.retirement-section,.retirement-reference,.retirement-audit-summary,.retirement-net-card,.retirement-net-placeholder,.gross-summary-grid,.gross-breakdown,.about-tool-grid article) a { color:#075d80 !important; }
+body.payscale-main-page .disclaimer, body.payscale-main-page .disclaimer :is(strong,p,span) { color:#ffffff !important; }
+body.payscale-main-page .footer, body.payscale-main-page .footer :is(strong,small,span,a) { color:#ffffff !important; }
+body.payscale-main-page .hero, body.payscale-main-page .hero :is(h1,h2,h3,p,.eyebrow,.hero-subtitle,.brand-nav-current,.brand-nav-divider,.hero-proof span,.effective-badge,.effective-badge strong) { color:#ffffff !important; }
