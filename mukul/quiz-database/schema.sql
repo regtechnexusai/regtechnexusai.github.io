@@ -1,5 +1,5 @@
 -- MUKUL Agricultural Quiz Database — PostgreSQL foundation schema
--- Version 1.3 | 2026-10-26
+-- Version 1.4 | 2026-10-26
 -- Additive foundation only; does not alter website files.
 -- Requires PostgreSQL 13+. Run in a disposable/staging database first.
 
@@ -304,11 +304,31 @@ CREATE TABLE IF NOT EXISTS question_version_sources (
   source_id UUID NOT NULL REFERENCES sources(source_id) ON DELETE RESTRICT,
   evidence_note TEXT NOT NULL,
   supports_answer BOOLEAN NOT NULL DEFAULT TRUE,
+  content_use_type VARCHAR(30) NOT NULL DEFAULT 'factual_reference',
   PRIMARY KEY (question_id, version_number, source_id),
   FOREIGN KEY (question_id, version_number)
     REFERENCES question_versions(question_id, version_number) ON DELETE RESTRICT,
   CHECK (length(trim(evidence_note)) > 0)
 );
+
+-- Separate factual citation from reuse of protected source material. Existing rows
+-- default to factual_reference; content authors must explicitly mark reproduced material.
+ALTER TABLE question_version_sources
+  ADD COLUMN IF NOT EXISTS content_use_type VARCHAR(30) NOT NULL DEFAULT 'factual_reference';
+
+DO $
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_constraint
+    WHERE conname = 'chk_question_version_sources_content_use_type'
+      AND conrelid = 'question_version_sources'::regclass
+  ) THEN
+    ALTER TABLE question_version_sources
+      ADD CONSTRAINT chk_question_version_sources_content_use_type
+      CHECK (content_use_type IN ('factual_reference','adapted_content','quoted_text','media_reuse'));
+  END IF;
+END;
+$;
 
 CREATE INDEX IF NOT EXISTS idx_question_reviews_version
   ON question_reviews(question_id, question_version, review_type, reviewed_at DESC);
@@ -604,8 +624,10 @@ BEGIN
       NEW.question_id, NEW.current_version;
   END IF;
 
-  -- A source marked restricted or link_only may be cited, but it must not be
-  -- treated as permission to reproduce source material in the question.
+  -- Factual citation is distinct from reproducing protected source material.
+  -- Any adapted, quoted, or media reuse must have an explicit reuse disposition.
+  -- Open-license content must name the license; question-level license review is
+  -- independently required above. Unknown/unassessed rights never authorize reuse.
   IF EXISTS (
     SELECT 1
     FROM question_version_sources qvs
@@ -613,9 +635,16 @@ BEGIN
     WHERE qvs.question_id = NEW.question_id
       AND qvs.version_number = NEW.current_version
       AND qvs.supports_answer = TRUE
-      AND s.reuse_permission_status IN ('restricted','link_only')
+      AND qvs.content_use_type IN ('adapted_content','quoted_text','media_reuse')
+      AND (
+        s.reuse_permission_status NOT IN ('open_license','permission_granted','public_domain')
+        OR (
+          s.reuse_permission_status = 'open_license'
+          AND NULLIF(trim(s.license_name), '') IS NULL
+        )
+      )
   ) THEN
-    RAISE EXCEPTION 'Cannot publish question % version %: supporting source reuse permission is restricted or link_only',
+    RAISE EXCEPTION 'Cannot publish question % version %: reproduced source material requires explicit reuse permission and an identified open license where applicable',
       NEW.question_id, NEW.current_version;
   END IF;
 
