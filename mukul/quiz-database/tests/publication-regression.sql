@@ -29,7 +29,7 @@ BEGIN
   INSERT INTO question_version_answers(question_id,version_number,language_code,option_id)
     VALUES(q,1,'en',opt_en_a),(q,1,'bn',opt_bn_a);
   INSERT INTO sources(publisher,title,source_url,source_type,license_name,reuse_permission_status)
-    VALUES('MUKUL test fixture','Synthetic test source','https://example.invalid/test-source','web','test-only','link_only')
+    VALUES('MUKUL test fixture','Synthetic test source','https://example.invalid/test-source','web','test-only','permission_granted')
     RETURNING source_id INTO src;
   INSERT INTO question_version_sources(question_id,version_number,source_id,evidence_note,supports_answer)
     VALUES(q,1,src,'Synthetic evidence note for database test',TRUE);
@@ -38,6 +38,38 @@ BEGIN
           (q,1,'test_runner','subject_matter','approved','test approval'),
           (q,1,'test_runner','language','approved','test approval'),
           (q,1,'test_runner','license','approved','test approval');
+
+  -- N0a: a draft cannot set published_version directly, bypassing review.
+  failed := FALSE;
+  BEGIN
+    UPDATE questions SET published_version=1 WHERE question_id=q;
+  EXCEPTION WHEN OTHERS THEN failed := TRUE;
+  END;
+  IF NOT failed THEN RAISE EXCEPTION 'N0a failed: draft directly set published_version'; END IF;
+
+  -- N0b: English/Bangla correct-answer keys must match.
+  UPDATE question_version_answers
+    SET option_id=opt_bn_b
+    WHERE question_id=q AND version_number=1 AND language_code='bn';
+  failed := FALSE;
+  BEGIN
+    UPDATE questions SET status='published' WHERE question_id=q;
+  EXCEPTION WHEN OTHERS THEN failed := TRUE;
+  END;
+  IF NOT failed THEN RAISE EXCEPTION 'N0b failed: English/Bangla correct-answer mismatch was accepted'; END IF;
+  UPDATE question_version_answers
+    SET option_id=opt_bn_a
+    WHERE question_id=q AND version_number=1 AND language_code='bn';
+
+  -- N0c: restricted/link_only supporting sources cannot pass the license gate.
+  UPDATE sources SET reuse_permission_status='link_only' WHERE source_id=src;
+  failed := FALSE;
+  BEGIN
+    UPDATE questions SET status='published' WHERE question_id=q;
+  EXCEPTION WHEN OTHERS THEN failed := TRUE;
+  END;
+  IF NOT failed THEN RAISE EXCEPTION 'N0c failed: link_only supporting source passed the license gate'; END IF;
+  UPDATE sources SET reuse_permission_status='permission_granted' WHERE source_id=src;
 
   -- P1: fully reviewed bilingual version publishes successfully.
   UPDATE questions SET status='published' WHERE question_id=q;
