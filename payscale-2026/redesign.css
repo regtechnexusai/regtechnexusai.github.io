@@ -1,0 +1,71 @@
+/* PayScale clean redesign layer — presentation only. Calculation files/data are untouched. */
+:root{--ps-ink:#142b43;--ps-navy:#102e4d;--ps-teal:#087e83;--ps-teal-dark:#05656c;--ps-paper:#f2f6fa;--ps-border:#d7e2ec;--ps-muted:#52677c;--ps-white:#fff;--ps-gold:#e6bd68}
+html{scroll-behavior:smooth;scroll-padding-top:18px}
+body.payscale-main-page,body:has(.content-page){margin:0!important;color:var(--ps-ink)!important;background:var(--ps-paper)!important;font-family:"RegTech Bengali","Noto Sans Bengali",system-ui,sans-serif!important;line-height:1.7!important}
+body.payscale-main-page .shell,body:has(.content-page) .shell{width:min(1120px,calc(100% - 28px))!important;margin:0 auto!important;padding:18px 0 28px!important;min-width:0!important}
+body.payscale-main-page .orb{display:none!important}
+body.payscale-main-page .hero{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:18px!important;padding:clamp(20px,4vw,42px)!important;border:1px solid #204c6c!important;border-radius:24px!important;background:linear-gradient(130deg,#102b48 0%,#164e70 60%,#087e83 100%)!important;color:#fff!important;box-shadow:0 18px 44px rgba(16,46,77,.17)!important;isolation:isolate!important}
+body.payscale-main-page .hero:after{pointer-events:none!important}
+body.payscale-main-page .brand-logo-frame{width:min(300px,100%)!important;padding:10px!important;border:1px solid #d7e2ec!important;border-radius:16px!important;background:#fff!important;box-shadow:none!important}
+body.payscale-main-page .brand-logo{width:100%!important;max-width:280px!important;height:auto!important}
+body.payscale-main-page .hero-copy{min-width:0!important}
+body.payscale-main-page .brand-header-nav{display:flex!important;flex-wrap:wrap!important;gap:9px!important;margin:0 0 14px!important;color:#fff!important}
+body.payscale-main-page .brand-header-nav a,body.payscale-main-page .brand-nav-current{color:#fff!important}
+body.payscale-main-page .brand-home-link{display:inline-flex!important;align-items:center!important;padding:9px 14px!important;border:1px solid #7eabbf!important;border-radius:999px!important;background:#0c3858!important;text-decoration:none!important}
+body.payscale-main-page .hero .eyebrow{color:#a9eeee!important;letter-spacing:.09em!important}
+body.payscale-main-page .hero h1{max-width:850px!important;margin:0 0 14px!important;color:#fff!important;font-size:clamp(2rem,6vw,3.2rem)!important;line-height:1.28!important;overflow-wrap:normal!important}
+body.payscale-main-page .hero .hero-subtitle{max-width:780px!important;color:#f2f7fc!important;font-size:clamp(1rem,2.5vw,1.12rem)!important}
+body.payscale-main-page .hero .hero-proof{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;margin-top:18px!important}
+body.payscale-main-page .hero .hero-proof span{display:block!important;padding:9px 11px!important;border:1px solid #70a8bf!important;border-radius:11px!important;background:#174b68!important;color:#fff!important;font-size:.9rem!important;font-weight:700!important;opacity:1!important}
+body.payscale-main-page .effective-badge{position:static!important;justify-self:start!important;display:inline-flex!important;align-items:center!important;gap:10px!important;padding:9px 13px!important;border:1px solid #79c9c9!important;border-radius:12px!important;background:#073c4b!important;text-align:left!important}
+body.payscale-main-page .effective-badge span{color:#e3f7f8!important}body.payscale-main-page .effective-badge strong{color:#a8f0e0!important}
+body.payscale-main-page .release-banner,body.payscale-main-page .notice.glass-card,body.payscale-main-page .about-tool,body.payscale-main-page .provenance-card,body.payscale-main-page .source-summary,body.payscale-main-page .governance-card,body.payscale-main-page .method-card,body.payscale-main-page .scale-section,body.payscale-main-page .retirement-section,body:has(.content-page) .content-card{color:var(--ps-ink)!important;background:#fff!important;border:1px solid var(--ps-border)!important;border-radius:18px!important;box-shadow:0 8px 24px rgba(16,46,77,.055)!important;backdrop-filter:none!important}
+body.payscale-main-page .release-banner{display:flex!important;gap:14px!important;align-items:flex-start!important;padding:20px!important}
+body.payscale-main-page .release-banner .notice-icon{flex:0 0 38px!important;width:38px!important;height:38px!important;background:var(--ps-teal)!important;color:#fff!important}
+body.payscale-main-page .release-banner strong,body.payscale-main-page .release-banner p,body.payscale-main-page .release-banner a{color:#263f58!important;opacity:1!important}
+body.payscale-main-page .release-banner strong{font-size:1.05rem!important}
+body.payscale-main-page .release-banner p{margin:5px 0 0!important}
+body.payscale-main-page .release-banner a{color:#075d80!important;text-decoration:underline!important;font-weight:800!important}
+body.payscale-main-page .quick-choice-section{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px!important;margin:18px 0!important}
+body.payscale-main-page .choice-card{min-width:0!important;min-height:180px!important;padding:22px!important;border-radius:17px!important}
+body.payscale-main-page .choice-card-salary{background:linear-gradient(135deg,#103b62,#087e83)!important;color:#fff!important}
+body.payscale-main-page .choice-card-pension{background:linear-gradient(135deg,#26355f,#45418a)!important;color:#fff!important}
+body.payscale-main-page .choice-card :is(strong,p,span){color:#fff!important}
+body.payscale-main-page .choice-card p{opacity:1!important}
+body.payscale-main-page :is(.about-tool,.provenance-card,.governance-card,.method-card,.scale-section,.retirement-section,.source-summary,.notice.glass-card) :is(h1,h2,h3,h4,p,li,span,strong,b,small,label,summary,caption,td,th){color:#263f58!important;opacity:1!important}
+body.payscale-main-page :is(.about-tool,.provenance-card,.governance-card,.method-card,.scale-section,.retirement-section,.source-summary,.notice.glass-card) :is(.eyebrow,.field-help,.output-note,.table-note,.gross-footnote){color:#52677c!important}
+body.payscale-main-page :is(.about-tool,.provenance-card,.governance-card,.method-card,.scale-section,.retirement-section,.source-summary,.notice.glass-card) a{color:#075d80!important}
+body.payscale-main-page .disclaimer{background:#102b48!important;color:#fff!important;border:1px solid #315775!important;border-radius:16px!important}
+body.payscale-main-page .disclaimer :is(strong,p,span){color:#fff!important;opacity:1!important}
+body.payscale-main-page .footer{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:16px!important;margin-top:24px!important;padding:24px!important;border:1px solid #234865!important;border-radius:18px!important;background:#102b48!important;color:#fff!important}
+body.payscale-main-page .footer :is(strong,small,span,a){color:#fff!important;opacity:1!important}
+body.payscale-main-page .footer-branding{display:flex!important;align-items:center!important;gap:16px!important;flex-wrap:wrap!important}
+body.payscale-main-page .footer-branding img{width:min(230px,100%)!important;max-width:100%!important;height:auto!important;object-fit:contain!important}
+body.payscale-main-page .footer-links{display:flex!important;flex-wrap:wrap!important;gap:12px 18px!important;padding-top:16px!important;border-top:1px solid #668097!important}
+body.payscale-main-page :is(input,select,textarea){color:#142b43!important;background:#fff!important;border:1px solid #bacbda!important}
+body.payscale-main-page :is(.field-help,.output-note,.table-note,.gross-footnote){color:#52677c!important}
+body.payscale-main-page .table-wrap{max-width:100%!important;overflow-x:auto!important}
+body:has(.content-page) .content-header{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:18px!important;flex-wrap:wrap!important;padding:22px!important;border-radius:20px!important;background:linear-gradient(130deg,#102b48,#087e83)!important;color:#fff!important}
+body:has(.content-page) .content-header :is(h1,p){color:#fff!important}
+body:has(.content-page) .content-logo{width:min(220px,100%)!important;height:auto!important}
+body:has(.content-page) .content-nav{display:flex!important;flex-wrap:wrap!important;gap:10px!important;margin:16px 0!important}
+body:has(.content-page) .content-nav a{display:inline-block!important;padding:8px 12px!important;border:1px solid #c7d7e4!important;border-radius:999px!important;background:#fff!important;color:#123c5c!important;text-decoration:none!important;font-weight:700!important}
+body:has(.content-page) .content-card{padding:clamp(18px,3vw,30px)!important}
+body:has(.content-page) .content-card :is(h1,h2,h3,p,li,strong,small){color:#263f58!important}
+body:has(.content-page) .content-card a{color:#075d80!important}
+@media(max-width:620px){
+ body.payscale-main-page .shell,body:has(.content-page) .shell{width:calc(100% - 20px)!important;padding:10px 0 20px!important}
+ body.payscale-main-page .hero{grid-template-columns:minmax(0,1fr)!important;padding:18px 15px!important;gap:13px!important;border-radius:17px!important}
+ body.payscale-main-page .brand-logo-frame{width:min(235px,100%)!important;padding:8px!important}
+ body.payscale-main-page .brand-logo{max-width:215px!important}
+ body.payscale-main-page .hero h1{font-size:clamp(1.9rem,8vw,2.45rem)!important;line-height:1.32!important}
+ body.payscale-main-page .hero .hero-proof{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ body.payscale-main-page .hero .hero-proof span{font-size:.82rem!important;padding:8px!important}
+ body.payscale-main-page .release-banner{padding:15px!important}
+ body.payscale-main-page .quick-choice-section{grid-template-columns:minmax(0,1fr)!important}
+ body.payscale-main-page .choice-card{min-height:0!important;padding:18px!important}
+ body.payscale-main-page .footer{padding:17px!important}
+ body.payscale-main-page .footer-branding img{width:min(205px,100%)!important}
+ body:has(.content-page) .content-header{padding:17px!important}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*{transition:none!important;animation:none!important}}
