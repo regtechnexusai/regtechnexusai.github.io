@@ -32,6 +32,7 @@ jobs:
           ref: main
           path: site/tradeguard
 
+      # PayScale source has compact mobile-first hero styles; keep source checkout on main.
       # Rebuild this deployment whenever the PayScale source repo is updated on main.
       # The root-site workflow must be triggered after source-only PayScale changes.
       - name: Checkout original PayScale calculator
