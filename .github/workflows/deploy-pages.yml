@@ -94,8 +94,8 @@ jobs:
               relative = page.relative_to(site).as_posix()
               # PayScale ships its own page-specific visual system. The global shell
               # treats every <header> and <footer> as the site shell, overriding
-              # PayScale's hero and footer colors and causing low-contrast text.
-              # Keep PayScale pages on their own stylesheets; do not alter calculator logic.
+              # PayScale's hero, form/output contrast and footer layout. Keep
+              # PayScale pages on their own stylesheets; do not alter calculations.
               if relative.startswith("payscale-2026/"):
                   continue
               if relative in protected:
