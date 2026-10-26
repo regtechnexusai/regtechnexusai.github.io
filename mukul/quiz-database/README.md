@@ -2,7 +2,7 @@
 
 **Owner:** RegTech Nexus AI  
 **Product:** MUKUL Agriculture Hub — Knowledge, Crop Care & Agribusiness  
-**Version:** 1.2  
+**Version:** 1.3  
 **Prepared:** 2026-10-26  
 **Status:** Implementation blueprint; not yet production-deployed
 
@@ -159,7 +159,15 @@ Use authoritative sources appropriate to the claim and jurisdiction. Examples in
 - IRRI knowledge platforms: https://education.irri.org/knowledge-platforms/
 - Bangladesh Rice Knowledge Bank: https://knowledgebank-brri.org/about-brkb/
 
-## 12. Review findings addressed in version 1.2
+## 12. Review findings addressed in version 1.3
+
+- Added a foreign key from review records to the exact question version, preventing orphaned or mis-versioned approvals.
+- Added a monotonic review sequence so decisions created at the same timestamp are ordered deterministically; the latest inserted decision governs the gate.
+- Added automatic `updated_at` maintenance for mutable question records and legacy translation rows.
+- Made `retired` a terminal lifecycle state.
+- Strengthened regression coverage so a complete version with a later `changes_requested` decision is explicitly rejected, and a high-risk version remains blocked until a safety approval is added.
+
+## 12.1. Review findings addressed in version 1.2
 
 - Added version-specific translation, option, answer and source tables so publication checks use one explicit content version.
 - Bound required review decisions to the exact version being published and use the latest decision per review type.
@@ -176,12 +184,12 @@ Use authoritative sources appropriate to the claim and jurisdiction. Examples in
 - Added reviewer reference field and basic non-empty/positive-value checks.
 - Changed the blank question template to use a null ID and empty correct-answer arrays, preventing accidental import of a fake ID or default answer.
 
-**Validation limitation:** JSON parsing and CSV column-count checks can be run independently; PostgreSQL execution must still be performed in a disposable PostgreSQL 13+ instance before approval. The connected GitHub workflow has not executed the SQL against a live database.
+**Validation limitation:** PostgreSQL CI is run against a disposable PostgreSQL 16 service; a successful CI run validates schema execution and the defined regression cases, not production deployment readiness.
 
 ## 14. Next technical gates
 
-1. Review this schema and taxonomy.
-2. Run `schema.sql` in a disposable PostgreSQL database and execute the automated positive/negative regression tests under `tests/`.
+1. Complete review of this schema and taxonomy.
+2. Review the PostgreSQL CI results and any failures on the feature branch.
 3. Create import validation and question linting scripts.
 4. Establish reviewer roles and secure API authorization.
 5. Integrate only after staging and non-regression tests pass.
@@ -193,4 +201,4 @@ Use authoritative sources appropriate to the claim and jurisdiction. Examples in
 - question_reviews.question_version must equal the version being published. Reviews from earlier versions never satisfy a later version.
 - Google Translate may be used as a drafting aid. Set translation_method = 'google_translate'; a language reviewer must verify scientific meaning, units, uncertainty, species names and regional qualifications before the version is publishable.
 - Existing unversioned child tables are retained for import/compatibility during the foundation stage. They are not the authoritative source for publication checks. Any future API must read only the active published_version from version-specific tables.
-- The SQL schema has not been approved for production use until the PostgreSQL workflow passes and the database design receives review.
+- The SQL schema is not approved for production use solely because CI passes; production approval also requires database-design review, secure API authorization, staging validation and a rollback plan.
