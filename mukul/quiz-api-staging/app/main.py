@@ -8,6 +8,16 @@ import psycopg
 from fastapi import Depends, FastAPI, Header, HTTPException, status
 from fastapi.responses import JSONResponse
 
+# Fail closed: this repository contains a staging scaffold, not a production-ready
+# service. Prevent accidental production deployment until production identity,
+# public DTOs/answer-key isolation, migrations, privacy, and operational controls
+# have been implemented and approved.
+if os.getenv("MUKUL_ENV", "staging").strip().lower() == "production":
+    raise RuntimeError(
+        "MUKUL Quiz API production mode is disabled: complete and approve the "
+        "production release gates before enabling production startup."
+    )
+
 app = FastAPI(title="MUKUL Quiz API (Staging)", version="0.1.0", docs_url=None, redoc_url=None, openapi_url=None)
 
 def _database_ready() -> bool:
