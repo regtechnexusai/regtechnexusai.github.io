@@ -1,5 +1,5 @@
 -- MUKUL Agricultural Quiz Database — PostgreSQL foundation schema
--- Version 1.2 | 2026-10-26
+-- Version 1.3 | 2026-10-26
 -- Additive foundation only; does not alter website files.
 -- Requires PostgreSQL 13+. Run in a disposable/staging database first.
 
