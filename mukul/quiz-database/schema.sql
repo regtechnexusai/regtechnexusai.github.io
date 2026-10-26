@@ -515,7 +515,7 @@ BEGIN
   IF EXISTS (
     SELECT 1
     FROM (
-      SELECT language_code, array_agg(option_key ORDER BY option_key) AS correct_keys
+      SELECT a.language_code, array_agg(o.option_key ORDER BY o.option_key) AS correct_keys
       FROM question_version_answers a
       JOIN question_version_options o
         ON o.option_id = a.option_id
@@ -525,7 +525,7 @@ BEGIN
       WHERE a.question_id = NEW.question_id
         AND a.version_number = NEW.current_version
         AND language_code IN ('en','bn')
-      GROUP BY language_code
+      GROUP BY a.language_code
     ) answer_sets
     GROUP BY correct_keys
     HAVING COUNT(*) <> 2
