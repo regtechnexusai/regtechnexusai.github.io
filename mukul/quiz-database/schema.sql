@@ -299,29 +299,34 @@ CREATE INDEX IF NOT EXISTS idx_question_reviews_version
 CREATE OR REPLACE FUNCTION mukul_guard_published_version_content()
 RETURNS TRIGGER
 LANGUAGE plpgsql
-AS $$
+AS $
 DECLARE
   v_question_id UUID;
-  v_version_number INTEGER;
   v_published_version INTEGER;
 BEGIN
-  v_question_id := COALESCE(
-    NULLIF(to_jsonb(NEW)->>'question_id','')::UUID,
-    NULLIF(to_jsonb(OLD)->>'question_id','')::UUID
-  );
-  v_version_number := COALESCE(
-    NULLIF(to_jsonb(NEW)->>'version_number','')::INTEGER,
-    NULLIF(to_jsonb(OLD)->>'version_number','')::INTEGER
-  );
+  IF TG_OP = 'DELETE' THEN
+    v_question_id := OLD.question_id;
+  ELSE
+    v_question_id := NEW.question_id;
+  END IF;
+
   SELECT published_version INTO v_published_version
   FROM questions WHERE question_id = v_question_id;
-  IF v_published_version IS NOT NULL AND v_version_number <= v_published_version THEN
-    RAISE EXCEPTION 'Published question version % of % is immutable; create a new draft version',
-      v_version_number, v_question_id;
+
+  IF v_published_version IS NOT NULL THEN
+    IF TG_OP IN ('UPDATE','DELETE') AND OLD.version_number <= v_published_version THEN
+      RAISE EXCEPTION 'Published question version % of % is immutable; create a new draft version',
+        OLD.version_number, v_question_id;
+    END IF;
+    IF TG_OP IN ('INSERT','UPDATE') AND NEW.version_number <= v_published_version THEN
+      RAISE EXCEPTION 'Cannot target published question version % of %',
+        NEW.version_number, v_question_id;
+    END IF;
   END IF;
+
   IF TG_OP = 'DELETE' THEN RETURN OLD; ELSE RETURN NEW; END IF;
 END;
-$$;
+$;
 
 DROP TRIGGER IF EXISTS trg_guard_question_version_translations ON question_version_translations;
 CREATE TRIGGER trg_guard_question_version_translations
@@ -346,19 +351,29 @@ FOR EACH ROW EXECUTE FUNCTION mukul_guard_published_version_content();
 CREATE OR REPLACE FUNCTION mukul_guard_question_version_history()
 RETURNS TRIGGER
 LANGUAGE plpgsql
-AS $$
+AS $
 DECLARE
+  v_question_id UUID;
   v_published_version INTEGER;
 BEGIN
+  IF TG_OP = 'DELETE' THEN v_question_id := OLD.question_id;
+  ELSE v_question_id := NEW.question_id;
+  END IF;
+
   SELECT published_version INTO v_published_version
-  FROM questions WHERE question_id = COALESCE(NEW.question_id, OLD.question_id);
-  IF v_published_version IS NOT NULL
-     AND COALESCE(NEW.version_number, OLD.version_number) <= v_published_version THEN
-    RAISE EXCEPTION 'Published version history is immutable; create a new version';
+  FROM questions WHERE question_id = v_question_id;
+
+  IF v_published_version IS NOT NULL THEN
+    IF TG_OP IN ('UPDATE','DELETE') AND OLD.version_number <= v_published_version THEN
+      RAISE EXCEPTION 'Published version history % is immutable', OLD.version_number;
+    END IF;
+    IF TG_OP IN ('INSERT','UPDATE') AND NEW.version_number <= v_published_version THEN
+      RAISE EXCEPTION 'Cannot target published version history %', NEW.version_number;
+    END IF;
   END IF;
   IF TG_OP = 'DELETE' THEN RETURN OLD; ELSE RETURN NEW; END IF;
 END;
-$$;
+$;
 
 DROP TRIGGER IF EXISTS trg_guard_question_versions ON question_versions;
 CREATE TRIGGER trg_guard_question_versions
@@ -368,8 +383,15 @@ FOR EACH ROW EXECUTE FUNCTION mukul_guard_question_version_history();
 CREATE OR REPLACE FUNCTION mukul_guard_question_lifecycle()
 RETURNS TRIGGER
 LANGUAGE plpgsql
-AS $$
+AS $
 BEGIN
+  IF TG_OP = 'DELETE' THEN
+    IF OLD.published_version IS NOT NULL OR OLD.status = 'published' THEN
+      RAISE EXCEPTION 'A published question cannot be deleted; retire it instead';
+    END IF;
+    RETURN OLD;
+  END IF;
+
   IF OLD.status = 'published' AND NEW.status NOT IN ('published','retired') THEN
     RAISE EXCEPTION 'A published question cannot return to draft; create a new version or retire it';
   END IF;
@@ -380,22 +402,23 @@ BEGIN
   IF NEW.current_version < OLD.current_version THEN
     RAISE EXCEPTION 'current_version cannot decrease';
   END IF;
-  IF OLD.status = 'published' AND NEW.status = 'published'
-     AND NEW.current_version = OLD.current_version
+
+  IF OLD.published_version IS NOT NULL
+     AND NEW.current_version <= OLD.published_version
      AND (NEW.topic_id, NEW.question_type, NEW.difficulty, NEW.geographic_scope,
           NEW.target_audiences, NEW.risk_level, NEW.canonical_fingerprint)
          IS DISTINCT FROM
          (OLD.topic_id, OLD.question_type, OLD.difficulty, OLD.geographic_scope,
           OLD.target_audiences, OLD.risk_level, OLD.canonical_fingerprint) THEN
-    RAISE EXCEPTION 'Published question metadata is immutable within a version; create a new version';
+    RAISE EXCEPTION 'Metadata for published version % is immutable; advance current_version first', OLD.published_version;
   END IF;
   RETURN NEW;
 END;
-$$;
+$;
 
 DROP TRIGGER IF EXISTS trg_mukul_guard_question_lifecycle ON questions;
 CREATE TRIGGER trg_mukul_guard_question_lifecycle
-BEFORE UPDATE ON questions
+BEFORE UPDATE OR DELETE ON questions
 FOR EACH ROW EXECUTE FUNCTION mukul_guard_question_lifecycle();
 
 CREATE OR REPLACE FUNCTION mukul_validate_question_publication()
@@ -562,7 +585,7 @@ $;
 
 DROP TRIGGER IF EXISTS trg_mukul_validate_question_publication ON questions;
 CREATE TRIGGER trg_mukul_validate_question_publication
-BEFORE INSERT OR UPDATE OF status, published_version ON questions
+BEFORE INSERT OR UPDATE OF status, published_version, current_version ON questions
 FOR EACH ROW EXECUTE FUNCTION mukul_validate_question_publication();
 
 -- Public quiz-attempt/user tables are intentionally deferred until privacy,
