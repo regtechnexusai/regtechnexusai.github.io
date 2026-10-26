@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0",
+  "question_id": "generated-by-database",
+  "topic_slug": "soil-plant-nutrition",
+  "question_type": "single_choice",
+  "difficulty": "basic",
+  "risk_level": "low",
+  "geographic_scope": "global",
+  "target_audiences": ["farmers", "students"],
+  "valid_from": null,
+  "valid_to": null,
+  "translations": {
+    "en": {
+      "question_text": "",
+      "options": [
+        {"key": "A", "text": ""},
+        {"key": "B", "text": ""},
+        {"key": "C", "text": ""},
+        {"key": "D", "text": ""}
+      ],
+      "correct_option_keys": ["A"],
+      "explanation": "",
+      "learning_objective": "",
+      "hint": null
+    },
+    "bn": {
+      "question_text": "",
+      "options": [
+        {"key": "A", "text": ""},
+        {"key": "B", "text": ""},
+        {"key": "C", "text": ""},
+        {"key": "D", "text": ""}
+      ],
+      "correct_option_keys": ["A"],
+      "explanation": "",
+      "learning_objective": "",
+      "hint": null
+    }
+  },
+  "sources": [
+    {
+      "publisher": "",
+      "title": "",
+      "source_url": "",
+      "identifier": null,
+      "publication_date": null,
+      "accessed_at": "YYYY-MM-DD",
+      "license_name": "",
+      "reuse_permission_status": "not_assessed",
+      "evidence_note": ""
+    }
+  ],
+  "review": {
+    "status": "draft",
+    "required_reviews": ["source", "subject_matter", "language", "license"],
+    "review_notes": []
+  },
+  "asset_rights": {
+    "has_image_or_audio": false,
+    "asset_source": null,
+    "license_or_permission": null
+  }
+}
