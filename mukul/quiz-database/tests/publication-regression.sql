@@ -31,8 +31,8 @@ BEGIN
   INSERT INTO sources(publisher,title,source_url,source_type,license_name,reuse_permission_status)
     VALUES('MUKUL test fixture','Synthetic test source','https://example.invalid/test-source','web','test-only','permission_granted')
     RETURNING source_id INTO src;
-  INSERT INTO question_version_sources(question_id,version_number,source_id,evidence_note,supports_answer)
-    VALUES(q,1,src,'Synthetic evidence note for database test',TRUE);
+  INSERT INTO question_version_sources(question_id,version_number,source_id,evidence_note,supports_answer,content_use_type)
+    VALUES(q,1,src,'Synthetic evidence note for database test',TRUE,'adapted_content');
   INSERT INTO question_reviews(question_id,question_version,reviewer_role,review_type,decision,rationale)
     VALUES(q,1,'test_runner','source','approved','test approval'),
           (q,1,'test_runner','subject_matter','approved','test approval'),

@@ -44,3 +44,7 @@ jobs:
         env:
           PGPASSWORD: mukul_test_password
         run: psql -h localhost -U mukul_test -d mukul_quiz_test -v ON_ERROR_STOP=1 -f mukul/quiz-database/tests/publication-regression.sql
+      - name: Run source reuse publication policy regression
+        env:
+          PGPASSWORD: mukul_test_password
+        run: psql -h localhost -U mukul_test -d mukul_quiz_test -v ON_ERROR_STOP=1 -f mukul/quiz-database/tests/publication-reuse-gate.sql
