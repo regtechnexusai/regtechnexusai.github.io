@@ -234,7 +234,7 @@ ALTER TABLE questions
   ADD COLUMN IF NOT EXISTS current_version INTEGER NOT NULL DEFAULT 1 CHECK (current_version > 0),
   ADD COLUMN IF NOT EXISTS published_version INTEGER NULL CHECK (published_version IS NULL OR published_version > 0);
 
-DO $
+DO $$
 BEGIN
   IF NOT EXISTS (
     SELECT 1 FROM pg_constraint
@@ -248,7 +248,7 @@ BEGIN
       ON DELETE RESTRICT;
   END IF;
 END;
-$;
+$$;
 
 CREATE TABLE IF NOT EXISTS question_version_translations (
   question_id UUID NOT NULL,
