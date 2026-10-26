@@ -524,7 +524,7 @@ BEGIN
        AND o.language_code = a.language_code
       WHERE a.question_id = NEW.question_id
         AND a.version_number = NEW.current_version
-        AND language_code IN ('en','bn')
+        AND a.language_code IN ('en','bn')
       GROUP BY a.language_code
     ) answer_sets
     GROUP BY correct_keys
