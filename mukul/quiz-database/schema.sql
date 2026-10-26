@@ -444,7 +444,7 @@ FOR EACH ROW EXECUTE FUNCTION mukul_guard_question_lifecycle();
 CREATE OR REPLACE FUNCTION mukul_set_updated_at()
 RETURNS TRIGGER
 LANGUAGE plpgsql
-AS $
+AS $$
 BEGIN
   NEW.updated_at := NOW();
   RETURN NEW;
