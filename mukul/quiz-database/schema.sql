@@ -524,6 +524,7 @@ BEGIN
       ON bn.question_id = en.question_id
      AND bn.version_number = en.version_number
      AND bn.option_key = en.option_key
+     AND en.language_code = 'en'
      AND bn.language_code = 'bn'
     WHERE (en.question_id = NEW.question_id AND en.version_number = NEW.current_version AND en.language_code = 'en')
        OR (bn.question_id = NEW.question_id AND bn.version_number = NEW.current_version AND bn.language_code = 'bn')
