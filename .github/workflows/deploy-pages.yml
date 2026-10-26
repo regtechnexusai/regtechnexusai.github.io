@@ -49,6 +49,7 @@ jobs:
             --exclude='*.md' \
             --exclude='payscale-2026' \
             --exclude='PayScale-2026-calculator' \
+            --exclude='/mukul/quiz-api-staging/***' \
             root-site/ site/
 
           mkdir -p site/payscale-2026
