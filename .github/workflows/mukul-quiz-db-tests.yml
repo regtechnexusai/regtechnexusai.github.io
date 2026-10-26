@@ -12,6 +12,9 @@ on:
       - '.github/workflows/mukul-quiz-db-tests.yml'
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   postgres-schema-and-regression:
     runs-on: ubuntu-latest
@@ -30,7 +33,7 @@ jobs:
           --health-timeout 5s
           --health-retries 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Install PostgreSQL client
         run: sudo apt-get update && sudo apt-get install -y postgresql-client
       - name: Apply schema to a disposable database
@@ -41,3 +44,7 @@ jobs:
         env:
           PGPASSWORD: mukul_test_password
         run: psql -h localhost -U mukul_test -d mukul_quiz_test -v ON_ERROR_STOP=1 -f mukul/quiz-database/tests/publication-regression.sql
+      - name: Run source reuse publication regression
+        env:
+          PGPASSWORD: mukul_test_password
+        run: psql -h localhost -U mukul_test -d mukul_quiz_test -v ON_ERROR_STOP=1 -f mukul/quiz-database/tests/publication-reuse-gate.sql
