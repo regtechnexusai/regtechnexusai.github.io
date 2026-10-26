@@ -193,6 +193,7 @@ CREATE TABLE IF NOT EXISTS question_sources (
 
 CREATE TABLE IF NOT EXISTS question_reviews (
   review_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  review_sequence BIGINT GENERATED ALWAYS AS IDENTITY UNIQUE,
   question_id UUID NOT NULL REFERENCES questions(question_id) ON DELETE CASCADE,
   question_version INTEGER NOT NULL DEFAULT 1 CHECK (question_version > 0),
   reviewer_role VARCHAR(50) NOT NULL,
@@ -232,6 +233,22 @@ CREATE TABLE IF NOT EXISTS question_tags (
 ALTER TABLE questions
   ADD COLUMN IF NOT EXISTS current_version INTEGER NOT NULL DEFAULT 1 CHECK (current_version > 0),
   ADD COLUMN IF NOT EXISTS published_version INTEGER NULL CHECK (published_version IS NULL OR published_version > 0);
+
+DO $
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_constraint
+    WHERE conname = 'fk_question_reviews_version'
+      AND conrelid = 'question_reviews'::regclass
+  ) THEN
+    ALTER TABLE question_reviews
+      ADD CONSTRAINT fk_question_reviews_version
+      FOREIGN KEY (question_id, question_version)
+      REFERENCES question_versions(question_id, version_number)
+      ON DELETE RESTRICT;
+  END IF;
+END;
+$;
 
 CREATE TABLE IF NOT EXISTS question_version_translations (
   question_id UUID NOT NULL,
@@ -395,6 +412,9 @@ BEGIN
   IF OLD.status = 'published' AND NEW.status NOT IN ('published','retired') THEN
     RAISE EXCEPTION 'A published question cannot return to draft; create a new version or retire it';
   END IF;
+  IF OLD.status = 'retired' AND NEW.status <> 'retired' THEN
+    RAISE EXCEPTION 'A retired question is terminal; create a replacement question if needed';
+  END IF;
   IF NEW.published_version IS DISTINCT FROM OLD.published_version
      AND NOT (NEW.status = 'published' AND NEW.published_version = NEW.current_version) THEN
     RAISE EXCEPTION 'published_version can only be set to the current version during publication';
@@ -420,6 +440,26 @@ DROP TRIGGER IF EXISTS trg_mukul_guard_question_lifecycle ON questions;
 CREATE TRIGGER trg_mukul_guard_question_lifecycle
 BEFORE UPDATE OR DELETE ON questions
 FOR EACH ROW EXECUTE FUNCTION mukul_guard_question_lifecycle();
+
+CREATE OR REPLACE FUNCTION mukul_set_updated_at()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $
+BEGIN
+  NEW.updated_at := NOW();
+  RETURN NEW;
+END;
+$;
+
+DROP TRIGGER IF EXISTS trg_questions_updated_at ON questions;
+CREATE TRIGGER trg_questions_updated_at
+BEFORE UPDATE ON questions
+FOR EACH ROW EXECUTE FUNCTION mukul_set_updated_at();
+
+DROP TRIGGER IF EXISTS trg_question_translations_updated_at ON question_translations;
+CREATE TRIGGER trg_question_translations_updated_at
+BEFORE UPDATE ON question_translations
+FOR EACH ROW EXECUTE FUNCTION mukul_set_updated_at();
 
 CREATE OR REPLACE FUNCTION mukul_validate_question_publication()
 RETURNS TRIGGER
@@ -471,7 +511,7 @@ BEGIN
     WHERE qr.question_id = NEW.question_id
       AND qr.question_version = NEW.current_version
       AND qr.review_type = v_review_type
-    ORDER BY qr.reviewed_at DESC, qr.review_id DESC
+    ORDER BY qr.reviewed_at DESC, qr.review_sequence DESC
     LIMIT 1;
     IF v_latest_decision IS DISTINCT FROM 'approved' THEN
       RAISE EXCEPTION 'Cannot publish question % version %: latest % review must be approved',
