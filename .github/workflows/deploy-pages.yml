@@ -32,6 +32,8 @@ jobs:
           ref: main
           path: site/tradeguard
 
+      # Rebuild this deployment whenever the PayScale source repo is updated on main.
+      # The root-site workflow must be triggered after source-only PayScale changes.
       - name: Checkout original PayScale calculator
         uses: actions/checkout@v4
         with:
