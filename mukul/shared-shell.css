@@ -1053,3 +1053,69 @@ html body main hr{
   html body main .card:hover,
   html body main .resource:hover{transform:none!important}
 }
+
+
+/* MUKUL global footer mobile repair — 2026-10-26.
+   Keep the brand row full-width and stack navigation groups on narrow screens. */
+@media screen and (max-width:760px){
+  html body footer.site-footer .footer-grid,
+  html body .site-footer .footer-grid{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-auto-columns:minmax(0,1fr)!important;
+    grid-auto-flow:row!important;
+    gap:22px!important;
+    width:100%!important;max-width:100%!important;
+    align-items:start!important;
+  }
+  html body footer.site-footer .footer-grid > *,
+  html body .site-footer .footer-grid > *{
+    grid-column:1/-1!important;
+    grid-row:auto!important;
+    width:100%!important;min-width:0!important;max-width:100%!important;
+    justify-self:stretch!important;
+  }
+  html body footer.site-footer .footer-brand,
+  html body footer.site-footer .footer-col,
+  html body .site-footer .footer-brand,
+  html body .site-footer .footer-col{
+    display:flex!important;flex-direction:column!important;
+    align-items:flex-start!important;gap:9px!important;
+    width:100%!important;min-width:0!important;max-width:100%!important;
+  }
+  html body footer.site-footer .footer-col h3,
+  html body footer.site-footer .footer-col a,
+  html body footer.site-footer .footer-col p,
+  html body footer.site-footer .footer-brand p,
+  html body .site-footer .footer-col h3,
+  html body .site-footer .footer-col a,
+  html body .site-footer .footer-col p,
+  html body .site-footer .footer-brand p{
+    display:block!important;float:none!important;
+    width:auto!important;min-width:0!important;max-width:100%!important;
+    white-space:normal!important;word-break:normal!important;
+    overflow-wrap:break-word!important;line-height:1.65!important;
+    letter-spacing:normal!important;
+  }
+  html body footer.site-footer .footer-col h3,
+  html body .site-footer .footer-col h3{
+    margin:0 0 4px!important;padding:6px 10px!important;
+  }
+  html body footer.site-footer .footer-bottom,
+  html body .site-footer .footer-bottom{
+    display:flex!important;flex-direction:column!important;
+    align-items:flex-start!important;gap:10px!important;
+    width:100%!important;max-width:100%!important;
+  }
+  html body footer.site-footer .footer-logo-link,
+  html body .site-footer .footer-logo-link{
+    display:flex!important;width:min(100%,230px)!important;max-width:230px!important;
+  }
+  html body footer.site-footer img.footer-logo,
+  html body footer.site-footer #footer-logo,
+  html body .site-footer img.footer-logo,
+  html body .site-footer #footer-logo{
+    display:block!important;width:100%!important;max-width:230px!important;
+    height:auto!important;max-height:none!important;object-fit:contain!important;
+  }
+}
