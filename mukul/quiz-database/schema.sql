@@ -373,9 +373,9 @@ BEGIN
   IF OLD.status = 'published' AND NEW.status NOT IN ('published','retired') THEN
     RAISE EXCEPTION 'A published question cannot return to draft; create a new version or retire it';
   END IF;
-  IF OLD.published_version IS NOT NULL AND NEW.published_version IS DISTINCT FROM OLD.published_version
+  IF NEW.published_version IS DISTINCT FROM OLD.published_version
      AND NOT (NEW.status = 'published' AND NEW.published_version = NEW.current_version) THEN
-    RAISE EXCEPTION 'published_version can only advance with successful publication';
+    RAISE EXCEPTION 'published_version can only be set to the current version during publication';
   END IF;
   IF NEW.current_version < OLD.current_version THEN
     RAISE EXCEPTION 'current_version cannot decrease';
@@ -489,18 +489,80 @@ BEGIN
     END IF;
     IF NEW.question_type = 'true_false' AND v_option_count <> 2 THEN
       RAISE EXCEPTION 'Cannot publish true_false question % version %: exactly two options required for language %',
-        NEW.question_id, NEW.current_version;
+        NEW.question_id, NEW.current_version, v_language;
     END IF;
   END LOOP;
+
+  -- English and Bangla must use identical option keys and identical correct-answer keys.
+  IF EXISTS (
+    SELECT 1
+    FROM question_version_options en
+    FULL JOIN question_version_options bn
+      ON bn.question_id = en.question_id
+     AND bn.version_number = en.version_number
+     AND bn.option_key = en.option_key
+     AND bn.language_code = 'bn'
+    WHERE (en.question_id = NEW.question_id AND en.version_number = NEW.current_version AND en.language_code = 'en')
+       OR (bn.question_id = NEW.question_id AND bn.version_number = NEW.current_version AND bn.language_code = 'bn')
+    GROUP BY COALESCE(en.option_key, bn.option_key)
+    HAVING COUNT(*) FILTER (WHERE en.option_id IS NOT NULL) <> 1
+        OR COUNT(*) FILTER (WHERE bn.option_id IS NOT NULL) <> 1
+  ) THEN
+    RAISE EXCEPTION 'Cannot publish question % version %: English and Bangla option keys must match',
+      NEW.question_id, NEW.current_version;
+  END IF;
+
+  IF EXISTS (
+    SELECT 1
+    FROM (
+      SELECT language_code, array_agg(option_key ORDER BY option_key) AS correct_keys
+      FROM question_version_answers a
+      JOIN question_version_options o
+        ON o.option_id = a.option_id
+       AND o.question_id = a.question_id
+       AND o.version_number = a.version_number
+       AND o.language_code = a.language_code
+      WHERE a.question_id = NEW.question_id
+        AND a.version_number = NEW.current_version
+        AND language_code IN ('en','bn')
+      GROUP BY language_code
+    ) answer_sets
+    GROUP BY correct_keys
+    HAVING COUNT(*) <> 2
+  ) OR (
+    SELECT COUNT(DISTINCT language_code)
+    FROM question_version_answers
+    WHERE question_id = NEW.question_id
+      AND version_number = NEW.current_version
+      AND language_code IN ('en','bn')
+  ) <> 2 THEN
+    RAISE EXCEPTION 'Cannot publish question % version %: English and Bangla correct-answer keys must match',
+      NEW.question_id, NEW.current_version;
+  END IF;
+
+  -- A source marked restricted or link_only may be cited, but it must not be
+  -- treated as permission to reproduce source material in the question.
+  IF EXISTS (
+    SELECT 1
+    FROM question_version_sources qvs
+    JOIN sources s ON s.source_id = qvs.source_id
+    WHERE qvs.question_id = NEW.question_id
+      AND qvs.version_number = NEW.current_version
+      AND qvs.supports_answer = TRUE
+      AND s.reuse_permission_status IN ('restricted','link_only')
+  ) THEN
+    RAISE EXCEPTION 'Cannot publish question % version %: supporting source reuse permission is restricted or link_only',
+      NEW.question_id, NEW.current_version;
+  END IF;
 
   NEW.published_version := NEW.current_version;
   RETURN NEW;
 END;
-$$;
+$;
 
 DROP TRIGGER IF EXISTS trg_mukul_validate_question_publication ON questions;
 CREATE TRIGGER trg_mukul_validate_question_publication
-BEFORE INSERT OR UPDATE OF status ON questions
+BEFORE INSERT OR UPDATE OF status, published_version ON questions
 FOR EACH ROW EXECUTE FUNCTION mukul_validate_question_publication();
 
 -- Public quiz-attempt/user tables are intentionally deferred until privacy,
