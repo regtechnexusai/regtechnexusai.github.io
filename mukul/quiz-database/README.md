@@ -2,7 +2,7 @@
 
 **Owner:** RegTech Nexus AI  
 **Product:** MUKUL Agriculture Hub — Knowledge, Crop Care & Agribusiness  
-**Version:** 1.1  
+**Version:** 1.2  
 **Prepared:** 2026-10-26  
 **Status:** Implementation blueprint; not yet production-deployed
 
@@ -33,7 +33,11 @@ The SQL schema is in `schema.sql`. Version 1.1 adds a question-to-concept mappin
 | `crops`, `question_crops` | Crop registry and question-to-crop mapping |
 | `sources`, `question_sources` | Source register, licensing and claim-level evidence notes |
 | `questions` | Canonical question identity, scope, difficulty and lifecycle state |
-| `question_translations` | Localized question stem and explanation |
+| `question_translations` | Legacy/import staging translations (not publication authority) |
+| `question_versions` | Immutable version snapshots and change history |
+| `question_version_translations` | Version-specific localized stem/explanation; records machine-translation method |
+| `question_version_options`, `question_version_answers` | Version-specific answer options and correct answers |
+| `question_version_sources` | Version-specific evidence links and claim notes |
 | `question_options`, `correct_answers` | Language-specific options and one/multiple correct answers |
 | `question_reviews` | Review decisions, roles and rationale |
 | `question_versions` | Change history |
@@ -80,7 +84,7 @@ Cross-cutting metadata: crop/species, farming system, geographic scope, country/
 ### Review workflow
 `draft → source_verified → subject_reviewed → language_qa → approved → published`
 
-Additional terminal states: `rejected`, `retired`. The API must enforce the workflow. The database trigger additionally blocks publication unless both language variants, options and answers, an answer-supporting source, approved source/subject/language/license reviews, and (for high-risk items) a safety review exist. This trigger is a minimum gate, not a substitute for authorization or expert judgment.
+Additional terminal states: `rejected`, `retired`. The API must enforce the workflow. The database trigger additionally blocks publication unless the current version has both language variants, options and answers, an answer-supporting source, current-version approved source/subject/language/license reviews, and (for high-risk items) a current-version safety review. The latest decision for each required review type must be approved; a later changes_requested or rejected decision overrides an earlier approval. Published version content and its snapshot are immutable; edits must be created as a new version, reviewed, and explicitly published. published_version remains on the prior release until the new version passes publication gates. This trigger is a minimum gate, not a substitute for authorization or expert judgment.
 
 ### Risk-based review
 - **Low risk:** basic definitions and stable scientific concepts; editorial and source checks.
@@ -155,7 +159,15 @@ Use authoritative sources appropriate to the claim and jurisdiction. Examples in
 - IRRI knowledge platforms: https://education.irri.org/knowledge-platforms/
 - Bangladesh Rice Knowledge Bank: https://knowledgebank-brri.org/about-brkb/
 
-## 12. Review findings addressed in version 1.1
+## 12. Review findings addressed in version 1.2
+
+- Added version-specific translation, option, answer and source tables so publication checks use one explicit content version.
+- Bound required review decisions to the exact version being published and use the latest decision per review type.
+- Added current/published version pointers; a new version does not replace the active published version until it passes the publication gate.
+- Added database guards preventing edits/deletes to published-version content and snapshots; published metadata cannot be silently edited in place.
+- Recorded translation method, including Google Translate, so machine-assisted translations can be identified and separately reviewed.
+
+## 13. Previous review findings addressed in version 1.1
 
 - Quoted CSV fields containing commas so every taxonomy row has exactly seven columns.
 - Added question-to-concept relationships; the concepts table is no longer isolated.
@@ -166,10 +178,19 @@ Use authoritative sources appropriate to the claim and jurisdiction. Examples in
 
 **Validation limitation:** JSON parsing and CSV column-count checks can be run independently; PostgreSQL execution must still be performed in a disposable PostgreSQL 13+ instance before approval. The connected GitHub workflow has not executed the SQL against a live database.
 
-## 13. Next technical gates
+## 14. Next technical gates
 
 1. Review this schema and taxonomy.
-2. Run `schema.sql` in a disposable PostgreSQL database and validate constraints.
+2. Run `schema.sql` in a disposable PostgreSQL database and execute the automated positive/negative regression tests under `tests/`.
 3. Create import validation and question linting scripts.
 4. Establish reviewer roles and secure API authorization.
 5. Integrate only after staging and non-regression tests pass.
+
+
+### Versioning and translation notes
+
+- A new draft version must receive a question_versions snapshot and all version-specific child records before publication is attempted.
+- question_reviews.question_version must equal the version being published. Reviews from earlier versions never satisfy a later version.
+- Google Translate may be used as a drafting aid. Set translation_method = 'google_translate'; a language reviewer must verify scientific meaning, units, uncertainty, species names and regional qualifications before the version is publishable.
+- Existing unversioned child tables are retained for import/compatibility during the foundation stage. They are not the authoritative source for publication checks. Any future API must read only the active published_version from version-specific tables.
+- The SQL schema has not been approved for production use until the PostgreSQL workflow passes and the database design receives review.
