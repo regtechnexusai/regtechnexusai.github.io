@@ -6,7 +6,6 @@ on:
       - 'mukul/quiz-api-staging/**'
       - 'mukul/quiz-database/schema.sql'
       - 'mukul/quiz-database/tests/**'
-      - 'mukul/quiz-database/tests/**'
       - '.github/workflows/mukul-quiz-api-staging-tests.yml'
   push:
     branches: [main]
