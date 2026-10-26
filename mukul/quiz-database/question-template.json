@@ -1,6 +1,6 @@
 {
-  "schema_version": "1.0",
-  "question_id": "generated-by-database",
+  "schema_version": "1.1",
+  "question_id": null,
   "topic_slug": "soil-plant-nutrition",
   "question_type": "single_choice",
   "difficulty": "basic",
@@ -18,7 +18,7 @@
         {"key": "C", "text": ""},
         {"key": "D", "text": ""}
       ],
-      "correct_option_keys": ["A"],
+      "correct_option_keys": [],
       "explanation": "",
       "learning_objective": "",
       "hint": null
@@ -31,7 +31,7 @@
         {"key": "C", "text": ""},
         {"key": "D", "text": ""}
       ],
-      "correct_option_keys": ["A"],
+      "correct_option_keys": [],
       "explanation": "",
       "learning_objective": "",
       "hint": null
