@@ -129,26 +129,71 @@ BEGIN
     RAISE EXCEPTION 'P2 failed: version 2 did not become active';
   END IF;
 
-  -- N4: latest changes_requested decision must override earlier approval.
-  INSERT INTO question_reviews(question_id,question_version,reviewer_role,review_type,decision,rationale)
-    VALUES(q,2,'test_runner','language','changes_requested','negative test: needs revision');
-  UPDATE questions SET current_version=3 WHERE question_id=q;
+  -- Prepare a complete high-risk v3. The test must exercise the latest-review rule,
+  -- not merely fail because required content is missing.
+  UPDATE questions SET current_version=3, risk_level='high' WHERE question_id=q;
   INSERT INTO question_versions(question_id,version_number,change_summary,changed_by_role,snapshot)
     VALUES(q,3,'Test fixture v3','test_runner','{"version":3}');
-  -- Attempting to publish an incomplete version must fail and preserve v2.
+  INSERT INTO question_version_translations(question_id,version_number,language_code,question_text,explanation)
+    VALUES (q,3,'en','Version three question?','Version three explanation.'),
+           (q,3,'bn','তৃতীয় সংস্করণের প্রশ্ন?','তৃতীয় সংস্করণের ব্যাখ্যা।');
+  INSERT INTO question_version_options(question_id,version_number,language_code,option_key,option_text,option_order)
+    VALUES(q,3,'en','A','Correct',1),(q,3,'en','B','Incorrect',2),
+          (q,3,'bn','A','সঠিক',1),(q,3,'bn','B','ভুল',2);
+  SELECT option_id INTO opt_en_a FROM question_version_options WHERE question_id=q AND version_number=3 AND language_code='en' AND option_key='A';
+  SELECT option_id INTO opt_bn_a FROM question_version_options WHERE question_id=q AND version_number=3 AND language_code='bn' AND option_key='A';
+  INSERT INTO question_version_answers(question_id,version_number,language_code,option_id)
+    VALUES(q,3,'en',opt_en_a),(q,3,'bn',opt_bn_a);
+  INSERT INTO question_version_sources(question_id,version_number,source_id,evidence_note,supports_answer)
+    VALUES(q,3,src,'Version three evidence note',TRUE);
+  INSERT INTO question_reviews(question_id,question_version,reviewer_role,review_type,decision,rationale)
+    VALUES(q,3,'test_runner','source','approved','v3 test approval'),
+          (q,3,'test_runner','subject_matter','approved','v3 test approval'),
+          (q,3,'test_runner','language','approved','v3 initial language approval'),
+          (q,3,'test_runner','license','approved','v3 test approval'),
+          (q,3,'test_runner','language','changes_requested','later language review requests changes');
+
+  -- N4: latest changes_requested decision must override earlier approval for the same version.
   failed := FALSE;
+  r := '';
   BEGIN
     UPDATE questions SET status='published' WHERE question_id=q;
-  EXCEPTION WHEN OTHERS THEN failed := TRUE;
+  EXCEPTION WHEN OTHERS THEN
+    failed := TRUE;
+    GET STACKED DIAGNOSTICS r = MESSAGE_TEXT;
   END;
-  IF NOT failed THEN RAISE EXCEPTION 'N4 failed: incomplete v3 was accepted'; END IF;
+  IF NOT failed OR r NOT LIKE '%latest language review must be approved%' THEN
+    RAISE EXCEPTION 'N4 failed: latest changes_requested did not block publication (message=%)', r;
+  END IF;
   IF (SELECT published_version FROM questions WHERE question_id=q) <> 2 THEN
     RAISE EXCEPTION 'N5 failed: failed v3 publication changed active version';
   END IF;
 
-  -- High-risk items require a current-version safety approval.
-  UPDATE questions SET current_version=3, risk_level='high' WHERE question_id=q;
-  -- v3 is intentionally incomplete; its publication is already expected to fail above.
+  -- N6: once the latest language review is approved, high-risk v3 still needs safety approval.
+  INSERT INTO question_reviews(question_id,question_version,reviewer_role,review_type,decision,rationale)
+    VALUES(q,3,'test_runner','language','approved','latest language approval');
+  failed := FALSE;
+  r := '';
+  BEGIN
+    UPDATE questions SET status='published' WHERE question_id=q;
+  EXCEPTION WHEN OTHERS THEN
+    failed := TRUE;
+    GET STACKED DIAGNOSTICS r = MESSAGE_TEXT;
+  END;
+  IF NOT failed OR r NOT LIKE '%safety approval%' THEN
+    RAISE EXCEPTION 'N6 failed: high-risk v3 without safety approval was not blocked (message=%)', r;
+  END IF;
+  IF (SELECT published_version FROM questions WHERE question_id=q) <> 2 THEN
+    RAISE EXCEPTION 'N7 failed: safety-gate failure changed active version';
+  END IF;
+
+  -- P3: after explicit current-version safety approval, v3 can be published.
+  INSERT INTO question_reviews(question_id,question_version,reviewer_role,review_type,decision,rationale)
+    VALUES(q,3,'test_runner','safety','approved','v3 safety approval');
+  UPDATE questions SET status='published' WHERE question_id=q;
+  IF (SELECT published_version FROM questions WHERE question_id=q) <> 3 THEN
+    RAISE EXCEPTION 'P3 failed: reviewed high-risk version 3 did not become active';
+  END IF;
 END;
 $$;
 
