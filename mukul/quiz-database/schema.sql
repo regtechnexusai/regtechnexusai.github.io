@@ -319,9 +319,9 @@ BEGIN
     RAISE EXCEPTION 'Published question version % of % is immutable; create a new draft version',
       v_version_number, v_question_id;
   END IF;
-  RETURN COALESCE(NEW, OLD);
+  IF TG_OP = 'DELETE' THEN RETURN OLD; ELSE RETURN NEW; END IF;
 END;
-$$;
+$;
 
 DROP TRIGGER IF EXISTS trg_guard_question_version_translations ON question_version_translations;
 CREATE TRIGGER trg_guard_question_version_translations
@@ -356,9 +356,9 @@ BEGIN
      AND COALESCE(NEW.version_number, OLD.version_number) <= v_published_version THEN
     RAISE EXCEPTION 'Published version history is immutable; create a new version';
   END IF;
-  RETURN COALESCE(NEW, OLD);
+  IF TG_OP = 'DELETE' THEN RETURN OLD; ELSE RETURN NEW; END IF;
 END;
-$$;
+$;
 
 DROP TRIGGER IF EXISTS trg_guard_question_versions ON question_versions;
 CREATE TRIGGER trg_guard_question_versions
