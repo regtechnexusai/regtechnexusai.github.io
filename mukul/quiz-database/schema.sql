@@ -321,7 +321,7 @@ BEGIN
   END IF;
   IF TG_OP = 'DELETE' THEN RETURN OLD; ELSE RETURN NEW; END IF;
 END;
-$;
+$$;
 
 DROP TRIGGER IF EXISTS trg_guard_question_version_translations ON question_version_translations;
 CREATE TRIGGER trg_guard_question_version_translations
@@ -358,7 +358,7 @@ BEGIN
   END IF;
   IF TG_OP = 'DELETE' THEN RETURN OLD; ELSE RETURN NEW; END IF;
 END;
-$;
+$$;
 
 DROP TRIGGER IF EXISTS trg_guard_question_versions ON question_versions;
 CREATE TRIGGER trg_guard_question_versions
