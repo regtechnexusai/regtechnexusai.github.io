@@ -2,7 +2,7 @@
 
 **Owner:** RegTech Nexus AI  
 **Product:** MUKUL Agriculture Hub — Knowledge, Crop Care & Agribusiness  
-**Version:** 1.0  
+**Version:** 1.1  
 **Prepared:** 2026-10-26  
 **Status:** Implementation blueprint; not yet production-deployed
 
@@ -23,13 +23,13 @@ This pack adds database specifications and governance documents only. It does **
 
 ## 3. Data model
 
-The SQL schema is in `schema.sql`. Core entities:
+The SQL schema is in `schema.sql`. Version 1.1 adds a question-to-concept mapping table and a database publication gate. Core entities:
 
 | Table | Purpose |
 |---|---|
 | `languages` | Supported language codes |
 | `topics`, `topic_translations` | Hierarchical subject taxonomy and localized labels |
-| `concepts` | Agricultural concepts and optional external vocabulary URI |
+| `concepts`, `question_concepts` | Agricultural concepts, optional external vocabulary URI, and question mappings |
 | `crops`, `question_crops` | Crop registry and question-to-crop mapping |
 | `sources`, `question_sources` | Source register, licensing and claim-level evidence notes |
 | `questions` | Canonical question identity, scope, difficulty and lifecycle state |
@@ -80,7 +80,7 @@ Cross-cutting metadata: crop/species, farming system, geographic scope, country/
 ### Review workflow
 `draft → source_verified → subject_reviewed → language_qa → approved → published`
 
-Additional terminal states: `rejected`, `retired`. The exact production workflow should be enforced in the API, not only by a front-end dropdown.
+Additional terminal states: `rejected`, `retired`. The API must enforce the workflow. The database trigger additionally blocks publication unless both language variants, options and answers, an answer-supporting source, approved source/subject/language/license reviews, and (for high-risk items) a safety review exist. This trigger is a minimum gate, not a substitute for authorization or expert judgment.
 
 ### Risk-based review
 - **Low risk:** basic definitions and stable scientific concepts; editorial and source checks.
@@ -155,7 +155,18 @@ Use authoritative sources appropriate to the claim and jurisdiction. Examples in
 - IRRI knowledge platforms: https://education.irri.org/knowledge-platforms/
 - Bangladesh Rice Knowledge Bank: https://knowledgebank-brri.org/about-brkb/
 
-## 12. Next technical gates
+## 12. Review findings addressed in version 1.1
+
+- Quoted CSV fields containing commas so every taxonomy row has exactly seven columns.
+- Added question-to-concept relationships; the concepts table is no longer isolated.
+- Added publication-gate validation in PostgreSQL for bilingual content, option/answer completeness, supporting sources and required review decisions.
+- Added a safety-review gate for high-risk questions.
+- Added reviewer reference field and basic non-empty/positive-value checks.
+- Changed the blank question template to use a null ID and empty correct-answer arrays, preventing accidental import of a fake ID or default answer.
+
+**Validation limitation:** JSON parsing and CSV column-count checks can be run independently; PostgreSQL execution must still be performed in a disposable PostgreSQL 13+ instance before approval. The connected GitHub workflow has not executed the SQL against a live database.
+
+## 13. Next technical gates
 
 1. Review this schema and taxonomy.
 2. Run `schema.sql` in a disposable PostgreSQL database and validate constraints.
