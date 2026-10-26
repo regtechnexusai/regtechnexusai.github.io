@@ -86,4 +86,4 @@ These are automated staging checks, not a penetration test, third-party audit, o
 
 ## 7. Final disposition
 
-**Production architecture review: completed with a NO-GO decision for production.** The current scaffold is acceptable for isolated staging and further development. The blockers above are explicit acceptance criteria, not assumed completed work. PR #152 must remain Draft/unmerged until the relevant gates are implemented and verified. No production deployment or existing quiz-page change is authorized by this review.
+**Production architecture review: completed with a NO-GO decision for production.** The current scaffold is acceptable for isolated staging and further development. The blockers above are explicit acceptance criteria, not assumed completed work. PR #152 was merged as a staging-only scaffold. That merge does not authorize production deployment or existing quiz-page integration. Keep the API isolated until the relevant production gates are implemented and verified.
