@@ -586,7 +586,7 @@ $$;
 
 DROP TRIGGER IF EXISTS trg_mukul_validate_question_publication ON questions;
 CREATE TRIGGER trg_mukul_validate_question_publication
-BEFORE INSERT OR UPDATE OF status, published_version, current_version ON questions
+BEFORE INSERT OR UPDATE OF status, published_version ON questions
 FOR EACH ROW EXECUTE FUNCTION mukul_validate_question_publication();
 
 -- Public quiz-attempt/user tables are intentionally deferred until privacy,
