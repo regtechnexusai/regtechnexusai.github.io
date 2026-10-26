@@ -316,7 +316,7 @@ CREATE TABLE IF NOT EXISTS question_version_sources (
 ALTER TABLE question_version_sources
   ADD COLUMN IF NOT EXISTS content_use_type VARCHAR(30) NOT NULL DEFAULT 'factual_reference';
 
-DO $
+DO $constraint$
 BEGIN
   IF NOT EXISTS (
     SELECT 1 FROM pg_constraint
@@ -328,7 +328,7 @@ BEGIN
       CHECK (content_use_type IN ('factual_reference','adapted_content','quoted_text','media_reuse'));
   END IF;
 END;
-$;
+$constraint$;
 
 CREATE INDEX IF NOT EXISTS idx_question_reviews_version
   ON question_reviews(question_id, question_version, review_type, reviewed_at DESC);
