@@ -449,7 +449,7 @@ BEGIN
   NEW.updated_at := NOW();
   RETURN NEW;
 END;
-$;
+$$;
 
 DROP TRIGGER IF EXISTS trg_questions_updated_at ON questions;
 CREATE TRIGGER trg_questions_updated_at
