@@ -18,6 +18,7 @@ DECLARE
   v_expected_block BOOLEAN;
   v_published BOOLEAN;
   v_review_type TEXT;
+  v_error TEXT;
 BEGIN
   FOREACH v_status IN ARRAY v_all_statuses LOOP
     FOREACH v_use_type IN ARRAY v_use_types LOOP
@@ -87,10 +88,12 @@ BEGIN
       BEGIN
         UPDATE questions SET status = 'published' WHERE question_id = v_question;
       EXCEPTION WHEN OTHERS THEN
+        GET STACKED DIAGNOSTICS v_error = MESSAGE_TEXT;
         v_published := FALSE;
-        IF NOT v_expected_block THEN
-          RAISE EXCEPTION 'Unexpected publication rejection for reuse status %, use type %',
-            v_status, v_use_type;
+        IF NOT v_expected_block
+           OR v_error NOT LIKE 'Cannot publish question %: reproduced source material requires explicit reuse permission%' THEN
+          RAISE EXCEPTION 'Unexpected publication rejection for reuse status %, use type %: %',
+            v_status, v_use_type, v_error;
         END IF;
       END;
 
