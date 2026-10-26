@@ -299,7 +299,7 @@ CREATE INDEX IF NOT EXISTS idx_question_reviews_version
 CREATE OR REPLACE FUNCTION mukul_guard_published_version_content()
 RETURNS TRIGGER
 LANGUAGE plpgsql
-AS $
+AS $$
 DECLARE
   v_question_id UUID;
   v_published_version INTEGER;
@@ -351,7 +351,7 @@ FOR EACH ROW EXECUTE FUNCTION mukul_guard_published_version_content();
 CREATE OR REPLACE FUNCTION mukul_guard_question_version_history()
 RETURNS TRIGGER
 LANGUAGE plpgsql
-AS $
+AS $$
 DECLARE
   v_question_id UUID;
   v_published_version INTEGER;
@@ -383,7 +383,7 @@ FOR EACH ROW EXECUTE FUNCTION mukul_guard_question_version_history();
 CREATE OR REPLACE FUNCTION mukul_guard_question_lifecycle()
 RETURNS TRIGGER
 LANGUAGE plpgsql
-AS $
+AS $$
 BEGIN
   IF TG_OP = 'DELETE' THEN
     IF OLD.published_version IS NOT NULL OR OLD.status = 'published' THEN
