@@ -1,5 +1,5 @@
 -- MUKUL Agricultural Quiz Database — PostgreSQL foundation schema
--- Version 1.1 | 2026-10-26
+-- Version 1.2 | 2026-10-26
 -- Additive foundation only; does not alter website files.
 -- Requires PostgreSQL 13+. Run in a disposable/staging database first.
 
@@ -227,6 +227,177 @@ CREATE TABLE IF NOT EXISTS question_tags (
 
 -- Enforce minimum publication gates in the database as well as in the API.
 -- The question must be created as draft, populated, reviewed, then transitioned to published.
+-- Versioned content is authoritative for publication. Legacy unversioned tables remain
+-- available only for import/compatibility; they are not used by the publication gate.
+ALTER TABLE questions
+  ADD COLUMN IF NOT EXISTS current_version INTEGER NOT NULL DEFAULT 1 CHECK (current_version > 0),
+  ADD COLUMN IF NOT EXISTS published_version INTEGER NULL CHECK (published_version IS NULL OR published_version > 0);
+
+CREATE TABLE IF NOT EXISTS question_version_translations (
+  question_id UUID NOT NULL,
+  version_number INTEGER NOT NULL CHECK (version_number > 0),
+  language_code VARCHAR(10) NOT NULL REFERENCES languages(language_code),
+  question_text TEXT NOT NULL,
+  explanation TEXT NOT NULL,
+  learning_objective TEXT,
+  hint TEXT,
+  translation_method VARCHAR(30) NOT NULL DEFAULT 'human'
+    CHECK (translation_method IN ('human','google_translate','other_machine_translation','mixed')),
+  translation_review_notes TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  PRIMARY KEY (question_id, version_number, language_code),
+  FOREIGN KEY (question_id, version_number)
+    REFERENCES question_versions(question_id, version_number) ON DELETE RESTRICT,
+  CHECK (length(trim(question_text)) > 0),
+  CHECK (length(trim(explanation)) > 0)
+);
+
+CREATE TABLE IF NOT EXISTS question_version_options (
+  option_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  question_id UUID NOT NULL,
+  version_number INTEGER NOT NULL,
+  language_code VARCHAR(10) NOT NULL,
+  option_key VARCHAR(10) NOT NULL,
+  option_text TEXT NOT NULL,
+  option_order SMALLINT NOT NULL,
+  FOREIGN KEY (question_id, version_number, language_code)
+    REFERENCES question_version_translations(question_id, version_number, language_code) ON DELETE RESTRICT,
+  UNIQUE (question_id, version_number, language_code, option_key),
+  UNIQUE (question_id, version_number, language_code, option_order),
+  UNIQUE (option_id, question_id, version_number, language_code),
+  CHECK (length(trim(option_text)) > 0),
+  CHECK (option_order > 0)
+);
+
+CREATE TABLE IF NOT EXISTS question_version_answers (
+  answer_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  question_id UUID NOT NULL,
+  version_number INTEGER NOT NULL,
+  language_code VARCHAR(10) NOT NULL,
+  option_id UUID NOT NULL,
+  answer_explanation TEXT,
+  FOREIGN KEY (option_id, question_id, version_number, language_code)
+    REFERENCES question_version_options(option_id, question_id, version_number, language_code) ON DELETE RESTRICT,
+  UNIQUE (question_id, version_number, language_code, option_id)
+);
+
+CREATE TABLE IF NOT EXISTS question_version_sources (
+  question_id UUID NOT NULL,
+  version_number INTEGER NOT NULL,
+  source_id UUID NOT NULL REFERENCES sources(source_id) ON DELETE RESTRICT,
+  evidence_note TEXT NOT NULL,
+  supports_answer BOOLEAN NOT NULL DEFAULT TRUE,
+  PRIMARY KEY (question_id, version_number, source_id),
+  FOREIGN KEY (question_id, version_number)
+    REFERENCES question_versions(question_id, version_number) ON DELETE RESTRICT,
+  CHECK (length(trim(evidence_note)) > 0)
+);
+
+CREATE INDEX IF NOT EXISTS idx_question_reviews_version
+  ON question_reviews(question_id, question_version, review_type, reviewed_at DESC);
+
+CREATE OR REPLACE FUNCTION mukul_guard_published_version_content()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+DECLARE
+  v_question_id UUID;
+  v_version_number INTEGER;
+  v_published_version INTEGER;
+BEGIN
+  v_question_id := COALESCE(
+    NULLIF(to_jsonb(NEW)->>'question_id','')::UUID,
+    NULLIF(to_jsonb(OLD)->>'question_id','')::UUID
+  );
+  v_version_number := COALESCE(
+    NULLIF(to_jsonb(NEW)->>'version_number','')::INTEGER,
+    NULLIF(to_jsonb(OLD)->>'version_number','')::INTEGER
+  );
+  SELECT published_version INTO v_published_version
+  FROM questions WHERE question_id = v_question_id;
+  IF v_published_version IS NOT NULL AND v_version_number <= v_published_version THEN
+    RAISE EXCEPTION 'Published question version % of % is immutable; create a new draft version',
+      v_version_number, v_question_id;
+  END IF;
+  RETURN COALESCE(NEW, OLD);
+END;
+$$;
+
+DROP TRIGGER IF EXISTS trg_guard_question_version_translations ON question_version_translations;
+CREATE TRIGGER trg_guard_question_version_translations
+BEFORE INSERT OR UPDATE OR DELETE ON question_version_translations
+FOR EACH ROW EXECUTE FUNCTION mukul_guard_published_version_content();
+
+DROP TRIGGER IF EXISTS trg_guard_question_version_options ON question_version_options;
+CREATE TRIGGER trg_guard_question_version_options
+BEFORE INSERT OR UPDATE OR DELETE ON question_version_options
+FOR EACH ROW EXECUTE FUNCTION mukul_guard_published_version_content();
+
+DROP TRIGGER IF EXISTS trg_guard_question_version_answers ON question_version_answers;
+CREATE TRIGGER trg_guard_question_version_answers
+BEFORE INSERT OR UPDATE OR DELETE ON question_version_answers
+FOR EACH ROW EXECUTE FUNCTION mukul_guard_published_version_content();
+
+DROP TRIGGER IF EXISTS trg_guard_question_version_sources ON question_version_sources;
+CREATE TRIGGER trg_guard_question_version_sources
+BEFORE INSERT OR UPDATE OR DELETE ON question_version_sources
+FOR EACH ROW EXECUTE FUNCTION mukul_guard_published_version_content();
+
+CREATE OR REPLACE FUNCTION mukul_guard_question_version_history()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+DECLARE
+  v_published_version INTEGER;
+BEGIN
+  SELECT published_version INTO v_published_version
+  FROM questions WHERE question_id = COALESCE(NEW.question_id, OLD.question_id);
+  IF v_published_version IS NOT NULL
+     AND COALESCE(NEW.version_number, OLD.version_number) <= v_published_version THEN
+    RAISE EXCEPTION 'Published version history is immutable; create a new version';
+  END IF;
+  RETURN COALESCE(NEW, OLD);
+END;
+$$;
+
+DROP TRIGGER IF EXISTS trg_guard_question_versions ON question_versions;
+CREATE TRIGGER trg_guard_question_versions
+BEFORE INSERT OR UPDATE OR DELETE ON question_versions
+FOR EACH ROW EXECUTE FUNCTION mukul_guard_question_version_history();
+
+CREATE OR REPLACE FUNCTION mukul_guard_question_lifecycle()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  IF OLD.status = 'published' AND NEW.status NOT IN ('published','retired') THEN
+    RAISE EXCEPTION 'A published question cannot return to draft; create a new version or retire it';
+  END IF;
+  IF OLD.published_version IS NOT NULL AND NEW.published_version IS DISTINCT FROM OLD.published_version
+     AND NOT (NEW.status = 'published' AND NEW.published_version = NEW.current_version) THEN
+    RAISE EXCEPTION 'published_version can only advance with successful publication';
+  END IF;
+  IF NEW.current_version < OLD.current_version THEN
+    RAISE EXCEPTION 'current_version cannot decrease';
+  END IF;
+  IF OLD.status = 'published' AND NEW.status = 'published'
+     AND NEW.current_version = OLD.current_version
+     AND (NEW.topic_id, NEW.question_type, NEW.difficulty, NEW.geographic_scope,
+          NEW.target_audiences, NEW.risk_level, NEW.canonical_fingerprint)
+         IS DISTINCT FROM
+         (OLD.topic_id, OLD.question_type, OLD.difficulty, OLD.geographic_scope,
+          OLD.target_audiences, OLD.risk_level, OLD.canonical_fingerprint) THEN
+    RAISE EXCEPTION 'Published question metadata is immutable within a version; create a new version';
+  END IF;
+  RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS trg_mukul_guard_question_lifecycle ON questions;
+CREATE TRIGGER trg_mukul_guard_question_lifecycle
+BEFORE UPDATE ON questions
+FOR EACH ROW EXECUTE FUNCTION mukul_guard_question_lifecycle();
+
 CREATE OR REPLACE FUNCTION mukul_validate_question_publication()
 RETURNS TRIGGER
 LANGUAGE plpgsql
@@ -236,74 +407,93 @@ DECLARE
   v_option_count INTEGER;
   v_answer_count INTEGER;
   v_review_type TEXT;
+  v_latest_decision TEXT;
 BEGIN
   IF NEW.status <> 'published' THEN
     RETURN NEW;
   END IF;
 
-  IF TG_OP = 'UPDATE' AND OLD.status = 'published' THEN
+  IF TG_OP = 'UPDATE' AND OLD.status = 'published'
+     AND OLD.published_version = NEW.current_version
+     AND NEW.published_version = NEW.current_version THEN
     RETURN NEW;
   END IF;
 
   IF NOT EXISTS (
-    SELECT 1 FROM question_translations
-    WHERE question_id = NEW.question_id AND language_code = 'en'
-  ) OR NOT EXISTS (
-    SELECT 1 FROM question_translations
-    WHERE question_id = NEW.question_id AND language_code = 'bn'
+    SELECT 1 FROM question_versions qv
+    WHERE qv.question_id = NEW.question_id AND qv.version_number = NEW.current_version
   ) THEN
-    RAISE EXCEPTION 'Cannot publish question %: English and Bangla translations are required', NEW.question_id;
+    RAISE EXCEPTION 'Cannot publish question %: version % history/snapshot is required',
+      NEW.question_id, NEW.current_version;
   END IF;
 
-  IF NOT EXISTS (
-    SELECT 1 FROM question_sources qs
-    WHERE qs.question_id = NEW.question_id AND qs.supports_answer = TRUE
-      AND length(trim(qs.evidence_note)) > 0
-  ) THEN
-    RAISE EXCEPTION 'Cannot publish question %: at least one answer-supporting source is required', NEW.question_id;
+  IF NOT EXISTS (SELECT 1 FROM question_version_translations
+      WHERE question_id = NEW.question_id AND version_number = NEW.current_version AND language_code = 'en')
+     OR NOT EXISTS (SELECT 1 FROM question_version_translations
+      WHERE question_id = NEW.question_id AND version_number = NEW.current_version AND language_code = 'bn') THEN
+    RAISE EXCEPTION 'Cannot publish question % version %: English and Bangla translations are required',
+      NEW.question_id, NEW.current_version;
+  END IF;
+
+  IF NOT EXISTS (SELECT 1 FROM question_version_sources
+      WHERE question_id = NEW.question_id AND version_number = NEW.current_version
+        AND supports_answer = TRUE AND length(trim(evidence_note)) > 0) THEN
+    RAISE EXCEPTION 'Cannot publish question % version %: an answer-supporting source is required',
+      NEW.question_id, NEW.current_version;
   END IF;
 
   FOREACH v_review_type IN ARRAY ARRAY['source','subject_matter','language','license'] LOOP
-    IF NOT EXISTS (
-      SELECT 1 FROM question_reviews qr
-      WHERE qr.question_id = NEW.question_id
-        AND qr.review_type = v_review_type
-        AND qr.decision = 'approved'
-    ) THEN
-      RAISE EXCEPTION 'Cannot publish question %: approved % review is required', NEW.question_id, v_review_type;
+    SELECT qr.decision INTO v_latest_decision
+    FROM question_reviews qr
+    WHERE qr.question_id = NEW.question_id
+      AND qr.question_version = NEW.current_version
+      AND qr.review_type = v_review_type
+    ORDER BY qr.reviewed_at DESC, qr.review_id DESC
+    LIMIT 1;
+    IF v_latest_decision IS DISTINCT FROM 'approved' THEN
+      RAISE EXCEPTION 'Cannot publish question % version %: latest % review must be approved',
+        NEW.question_id, NEW.current_version, v_review_type;
     END IF;
   END LOOP;
 
-  IF NEW.risk_level = 'high' AND NOT EXISTS (
-    SELECT 1 FROM question_reviews qr
+  IF NEW.risk_level = 'high' THEN
+    SELECT qr.decision INTO v_latest_decision
+    FROM question_reviews qr
     WHERE qr.question_id = NEW.question_id
-      AND qr.review_type = 'safety' AND qr.decision = 'approved'
-  ) THEN
-    RAISE EXCEPTION 'Cannot publish high-risk question % without approved safety review', NEW.question_id;
+      AND qr.question_version = NEW.current_version
+      AND qr.review_type = 'safety'
+    ORDER BY qr.reviewed_at DESC, qr.review_id DESC
+    LIMIT 1;
+    IF v_latest_decision IS DISTINCT FROM 'approved' THEN
+      RAISE EXCEPTION 'Cannot publish high-risk question % version % without current-version safety approval',
+        NEW.question_id, NEW.current_version;
+    END IF;
   END IF;
 
   FOREACH v_language IN ARRAY ARRAY['en','bn'] LOOP
-    SELECT COUNT(*) INTO v_option_count
-      FROM question_options qo
-      WHERE qo.question_id = NEW.question_id AND qo.language_code = v_language;
-    SELECT COUNT(*) INTO v_answer_count
-      FROM correct_answers ca
-      WHERE ca.question_id = NEW.question_id AND ca.language_code = v_language;
-
+    SELECT COUNT(*) INTO v_option_count FROM question_version_options
+    WHERE question_id = NEW.question_id AND version_number = NEW.current_version AND language_code = v_language;
+    SELECT COUNT(*) INTO v_answer_count FROM question_version_answers
+    WHERE question_id = NEW.question_id AND version_number = NEW.current_version AND language_code = v_language;
     IF v_option_count < 2 THEN
-      RAISE EXCEPTION 'Cannot publish question %: at least two options required for language %', NEW.question_id, v_language;
+      RAISE EXCEPTION 'Cannot publish question % version %: at least two options required for language %',
+        NEW.question_id, NEW.current_version, v_language;
     END IF;
     IF v_answer_count < 1 THEN
-      RAISE EXCEPTION 'Cannot publish question %: at least one correct answer required for language %', NEW.question_id, v_language;
+      RAISE EXCEPTION 'Cannot publish question % version %: at least one correct answer required for language %',
+        NEW.question_id, NEW.current_version, v_language;
     END IF;
     IF NEW.question_type IN ('single_choice','true_false') AND v_answer_count <> 1 THEN
-      RAISE EXCEPTION 'Cannot publish % question %: exactly one correct answer required for language %', NEW.question_type, NEW.question_id, v_language;
+      RAISE EXCEPTION 'Cannot publish % question % version %: exactly one correct answer required for language %',
+        NEW.question_type, NEW.question_id, NEW.current_version, v_language;
     END IF;
     IF NEW.question_type = 'true_false' AND v_option_count <> 2 THEN
-      RAISE EXCEPTION 'Cannot publish true_false question %: exactly two options required for language %', NEW.question_id, v_language;
+      RAISE EXCEPTION 'Cannot publish true_false question % version %: exactly two options required for language %',
+        NEW.question_id, NEW.current_version;
     END IF;
   END LOOP;
 
+  NEW.published_version := NEW.current_version;
   RETURN NEW;
 END;
 $$;
@@ -311,8 +501,7 @@ $$;
 DROP TRIGGER IF EXISTS trg_mukul_validate_question_publication ON questions;
 CREATE TRIGGER trg_mukul_validate_question_publication
 BEFORE INSERT OR UPDATE OF status ON questions
-FOR EACH ROW
-EXECUTE FUNCTION mukul_validate_question_publication();
+FOR EACH ROW EXECUTE FUNCTION mukul_validate_question_publication();
 
 -- Public quiz-attempt/user tables are intentionally deferred until privacy,
 -- authentication, retention, and API authorization requirements are approved.
