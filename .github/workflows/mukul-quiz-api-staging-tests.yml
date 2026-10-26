@@ -5,6 +5,7 @@ on:
     paths:
       - 'mukul/quiz-api-staging/**'
       - 'mukul/quiz-database/schema.sql'
+      - 'mukul/quiz-database/tests/**'
       - '.github/workflows/mukul-quiz-api-staging-tests.yml'
   push:
     branches: [main]
@@ -82,6 +83,9 @@ jobs:
           test "$unauth_status" = "401"
           auth_status=$(curl --silent --output /dev/null --write-out '%{http_code}' -H "Authorization: Bearer $ADMIN_API_TOKEN" http://127.0.0.1:8081/v1/admin/health)
           test "$auth_status" = "200"
+      - name: Test PostgreSQL source reuse publication policy
+        working-directory: mukul/quiz-api-staging
+        run: docker compose exec -T db psql -v ON_ERROR_STOP=1 -U "$POSTGRES_USER" -d "$POSTGRES_DB" < ../quiz-database/tests/publication-reuse-gate.sql
       - name: Show service logs on failure
         if: failure()
         working-directory: mukul/quiz-api-staging
