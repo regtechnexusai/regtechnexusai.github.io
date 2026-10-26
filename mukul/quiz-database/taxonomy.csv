@@ -1,0 +1,11 @@
+slug,parent_slug,sort_order,name_en,name_bn,description_en,description_bn
+agronomy-crop-science,,1,Agronomy & Crop Science,শস্যবিজ্ঞান ও ফসল উৎপাদন,"Crop growth, seed, varieties, planting, crop rotations and production","ফসলের বৃদ্ধি, বীজ, জাত, বপন, ফসল পর্যায়ক্রম ও উৎপাদন"
+horticulture,,2,Horticulture,উদ্যানতত্ত্ব,"Fruits, vegetables, flowers, nurseries and protected cultivation","ফল, সবজি, ফুল, নার্সারি ও সুরক্ষিত চাষ"
+soil-plant-nutrition,,3,Soil Science & Plant Nutrition,মৃত্তিকাবিজ্ঞান ও উদ্ভিদ পুষ্টি,"Soil properties, pH, fertility, nutrients and organic matter","মাটির বৈশিষ্ট্য, pH, উর্বরতা, পুষ্টি ও জৈব পদার্থ"
+plant-health-ipm,,4,Plant Health, Pathology, Entomology & IPM,উদ্ভিদ স্বাস্থ্য, রোগতত্ত্ব, কীটতত্ত্ব ও IPM,"Plant diseases, pests, weeds and integrated pest management","উদ্ভিদ রোগ, পোকা, আগাছা ও সমন্বিত বালাই ব্যবস্থাপনা"
+agricultural-engineering-digital,,5,Agricultural Engineering & Digital Agriculture,কৃষি প্রকৌশল ও ডিজিটাল কৃষি,"Irrigation, machinery, sensors, drones and precision agriculture","সেচ, যন্ত্রপাতি, সেন্সর, ড্রোন ও প্রিসিশন এগ্রিকালচার"
+livestock-veterinary,,6,Livestock & Veterinary Knowledge,পশুপালন ও প্রাণিস্বাস্থ্য,"Animal husbandry, nutrition, welfare and veterinary fundamentals","পশুপালন, পুষ্টি, কল্যাণ ও প্রাণিস্বাস্থ্যের মৌলিক জ্ঞান"
+fisheries-aquaculture,,7,Fisheries & Aquaculture,মৎস্য ও জলজ চাষ,"Fish species, water quality, pond management and aquaculture","মাছের প্রজাতি, পানির গুণমান, পুকুর ব্যবস্থাপনা ও জলজ চাষ"
+agricultural-economics-agribusiness,,8,Agricultural Economics & Agribusiness,কৃষি অর্থনীতি ও কৃষি ব্যবসা,"Farm costs, markets, finance, value chains and trade","খামারের ব্যয়, বাজার, অর্থায়ন, মূল্যশৃঙ্খল ও বাণিজ্য"
+climate-smart-sustainable,,9,Climate-Smart & Sustainable Agriculture,জলবায়ু-সহনশীল ও টেকসই কৃষি,"Climate adaptation, drought, salinity, water and biodiversity","জলবায়ু অভিযোজন, খরা, লবণাক্ততা, পানি ও জীববৈচিত্র্য"
+research-genetics-biotechnology,,10,Agricultural Research, Genetics & Biotechnology,কৃষি গবেষণা, জেনেটিক্স ও জীবপ্রযুক্তি,"Plant breeding, genetics, research methods and biotechnology","উদ্ভিদ প্রজনন, জেনেটিক্স, গবেষণা পদ্ধতি ও জীবপ্রযুক্তি"
