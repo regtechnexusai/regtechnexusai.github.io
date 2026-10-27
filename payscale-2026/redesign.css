@@ -69,3 +69,101 @@ body:has(.content-page) .content-card a{color:#075d80!important}
  body:has(.content-page) .content-header{padding:17px!important}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*{transition:none!important;animation:none!important}}
+
+
+/* RegTech Nexus cohesive PayScale theme — applied to the LIVE site source.
+   Keep the original branded navy/teal hero; lighten content cards and borders. */
+html body.payscale-main-page {
+  background:
+    radial-gradient(ellipse at 2% 12%,rgba(72,135,190,.08),transparent 28%),
+    radial-gradient(ellipse at 98% 56%,rgba(20,145,139,.06),transparent 26%),
+    #F3F6FA !important;
+  color:#34495E !important;
+}
+html body.payscale-main-page main.shell {
+  background:transparent !important;
+  color:#34495E !important;
+}
+html body.payscale-main-page main.shell > section.hero {
+  background:linear-gradient(120deg,#153B5B 0%,#185B78 58%,#0D7D80 100%) !important;
+  border:1px solid rgba(255,255,255,.24) !important;
+  box-shadow:0 16px 38px rgba(21,59,91,.15),inset 0 1px 0 rgba(255,255,255,.12) !important;
+  border-radius:26px !important;
+}
+html body.payscale-main-page main.shell > section.hero :is(h1,h2,h3,p,.eyebrow,.hero-subtitle,.hero-proof span,.brand-nav-current,.brand-nav-divider) { color:#FFFFFF !important; }
+html body.payscale-main-page main.shell > section.hero .eyebrow { color:#A9F0E4 !important; }
+html body.payscale-main-page main.shell > section.hero .hero-proof span {
+  background:rgba(255,255,255,.09) !important;
+  border-color:rgba(218,250,249,.34) !important;
+  color:#F5FFFF !important;
+}
+html body.payscale-main-page main.shell > section.hero .effective-badge {
+  background:rgba(8,48,68,.28) !important;
+  border-color:rgba(173,239,227,.55) !important;
+  color:#E8FFFA !important;
+}
+html body.payscale-main-page main.shell > :not(.hero):not(.footer):not(.rt-shell-footer) {
+  border-color:#D6E1EA;
+}
+html body.payscale-main-page main.shell :is(.glass-card,.about-tool,.provenance-card,.source-summary,.governance-card,.method-card,.scale-section,.retirement-section,.notice.glass-card,.release-banner,.result-card,.metric-card,.disclaimer,.content-header,.result-hero,.empty-result) {
+  border-color:#D6E1EA !important;
+  box-shadow:0 7px 22px rgba(37,68,102,.055),0 0 18px rgba(92,143,195,.045) !important;
+}
+html body.payscale-main-page main.shell :is(.glass-card,.about-tool,.provenance-card,.source-summary,.governance-card,.method-card,.scale-section,.retirement-section,.content-header,.result-hero,.empty-result) {
+  background:linear-gradient(145deg,#FFFFFF 0%,#FBFCFE 72%,#F3F8FA 100%) !important;
+  color:#34495E !important;
+}
+html body.payscale-main-page main.shell :is(h1,h2,h3,h4) { color:#203C56 !important; }
+html body.payscale-main-page main.shell :is(p,li,label,td,summary) { color:#34495E; }
+html body.payscale-main-page main.shell :is(small,.hint,.muted,[class*="help"],figcaption,caption) { color:#63778B !important; }
+html body.payscale-main-page main.shell :is(.eyebrow,.kicker,[class*="kicker"],[class*="eyebrow"]) { color:#176B91 !important; }
+html body.payscale-main-page main.shell .choice-card-salary {
+  color:#24485C !important;
+  background:linear-gradient(125deg,#EAF5FB 0%,#E9F7F3 100%) !important;
+  border:1px solid #CDE2E8 !important;
+  border-top:3px solid #278FA0 !important;
+  box-shadow:0 9px 24px rgba(41,112,139,.09) !important;
+}
+html body.payscale-main-page main.shell .choice-card-pension {
+  color:#4B4B70 !important;
+  background:linear-gradient(125deg,#F1F0FC 0%,#FAF2F8 100%) !important;
+  border:1px solid #E0DDF0 !important;
+  border-top:3px solid #8A83C5 !important;
+  box-shadow:0 9px 24px rgba(111,98,164,.08) !important;
+}
+html body.payscale-main-page main.shell :is(.choice-card-salary,.choice-card-pension) :is(h1,h2,h3,p,span,strong,a) { color:inherit !important; }
+html body.payscale-main-page main.shell :is(input,select,textarea) {
+  color:#213A50 !important;background:#FFFFFF !important;border:1px solid #C8D6E3 !important;box-shadow:inset 0 1px 2px rgba(25,57,87,.025) !important;
+}
+html body.payscale-main-page main.shell :is(input,select,textarea):focus { border-color:#3C8EAD !important;box-shadow:0 0 0 3px rgba(48,139,165,.14) !important; }
+html body.payscale-main-page main.shell ::placeholder { color:#8A9AAA !important; }
+html body.payscale-main-page main.shell :is(button,.btn,.button,[class*="btn"],[class*="button"],a[class*="cta"]) {
+  background:#176F89 !important;border-color:#176F89 !important;color:#FFFFFF !important;box-shadow:0 3px 9px rgba(23,111,137,.12) !important;
+}
+html body.payscale-main-page main.shell :is(button,.btn,.button,[class*="btn"],[class*="button"],a[class*="cta"]):hover { background:#10586F !important;border-color:#10586F !important; }
+html body.payscale-main-page main.shell :is(output,[class*="amount"],[class*="value"],[class*="figure"]) { color:#0C827F !important;font-variant-numeric:tabular-nums; }
+html body.payscale-main-page main.shell :is([class*="phase-1"],[class*="stage-1"],[class*="result-1"]) { border-top:4px solid #77A7E8 !important; }
+html body.payscale-main-page main.shell :is([class*="phase-2"],[class*="stage-2"],[class*="result-2"]) { border-top:4px solid #3987C9 !important; }
+html body.payscale-main-page main.shell :is([class*="phase-3"],[class*="stage-3"],[class*="result-3"]) { border-top:4px solid #176B91 !important; }
+html body.payscale-main-page main.shell table { background:#FFFFFF !important;border:1px solid #D6E1EA !important;border-collapse:collapse;box-shadow:none !important; }
+html body.payscale-main-page main.shell :is(thead th,table th) { background:#EAF0F6 !important;color:#203C56 !important;border-bottom:2px solid #C5D4E1 !important; }
+html body.payscale-main-page main.shell tbody :is(td,th) { border-bottom:1px solid #E1E8EF !important; }
+html body.payscale-main-page main.shell tbody tr:nth-child(even) { background:#F7F9FC !important; }
+html body.payscale-main-page main.shell tbody tr:hover { background:#EAF4FB !important; }
+html body.payscale-main-page main.shell :is(.notice,.info,[class*="notice"],[class*="info"],[class*="note"]) { background:#EDF5FC !important;border:1px solid #D1E3F1 !important;border-left:4px solid #3987B7 !important; }
+html body.payscale-main-page main.shell :is(.warning,.caution,.unofficial,.unofficial-banner,[class*="warn"],[class*="caution"],[class*="unofficial"]) { background:#FFF7E8 !important;border:1px solid #F0D9A9 !important;border-left:4px solid #D39A32 !important;color:#79571C !important; }
+html body.payscale-main-page main.shell :is(.danger,.disclaimer,[class*="danger"],[class*="disclaimer"],[class*="alert"]) { background:#FFF0EF !important;border:1px solid #F0D1CE !important;border-left:4px solid #C75B54 !important;color:#8B3934 !important; }
+html body.payscale-main-page main.shell :is(.warning,.caution,.unofficial,.unofficial-banner,.danger,.disclaimer,.notice,.info) :is(h1,h2,h3,h4,p,li,strong,span,small,b) { color:inherit !important; }
+html body.payscale-main-page main.shell :is(.badge,.chip,.tag,.pill,[class*="badge"],[class*="chip"],[class*="tag"]) { background:#EAF3F8 !important;color:#245F7A !important;border:1px solid #D0E2EC !important; }
+html body.payscale-main-page main.shell hr { border-color:#D6E1EA !important; }
+html body.payscale-main-page main.shell .footer,
+html body.payscale-main-page main.shell .rt-shell-footer {
+  background:linear-gradient(120deg,#153B5B 0%,#185B78 58%,#0D777A 100%) !important;
+  color:#F2FAFC !important;border:1px solid rgba(255,255,255,.18) !important;box-shadow:0 10px 28px rgba(21,59,91,.13) !important;
+}
+html body.payscale-main-page main.shell :is(.footer,.rt-shell-footer) :is(h1,h2,h3,h4,p,span,li,strong,small,b) { color:#F2FAFC !important; }
+html body.payscale-main-page main.shell :is(.footer,.rt-shell-footer) a { color:#B9F0E6 !important; }
+@media(max-width:620px) {
+ html body.payscale-main-page main.shell > section.hero { border-radius:18px !important;box-shadow:0 8px 22px rgba(21,59,91,.12) !important; }
+ html body.payscale-main-page main.shell :is(.glass-card,.about-tool,.provenance-card,.source-summary,.governance-card,.method-card,.scale-section,.retirement-section,.notice.glass-card,.release-banner,.result-card,.metric-card,.disclaimer,.content-header,.result-hero,.empty-result) { box-shadow:0 4px 14px rgba(37,68,102,.05) !important; }
+}
