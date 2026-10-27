@@ -3291,3 +3291,49 @@ body.payscale-main-page .shell * {
   body.payscale-main-page .update-note :is(p,strong) { color: #fff0d0 !important; opacity: 1 !important; }
   body.payscale-main-page .footer-branding img { background: #fff !important; padding: 8px !important; border-radius: 10px !important; }
 }
+
+
+/* Mobile footer contrast repair — homepage footer only; keep brand gradient, make links readable. */
+body.homepage-redesign footer,
+body.homepage-redesign footer.rt-shell-footer,
+body.homepage-redesign footer.rt-shell-existing-footer {
+  background:linear-gradient(135deg,#092542 0%,#124f70 58%,#087b80 100%)!important;
+  color:#f5fbff!important;
+  border-top:3px solid #37b8bb!important;
+}
+body.homepage-redesign footer :is(b,strong,h2,h3) {
+  color:#ffffff!important;
+  opacity:1!important;
+}
+body.homepage-redesign footer a,
+body.homepage-redesign footer .footer-links a,
+body.homepage-redesign footer .legal a {
+  color:#d9f8f4!important;
+  opacity:1!important;
+  text-decoration:none!important;
+}
+body.homepage-redesign footer a:hover,
+body.homepage-redesign footer a:focus-visible {
+  color:#ffffff!important;
+  text-decoration:underline!important;
+  text-underline-offset:3px!important;
+}
+body.homepage-redesign footer :is(p,small,span,.footer-note,.legal) {
+  color:#e0edf4!important;
+  opacity:1!important;
+}
+@media(max-width:560px){
+  body.homepage-redesign footer {
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:24px!important;
+    padding:34px 6vw 24px!important;
+  }
+  body.homepage-redesign footer>div:not(.footer-brand):not(.legal) {
+    gap:11px!important;
+    min-width:0!important;
+  }
+  body.homepage-redesign footer b { margin-bottom:3px!important;font-size:12px!important; }
+  body.homepage-redesign footer a { font-size:14px!important;line-height:1.5!important; }
+  body.homepage-redesign footer .footer-brand,
+  body.homepage-redesign footer .legal { grid-column:1/-1!important; }
+}
