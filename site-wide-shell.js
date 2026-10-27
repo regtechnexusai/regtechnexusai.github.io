@@ -3,6 +3,14 @@
 (function () {
   "use strict";
   var path = window.location.pathname.replace(/\/+$/, "") || "/";
+  // Load shared GA4 event instrumentation on every page, including the homepage.
+  if (!document.querySelector("script[data-rt-ga4-events]")) {
+    var ga4Events = document.createElement("script");
+    ga4Events.src = "/ga4-events.js?v=20261027-v1";
+    ga4Events.defer = true;
+    ga4Events.setAttribute("data-rt-ga4-events", "true");
+    document.head.appendChild(ga4Events);
+  }
   if (path === "/" || path === "/index.html") return;
 
   function make(tag, attrs, html) {
