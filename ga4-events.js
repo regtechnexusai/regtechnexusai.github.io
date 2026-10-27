@@ -39,12 +39,12 @@
     var link = event.target && event.target.closest ? event.target.closest("a[href]") : null;
     if (!link) return;
     var href = link.getAttribute("href") || "";
-    var label = (link.getAttribute("aria-label") || link.textContent || "").trim().replace(/\\s+/g, " ").slice(0, 80);
+    var label = (link.getAttribute("aria-label") || link.textContent || "").trim().replace(/\s+/g, " ").slice(0, 80);
     if (/^(mailto:|tel:)/i.test(href)) {
       track("contact_click", { contact_method: href.split(":")[0], link_text: label });
       return;
     }
-    if (/\\.(pdf|docx?|xlsx?|pptx?|csv|zip)(?:[?#].*)?$/i.test(href)) {
+    if (/\.(pdf|docx?|xlsx?|pptx?|csv|zip)(?:[?#].*)?$/i.test(href)) {
       track("file_download", {
         file_name: href.split("/").pop().split(/[?#]/)[0].slice(0, 100),
         link_text: label
