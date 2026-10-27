@@ -241,3 +241,114 @@ html body.payscale-main-page main.shell .results :is(p,li,small,label,strong,b,s
   html body.payscale-main-page main.shell .empty-result { min-height:0!important;padding:26px 18px!important; }
   html body.payscale-main-page main.shell .empty-result p { font-size:14px!important; }
 }
+
+
+/* Targeted mobile polish for the three reported PayScale UI issues. */
+html body.payscale-main-page .about-tool-grid article {
+  background:linear-gradient(145deg,#ffffff 0%,#f1f8fc 100%)!important;
+  border:1px solid #c8dce9!important;
+  border-top:4px solid #2784a2!important;
+  border-radius:17px!important;
+  box-shadow:0 10px 26px rgba(18,58,87,.09)!important;
+  padding:20px 18px!important;
+  color:#203b55!important;
+}
+html body.payscale-main-page .about-tool-grid article:nth-child(2) { border-top-color:#3b78b6!important; }
+html body.payscale-main-page .about-tool-grid article:nth-child(3) { border-top-color:#159b8d!important; }
+html body.payscale-main-page .about-tool-grid article:nth-child(4) { border-top-color:#8b72c8!important; }
+html body.payscale-main-page .about-tool-grid article > span {
+  display:grid!important;
+  place-items:center!important;
+  width:42px!important;
+  height:42px!important;
+  margin:0 0 16px!important;
+  border:1px solid #b7d9e8!important;
+  border-radius:12px!important;
+  background:linear-gradient(145deg,#e8f6fb,#d9edf6)!important;
+  color:#075a7b!important;
+  font-size:15px!important;
+  font-weight:850!important;
+  box-shadow:inset 0 1px 0 #fff!important;
+}
+html body.payscale-main-page .about-tool-grid article strong {
+  display:block!important;
+  color:#173d5c!important;
+  font-size:17px!important;
+  line-height:1.45!important;
+}
+html body.payscale-main-page .about-tool-grid article p {
+  color:#435c72!important;
+  font-size:14px!important;
+  line-height:1.75!important;
+}
+html body.payscale-main-page .results {
+  min-width:0!important;
+  max-width:100%!important;
+  width:100%!important;
+  overflow-wrap:anywhere!important;
+}
+html body.payscale-main-page .results-heading,
+html body.payscale-main-page .results-heading > div {
+  min-width:0!important;
+  max-width:100%!important;
+  width:100%!important;
+}
+html body.payscale-main-page .results-heading h2 {
+  max-width:100%!important;
+  overflow-wrap:anywhere!important;
+}
+html body.payscale-main-page .results-heading .output-note {
+  box-sizing:border-box!important;
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  margin:12px 0 0!important;
+  padding:13px 15px!important;
+  border:1px solid #c9deeb!important;
+  border-left:5px solid #2784a2!important;
+  border-radius:0 12px 12px 0!important;
+  background:linear-gradient(110deg,#edf7fc 0%,#f7fbfe 100%)!important;
+  color:#29465f!important;
+  font-size:14px!important;
+  line-height:1.75!important;
+  overflow-wrap:anywhere!important;
+  white-space:normal!important;
+  opacity:1!important;
+}
+html body.payscale-main-page .empty-result {
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:100%!important;
+  background:linear-gradient(145deg,#ffffff 0%,#f3f8fc 100%)!important;
+  border:1px solid #cbdde8!important;
+  border-top:4px solid #2784a2!important;
+  border-radius:20px!important;
+  box-shadow:0 12px 30px rgba(27,70,103,.08)!important;
+  color:#29465f!important;
+}
+html body.payscale-main-page .empty-result strong {
+  color:#173d5c!important;
+  font-size:16px!important;
+  line-height:1.5!important;
+}
+html body.payscale-main-page .empty-result p,
+html body.payscale-main-page .empty-result p b {
+  color:#435c72!important;
+  font-size:14px!important;
+  line-height:1.75!important;
+  opacity:1!important;
+}
+html body.payscale-main-page .empty-result-icon {
+  color:#176f89!important;
+  background:linear-gradient(145deg,#e9f7fb,#f7fbfd)!important;
+  border:1px solid #c9e0ea!important;
+}
+@media(max-width:620px) {
+  html body.payscale-main-page .about-tool-grid { grid-template-columns:minmax(0,1fr)!important;gap:14px!important; }
+  html body.payscale-main-page .about-tool-grid article { padding:18px 16px!important; }
+  html body.payscale-main-page .about-tool-grid article > span { width:40px!important;height:40px!important;margin-bottom:13px!important; }
+  html body.payscale-main-page .results { margin-top:24px!important;padding-top:18px!important; }
+  html body.payscale-main-page .results-heading { display:block!important; }
+  html body.payscale-main-page .results-heading .output-note { padding:12px!important;font-size:13px!important; }
+  html body.payscale-main-page .empty-result { min-height:0!important;padding:24px 17px!important; }
+}
