@@ -340,7 +340,6 @@ function validateRecordForExport(){
   if(x.response==='na'&&isPlaceholder(d['na-reason']))missing.push('Control '+x.number+': Not applicable justification is required');
   if(x.response==='no'&&d.operation==='effective')missing.push('Control '+x.number+': No response conflicts with operating effectiveness marked Effective');
   if(x.response==='no'&&d.design==='effective')missing.push('Control '+x.number+': No response conflicts with design effectiveness marked Effective');
-  if(x.response==='no'&&d.design==='partial')missing.push('Control '+x.number+': No response has design effectiveness marked Partly effective; confirm response or rating');
   if(x.response==='yes'&&['ineffective','untested','na'].indexOf(d.operation)>=0)missing.push('Control '+x.number+': Yes response conflicts with operating effectiveness rating');
   if(x.response==='yes'&&['ineffective','untested','na'].indexOf(d.design)>=0)missing.push('Control '+x.number+': Yes response conflicts with design effectiveness rating');
  });
