@@ -43,6 +43,37 @@
 .gfcr .source-link:hover{background:#083d72;border-color:#083d72;color:#fff;text-decoration:underline}
 .gfcr .source-link:focus-visible{outline:3px solid #f0b429;outline-offset:3px}
 @media(max-width:600px){.gfcr{padding:18px 14px 40px}.gfcr section{margin-top:20px;padding:16px 12px;border-radius:14px}.gfcr section h2{padding-bottom:9px}.gfcr-card{padding:16px}.gfcr th,.gfcr td{min-width:155px;padding:10px}.gfcr .source-link{width:100%;box-sizing:border-box;text-align:center}}
+
+/* Interactive climate risk decision-support tool */
+.gfcr-tool{background:linear-gradient(145deg,#edf6ff,#f0fbf5)!important;border:1px solid #bdd6e9!important;border-left:7px solid #147b66!important}
+.gfcr-tool .tool-intro{max-width:850px}
+.gfcr-tool .tool-panel{background:#fff;border:1px solid #d4e1ec;border-radius:14px;padding:clamp(14px,2.5vw,22px);margin:16px 0;box-shadow:0 5px 16px rgba(23,55,85,.06)}
+.gfcr-tool .tool-panel h3{margin-top:0;color:#164b76}
+.gfcr-tool .tool-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:14px}
+.gfcr-tool .tool-field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.gfcr-tool .tool-field label{font-weight:700;font-size:.94rem;color:#24364b}
+.gfcr-tool input[type=number],.gfcr-tool input[type=text],.gfcr-tool select{width:100%;box-sizing:border-box;min-height:44px;padding:10px 11px;border:1px solid #aebfd0;border-radius:9px;background:#fff;color:#172033;font:inherit}
+.gfcr-tool input:focus-visible,.gfcr-tool select:focus-visible,.gfcr-tool button:focus-visible{outline:3px solid #e5aa2d;outline-offset:2px}
+.gfcr-tool .tool-help{font-size:.88rem;color:#52657a;margin:.25rem 0 0}
+.gfcr-tool .tool-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.gfcr-tool .tool-button{border:1px solid #0c4c82;border-radius:10px;padding:11px 16px;min-height:44px;font:inherit;font-weight:800;color:#fff;background:linear-gradient(180deg,#53b7f3,#1670b8 55%,#0c4c82);box-shadow:0 4px 0 #08365d,0 7px 13px #0c4c822b,inset 0 1px 0 #ffffff99;cursor:pointer}
+.gfcr-tool .tool-button.secondary{border-color:#167052;background:linear-gradient(180deg,#7ce1b5,#21a875 55%,#167052);box-shadow:0 4px 0 #0e4d39,0 7px 13px #1670522b,inset 0 1px 0 #ffffff99}
+.gfcr-tool .tool-button:active{transform:translateY(2px);box-shadow:0 1px 0 #08365d}
+.gfcr-tool .tool-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:12px;margin-top:16px}
+.gfcr-tool .metric{padding:15px;border:1px solid #c9d9e7;border-top:4px solid #2679b7;border-radius:12px;background:#fff;min-width:0}
+.gfcr-tool .metric:nth-child(2){border-top-color:#17836a}.gfcr-tool .metric:nth-child(3){border-top-color:#c28a2c}.gfcr-tool .metric strong{display:block;font-size:1.35rem;line-height:1.25;overflow-wrap:anywhere;color:#173d60}.gfcr-tool .metric span{font-size:.88rem;color:#4c5f73}
+.gfcr-tool .tool-output{margin-top:14px;padding:14px 16px;border:1px solid #c8dfd5;border-left:5px solid #16816b;border-radius:10px;background:#f2fbf6}
+.gfcr-tool .tool-output:empty{display:none}
+.gfcr-tool .gap-list{display:grid;grid-template-columns:1fr;gap:12px}
+.gfcr-tool .gap-item{padding:13px;border:1px solid #d7e1eb;border-radius:11px;background:#fff}
+.gfcr-tool .gap-item p{margin:0 0 8px;font-weight:650}
+.gfcr-tool .gap-options{display:flex;flex-wrap:wrap;gap:12px}
+.gfcr-tool .gap-options label{display:flex;align-items:center;gap:6px;font-size:.9rem;font-weight:500}
+.gfcr-tool .gap-options input{width:17px;height:17px;accent-color:#147b66}
+.gfcr-tool .tool-disclaimer{font-size:.9rem;background:#fff7e7;border:1px solid #ead4a0;border-left:5px solid #b78320;padding:13px 15px;border-radius:10px}
+@media(max-width:600px){.gfcr-tool .tool-actions{display:grid;grid-template-columns:1fr}.gfcr-tool .tool-button{width:100%}.gfcr-tool .gap-options{gap:8px 14px}}
+@media print{body *{visibility:hidden}.gfcr-tool,.gfcr-tool *{visibility:visible}.gfcr-tool{position:absolute;left:0;top:0;width:100%;max-width:none!important;padding:0!important}.gfcr-tool .tool-actions{display:none!important}.gfcr-tool .tool-panel{break-inside:avoid;box-shadow:none}}
+
 </style>
 </head>
 <body class="article-page wide-logo-page">
@@ -107,8 +138,63 @@
 <article class="gfcr-card"><h3>Disclosure standards</h3><p>Where useful, compare disclosure practices with the IFRS Sustainability Disclosure Standards. Do not imply that international standards automatically create a local legal obligation.</p><p><a class="source-link" href="https://www.ifrs.org/issued-standards/ifrs-sustainability-standards-navigator/" target="_blank" rel="noopener noreferrer">IFRS Sustainability Standards Navigator</a></p></article>
 </div>
 </section>
+
+<section class="gfcr-tool" id="climate-risk-tool">
+<h2>6. Interactive Climate Risk Calculator &amp; Governance Gap Assessment</h2>
+<div class="tool-intro">
+<p>Use this browser-based tool to organise an initial portfolio exposure sensitivity and a self-reported governance review for an internationally active bank or financial institution. It runs locally in this page; inputs are not sent to a server by this tool.</p>
+<p class="note"><strong>Important:</strong> This is a screening aid, not a validated climate model, stress test, regulatory compliance score, capital estimate or forecast. Any loss sensitivity is calculated only from the assumptions you enter. Exposure categories can overlap; do not add physical and transition exposures as if they were mutually exclusive.</p>
+</div>
+<div class="tool-panel">
+<h3>A. Portfolio exposure and illustrative sensitivity</h3>
+<div class="tool-fields">
+<div class="tool-field"><label for="gfcr-currency">Reporting currency label</label><input id="gfcr-currency" type="text" maxlength="8" value="USD" autocomplete="off"><p class="tool-help">Label only; no currency conversion is performed.</p></div>
+<div class="tool-field"><label for="gfcr-portfolio">Total portfolio / exposure base</label><input id="gfcr-portfolio" type="number" min="0" step="any" value="1000000000"><p class="tool-help">Enter a non-negative amount in the chosen reporting currency.</p></div>
+<div class="tool-field"><label for="gfcr-physical">Portfolio share exposed to physical risk (%)</label><input id="gfcr-physical" type="number" min="0" max="100" step="0.1" value="20"><p class="tool-help">Your institution's own estimate; not a system benchmark.</p></div>
+<div class="tool-field"><label for="gfcr-transition">Portfolio share exposed to transition risk (%)</label><input id="gfcr-transition" type="number" min="0" max="100" step="0.1" value="25"><p class="tool-help">May overlap with physical-risk exposure.</p></div>
+<div class="tool-field"><label for="gfcr-physical-shock">Assumed loss sensitivity on physical-risk exposure (%)</label><input id="gfcr-physical-shock" type="number" min="0" max="100" step="0.1" value="2"><p class="tool-help">Hypothetical user-defined loss rate, not a calibrated shock.</p></div>
+<div class="tool-field"><label for="gfcr-transition-shock">Assumed loss sensitivity on transition-risk exposure (%)</label><input id="gfcr-transition-shock" type="number" min="0" max="100" step="0.1" value="3"><p class="tool-help">Hypothetical user-defined loss rate, not a calibrated shock.</p></div>
+</div>
+<div class="tool-actions"><button type="button" class="tool-button" id="gfcr-calculate">Calculate sensitivity</button><button type="button" class="tool-button secondary" id="gfcr-reset">Reset example inputs</button></div>
+<div class="tool-results" id="gfcr-calc-results" aria-live="polite">
+<div class="metric"><span>Physical-risk exposure amount</span><strong id="gfcr-physical-amount">—</strong></div>
+<div class="metric"><span>Transition-risk exposure amount</span><strong id="gfcr-transition-amount">—</strong></div>
+<div class="metric"><span>Illustrative physical loss sensitivity</span><strong id="gfcr-physical-loss">—</strong></div>
+<div class="metric"><span>Illustrative transition loss sensitivity</span><strong id="gfcr-transition-loss">—</strong></div>
+</div>
+<div class="tool-output" id="gfcr-calc-note" aria-live="polite"></div>
+</div>
+<div class="tool-panel">
+<h3>B. Climate-risk governance self-assessment</h3>
+<p>For each control area, select the closest current position based on available evidence. “Yes” means evidence is available and the control is operating; it does not mean compliance has been independently verified.</p>
+<div class="gap-list" id="gfcr-gap-list">
+<div class="gap-item"><p>1. Board and senior management responsibilities for climate-related financial risks are documented.</p><div class="gap-options"><label><input type="radio" name="gfcr-g1" value="yes"> Yes</label><label><input type="radio" name="gfcr-g1" value="partial"> Partly</label><label><input type="radio" name="gfcr-g1" value="no"> No</label><label><input type="radio" name="gfcr-g1" value="na"> Not assessed</label></div></div>
+<div class="gap-item"><p>2. Climate risks are considered within strategy, risk appetite and relevant policies.</p><div class="gap-options"><label><input type="radio" name="gfcr-g2" value="yes"> Yes</label><label><input type="radio" name="gfcr-g2" value="partial"> Partly</label><label><input type="radio" name="gfcr-g2" value="no"> No</label><label><input type="radio" name="gfcr-g2" value="na"> Not assessed</label></div></div>
+<div class="gap-item"><p>3. Material physical and transition risk drivers are identified across relevant sectors and geographies.</p><div class="gap-options"><label><input type="radio" name="gfcr-g3" value="yes"> Yes</label><label><input type="radio" name="gfcr-g3" value="partial"> Partly</label><label><input type="radio" name="gfcr-g3" value="no"> No</label><label><input type="radio" name="gfcr-g3" value="na"> Not assessed</label></div></div>
+<div class="gap-item"><p>4. Risk methods record key assumptions, data limitations, ownership and review frequency.</p><div class="gap-options"><label><input type="radio" name="gfcr-g4" value="yes"> Yes</label><label><input type="radio" name="gfcr-g4" value="partial"> Partly</label><label><input type="radio" name="gfcr-g4" value="no"> No</label><label><input type="radio" name="gfcr-g4" value="na"> Not assessed</label></div></div>
+<div class="gap-item"><p>5. Climate drivers are considered in relevant credit, market, liquidity and operational risk processes.</p><div class="gap-options"><label><input type="radio" name="gfcr-g5" value="yes"> Yes</label><label><input type="radio" name="gfcr-g5" value="partial"> Partly</label><label><input type="radio" name="gfcr-g5" value="no"> No</label><label><input type="radio" name="gfcr-g5" value="na"> Not assessed</label></div></div>
+<div class="gap-item"><p>6. Environmental and social due diligence is evidenced in relevant financing decisions and monitoring.</p><div class="gap-options"><label><input type="radio" name="gfcr-g6" value="yes"> Yes</label><label><input type="radio" name="gfcr-g6" value="partial"> Partly</label><label><input type="radio" name="gfcr-g6" value="no"> No</label><label><input type="radio" name="gfcr-g6" value="na"> Not assessed</label></div></div>
+<div class="gap-item"><p>7. Portfolio concentration by sector and geography is monitored using documented methods.</p><div class="gap-options"><label><input type="radio" name="gfcr-g7" value="yes"> Yes</label><label><input type="radio" name="gfcr-g7" value="partial"> Partly</label><label><input type="radio" name="gfcr-g7" value="no"> No</label><label><input type="radio" name="gfcr-g7" value="na"> Not assessed</label></div></div>
+<div class="gap-item"><p>8. Scenario analysis or stress testing is considered where material and proportionate to the institution.</p><div class="gap-options"><label><input type="radio" name="gfcr-g8" value="yes"> Yes</label><label><input type="radio" name="gfcr-g8" value="partial"> Partly</label><label><input type="radio" name="gfcr-g8" value="no"> No</label><label><input type="radio" name="gfcr-g8" value="na"> Not assessed</label></div></div>
+<div class="gap-item"><p>9. Disclosure metrics have documented definitions, data lineage, quality checks and approvals.</p><div class="gap-options"><label><input type="radio" name="gfcr-g9" value="yes"> Yes</label><label><input type="radio" name="gfcr-g9" value="partial"> Partly</label><label><input type="radio" name="gfcr-g9" value="no"> No</label><label><input type="radio" name="gfcr-g9" value="na"> Not assessed</label></div></div>
+<div class="gap-item"><p>10. Findings have accountable owners, due dates, remediation evidence and independent retesting where appropriate.</p><div class="gap-options"><label><input type="radio" name="gfcr-g10" value="yes"> Yes</label><label><input type="radio" name="gfcr-g10" value="partial"> Partly</label><label><input type="radio" name="gfcr-g10" value="no"> No</label><label><input type="radio" name="gfcr-g10" value="na"> Not assessed</label></div></div>
+</div>
+<div class="tool-actions"><button type="button" class="tool-button" id="gfcr-assess">Generate gap summary</button><button type="button" class="tool-button secondary" id="gfcr-export">Download summary (CSV)</button><button type="button" class="tool-button" id="gfcr-print">Print / Save as PDF</button></div>
+<div class="tool-output" id="gfcr-gap-results" aria-live="polite">Complete the questions and select “Generate gap summary” to see your self-assessment summary.</div>
+</div>
+<div class="tool-panel">
+<h3>Methodology and authoritative references</h3>
+<ul>
+<li><a href="https://www.bis.org/committees/bcbs/basel-consolidated-guidelines/module/rma/60" target="_blank" rel="noopener noreferrer">Basel Committee — Principles for the supervision of climate-related financial risks</a>: governance, risk identification, measurement, monitoring, reporting and scenario analysis.</li>
+<li><a href="https://www.ngfs.net/en/publications-and-statistics/publications/2025-guide-climate-scenario-analysis-central-banks-and-supervisors" target="_blank" rel="noopener noreferrer">NGFS — Guide to climate scenario analysis (updated guide)</a>: scenario objectives, exposure identification, scenario selection, impact assessment and communication.</li>
+<li><a href="https://www.fsb.org/2022/06/principles-for-the-effective-management-and-supervision-of-climate-related-financial-risks-2/" target="_blank" rel="noopener noreferrer">Financial Stability Board — climate-related financial risk principles</a>: international baseline and proportional application.</li>
+</ul>
+<p class="tool-disclaimer"><strong>Interpretation limits:</strong> Results are arithmetic outputs and self-reported answers only. They do not quantify actual expected loss, establish regulatory compliance, assign a validated risk grade, or replace institution-specific scenario design, validated data, independent model validation or local legal review. Applicability varies by jurisdiction and institution.</p>
+</div>
+</section>
+
 <section>
-<h2>6. Related RegTech Nexus AI resources</h2>
+<h2>7. Related RegTech Nexus AI resources</h2>
 <ul>
 <li><a href="/icms-2026/">ICMS Readiness &amp; Control Review Toolkit</a> — control review and remediation tracking.</li>
 <li><a href="/fintech-intelligence-hub/">FinTech Intelligence Hub</a> — financial technology and emerging risk topics.</li>
@@ -123,5 +209,77 @@
 </main>
 <footer id="contact"><div class="footer-brand"><div class="brand"><img class="brand-logo" src="/regtech-nexus-ai-wide.jpg" alt="RegTech Nexus AI" width="248" height="80"></div><p>Audit · Regulatory Intelligence · Compliance · Risk · Technology</p></div><div><b>Solutions</b><a href="/tbml-over-invoicing.html">TBML Risk Review</a><a href="/icms-2026/">ICMS Toolkit</a><a href="/payscale-2026/">PayScale 2026 Calculator</a><a href="/index.html#solutions">All Solutions</a></div><div><b>Expertise</b><a href="/index.html#capabilities">Audit &amp; Regulatory Intelligence</a><a href="/index.html#capabilities">Compliance &amp; Financial Crime</a><a href="/index.html#capabilities">Risk &amp; Governance</a><a href="/index.html#about">Responsible AI</a></div><div><b>Knowledge</b><a href="/insights.html">Research &amp; Insights</a><a href="/blog.html">Blog</a><a href="/regulatory-explainers.html">Regulatory Explainers</a><a href="/frameworks-toolkit.html">Frameworks &amp; Toolkits</a><a href="/publications.html">Publications</a></div><div><b>Connect</b><a href="https://www.linkedin.com/company/regtech-nexus-ai/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://www.facebook.com/regtechnexusai" target="_blank" rel="noopener noreferrer">Facebook</a><a href="/contact.html">Contact</a></div><p class="footer-note">Independent review-support resources. Review findings against official guidance, evidence and professional judgment.</p><div class="legal"><span>© 2026 RegTech Nexus AI</span><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/contact.html">Contact</a></div></footer>
 <script src="/script.js" defer></script><script src="/site-email.js?v=20260928-email-routing" defer></script><script src="/site-search.js" defer></script>
+
+<script>
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id);};
+var latestCalc=null, latestGap=null;
+var num=function(id){var el=$(id),v=Number(el.value);return el.value.trim()!==''&&Number.isFinite(v)?v:NaN;};
+var fmt=function(v,c){return (c||'USD')+' '+Number(v).toLocaleString(undefined,{maximumFractionDigits:2,minimumFractionDigits:0});};
+function calc(){
+ var base=num('gfcr-portfolio'),p=num('gfcr-physical'),t=num('gfcr-transition'),ps=num('gfcr-physical-shock'),ts=num('gfcr-transition-shock'),c=($('gfcr-currency').value.trim()||'units').slice(0,8);
+ var values=[base,p,t,ps,ts];
+ if(values.some(function(v){return !Number.isFinite(v)||v<0;})||p>100||t>100||ps>100||ts>100){
+  $('gfcr-calc-note').textContent='Please enter a non-negative portfolio amount and percentages between 0 and 100.';
+  return false;
+ }
+ var po=base*p/100,to=base*t/100,pl=po*ps/100,tl=to*ts/100;
+ $('gfcr-physical-amount').textContent=fmt(po,c);
+ $('gfcr-transition-amount').textContent=fmt(to,c);
+ $('gfcr-physical-loss').textContent=fmt(pl,c);
+ $('gfcr-transition-loss').textContent=fmt(tl,c);
+ $('gfcr-calc-note').textContent='Illustrative assumptions only: physical-risk exposure '+p+'% × assumed loss sensitivity '+ps+'%; transition-risk exposure '+t+'% × assumed loss sensitivity '+ts+'%. The two exposure groups may overlap; the sensitivities are shown separately and must not be summed into a total portfolio loss. No scenario data, probability, collateral, insurance, time horizon, adaptation or second-order effects are modelled.';
+ latestCalc={currency:c,portfolio:base,physicalShare:p,transitionShare:t,physicalShock:ps,transitionShock:ts,physicalExposure:po,transitionExposure:to,physicalSensitivity:pl,transitionSensitivity:tl};
+ return true;
+}
+function assess(){
+ var total=0,yes=0,partial=0,no=0,unassessed=0,items=[];
+ for(var i=1;i<=10;i++){
+  var selected=document.querySelector('input[name="gfcr-g'+i+'"]:checked');
+  var question=$('gfcr-gap-list').children[i-1].querySelector('p').textContent;
+  var value=selected?selected.value:'na';
+  items.push({question:question,response:value});
+  if(value==='yes'){total++;yes++;}
+  else if(value==='partial'){total++;partial++;}
+  else if(value==='no'){total++;no++;}
+  else{unassessed++;}
+ }
+ if(total===0){
+  $('gfcr-gap-results').textContent='No questions have been assessed yet. Select Yes, Partly or No based on available evidence; Not assessed items are excluded from the coverage calculation.';
+  latestGap=null;return;
+ }
+ var coverage=((yes+partial*.5)/total)*100;
+ var summary='Self-reported evidence coverage: '+coverage.toFixed(1)+'% (Yes counts 1; Partly counts 0.5; No counts 0, among '+total+' assessed items). Yes: '+yes+'; Partly: '+partial+'; No: '+no+'; Not assessed: '+unassessed+'. This is an internal prioritisation indicator only, not a compliance score or independently verified result.';
+ var priorities=items.filter(function(x){return x.response==='no'||x.response==='partial'||x.response==='na';});
+ var out=document.createElement('div');
+ var p=document.createElement('p');p.textContent=summary;out.appendChild(p);
+ var h=document.createElement('h4');h.textContent='Suggested follow-up';out.appendChild(h);
+ var ul=document.createElement('ul');
+ if(priorities.length===0){var li=document.createElement('li');li.textContent='All listed controls were marked Yes. Verify each response against evidence and test operating effectiveness before relying on the assessment.';ul.appendChild(li);}
+ else priorities.forEach(function(x){var li=document.createElement('li');li.textContent=(x.response==='no'?'Gap to investigate: ':x.response==='partial'?'Partial control—define the outstanding actions: ':'Not assessed—identify an owner and gather evidence: ')+x.question;ul.appendChild(li);});
+ out.appendChild(ul);$('gfcr-gap-results').replaceChildren(out);
+ latestGap={yes:yes,partial:partial,no:no,unassessed:unassessed,assessed:total,coverage:coverage,items:items,summary:summary};
+}
+function exportCsv(){
+ if(!calc())return;
+ if(!latestGap)assess();
+ var rows=[['Climate Risk Calculator & Governance Self-Assessment','Illustrative decision-support only'],['Currency label',latestCalc.currency],['Portfolio base',latestCalc.portfolio],['Physical exposure share (%)',latestCalc.physicalShare],['Transition exposure share (%)',latestCalc.transitionShare],['Assumed physical loss sensitivity (%)',latestCalc.physicalShock],['Assumed transition loss sensitivity (%)',latestCalc.transitionShock],['Physical exposure amount',latestCalc.physicalExposure],['Transition exposure amount',latestCalc.transitionExposure],['Illustrative physical loss sensitivity',latestCalc.physicalSensitivity],['Illustrative transition loss sensitivity',latestCalc.transitionSensitivity],['Exposure overlap note','Physical and transition exposures may overlap; do not sum sensitivities as total loss.'],['Governance summary',latestGap?latestGap.summary:'No assessed responses'],['Question','Response']];
+ if(latestGap)latestGap.items.forEach(function(x){rows.push([x.question,x.response]);});
+ var csv=rows.map(function(row){return row.map(function(v){return '"'+String(v).replace(/"/g,'""')+'"';}).join(',');}).join('\r\n');
+ var blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download='climate-risk-self-assessment.csv';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+}
+$('gfcr-calculate').addEventListener('click',calc);
+$('gfcr-reset').addEventListener('click',function(){
+ $('gfcr-currency').value='USD';$('gfcr-portfolio').value='1000000000';$('gfcr-physical').value='20';$('gfcr-transition').value='25';$('gfcr-physical-shock').value='2';$('gfcr-transition-shock').value='3';calc();
+});
+$('gfcr-assess').addEventListener('click',assess);
+$('gfcr-export').addEventListener('click',exportCsv);
+$('gfcr-print').addEventListener('click',function(){calc();assess();window.print();});
+calc();
+})();
+</script>
+
 </body>
 </html>
