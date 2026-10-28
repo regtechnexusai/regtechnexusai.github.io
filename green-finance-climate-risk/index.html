@@ -179,7 +179,7 @@
 <div class="gap-item"><p>9. Disclosure metrics have documented definitions, data lineage, quality checks and approvals.</p><div class="gap-options"><label><input type="radio" name="gfcr-g9" value="yes"> Yes</label><label><input type="radio" name="gfcr-g9" value="partial"> Partly</label><label><input type="radio" name="gfcr-g9" value="no"> No</label><label><input type="radio" name="gfcr-g9" value="na"> Not assessed</label></div></div>
 <div class="gap-item"><p>10. Findings have accountable owners, due dates, remediation evidence and independent retesting where appropriate.</p><div class="gap-options"><label><input type="radio" name="gfcr-g10" value="yes"> Yes</label><label><input type="radio" name="gfcr-g10" value="partial"> Partly</label><label><input type="radio" name="gfcr-g10" value="no"> No</label><label><input type="radio" name="gfcr-g10" value="na"> Not assessed</label></div></div>
 </div>
-<div class="tool-actions"><button type="button" class="tool-button" id="gfcr-assess">Generate gap summary</button><button type="button" class="tool-button secondary" id="gfcr-export">Download summary (CSV)</button><button type="button" class="tool-button" id="gfcr-print">Print / Save as PDF</button></div>
+<div class="tool-actions"><button type="button" class="tool-button" id="gfcr-assess">Generate gap summary</button><button type="button" class="tool-button secondary" id="gfcr-export">Download summary (CSV)</button><button type="button" class="tool-button" id="gfcr-print">Print / Save as PDF</button><button type="button" class="tool-button secondary" id="gfcr-reset-all" aria-label="Reset calculator and clear all assessment answers">↻ Reset / Refresh</button></div>
 <div class="tool-output" id="gfcr-gap-results" aria-live="polite">Complete the questions and select “Generate gap summary” to see your self-assessment summary.</div>
 </div>
 <div class="tool-panel">
@@ -277,6 +277,15 @@ $('gfcr-reset').addEventListener('click',function(){
 $('gfcr-assess').addEventListener('click',assess);
 $('gfcr-export').addEventListener('click',exportCsv);
 $('gfcr-print').addEventListener('click',function(){calc();assess();window.print();});
+$('gfcr-reset-all').addEventListener('click',function(){
+ ['gfcr-g1','gfcr-g2','gfcr-g3','gfcr-g4','gfcr-g5','gfcr-g6','gfcr-g7','gfcr-g8','gfcr-g9','gfcr-g10'].forEach(function(name){document.querySelectorAll('input[name="'+name+'"]').forEach(function(input){input.checked=false;});});
+ $('gfcr-currency').value='USD';$('gfcr-portfolio').value='1000000000';$('gfcr-physical').value='20';$('gfcr-transition').value='25';$('gfcr-physical-shock').value='2';$('gfcr-transition-shock').value='3';
+ latestCalc=null;latestGap=null;
+ $('gfcr-gap-results').textContent='All answers cleared. Complete the questions and select “Generate gap summary” to start a new assessment.';
+ $('gfcr-calc-note').textContent='Example inputs restored. Select “Calculate sensitivity” to refresh the calculator results.';
+ ['gfcr-physical-amount','gfcr-transition-amount','gfcr-physical-loss','gfcr-transition-loss'].forEach(function(id){$(id).textContent='—';});
+ $('gfcr-gap-list').scrollIntoView({behavior:'smooth',block:'start'});
+});
 calc();
 })();
 </script>
