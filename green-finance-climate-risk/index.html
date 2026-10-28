@@ -315,7 +315,7 @@ function assess(options){
 }
 function validateRecordForExport(){
  var missing=[];
- [['Institution / business unit','gfcr-institution'],['Assessment scope','gfcr-scope'],['Assessment date','gfcr-report-date'],['Prepared by','gfcr-preparer'],['Reviewed by','gfcr-reviewer'],['Approved by','gfcr-approver']].forEach(function(f){if(!$(f[1]).value.trim())missing.push(f[0]+' is required');});
+ [['Institution / business unit','gfcr-institution'],['Assessment scope','gfcr-scope'],['Assessment date','gfcr-report-date'],['Prepared by','gfcr-preparer'],['Reviewed by','gfcr-reviewer'],['Approved by','gfcr-approver']].forEach(function(f){if(isPlaceholder($(f[1]).value))missing.push(f[0]+' is required and cannot be a placeholder');});
  if(!latestGap){missing.push('Generate a valid self-assessment summary');}
  else latestGap.items.forEach(function(x){var d=x.details||{};
   if(x.response==='yes'){
