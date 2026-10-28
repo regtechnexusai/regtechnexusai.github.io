@@ -19,13 +19,21 @@
 .svar-kicker{font-size:.78rem;letter-spacing:.12em;font-weight:800;color:#1559a5;text-transform:uppercase}
 .svar h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.1;margin:.6rem 0 1rem}
 .svar h2{font-size:clamp(1.35rem,3vw,2rem);line-height:1.2;margin:0 0 12px}
-.svar section{margin-top:32px}
+.svar section{margin-top:28px;padding:clamp(18px,3vw,28px);border:1px solid #d5e2ef;border-left:5px solid #2474b8;border-radius:18px;background:#f7faff;box-shadow:0 4px 14px rgba(22,57,91,.045)}
+.svar section:nth-of-type(odd){border-left-color:#16816b;background:#f4fbf8}
+.svar section:nth-of-type(even){border-left-color:#2474b8;background:#f5f9ff}
+.svar section h2{padding-bottom:12px;border-bottom:2px solid #d7e5f3}
+.svar section:nth-of-type(odd) h2{border-bottom-color:#cbe8dd}
 .svar-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px}
-.svar-card{border:1px solid #dce4ee;border-radius:16px;padding:20px;background:#fff}
-.svar .note{border-left:4px solid #b45309;padding:14px 18px;background:#fff7ed;border-radius:8px}
+.svar-card{border:1px solid #cbddec;border-top:4px solid #3c7fba;border-radius:15px;padding:20px;background:linear-gradient(155deg,#fff 0%,#f2f8ff 100%);box-shadow:0 3px 10px rgba(22,57,91,.055)}
+.svar-grid .svar-card:nth-child(3n+2){border-top-color:#16816b;background:linear-gradient(155deg,#fff 0%,#f0faf6 100%)}
+.svar-grid .svar-card:nth-child(3n){border-top-color:#c28a2c;background:linear-gradient(155deg,#fff 0%,#fff9ed 100%)}
+.svar-card h3{margin:.1rem 0 .6rem;color:#163b61}
+.svar-grid .svar-card:nth-child(3n+2) h3{color:#126451}
+.svar .note{border:1px solid #f0d1a6;border-left:5px solid #b45309;padding:14px 18px;background:#fff4e5;border-radius:10px}
 .svar a{overflow-wrap:anywhere}
 .svar li{margin:.45rem 0}
-@media(max-width:600px){.svar{padding:18px 14px 40px}.svar-card{padding:16px}}
+@media(max-width:600px){.svar{padding:18px 14px 40px}.svar section{margin-top:20px;padding:16px 12px;border-radius:14px}.svar section h2{padding-bottom:9px}.svar-card{padding:16px}}
 </style>
 </head>
 <body class="article-page wide-logo-page">
