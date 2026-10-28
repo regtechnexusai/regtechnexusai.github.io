@@ -63,7 +63,7 @@
 .gfcr-tool .metric{padding:15px;border:1px solid #c9d9e7;border-top:4px solid #2679b7;border-radius:12px;background:#fff;min-width:0}
 .gfcr-tool .metric:nth-child(2){border-top-color:#17836a}.gfcr-tool .metric:nth-child(3){border-top-color:#c28a2c}.gfcr-tool .metric strong{display:block;font-size:1.35rem;line-height:1.25;overflow-wrap:anywhere;color:#173d60}.gfcr-tool .metric span{font-size:.88rem;color:#4c5f73}
 .gfcr-tool .tool-output{margin-top:14px;padding:14px 16px;border:1px solid #c8dfd5;border-left:5px solid #16816b;border-radius:10px;background:#f2fbf6}
-.gfcr-tool .tool-output:empty{display:none}.gfcr-tool #gfcr-gap-results li{display:list-item;margin:0 0 .6rem;break-inside:avoid;page-break-inside:avoid}.gfcr-tool #gfcr-gap-results ul{padding-left:1.4rem}.gfcr-tool .evidence-fields label[data-conditional='na'][hidden]{display:none}
+.gfcr-tool .tool-output:empty{display:none}
 .gfcr-tool .gap-list{display:grid;grid-template-columns:1fr;gap:12px}
 .gfcr-tool .gap-item{padding:13px;border:1px solid #d7e1eb;border-radius:11px;background:#fff}
 .gfcr-tool .gap-item p{margin:0 0 8px;font-weight:650}
@@ -239,7 +239,7 @@ function addEvidenceFields(){
  for(var i=1;i<=11;i++){
   var card=$('gfcr-gap-list').children[i-1];if(!card)continue;
   var wrap=document.createElement('div');wrap.className='evidence-fields';wrap.setAttribute('aria-label','Evidence and review details for control '+i);
-  var fields=[['evidence','Evidence reference / ID','text'],['evidence-date','Evidence date','date'],['owner','Control owner / scope','text'],['design','Design effectiveness','select'],['operation','Operating effectiveness','select'],['action','Gap / action / deadline','text'],['reviewer','Reviewer name','text'],['review-date','Review date','date'],['na-reason','Not-applicable justification','text']];
+  var fields=[['evidence','Evidence reference / ID','text'],['evidence-date','Evidence date','date'],['owner','Control owner / scope','text'],['design','Design effectiveness','select'],['operation','Operating effectiveness','select'],['action','Gap / action / deadline','text'],['reviewer','Reviewer / review date','text'],['na-reason','Not-applicable justification','text']];
   fields.forEach(function(f){
    var label=document.createElement('label');label.textContent=f[1];var el;
    if(f[2]==='select'){el=document.createElement('select');[['','Select'],['effective','Effective'],['partial','Partly effective'],['ineffective','Ineffective'],['untested','Not tested'],['na','Not applicable']].forEach(function(o){var opt=document.createElement('option');opt.value=o[0];opt.textContent=o[1];el.appendChild(opt);});}
@@ -264,27 +264,20 @@ function assess(options){
   if(value==='yes'){yes++;assessed++;}else if(value==='partial'){partial++;assessed++;}else if(value==='no'){no++;assessed++;}else if(value==='na'){na++;}else{unassessed++;}
   var issues=[];
   if(value==='yes'){
-   if(isPlaceholder(details.evidence))issues.push('Yes response has no valid evidence reference (placeholder values are not accepted)');
-   if(isPlaceholder(details.owner))issues.push('Control owner/scope is missing or appears to be a placeholder');
-   if(isPlaceholder(details.reviewer))issues.push('Reviewer name is missing or appears to be a placeholder');
-   if(!details['review-date'])issues.push('Review date is missing');
+   if(!details.evidence.trim())issues.push('Yes response has no recorded evidence reference');
+   if(!details.owner.trim())issues.push('Control owner/scope is missing');
+   if(!details.reviewer.trim())issues.push('Reviewer/review date is missing');
    if(details.operation!=='effective')issues.push('Yes response requires operating effectiveness marked Effective');
-   if(details.design!=='effective')issues.push('Yes response requires design effectiveness marked Effective');
+   if(['partial','ineffective','untested','na'].indexOf(details.design)>=0)issues.push('Yes response needs reconciliation with design-effectiveness rating');
   }
   if(value==='partial'&&details.design==='effective'&&details.operation==='effective')issues.push('Partly response needs an explanation because both effectiveness ratings are Effective');
-  if(value==='no'&&details.operation==='effective')issues.push('No response conflicts with operating effectiveness marked Effective');
-  if(value==='no'&&details.design==='effective')issues.push('No response conflicts with design effectiveness marked Effective');
-  if(value==='yes'&&['ineffective','untested','na'].indexOf(details.operation)>=0)issues.push('Yes response conflicts with operating effectiveness marked Ineffective, Not tested or Not applicable');
-  if(value==='yes'&&['ineffective','untested','na'].indexOf(details.design)>=0)issues.push('Yes response conflicts with design effectiveness marked Ineffective, Not tested or Not applicable');
-  if((value==='no'||value==='partial')&&isPlaceholder(details.owner))issues.push('Exception requires a valid control owner');
-  if((value==='no'||value==='partial')&&isPlaceholder(details.action))issues.push('Exception requires a meaningful gap/action/deadline, not a placeholder');
+  if((value==='no'||value==='partial')&&!details.owner.trim())issues.push('Exception requires a control owner');
+  if(value==='no'&&!details.action.trim())issues.push('No response has no recorded gap/action/deadline');
   if(value==='unassessed'&&(details.design||details.operation))issues.push('Not assessed response has effectiveness ratings; reconcile or clear them');
   if(value==='na'&&(!details['na-reason']||!details['na-reason'].trim()))issues.push('Not applicable response requires justification');
-  var reportDate=$('gfcr-report-date').value, evidenceDate=details['evidence-date'],reviewDate=details['review-date'];
+  var reportDate=$('gfcr-report-date').value, evidenceDate=details['evidence-date'];
   if(reportDate&&evidenceDate&&evidenceDate>reportDate)issues.push('Evidence date is after assessment date; confirm subsequent evidence or revise dates');
-  if(reportDate&&evidenceDate&&evidenceDate<reportDate&&(Date.parse(reportDate)-Date.parse(evidenceDate))/86400000>365)issues.push('Evidence is more than 365 days old; confirm it remains current');
-  if(evidenceDate&&reviewDate&&reviewDate<evidenceDate)issues.push('Review date is earlier than the evidence date; confirm chronology');
-  if(evidenceDate&&isPlaceholder(details.evidence))issues.push('Evidence date recorded without a valid evidence reference');
+  if(evidenceDate&&!details.evidence.trim())issues.push('Evidence date recorded without an evidence reference');
   if(value==='partial'&&!details.action.trim())issues.push('Partly response has no recorded gap/action/deadline');
   items.push({number:i,question:question,response:value,details:details,issues:issues});
  }
@@ -293,15 +286,15 @@ function assess(options){
   latestGap={yes:0,partial:0,no:0,unassessed:unassessed,na:na,assessed:0,coverage:null,items:items,summary:'No controls assessed.'};return;
  }
  var coverage=((yes+partial*.5)/assessed)*100;
- var evidenceBackedYes=items.filter(function(x){return x.response==='yes'&&!isPlaceholder(x.details.evidence)&&!isPlaceholder(x.details.owner)&&!isPlaceholder(x.details.reviewer)&&x.details['review-date']&&x.details.design==='effective'&&x.details.operation==='effective';}).length;
- var summary='Self-reported evidence indicator: '+coverage.toFixed(1)+'% = (Yes × 1 + Partly × 0.5 + No × 0) ÷ assessed controls ('+assessed+') × 100. Assessed: '+assessed+'/11 ('+(assessed/11*100).toFixed(1)+'%). Yes: '+yes+'; Partly: '+partial+'; No: '+no+'; Not assessed: '+unassessed+'; Not applicable: '+na+'. Evidence-backed Yes responses (valid evidence ID, owner, reviewer, review date, and design and operating effectiveness marked Effective): '+evidenceBackedYes+'. This unvalidated indicator is not a compliance score or verified control-effectiveness rating.';
+ var evidenceBackedYes=items.filter(function(x){return x.response==='yes'&&x.details.evidence.trim()&&x.details.owner.trim()&&x.details.reviewer.trim()&&x.details.operation==='effective';}).length;
+ var summary='Self-reported evidence indicator: '+coverage.toFixed(1)+'% = (Yes × 1 + Partly × 0.5 + No × 0) ÷ assessed controls ('+assessed+') × 100. Assessed: '+assessed+'/11 ('+(assessed/11*100).toFixed(1)+'%). Yes: '+yes+'; Partly: '+partial+'; No: '+no+'; Not assessed: '+unassessed+'; Not applicable: '+na+'. Evidence-backed Yes responses (evidence ID, owner, reviewer and operating effectiveness marked Effective): '+evidenceBackedYes+'. This unvalidated indicator is not a compliance score or verified control-effectiveness rating.';
  var priorities=items.filter(function(x){return x.response==='no'||x.response==='partial'||x.response==='unassessed';});
  var qualityIssues=items.filter(function(x){return x.issues&&x.issues.length;});
  var out=document.createElement('div');var p=document.createElement('p');p.textContent=summary;out.appendChild(p);
  var h=document.createElement('h4');h.textContent='Suggested follow-up';out.appendChild(h);
  var ul=document.createElement('ul');
  if(priorities.length===0){var li=document.createElement('li');li.textContent='No gaps were selected in the response fields. Verify each Yes response against traceable evidence and operating-effectiveness testing before relying on the assessment.';ul.appendChild(li);}
- else priorities.forEach(function(x){var li=document.createElement('li');var follow=x.response==='no'?'Gap to investigate: ':x.response==='partial'?'Partial control—define outstanding actions: ':'Reconcile effectiveness ratings or clear them, then assign any remaining evidence work: ';li.textContent=follow+'Control '+x.number+': '+x.question.replace(/^\s*\d+\.\s*/, '')+(x.details.action&&!isPlaceholder(x.details.action)?' Action: '+x.details.action:'');ul.appendChild(li);});
+ else priorities.forEach(function(x){var li=document.createElement('li');li.textContent=(x.response==='no'?'Gap to investigate: ':x.response==='partial'?'Partial control—define outstanding actions: ':'Not assessed—identify an owner and gather evidence: ')+'Control '+x.number+': '+x.question.replace(/^\s*\d+\.\s*/, '')+(x.details.action?' Action: '+x.details.action:'');ul.appendChild(li);});
  out.appendChild(ul);
  var qh=document.createElement('h4');qh.textContent='Record-quality checks';out.appendChild(qh);
  var qul=document.createElement('ul');
@@ -312,29 +305,21 @@ function assess(options){
 }
 function validateRecordForExport(){
  var missing=[];
- [['Institution / business unit','gfcr-institution'],['Assessment scope','gfcr-scope'],['Assessment date','gfcr-report-date'],['Prepared by','gfcr-preparer'],['Reviewed by','gfcr-reviewer'],['Approved by','gfcr-approver']].forEach(function(f){if(isPlaceholder($(f[1]).value))missing.push(f[0]+' is required and cannot be a placeholder');});
+ [['Institution / business unit','gfcr-institution'],['Assessment scope','gfcr-scope'],['Assessment date','gfcr-report-date'],['Prepared by','gfcr-preparer'],['Reviewed by','gfcr-reviewer'],['Approved by','gfcr-approver']].forEach(function(f){if(!$(f[1]).value.trim())missing.push(f[0]+' is required');});
  if(!latestGap){missing.push('Generate a valid self-assessment summary');}
  else latestGap.items.forEach(function(x){var d=x.details||{};
   if(x.response==='yes'){
-   if(isPlaceholder(d.evidence))missing.push('Control '+x.number+': valid evidence reference is required for Yes');
-   if(isPlaceholder(d.owner))missing.push('Control '+x.number+': valid owner/scope is required for Yes');
-   if(isPlaceholder(d.reviewer))missing.push('Control '+x.number+': valid reviewer name is required for Yes');
-   if(!d['review-date'])missing.push('Control '+x.number+': review date is required for Yes');
+   if(!d.evidence.trim())missing.push('Control '+x.number+': evidence reference is required for Yes');
+   if(!d.owner.trim())missing.push('Control '+x.number+': owner/scope is required for Yes');
+   if(!d.reviewer.trim())missing.push('Control '+x.number+': reviewer/review date is required for Yes');
    if(d.design!=='effective')missing.push('Control '+x.number+': design effectiveness must be Effective for Yes');
    if(d.operation!=='effective')missing.push('Control '+x.number+': operating effectiveness must be Effective for Yes');
   }
-  if(d['evidence-date']&&isPlaceholder(d.evidence))missing.push('Control '+x.number+': valid evidence reference is required when an evidence date is entered');
-  if(d['evidence-date']&&$('gfcr-report-date').value&&d['evidence-date']>$('gfcr-report-date').value)missing.push('Control '+x.number+': evidence date is after assessment date');
-  if(d['evidence-date']&&$('gfcr-report-date').value&&(Date.parse($('gfcr-report-date').value)-Date.parse(d['evidence-date']))>365*86400000)missing.push('Control '+x.number+': evidence is more than 365 days old; refresh or review before export');
-  if(d['evidence-date']&&d['review-date']&&d['review-date']<d['evidence-date'])missing.push('Control '+x.number+': review date is earlier than evidence date');
+  if(d['evidence-date']&&!d.evidence.trim())missing.push('Control '+x.number+': evidence reference is required when an evidence date is entered');
   if(['yes','partial','no'].indexOf(x.response)>=0&&(!d.design||!d.operation))missing.push('Control '+x.number+': complete both design and operating-effectiveness ratings');
-  if((x.response==='partial'||x.response==='no')&&isPlaceholder(d.owner))missing.push('Control '+x.number+': valid owner is required for an exception');
-  if((x.response==='partial'||x.response==='no')&&isPlaceholder(d.action))missing.push('Control '+x.number+': meaningful gap/action/deadline is required for an exception');
-  if(x.response==='na'&&isPlaceholder(d['na-reason']))missing.push('Control '+x.number+': Not applicable justification is required');
-  if(x.response==='no'&&d.operation==='effective')missing.push('Control '+x.number+': No response conflicts with operating effectiveness marked Effective');
-  if(x.response==='no'&&d.design==='effective')missing.push('Control '+x.number+': No response conflicts with design effectiveness marked Effective');
-  if(x.response==='yes'&&['ineffective','untested','na'].indexOf(d.operation)>=0)missing.push('Control '+x.number+': Yes response conflicts with operating effectiveness rating');
-  if(x.response==='yes'&&['ineffective','untested','na'].indexOf(d.design)>=0)missing.push('Control '+x.number+': Yes response conflicts with design effectiveness rating');
+  if((x.response==='partial'||x.response==='no')&&!d.owner.trim())missing.push('Control '+x.number+': owner is required for an exception');
+  if((x.response==='partial'||x.response==='no')&&!d.action.trim())missing.push('Control '+x.number+': gap/action/deadline is required for an exception');
+  if(x.response==='na'&&(!d['na-reason']||!d['na-reason'].trim()))missing.push('Control '+x.number+': Not applicable justification is required');
  });
  if(missing.length){var out=document.createElement('div');var p=document.createElement('p');p.textContent='Export/print blocked: complete the required assessment record fields below.';out.appendChild(p);var ul=document.createElement('ul');missing.forEach(function(msg){var li=document.createElement('li');li.textContent=msg;ul.appendChild(li);});out.appendChild(ul);$('gfcr-gap-results').replaceChildren(out);return false;}
  return true;
@@ -343,9 +328,9 @@ function exportCsv(){
  if(!calc())return;
  assess({focusInvalid:true});
  if(!latestGap||!validateRecordForExport())return;
- addEvidenceFields();var rows=[['Climate Risk Calculator & Governance Self-Assessment','Screening template; not a completed or independently verified assessment'],['Institution / business unit',$('gfcr-institution').value],['Assessment scope',$('gfcr-scope').value],['Assessment date',$('gfcr-report-date').value],['Prepared by',$('gfcr-preparer').value],['Reviewed by',$('gfcr-reviewer').value],['Approved by',$('gfcr-approver').value],['Currency label',latestCalc.currency],['Portfolio base',latestCalc.portfolio],['Physical exposure share (%)',latestCalc.physicalShare],['Transition exposure share (%)',latestCalc.transitionShare],['Assumed physical loss sensitivity (%)',latestCalc.physicalShock],['Assumed transition loss sensitivity (%)',latestCalc.transitionShock],['Physical exposure amount',latestCalc.physicalExposure],['Transition exposure amount',latestCalc.transitionExposure],['Illustrative physical loss sensitivity',latestCalc.physicalSensitivity],['Illustrative transition loss sensitivity',latestCalc.transitionSensitivity],['Exposure overlap note','Physical and transition exposures may overlap; do not sum sensitivities as total loss.'],['Governance summary',latestGap?latestGap.summary:'No assessed responses'],['Control number','Question','Response','Evidence reference','Evidence date','Control owner / scope','Design effectiveness','Operating effectiveness','Gap / action / deadline','Reviewer','Review date','Not-applicable justification']];
- if(latestGap)latestGap.items.forEach(function(x){var d=x.details||{};rows.push([x.number,x.question,responseLabel(x.response),d.evidence||'',d['evidence-date']||'',d.owner||'',d.design||'',d.operation||'',d.action||'',d.reviewer||'',d['review-date']||'',d['na-reason']||'']);});
- var csv=rows.map(function(row){return row.map(function(v){var value=String(v==null?'':v);if(typeof v==='string'&&/^\\s*[=+@-]/.test(value))value="'"+value;return '"'+value.replace(/"/g,'""')+'"';}).join(',');}).join('\\r\\n');
+ addEvidenceFields();var rows=[['Climate Risk Calculator & Governance Self-Assessment','Screening template; not a completed or independently verified assessment'],['Institution / business unit',$('gfcr-institution').value],['Assessment scope',$('gfcr-scope').value],['Assessment date',$('gfcr-report-date').value],['Prepared by',$('gfcr-preparer').value],['Reviewed by',$('gfcr-reviewer').value],['Approved by',$('gfcr-approver').value],['Currency label',latestCalc.currency],['Portfolio base',latestCalc.portfolio],['Physical exposure share (%)',latestCalc.physicalShare],['Transition exposure share (%)',latestCalc.transitionShare],['Assumed physical loss sensitivity (%)',latestCalc.physicalShock],['Assumed transition loss sensitivity (%)',latestCalc.transitionShock],['Physical exposure amount',latestCalc.physicalExposure],['Transition exposure amount',latestCalc.transitionExposure],['Illustrative physical loss sensitivity',latestCalc.physicalSensitivity],['Illustrative transition loss sensitivity',latestCalc.transitionSensitivity],['Exposure overlap note','Physical and transition exposures may overlap; do not sum sensitivities as total loss.'],['Governance summary',latestGap?latestGap.summary:'No assessed responses'],['Control number','Question','Response','Evidence reference','Evidence date','Control owner / scope','Design effectiveness','Operating effectiveness','Gap / action / deadline','Reviewer / review date','Not-applicable justification']];
+ if(latestGap)latestGap.items.forEach(function(x){var d=x.details||{};rows.push([x.number,x.question,responseLabel(x.response),d.evidence||'',d['evidence-date']||'',d.owner||'',d.design||'',d.operation||'',d.action||'',d.reviewer||'',d['na-reason']||'']);});
+ var csv=rows.map(function(row){return row.map(function(v){return '"'+String(v).replace(/"/g,'""')+'"';}).join(',');}).join('\r\n');
  var blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');
  a.href=url;a.download='climate-risk-self-assessment.csv';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
 }
