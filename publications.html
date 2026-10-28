@@ -31,6 +31,30 @@
 
 <link rel="stylesheet" href="/site-wide-shell.css?v=20261015-v1">
 <script src="/site-wide-shell.js?v=20261015-v1" defer></script>
+<style>
+/* Publications page: distinct sections, cards and clear responsive demarcation */
+body.wide-logo-page main > .article-hero{background:linear-gradient(125deg,#e5f0ff 0%,#f4f8ff 60%,#e7f7ef 100%);border:1px solid #b7d0ed;border-left:7px solid #2467a6;border-radius:18px;box-shadow:0 9px 25px rgba(23,74,125,.09)}
+body.wide-logo-page main > .publication-feature{background:linear-gradient(135deg,#eaf3ff 0%,#f5f9ff 100%);border:1px solid #b9d1ec;border-left:7px solid #2467a6;border-radius:18px;box-shadow:0 8px 22px rgba(23,74,125,.08)}
+body.wide-logo-page .publication-feature .product-section-head{padding-bottom:1.1rem;border-bottom:1px solid #c4d8ed}
+body.wide-logo-page .series-banner{border:1px solid #8db7d4;border-left:6px solid #1b679e;border-radius:14px;background:linear-gradient(120deg,#123653,#1b5273);box-shadow:0 8px 22px rgba(16,43,73,.16);transition:transform .18s ease,box-shadow .18s ease}
+body.wide-logo-page .series-banner:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(16,43,73,.2)}
+body.wide-logo-page main > .publications-archive{max-width:1280px;margin:1.5rem auto;padding:clamp(1.1rem,3vw,2rem);border:1px solid #b9d9c7;border-left:7px solid #25805a;border-radius:18px;background:linear-gradient(135deg,#eaf7ef 0%,#f5fbf7 100%);box-shadow:0 8px 22px rgba(24,100,66,.07)}
+body.wide-logo-page .publications-archive .archive-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+body.wide-logo-page .publications-archive .archive-card{min-width:0;min-height:100%;padding:clamp(1.1rem,2.5vw,1.7rem);border:1px solid #c6dcd0;border-top:5px solid #25805a;border-radius:13px;background:linear-gradient(180deg,#fff 0%,#f4fbf6 100%);box-shadow:0 6px 18px rgba(24,100,66,.07);transition:transform .18s ease,box-shadow .18s ease}
+body.wide-logo-page .publications-archive .archive-card:nth-child(3n+2){border-color:#c6d8ee;border-top-color:#3477b9;background:linear-gradient(180deg,#fff 0%,#f2f7ff 100%)}
+body.wide-logo-page .publications-archive .archive-card:nth-child(3n){border-color:#ead9b6;border-top-color:#b98526;background:linear-gradient(180deg,#fff 0%,#fff9ee 100%)}
+body.wide-logo-page .publications-archive .archive-card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(23,74,125,.12)}
+body.wide-logo-page .publications-archive .post-meta{display:inline-block;margin-bottom:.7rem;padding:.35rem .55rem;border-radius:5px;background:#dff0e6;color:#175a3e;font-weight:800;line-height:1.5}
+body.wide-logo-page .publications-archive .archive-card:nth-child(3n+2) .post-meta{background:#e1edff;color:#1b5287}
+body.wide-logo-page .publications-archive .archive-card:nth-child(3n) .post-meta{background:#fff0d1;color:#805b18}
+body.wide-logo-page .publications-archive .archive-card h3{margin-top:.45rem;line-height:1.2}
+body.wide-logo-page .publications-archive .archive-card>a{display:inline-flex;align-items:center;gap:.35rem;margin-top:auto;padding:.7rem .9rem;border:1px solid #b6d2c2;border-radius:8px;background:#e6f5ec;color:#175a3e;text-decoration:none;font-weight:800}
+body.wide-logo-page .publications-archive .archive-card:nth-child(3n+2)>a{border-color:#bfd4ed;background:#e8f1ff;color:#174f87}
+body.wide-logo-page .publications-archive .archive-card:nth-child(3n)>a{border-color:#ead4a6;background:#fff2d9;color:#805b18}
+body.wide-logo-page .publications-archive .archive-card>a:hover,body.wide-logo-page .publications-archive .archive-card>a:focus-visible{text-decoration:underline;outline:2px solid currentColor;outline-offset:2px}
+@media(max-width:700px){body.wide-logo-page main > .article-hero,body.wide-logo-page main > .publication-feature,body.wide-logo-page main > .publications-archive{margin:1rem .65rem;padding:1rem;border-radius:14px}body.wide-logo-page .publications-archive .archive-grid{grid-template-columns:1fr;gap:13px}body.wide-logo-page .publications-archive .archive-card{padding:1.1rem}body.wide-logo-page .series-banner{padding:18px;gap:18px}}
+@media(prefers-reduced-motion:reduce){body.wide-logo-page .series-banner,body.wide-logo-page .publications-archive .archive-card{transition:none}}
+</style>
 </head>
 <body class="article-page wide-logo-page">
   <a class="skip-link" href="#main-content">Skip to main content</a>
