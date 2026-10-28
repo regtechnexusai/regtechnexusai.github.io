@@ -19,12 +19,21 @@
 .gfcr-kicker{font-size:.78rem;letter-spacing:.12em;font-weight:800;color:#1559a5;text-transform:uppercase}
 .gfcr h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.1;margin:.6rem 0 1rem}
 .gfcr h2{font-size:clamp(1.35rem,3vw,2rem);line-height:1.2;margin:0 0 12px}
-.gfcr section{margin-top:32px}
+.gfcr section{margin-top:28px;padding:clamp(18px,3vw,28px);border:1px solid #d5e2ef;border-left:5px solid #2474b8;border-radius:18px;background:#f7faff;box-shadow:0 4px 14px rgba(22,57,91,.045)}
+.gfcr section:nth-of-type(odd){border-left-color:#16816b;background:#f4fbf8}
+.gfcr section:nth-of-type(even){border-left-color:#2474b8;background:#f5f9ff}
+.gfcr section h2{padding-bottom:12px;border-bottom:2px solid #d7e5f3}
+.gfcr section:nth-of-type(odd) h2{border-bottom-color:#cbe8dd}
 .gfcr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px}
-.gfcr-card{border:1px solid #dce4ee;border-radius:16px;padding:20px;background:#fff}
-.gfcr-card h3{margin:.1rem 0 .6rem;font-size:1.1rem}
+.gfcr-card{border:1px solid #cbddec;border-top:4px solid #3c7fba;border-radius:15px;padding:20px;background:linear-gradient(155deg,#fff 0%,#f2f8ff 100%);box-shadow:0 3px 10px rgba(22,57,91,.055)}
+.gfcr-grid .gfcr-card:nth-child(3n+2){border-top-color:#16816b;background:linear-gradient(155deg,#fff 0%,#f0faf6 100%)}
+.gfcr-grid .gfcr-card:nth-child(3n){border-top-color:#c28a2c;background:linear-gradient(155deg,#fff 0%,#fff9ed 100%)}
+.gfcr-card h3{margin:.1rem 0 .6rem;font-size:1.1rem;color:#163b61}
+.gfcr-grid .gfcr-card:nth-child(3n+2) h3{color:#126451}
 .gfcr a{overflow-wrap:anywhere}
-.gfcr .note{border-left:4px solid #1559a5;padding:14px 18px;background:#f3f7fc;border-radius:8px}
+.gfcr .note{border:1px solid #b9d5ed;border-left:5px solid #1559a5;padding:14px 18px;background:#eaf4ff;border-radius:10px}
+.gfcr .gfcr-table-scroll{box-shadow:0 3px 12px rgba(22,57,91,.06)}
+.gfcr .source-link{box-shadow:0 3px 0 rgba(7,43,81,.14)}
 .gfcr-table-scroll{width:100%;max-width:100%;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-inline:contain;border:1px solid #dce4ee;border-radius:12px;background:#fff}
 .gfcr-table-scroll:focus-visible{outline:3px solid #1559a5;outline-offset:3px}
 .gfcr table{width:max-content;min-width:100%;border-collapse:collapse;display:table;table-layout:auto}
@@ -33,7 +42,7 @@
 .gfcr .source-link{display:inline-flex;align-items:center;justify-content:center;gap:8px;max-width:100%;padding:10px 14px;border:1px solid #0b4f91;border-radius:10px;background:#0b4f91;color:#fff;font-weight:700;line-height:1.35;text-decoration:none;overflow-wrap:anywhere;box-shadow:0 2px 0 rgba(7,43,81,.12)}
 .gfcr .source-link:hover{background:#083d72;border-color:#083d72;color:#fff;text-decoration:underline}
 .gfcr .source-link:focus-visible{outline:3px solid #f0b429;outline-offset:3px}
-@media(max-width:600px){.gfcr{padding:18px 14px 40px}.gfcr-card{padding:16px}.gfcr th,.gfcr td{min-width:155px;padding:10px}.gfcr .source-link{width:100%;box-sizing:border-box;text-align:center}}
+@media(max-width:600px){.gfcr{padding:18px 14px 40px}.gfcr section{margin-top:20px;padding:16px 12px;border-radius:14px}.gfcr section h2{padding-bottom:9px}.gfcr-card{padding:16px}.gfcr th,.gfcr td{min-width:155px;padding:10px}.gfcr .source-link{width:100%;box-sizing:border-box;text-align:center}}
 </style>
 </head>
 <body class="article-page wide-logo-page">
