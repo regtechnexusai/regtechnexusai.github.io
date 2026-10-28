@@ -303,10 +303,28 @@ function assess(options){
  out.appendChild(qul);$('gfcr-gap-results').replaceChildren(out);
  latestGap={yes:yes,partial:partial,no:no,unassessed:unassessed,na:na,assessed:assessed,coverage:coverage,evidenceBackedYes:evidenceBackedYes,items:items,qualityIssues:qualityIssues,summary:summary};
 }
+function validateRecordForExport(){
+ var missing=[];
+ [['Institution / business unit','gfcr-institution'],['Assessment scope','gfcr-scope'],['Assessment date','gfcr-report-date'],['Prepared by','gfcr-preparer'],['Reviewed by','gfcr-reviewer'],['Approved by','gfcr-approver']].forEach(function(f){if(!$(f[1]).value.trim())missing.push(f[0]+' is required');});
+ if(!latestGap){missing.push('Generate a valid self-assessment summary');}
+ else latestGap.items.forEach(function(x){var d=x.details||{};
+  if(x.response==='yes'){
+   if(!d.evidence.trim())missing.push('Control '+x.number+': evidence reference is required for Yes');
+   if(!d.owner.trim())missing.push('Control '+x.number+': owner/scope is required for Yes');
+   if(!d.reviewer.trim())missing.push('Control '+x.number+': reviewer/review date is required for Yes');
+   if(d.operation!=='effective')missing.push('Control '+x.number+': operating effectiveness must be Effective for Yes');
+  }
+  if((x.response==='partial'||x.response==='no')&&!d.owner.trim())missing.push('Control '+x.number+': owner is required for an exception');
+  if((x.response==='partial'||x.response==='no')&&!d.action.trim())missing.push('Control '+x.number+': gap/action/deadline is required for an exception');
+  if(x.response==='na'&&(!d['na-reason']||!d['na-reason'].trim()))missing.push('Control '+x.number+': Not applicable justification is required');
+ });
+ if(missing.length){var out=document.createElement('div');var p=document.createElement('p');p.textContent='Export/print blocked: complete the required assessment record fields below.';out.appendChild(p);var ul=document.createElement('ul');missing.forEach(function(msg){var li=document.createElement('li');li.textContent=msg;ul.appendChild(li);});out.appendChild(ul);$('gfcr-gap-results').replaceChildren(out);return false;}
+ return true;
+}
 function exportCsv(){
  if(!calc())return;
  assess({focusInvalid:true});
- if(!latestGap)return;
+ if(!latestGap||!validateRecordForExport())return;
  addEvidenceFields();var rows=[['Climate Risk Calculator & Governance Self-Assessment','Screening template; not a completed or independently verified assessment'],['Institution / business unit',$('gfcr-institution').value],['Assessment scope',$('gfcr-scope').value],['Assessment date',$('gfcr-report-date').value],['Prepared by',$('gfcr-preparer').value],['Reviewed by',$('gfcr-reviewer').value],['Approved by',$('gfcr-approver').value],['Currency label',latestCalc.currency],['Portfolio base',latestCalc.portfolio],['Physical exposure share (%)',latestCalc.physicalShare],['Transition exposure share (%)',latestCalc.transitionShare],['Assumed physical loss sensitivity (%)',latestCalc.physicalShock],['Assumed transition loss sensitivity (%)',latestCalc.transitionShock],['Physical exposure amount',latestCalc.physicalExposure],['Transition exposure amount',latestCalc.transitionExposure],['Illustrative physical loss sensitivity',latestCalc.physicalSensitivity],['Illustrative transition loss sensitivity',latestCalc.transitionSensitivity],['Exposure overlap note','Physical and transition exposures may overlap; do not sum sensitivities as total loss.'],['Governance summary',latestGap?latestGap.summary:'No assessed responses'],['Control number','Question','Response','Evidence reference','Evidence date','Control owner / scope','Design effectiveness','Operating effectiveness','Gap / action / deadline','Reviewer / review date','Not-applicable justification']];
  if(latestGap)latestGap.items.forEach(function(x){var d=x.details||{};rows.push([x.number,x.question,responseLabel(x.response),d.evidence||'',d['evidence-date']||'',d.owner||'',d.design||'',d.operation||'',d.action||'',d.reviewer||'',d['na-reason']||'']);});
  var csv=rows.map(function(row){return row.map(function(v){return '"'+String(v).replace(/"/g,'""')+'"';}).join(',');}).join('\r\n');
@@ -321,7 +339,7 @@ $('gfcr-assess').addEventListener('click',function(){assess({focusInvalid:true})
 $('gfcr-gap-list').addEventListener('change',function(){assess({focusInvalid:false});});
 ['gfcr-institution','gfcr-scope','gfcr-report-date','gfcr-preparer','gfcr-reviewer','gfcr-approver'].forEach(function(id){$(id).addEventListener('change',function(){if(latestGap)assess({focusInvalid:false});});});
 $('gfcr-export').addEventListener('click',exportCsv);
-$('gfcr-print').addEventListener('click',function(){if(!calc())return;assess({focusInvalid:true});if(!latestGap)return;window.print();});
+$('gfcr-print').addEventListener('click',function(){if(!calc())return;assess({focusInvalid:true});if(!latestGap||!validateRecordForExport())return;window.print();});
 $('gfcr-reset-all').addEventListener('click',function(){
  ['gfcr-g1','gfcr-g2','gfcr-g3','gfcr-g4','gfcr-g5','gfcr-g6','gfcr-g7','gfcr-g8','gfcr-g9','gfcr-g10','gfcr-g11'].forEach(function(name){document.querySelectorAll('input[name="'+name+'"]').forEach(function(input){input.checked=false;});});
  $('gfcr-currency').value='USD';$('gfcr-portfolio').value='1000000000';$('gfcr-physical').value='20';$('gfcr-transition').value='25';$('gfcr-physical-shock').value='2';$('gfcr-transition-shock').value='3';
