@@ -156,6 +156,7 @@
 <div class="tool-field"><label for="gfcr-transition-shock">Assumed loss sensitivity on transition-risk exposure (%)</label><input id="gfcr-transition-shock" type="number" min="0" max="100" step="0.1" value="3"><p class="tool-help">Hypothetical user-defined loss rate, not a calibrated shock.</p></div>
 </div>
 <div class="tool-actions"><button type="button" class="tool-button" id="gfcr-calculate">Calculate sensitivity</button><button type="button" class="tool-button secondary" id="gfcr-reset">Reset example inputs</button></div>
+<div class="tool-actions"><button type="button" class="tool-button" id="gfcr-load-sample">Load sample case study</button><button type="button" class="tool-button secondary" id="gfcr-clear-sample">Clear sample case</button></div><p class="tool-help">Load a fictional training case into the calculator and all 11 governance questions. Review the sample evidence and ratings before testing assessment, validation, CSV export or print. Sample data is not a real bank assessment.</p>
 <div class="tool-results" id="gfcr-calc-results" aria-live="polite">
 <div class="metric"><span>Physical-risk exposure amount</span><strong id="gfcr-physical-amount">—</strong></div>
 <div class="metric"><span>Transition-risk exposure amount</span><strong id="gfcr-transition-amount">—</strong></div>
@@ -353,6 +354,34 @@ function exportCsv(){
  a.href=url;a.download='climate-risk-self-assessment.csv';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
 }
 $('gfcr-calculate').addEventListener('click',calc);
+function loadSampleCase(){
+ var sampleDate='2026-10-29',evidenceDate='2026-10-15';
+ $('gfcr-currency').value='BDT';$('gfcr-portfolio').value='10000';$('gfcr-physical').value='20';$('gfcr-transition').value='15';$('gfcr-physical-shock').value='3';$('gfcr-transition-shock').value='4';
+ $('gfcr-institution').value='Delta Commercial Bank PLC (fictional)';$('gfcr-scope').value='Illustrative corporate lending portfolio; training only';$('gfcr-report-date').value=sampleDate;$('gfcr-preparer').value='Sample Assessment Officer';$('gfcr-reviewer').value='Sample Internal Audit Reviewer';$('gfcr-approver').value='Sample Risk Committee Chair';
+ addEvidenceFields();
+ var records=[
+  {response:'yes',evidence:'BRC-MIN-2026-10',owner:'Chief Risk Officer',design:'effective',operation:'effective',action:'Maintain quarterly Board Risk Committee reporting',reviewer:'Sample Internal Audit Reviewer'},
+  {response:'yes',evidence:'STRAT-CLIMATE-2026-02',owner:'Head of Strategy',design:'effective',operation:'effective',action:'Maintain annual strategy review and approval evidence',reviewer:'Sample Internal Audit Reviewer'},
+  {response:'partial',evidence:'RISK-MAP-2026-01',owner:'Climate Risk Manager',design:'effective',operation:'partial',action:'Complete sector and geographic mapping by 30 Nov 2026',reviewer:'Sample Internal Audit Reviewer'},
+  {response:'no',evidence:'GAP-CRA-004',owner:'Head of Risk Analytics',design:'ineffective',operation:'untested',action:'Develop and obtain approval for scenario methodology by 31 Dec 2026',reviewer:'Sample Internal Audit Reviewer'},
+  {response:'unassessed',evidence:'',owner:'Climate Risk Data Owner',design:'',operation:'',action:'Obtain monitoring logs and reconciliations by 15 Nov 2026',reviewer:'Sample Internal Audit Reviewer'},
+  {response:'yes',evidence:'ESDD-FILE-SAMPLE-026',owner:'Head of Credit Risk',design:'effective',operation:'effective',action:'Continue periodic file-quality checks',reviewer:'Sample Internal Audit Reviewer'},
+  {response:'partial',evidence:'PORT-MON-2026-Q3',owner:'Portfolio Risk Manager',design:'effective',operation:'partial',action:'Complete geographic concentration analysis by 30 Nov 2026',reviewer:'Sample Internal Audit Reviewer'},
+  {response:'no',evidence:'GAP-ICAAP-008',owner:'Head of Finance and Risk',design:'partial',operation:'ineffective',action:'Document climate-risk linkage in ICAAP/ILAAP by 31 Dec 2026',reviewer:'Sample Internal Audit Reviewer'},
+  {response:'unassessed',evidence:'',owner:'Climate Scenario Lead',design:'',operation:'',action:'Provide scenario objectives, assumptions and results for review by 15 Nov 2026',reviewer:'Sample Internal Audit Reviewer'},
+  {response:'yes',evidence:'DISC-RECON-2026-Q3',owner:'Head of Regulatory Reporting',design:'effective',operation:'effective',action:'Retain reconciliations and approval trail',reviewer:'Sample Internal Audit Reviewer'},
+  {response:'partial',evidence:'FINDINGS-LOG-2026-Q3',owner:'Head of Operational Risk',design:'effective',operation:'partial',action:'Complete independent retesting of overdue findings by 30 Nov 2026',reviewer:'Sample Internal Audit Reviewer'}
+ ];
+ records.forEach(function(r,i){
+  var n=i+1,radio=document.querySelector('input[name="gfcr-g'+n+'"][value="'+r.response+'"]');if(radio)radio.checked=true;
+  var d={evidence:r.evidence,'evidence-date':r.evidence?evidenceDate:'',owner:r.owner,design:r.design,operation:r.operation,action:r.action,reviewer:r.reviewer,'review-date':sampleDate,'na-reason':''};
+  Object.keys(d).forEach(function(k){var el=$('gfcr-'+k+'-'+n);if(el)el.value=d[k];});
+ });
+ calc();assess({focusInvalid:false});
+ $('gfcr-gap-results').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+$('gfcr-load-sample').addEventListener('click',function(){loadSampleCase();});
+$('gfcr-clear-sample').addEventListener('click',function(){$('gfcr-reset-all').click();});
 $('gfcr-reset').addEventListener('click',function(){
  $('gfcr-currency').value='USD';$('gfcr-portfolio').value='1000000000';$('gfcr-physical').value='20';$('gfcr-transition').value='25';$('gfcr-physical-shock').value='2';$('gfcr-transition-shock').value='3';calc();
 });
