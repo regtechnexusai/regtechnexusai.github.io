@@ -28,6 +28,150 @@
   <meta name="twitter:description" content="Practical governance, review and decision-support frameworks and toolkits for regulated institutions and professionals.">
   <meta name="twitter:image" content="https://public-files.gumroad.com/g9gnbpjn4qrlggi7q86la58b5hxg">
   <link rel="stylesheet" href="styles.css">
+<style>
+    /* Frameworks & Toolkits: clear, responsive section and card demarcation */
+    body.wide-logo-page .article-hero {
+      border: 1px solid #c9ddf3;
+      border-left: 6px solid #2563a6;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #eef6ff 0%, #f8fbff 68%, #eefaf5 100%);
+      padding: clamp(1.5rem, 4vw, 3rem);
+      margin: 1.25rem auto 2rem;
+      box-shadow: 0 8px 24px rgba(30, 64, 100, .07);
+    }
+    body.wide-logo-page main > .product-section,
+    body.wide-logo-page main > .article-body {
+      max-width: 1080px;
+      margin: 1.5rem auto;
+      padding: clamp(1.15rem, 3vw, 2rem);
+      border: 1px solid #d6e2ee;
+      border-radius: 18px;
+      box-shadow: 0 7px 22px rgba(25, 55, 85, .06);
+    }
+    body.wide-logo-page main > .product-section {
+      background: #f2f7ff;
+      border-left: 6px solid #2d6fb4;
+    }
+    body.wide-logo-page main > .article-body {
+      background: #f0faf5;
+      border-left: 6px solid #21845b;
+    }
+    body.wide-logo-page .product-section-head {
+      padding-bottom: 1rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid #cbdced;
+    }
+    body.wide-logo-page .toolkit-product {
+      overflow: hidden;
+      border: 1px solid #c8d9ec;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #ffffff, #edf5ff);
+      box-shadow: 0 6px 18px rgba(30, 64, 100, .08);
+    }
+    body.wide-logo-page .toolkit-media {
+      background: #e4eefb;
+    }
+    body.wide-logo-page .toolkit-copy {
+      background: #ffffff;
+      padding: clamp(1rem, 2.5vw, 1.75rem);
+    }
+    body.wide-logo-page .framework-grid {
+      gap: 1rem;
+    }
+    body.wide-logo-page .framework-card {
+      height: 100%;
+      padding: 1.2rem;
+      border: 1px solid #cfe0d7;
+      border-top: 4px solid #23845d;
+      border-radius: 14px;
+      background: linear-gradient(180deg, #ffffff 0%, #f1faf5 100%);
+      box-shadow: 0 5px 16px rgba(27, 87, 61, .07);
+    }
+    body.wide-logo-page .framework-card:nth-child(2) {
+      border-color: #cbdcf0;
+      border-top-color: #3978bd;
+      background: linear-gradient(180deg, #ffffff 0%, #f0f6ff 100%);
+    }
+    body.wide-logo-page .framework-card:nth-child(3) {
+      border-color: #ead8b5;
+      border-top-color: #c58a28;
+      background: linear-gradient(180deg, #ffffff 0%, #fff9ed 100%);
+    }
+    body.wide-logo-page .framework-card > span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 2.2rem;
+      min-height: 2.2rem;
+      margin-bottom: .65rem;
+      border-radius: 999px;
+      background: #dcece4;
+      color: #175b40;
+      font-weight: 800;
+    }
+    body.wide-logo-page .framework-card:nth-child(2) > span {
+      background: #dceaff;
+      color: #1d4f87;
+    }
+    body.wide-logo-page .framework-card:nth-child(3) > span {
+      background: #ffedc9;
+      color: #80520b;
+    }
+    body.wide-logo-page .article-callout {
+      padding: 1rem 1.15rem;
+      border: 1px solid #e8d39f;
+      border-left: 5px solid #c58a28;
+      border-radius: 12px;
+      background: #fff8e8;
+    }
+    body.wide-logo-page .article-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .7rem;
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid #c8ded2;
+    }
+    body.wide-logo-page .article-links a {
+      display: inline-flex;
+      align-items: center;
+      padding: .65rem .9rem;
+      border: 1px solid #bfd4ec;
+      border-radius: 999px;
+      background: #fff;
+      color: #174f87;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    body.wide-logo-page .article-links a:hover,
+    body.wide-logo-page .article-links a:focus-visible {
+      background: #e2efff;
+      border-color: #3978bd;
+      text-decoration: underline;
+    }
+    body.wide-logo-page #climate-risk-resource-title {
+      padding-bottom: .6rem;
+      border-bottom: 2px solid #b8d6c7;
+    }
+    body.wide-logo-page main > section[aria-labelledby="climate-risk-resource-title"] {
+      border: 1px solid #c8dfd3 !important;
+      border-left: 6px solid #21845b !important;
+      border-radius: 16px !important;
+      background: linear-gradient(135deg, #effaf4, #f8fcff) !important;
+      box-shadow: 0 7px 20px rgba(25, 85, 58, .07);
+    }
+    @media (max-width: 640px) {
+      body.wide-logo-page .article-hero,
+      body.wide-logo-page main > .product-section,
+      body.wide-logo-page main > .article-body {
+        margin: 1rem .75rem;
+        border-radius: 14px;
+      }
+      body.wide-logo-page .toolkit-product { border-radius: 12px; }
+      body.wide-logo-page .framework-card { padding: 1rem; }
+      body.wide-logo-page .article-links a { max-width: 100%; }
+    }
+  </style>
 
 <link rel="stylesheet" href="/site-wide-shell.css?v=20261015-v1">
 <script src="/site-wide-shell.js?v=20261015-v1" defer></script>
