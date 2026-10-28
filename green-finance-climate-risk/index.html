@@ -63,7 +63,7 @@
 .gfcr-tool .metric{padding:15px;border:1px solid #c9d9e7;border-top:4px solid #2679b7;border-radius:12px;background:#fff;min-width:0}
 .gfcr-tool .metric:nth-child(2){border-top-color:#17836a}.gfcr-tool .metric:nth-child(3){border-top-color:#c28a2c}.gfcr-tool .metric strong{display:block;font-size:1.35rem;line-height:1.25;overflow-wrap:anywhere;color:#173d60}.gfcr-tool .metric span{font-size:.88rem;color:#4c5f73}
 .gfcr-tool .tool-output{margin-top:14px;padding:14px 16px;border:1px solid #c8dfd5;border-left:5px solid #16816b;border-radius:10px;background:#f2fbf6}
-.gfcr-tool .tool-output:empty{display:none}
+.gfcr-tool .tool-output:empty{display:none}.gfcr-tool #gfcr-gap-results li{display:list-item;margin:0 0 .65rem;break-inside:avoid;page-break-inside:avoid}.gfcr-tool #gfcr-gap-results ul{padding-left:1.4rem}
 .gfcr-tool .gap-list{display:grid;grid-template-columns:1fr;gap:12px}
 .gfcr-tool .gap-item{padding:13px;border:1px solid #d7e1eb;border-radius:11px;background:#fff}
 .gfcr-tool .gap-item p{margin:0 0 8px;font-weight:650}
@@ -319,17 +319,25 @@ function validateRecordForExport(){
  if(!latestGap){missing.push('Generate a valid self-assessment summary');}
  else latestGap.items.forEach(function(x){var d=x.details||{};
   if(x.response==='yes'){
-   if(!d.evidence.trim())missing.push('Control '+x.number+': evidence reference is required for Yes');
-   if(!d.owner.trim())missing.push('Control '+x.number+': owner/scope is required for Yes');
-   if(!d.reviewer.trim())missing.push('Control '+x.number+': reviewer/review date is required for Yes');
+   if(isPlaceholder(d.evidence))missing.push('Control '+x.number+': valid evidence reference is required for Yes');
+   if(isPlaceholder(d.owner))missing.push('Control '+x.number+': valid owner/scope is required for Yes');
+   if(isPlaceholder(d.reviewer))missing.push('Control '+x.number+': valid reviewer name is required for Yes');
+   if(!d['review-date'])missing.push('Control '+x.number+': review date is required for Yes');
    if(d.design!=='effective')missing.push('Control '+x.number+': design effectiveness must be Effective for Yes');
    if(d.operation!=='effective')missing.push('Control '+x.number+': operating effectiveness must be Effective for Yes');
   }
-  if(d['evidence-date']&&!d.evidence.trim())missing.push('Control '+x.number+': evidence reference is required when an evidence date is entered');
+  if(d['evidence-date']&&isPlaceholder(d.evidence))missing.push('Control '+x.number+': valid evidence reference is required when an evidence date is entered');
+  if(d['evidence-date']&&$('gfcr-report-date').value&&d['evidence-date']>$('gfcr-report-date').value)missing.push('Control '+x.number+': evidence date is after assessment date');
+  if(d['evidence-date']&&$('gfcr-report-date').value&&(Date.parse($('gfcr-report-date').value)-Date.parse(d['evidence-date']))>60*86400000)missing.push('Control '+x.number+': evidence is more than 60 days old; refresh or review before export');
+  if(d['evidence-date']&&d['review-date']&&d['review-date']<d['evidence-date'])missing.push('Control '+x.number+': review date is earlier than evidence date');
   if(['yes','partial','no'].indexOf(x.response)>=0&&(!d.design||!d.operation))missing.push('Control '+x.number+': complete both design and operating-effectiveness ratings');
-  if((x.response==='partial'||x.response==='no')&&!d.owner.trim())missing.push('Control '+x.number+': owner is required for an exception');
-  if((x.response==='partial'||x.response==='no')&&!d.action.trim())missing.push('Control '+x.number+': gap/action/deadline is required for an exception');
-  if(x.response==='na'&&(!d['na-reason']||!d['na-reason'].trim()))missing.push('Control '+x.number+': Not applicable justification is required');
+  if((x.response==='partial'||x.response==='no')&&isPlaceholder(d.owner))missing.push('Control '+x.number+': valid owner is required for an exception');
+  if((x.response==='partial'||x.response==='no')&&isPlaceholder(d.action))missing.push('Control '+x.number+': meaningful gap/action/deadline is required for an exception');
+  if(x.response==='na'&&isPlaceholder(d['na-reason']))missing.push('Control '+x.number+': Not applicable justification is required');
+  if(x.response==='no'&&d.operation==='effective')missing.push('Control '+x.number+': No response conflicts with operating effectiveness marked Effective');
+  if(x.response==='no'&&d.design==='effective')missing.push('Control '+x.number+': No response conflicts with design effectiveness marked Effective');
+  if(x.response==='yes'&&['ineffective','untested','na'].indexOf(d.operation)>=0)missing.push('Control '+x.number+': Yes response conflicts with operating effectiveness rating');
+  if(x.response==='yes'&&['ineffective','untested','na'].indexOf(d.design)>=0)missing.push('Control '+x.number+': Yes response conflicts with design effectiveness rating');
  });
  if(missing.length){var out=document.createElement('div');var p=document.createElement('p');p.textContent='Export/print blocked: complete the required assessment record fields below.';out.appendChild(p);var ul=document.createElement('ul');missing.forEach(function(msg){var li=document.createElement('li');li.textContent=msg;ul.appendChild(li);});out.appendChild(ul);$('gfcr-gap-results').replaceChildren(out);return false;}
  return true;
@@ -350,6 +358,7 @@ $('gfcr-reset').addEventListener('click',function(){
 });
 $('gfcr-assess').addEventListener('click',function(){assess({focusInvalid:true});});
 $('gfcr-gap-list').addEventListener('change',function(){assess({focusInvalid:false});});
+$('gfcr-gap-list').addEventListener('input',function(){if(latestGap)assess({focusInvalid:false});});
 ['gfcr-institution','gfcr-scope','gfcr-report-date','gfcr-preparer','gfcr-reviewer','gfcr-approver'].forEach(function(id){$(id).addEventListener('change',function(){if(latestGap)assess({focusInvalid:false});});});
 $('gfcr-export').addEventListener('click',exportCsv);
 $('gfcr-print').addEventListener('click',function(){if(!calc())return;assess({focusInvalid:true});if(!latestGap||!validateRecordForExport())return;window.print();});
