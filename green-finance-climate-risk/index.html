@@ -312,8 +312,11 @@ function validateRecordForExport(){
    if(!d.evidence.trim())missing.push('Control '+x.number+': evidence reference is required for Yes');
    if(!d.owner.trim())missing.push('Control '+x.number+': owner/scope is required for Yes');
    if(!d.reviewer.trim())missing.push('Control '+x.number+': reviewer/review date is required for Yes');
+   if(d.design!=='effective')missing.push('Control '+x.number+': design effectiveness must be Effective for Yes');
    if(d.operation!=='effective')missing.push('Control '+x.number+': operating effectiveness must be Effective for Yes');
   }
+  if(d['evidence-date']&&!d.evidence.trim())missing.push('Control '+x.number+': evidence reference is required when an evidence date is entered');
+  if(['yes','partial','no'].indexOf(x.response)>=0&&(!d.design||!d.operation))missing.push('Control '+x.number+': complete both design and operating-effectiveness ratings');
   if((x.response==='partial'||x.response==='no')&&!d.owner.trim())missing.push('Control '+x.number+': owner is required for an exception');
   if((x.response==='partial'||x.response==='no')&&!d.action.trim())missing.push('Control '+x.number+': gap/action/deadline is required for an exception');
   if(x.response==='na'&&(!d['na-reason']||!d['na-reason'].trim()))missing.push('Control '+x.number+': Not applicable justification is required');
