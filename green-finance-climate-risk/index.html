@@ -25,11 +25,15 @@
 .gfcr-card h3{margin:.1rem 0 .6rem;font-size:1.1rem}
 .gfcr a{overflow-wrap:anywhere}
 .gfcr .note{border-left:4px solid #1559a5;padding:14px 18px;background:#f3f7fc;border-radius:8px}
-.gfcr table{width:100%;border-collapse:collapse;display:block;overflow-x:auto}
-.gfcr th,.gfcr td{border:1px solid #dce4ee;padding:10px;text-align:left;vertical-align:top;min-width:145px}
+.gfcr-table-scroll{width:100%;max-width:100%;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-inline:contain;border:1px solid #dce4ee;border-radius:12px;background:#fff}
+.gfcr-table-scroll:focus-visible{outline:3px solid #1559a5;outline-offset:3px}
+.gfcr table{width:max-content;min-width:100%;border-collapse:collapse;display:table;table-layout:auto}
+.gfcr th,.gfcr td{border:1px solid #dce4ee;padding:12px;text-align:left;vertical-align:top;min-width:160px;max-width:320px}
 .gfcr th{background:#edf4fb}
-.gfcr .source-list li{margin:.65rem 0}
-@media(max-width:600px){.gfcr{padding:18px 14px 40px}.gfcr-card{padding:16px}}
+.gfcr .source-link{display:inline-flex;align-items:center;justify-content:center;gap:8px;max-width:100%;padding:10px 14px;border:1px solid #0b4f91;border-radius:10px;background:#0b4f91;color:#fff;font-weight:700;line-height:1.35;text-decoration:none;overflow-wrap:anywhere;box-shadow:0 2px 0 rgba(7,43,81,.12)}
+.gfcr .source-link:hover{background:#083d72;border-color:#083d72;color:#fff;text-decoration:underline}
+.gfcr .source-link:focus-visible{outline:3px solid #f0b429;outline-offset:3px}
+@media(max-width:600px){.gfcr{padding:18px 14px 40px}.gfcr-card{padding:16px}.gfcr th,.gfcr td{min-width:155px;padding:10px}.gfcr .source-link{width:100%;box-sizing:border-box;text-align:center}}
 </style>
 </head>
 <body class="article-page wide-logo-page">
@@ -50,9 +54,9 @@
 <section>
 <h2>1. Regulatory starting points</h2>
 <div class="gfcr-grid">
-<article class="gfcr-card"><h3>Climate Risk Management</h3><p>Begin with Bangladesh Bank’s November 2025 Guideline on Climate Risk Management for Banks and Finance Companies. Map the applicable expectations to board oversight, risk management, business processes, monitoring and reporting.</p><p><a href="https://www.bb.org.bd/mediaroom/circulars/gbcrd/nov062025sfd01e.pdf" target="_blank" rel="noopener noreferrer">Read the official Bangladesh Bank guideline (PDF)</a></p></article>
-<article class="gfcr-card"><h3>Sustainability &amp; Climate Disclosure</h3><p>Review the institution’s disclosure governance, data ownership, methodology, consistency and evidence trail against the applicable Bangladesh Bank disclosure guideline and subsequent instructions.</p><p><a href="https://www.bb.org.bd/mediaroom/circulars/gbcrd/dec262023sfd06e.pdf" target="_blank" rel="noopener noreferrer">Read the 2023 disclosure guideline (PDF)</a></p></article>
-<article class="gfcr-card"><h3>Environmental &amp; Social Risk</h3><p>Assess how environmental and social due diligence is integrated into credit origination, approval, monitoring, escalation and portfolio reporting. Confirm the currently applicable version and amendments before testing.</p><p><a href="https://www.bb.org.bd/en/index.php/mediaroom/circular" target="_blank" rel="noopener noreferrer">Check Bangladesh Bank’s official circular register</a></p></article>
+<article class="gfcr-card"><h3>Climate Risk Management</h3><p>Begin with Bangladesh Bank’s November 2025 Guideline on Climate Risk Management for Banks and Finance Companies. Map the applicable expectations to board oversight, risk management, business processes, monitoring and reporting.</p><p><a class="source-link" href="https://www.bb.org.bd/mediaroom/circulars/gbcrd/nov062025sfd01e.pdf" target="_blank" rel="noopener noreferrer">Read the official Bangladesh Bank guideline (PDF)</a></p></article>
+<article class="gfcr-card"><h3>Sustainability &amp; Climate Disclosure</h3><p>Review the institution’s disclosure governance, data ownership, methodology, consistency and evidence trail against the applicable Bangladesh Bank disclosure guideline and subsequent instructions.</p><p><a class="source-link" href="https://www.bb.org.bd/mediaroom/circulars/gbcrd/dec262023sfd06e.pdf" target="_blank" rel="noopener noreferrer">Read the 2023 disclosure guideline (PDF)</a></p></article>
+<article class="gfcr-card"><h3>Environmental &amp; Social Risk</h3><p>Assess how environmental and social due diligence is integrated into credit origination, approval, monitoring, escalation and portfolio reporting. Confirm the currently applicable version and amendments before testing.</p><p><a class="source-link" href="https://www.bb.org.bd/en/index.php/mediaroom/circular" target="_blank" rel="noopener noreferrer">Check Bangladesh Bank’s official circular register</a></p></article>
 </div>
 <p class="note"><strong>Currency control:</strong> A circular’s publication date does not by itself establish that it remains the latest applicable instruction. Before relying on a requirement, check the issuing authority’s register for amendments, replacement instruments, effective dates and scope. This page is professional review support, not legal advice or a regulator-issued interpretation.</p>
 </section>
@@ -67,6 +71,7 @@
 </section>
 <section>
 <h2>3. Practical audit-testing matrix</h2>
+<div class="gfcr-table-scroll" role="region" aria-label="Practical audit-testing matrix" tabindex="0">
 <table>
 <thead><tr><th>Control area</th><th>Suggested test</th><th>Evidence to request</th><th>Potential red flag</th></tr></thead>
 <tbody>
@@ -78,6 +83,7 @@
 <tr><td>Remediation</td><td>Retest a closed finding and verify evidence demonstrates sustainable correction.</td><td>Issue log, root-cause analysis, action evidence and retest results.</td><td>Closure based on assertion rather than independently checked evidence.</td></tr>
 </tbody>
 </table>
+</div>
 <p><strong>Sampling note:</strong> Select samples based on risk, materiality, portfolio exposure and applicable requirements. These are suggested audit procedures, not a prescribed regulatory sample size.</p>
 </section>
 <section>
@@ -88,8 +94,8 @@
 <section>
 <h2>5. International reference points</h2>
 <div class="gfcr-grid">
-<article class="gfcr-card"><h3>Basel Committee</h3><p>Use the Basel Committee’s climate-related financial risk principles as an international reference point, while separately identifying which expectations are adopted or applicable in Bangladesh.</p><p><a href="https://www.bis.org/bcbs/publ/d532.htm" target="_blank" rel="noopener noreferrer">Basel Committee — climate-related financial risks</a></p></article>
-<article class="gfcr-card"><h3>Disclosure standards</h3><p>Where useful, compare disclosure practices with the IFRS Sustainability Disclosure Standards. Do not imply that international standards automatically create a local legal obligation.</p><p><a href="https://www.ifrs.org/issued-standards/ifrs-sustainability-standards-navigator/" target="_blank" rel="noopener noreferrer">IFRS Sustainability Standards Navigator</a></p></article>
+<article class="gfcr-card"><h3>Basel Committee</h3><p>Use the Basel Committee’s climate-related financial risk principles as an international reference point, while separately identifying which expectations are adopted or applicable in Bangladesh.</p><p><a class="source-link" href="https://www.bis.org/bcbs/publ/d532.htm" target="_blank" rel="noopener noreferrer">Basel Committee — climate-related financial risks</a></p></article>
+<article class="gfcr-card"><h3>Disclosure standards</h3><p>Where useful, compare disclosure practices with the IFRS Sustainability Disclosure Standards. Do not imply that international standards automatically create a local legal obligation.</p><p><a class="source-link" href="https://www.ifrs.org/issued-standards/ifrs-sustainability-standards-navigator/" target="_blank" rel="noopener noreferrer">IFRS Sustainability Standards Navigator</a></p></article>
 </div>
 </section>
 <section>
