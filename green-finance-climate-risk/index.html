@@ -378,31 +378,33 @@ function exportCsv(){
 }
 $('gfcr-calculate').addEventListener('click',calc);
 function loadSampleCase(){
- var sampleDate='2026-10-29',evidenceDate='2026-10-15';
- $('gfcr-currency').value='BDT';$('gfcr-portfolio').value='10000';$('gfcr-physical').value='20';$('gfcr-transition').value='15';$('gfcr-physical-shock').value='3';$('gfcr-transition-shock').value='4';
- $('gfcr-institution').value='Delta Commercial Bank PLC (fictional)';$('gfcr-scope').value='Illustrative corporate lending portfolio; training only';$('gfcr-report-date').value=sampleDate;$('gfcr-preparer').value='Sample Assessment Officer';$('gfcr-reviewer').value='Sample Internal Audit Reviewer';$('gfcr-approver').value='Sample Risk Committee Chair';
- addEvidenceFields();
- var records=[
-  {response:'yes',evidence:'BRC-MIN-2026-10',owner:'Chief Risk Officer',design:'effective',operation:'effective',action:'Maintain quarterly Board Risk Committee reporting',reviewer:'Sample Internal Audit Reviewer'},
-  {response:'yes',evidence:'STRAT-CLIMATE-2026-02',owner:'Head of Strategy',design:'effective',operation:'effective',action:'Maintain annual strategy review and approval evidence',reviewer:'Sample Internal Audit Reviewer'},
-  {response:'partial',evidence:'RISK-MAP-2026-01',owner:'Climate Risk Manager',design:'effective',operation:'partial',action:'GAP-CLIMATE-MAP-003 — Complete sector and geographic mapping by 30 Nov 2026',reviewer:'Sample Internal Audit Reviewer'},
-  {response:'no',evidence:'GAP-ASSUMPTIONS-004',owner:'Head of Risk Analytics',design:'ineffective',operation:'untested',action:'GAP-ASSUMPTIONS-004 — Document key assumptions, data limitations, control ownership and review frequency by 31 Dec 2026',reviewer:''},
-  {response:'unassessed',evidence:'',owner:'Climate Risk Data Owner',design:'',operation:'',action:'Obtain monitoring logs and reconciliations by 15 Nov 2026',reviewer:''},
-  {response:'yes',evidence:'ESDD-FILE-SAMPLE-026',owner:'Head of Credit Risk',design:'effective',operation:'effective',action:'Continue periodic file-quality checks',reviewer:'Sample Internal Audit Reviewer'},
-  {response:'partial',evidence:'PORT-MON-2026-Q3',owner:'Portfolio Risk Manager',design:'effective',operation:'partial',action:'GAP-PORT-MON-007 — Complete geographic concentration analysis by 30 Nov 2026',reviewer:'Sample Internal Audit Reviewer'},
-  {response:'no',evidence:'GAP-ICAAP-008',owner:'Head of Finance and Risk',design:'partial',operation:'ineffective',action:'Document climate-risk linkage in ICAAP/ILAAP by 31 Dec 2026',reviewer:'Sample Internal Audit Reviewer'},
-  {response:'unassessed',evidence:'',owner:'Climate Scenario Lead',design:'',operation:'',action:'Provide scenario objectives, assumptions and results for review by 15 Nov 2026',reviewer:''},
-  {response:'yes',evidence:'DISC-RECON-2026-Q3',owner:'Head of Regulatory Reporting',design:'effective',operation:'effective',action:'Retain reconciliations and approval trail',reviewer:'Sample Internal Audit Reviewer'},
-  {response:'partial',evidence:'FINDINGS-LOG-2026-Q3',owner:'Head of Operational Risk',design:'effective',operation:'partial',action:'GAP-RETEST-011 — Complete independent retesting of overdue findings by 30 Nov 2026',reviewer:'Sample Internal Audit Reviewer'}
- ];
- records.forEach(function(r,i){
-  var n=i+1,radio=document.querySelector('input[name="gfcr-g'+n+'"][value="'+r.response+'"]');if(radio)radio.checked=true;
-  var d={evidence:r.evidence,'evidence-date':r.evidence&&n!==4?evidenceDate:'',owner:r.owner,design:r.design,operation:r.operation,action:r.action,reviewer:r.reviewer,'review-date':r.response==='unassessed'||n===4?'':sampleDate,'na-reason':''};
-  Object.keys(d).forEach(function(k){var el=$('gfcr-'+k+'-'+n);if(el)el.value=d[k];});
- });
- calc();assess({focusInvalid:false});
- $('gfcr-gap-results').scrollIntoView({behavior:'smooth',block:'nearest'});
-}
+  // New fictional sample case: Meghna Delta Bank PLC. All data are synthetic.
+  // Portfolio-level screening shares are derived from the illustrative sector table.
+  var sampleDate='2026-10-29',evidenceDate='2026-10-15';
+  $('gfcr-currency').value='BDT';$('gfcr-portfolio').value='50000';$('gfcr-physical').value='20.96';$('gfcr-transition').value='21.64';$('gfcr-physical-shock').value='1';$('gfcr-transition-shock').value='2';
+  $('gfcr-institution').value='Meghna Delta Bank PLC (fictional)';$('gfcr-scope').value='Illustrative corporate and SME lending portfolio; synthetic training case only';$('gfcr-report-date').value=sampleDate;$('gfcr-preparer').value='Sample Assessment Officer';$('gfcr-reviewer').value='Sample Internal Audit Reviewer';$('gfcr-approver').value='Sample Risk Committee Chair';
+  addEvidenceFields();
+  var records=[
+   {response:'partial',evidence:'GOV-01 (illustrative)',owner:'Board Risk Committee Secretary',design:'partial',operation:'partial',action:'Document quarterly climate-risk challenge and escalation in minutes by 30 Nov 2026',reviewer:'Sample Internal Audit Reviewer'},
+   {response:'partial',evidence:'STR-02 (illustrative)',owner:'Chief Strategy Officer',design:'effective',operation:'partial',action:'Define climate-risk appetite metrics and decision triggers by 15 Dec 2026',reviewer:'Sample Internal Audit Reviewer'},
+   {response:'partial',evidence:'RISK-ID-03 (illustrative)',owner:'Chief Risk Officer',design:'effective',operation:'partial',action:'Complete borrower/collateral location and sector mapping by 30 Nov 2026',reviewer:'Sample Internal Audit Reviewer'},
+   {response:'no',evidence:'GAP-METH-04 (illustrative)',owner:'Head of Risk Analytics',design:'ineffective',operation:'ineffective',action:'Document methodology inventory, assumptions, data limitations, ownership and review cadence by 15 Dec 2026',reviewer:''},
+   {response:'partial',evidence:'CR-05 (illustrative)',owner:'Head of Credit Risk',design:'effective',operation:'partial',action:'Pilot sector risk flags in annual credit reviews by 31 Dec 2026',reviewer:'Sample Internal Audit Reviewer'},
+   {response:'yes',evidence:'ESDD-06 (illustrative)',owner:'Head of Sustainable Finance',design:'effective',operation:'effective',action:'Retain sample-based testing and track exceptions quarterly',reviewer:'Sample Internal Audit Reviewer'},
+   {response:'partial',evidence:'PORT-07 (illustrative)',owner:'Portfolio Risk Manager',design:'effective',operation:'partial',action:'Report concentration by district, hazard and sector by 31 Dec 2026',reviewer:'Sample Internal Audit Reviewer'},
+   {response:'no',evidence:'GAP-CAP-08 (illustrative)',owner:'Head of Finance and Risk',design:'ineffective',operation:'ineffective',action:'Define proportionate climate-risk linkage to ICAAP/ILAAP and capital/liquidity governance by 31 Jan 2027',reviewer:''},
+   {response:'unassessed',evidence:'',owner:'Climate Scenario Lead',design:'',operation:'',action:'Set scenario objectives, horizons, assumptions and data requirements by 15 Dec 2026',reviewer:''},
+   {response:'yes',evidence:'DISC-10 (illustrative)',owner:'Head of Regulatory Reporting',design:'effective',operation:'effective',action:'Maintain disclosure data lineage, reconciliation and approval evidence; test quarterly',reviewer:'Sample Internal Audit Reviewer'},
+   {response:'partial',evidence:'FIND-11 (illustrative)',owner:'Head of Operational Risk',design:'effective',operation:'partial',action:'Independently retest overdue high-priority findings by 31 Dec 2026',reviewer:'Sample Internal Audit Reviewer'}
+  ];
+  records.forEach(function(r,i){
+   var n=i+1,radio=document.querySelector('input[name="gfcr-g'+n+'"][value="'+r.response+'"]');if(radio)radio.checked=true;
+   var d={evidence:r.evidence,'evidence-date':r.evidence&&r.response!=='unassessed'?evidenceDate:'',owner:r.owner,design:r.design,operation:r.operation,action:r.action,reviewer:r.reviewer,'review-date':r.response==='unassessed'||r.response==='no'?'':sampleDate,'na-reason':''};
+   Object.keys(d).forEach(function(k){var el=$('gfcr-'+k+'-'+n);if(el)el.value=d[k];});
+  });
+  calc();assess({focusInvalid:false});
+  $('gfcr-gap-results').scrollIntoView({behavior:'smooth',block:'nearest'});
+ }
 $('gfcr-load-sample').addEventListener('click',function(){loadSampleCase();});
 $('gfcr-clear-sample').addEventListener('click',function(){$('gfcr-reset-all').click();});
 $('gfcr-reset').addEventListener('click',function(){
