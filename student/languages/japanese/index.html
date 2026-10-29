@@ -41,6 +41,24 @@ body, p, li, td, th, label, .answer, .qa-item, .muted { font-family:"Noto Sans B
 
 <link rel="stylesheet" href="/site-wide-shell.css?v=20261015-v1">
 <script src="/site-wide-shell.js?v=20261015-v1" defer></script>
+
+<style id="language-course-mobile-readability-fix">
+/* Mobile fixes shared by the Korean and Japanese course pages. */
+.hero h1 { color:#fff !important; text-shadow:0 2px 12px rgba(0,20,45,.18); }
+.table-wrap { width:100%; max-width:100%; overflow-x:auto; overscroll-behavior-inline:contain; -webkit-overflow-scrolling:touch; }
+.table-wrap .examples { min-width:640px; }
+#vocabulary .table-wrap .examples { min-width:760px; }
+#script .table-wrap .examples { min-width:680px; }
+@media(max-width:650px) {
+  .hero h1 { font-size:clamp(2rem,8vw,2.7rem); overflow-wrap:anywhere; }
+  .panel { min-width:0; }
+  .toolbar>div { min-width:0; width:100%; }
+  input[type=search] { width:100%; }
+  .language-phrase-strip .two-col { grid-template-columns:1fr; gap:8px; }
+  .language-phrase-strip .two-col p { margin:0; padding:8px 0; }
+  .rt-back-home { position:static!important; display:flex!important; width:max-content; max-width:calc(100% - 28px); margin:12px 14px 22px auto!important; }
+}
+</style>
 </head>
 <body><a class="skip-link" href="#main-content">Skip to content</a><header class="nav">
 
