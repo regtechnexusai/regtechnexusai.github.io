@@ -656,3 +656,33 @@ body:not(.homepage-redesign) :is(.badge,.chip,.tag,.pill) {
     border-radius: 14px;
   }
 }
+
+
+/* 2026-10-30 Glossy Aqua design refresh — presentation-only; preserve existing behavior. */
+:root{--rt-gloss-ink:#12334b;--rt-gloss-blue:#075a91;--rt-gloss-aqua:#48c5d4;--rt-gloss-line:#b9e7ee;--rt-gloss-white:#fbfeff}
+body:not(.homepage-redesign){background:linear-gradient(180deg,#f8fdff 0%,#eef8fc 55%,#fff 100%)}
+body:not(.homepage-redesign) header{
+  border:1px solid rgba(185,231,238,.95)!important;border-bottom:3px solid #9bdce6!important;
+  background:linear-gradient(115deg,rgba(255,255,255,.99) 0%,rgba(246,253,255,.97) 54%,rgba(224,248,251,.96) 100%)!important;
+  box-shadow:0 5px 0 rgba(7,90,145,.035),0 12px 30px rgba(23,89,120,.10),inset 0 1px 0 #fff!important;
+}
+body:not(.homepage-redesign) footer{
+  border-top:4px solid transparent!important;border-image:linear-gradient(90deg,#dff9fc,#48c5d4,#087fa5,#dff9fc) 1!important;
+  background:linear-gradient(135deg,#102f4d 0%,#075a91 58%,#087f91 100%)!important;
+  box-shadow:0 -8px 28px rgba(8,75,110,.10),inset 0 1px 0 rgba(255,255,255,.28)!important;
+}
+body:not(.homepage-redesign) footer a{color:#effcff!important}
+body:not(.homepage-redesign) footer a:hover{color:#aaf4fa!important}
+body:not(.homepage-redesign) main{border-top:1px solid rgba(72,197,212,.18);border-bottom:1px solid rgba(72,197,212,.18)}
+body:not(.homepage-redesign) button,body:not(.homepage-redesign) .btn,body:not(.homepage-redesign) input[type=button],body:not(.homepage-redesign) input[type=submit],body:not(.homepage-redesign) input[type=reset],body:not(.homepage-redesign) a.button,body:not(.homepage-redesign) a.btn{
+  border:1px solid rgba(255,255,255,.78)!important;border-radius:12px!important;
+  background-image:linear-gradient(145deg,rgba(255,255,255,.25),transparent 46%,rgba(4,51,82,.12))!important;
+  box-shadow:0 4px 0 #064b78,0 7px 14px rgba(8,77,115,.19),inset 0 1px 0 rgba(255,255,255,.62)!important;
+  transition:transform .16s ease,box-shadow .16s ease,filter .16s ease!important;
+}
+body:not(.homepage-redesign) button:hover,body:not(.homepage-redesign) .btn:hover,body:not(.homepage-redesign) input[type=button]:hover,body:not(.homepage-redesign) input[type=submit]:hover,body:not(.homepage-redesign) input[type=reset]:hover,body:not(.homepage-redesign) a.button:hover,body:not(.homepage-redesign) a.btn:hover{transform:translateY(-2px);filter:brightness(1.04);box-shadow:0 6px 0 #064b78,0 11px 19px rgba(8,77,115,.22),inset 0 1px 0 rgba(255,255,255,.72)!important}
+body:not(.homepage-redesign) button:active,body:not(.homepage-redesign) .btn:active,body:not(.homepage-redesign) input[type=button]:active,body:not(.homepage-redesign) input[type=submit]:active,body:not(.homepage-redesign) input[type=reset]:active,body:not(.homepage-redesign) a.button:active,body:not(.homepage-redesign) a.btn:active{transform:translateY(2px);box-shadow:0 1px 0 #064b78,0 3px 7px rgba(8,77,115,.16),inset 0 2px 4px rgba(4,51,82,.12)!important}
+body:not(.homepage-redesign) .panel,body:not(.homepage-redesign) .card,body:not(.homepage-redesign) .tool-card,body:not(.homepage-redesign) .calculator-card{border-color:rgba(137,208,222,.55);box-shadow:0 8px 24px rgba(20,83,112,.07),inset 0 1px 0 #fff}
+body:not(.homepage-redesign) h1,body:not(.homepage-redesign) .hero h1{color:#103b5b}
+body:not(.homepage-redesign) a:focus-visible,body:not(.homepage-redesign) button:focus-visible{outline:3px solid #e5a53b;outline-offset:3px}
+@media(prefers-reduced-motion:reduce){body:not(.homepage-redesign) button,body:not(.homepage-redesign) .btn,body:not(.homepage-redesign) a.button,body:not(.homepage-redesign) a.btn{transition:none!important}}
