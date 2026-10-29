@@ -75,6 +75,32 @@
 @media(max-width:600px){.gfcr-tool .tool-actions{display:grid;grid-template-columns:1fr}.gfcr-tool .tool-button{width:100%}.gfcr-tool .gap-options{gap:8px 14px}}
 .gfcr-assessment-status{padding:10px 12px;border-left:4px solid #147b66;background:#eef8f4;font-weight:700;border-radius:6px}.gfcr-assessment-status.provisional{border-left-color:#b7791f;background:#fff4df;color:#6b4300}.gfcr-assessment-metrics{font-weight:700;font-size:1.02rem;overflow-wrap:anywhere}@media print{@page{margin:10mm} .gfcr-tool table thead{display:table-header-group}.gfcr-tool table tr{break-inside:avoid;page-break-inside:avoid}.gfcr-tool .print-value{display:block;white-space:normal;overflow-wrap:anywhere;word-break:break-word;font-size:9pt;line-height:1.35;padding:2px 0;border-bottom:1px solid #999;color:#111}.gfcr-tool .tool-fields input:not([type=radio]),.gfcr-tool .tool-fields textarea,.gfcr-tool .tool-fields select,.gfcr-tool .evidence-fields input:not([type=radio]),.gfcr-tool .evidence-fields textarea,.gfcr-tool .evidence-fields select{display:none!important}.gfcr-tool .gfcr-table-scroll{overflow:visible!important;max-width:none!important}.gfcr-tool table{width:100%!important;min-width:0!important;table-layout:fixed!important;font-size:8pt}.gfcr-tool th,.gfcr-tool td{min-width:0!important;max-width:none!important;padding:4px!important;overflow-wrap:anywhere;word-break:normal}.gfcr-assessment-status.provisional{border:2px solid #8a5a00;background:#fff4df!important;color:#111!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}.gfcr-assessment-metrics{font-weight:700}body *{visibility:hidden}.gfcr-tool,.gfcr-tool *{visibility:visible}.gfcr-tool{position:absolute;left:0;top:0;width:100%;max-width:none!important;padding:0!important}.gfcr-tool .tool-actions{display:none!important}.gfcr-tool .tool-panel{break-inside:auto;box-shadow:none}.gfcr-tool .gap-item{break-inside:avoid;page-break-inside:avoid}.gfcr-tool .evidence-fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.gfcr-tool .evidence-fields textarea{height:auto;min-height:2.5em;overflow:visible;white-space:pre-wrap;overflow-wrap:anywhere}.gfcr-tool .evidence-fields input,.gfcr-tool .evidence-fields select,.gfcr-tool .evidence-fields textarea{max-width:100%;font-size:9pt;color:#111;border:0;border-bottom:1px solid #999;border-radius:0;padding:2px 0;background:transparent}.gfcr-tool .tool-panel h3{break-after:avoid}.gfcr-tool .metric strong{font-size:12pt}}
 
+
+/* Mobile QA fix: keep calculator actions readable despite site-wide button overrides. */
+.gfcr-tool .tool-actions .tool-button {
+  color: #ffffff !important;
+  background: linear-gradient(180deg,#53b7f3,#1670b8 55%,#0c4c82) !important;
+  border: 1px solid #0c4c82 !important;
+  text-shadow: 0 1px 1px rgba(0,25,55,.22);
+}
+.gfcr-tool .tool-actions .tool-button.secondary {
+  color: #ffffff !important;
+  background: linear-gradient(180deg,#7ce1b5,#21a875 55%,#167052) !important;
+  border-color: #167052 !important;
+}
+.gfcr-tool .tool-actions .tool-button:focus-visible {
+  outline: 3px solid #f2b544;
+  outline-offset: 3px;
+}
+@media (max-width: 650px) {
+  .rt-back-home {
+    position: static !important;
+    display: flex !important;
+    width: max-content;
+    max-width: calc(100% - 28px);
+    margin: 14px 14px 24px auto !important;
+  }
+}
 </style>
 </head>
 <body class="article-page wide-logo-page">
