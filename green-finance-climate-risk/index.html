@@ -245,7 +245,7 @@ function addEvidenceFields(){
   var fields=[['evidence','Evidence / gap reference','text'],['evidence-date','Evidence date','date'],['owner','Control owner / scope','text'],['design','Design effectiveness','select'],['operation','Operating effectiveness','select'],['action','Gap / action / deadline','textarea'],['reviewer','Reviewer name','textarea'],['review-date','Review date','date'],['na-reason','Not-applicable justification','text']];
   fields.forEach(function(f){
    var label=document.createElement('label');label.textContent=f[1];if(f[0]==='na-reason'){label.dataset.conditional='na';label.hidden=true;}var el;
-   if(f[2]==='select'){el=document.createElement('select');[['','Not assessed / select rating'],['effective','Effective'],['partial','Partly effective'],['ineffective','Ineffective'],['untested','Not tested'],['na','Not applicable']].forEach(function(o){var opt=document.createElement('option');opt.value=o[0];opt.textContent=o[1];el.appendChild(opt);}}
+   if(f[2]==='select'){el=document.createElement('select');[['','Not assessed / select rating'],['effective','Effective'],['partial','Partly effective'],['ineffective','Ineffective'],['untested','Not tested'],['na','Not applicable']].forEach(function(o){var opt=document.createElement('option');opt.value=o[0];opt.textContent=o[1];el.appendChild(opt);});}
    else if(f[2]==='textarea'){el=document.createElement('textarea');el.rows=3;el.maxLength=500;el.setAttribute('wrap','soft');}
    else {el=document.createElement('input');el.type=f[2];if(f[2]==='text')el.maxLength=240;}
    el.id='gfcr-'+f[0]+'-'+i;el.dataset.field=f[0];label.appendChild(el);wrap.appendChild(label);
