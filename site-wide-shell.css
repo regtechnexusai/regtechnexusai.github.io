@@ -686,3 +686,7 @@ body:not(.homepage-redesign) .panel,body:not(.homepage-redesign) .card,body:not(
 body:not(.homepage-redesign) h1,body:not(.homepage-redesign) .hero h1{color:#103b5b}
 body:not(.homepage-redesign) a:focus-visible,body:not(.homepage-redesign) button:focus-visible{outline:3px solid #e5a53b;outline-offset:3px}
 @media(prefers-reduced-motion:reduce){body:not(.homepage-redesign) button,body:not(.homepage-redesign) .btn,body:not(.homepage-redesign) a.button,body:not(.homepage-redesign) a.btn{transition:none!important}}
+
+/* Contrast guard for dark gradient hero panels. */
+body:not(.homepage-redesign) .hero h1,body:not(.homepage-redesign) .hero h2,body:not(.homepage-redesign) .hero h3{color:#fff!important}
+body:not(.homepage-redesign) .hero p{color:#f4fbff}
