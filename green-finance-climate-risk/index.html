@@ -297,7 +297,7 @@ function assess(options){
   if(evidenceDate&&isPlaceholder(details.evidence))issues.push('Evidence date recorded without a valid evidence reference');
   if((value==='partial'||value==='no')&&!/GAP-[A-Z0-9-]+/.test(String(details.evidence)+' '+String(details.action)))issues.push((value==='partial'?'Partly':'No')+' response has no traceable gap ID in the evidence reference or action field');
   if(value==='partial'&&!details.action.trim())issues.push('Partly response has no recorded gap/action/deadline');
-  var deadlineMatch=String(details.action||'').match(/\\b(?:by|before|due by)\\s+(\\d{1,2}\\s+[A-Za-z]{3,9}\\s+\\d{4})\\b/i);
+  var deadlineMatch=String(details.action||'').match(/\b(?:by|before|due by)\s+(\d{1,2}\s+[A-Za-z]{3,9}\s+\d{4})\b/i);
   if(reportDate&&deadlineMatch&&Date.parse(deadlineMatch[1])<Date.parse(reportDate))issues.push('Action deadline is before the assessment date; confirm or revise the deadline');
   items.push({number:i,question:question,response:value,details:details,issues:issues});
  }
@@ -306,7 +306,7 @@ function assess(options){
   var emptyStatus='PROVISIONAL — No controls assessed; do not rely on an indicator until at least one control is assessed.';
   $('gfcr-gap-results').replaceChildren(document.createElement('p'));
   $('gfcr-gap-results').firstChild.className='gfcr-assessment-status provisional';$('gfcr-gap-results').firstChild.textContent=emptyStatus;
-  latestGap={yes:0,partial:0,no:0,unassessed:unassessed,na:na,assessed:0,coverage:null,items:items,qualityIssues:[],provisional:true,summary:emptyStatus};return;
+  latestGap={yes:0,partial:0,no:0,unassessed:unassessed,na:na,assessed:0,coverage:null,evidenceBackedYes:0,items:items,qualityIssues:[],provisional:true,indicatorFloor:null,indicatorCeiling:null,summary:emptyStatus};return;
  }
  var coverage=((yes+partial*.5)/assessed)*100;
  var evidenceBackedYes=items.filter(function(x){return x.response==='yes'&&!isPlaceholder(x.details.evidence)&&!isPlaceholder(x.details.owner)&&!isPlaceholder(x.details.reviewer)&&x.details['review-date']&&x.details.design==='effective'&&x.details.operation==='effective';}).length;
