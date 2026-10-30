@@ -76,3 +76,55 @@ body.payscale-main-page #salary-calculator table td{color:var(--ps-ink)!importan
 body.payscale-main-page #salary-calculator table tbody tr:nth-child(even){background:#f4f7fa!important}
 body.payscale-main-page #salary-calculator :is(.notice,.info,.field-note){color:#29465f!important;background:#edf5fb!important;border-color:#d4e4ef!important}
 body.payscale-main-page #salary-calculator :is(.warning,.caution){color:#694b17!important;background:var(--ps-gold-bg)!important;border-color:#ecd7aa!important}
+
+
+/* Cascade correction v2: override legacy dark glass-card rules and their !important
+   descendants on the two requested routes. Presentation only. */
+html body.pension-page,
+html body.payscale-main-page { color:#203b55!important; background:#f2f6fa!important; }
+html body.pension-page main.shell,
+html body.payscale-main-page main.shell { color:#203b55!important; }
+html body.pension-page main.shell :is(.notice.glass-card,.retirement-section.glass-card,.retirement-reference,.retirement-audit-summary,.retirement-net-card,.retirement-net-placeholder) {
+  color:#203b55!important;background:#fff!important;border:1px solid #d7e2ec!important;box-shadow:0 10px 28px rgba(16,46,77,.07)!important;
+}
+html body.pension-page main.shell :is(.notice.glass-card,.retirement-section.glass-card,.retirement-reference,.retirement-audit-summary,.retirement-net-card,.retirement-net-placeholder) :is(h1,h2,h3,h4,strong,b,label,summary,th,td,span,div) { color:#203b55!important; }
+html body.pension-page main.shell :is(.notice.glass-card,.retirement-section.glass-card,.retirement-reference,.retirement-audit-summary,.retirement-net-card,.retirement-net-placeholder) :is(p,li,small,.field-help,.output-note) { color:#52677c!important; }
+html body.pension-page main.shell .retirement-section .retirement-profile-note { color:#29465f!important;background:#edf5fb!important;border:1px solid #d4e4ef!important; }
+html body.pension-page main.shell .retirement-section .compliance-note { color:#694b17!important;background:#fff7e8!important;border:1px solid #ecd7aa!important;border-left:4px solid #b78122!important; }
+html body.pension-page main.shell .retirement-section .compliance-note :is(strong,p) { color:#694b17!important; }
+html body.pension-page main.shell .retirement-section .retirement-card { color:#203b55!important;background:#fff!important;border:1px solid #d7e2ec!important; }
+html body.pension-page main.shell .retirement-section .retirement-card :is(span,small) { color:#52677c!important; }
+html body.pension-page main.shell .retirement-section .retirement-card strong { color:#102e4d!important; }
+html body.pension-page main.shell .retirement-section .retirement-card-emphasis { background:#e8f5f4!important;border-color:#a9d8d5!important; }
+html body.pension-page main.shell :is(input,select,textarea) { color:#142b43!important;background:#fff!important;border:1px solid #bacbda!important; }
+html body.pension-page main.shell :is(.primary-button,button:not(.back-link)) { color:#fff!important;background:#102e4d!important;border:1px solid #102e4d!important; }
+html body.pension-page main.shell .footer { color:#fff!important;background:linear-gradient(120deg,#102b48,#185b78 60%,#087779)!important; }
+html body.pension-page main.shell .footer :is(strong,small,span,a) { color:#f2fafc!important; }
+
+/* Salary form, generated result panel, and gross-salary module share the same light palette. */
+html body.payscale-main-page main.shell #salary-calculator.glass-card,
+html body.payscale-main-page main.shell #gross-salary-module.glass-card {
+  color:#203b55!important;background:#fff!important;border:1px solid #d7e2ec!important;box-shadow:0 10px 28px rgba(16,46,77,.07)!important;
+}
+html body.payscale-main-page main.shell #salary-calculator :is(h1,h2,h3,h4,strong,b,label,legend,span,small,p,li,div) { color:#203b55!important; }
+html body.payscale-main-page main.shell #salary-calculator :is(.eyebrow,.kicker) { color:#087e83!important; }
+html body.payscale-main-page main.shell #salary-calculator :is(.field-help,.hint,.muted,.output-note) { color:#52677c!important; }
+html body.payscale-main-page main.shell #salary-calculator :is(input,select,textarea) { color:#142b43!important;background:#fff!important;border:1px solid #bacbda!important; }
+html body.payscale-main-page main.shell #salary-calculator :is(button,.btn,.button,[class*="button"],[class*="btn"]) { color:#fff!important;background:#102e4d!important;border:1px solid #102e4d!important; }
+html body.payscale-main-page main.shell #salary-calculator :is(button,.btn,.button,[class*="button"],[class*="btn"]):hover { background:#075d80!important;border-color:#075d80!important; }
+html body.payscale-main-page main.shell #results-panel {
+  color:#203b55!important;background:transparent!important;border-top:1px solid #d7e2ec!important;
+}
+html body.payscale-main-page main.shell #results-panel :is(h1,h2,h3,h4,strong,b,label,span,small,p,li) { color:#203b55!important; }
+html body.payscale-main-page main.shell #results-panel .metric-card,
+html body.payscale-main-page main.shell #results-panel .result-hero,
+html body.payscale-main-page main.shell #results-panel .timeline-card,
+html body.payscale-main-page main.shell #results-panel .math-card,
+html body.payscale-main-page main.shell #results-panel .salary-audit-summary {
+  color:#203b55!important;background:#fff!important;border:1px solid #d7e2ec!important;box-shadow:0 6px 18px rgba(16,46,77,.05)!important;
+}
+html body.payscale-main-page main.shell #results-panel :is(.metric-card,.result-hero,.timeline-card,.math-card,.salary-audit-summary) :is(h1,h2,h3,h4,strong,b,label,span,small,p,li) { color:#203b55!important; }
+html body.payscale-main-page main.shell #gross-salary-module :is(h1,h2,h3,h4,strong,b,label,span,small,p,li,td,caption) { color:#203b55!important; }
+html body.payscale-main-page main.shell #gross-salary-module :is(.gross-total-card,.gross-summary-grid,.gross-breakdown) { color:#203b55!important;background:#f5f8fb!important;border:1px solid #d7e2ec!important; }
+html body.payscale-main-page main.shell #gross-salary-module th { color:#fff!important;background:#102e4d!important; }
+html body.payscale-main-page main.shell #gross-salary-module :is(input,select,textarea) { color:#142b43!important;background:#fff!important;border:1px solid #bacbda!important; }
