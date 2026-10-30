@@ -2954,6 +2954,18 @@ body.homepage-redesign .homepage-boundary p{margin:7px 0 0;color:#4e5f70;font-si
 }
 
 
+
+/* 2026-10-30: four-card flagship layout including Green Finance & Climate Risk. */
+@media(min-width:851px){
+ body.homepage-redesign .homepage-flagship-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+}
+@media(min-width:561px) and (max-width:850px){
+ body.homepage-redesign .homepage-flagship-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:560px){
+ body.homepage-redesign .homepage-flagship-grid{grid-template-columns:1fr!important}
+}
+
 /* 2026-10-15 homepage layout repair + glossy CTA polish.
    Presentation only: preserves page content, destinations, and all tool logic. */
 body.homepage-redesign .hero{
@@ -3416,3 +3428,21 @@ body:not(.homepage-redesign) a:focus-visible,body:not(.homepage-redesign) button
 /* Contrast guard for dark gradient hero panels. */
 body:not(.homepage-redesign) .hero h1,body:not(.homepage-redesign) .hero h2,body:not(.homepage-redesign) .hero h3{color:#fff!important}
 body:not(.homepage-redesign) .hero p{color:#f4fbff}
+
+
+/* Final cascade guard: four flagship cards must remain visible across breakpoints. */
+@media (min-width: 851px) {
+  body.homepage-redesign .homepage-flagship-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+}
+@media (min-width: 561px) and (max-width: 850px) {
+  body.homepage-redesign .homepage-flagship-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+@media (max-width: 560px) {
+  body.homepage-redesign .homepage-flagship-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
