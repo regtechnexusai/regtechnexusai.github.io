@@ -116,7 +116,7 @@ if config_path.exists():
  except (OSError,json.JSONDecodeError) as exc:
   add("HIGH",config_path.relative_to(ROOT).as_posix(),"Expansion config could not be read as valid JSON: "+str(exc))
 now=datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-lines=["# Automated Static Regression Report","", "Run: "+now, "Repository: "+ROOT.name, "Critical pages checked: "+str(len(checked))+"/"+str(len(CRITICAL)), "Scope: required-page presence, metadata, duplicate IDs, local links/assets and fragments.", "Limitation: not live browser testing, regulatory correctness review, accessibility audit or penetration test.", "", "## Pages checked"]
+ "Critical HTML pages checked: "+str(sum(1 for x in checked if x in CRITICAL))+"/"+str(len(CRITICAL)),
 lines += ["- "+x for x in checked] or ["- None"]
 lines += ["", "## Findings"]
 lines += [("- "+s+" — "+p+": "+d) for s,p,d in findings] if findings else ["- No static findings detected in checked scope."]
