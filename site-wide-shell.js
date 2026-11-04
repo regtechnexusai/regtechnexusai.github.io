@@ -61,6 +61,7 @@
     return '<span class="nav-menu-heading">Explore</span>' +
       '<a href="/">Home</a><a href="/#work">What we do</a><a href="/#solutions">Solutions</a>' +
       '<a href="/fintech-intelligence-hub/">FinTech Intelligence Hub</a>' +
+      '<a href="/creations/">Digital Creations</a>' +
       '<a href="/global-financial-systems.html">Regulatory Signal Labs &amp; Readiness</a>' +
       '<a href="/international-regulatory-calculators.html">Regulatory Calculators</a>' +
       '<a href="/regulatory-gap-analyzer/">Policy Gap Analyzer</a><a href="/insights.html">Insights</a>' +
@@ -84,7 +85,7 @@
         '<a href="/#capabilities">Risk &amp; Governance</a><a href="/explainable-ai.html">Responsible AI</a></div>' +
         '<div><b>Knowledge</b><a href="/insights.html">Research &amp; Insights</a><a href="/blog.html">Blog</a>' +
         '<a href="/regulatory-explainers.html">Regulatory Explainers</a><a href="/frameworks-toolkit.html">Frameworks &amp; Toolkits</a>' +
-        '<a href="/publications.html">Publications</a><a href="/bank-use-review.html">Bank-use review</a><a href="/student/">Student Knowledge Hub</a></div>' +
+        '<a href="/publications.html">Publications</a><a href="/bank-use-review.html">Bank-use review</a><a href="/student/">Student Knowledge Hub</a><a href="/creations/">Digital Creations</a></div>' +
         '<div><b>Connect</b><a href="https://www.linkedin.com/company/regtech-nexus-ai/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>' +
         '<a href="https://www.facebook.com/regtechnexusai" target="_blank" rel="noopener noreferrer">Facebook ↗</a>' +
         '<a href="https://youtube.com/@regtechnexusai" target="_blank" rel="noopener noreferrer">YouTube ↗</a>' +
