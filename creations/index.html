@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Digital Creations by RegTech Nexus AI | Ideas to Digital Reality</title>
+  <meta name="description" content="Explore selected digital projects by RegTech Nexus AI, spanning regulatory intelligence, agriculture technology and travel discovery.">
+  <link rel="canonical" href="https://regtechnexusai.com/creations/">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#0956a8">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="RegTech Nexus AI">
+  <meta property="og:title" content="Digital Creations by RegTech Nexus AI">
+  <meta property="og:description" content="Ideas to Digital Reality. Explore selected digital projects across RegTech, AgriTech and TravelTech.">
+  <meta property="og:url" content="https://regtechnexusai.com/creations/">
+  <meta property="og:image" content="https://regtechnexusai.com/regtech-nexus-ai-logo-2026.png">
+  <link rel="icon" type="image/png" href="/regtech-nexus-ai-logo-2026.png">
+  <link rel="stylesheet" href="/site-wide-shell.css?v=20261015-v1">
+  <script src="/site-wide-shell.js?v=20261015-v1" defer></script>
+  <style>
+    .creations-page{--c-ink:#102b49;--c-muted:#5b6c7f;--c-blue:#0956a8;--c-line:#d9e5ec;color:var(--c-ink);background:#f7fafc;min-height:70vh}
+    .creations-page *{box-sizing:border-box}
+    .creations-wrap{width:min(1160px,calc(100% - 40px));margin:0 auto}
+    .creations-hero{position:relative;overflow:hidden;padding:clamp(64px,9vw,112px) 0 68px;background:linear-gradient(125deg,#102b49 0%,#0956a8 62%,#087f91 100%);color:#fff}
+    .creations-hero:after{content:"";position:absolute;width:440px;height:440px;border:1px solid rgba(255,255,255,.15);border-radius:50%;right:-100px;top:-190px;box-shadow:0 0 0 48px rgba(255,255,255,.035),0 0 0 96px rgba(255,255,255,.025)}
+    .creations-hero-inner{position:relative;z-index:1;max-width:850px}
+    .creations-eyebrow{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#bdebf0;margin:0 0 18px}
+    .creations-hero h1{font-size:clamp(38px,6vw,68px);line-height:1.04;letter-spacing:-.045em;margin:0 0 18px;color:#fff}
+    .creations-hero h1 span{color:#a9e8ed}
+    .creations-tagline{font-size:clamp(18px,2.3vw,24px);font-weight:700;margin:0 0 14px;color:#fff}
+    .creations-intro{max-width:690px;font-size:16px;line-height:1.8;color:#e8f3fb;margin:0}
+    .creations-section{padding:66px 0}
+    .creations-section-head{max-width:720px;margin-bottom:28px}
+    .creations-kicker{color:var(--c-blue);font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin:0 0 10px}
+    .creations-section h2{font-size:clamp(27px,3.5vw,38px);line-height:1.15;letter-spacing:-.025em;margin:0 0 12px;color:var(--c-ink)}
+    .creations-section-head p{margin:0;color:var(--c-muted);line-height:1.75}
+    .creations-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+    .creation-card{display:flex;flex-direction:column;min-width:0;min-height:320px;padding:26px;border:1px solid #d9e5ec;border-radius:18px;background:#fff;box-shadow:0 12px 30px rgba(16,43,73,.06);transition:transform .18s ease,box-shadow .18s ease}
+    .creation-card:hover{transform:translateY(-4px);box-shadow:0 18px 38px rgba(16,43,73,.11)}
+    .creation-type{display:inline-flex;align-self:flex-start;padding:7px 10px;border-radius:999px;background:#edf5fc;color:#0956a8;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+    .creation-card h3{font-size:23px;line-height:1.2;margin:20px 0 10px;color:#102b49}
+    .creation-card p{color:#5b6c7f;font-size:14px;line-height:1.75;margin:0 0 20px}
+    .creation-card a{display:inline-flex;align-items:center;gap:8px;margin-top:auto;color:#0956a8;font-weight:800;text-decoration:none}
+    .creation-card a:hover{text-decoration:underline}
+    .creation-card a:focus-visible,.creations-page a:focus-visible{outline:3px solid #e3a63b;outline-offset:4px;border-radius:4px}
+    .creations-approach{padding:0 0 72px}
+    .approach-panel{display:grid;grid-template-columns:.8fr 1.2fr;gap:32px;align-items:center;padding:clamp(26px,4vw,44px);border:1px solid #cfe2e8;border-radius:20px;background:linear-gradient(120deg,#eef7fb,#f3faf8)}
+    .approach-panel h2{font-size:clamp(25px,3vw,34px);line-height:1.2;margin:0;color:#102b49}
+    .approach-panel p{font-size:14px;line-height:1.8;color:#5b6c7f;margin:0}
+    .creations-note{padding:0 0 54px;color:#718096;font-size:12px;line-height:1.7}
+    @media(max-width:850px){.creations-grid{grid-template-columns:1fr 1fr}.approach-panel{grid-template-columns:1fr;gap:14px}}
+    @media(max-width:600px){.creations-wrap{width:min(100% - 28px,1160px)}.creations-hero{padding:58px 0 54px}.creations-section{padding:48px 0}.creations-grid{grid-template-columns:1fr;gap:14px}.creation-card{min-height:0;padding:23px}.creation-card h3{font-size:21px}.creations-approach{padding-bottom:48px}.approach-panel{padding:24px}.creations-note{padding-bottom:38px}}
+    @media(prefers-reduced-motion:reduce){.creation-card{transition:none}.creation-card:hover{transform:none}}
+  </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"CollectionPage","name":"Digital Creations by RegTech Nexus AI","url":"https://regtechnexusai.com/creations/","description":"A showcase of selected digital projects across regulatory technology, agriculture technology and travel discovery.","isPartOf":{"@type":"WebSite","name":"RegTech Nexus AI","url":"https://regtechnexusai.com/"}}
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <main id="main-content" class="creations-page">
+    <section class="creations-hero">
+      <div class="creations-wrap creations-hero-inner">
+        <p class="creations-eyebrow">A showcase of digital projects</p>
+        <h1>Digital Creations<br><span>by RegTech Nexus AI</span></h1>
+        <p class="creations-tagline">Ideas to Digital Reality.</p>
+        <p class="creations-intro">Explore selected digital projects shaped around practical needs—from regulatory intelligence and agricultural knowledge to travel information and discovery.</p>
+      </div>
+    </section>
+    <section class="creations-section" aria-labelledby="selected-projects">
+      <div class="creations-wrap">
+        <div class="creations-section-head">
+          <p class="creations-kicker">Selected projects</p>
+          <h2 id="selected-projects">Different ideas. Practical digital experiences.</h2>
+          <p>This portfolio brings together distinct projects. Each has its own purpose, audience and digital identity.</p>
+        </div>
+        <div class="creations-grid">
+          <article class="creation-card">
+            <span class="creation-type">RegTech · Banking</span>
+            <h3>RegTech Nexus AI</h3>
+            <p>Regulatory intelligence, banking-risk resources and decision-support tools covering compliance, AML/CFT, TBML, audit, governance and responsible AI.</p>
+            <a href="/">Explore RegTech Nexus AI <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="creation-card">
+            <span class="creation-type">AgriTech · Bangladesh</span>
+            <h3>MUKUL Agriculture Hub</h3>
+            <p>A multilingual agriculture information hub with crop-care guidance, a knowledge library and practical farm-record resources for Bangladesh.</p>
+            <a href="/mukul/">Explore MUKUL <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="creation-card">
+            <span class="creation-type">TravelTech · Discovery</span>
+            <h3>Travel To Know</h3>
+            <p>A travel information and discovery website designed to help visitors explore destinations and travel-related information.</p>
+            <a href="https://traveltoknow.com.bd/" target="_blank" rel="noopener noreferrer">Visit Travel To Know <span aria-hidden="true">↗</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section class="creations-approach" aria-label="Development approach">
+      <div class="creations-wrap">
+        <div class="approach-panel">
+          <h2>Thoughtful design.<br>Responsible development.</h2>
+          <p>Our approach combines clear requirements, fit-for-purpose design, AI-assisted development where useful, and human-led review and testing. The objective is to create practical digital experiences while preserving transparency, usability and responsible technology boundaries.</p>
+        </div>
+      </div>
+    </section>
+    <div class="creations-wrap creations-note">Project descriptions are concise portfolio summaries. Each linked website remains independently accessible and retains its own content, purpose and functionality.</div>
+  </main>
+</body>
+</html>

@@ -7,7 +7,7 @@ import argparse, datetime, json, re, sys
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 ROOT=Path(__file__).resolve().parents[2]
-CRITICAL=["index.html","tool-assurance/index.html","regulatory-source-register/index.html","bank-use-review.html","regulatory-gap-analyzer/index.html","icms-2026/index.html","international-regulatory-calculators.html","payscale-2026/index.html","md-ceo-performance-calculator/index.html","explainable-ai.html","derivatives/index.html"]
+CRITICAL=["index.html","creations/index.html","tool-assurance/index.html","regulatory-source-register/index.html","bank-use-review.html","regulatory-gap-analyzer/index.html","icms-2026/index.html","international-regulatory-calculators.html","payscale-2026/index.html","md-ceo-performance-calculator/index.html","explainable-ai.html","derivatives/index.html"]
 class Parser(HTMLParser):
  def __init__(self):
   super().__init__(convert_charrefs=True); self.ids=[]; self.links=[]; self.in_title=False; self.title_text=False
@@ -63,6 +63,21 @@ for rel in CRITICAL:
    try:other.feed(dest.read_text(encoding="utf-8",errors="replace"))
    except Exception:pass
    if fragment not in other.ids:add("MEDIUM",rel,"Fragment target not found: "+raw)
+# Portfolio-specific structural checks: the new page must be part of CI coverage.
+portfolio_path=ROOT/"creations"/"index.html"
+if portfolio_path.exists():
+ portfolio=portfolio_path.read_text(encoding="utf-8",errors="replace")
+ cards=portfolio.count('class="creation-card"')
+ if cards != 3:add("HIGH","creations/index.html","Expected exactly 3 project cards; found "+str(cards)+".")
+ for required in ('href="/"','href="/mukul/"','href="https://traveltoknow.com.bd/"'):
+  if required not in portfolio:add("HIGH","creations/index.html","Required portfolio destination missing: "+required)
+ for rel,minimum in (("index.html",2),("site-wide-shell.js",2)):
+  source=ROOT/rel
+  count=source.read_text(encoding="utf-8",errors="replace").count('href="/creations/"') if source.exists() else 0
+  if count < minimum:add("MEDIUM",rel,"Expected at least "+str(minimum)+" Digital Creations links; found "+str(count)+".")
+ sitemap=ROOT/"sitemap.xml"
+ if not sitemap.exists() or "https://regtechnexusai.com/creations/" not in sitemap.read_text(encoding="utf-8",errors="replace"):
+  add("MEDIUM","sitemap.xml","Digital Creations canonical URL is missing from sitemap.")
 # Smoke-test the public TradeGuard route separately because its deployed route is not a repository file.
 try:
  req=Request("https://regtechnexusai.com/tradeguard/",headers={"User-Agent":"RegTechNexusAI-RegressionCheck/1.0"})
@@ -101,7 +116,7 @@ if config_path.exists():
  except (OSError,json.JSONDecodeError) as exc:
   add("HIGH",config_path.relative_to(ROOT).as_posix(),"Expansion config could not be read as valid JSON: "+str(exc))
 now=datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-lines=["# Automated Static Regression Report","", "Run: "+now, "Repository: "+ROOT.name, "Critical pages checked: "+str(len(checked))+"/"+str(len(CRITICAL)), "Scope: required-page presence, metadata, duplicate IDs, local links/assets and fragments.", "Limitation: not live browser testing, regulatory correctness review, accessibility audit or penetration test.", "", "## Pages checked"]
+lines=["# Automated Static Regression Report","", "Run: "+now, "Repository: "+ROOT.name, "Critical HTML pages checked: "+str(sum(1 for x in checked if x in CRITICAL))+"/"+str(len(CRITICAL)), "Supplementary checks: "+str(len(checked)-sum(1 for x in checked if x in CRITICAL)), "Scope: required-page presence, metadata, duplicate IDs, local links/assets and fragments.", "Limitation: not live browser testing, regulatory correctness review, accessibility audit or penetration test.", "", "## Pages checked"]
 lines += ["- "+x for x in checked] or ["- None"]
 lines += ["", "## Findings"]
 lines += [("- "+s+" — "+p+": "+d) for s,p,d in findings] if findings else ["- No static findings detected in checked scope."]
