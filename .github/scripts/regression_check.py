@@ -7,7 +7,7 @@ import argparse, datetime, json, re, sys
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 ROOT=Path(__file__).resolve().parents[2]
-CRITICAL=["index.html","tool-assurance/index.html","regulatory-source-register/index.html","bank-use-review.html","regulatory-gap-analyzer/index.html","icms-2026/index.html","international-regulatory-calculators.html","payscale-2026/index.html","md-ceo-performance-calculator/index.html","explainable-ai.html","derivatives/index.html"]
+CRITICAL=["index.html","creations/index.html","tool-assurance/index.html","regulatory-source-register/index.html","bank-use-review.html","regulatory-gap-analyzer/index.html","icms-2026/index.html","international-regulatory-calculators.html","payscale-2026/index.html","md-ceo-performance-calculator/index.html","explainable-ai.html","derivatives/index.html"]
 class Parser(HTMLParser):
  def __init__(self):
   super().__init__(convert_charrefs=True); self.ids=[]; self.links=[]; self.in_title=False; self.title_text=False
@@ -63,6 +63,21 @@ for rel in CRITICAL:
    try:other.feed(dest.read_text(encoding="utf-8",errors="replace"))
    except Exception:pass
    if fragment not in other.ids:add("MEDIUM",rel,"Fragment target not found: "+raw)
+# Portfolio-specific structural checks: the new page must be part of CI coverage.
+portfolio_path=ROOT/"creations"/"index.html"
+if portfolio_path.exists():
+ portfolio=portfolio_path.read_text(encoding="utf-8",errors="replace")
+ cards=len(re.findall(r'class=["\\'][^"\\']*\\bcreation-card\\b',portfolio))
+ if cards != 3:add("HIGH","creations/index.html","Expected exactly 3 project cards; found "+str(cards)+".")
+ for required in ('href="/"','href="/mukul/"','href="https://traveltoknow.com.bd/"'):
+  if required not in portfolio:add("HIGH","creations/index.html","Required portfolio destination missing: "+required)
+ for rel,minimum in (("index.html",2),("site-wide-shell.js",2)):
+  source=ROOT/rel
+  count=source.read_text(encoding="utf-8",errors="replace").count('href="/creations/"') if source.exists() else 0
+  if count < minimum:add("MEDIUM",rel,"Expected at least "+str(minimum)+" Digital Creations links; found "+str(count)+".")
+ sitemap=ROOT/"sitemap.xml"
+ if not sitemap.exists() or "https://regtechnexusai.com/creations/" not in sitemap.read_text(encoding="utf-8",errors="replace"):
+  add("MEDIUM","sitemap.xml","Digital Creations canonical URL is missing from sitemap.")
 # Smoke-test the public TradeGuard route separately because its deployed route is not a repository file.
 try:
  req=Request("https://regtechnexusai.com/tradeguard/",headers={"User-Agent":"RegTechNexusAI-RegressionCheck/1.0"})
