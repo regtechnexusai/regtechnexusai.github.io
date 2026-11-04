@@ -67,7 +67,7 @@ for rel in CRITICAL:
 portfolio_path=ROOT/"creations"/"index.html"
 if portfolio_path.exists():
  portfolio=portfolio_path.read_text(encoding="utf-8",errors="replace")
- cards=len(re.findall(r'class=["\\'][^"\\']*\\bcreation-card\\b',portfolio))
+ cards=portfolio.count('class="creation-card"')
  if cards != 3:add("HIGH","creations/index.html","Expected exactly 3 project cards; found "+str(cards)+".")
  for required in ('href="/"','href="/mukul/"','href="https://traveltoknow.com.bd/"'):
   if required not in portfolio:add("HIGH","creations/index.html","Required portfolio destination missing: "+required)
