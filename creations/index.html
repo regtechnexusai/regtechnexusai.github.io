@@ -50,6 +50,30 @@
     .creations-note{padding:0 0 54px;color:#718096;font-size:12px;line-height:1.7}
     @media(max-width:850px){.creations-grid{grid-template-columns:1fr 1fr}.approach-panel{grid-template-columns:1fr;gap:14px}}
     @media(max-width:600px){.creations-wrap{width:min(100% - 28px,1160px)}.creations-hero{padding:58px 0 54px}.creations-section{padding:48px 0}.creations-grid{grid-template-columns:1fr;gap:14px}.creation-card{min-height:0;padding:23px}.creation-card h3{font-size:21px}.creations-approach{padding-bottom:48px}.approach-panel{padding:24px}.creations-note{padding-bottom:38px}}
+    /* Portfolio visual refinement: distinct but restrained multicolour card treatments. */
+    .creations-hero h1{color:#fff!important;text-shadow:0 2px 14px rgba(4,25,48,.18)}
+    .creations-hero h1 span{color:#baf4f0!important}
+    .creation-card{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(145deg,#fff 0%,#f2f8ff 52%,#edf8f7 100%);border-color:#cbdfe9}
+    .creation-card:before{content:"";position:absolute;z-index:-1;inset:0 0 auto;height:6px;background:linear-gradient(90deg,#0956a8,#39b9c7,#8dded5)}
+    .creation-card:nth-child(2){background:linear-gradient(145deg,#fff 0%,#f0fbf5 48%,#e8f7ef 100%);border-color:#cce7d8}
+    .creation-card:nth-child(2):before{background:linear-gradient(90deg,#087f5b,#59c69a,#b5e8c9)}
+    .creation-card:nth-child(3){background:linear-gradient(145deg,#fff 0%,#f5f2ff 48%,#edf4ff 100%);border-color:#d9d6f0}
+    .creation-card:nth-child(3):before{background:linear-gradient(90deg,#5146a5,#7b83db,#b6c5f5)}
+    .creation-type{background:rgba(255,255,255,.78);border:1px solid rgba(9,86,168,.12)}
+    .creation-card:nth-child(2) .creation-type{color:#08734f;border-color:rgba(8,127,91,.16)}
+    .creation-card:nth-child(3) .creation-type{color:#5146a5;border-color:rgba(81,70,165,.16)}
+    .creation-card p,.creations-section-head p,.approach-panel p,.creations-note,.creations-intro{text-align:justify;text-justify:inter-word}
+    .approach-panel{background:linear-gradient(120deg,#eaf5ff 0%,#eefaf7 52%,#f6f0ff 100%);border-color:#cbdfe9;box-shadow:0 12px 30px rgba(16,43,73,.06)}
+    .creations-note{padding:20px 24px;margin-bottom:44px;border:1px solid #cfe2e8;border-radius:16px;background:linear-gradient(110deg,#edf6ff,#effaf7 55%,#f5f0ff);box-shadow:0 8px 24px rgba(16,43,73,.045)}
+    /* The shared floating back-home pill obscures content on small screens; this page needs no duplicate shortcut. */
+    body:has(.creations-page) .rt-back-home{display:none!important}
+    .skip-link{position:absolute!important;left:12px!important;top:-60px!important;z-index:3000!important;padding:10px 14px!important;border-radius:8px!important;background:#102b49!important;color:#fff!important}
+    .skip-link:focus{top:12px!important}
+    @media(max-width:600px){
+      .creations-section-head p,.creation-card p,.approach-panel p,.creations-note,.creations-intro{line-height:1.8}
+      .creation-card{padding:25px 22px;border-radius:18px}
+      .creations-note{margin-bottom:30px;padding:18px}
+    }
     @media(prefers-reduced-motion:reduce){.creation-card{transition:none}.creation-card:hover{transform:none}}
   </style>
   <script type="application/ld+json">
