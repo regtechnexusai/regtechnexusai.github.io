@@ -108,6 +108,25 @@
       .creations-page .cta-panel>p:not(.cta-eyebrow){text-align:left!important;text-justify:auto!important;word-spacing:normal!important}
     }
 
+  
+    /* Strong fallback for Google Translate-injected font/span wrappers. */
+    .creations-page .cta-panel h2,
+    .creations-page .cta-panel h2 *,
+    .creations-page .cta-panel h2 font,
+    .creations-page .cta-panel h2 span{
+      color:#fff!important;
+      -webkit-text-fill-color:#fff!important;
+      text-shadow:0 1px 1px rgba(0,0,0,.12)!important;
+    }
+    @media(max-width:600px){
+      .creations-page .cta-panel>p:not(.cta-eyebrow){
+        text-align:left!important;
+        text-justify:none!important;
+        word-spacing:normal!important;
+        letter-spacing:normal!important;
+      }
+    }
+
   </style>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"CollectionPage","name":"Digital Creations by RegTech Nexus AI","url":"https://regtechnexusai.com/creations/","description":"A showcase of selected digital projects across regulatory technology, agriculture technology and travel discovery.","isPartOf":{"@type":"WebSite","name":"RegTech Nexus AI","url":"https://regtechnexusai.com/"}}
@@ -171,7 +190,7 @@
       <div class="creations-wrap">
         <div class="cta-panel">
           <p class="cta-eyebrow">Work with RegTech Nexus AI</p>
-          <h2 id="project-enquiry-title">Have an Idea? Let's Build It.</h2>
+          <h2 id="project-enquiry-title" style="color:#fff!important;-webkit-text-fill-color:#fff!important;text-shadow:0 1px 1px rgba(0,0,0,.12)">Have an Idea? Let's Build It.</h2>
           <p>Inspired by our creations? If you are planning a professional website, a custom digital tool, a web application or a technology-driven business solution, tell us about your idea. We welcome project enquiries and collaboration opportunities from Bangladesh and around the world.</p>
           <div class="cta-services" aria-label="Project areas">
             <span>Website Development</span><span>Custom Web Applications</span><span>Digital Tools &amp; Calculators</span><span>AI-assisted Solutions</span><span>Project Collaboration</span>
