@@ -75,6 +75,30 @@
       .creations-note{margin-bottom:30px;padding:18px}
     }
     @media(prefers-reduced-motion:reduce){.creation-card{transition:none}.creation-card:hover{transform:none}}
+
+    /* Language selector and project enquiry CTA */
+    .creations-language{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin:0 0 24px}
+    .creations-language label{font-size:12px;font-weight:700;color:#e8f3fb}
+    #google_translate_element{min-height:34px}
+    #google_translate_element .goog-te-gadget{font-family:inherit!important;color:#e8f3fb!important;font-size:0!important}
+    #google_translate_element .goog-te-combo{max-width:190px;height:36px;margin:0!important;padding:5px 9px;border:1px solid rgba(255,255,255,.45);border-radius:8px;background:#fff;color:#102b49;font:600 13px inherit}
+    .goog-te-gadget .goog-te-combo{font-family:inherit!important}
+    .creations-cta{padding:0 0 70px}
+    .cta-panel{position:relative;overflow:hidden;padding:clamp(28px,5vw,52px);border-radius:22px;background:linear-gradient(125deg,#102b49 0%,#0956a8 58%,#087f91 100%);color:#fff;box-shadow:0 18px 42px rgba(16,43,73,.16)}
+    .cta-panel:after{content:"";position:absolute;width:300px;height:300px;border:1px solid rgba(255,255,255,.15);border-radius:50%;right:-95px;bottom:-190px;box-shadow:0 0 0 36px rgba(255,255,255,.035),0 0 0 72px rgba(255,255,255,.025);pointer-events:none}
+    .cta-panel>*{position:relative;z-index:1}
+    .cta-eyebrow{margin:0 0 10px;color:#baf4f0;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+    .cta-panel h2{margin:0 0 12px;color:#fff;font-size:clamp(28px,4vw,42px);line-height:1.12}
+    .cta-panel>p:not(.cta-eyebrow){max-width:760px;margin:0;color:#e8f3fb;font-size:15px;line-height:1.8;text-align:justify}
+    .cta-services{display:flex;flex-wrap:wrap;gap:9px;margin:22px 0 26px}
+    .cta-services span{padding:7px 11px;border:1px solid rgba(255,255,255,.25);border-radius:999px;background:rgba(255,255,255,.09);color:#fff;font-size:12px;font-weight:650}
+    .cta-actions{display:flex;flex-wrap:wrap;gap:12px}
+    .cta-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:11px 18px;border:1px solid #fff;border-radius:10px;background:#fff;color:#102b49;font-size:14px;font-weight:800;text-decoration:none}
+    .cta-actions a.secondary{background:transparent;color:#fff}
+    .cta-actions a:hover{transform:translateY(-1px);text-decoration:none;filter:brightness(.97)}
+    .cta-contact-note{margin:17px 0 0!important;color:#d9eaf6!important;font-size:12px!important}
+    @media(max-width:600px){.creations-language{justify-content:flex-start;flex-wrap:wrap;margin-bottom:20px}.creations-language label{width:100%}#google_translate_element .goog-te-combo{max-width:100%;width:210px}.creations-cta{padding-bottom:48px}.cta-panel{padding:25px 22px;border-radius:18px}.cta-actions{display:grid;grid-template-columns:1fr}.cta-actions a{width:100%}.cta-panel>p:not(.cta-eyebrow){line-height:1.8}}
+
   </style>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"CollectionPage","name":"Digital Creations by RegTech Nexus AI","url":"https://regtechnexusai.com/creations/","description":"A showcase of selected digital projects across regulatory technology, agriculture technology and travel discovery.","isPartOf":{"@type":"WebSite","name":"RegTech Nexus AI","url":"https://regtechnexusai.com/"}}
@@ -85,6 +109,11 @@
   <main id="main-content" class="creations-page">
     <section class="creations-hero">
       <div class="creations-wrap creations-hero-inner">
+
+        <div class="creations-language" aria-label="Page language">
+          <label for="google_translate_element">Read this page in your language / আপনার ভাষায় পড়ুন</label>
+          <div id="google_translate_element"></div>
+        </div>
         <p class="creations-eyebrow">A showcase of digital projects</p>
         <h1>Digital Creations<br><span>by RegTech Nexus AI</span></h1>
         <p class="creations-tagline">Ideas to Digital Reality.</p>
@@ -128,7 +157,38 @@
         </div>
       </div>
     </section>
+
+    <section class="creations-cta" aria-labelledby="project-enquiry-title">
+      <div class="creations-wrap">
+        <div class="cta-panel">
+          <p class="cta-eyebrow">Work with RegTech Nexus AI</p>
+          <h2 id="project-enquiry-title">Have an Idea? Let's Build It.</h2>
+          <p>Inspired by our creations? If you are planning a professional website, a custom digital tool, a web application or a technology-driven business solution, tell us about your idea. We welcome project enquiries and collaboration opportunities from Bangladesh and around the world.</p>
+          <div class="cta-services" aria-label="Project areas">
+            <span>Website Development</span><span>Custom Web Applications</span><span>Digital Tools &amp; Calculators</span><span>AI-assisted Solutions</span><span>Project Collaboration</span>
+          </div>
+          <div class="cta-actions">
+            <a href="mailto:regtechnexusai@gmail.com?subject=Project%20Enquiry%20%E2%80%93%20RegTech%20Nexus%20AI">Email Us About Your Project</a>
+            <a class="secondary" href="tel:+8801772282925">Call +880 1772-282925</a>
+          </div>
+          <p class="cta-contact-note">Share a brief outline of what you want to build. We can discuss the requirements, scope and a suitable approach.</p>
+        </div>
+      </div>
+    </section>
     <div class="creations-wrap creations-note">Project descriptions are concise portfolio summaries. Each linked website remains independently accessible and retains its own content, purpose and functionality.</div>
   </main>
+
+  <script>
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        autoDisplay: false,
+        includedLanguages: 'ar,bn,zh-CN,nl,en,fr,de,hi,id,it,ja,ko,ms,pt,ru,es,th,tr,ur,vi',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+  </script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+
 </body>
 </html>
