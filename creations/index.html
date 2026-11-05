@@ -99,6 +99,15 @@
     .cta-contact-note{margin:17px 0 0!important;color:#d9eaf6!important;font-size:12px!important}
     @media(max-width:600px){.creations-language{justify-content:flex-start;flex-wrap:wrap;margin-bottom:20px}.creations-language label{width:100%}#google_translate_element .goog-te-combo{max-width:100%;width:210px}.creations-cta{padding-bottom:48px}.cta-panel{padding:25px 22px;border-radius:18px}.cta-actions{display:grid;grid-template-columns:1fr}.cta-actions a{width:100%}.cta-panel>p:not(.cta-eyebrow){line-height:1.8}}
 
+  
+    /* Mobile/translation rendering correction: preserve CTA contrast and readable line flow. */
+    .creations-page .cta-panel h2,
+    .creations-page .cta-panel h2 *{color:#fff!important;-webkit-text-fill-color:#fff!important}
+    .creations-page .cta-panel .cta-eyebrow{color:#baf4f0!important;-webkit-text-fill-color:#baf4f0!important}
+    @media(max-width:600px){
+      .creations-page .cta-panel>p:not(.cta-eyebrow){text-align:left!important;text-justify:auto!important;word-spacing:normal!important}
+    }
+
   </style>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"CollectionPage","name":"Digital Creations by RegTech Nexus AI","url":"https://regtechnexusai.com/creations/","description":"A showcase of selected digital projects across regulatory technology, agriculture technology and travel discovery.","isPartOf":{"@type":"WebSite","name":"RegTech Nexus AI","url":"https://regtechnexusai.com/"}}
