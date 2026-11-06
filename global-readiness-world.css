@@ -19,3 +19,49 @@
 .global-standards-panel a{color:#9be4e1}
 .global-directory-note{margin:1.2rem 0 0;padding:1rem 1.1rem;border-left:4px solid #d19a35;background:#fff8e9;color:#4c5562;line-height:1.6;font-size:.9rem}
 @media(max-width:760px){.global-directory-summary{grid-template-columns:1fr}.global-directory-grid{grid-template-columns:1fr}.global-directory-grid p{min-height:0}.global-standards-panel{grid-template-columns:1fr}.global-directory-actions{display:grid}.global-directory-actions a{line-height:1.5}}
+
+
+/* International Readiness — financial-crime compliance resource domain */
+.readiness-fincrime-section{padding:clamp(2.7rem,5vw,4.6rem) max(1.2rem,calc((100% - 1180px)/2));background:#fff}
+.readiness-fincrime-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.1rem;margin-top:1.5rem}
+.readiness-fincrime-card{min-width:0;padding:clamp(1.15rem,2.5vw,1.6rem);border:1px solid #d7e1eb;border-top:5px solid #1d6689;border-radius:16px;background:#fff;box-shadow:0 8px 24px rgba(19,43,73,.05)}
+.readiness-fincrime-pep{border-top-color:#27734e}
+.readiness-fincrime-kicker{margin-bottom:.65rem;color:#38566d;font-size:.72rem;font-weight:800;letter-spacing:.08em;line-height:1.45}
+.readiness-fincrime-card h3,.readiness-fincrime-bangladesh h3{margin:.25rem 0 .65rem;color:#14263d;font-size:1.25rem;line-height:1.3}
+.readiness-fincrime-card p,.readiness-fincrime-bangladesh p{color:#34475b;font-size:.94rem;line-height:1.65}
+.readiness-fincrime-card ul{padding-left:1.2rem;color:#34475b;font-size:.91rem;line-height:1.65}
+.readiness-fincrime-link{display:inline-flex;margin:.45rem 0 .7rem;color:#075f86;font-weight:800;text-decoration:underline;text-underline-offset:3px}
+.readiness-fincrime-source{margin-top:.85rem;padding-top:.8rem;border-top:1px solid #dce5ef;font-size:.84rem!important}
+.readiness-fincrime-label{display:inline-block;margin:.12rem .2rem .12rem 0;padding:.18rem .45rem;border:1px solid currentColor;border-radius:4px;font-size:.69rem;font-weight:800;line-height:1.35;vertical-align:middle}
+.readiness-fincrime-binding{color:#8a2929;background:#fff5f4}
+.readiness-fincrime-guidance{color:#174f83;background:#f1f7ff}
+.readiness-fincrime-international{color:#365d32;background:#f3f8f0}
+.readiness-fincrime-source-list{display:grid;gap:.65rem;margin-top:1rem}
+.readiness-fincrime-source-list a{display:block;padding:.7rem .8rem;border:1px solid #dce5ef;border-radius:9px;color:#075f86;font-size:.9rem;font-weight:700;line-height:1.55;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
+.readiness-fincrime-distinction{margin-top:1.2rem;padding:1.3rem 1.4rem;border-left:4px solid #d19a35;border-radius:8px;background:#fff8e9}
+.readiness-fincrime-distinction h3{margin:0 0 .8rem;color:#3c4652;font-size:1.05rem}
+.readiness-fincrime-distinction-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.readiness-fincrime-distinction-grid>div{min-width:0}
+.readiness-fincrime-distinction-grid strong{color:#26384b}
+.readiness-fincrime-distinction-grid p{margin:.25rem 0 0;color:#455464;font-size:.9rem;line-height:1.6}
+.readiness-fincrime-bangladesh{margin-top:1.2rem;padding:1.4rem;border:1px solid #cbded5;border-radius:14px;background:#f5faf7}
+.readiness-fincrime-bangladesh .readiness-fincrime-kicker{color:#286044}
+.readiness-fincrime-bangladesh-intro{max-width:85ch}
+.readiness-fincrime-pep-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem;margin:1rem 0}
+.readiness-fincrime-pep-grid>div{padding:.85rem;border:1px solid #d4e4da;border-radius:9px;background:#fff;min-width:0}
+.readiness-fincrime-pep-grid strong{display:block;margin-bottom:.3rem;color:#1f4935;font-size:.9rem}
+.readiness-fincrime-pep-grid span{display:block;color:#3c4e44;font-size:.85rem;line-height:1.55}
+.readiness-fincrime-boundary{margin-top:1.2rem;padding:1rem 1.2rem;border:1px solid #d9e0e8;border-radius:10px;background:#f4f7fa}
+.readiness-fincrime-boundary strong{color:#23374d}
+.readiness-fincrime-boundary p{margin:.3rem 0 0;color:#3f5061;font-size:.9rem;line-height:1.65}
+.readiness-fincrime-section a:focus-visible{outline:3px solid #0b65a5;outline-offset:3px;border-radius:3px}
+@media(max-width:760px){
+  .readiness-fincrime-grid,.readiness-fincrime-distinction-grid{grid-template-columns:1fr}
+  .readiness-fincrime-pep-grid{grid-template-columns:1fr 1fr}
+  .readiness-fincrime-card{padding:1.05rem}
+}
+@media(max-width:480px){
+  .readiness-fincrime-pep-grid{grid-template-columns:1fr}
+  .readiness-fincrime-distinction{padding:1rem}
+  .readiness-fincrime-bangladesh{padding:1rem}
+}
