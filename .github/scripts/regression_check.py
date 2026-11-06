@@ -7,7 +7,7 @@ import argparse, datetime, json, re, sys
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 ROOT=Path(__file__).resolve().parents[2]
-CRITICAL=["index.html","creations/index.html","tool-assurance/index.html","regulatory-source-register/index.html","bank-use-review.html","regulatory-gap-analyzer/index.html","icms-2026/index.html","international-regulatory-calculators.html","payscale-2026/index.html","md-ceo-performance-calculator/index.html","explainable-ai.html","derivatives/index.html"]
+CRITICAL=["index.html","creations/index.html","tool-assurance/index.html","regulatory-source-register/index.html","bank-use-review.html","regulatory-gap-analyzer/index.html","icms-2026/index.html","international-regulatory-calculators.html","payscale-2026/index.html","md-ceo-performance-calculator/index.html","explainable-ai.html","derivatives/index.html","global-financial-crime-intelligence/index.html"]
 class Parser(HTMLParser):
  def __init__(self):
   super().__init__(convert_charrefs=True); self.ids=[]; self.links=[]; self.in_title=False; self.title_text=False
@@ -63,6 +63,37 @@ for rel in CRITICAL:
    try:other.feed(dest.read_text(encoding="utf-8",errors="replace"))
    except Exception:pass
    if fragment not in other.ids:add("MEDIUM",rel,"Fragment target not found: "+raw)
+# Global Financial Crime Intelligence: page and structured reference-data checks.
+gfc_page=ROOT/"global-financial-crime-intelligence"/"index.html"
+gfc_data=ROOT/"global-financial-crime-intelligence"/"data"/"review-patterns.json"
+if gfc_page.exists():
+ gfc_html=gfc_page.read_text(encoding="utf-8",errors="replace")
+ for required in ('id="pattern-library"','id="review-framework"','id="sources"','aria-live="polite"','global-financial-crime.js'):
+  if required not in gfc_html:add("HIGH","global-financial-crime-intelligence/index.html","Required intelligence-page feature missing: "+required)
+ if "not a live transaction-monitoring" not in gfc_html.lower():
+  add("HIGH","global-financial-crime-intelligence/index.html","The public review-support boundary is missing.")
+if not gfc_data.is_file():
+ add("HIGH","global-financial-crime-intelligence/data/review-patterns.json","Structured review-pattern data file is missing.")
+else:
+ try:
+  gfc=json.loads(gfc_data.read_text(encoding="utf-8"))
+  records=gfc.get("patterns")
+  if gfc.get("schema_version")!="1.0":add("HIGH","global-financial-crime-intelligence/data/review-patterns.json","Unsupported or missing schema_version.")
+  if not isinstance(records,list) or len(records)<8:add("HIGH","global-financial-crime-intelligence/data/review-patterns.json","At least eight structured review patterns are required.")
+  else:
+   ids=[x.get("id") for x in records if isinstance(x,dict)]
+   if len(ids)!=len(records) or len(set(ids))!=len(ids):add("HIGH","global-financial-crime-intelligence/data/review-patterns.json","Review pattern records must have unique IDs.")
+   allowed={"business","trade","documents","payments"}
+   for item in records:
+    if not isinstance(item,dict):add("HIGH","global-financial-crime-intelligence/data/review-patterns.json","Every review pattern must be an object.");continue
+    for key in ("id","domain","domainLabel","title","summary","reviewQuestions","evidenceExamples","controlConsiderations","limitation","sourceIds"):
+     if key not in item:add("HIGH","global-financial-crime-intelligence/data/review-patterns.json","Required field missing from record: "+str(item.get("id","unknown"))+" / "+key)
+    if item.get("domain") not in allowed:add("HIGH","global-financial-crime-intelligence/data/review-patterns.json","Unexpected information domain: "+str(item.get("domain")))
+    if not isinstance(item.get("reviewQuestions"),list) or not item.get("reviewQuestions"):add("HIGH","global-financial-crime-intelligence/data/review-patterns.json","Review questions are required: "+str(item.get("id")))
+    if not isinstance(item.get("sourceIds"),list) or not item.get("sourceIds"):add("HIGH","global-financial-crime-intelligence/data/review-patterns.json","Source references are required: "+str(item.get("id")))
+  checked.append(gfc_data.relative_to(ROOT).as_posix())
+ except (OSError,json.JSONDecodeError,AttributeError) as exc:
+  add("HIGH","global-financial-crime-intelligence/data/review-patterns.json","Review-pattern data is invalid: "+str(exc))
 # Portfolio-specific structural checks: the new page must be part of CI coverage.
 portfolio_path=ROOT/"creations"/"index.html"
 if portfolio_path.exists():
