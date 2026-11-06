@@ -1,0 +1,200 @@
+{
+  "schema_version": "1.0",
+  "title": "Global Financial Crime Intelligence — Initial Review Pattern Collection",
+  "last_updated": "2026-11-06",
+  "methodology_note": "This is an original, source-informed set of professional review prompts. It is not a reproduction of an official typology list, a complete catalogue of financial-crime methods, or a detection model. FATF/Egmont's published TBML risk-indicator work informs the four information domains. Each item requires contextual assessment and corroborating evidence.",
+  "patterns": [
+    {
+      "id": "GFCI-BIZ-001",
+      "domain": "business",
+      "domainLabel": "Business structure",
+      "title": "Business capacity and declared activity appear misaligned",
+      "summary": "The scale, complexity or nature of trade activity may not be readily explained by the entity's known business model, operating history or resources. A mismatch is a reason to understand the commercial context, not a conclusion about the customer.",
+      "reviewQuestions": [
+        "Does the volume or complexity of trade fit the customer's stated business and operating capacity?",
+        "Are ownership, management, premises and commercial relationships understood?",
+        "Has the business profile changed, and is the change supported by a credible explanation?"
+      ],
+      "evidenceExamples": [
+        "Corporate registration and ownership records",
+        "Customer profile, business rationale and available financial information",
+        "Contracts, supplier and buyer records, and prior trade history"
+      ],
+      "controlConsiderations": [
+        "Customer due diligence and beneficial-ownership review",
+        "Customer risk assessment and periodic profile refresh",
+        "Escalation of material unexplained changes under internal procedures"
+      ],
+      "limitation": "A new or fast-growing business may legitimately exceed its historic scale. Assess the explanation, evidence quality and applicable risk factors before drawing a conclusion.",
+      "sourceIds": ["fatf_tbml", "basel_aml"]
+    },
+    {
+      "id": "GFCI-BIZ-002",
+      "domain": "business",
+      "domainLabel": "Business structure",
+      "title": "Commercial roles or ownership links are difficult to explain",
+      "summary": "The relationship between the buyer, seller, intermediary, beneficial owner and payer may be unclear or unnecessarily layered. Review whether each party has a credible role in the underlying commercial arrangement.",
+      "reviewQuestions": [
+        "Can the customer explain the commercial purpose of each intermediary or related entity?",
+        "Are beneficial owners and relevant control relationships understood to the extent required by local rules?",
+        "Do contracts and payment instructions identify consistent commercial parties?"
+      ],
+      "evidenceExamples": [
+        "Ownership and control records",
+        "Agency, distribution or service agreements",
+        "Purchase contracts, invoices and payment instructions"
+      ],
+      "controlConsiderations": [
+        "CDD and beneficial-ownership controls",
+        "Related-party and intermediary review",
+        "Documented rationale for complex trade arrangements"
+      ],
+      "limitation": "Group structures, agents and distributors are common in legitimate trade. Complexity alone does not establish illicit purpose.",
+      "sourceIds": ["fatf_tbml", "basel_aml"]
+    },
+    {
+      "id": "GFCI-TRD-001",
+      "domain": "trade",
+      "domainLabel": "Trade activity",
+      "title": "Trade route or counterparty changes without a clear commercial rationale",
+      "summary": "A new route, destination, supplier or buyer may alter the risk context of a trade. The reviewer should understand why the arrangement changed and whether the route is consistent with the goods, delivery terms and business model.",
+      "reviewQuestions": [
+        "Is the route commercially plausible for the goods and agreed delivery terms?",
+        "Is there a clear business reason for a new intermediary, port, destination or counterparty?",
+        "Do the relevant jurisdictions create additional legal, sanctions or operational considerations?"
+      ],
+      "evidenceExamples": [
+        "Sales and purchase contracts",
+        "Transport, insurance and customs records",
+        "Customer explanation and established trading history"
+      ],
+      "controlConsiderations": [
+        "Geographic and counterparty risk assessment",
+        "Trade-finance review and exception escalation",
+        "Jurisdiction-specific legal and sanctions obligations, checked separately"
+      ],
+      "limitation": "Routes change for commercial, logistical, insurance and geopolitical reasons. A route indicator must be assessed against current facts and applicable rules.",
+      "sourceIds": ["fatf_tbml", "basel_aml"]
+    },
+    {
+      "id": "GFCI-TRD-002",
+      "domain": "trade",
+      "domainLabel": "Trade activity",
+      "title": "Trade volume or commodity profile departs from the known business pattern",
+      "summary": "A significant change in shipment frequency, quantity, commodity type or market may deserve review when it does not fit the customer's known activity or documented business development.",
+      "reviewQuestions": [
+        "What changed in volume, frequency, commodity or destination?",
+        "Does the customer have the capacity, licence, expertise or commercial rationale for the new activity where relevant?",
+        "Is the change supported by contracts, market conditions or a documented business event?"
+      ],
+      "evidenceExamples": [
+        "Prior and current trade records",
+        "Contracts, purchase orders and shipping documents",
+        "Business profile updates and relevant licences or permits"
+      ],
+      "controlConsiderations": [
+        "Ongoing customer and transaction-profile review",
+        "Threshold and exception governance",
+        "Periodic review of expected trade activity"
+      ],
+      "limitation": "Seasonality, new contracts and market disruption can produce legitimate changes. Compare like-for-like periods and document the context.",
+      "sourceIds": ["fatf_tbml", "basel_aml"]
+    },
+    {
+      "id": "GFCI-DOC-001",
+      "domain": "documents",
+      "domainLabel": "Documents & goods",
+      "title": "Core trade documents describe inconsistent transaction details",
+      "summary": "Material differences between contract, invoice, packing, transport, insurance or customs information may require reconciliation. The reviewer should identify which fields differ and whether an authorised amendment or partial shipment explains the difference.",
+      "reviewQuestions": [
+        "Do the parties, goods, quantities, values, dates and delivery terms align across relevant records?",
+        "Is there an amendment, split shipment, credit note or other documented explanation?",
+        "Can the difference be reconciled to reliable supporting evidence?"
+      ],
+      "evidenceExamples": [
+        "Underlying contract and amendments",
+        "Commercial invoice and packing list",
+        "Bill of lading or other transport evidence, insurance and customs records"
+      ],
+      "controlConsiderations": [
+        "Document-checking procedures and maker-checker controls",
+        "Exception recording and approval",
+        "Retention of the reconciliation rationale and supporting evidence"
+      ],
+      "limitation": "Document differences may result from legitimate amendments, timing or clerical error. Their significance depends on materiality, context and corroboration.",
+      "sourceIds": ["fatf_tbml"]
+    },
+    {
+      "id": "GFCI-DOC-002",
+      "domain": "documents",
+      "domainLabel": "Documents & goods",
+      "title": "Goods description, quantity or value lacks a coherent commercial explanation",
+      "summary": "The description or stated characteristics of goods may not align across trade records, or the declared value and quantity may require further commercial explanation. Reviewers should use suitable market, product and transaction context rather than a single generic benchmark.",
+      "reviewQuestions": [
+        "Are the goods described with enough detail to identify their nature and relevant characteristics?",
+        "Can quantity, unit of measure, quality and price be reconciled?",
+        "Is there reliable support for unusual pricing, quality differences or valuation adjustments?"
+      ],
+      "evidenceExamples": [
+        "Product specifications and purchase orders",
+        "Independent valuation or market information where appropriate",
+        "Inspection, warehouse, shipping and customs records"
+      ],
+      "controlConsiderations": [
+        "Trade-document and commodity review",
+        "Appropriate escalation for unexplained material discrepancies",
+        "Use of reliable, date-relevant comparison information"
+      ],
+      "limitation": "Prices vary by quality, grade, contract terms, freight, insurance, market conditions and timing. A price variance alone is not proof of misinvoicing.",
+      "sourceIds": ["fatf_tbml"]
+    },
+    {
+      "id": "GFCI-PAY-001",
+      "domain": "payments",
+      "domainLabel": "Accounts & payments",
+      "title": "Payment parties do not clearly align with the commercial arrangement",
+      "summary": "A payer or beneficiary different from the expected trade party may be legitimate, but the relationship and reason should be understood. Review whether the payment structure is supported by contract terms and the customer's known arrangements.",
+      "reviewQuestions": [
+        "Is the payer or beneficiary named in the contract or otherwise linked to the trade?",
+        "Is there a documented agency, financing, group or settlement arrangement?",
+        "Does the payment instruction match the agreed terms and applicable controls?"
+      ],
+      "evidenceExamples": [
+        "Contract and payment clauses",
+        "Agency, financing or group settlement agreement",
+        "Payment instructions and relevant account records"
+      ],
+      "controlConsiderations": [
+        "Customer and counterparty due diligence",
+        "Payment exception review",
+        "Transaction monitoring and escalation under internal procedures"
+      ],
+      "limitation": "Third-party settlement is used in legitimate trade and financing structures. Determine the legal and commercial basis before escalating or concluding.",
+      "sourceIds": ["fatf_tbml", "basel_aml"]
+    },
+    {
+      "id": "GFCI-PAY-002",
+      "domain": "payments",
+      "domainLabel": "Accounts & payments",
+      "title": "Payment timing or flow does not fit the stated trade cycle",
+      "summary": "The timing, sequence or movement of funds may be difficult to reconcile with delivery, invoice maturity, financing terms or the customer's normal activity. Review the complete payment context before treating the pattern as unusual.",
+      "reviewQuestions": [
+        "Do payment dates and amounts correspond to the contract, invoice and agreed settlement terms?",
+        "Are funds routed through accounts or parties not readily explained by the trade?",
+        "Does the activity fit the customer's expected account behaviour and known financing arrangements?"
+      ],
+      "evidenceExamples": [
+        "Account and payment history",
+        "Invoice maturity, settlement and financing records",
+        "Customer explanation and supporting agreements"
+      ],
+      "controlConsiderations": [
+        "Transaction monitoring calibrated to customer and product risk",
+        "Review of unusual or unexplained account activity",
+        "Clear investigation, escalation and recordkeeping procedures"
+      ],
+      "limitation": "Prepayments, delayed settlement, factoring and other financing arrangements can change payment timing. Interpret activity against the actual contract and applicable rules.",
+      "sourceIds": ["fatf_tbml", "basel_aml"]
+    }
+  ]
+}
