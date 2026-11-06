@@ -112,7 +112,7 @@
                 </select>
                 <span class="select-chevron" aria-hidden="true">⌄</span>
               </div>
-              <p class="field-help">৫ বছর বা তদূর্ধ্ব qualifying service-এর table প্রযোজ্য।</p>
+              <p class="field-help">এই table কেবল rate দেখায়। ৫ বছর বা তদূর্ধ্ব চাকরিকাল থাকলেই স্বয়ংক্রিয়ভাবে pension entitlement তৈরি হয় না; অবসরের কারণ/শ্রেণি, qualifying service এবং প্রযোজ্য service rules ও authorised records দিয়ে eligibility নিশ্চিত করতে হবে।</p>
             </div>
             <div>
               <label class="field-label" for="retirement-leave-months">ছুটি নগদায়নের মাস</label>
@@ -122,7 +122,7 @@
                 </select>
                 <span class="select-chevron" aria-hidden="true">⌄</span>
               </div>
-              <p class="field-help">ছুটি নগদায়নের সর্বোচ্চ সীমা ১৮ মাস। ১৮ মাস নির্বাচন করলে পূর্ণ ১৮ মাসের অনুমোদিত leave balance আছে ধরে review estimate হবে।</p>
+              <p class="field-help">সর্বোচ্চ সীমা ১৮ মাস। এখানে কেবল কর্তৃপক্ষ-অনুমোদিত cashable leave balance-এর converted month দিন। PRL এবং half-average-pay leave-এর conversion/সমন্বয়সহ leave account ও অনুমোদিত হিসাব pension office থেকে যাচাই করুন; এই calculator নিজে conversion নির্ধারণ করে না।</p>
             </div>
             <div>
               <label class="field-label" for="retirement-net-pension">৩০ জুন ২০২৬-এর বর্তমান net pension · ঐচ্ছিক</label>
@@ -136,8 +136,9 @@
               <label class="field-label" for="retirement-commutation">সমর্পণ / commutation assumption</label>
               <div class="select-wrap">
                 <select id="retirement-commutation" name="retirement-commutation" aria-describedby="retirement-commutation-note">
+                  <option value="" selected>নির্বাচন করুন</option>
                   <option value="40">৪০% সমর্পণ</option>
-                  <option value="50" selected>৫০% সমর্পণ</option>
+                  <option value="50">৫০% সমর্পণ</option>
                   <option value="60">৬০% সমর্পণ</option>
                 </select>
                 <span class="select-chevron" aria-hidden="true">⌄</span>
@@ -154,7 +155,7 @@
           <span id="retirement-audit-service">পেনশনযোগ্য চাকরিকাল: —</span>
           <span id="retirement-audit-leave">ছুটি নগদায়ন: —</span>
           <span id="retirement-audit-net">বর্তমান net pension: দেওয়া হয়নি</span>
-          <span id="retirement-audit-commutation">সমর্পণ: ৫০% ধরে</span>
+          <span id="retirement-audit-commutation">সমর্পণ: নির্বাচন হয়নি</span>
           <span id="retirement-audit-source">সূত্র: Finance Division retirement-benefit Gazette · ১৭ সেপ্টেম্বর ২০২৬ · official PDF</span>
           <span id="retirement-audit-version">Version 1.30</span>
           <span id="retirement-audit-generated">হিসাবের সময়: —</span>
@@ -166,7 +167,7 @@
         <div class="retirement-summary-grid">
           <article class="retirement-card"><span>গ্রস pension rate</span><strong id="retirement-rate">—</strong><small>চাকরিকাল অনুযায়ী</small></article>
           <article class="retirement-card"><span>গ্রস pension</span><strong id="retirement-gross-pension">—</strong><small>মূল বেতন × rate</small></article>
-          <article class="retirement-card"><span>সমর্পণের পর মাসিক pension</span><strong id="retirement-pensionable">—</strong><small id="retirement-pensionable-note">৫০% সমর্পণ ধরে অবশিষ্ট</small></article>
+          <article class="retirement-card"><span>সমর্পণের পর মাসিক pension</span><strong id="retirement-pensionable">—</strong><small id="retirement-pensionable-note">সমর্পণ নির্বাচন করার পর অবশিষ্ট</small></article>
           <article class="retirement-card"><span>আনুতোষিক</span><strong id="retirement-gratuity">—</strong><small id="retirement-gratuity-rate">হার: —</small></article>
           <article class="retirement-card"><span>ছুটি নগদায়ন</span><strong id="retirement-leave-encashment">—</strong><small>নির্বাচিত মাস × basic pay</small></article>
           <article class="retirement-card retirement-card-emphasis"><span>আনুতোষিক + ছুটি নগদায়ন</span><strong id="retirement-total-lump-sum">—</strong><small>এককালীন review estimate</small></article>
