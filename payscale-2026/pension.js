@@ -42,7 +42,7 @@ function selectedLabel(select) {
   return select?.selectedOptions?.[0]?.textContent?.trim() || '';
 }
 
-function updateAuditSummary(basic, serviceYears, leaveMonths, phaseValue = '', currentNet = NaN, commutationPercent = 50, generated = false) {
+function updateAuditSummary(basic, serviceYears, leaveMonths, phaseValue = '', currentNet = NaN, commutationPercent = NaN, generated = false) {
   setText('retirement-audit-basic', Number.isFinite(basic) && basic > 0 ? 'মূল বেতন: ' + money(basic) : 'মূল বেতন: —');
   setText('retirement-audit-phase', phaseValue ? 'অবসরের পর্যায়: ' + selectedLabel(retirementPhase) : 'অবসরের পর্যায়: —');
   setText('retirement-audit-service', Number.isFinite(serviceYears) && serviceYears >= 5
@@ -54,10 +54,15 @@ function updateAuditSummary(basic, serviceYears, leaveMonths, phaseValue = '', c
   setText('retirement-audit-net', Number.isFinite(currentNet) && currentNet > 0
     ? 'বর্তমান net pension: ' + money(currentNet)
     : 'বর্তমান net pension: দেওয়া হয়নি');
-  setText('retirement-audit-commutation', 'সমর্পণ: ' + toBn(commutationPercent) + '% ধরে');
+  setText('retirement-audit-commutation', Number.isFinite(commutationPercent) ? 'সমর্পণ: ' + toBn(commutationPercent) + '% ধরে' : 'সমর্পণ: নির্বাচন হয়নি');
   setText('retirement-audit-source', 'সূত্র: Finance Division retirement-benefit Gazette · ১৭ সেপ্টেম্বর ২০২৬ · official PDF');
   setText('retirement-audit-version', 'Version ' + (window.PAYSCALE_META?.version || '1.30'));
   setText('retirement-audit-generated', generated ? 'হিসাবের সময়: ' + auditTimestamp() : 'হিসাবের সময়: —');
+}
+
+function selectedCommutationPercent() {
+  const value = retirementCommutation?.value || '';
+  return value === '' ? NaN : Number(value);
 }
 
 function setText(id, value) {
@@ -89,7 +94,7 @@ function clearOutput() {
     validationBox.hidden = true;
   }
   if (liveSummary) liveSummary.textContent = '';
-  updateAuditSummary(NaN, NaN, NaN, '', NaN, Number(retirementCommutation?.value || 50), false);
+  updateAuditSummary(NaN, NaN, NaN, '', NaN, selectedCommutationPercent(), false);
 }
 
 function renderReferenceTables() {
@@ -116,7 +121,7 @@ function renderRetirementBenefits() {
   const serviceYears = serviceValue === '' ? NaN : Number(serviceValue);
   const leaveMonths = leaveValue === '' ? NaN : Number(leaveValue);
   const currentNet = parseMoney(retirementNetPension?.value);
-  const commutationPercent = Number(retirementCommutation?.value || 50);
+  const commutationPercent = selectedCommutationPercent();
   const linkedPhase = ['phase1', 'phase2', 'phase3'].includes(phaseValue);
   const linkedBasicAvailable = Number.isFinite(salaryPhaseBasics[phaseValue]);
 
@@ -155,6 +160,16 @@ function renderRetirementBenefits() {
     clearOutput();
     if (validationBox) {
       validationBox.textContent = 'পেনশনযোগ্য চাকরিকাল ৫ বছর থেকে ২৫ বছর বা তদূর্ধ্ব হতে হবে।';
+      validationBox.hidden = false;
+    }
+    return;
+  }
+
+  if (!Number.isFinite(commutationPercent)) {
+    clearOutput();
+    updateAuditSummary(basic, serviceYears, leaveMonths, phaseValue, currentNet, NaN, false);
+    if (validationBox) {
+      validationBox.textContent = 'হিসাব দেখতে সমর্পণ / commutation assumption নির্বাচন করুন। কোনো default শতাংশ ধরে ফলাফল দেখানো হচ্ছে না।';
       validationBox.hidden = false;
     }
     return;
@@ -247,9 +262,9 @@ function updateBasicInputState() {
 
 async function copyPensionResult() {
   const basic = parseMoney(retirementBasic?.value);
-  if (!Number.isFinite(basic) || basic <= 0 || document.querySelector('#retirement-total-lump-sum')?.textContent === '—') {
+  if (!Number.isFinite(basic) || basic <= 0 || !Number.isFinite(selectedCommutationPercent()) || document.querySelector('#retirement-total-lump-sum')?.textContent === '—') {
     if (validationBox) {
-      validationBox.textContent = 'কপি করার আগে অবসর সুবিধার জন্য প্রযোজ্য basic pay দিন।';
+      validationBox.textContent = !Number.isFinite(selectedCommutationPercent()) ? 'কপি করার আগে সমর্পণ / commutation assumption নির্বাচন করুন।' : 'কপি করার আগে অবসর সুবিধার জন্য প্রযোজ্য basic pay দিন।';
       validationBox.hidden = false;
     }
     return;
@@ -268,7 +283,7 @@ async function copyPensionResult() {
     'ছুটি নগদায়ন: ' + document.querySelector('#retirement-leave-encashment').textContent,
     'আনুতোষিক + ছুটি নগদায়ন: ' + document.querySelector('#retirement-total-lump-sum').textContent,
     'আনুমানিক নতুন net pension: ' + (document.querySelector('#retirement-net-card')?.hidden ? 'প্রযোজ্য নয় — input দেওয়া হয়নি' : document.querySelector('#retirement-net-result').textContent),
-    'সমর্পণ: ' + (retirementCommutation?.selectedOptions?.[0]?.textContent || '৫০% সমর্পণ'),
+    'সমর্পণ: ' + selectedLabel(retirementCommutation),
     'সূত্র: Finance Division retirement-benefit Gazette · ১৭ সেপ্টেম্বর ২০২৬ · Official Gazette PDF: ' + (window.RETIREMENT_RULES?.sourceUrl || 'https://www.dpp.gov.bd/upload_file/gazettes/62983_75061.pdf'),
     'Rate-table note: ২৩ বছর/৮১%সহ intermediate rates are transcribed review-support figures; authorised record দিয়ে verify করুন।',
     'Rounding note: সমর্পিত pension whole taka-য় round; অবশিষ্ট = gross pension − rounded surrendered pension।',
