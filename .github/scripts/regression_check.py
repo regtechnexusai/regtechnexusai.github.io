@@ -7,7 +7,7 @@ import argparse, datetime, json, re, sys
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 ROOT=Path(__file__).resolve().parents[2]
-CRITICAL=["index.html","creations/index.html","tool-assurance/index.html","regulatory-source-register/index.html","bank-use-review.html","regulatory-gap-analyzer/index.html","icms-2026/index.html","international-regulatory-calculators.html","payscale-2026/index.html","md-ceo-performance-calculator/index.html","explainable-ai.html","derivatives/index.html"]
+CRITICAL=["index.html","creations/index.html","tool-assurance/index.html","regulatory-source-register/index.html","bank-use-review.html","regulatory-gap-analyzer/index.html","icms-2026/index.html","international-regulatory-calculators.html","payscale-2026/index.html","md-ceo-performance-calculator/index.html","explainable-ai.html","derivatives/index.html","engagement-policy/index.html","trust/index.html","vendor-due-diligence/index.html"]
 class Parser(HTMLParser):
  def __init__(self):
   super().__init__(convert_charrefs=True); self.ids=[]; self.links=[]; self.in_title=False; self.title_text=False
@@ -63,6 +63,28 @@ for rel in CRITICAL:
    try:other.feed(dest.read_text(encoding="utf-8",errors="replace"))
    except Exception:pass
    if fragment not in other.ids:add("MEDIUM",rel,"Fragment target not found: "+raw)
+# Institutional governance pages: verify required disclosures and working page structure.
+institutional_pages={
+ "engagement-policy/index.html":("Institutional Engagement &amp; Operational Governance Policy",("No physical founder access is offered","supervisory-confidential information")),
+ "trust/index.html":("Trust &amp; Verification Centre",("/regulatory-source-register/","/tool-assurance/","zero-knowledge processing")),
+ "vendor-due-diligence/index.html":("Vendor Due Diligence (VDD)",("mailto:regtechnexusai@gmail.com","No file upload is provided","No password-protected dashboard")),
+}
+for rel,(heading,required) in institutional_pages.items():
+ page=ROOT/rel
+ if not page.is_file():
+  add("HIGH",rel,"Institutional governance page missing.")
+  continue
+ content=page.read_text(encoding="utf-8",errors="replace")
+ for token in (heading,'/institutional-trust.css','/site-wide-shell.js','rel="canonical"'):
+  if token not in content:add("HIGH",rel,"Required page element missing: "+token)
+ for token in required:
+  if token not in content:add("HIGH",rel,"Required governance disclosure or link missing: "+token)
+ if rel=="vendor-due-diligence/index.html":
+  if 'type="file"' in content.lower() or "type='file'" in content.lower():
+   add("HIGH",rel,"Public VDD page must not expose a file-upload control.")
+  if "YOUR_FORM_ID" in content or "formspree.io/f/" in content:
+   add("HIGH",rel,"Placeholder or unconfigured form endpoint must not be published.")
+
 # Portfolio-specific structural checks: the new page must be part of CI coverage.
 portfolio_path=ROOT/"creations"/"index.html"
 if portfolio_path.exists():

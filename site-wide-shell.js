@@ -68,6 +68,8 @@
       '<a href="/explainable-ai.html">Explainable AI</a>' +
       '<span class="nav-menu-heading">Student learning</span><a href="/student/">Student Knowledge Hub</a>' +
       '<span class="nav-menu-heading">Tools &amp; utilities</span><a href="/sanctions-screening/">Official sanctions resources</a>' +
+      '<span class="nav-menu-heading">Institutional governance</span>' +
+      '<a href="/engagement-policy/">Engagement Policy</a><a href="/trust/">Trust &amp; Verification</a><a href="/vendor-due-diligence/">Vendor Due Diligence</a>' +
       '<a href="/contact.html">Contact</a>' +
       '<a href="https://chatgpt.com/g/g-6a09920b01348191b9b1628b69367d9b-regtech-nexus-ai" target="_blank" rel="noopener noreferrer">AI Assistant ↗</a>';
   }
@@ -96,6 +98,35 @@
     } else {
       footer.classList.add("rt-shell-existing-footer");
     }
+  }
+
+  function ensureTrustLinks() {
+    var footer = document.querySelector("footer");
+    if (!footer || footer.querySelector(".rt-trust-links")) return;
+    var group = make("div", { "class": "rt-trust-links", "aria-label": "Institutional governance links" },
+      '<b>Institutional governance</b>' +
+      '<a href="/engagement-policy/">Engagement Policy</a>' +
+      '<a href="/trust/">Trust &amp; Verification</a>' +
+      '<a href="/vendor-due-diligence/">Vendor Due Diligence</a>');
+    var legal = footer.querySelector(".legal, .rt-shell-legal");
+    var note = footer.querySelector(".footer-note, .rt-shell-footer-note");
+    if (legal) footer.insertBefore(group, legal);
+    else if (note) footer.insertBefore(group, note.nextSibling);
+    else footer.appendChild(group);
+  }
+
+  function ensureTrustNavLinks() {
+    var nav = document.querySelector("body > header nav");
+    if (!nav) return;
+    [
+      ["/engagement-policy/", "Engagement Policy"],
+      ["/trust/", "Trust & Verification"],
+      ["/vendor-due-diligence/", "Vendor Due Diligence"]
+    ].forEach(function (item) {
+      if (!nav.querySelector('a[href="' + item[0] + '"]')) {
+        nav.appendChild(make("a", { "href": item[0] }, item[1]));
+      }
+    });
   }
 
   function normalizeShellLinks() {
@@ -173,6 +204,8 @@
     ensureShellStyles();
     addStandardHeader();
     addStandardFooter();
+    ensureTrustNavLinks();
+    ensureTrustLinks();
     normalizeShellLinks();
     bindMenu();
     addBackHome();
