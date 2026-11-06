@@ -35,3 +35,9 @@ body.institutional-page{margin:0;background:#f5f8fc;color:var(--it-ink);font-fam
 .it-status{display:inline-block;margin:0 0 8px;padding:4px 8px;border-radius:5px;background:#edf3f8;color:#36546e;font-size:.74rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
 @media(max-width:720px){.it-grid{grid-template-columns:1fr}.institutional-page .it-main{width:min(100% - 24px,1120px)}.it-hero{padding:24px 20px}.it-section{padding:22px 18px}.it-hero p{font-size:.96rem}}
 @media(prefers-reduced-motion:reduce){.it-link{scroll-behavior:auto}}
+
+/* Footer links are a distinct governance group, not a second navigation bar. */
+.rt-trust-links{display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-width:0;padding:14px 0;border-top:1px solid var(--it-line)}
+.rt-trust-links b{color:var(--it-ink);margin-bottom:2px}
+.rt-trust-links a{color:var(--it-blue);text-decoration:none}
+.rt-trust-links a:hover{text-decoration:underline;text-underline-offset:3px}
