@@ -690,3 +690,10 @@ body:not(.homepage-redesign) a:focus-visible,body:not(.homepage-redesign) button
 /* Contrast guard for dark gradient hero panels. */
 body:not(.homepage-redesign) .hero h1,body:not(.homepage-redesign) .hero h2,body:not(.homepage-redesign) .hero h3{color:#fff!important}
 body:not(.homepage-redesign) .hero p{color:#f4fbff}
+
+
+/* Institutional governance footer links — shared styling on every page using the site shell. */
+.rt-trust-links{display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-width:0;padding:14px 0;border-top:1px solid rgba(197,215,231,.35)}
+.rt-trust-links b{color:#fff;margin-bottom:2px}
+.rt-trust-links a{color:#e0edf8!important;text-decoration:none}
+.rt-trust-links a:hover{color:#70d5df!important;text-decoration:underline;text-underline-offset:3px}
