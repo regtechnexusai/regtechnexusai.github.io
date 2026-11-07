@@ -77,12 +77,12 @@ body:not(.homepage-redesign) .rt-back-home{
     line-height:1.55!important;
   }
   body:not(.homepage-redesign) .rt-shell-header .rt-shell-nav{
-    position:fixed!important;
-    top:calc(var(--rt-header-bottom, 76px) + 8px)!important;
+    position:absolute!important;
+    top:calc(100% + 8px)!important;
     right:12px!important;
-    left:12px!important;
-    width:auto!important;
-    max-width:none!important;
+    left:auto!important;
+    width:min(620px,calc(100vw - 24px))!important;
+    max-width:calc(100vw - 24px)!important;
     max-height:calc(100dvh - 112px)!important;
     overflow-y:auto!important;
     border:1px solid #cbdde7!important;
