@@ -108,10 +108,32 @@ function split(s){return s.split(/\n\s*\n/).map(function(x){return x.replace(/\s
 function norm(s){return s.toLowerCase().replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();}
 function tokens(s){return norm(s).split(" ").filter(function(t){return t.length>2;});}
 function similarity(a,b){var aa=tokens(a),bb=tokens(b),as=new Set(aa),bs=new Set(bb),n=0;as.forEach(function(t){if(bs.has(t))n++;});return {score:new Set(aa.concat(bb)).size?n/new Set(aa.concat(bb)).size:0,common:n};}
-function occurrenceDiff(oldItems,newItems){var uo=oldItems.map(function(){return false;}),un=newItems.map(function(){return false;});oldItems.forEach(function(x,i){for(var j=0;j<newItems.length;j++){if(!un[j]&&norm(x)===norm(newItems[j])){uo[i]=true;un[j]=true;break;}}});var pairs=[];for(var ni=0;ni<newItems.length;ni++){if(un[ni])continue;var best=-1,score=0;for(var oi=0;oi<oldItems.length;oi++){if(uo[oi])continue;var m=similarity(oldItems[oi],newItems[ni]);if(m.common>=4&&m.score>score){best=oi;score=m.score;}}if(best>=0&&score>=.16){uo[best]=true;un[ni]=true;pairs.push({old:oldItems[best],now:newItems[ni],score:score});}}return {added:newItems.filter(function(x,i){return !un[i];}),removed:oldItems.filter(function(x,i){return !uo[i];}),modified:pairs};}
+function occurrenceDiff(oldItems,newItems){
+ var uo=oldItems.map(function(){return false;}),un=newItems.map(function(){return false;}),retained=[];
+ oldItems.forEach(function(x,i){for(var j=0;j<newItems.length;j++){if(!un[j]&&norm(x)===norm(newItems[j])){uo[i]=true;un[j]=true;retained.push({old:x,now:newItems[j]});break;}}});
+ var pairs=[];
+ for(var ni=0;ni<newItems.length;ni++){if(un[ni])continue;var best=-1,score=0,bestCommon=0;
+  for(var oi=0;oi<oldItems.length;oi++){if(uo[oi])continue;var m=similarity(oldItems[oi],newItems[ni]);if(m.common>=4&&m.score>score){best=oi;score=m.score;bestCommon=m.common;}}
+  if(best>=0&&score>=.16){uo[best]=true;un[ni]=true;pairs.push({old:oldItems[best],now:newItems[ni],score:score,commonTokens:bestCommon});}
+ }
+ return {added:newItems.filter(function(x,i){return !un[i];}),removed:oldItems.filter(function(x,i){return !uo[i];}),modified:pairs,retained:retained};
+}
 function obligationItems(paragraphs){var out=[],seen=new Set(),rx=/\b(shall|must|required to|is required to|are required to|should)\b/i;paragraphs.forEach(function(p){p.split(/(?<=[.!?])\s+(?=[A-Z0-9])/).forEach(function(s){s=s.trim();var k=norm(s);if(rx.test(s)&&!seen.has(k)){seen.add(k);out.push(s);}});});return out;}
-function classifyOwner(s){var t=s.toLowerCase(),o=[],e=[];if(/customer|kyc|due diligence|risk-based review|high-risk|medium-risk|low-risk/.test(t)){o.push("KYC / Customer Operations");e.push("Customer risk-rating and review schedule; completed KYC review records");}if(/compliance|escalat|overdue/.test(t)){o.push("AML / Compliance");e.push("Overdue case register; escalation and approval trail");}if(/report|submit|committee|quarterly/.test(t)){o.push("Compliance Management / Secretariat");e.push("Quarterly report; committee agenda and minutes");}if(/record|evidence|retain|documented/.test(t)){o.push("Records Management / Internal Control");e.push("Documented review evidence; retention and retrieval logs");}if(!o.length){o.push("Relevant business / control owner — to be confirmed");e.push("Approved policy, procedure and operating evidence");}return {owners:o,evidence:e};}
-function deadline(s){var m=s.match(/\b(within\s+\d+\s+(?:business\s+)?days?|at least (?:annually|every\s+\w+\s+years?)|quarterly|annually)\b/i);return m?m[0]:"Not stated in extracted sentence";}
+function classifyOwner(s){var t=s.toLowerCase(),o=[],e=[];
+ if(/transaction monitoring|monitoring alert|alert review|alert investigation|suspicious transaction|financial crime|\\bstr\\b/.test(t)){o.push("Transaction Monitoring / AML Operations");e.push("Alert queue and ageing report; investigation case files; escalation and STR decision records");}
+ if(/customer|kyc|due diligence|risk-based review|high-risk|medium-risk|low-risk/.test(t)){o.push("KYC / Customer Operations");e.push("Customer risk-rating and review schedule; completed KYC review records");}
+ if(/compliance|escalat|overdue|suspicious/.test(t)){o.push("AML / Compliance");e.push("Overdue case register; escalation and approval trail");}
+ if(/report|submit|committee|quarterly/.test(t)){o.push("Compliance Management / Secretariat");e.push("Quarterly report; committee agenda and minutes");}
+ if(/record|evidence|retain|documented|investigation outcome/.test(t)){o.push("Records Management / Internal Control");e.push("Documented review evidence; retention and retrieval logs");}
+ if(/access control|role-based|access log|system access|authorised personnel/.test(t)){o.push("IT / Information Security");e.push("User access matrix; role assignments; access logs and periodic access review evidence");}
+ if(/training|employee|staff competence/.test(t)){o.push("HR / Learning & Development");e.push("Training plan, attendance records and competency assessment");}
+ if(!o.length){o.push("Relevant business / control owner — to be confirmed");e.push("Approved policy, procedure and operating evidence");}
+ return {owners:Array.from(new Set(o)),evidence:Array.from(new Set(e))};
+}
+function deadline(s){
+ var m=s.match(/\\b(?:within\\s+(?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten)\\s+(?:business\\s+)?(?:hours?|days?)|at least\\s+(?:annually|every\\s+(?:one|two|three|four|five|\\d+)\\s+years?)|every\\s+(?:one|two|three|four|five|\\d+)\\s+years?|quarterly|annually)\\b/i);
+ return m?m[0]:"Not stated in extracted sentence";
+}
 function makeTable(rows,headers){if(!rows.length)return '<p class="muted small">No items identified by configured rules. Manual assessment remains necessary.</p>';return '<div style="overflow-x:auto"><table class="impact-table"><thead><tr>'+headers.map(function(x){return "<th>"+esc(x)+"</th>";}).join("")+'</tr></thead><tbody>'+rows.map(function(r){return "<tr>"+r.map(function(x){return "<td>"+esc(x)+"</td>";}).join("")+"</tr>";}).join("")+"</tbody></table></div>";}
 
 function esc(s){return s.replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
@@ -123,7 +145,10 @@ var rules=[[[ "must","shall","required to"],"Mandatory language","Check subject,
 var signals=[];rules.forEach(function(r){var hits=r[0].filter(function(t){return corpus.indexOf(t)!==-1;});if(hits.length)signals.push(r[1]+" — "+r[2]+" Matched terms: "+hits.join(", "));});
 var ar=[[[ "customer","client","onboarding","due diligence","beneficial owner","high-risk","medium-risk","low-risk"],"KYC / Customer Operations"],[["transaction","monitor","suspicious","sanction","payment","escalat"],"AML / Financial Crime Operations"],[["report","notify","submit","regulator","quarterly"],"Regulatory Reporting"],[["board","committee","senior management","approve"],"Governance & Secretariat"],[["record","retain","evidence","audit"],"Internal Control / Records Management"],[["outsourcing","cloud","technology","cyber","system"],"IT / Information Security / Third-Party Risk"],[["capital","liquidity","credit","market risk"],"Risk Management / Finance"]],areas=[];ar.forEach(function(r){if(r[0].some(function(t){return corpus.indexOf(t)!==-1;}))areas.push(r[1]);});
 var obligations=obligationItems(changed),reqRows=obligations.map(function(s,i){var m=classifyOwner(s);return [String(i+1),s,m.owners.join("; "),deadline(s),"Pending human validation"];});
-var changeRows=modified.map(function(x){return ["Potentially modified",x.old,x.now,Math.round(x.score*100)+"% text similarity — candidate only"];});added.forEach(function(x){changeRows.push(["New","—",x,"No sufficiently similar earlier paragraph found"]);});removed.forEach(function(x){changeRows.push(["Removed",x,"—","No sufficiently similar newer paragraph found"]);});
+var changeRows=d.retained.map(function(x){return ["Retained",x.old,x.now,"Normalised text match; wording retained"];});
+modified.forEach(function(x){changeRows.push(["Potentially modified",x.old,x.now,Math.round(x.score*100)+"% token similarity across "+x.commonTokens+" shared tokens — candidate only; human confirmation required"]);});
+added.forEach(function(x){changeRows.push(["New","—",x,"No sufficiently similar earlier paragraph found"]);});
+removed.forEach(function(x){changeRows.push(["Removed",x,"—","No sufficiently similar newer paragraph found"]);});
 var actionRows=obligations.map(function(s,i){var m=classifyOwner(s);return [String(i+1),s,m.owners.join("; "),m.evidence.join("; "),"Owner, due date and control design to be confirmed"];});
 $("empty").hidden=true;$("report").hidden=false;$("addedN").textContent=added.length;$("removedN").textContent=removed.length;$("signalsN").textContent=signals.length;
 list("added",added,"No unmatched new paragraphs identified.");list("removed",removed,"No unmatched removed paragraphs identified.");list("signals",signals,"No configured keyword signals found. This does not mean there is no impact.");list("areas",areas,"No prompt identified; manual applicability assessment is required.");
