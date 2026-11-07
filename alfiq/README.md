@@ -1,7 +1,7 @@
-# AlfiQ — Regulatory Change Impact Agent (Prototype 0.1)
+# AlfiQ — Regulatory Change Impact Agent (Prototype 0.2)
 
 ## Purpose
-An additive, browser-only prototype under /alfiq/ for comparing earlier and newer regulatory text, identifying exact paragraph additions/removals, surfacing transparent keyword-based obligation prompts, suggesting business areas for human triage, and producing preliminary review notes.
+An additive, browser-only prototype under /alfiq/ for comparing earlier and newer regulatory text, identifying duplicate-aware paragraph additions/removals, surfacing similarity-based potential modifications, extracting potential obligation sentences, classifying changes, suggesting business areas and preliminary owners/evidence for human triage, and producing structured review notes.
 
 ## Cost and deployment
 - Static HTML, CSS and JavaScript; no paid API or hosting dependency.
@@ -13,7 +13,10 @@ An additive, browser-only prototype under /alfiq/ for comparing earlier and newe
 - Local text input and TXT/MD/CSV file reading in the browser.
 - No file upload to a server and no PDF/OCR extraction.
 - No live AI model, regulatory-source monitoring, source authentication or legal interpretation.
-- Exact paragraph matching after whitespace normalisation; keyword prompts are heuristic only.
+- Duplicate-aware exact paragraph matching after whitespace normalisation.
+- Similarity-based paragraph pairing can suggest a potentially modified requirement; similarity is not semantic or legal equivalence.
+- Rule-based obligation sentence extraction, timing phrase detection, owner mapping and evidence prompts are heuristic only.
+- Change classifications (New, Removed, Potentially modified) require human confirmation; unmatched paragraphs are not automatically regulatory changes.
 - Public documents and synthetic examples only. Do not use confidential bank/customer/KYC/transaction data.
 
 ## Production requirements
@@ -30,7 +33,11 @@ An additive, browser-only prototype under /alfiq/ for comparing earlier and newe
 - [ ] Page loads at /alfiq/ on desktop and mobile.
 - [ ] Shared header/footer appear once and navigation menu works.
 - [ ] Existing homepage, calculators, algorithms, tables and other pages remain unchanged.
-- [ ] Added and removed paragraph counts are correct for controlled sample inputs.
+- [ ] Added and removed paragraph counts are correct for controlled sample inputs, including duplicate paragraphs.
+- [ ] Similarity-based potential modifications are clearly labelled as candidates and manually validated.
+- [ ] Requirement register extracts potential obligation sentences and marks validation pending.
+- [ ] Preliminary action register shows suggested owners, evidence and open decisions without asserting confirmed control gaps.
+- [ ] Downloaded review notes include change classification, requirement register, signals, owners and evidence prompts.
 - [ ] Keyword prompts are labelled as potential signals, not determinations.
 - [ ] Empty-input validation works.
 - [ ] Clear workspace resets text, results and review checkboxes.
