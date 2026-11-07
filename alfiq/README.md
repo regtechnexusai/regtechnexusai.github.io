@@ -16,7 +16,9 @@ An additive, browser-only prototype under /alfiq/ for comparing earlier and newe
 - Duplicate-aware exact paragraph matching after whitespace normalisation.
 - Similarity-based paragraph pairing can suggest a potentially modified requirement; similarity is not semantic or legal equivalence.
 - Rule-based obligation sentence extraction, timing phrase detection, owner mapping and evidence prompts are heuristic only.
-- Change classifications (New, Removed, Potentially modified) require human confirmation; unmatched paragraphs are not automatically regulatory changes.
+- Change classifications (New, Removed, Potentially modified, Retained) require human confirmation; similarity candidates are not semantic/legal equivalence and unmatched paragraphs are not automatically regulatory changes.
+- Timing phrase extraction recognises numeric and common written-number hour/day periods (including business days), annual/quarterly cadence and common multi-year intervals; it does not calculate calendar deadlines or determine legal day-count rules.
+- Owner mapping includes transaction monitoring/AML operations, KYC, compliance management, records/internal control, IT/information security and HR/learning & development. Suggested owners remain prompts, not confirmed accountability.
 - Public documents and synthetic examples only. Do not use confidential bank/customer/KYC/transaction data.
 
 ## Production requirements
@@ -35,6 +37,10 @@ An additive, browser-only prototype under /alfiq/ for comparing earlier and newe
 - [ ] Existing homepage, calculators, algorithms, tables and other pages remain unchanged.
 - [ ] Added and removed paragraph counts are correct for controlled sample inputs, including duplicate paragraphs.
 - [ ] Similarity-based potential modifications are clearly labelled as candidates and manually validated.
+- [ ] Exact unchanged paragraphs are separately classified as Retained.
+- [ ] Timing extraction recognises `within 24 hours`, `within three business days`, `at least annually`, `at least every two years` and quarterly cadence.
+- [ ] Owner prompts cover transaction monitoring/AML operations, IT/information security and HR/learning & development when relevant.
+- [ ] Similarity false-positive cases are tested; low-confidence pairs are not treated as confirmed modifications.
 - [ ] Requirement register extracts potential obligation sentences and marks validation pending.
 - [ ] Preliminary action register shows suggested owners, evidence and open decisions without asserting confirmed control gaps.
 - [ ] Downloaded review notes include change classification, requirement register, signals, owners and evidence prompts.
