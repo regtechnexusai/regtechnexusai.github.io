@@ -120,7 +120,7 @@ function occurrenceDiff(oldItems,newItems){
 }
 function obligationItems(paragraphs){var out=[],seen=new Set(),rx=/\b(shall|must|required to|is required to|are required to|should)\b/i;paragraphs.forEach(function(p){p.split(/(?<=[.!?])\s+(?=[A-Z0-9])/).forEach(function(s){s=s.trim();var k=norm(s);if(rx.test(s)&&!seen.has(k)){seen.add(k);out.push(s);}});});return out;}
 function classifyOwner(s){var t=s.toLowerCase(),o=[],e=[];
- if(/transaction monitoring|monitoring alert|alert review|alert investigation|suspicious transaction|financial crime|\\bstr\\b/.test(t)){o.push("Transaction Monitoring / AML Operations");e.push("Alert queue and ageing report; investigation case files; escalation and STR decision records");}
+ if(/transaction monitoring|monitoring alert|alert review|alert investigation|suspicious transaction|financial crime|\bstr\b/.test(t)){o.push("Transaction Monitoring / AML Operations");e.push("Alert queue and ageing report; investigation case files; escalation and STR decision records");}
  if(/customer|kyc|due diligence|risk-based review|high-risk|medium-risk|low-risk/.test(t)){o.push("KYC / Customer Operations");e.push("Customer risk-rating and review schedule; completed KYC review records");}
  if(/compliance|escalat|overdue|suspicious/.test(t)){o.push("AML / Compliance");e.push("Overdue case register; escalation and approval trail");}
  if(/report|submit|committee|quarterly/.test(t)){o.push("Compliance Management / Secretariat");e.push("Quarterly report; committee agenda and minutes");}
@@ -131,7 +131,7 @@ function classifyOwner(s){var t=s.toLowerCase(),o=[],e=[];
  return {owners:Array.from(new Set(o)),evidence:Array.from(new Set(e))};
 }
 function deadline(s){
- var m=s.match(/\\b(?:within\\s+(?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten)\\s+(?:business\\s+)?(?:hours?|days?)|at least\\s+(?:annually|every\\s+(?:one|two|three|four|five|\\d+)\\s+years?)|every\\s+(?:one|two|three|four|five|\\d+)\\s+years?|quarterly|annually)\\b/i);
+ var m=s.match(/\b(?:within\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s+(?:business\s+)?(?:hours?|days?)|at least\s+(?:annually|every\s+(?:one|two|three|four|five|\d+)\s+years?)|every\s+(?:one|two|three|four|five|\d+)\s+years?|quarterly|annually)\b/i);
  return m?m[0]:"Not stated in extracted sentence";
 }
 function makeTable(rows,headers){if(!rows.length)return '<p class="muted small">No items identified by configured rules. Manual assessment remains necessary.</p>';return '<div style="overflow-x:auto"><table class="impact-table"><thead><tr>'+headers.map(function(x){return "<th>"+esc(x)+"</th>";}).join("")+'</tr></thead><tbody>'+rows.map(function(r){return "<tr>"+r.map(function(x){return "<td>"+esc(x)+"</td>";}).join("")+"</tr>";}).join("")+"</tbody></table></div>";}
