@@ -221,7 +221,7 @@ function renderOperationalFlow(l){
  document.getElementById('flow-title').textContent=d.title;
  document.getElementById('flow-intro').textContent=d.intro;
  document.getElementById('flow-diagram').innerHTML=
- d.steps.map((x,i)=>'<div class="flow-step"><span class="flow-num">'+x[0]+'</span><strong>'+x[1]+'</strong><span>'+x[2]+'</span></div>').join('')+
+ d.steps.slice(0,6).map((x,i)=>'<div class="flow-step"><span class="flow-num">'+x[0]+'</span><strong>'+x[1]+'</strong><span>'+x[2]+'</span></div>').join('')+
  '<div class="flow-step flow-decision"><strong>'+d.steps[6][1]+'</strong><span>'+d.steps[6][2]+'</span></div>'+
  '<div class="flow-branches"><div class="flow-branch"><strong>'+d.dpTitle+'</strong><span>'+d.dpText+'</span></div><div class="flow-branch da"><strong>'+d.daTitle+'</strong><span>'+d.daText+'</span></div></div>'+
  '<div class="flow-step flow-final"><strong>'+d.gate+'</strong><span>'+d.gateText+'</span></div>'+
