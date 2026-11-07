@@ -75,9 +75,19 @@ body:not(.homepage-redesign) .rt-back-home{z-index:1100!important}
     width:auto!important;max-width:none!important;max-height:calc(100dvh - 112px)!important;
     background-color:#fff!important;
   }
+  /* Keep the floating global shortcut in normal document flow on AlfiQ.
+     This prevents it from covering headings, forms or analysis results while scrolling. */
   body:not(.homepage-redesign) .rt-back-home{
-    right:12px!important;bottom:12px!important;min-height:38px!important;
-    padding:9px 12px!important;gap:6px!important;font-size:11px!important;
+    position:static!important;
+    display:flex!important;
+    width:max-content!important;
+    max-width:calc(100% - 24px)!important;
+    min-height:38px!important;
+    margin:16px 12px 24px auto!important;
+    padding:9px 12px!important;
+    gap:6px!important;
+    box-sizing:border-box!important;
+    float:none!important;
   }
 }
 @media print{
