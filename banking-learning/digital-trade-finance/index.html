@@ -25,7 +25,21 @@ footer.site-footer .footer-note{grid-column:1/-1}
 @media(max-width:420px){footer.site-footer{grid-template-columns:1fr}}
 </style>
 <link rel="stylesheet" href="/styles.css?v=20261015-homepage-polish2">
-<link rel="stylesheet" href="/site-wide-shell.css?v=20261015-v1">
+<link rel="stylesheet" href="/site-wide-shell.css?v=20261015-v1">\n<style id="case-study-mobile-fixes">
+/* Mobile header correction: keep the hamburger inside the shared header box. */
+header.nav{height:78px!important;min-height:78px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;padding:8px clamp(14px,4vw,40px)!important;position:sticky!important;top:0!important;z-index:1000!important;overflow:visible!important}
+header.nav .brand{display:flex!important;align-items:center!important;flex:0 1 auto!important;min-width:0!important}
+header.nav .brand-logo{display:block!important;width:auto!important;max-width:min(190px,52vw)!important;max-height:58px!important;height:auto!important;object-fit:contain!important}
+header.nav .menu{display:none!important;position:static!important;inset:auto!important;float:none!important;flex:0 0 48px!important;width:48px!important;min-width:48px!important;height:48px!important;min-height:48px!important;max-height:48px!important;margin:0 0 0 auto!important;padding:0!important;border:1px solid #d7e1ea!important;border-radius:12px!important;background:#fff!important;color:#102b46!important;box-shadow:0 2px 7px rgba(16,43,70,.10)!important;font:700 24px/1 Arial,sans-serif!important;transform:none!important}
+header.nav .nav-cta{margin-left:12px!important;white-space:nowrap}
+header.nav nav{z-index:1001}
+@media(max-width:1100px){
+ header.nav .menu{display:inline-flex!important;align-items:center!important;justify-content:center!important}
+ header.nav .nav-cta{display:none!important}
+ header.nav.open nav{position:absolute!important;top:78px!important;left:0!important;right:0!important;display:flex!important;flex-direction:column!important;gap:14px!important;margin:0!important;padding:20px 5vw!important;background:#fff!important;border-bottom:1px solid #dce5ef!important;box-shadow:0 10px 18px rgba(16,43,70,.12)!important;max-height:72vh!important;overflow:auto!important}
+}
+@media(min-width:1101px){header.nav nav{display:flex!important;align-items:center!important;gap:16px!important;margin-left:auto!important}header.nav .menu{display:none!important}}
+</style>
 </head><body>
 <header class="nav">
   <a class="brand" href="/" aria-label="RegTech Nexus AI home">
@@ -80,7 +94,7 @@ function setLang(l){
 const t=ui[l];document.documentElement.lang=l;
 ["en","bn"].forEach(id=>document.getElementById(id).classList.toggle("active",id===l));
 ["title","subtitle","case","purpose","takehead","take","evhead","ev","rcmhead","rcmnote","workhead","sourceshead","published","disclaimer"].forEach(k=>document.getElementById(k).textContent=t[k]);
-document.getElementById("chapters").innerHTML=chapters.map(c=>"<h2>"+c[l==="en"?0:1]+"</h2>"+c[2].map(p=>"<h3>"+p[l==="en"?0:1]+"</h3><p>"+p[l==="en"?1:2]+"</p>").join("")).join("");
+document.getElementById("chapters").innerHTML=chapters.map(c=>"<h2>"+c[l==="en"?0:1]+"</h2>"+c[2].map(p=>"<p>"+p[l==="en"?0:1]+"</p>").join("")).join("");
 document.getElementById("rcmtable").innerHTML="<tr>"+t.cols.map(x=>"<th>"+x+"</th>").join("")+"</tr>"+rcm.map((row,i)=>"<tr>"+row.map((x,j)=>"<td>"+(l==="en"?x:bnrcm[i][j])+"</td>").join("")+"</tr>").join("");
 document.getElementById("sources").innerHTML=sources.map(s=>"<li><a href='"+s[2]+"' target='_blank' rel='noopener'>"+s[l==="en"?0:1]+"</a></li>").join("");
 document.getElementById("work").innerHTML=l==="en"?"<p><b>Scenario:</b> eBL control transfer is requested before payment confirmation. Hold; retrieve the authoritative collection instruction; independently verify cleared funds or required acceptance; validate dPN status; obtain maker-checker approval; preserve logs and escalate overrides. If transfer already occurred, trigger incident management, legal review and mitigation.</p><p><b>Workpaper fields:</b> sample ID, instruction clause, required condition, evidence inspected, timestamps, user IDs/roles, override details, exception owner, conclusion and finding reference.</p>":"<p><b>পরিস্থিতি:</b> payment confirmation-এর আগে eBL control transfer-এর অনুরোধ এসেছে। Hold করুন; authoritative instruction সংগ্রহ; cleared fund বা প্রয়োজনীয় acceptance স্বাধীনভাবে যাচাই; dPN status নিশ্চিত; maker-checker approval; log সংরক্ষণ ও override escalation। ইতোমধ্যে transfer হলে incident management, legal review ও mitigation শুরু করুন।</p><p><b>ওয়ার্কপেপার:</b> sample ID, instruction clause, প্রয়োজনীয় শর্ত, পরীক্ষিত evidence, timestamp, user ID/role, override detail, exception owner, conclusion ও finding reference।</p>";
