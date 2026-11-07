@@ -40,6 +40,38 @@ header.nav nav{z-index:1001}
 }
 @media(min-width:1101px){header.nav nav{display:flex!important;align-items:center!important;gap:16px!important;margin-left:auto!important}header.nav .menu{display:none!important}}
 
+
+/* End-to-end operational process flow */
+.process-flow{margin:28px 0 34px;padding:24px 20px;background:#f8fbfc;border:1px solid #dce8ed;border-radius:14px}
+.process-flow h2{margin-top:0}
+.process-flow>p{font-weight:400!important;text-align:justify!important}
+.flow-diagram{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;align-items:stretch;margin:20px 0}
+.flow-step{position:relative;min-height:116px;padding:14px 12px 12px;border:1px solid #168b8b;border-radius:11px;background:#eef7f6;display:flex;flex-direction:column;justify-content:center;gap:7px;text-align:center}
+.flow-step:nth-child(even){background:#eaf2f6;border-color:#176b9a}
+.flow-step .flow-num{font-size:12px;font-weight:700;color:#168b8b;letter-spacing:.04em}
+.flow-step strong{font-size:14px;line-height:1.35;font-weight:600;color:#102b46}
+.flow-step span{font-size:12px;line-height:1.5;font-weight:400;color:#34495b}
+.flow-step:not(.flow-decision):not(.flow-final):not(.flow-exception)::after{content:"→";position:absolute;right:-12px;top:calc(50% - 12px);z-index:2;color:#176b9a;font-size:20px;font-weight:600}
+.flow-decision{grid-column:1/-1;min-height:auto;padding:13px;background:#fff7e6;border-color:#c58a28}
+.flow-branches{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:14px;position:relative;padding-top:20px}
+.flow-branches:before{content:"";position:absolute;top:0;left:25%;right:25%;height:1px;background:#176b9a}
+.flow-branch{min-height:96px;border-radius:11px;padding:14px;text-align:center;border:1px solid #168b8b;background:#eef7f6}
+.flow-branch.da{border-color:#176b9a;background:#eaf2f6}
+.flow-branch strong{display:block;font-weight:600;color:#102b46;margin-bottom:6px}
+.flow-branch span{font-size:12px;line-height:1.5}
+.flow-final{grid-column:span 2;min-height:90px;background:#fff1ef;border-color:#a33a36}
+.flow-exception{grid-column:span 2;min-height:90px;background:#fff1ef;border-color:#a33a36}
+.flow-note{margin:10px 0 0;padding:12px 14px;border-left:4px solid #a33a36;background:#fff5f4;font-size:13px}
+@media(max-width:760px){
+ .process-flow{padding:20px 14px}
+ .flow-diagram{grid-template-columns:1fr;gap:10px}
+ .flow-step{min-height:90px}
+ .flow-step:not(.flow-decision):not(.flow-final):not(.flow-exception)::after{content:"↓";right:calc(50% - 6px);top:auto;bottom:-17px;font-size:17px}
+ .flow-decision,.flow-branches{grid-column:1}
+ .flow-branches{grid-template-columns:1fr;padding-top:8px}
+ .flow-branches:before{display:none}
+ .flow-final,.flow-exception{grid-column:1;min-height:78px}
+}
 /* Final mobile typography and alignment correction (content only). */
 #chapters p,#work p,#supplement p,
 .sheet > p:not(.small):not(.callout),
@@ -112,6 +144,12 @@ header.nav nav{z-index:1001}
 </section>
 <div class="toolbar"><button id="en" class="active" onclick="setLang('en')">🌐 English</button><button id="bn" onclick="setLang('bn')">বাংলা</button><button onclick="window.print()">Print / Save as PDF</button></div>
 <main><article class="sheet"><p class="small"><b>Version 2.0</b> · Issue/review date: 7 November 2026 · Regulatory source cut-off: 7 November 2026 · Status: Revised learning edition; transaction-specific legal validation outstanding.</p><div class="callout"><b id="takehead"></b><p id="take"></p></div><div class="callout"><b id="evhead"></b><p id="ev"></p></div>
+<section id="process-flow" class="process-flow" aria-labelledby="flow-title">
+  <h2 id="flow-title">Operational process flow</h2>
+  <p id="flow-intro"></p>
+  <div id="flow-diagram" class="flow-diagram"></div>
+  <p id="flow-note" class="flow-note"></p>
+</section>
 <div id="chapters"></div><h2 id="rcmhead"></h2><p id="rcmnote"></p><div class="tablewrap"><table id="rcmtable"></table></div>
 <h2 id="workhead"></h2><div id="work"></div><div id="supplement"></div><h2 id="sourceshead"></h2><ul id="sources"></ul>
 <footer id="contact" class="site-footer">
@@ -138,11 +176,65 @@ const ui={
 en:{title:"DIGITAL TRADE FINANCE TRANSFORMATION",subtitle:"Blockchain • Electronic Bill of Lading • Documentary Collection • TBML • Internal Audit",case:"REVISED BANKERS’ LEARNING CASE STUDY",purpose:"A public-source learning analysis of a reported Bangladesh–United Kingdom digital documentary collection transaction.",takehead:"Executive takeaway",take:"Digitisation may reduce document handling time, but it does not remove the need to verify the trade, instrument, parties, legal effect, control transfer and financial-crime risks.",evhead:"Evidence discipline",ev:"Participant-reported facts, statutory requirements, analytical recommendations and unresolved facts are distinguished. No conclusion is made about the named banks’ control effectiveness.",rcmhead:"Illustrative Risk and Control Matrix",rcmnote:"Illustrative training template only—not a representation of controls implemented by the named institutions.",workhead:"Audit workpaper — sample test record",sourceshead:"Primary and institutional source register",published:"Published by",disclaimer:"Educational case study only. Not legal advice, transaction approval or assurance.",cols:["Risk","Control objective","Illustrative control activity","Frequency","Evidence to retain","Audit test"]},
 bn:{title:"ডিজিটাল ট্রেড ফাইন্যান্স রূপান্তর",subtitle:"ব্লকচেইন • ইলেকট্রনিক বিল অব লেডিং • Documentary Collection • TBML • Internal Audit",case:"সংশোধিত ব্যাংকারদের শিক্ষণীয় কেস স্টাডি",purpose:"বাংলাদেশ–যুক্তরাজ্যের প্রকাশিত ডিজিটাল documentary collection লেনদেনের প্রকাশ্য সূত্রভিত্তিক বিশ্লেষণ।",takehead:"নির্বাহী বার্তা",take:"ডিজিটালাইজেশন দলিল পরিচালনার সময় কমাতে পারে; তবে বাণিজ্য, instrument, পক্ষ, আইনগত কার্যকারিতা, control transfer এবং financial-crime risk যাচাইয়ের প্রয়োজন দূর করে না।",evhead:"প্রমাণ ব্যবহারের নীতি",ev:"অংশগ্রহণকারীর প্রকাশিত তথ্য, আইনগত শর্ত, বিশ্লেষণভিত্তিক সুপারিশ এবং অমীমাংসিত তথ্য আলাদা করা হয়েছে। named bank-এর control effectiveness সম্পর্কে সিদ্ধান্ত দেওয়া হয়নি।",rcmhead:"উদাহরণভিত্তিক Risk and Control Matrix",rcmnote:"শুধুমাত্র প্রশিক্ষণের উদাহরণ; named institution-এর বাস্তবায়িত control-এর বিবরণ নয়।",workhead:"অডিট ওয়ার্কপেপার — নমুনা test record",sourceshead:"প্রাথমিক ও প্রাতিষ্ঠানিক সূত্র",published:"প্রকাশক",disclaimer:"শুধুমাত্র শিক্ষামূলক case study। এটি আইনগত পরামর্শ, transaction approval বা assurance নয়।",cols:["ঝুঁকি","নিয়ন্ত্রণের লক্ষ্য","উদাহরণভিত্তিক নিয়ন্ত্রণ কার্যক্রম","ফ্রিকোয়েন্সি","সংরক্ষণযোগ্য প্রমাণ","অডিট পরীক্ষা"]}
 };
-function setLang(l){
+
+function renderOperationalFlow(l){
+ const d=l==='en'?{
+ title:'Operational process flow',
+ intro:'Illustrative bank-side workflow for a digital documentary collection. Follow the actual collection instruction and the applicable regulatory route; this diagram does not assert that the reported transaction followed these steps.',
+ steps:[
+ ['1','Initiate trade & collection','Sales contract, parties, goods and route are identified.'],
+ ['2','CDD, TBML & sanctions','Assess customer/beneficial owner, trade purpose, goods, price, vessel, ports and parties.'],
+ ['3','Select regulatory route','Part E: verify underlying paper receipt and conditions. Part F: evidence approved-corridor concurrence.'],
+ ['4','Agree rules & instruction','Confirm URC/eURC incorporation and version, D/P or D/A, record format and presentation place.'],
+ ['5','Validate eBL and dPN','Check issuer, holder/control, terms, integrity, transferability and legal analysis.'],
+ ['6','Authenticate & match documents','Match invoice, packing/shipping evidence, eBL, dPN and source records.'],
+ ['7','Check release condition','Retrieve the authoritative collection instruction and identify the precise release condition.']
+ ],
+ dpTitle:'D/P — Documents against Payment',dpText:'Independently verify receipt of the required cleared funds. Acceptance or a promissory note is not a substitute.',
+ daTitle:'D/A — Documents against Acceptance',daText:'Verify the stipulated acceptance, authorised signatory and any additional instruction conditions.',
+ gate:'8. Maker-checker release gate',gateText:'Do not release if the required condition or supporting evidence is incomplete.',
+ transfer:'9. Transfer control; monitor payment / discharge',transferText:'Retain platform events and independent bank-side evidence.',
+ final:'10. Reconcile, retain and retrieve records',finalText:'Reconcile settlement; retain logs and documents; monitor exceptions, MIS and remediation.',
+ exception:'Any failed gate: HOLD, block, escalate and investigate.',
+ note:'Control principle: document visibility or a platform event is not, by itself, proof of payment, acceptance, legal control or discharge.'
+ }:{
+ title:'অপারেশনাল প্রক্রিয়া প্রবাহ',
+ intro:'ডিজিটাল documentary collection-এর জন্য ব্যাংক-পক্ষের একটি উদাহরণভিত্তিক workflow। প্রকৃত collection instruction এবং প্রযোজ্য regulatory route অনুসরণ করুন; এই চিত্রটি আলোচিত লেনদেনে এসব ধাপ অনুসৃত হয়েছিল—এমন দাবি করে না।',
+ steps:[
+ ['১','বাণিজ্য ও collection শুরু','Sales contract, পক্ষ, পণ্য ও route শনাক্ত করুন।'],
+ ['২','CDD, TBML ও sanctions যাচাই','Customer/beneficial owner, trade purpose, পণ্য, মূল্য, vessel, port ও পক্ষ যাচাই করুন।'],
+ ['৩','Regulatory route নির্বাচন','Part E: মূল paper document গ্রহণ ও শর্ত যাচাই। Part F: অনুমোদিত corridor-এর concurrence প্রমাণ করুন।'],
+ ['৪','Rules ও instruction নির্ধারণ','URC/eURC ও version, D/P বা D/A, record format এবং presentation place নিশ্চিত করুন।'],
+ ['৫','eBL ও dPN যাচাই','Issuer, holder/control, শর্ত, integrity, transferability ও legal analysis পরীক্ষা করুন।'],
+ ['৬','দলিল authenticate ও মিল করুন','Invoice, packing/shipping evidence, eBL, dPN ও source record মিলিয়ে দেখুন।'],
+ ['৭','Release condition যাচাই','মূল collection instruction সংগ্রহ করে সুনির্দিষ্ট release condition শনাক্ত করুন।']
+ ],
+ dpTitle:'D/P — Documents against Payment',dpText:'প্রয়োজনীয় cleared fund স্বাধীনভাবে নিশ্চিত করুন। Acceptance বা promissory note payment-এর বিকল্প নয়।',
+ daTitle:'D/A — Documents against Acceptance',daText:'নির্ধারিত acceptance, অনুমোদিত স্বাক্ষরকারী এবং instruction-এর অতিরিক্ত শর্ত যাচাই করুন।',
+ gate:'৮. Maker-checker release gate',gateText:'প্রয়োজনীয় শর্ত বা supporting evidence অসম্পূর্ণ হলে দলিল ছাড় বা control transfer নয়।',
+ transfer:'৯. Control transfer; payment / discharge পর্যবেক্ষণ',transferText:'Platform event এবং ব্যাংকের স্বাধীন evidence সংরক্ষণ করুন।',
+ final:'১০. Reconciliation, record retention ও retrieval',finalText:'Settlement reconcile করুন; log ও দলিল সংরক্ষণ; exception, MIS ও remediation পর্যবেক্ষণ করুন।',
+ exception:'যেকোনো gate ব্যর্থ হলে: HOLD, block, escalate ও investigate করুন।',
+ note:'নিয়ন্ত্রণের মূলনীতি: document দেখা যাচ্ছে বা platform event হয়েছে—এটি একা payment, acceptance, legal control বা discharge-এর প্রমাণ নয়।'
+ };
+ const root=document.getElementById('process-flow'); if(!root)return;
+ document.getElementById('flow-title').textContent=d.title;
+ document.getElementById('flow-intro').textContent=d.intro;
+ document.getElementById('flow-diagram').innerHTML=
+ d.steps.slice(0,6).map((x,i)=>'<div class="flow-step"><span class="flow-num">'+x[0]+'</span><strong>'+x[1]+'</strong><span>'+x[2]+'</span></div>').join('')+
+ '<div class="flow-step flow-decision"><strong>'+d.steps[6][1]+'</strong><span>'+d.steps[6][2]+'</span></div>'+
+ '<div class="flow-branches"><div class="flow-branch"><strong>'+d.dpTitle+'</strong><span>'+d.dpText+'</span></div><div class="flow-branch da"><strong>'+d.daTitle+'</strong><span>'+d.daText+'</span></div></div>'+
+ '<div class="flow-step flow-final"><strong>'+d.gate+'</strong><span>'+d.gateText+'</span></div>'+
+ '<div class="flow-step"><strong>'+d.transfer+'</strong><span>'+d.transferText+'</span></div>'+
+ '<div class="flow-step flow-final"><strong>'+d.final+'</strong><span>'+d.finalText+'</span></div>'+
+ '<div class="flow-step flow-exception"><strong>'+d.exception+'</strong></div>';
+ document.getElementById('flow-note').textContent=d.note;
+}
+\nfunction setLang(l){
 const t=ui[l];document.documentElement.lang=l;
 ["en","bn"].forEach(id=>document.getElementById(id).classList.toggle("active",id===l));
 ["title","subtitle","case","purpose","takehead","take","evhead","ev","rcmhead","rcmnote","workhead","sourceshead","published","disclaimer"].forEach(k=>document.getElementById(k).textContent=t[k]);
-document.getElementById("chapters").innerHTML=chapters.map(c=>"<h2>"+c[l==="en"?0:1]+"</h2>"+c[2].map(p=>"<p>"+p[l==="en"?0:1]+"</p>").join("")).join("");
+document.getElementById("chapters").innerHTML=chapters.map(c=>"<h2>"+c[l==="en"?0:1]+"</h2>"+c[2].map(p=>"<p>"+p[l==="en"?0:1]+"</p>").join("")).join("");\nrenderOperationalFlow(l);
 document.getElementById("rcmtable").innerHTML="<tr>"+t.cols.map(x=>"<th>"+x+"</th>").join("")+"</tr>"+rcm.map((row,i)=>"<tr>"+row.map((x,j)=>"<td>"+(l==="en"?x:bnrcm[i][j])+"</td>").join("")+"</tr>").join("");
 document.getElementById("sources").innerHTML=sources.map(s=>"<li><a href='"+s[2]+"' target='_blank' rel='noopener'>"+s[l==="en"?0:1]+"</a></li>").join("");
 document.getElementById("work").innerHTML=l==="en"?"<p><b>Scenario:</b> eBL control transfer is requested before payment confirmation. Hold; retrieve the authoritative collection instruction; independently verify cleared funds or required acceptance; validate dPN status; obtain maker-checker approval; preserve logs and escalate overrides. If transfer already occurred, trigger incident management, legal review and mitigation.</p><p><b>Workpaper fields:</b> sample ID, instruction clause, required condition, evidence inspected, timestamps, user IDs/roles, override details, exception owner, conclusion and finding reference.</p>":"<p><b>পরিস্থিতি:</b> payment confirmation-এর আগে eBL control transfer-এর অনুরোধ এসেছে। Hold করুন; authoritative instruction সংগ্রহ; cleared fund বা প্রয়োজনীয় acceptance স্বাধীনভাবে যাচাই; dPN status নিশ্চিত; maker-checker approval; log সংরক্ষণ ও override escalation। ইতোমধ্যে transfer হলে incident management, legal review ও mitigation শুরু করুন।</p><p><b>ওয়ার্কপেপার:</b> sample ID, instruction clause, প্রয়োজনীয় শর্ত, পরীক্ষিত evidence, timestamp, user ID/role, override detail, exception owner, conclusion ও finding reference।</p>";
