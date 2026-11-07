@@ -25,7 +25,8 @@ footer.site-footer .footer-note{grid-column:1/-1}
 @media(max-width:420px){footer.site-footer{grid-template-columns:1fr}}
 </style>
 <link rel="stylesheet" href="/styles.css?v=20261015-homepage-polish2">
-<link rel="stylesheet" href="/site-wide-shell.css?v=20261015-v1">\n<style id="case-study-mobile-fixes">
+<link rel="stylesheet" href="/site-wide-shell.css?v=20261015-v1">
+<style id="case-study-mobile-fixes">
 /* Mobile header correction: keep the hamburger inside the shared header box. */
 header.nav{height:78px!important;min-height:78px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;padding:8px clamp(14px,4vw,40px)!important;position:sticky!important;top:0!important;z-index:1000!important;overflow:visible!important}
 header.nav .brand{display:flex!important;align-items:center!important;flex:0 1 auto!important;min-width:0!important}
@@ -230,11 +231,13 @@ function renderOperationalFlow(l){
  '<div class="flow-step flow-exception"><strong>'+d.exception+'</strong></div>';
  document.getElementById('flow-note').textContent=d.note;
 }
-\nfunction setLang(l){
+
+function setLang(l){
 const t=ui[l];document.documentElement.lang=l;
 ["en","bn"].forEach(id=>document.getElementById(id).classList.toggle("active",id===l));
 ["title","subtitle","case","purpose","takehead","take","evhead","ev","rcmhead","rcmnote","workhead","sourceshead","published","disclaimer"].forEach(k=>document.getElementById(k).textContent=t[k]);
-document.getElementById("chapters").innerHTML=chapters.map(c=>"<h2>"+c[l==="en"?0:1]+"</h2>"+c[2].map(p=>"<p>"+p[l==="en"?0:1]+"</p>").join("")).join("");\nrenderOperationalFlow(l);
+document.getElementById("chapters").innerHTML=chapters.map(c=>"<h2>"+c[l==="en"?0:1]+"</h2>"+c[2].map(p=>"<p>"+p[l==="en"?0:1]+"</p>").join("")).join("");
+renderOperationalFlow(l);
 document.getElementById("rcmtable").innerHTML="<tr>"+t.cols.map(x=>"<th>"+x+"</th>").join("")+"</tr>"+rcm.map((row,i)=>"<tr>"+row.map((x,j)=>"<td>"+(l==="en"?x:bnrcm[i][j])+"</td>").join("")+"</tr>").join("");
 document.getElementById("sources").innerHTML=sources.map(s=>"<li><a href='"+s[2]+"' target='_blank' rel='noopener'>"+s[l==="en"?0:1]+"</a></li>").join("");
 document.getElementById("work").innerHTML=l==="en"?"<p><b>Scenario:</b> eBL control transfer is requested before payment confirmation. Hold; retrieve the authoritative collection instruction; independently verify cleared funds or required acceptance; validate dPN status; obtain maker-checker approval; preserve logs and escalate overrides. If transfer already occurred, trigger incident management, legal review and mitigation.</p><p><b>Workpaper fields:</b> sample ID, instruction clause, required condition, evidence inspected, timestamps, user IDs/roles, override details, exception owner, conclusion and finding reference.</p>":"<p><b>পরিস্থিতি:</b> payment confirmation-এর আগে eBL control transfer-এর অনুরোধ এসেছে। Hold করুন; authoritative instruction সংগ্রহ; cleared fund বা প্রয়োজনীয় acceptance স্বাধীনভাবে যাচাই; dPN status নিশ্চিত; maker-checker approval; log সংরক্ষণ ও override escalation। ইতোমধ্যে transfer হলে incident management, legal review ও mitigation শুরু করুন।</p><p><b>ওয়ার্কপেপার:</b> sample ID, instruction clause, প্রয়োজনীয় শর্ত, পরীক্ষিত evidence, timestamp, user ID/role, override detail, exception owner, conclusion ও finding reference।</p>";
