@@ -2,8 +2,110 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="AlfiQ regulatory change impact analysis prototype."><title>AlfiQ | RegTech Nexus AI</title>
 <style>
 :root{--navy:#092b45;--blue:#126b91;--teal:#138b83;--ink:#193247;--muted:#607487;--line:#d8e4eb;--paper:#f5f8fb}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 system-ui,Arial,sans-serif}.wrap{max-width:1120px;margin:auto;padding:28px 18px 60px}.hero{background:linear-gradient(120deg,#092b45,#126b91 65%,#138b83);color:white;padding:34px;border-radius:20px}.eyebrow{color:#bce9e2;text-transform:uppercase;letter-spacing:.13em;font-size:.75rem;font-weight:800}.hero h1{font-size:clamp(2.2rem,5vw,3.4rem);line-height:1.1;margin:10px 0}.hero p{max-width:760px;color:#e8f2f7}.tag{display:inline-block;border:1px solid #8ccbc7;border-radius:30px;padding:4px 12px;font-size:.8rem}.notice{background:#fff4dc;border:1px solid #efd59c;color:#674b16;padding:14px 17px;border-radius:12px;margin:18px 0}.section{margin-top:26px}.section h2{color:var(--navy);margin-bottom:6px}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.panel{background:white;border:1px solid var(--line);border-radius:15px;padding:18px;margin-top:14px}label{font-weight:700;display:block;margin-bottom:7px;color:var(--navy)}textarea,input[type=file]{width:100%;padding:12px;border:1px solid #c8d7e1;border-radius:9px;font:inherit;background:white;color:var(--ink)}textarea{min-height:190px;resize:vertical}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:13px}button{background:var(--blue);color:white;border:0;border-radius:9px;padding:11px 16px;font:inherit;font-weight:700;cursor:pointer}button.secondary{background:#eaf2f6;color:var(--navy);border:1px solid var(--line)}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #7bc8c2;outline-offset:2px}.small{font-size:.88rem}.empty{padding:20px;background:#f7fafc;border:1px dashed #bfd0dc;border-radius:10px;color:var(--muted)}.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.kpi{background:#eff6f8;padding:13px;border-radius:10px}.kpi strong{display:block;font-size:1.6rem;color:var(--navy)}.item{padding:12px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}.item:last-child{border:0}.checklist label{font-weight:500;color:var(--ink);display:flex;gap:9px;margin:10px 0}.checklist input{margin-top:5px}.foot{border-top:1px solid var(--line);margin-top:26px;padding-top:16px;color:var(--muted);font-size:.88rem}@media(max-width:720px){.grid{grid-template-columns:1fr}.hero{padding:24px 20px}.kpis{grid-template-columns:1fr}.wrap{padding:18px 13px 45px}.panel{padding:14px}}@media print{body{background:white}.hero{background:#fff;color:#092b45;border:1px solid #aaa}.hero p{color:#333}.notice,.actions,#intake{display:none}.wrap{max-width:none}}
+
+/* AlfiQ page-only responsive and contrast corrections.
+   Scoped to this page; shared shell, global CSS and tool logic remain untouched. */
+body:not(.homepage-redesign) main.wrap > header.alfiq-hero{
+  display:block!important;
+  position:relative!important;
+  isolation:isolate!important;
+  overflow:hidden!important;
+  min-height:0!important;
+  padding:clamp(24px,4vw,42px)!important;
+  border:1px solid #126b91!important;
+  border-bottom:5px solid #48c5d4!important;
+  border-radius:20px!important;
+  background:linear-gradient(120deg,#092b45 0%,#126b91 62%,#138b83 100%)!important;
+  color:#fff!important;
+  box-shadow:0 12px 30px rgba(9,43,69,.14)!important;
+}
+body:not(.homepage-redesign) main.wrap > header.alfiq-hero .eyebrow{
+  color:#bce9e2!important;
+  opacity:1!important;
+}
+body:not(.homepage-redesign) main.wrap > header.alfiq-hero h1{
+  display:block!important;
+  margin:10px 0 12px!important;
+  color:#fff!important;
+  -webkit-text-fill-color:#fff!important;
+  opacity:1!important;
+  font-size:clamp(2.15rem,7vw,3.4rem)!important;
+  line-height:1.08!important;
+  text-shadow:0 1px 2px rgba(0,0,0,.12)!important;
+}
+body:not(.homepage-redesign) main.wrap > header.alfiq-hero p,
+body:not(.homepage-redesign) main.wrap > header.alfiq-hero p strong{
+  color:#f4fbff!important;
+  -webkit-text-fill-color:#f4fbff!important;
+  opacity:1!important;
+}
+body:not(.homepage-redesign) main.wrap > header.alfiq-hero .tag{
+  display:inline-block!important;
+  margin-top:8px!important;
+  color:#fff!important;
+  border-color:rgba(255,255,255,.58)!important;
+  background:rgba(4,35,57,.24)!important;
+}
+body:not(.homepage-redesign) .rt-shell-header .rt-shell-nav{
+  background:#fff!important;
+  background-image:none!important;
+  opacity:1!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  isolation:isolate!important;
+  box-shadow:0 22px 55px rgba(16,43,73,.22)!important;
+}
+body:not(.homepage-redesign) .rt-shell-header .rt-shell-nav a,
+body:not(.homepage-redesign) .rt-shell-header .rt-shell-nav .nav-menu-heading{
+  opacity:1!important;
+}
+body:not(.homepage-redesign) .rt-back-home{
+  z-index:999!important;
+}
+@media(max-width:720px){
+  body:not(.homepage-redesign) main.wrap{
+    padding:18px 13px 112px!important;
+  }
+  body:not(.homepage-redesign) main.wrap > header.alfiq-hero{
+    padding:23px 19px 25px!important;
+    min-height:0!important;
+    border-radius:16px!important;
+  }
+  body:not(.homepage-redesign) main.wrap > header.alfiq-hero p{
+    margin:10px 0 14px!important;
+    font-size:15px!important;
+    line-height:1.55!important;
+  }
+  body:not(.homepage-redesign) .rt-shell-header .rt-shell-nav{
+    position:fixed!important;
+    top:calc(var(--rt-header-bottom, 76px) + 8px)!important;
+    right:12px!important;
+    left:12px!important;
+    width:auto!important;
+    max-width:none!important;
+    max-height:calc(100dvh - 112px)!important;
+    overflow-y:auto!important;
+    border:1px solid #cbdde7!important;
+    border-radius:16px!important;
+    background:#fff!important;
+  }
+  body:not(.homepage-redesign) .rt-back-home{
+    right:12px!important;
+    bottom:12px!important;
+    min-height:38px!important;
+    padding:9px 12px!important;
+    gap:6px!important;
+    font-size:11px!important;
+    box-shadow:0 5px 16px rgba(16,32,59,.2)!important;
+  }
+}
+@media print{
+  body:not(.homepage-redesign) main.wrap{padding-bottom:24px!important}
+  body:not(.homepage-redesign) .rt-back-home{display:none!important}
+}
+
 </style></head><body><main class="wrap">
-<header class="hero"><div class="eyebrow">RegTech Nexus AI · Product Lab</div><h1>AlfiQ</h1><p><strong>Intelligence Beyond Rules.</strong> A regulatory change analysis workspace to compare document versions, surface potential obligation signals and organise a human-reviewed impact assessment.</p><span class="tag">Early prototype · Rule-based · Human review required</span></header>
+<header class="hero alfiq-hero"><div class="eyebrow">RegTech Nexus AI · Product Lab</div><h1>AlfiQ</h1><p><strong>Intelligence Beyond Rules.</strong> A regulatory change analysis workspace to compare document versions, surface potential obligation signals and organise a human-reviewed impact assessment.</p><span class="tag">Early prototype · Rule-based · Human review required</span></header>
 <div class="notice"><strong>Important limitation:</strong> This prototype runs in your browser. It does not verify regulatory sources, provide legal advice, make compliance determinations or use a live AI model. Use public documents or synthetic examples only. Do not enter confidential banking, customer, KYC or transaction data.</div>
 <section class="section"><h2>1. Compare regulatory text</h2><p class="muted">Paste relevant extracts from the earlier and newer documents. Add source details and page/paragraph references in the notes.</p>
 <div class="grid"><div class="panel"><label for="oldText">Earlier / existing requirement</label><textarea id="oldText" placeholder="Paste earlier regulatory text..."></textarea></div><div class="panel"><label for="newText">New / revised requirement</label><textarea id="newText" placeholder="Paste newer regulatory text..."></textarea></div></div>
@@ -58,4 +160,4 @@ $("download").addEventListener("click",function(){if(!lastReport)return;var blob
 $("print").addEventListener("click",function(){window.print();});
 $("file").addEventListener("change",function(e){var f=e.target.files&&e.target.files[0];if(!f)return;var reader=new FileReader();reader.onload=function(){var target=$("oldText").value.trim()?"newText":"oldText";$(target).value=String(reader.result||"");$("fileStatus").textContent=f.name+" read locally into "+(target==="oldText"?"earlier":"newer")+" text field.";};reader.onerror=function(){$("fileStatus").textContent="Could not read selected file.";};reader.readAsText(f);});
 })();
-</script><script src="/site-wide-shell.js?v=20261107-alfiq-01" defer></script></body></html>
+</script><script src="/site-wide-shell.js?v=20261107-alfiq-02" defer></script></body></html>
