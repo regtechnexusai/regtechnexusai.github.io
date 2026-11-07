@@ -1,0 +1,217 @@
+/* RegTech Nexus AI — Pension page visual refresh
+   Strictly presentation-only. Header, footer, calculator logic and data are excluded. */
+:root{
+  --pvr-ink:#142b45;--pvr-navy:#092344;--pvr-blue:#145b91;--pvr-cyan:#39b8d4;
+  --pvr-teal:#087f83;--pvr-paper:#f2f7fc;--pvr-line:#d7e5f1;--pvr-muted:#526a82;
+  --pvr-shadow:0 14px 34px rgba(12,43,76,.10);
+}
+html body.pension-page{
+  color:var(--pvr-ink)!important;
+  background:radial-gradient(circle at 8% 8%,rgba(56,184,212,.13),transparent 28rem),
+             radial-gradient(circle at 95% 32%,rgba(20,91,145,.09),transparent 30rem),
+             linear-gradient(180deg,#f8fbff 0%,#edf4fa 100%)!important;
+}
+body.pension-page main.pension-shell{max-width:1120px!important}
+body.pension-page main.pension-shell > :not(.pension-page-header):not(.footer){
+  position:relative;
+}
+body.pension-page main.pension-shell > .unofficial-banner{
+  display:flex;align-items:center;gap:14px;margin-top:22px;padding:19px 22px;
+  color:#17415e!important;background:linear-gradient(115deg,#e8f6fc,#f4f9ff 65%,#eaf7f6)!important;
+  border:1px solid #c7e3f0!important;border-left:5px solid var(--pvr-cyan)!important;
+  border-radius:17px!important;box-shadow:var(--pvr-shadow)!important;
+}
+body.pension-page main.pension-shell > .unofficial-banner p{color:#31536d!important;line-height:1.75}
+body.pension-page main.pension-shell .unofficial-badge{
+  color:#fff!important;background:linear-gradient(135deg,#0d5687,#168eaa)!important;
+  border:1px solid rgba(255,255,255,.55);border-radius:999px!important;
+  padding:7px 12px!important;letter-spacing:.06em;box-shadow:0 5px 13px rgba(13,86,135,.2)
+}
+body.pension-page main.pension-shell > .notice.glass-card,
+body.pension-page main.pension-shell > .retirement-section.glass-card{
+  color:var(--pvr-ink)!important;background:linear-gradient(145deg,#fff 0%,#fbfdff 100%)!important;
+  border:1px solid var(--pvr-line)!important;border-radius:22px!important;
+  box-shadow:var(--pvr-shadow)!important;
+}
+body.pension-page main.pension-shell > .notice.glass-card{border-top:4px solid var(--pvr-cyan)!important}
+body.pension-page main.pension-shell .notice-icon{
+  color:#fff!important;background:linear-gradient(145deg,#0e5487,#27a9c4)!important;
+  border-radius:13px!important;box-shadow:0 7px 16px rgba(14,84,135,.2)
+}
+body.pension-page main.pension-shell .notice :is(strong,p){color:var(--pvr-ink)!important}
+body.pension-page main.pension-shell .retirement-section{
+  padding:clamp(20px,3vw,34px)!important;border-top:5px solid #176b9d!important;
+}
+body.pension-page main.pension-shell .section-heading{
+  align-items:center;padding-bottom:20px;margin-bottom:20px;
+  border-bottom:1px solid #e1ebf4;
+}
+body.pension-page main.pension-shell .section-heading h2{
+  color:var(--pvr-navy)!important;font-size:clamp(1.5rem,3vw,2.1rem)!important;
+  line-height:1.35!important;letter-spacing:-.02em
+}
+body.pension-page main.pension-shell .section-heading .eyebrow{
+  color:#087f9d!important;font-weight:850;letter-spacing:.12em
+}
+body.pension-page main.pension-shell .section-heading .output-note{
+  color:#536c84!important;line-height:1.75
+}
+body.pension-page main.pension-shell .source-chip{
+  display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 17px;
+  color:#fff!important;text-decoration:none!important;
+  background:linear-gradient(135deg,#0c3e70 0%,#176fa7 55%,#23a6bd 100%)!important;
+  border:1px solid rgba(255,255,255,.7)!important;border-radius:13px!important;
+  box-shadow:0 7px 0 #0a355c,0 11px 22px rgba(11,65,108,.22),inset 0 1px 0 rgba(255,255,255,.45)!important;
+  transition:transform .18s ease,box-shadow .18s ease,filter .18s ease
+}
+body.pension-page main.pension-shell .source-chip:hover{
+  color:#fff!important;filter:brightness(1.08);transform:translateY(-2px);
+  box-shadow:0 9px 0 #0a355c,0 15px 26px rgba(11,65,108,.25),inset 0 1px 0 rgba(255,255,255,.5)!important
+}
+body.pension-page main.pension-shell .retirement-profile-note{
+  color:#244966!important;background:linear-gradient(120deg,#edf7fd,#f4f9ff)!important;
+  border:1px solid #d0e5f2!important;border-left:4px solid #399bc1!important;
+  border-radius:14px!important;padding:17px 19px!important;line-height:1.8!important;
+}
+body.pension-page main.pension-shell .compliance-note{
+  color:#5e4518!important;background:linear-gradient(130deg,#fff9e9,#fffdf5)!important;
+  border:1px solid #ecd9ad!important;border-left:5px solid #e5ae3d!important;
+  border-radius:15px!important;box-shadow:0 8px 20px rgba(123,91,26,.07)!important;
+  padding:18px 20px!important;line-height:1.8!important;
+}
+body.pension-page main.pension-shell .compliance-note :is(strong,p){color:#634a1b!important}
+body.pension-page main.pension-shell .compliance-note strong{font-size:1.02rem}
+body.pension-page main.pension-shell .retirement-input-grid{gap:22px 20px!important;margin-top:25px!important}
+body.pension-page main.pension-shell .retirement-input-grid > div{
+  min-width:0;padding:17px 17px 14px;
+  background:linear-gradient(145deg,#fff,#f8fbff);
+  border:1px solid #dce8f2;border-radius:16px;
+  box-shadow:0 6px 17px rgba(20,61,96,.045);
+}
+body.pension-page main.pension-shell .field-label{
+  display:block;color:#173e60!important;font-size:1rem!important;font-weight:800!important;
+  line-height:1.55!important;margin-bottom:10px
+}
+body.pension-page main.pension-shell .field-help{
+  color:#526b83!important;font-size:.9rem!important;line-height:1.7!important;margin:10px 0 0
+}
+body.pension-page main.pension-shell .money-input{
+  min-height:56px;padding:5px 13px;background:#fff;border:1px solid #b9d1e3;
+  border-radius:13px;box-shadow:inset 0 2px 5px rgba(13,48,79,.035),0 3px 8px rgba(13,48,79,.035)
+}
+body.pension-page main.pension-shell .money-input > span{
+  color:#1388ae!important;font-size:1.2rem;font-weight:900
+}
+body.pension-page main.pension-shell :is(input,select,textarea){
+  min-height:54px!important;color:#172f49!important;background:#fff!important;
+  border:1px solid #b9cfe0!important;border-radius:13px!important;
+  box-shadow:inset 0 2px 5px rgba(13,48,79,.035),0 3px 8px rgba(13,48,79,.035)!important;
+  font-size:1rem!important
+}
+body.pension-page main.pension-shell select{padding:10px 42px 10px 14px!important}
+body.pension-page main.pension-shell :is(input,select,textarea):focus{
+  border-color:#2499bd!important;outline:3px solid rgba(57,184,212,.18)!important;outline-offset:1px
+}
+body.pension-page main.pension-shell input::placeholder{color:#8194a7!important;opacity:1}
+body.pension-page main.pension-shell .select-chevron{color:#1497b7!important;font-size:1.2rem;font-weight:900}
+body.pension-page main.pension-shell .retirement-audit-summary{
+  gap:10px 16px!important;margin-top:23px!important;padding:20px!important;
+  color:#e9f5ff!important;background:linear-gradient(135deg,#0c2b4c,#124c73 72%,#087b86)!important;
+  border:1px solid #37769a!important;border-radius:17px!important;
+  box-shadow:0 12px 26px rgba(9,42,72,.16)!important;
+}
+body.pension-page main.pension-shell .retirement-audit-summary strong{
+  color:#fff!important;font-size:1.05rem!important;padding-bottom:8px;
+  border-bottom:1px solid rgba(255,255,255,.2)
+}
+body.pension-page main.pension-shell .retirement-audit-summary span{color:#e2f1fc!important;line-height:1.65}
+body.pension-page main.pension-shell .retirement-summary-grid{gap:15px!important;margin-top:22px!important}
+body.pension-page main.pension-shell .retirement-card{
+  position:relative;overflow:hidden;gap:9px!important;padding:20px!important;
+  color:var(--pvr-ink)!important;background:linear-gradient(150deg,#fff 0%,#f5faff 100%)!important;
+  border:1px solid #d6e5f0!important;border-top:4px solid #328bb5!important;
+  border-radius:17px!important;box-shadow:0 9px 23px rgba(13,54,88,.075)!important;
+  transition:transform .18s ease,box-shadow .18s ease
+}
+body.pension-page main.pension-shell .retirement-card:nth-child(2){border-top-color:#1767a1!important}
+body.pension-page main.pension-shell .retirement-card:nth-child(3){border-top-color:#0c9aa2!important}
+body.pension-page main.pension-shell .retirement-card:nth-child(4){border-top-color:#6479c6!important}
+body.pension-page main.pension-shell .retirement-card:nth-child(5){border-top-color:#259a83!important}
+body.pension-page main.pension-shell .retirement-card-emphasis{
+  background:linear-gradient(145deg,#e9f8f6,#f7fffd)!important;border:1px solid #a8dcd5!important;
+  border-top:4px solid #0b978b!important
+}
+body.pension-page main.pension-shell .retirement-card :is(span,small){color:#526b83!important;line-height:1.55}
+body.pension-page main.pension-shell .retirement-card strong{color:#103d64!important;font-size:clamp(1.2rem,2vw,1.65rem)!important}
+body.pension-page main.pension-shell .retirement-net-placeholder,
+body.pension-page main.pension-shell .retirement-net-card{
+  margin-top:20px;padding:20px!important;border:1px solid #cfe0ec!important;
+  border-radius:16px!important;background:linear-gradient(135deg,#f1f8fd,#fff)!important;
+  box-shadow:0 8px 20px rgba(13,54,88,.06)!important
+}
+body.pension-page main.pension-shell .retirement-net-placeholder :is(strong,p),
+body.pension-page main.pension-shell .retirement-net-card :is(h3,p,span,strong){color:#173d5d!important}
+body.pension-page main.pension-shell .retirement-net-values{gap:12px}
+body.pension-page main.pension-shell .retirement-net-values > span{
+  display:flex;justify-content:space-between;gap:12px;padding:12px 14px;
+  background:#fff;border:1px solid #dce8f1;border-radius:11px
+}
+body.pension-page main.pension-shell .retirement-reference{
+  margin-top:22px;padding:18px!important;border:1px solid #d5e4ef!important;
+  border-radius:16px!important;background:#f8fbff!important;box-shadow:0 7px 18px rgba(13,54,88,.05)!important
+}
+body.pension-page main.pension-shell .retirement-reference summary{
+  color:#15476e!important;font-weight:850;padding:5px 2px
+}
+body.pension-page main.pension-shell .table-wrap{border:1px solid #d3e2ed!important;border-radius:13px!important;overflow-x:auto}
+body.pension-page main.pension-shell table{border-collapse:separate;border-spacing:0;background:#fff!important}
+body.pension-page main.pension-shell table th{
+  color:#fff!important;background:linear-gradient(110deg,#0c3157,#176b99)!important
+}
+body.pension-page main.pension-shell table td{color:#203b55!important}
+body.pension-page main.pension-shell table tbody tr:nth-child(even){background:#eef5fb!important}
+body.pension-page main.pension-shell .validation-message{
+  color:#8b3535!important;background:#fff1f0!important;border:1px solid #efc4c0!important;
+  border-left:5px solid #c94c4c!important;border-radius:13px!important;padding:15px 17px!important
+}
+body.pension-page main.pension-shell .pension-result-actions{gap:12px!important;margin-top:22px!important}
+body.pension-page main.pension-shell .pension-result-actions :is(button,a){
+  min-height:49px!important;padding:11px 20px!important;color:#fff!important;
+  background:linear-gradient(135deg,#0b3159 0%,#176da5 58%,#27a6bd 100%)!important;
+  border:1px solid rgba(255,255,255,.72)!important;border-radius:13px!important;
+  box-shadow:0 6px 0 #082746,0 10px 20px rgba(10,57,95,.22),inset 0 1px 0 rgba(255,255,255,.48)!important;
+  font-weight:800!important;text-decoration:none!important;
+  transition:transform .18s ease,box-shadow .18s ease,filter .18s ease
+}
+body.pension-page main.pension-shell .pension-result-actions :is(button,a):hover{
+  color:#fff!important;filter:brightness(1.08);transform:translateY(-2px);
+  box-shadow:0 8px 0 #082746,0 14px 24px rgba(10,57,95,.25),inset 0 1px 0 rgba(255,255,255,.5)!important
+}
+body.pension-page main.pension-shell :is(a,button,input,select,summary):focus-visible{
+  outline:3px solid #3ab8d4!important;outline-offset:3px
+}
+@media(max-width:760px){
+  body.pension-page main.pension-shell .section-heading{align-items:stretch}
+  body.pension-page main.pension-shell .source-chip{align-self:flex-start}
+  body.pension-page main.pension-shell .retirement-input-grid{grid-template-columns:minmax(0,1fr)!important;gap:14px!important}
+  body.pension-page main.pension-shell .retirement-input-grid > div{padding:15px 14px 13px}
+  body.pension-page main.pension-shell .retirement-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:11px!important}
+  body.pension-page main.pension-shell .retirement-card{padding:16px 14px!important}
+  body.pension-page main.pension-shell .retirement-audit-summary{padding:17px!important}
+}
+@media(max-width:480px){
+  body.pension-page main.pension-shell{width:calc(100% - 22px)!important}
+  body.pension-page main.pension-shell > .unofficial-banner{align-items:flex-start;padding:15px!important}
+  body.pension-page main.pension-shell .retirement-summary-grid{grid-template-columns:minmax(0,1fr)!important}
+  body.pension-page main.pension-shell .retirement-card strong{font-size:1.45rem!important}
+  body.pension-page main.pension-shell .retirement-net-values > span{flex-direction:column;align-items:flex-start}
+  body.pension-page main.pension-shell .pension-result-actions{flex-direction:column}
+  body.pension-page main.pension-shell .pension-result-actions > *{width:100%;text-align:center}
+}
+@media(prefers-reduced-motion:reduce){
+  body.pension-page main.pension-shell *{transition:none!important;scroll-behavior:auto!important}
+}
+@media print{
+  html body.pension-page{background:#fff!important}
+  body.pension-page main.pension-shell > :not(.pension-page-header):not(.footer){box-shadow:none!important}
+}
