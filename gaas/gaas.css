@@ -162,3 +162,21 @@ body.gaas-page .gaas-nav .nav-cta{color:#fff!important}
 @media(prefers-reduced-motion:reduce){
   .gaas-page .price-card,.gaas-page .plan-button{transition:none}
 }
+
+
+/* GaaS refinement v3: stronger card colour treatment and redesigned compact header. */
+body.gaas-page .gaas-nav{min-height:88px;height:auto;padding:8px clamp(18px,5vw,72px);background:linear-gradient(105deg,#fff 0%,#effaff 48%,#e6f8f7 100%)!important;border-bottom:2px solid #75cfd1;box-shadow:0 5px 22px rgba(12,54,83,.10)}
+body.gaas-page .gaas-nav .brand{display:flex;align-items:center;min-height:70px}
+body.gaas-page .gaas-nav .brand-logo{display:block;width:250px!important;height:70px!important;max-width:58vw;object-fit:contain;background-color:transparent!important}
+body.gaas-page .gaas-nav .menu{display:grid;place-items:center;width:42px;height:42px;margin-left:auto;border:1px solid #9acbd2;border-radius:13px;color:#123d5a;background:linear-gradient(145deg,#fff,#e8f6f8);box-shadow:0 3px 10px rgba(10,61,87,.12);font-size:20px}
+body.gaas-page .gaas-nav nav{align-items:center}
+body.gaas-page .gaas-nav .nav-cta{border-radius:8px;background:linear-gradient(110deg,#105c9b,#087f91);box-shadow:0 4px 12px rgba(8,92,135,.2)}
+body.gaas-page #governance .governance-grid article{border:2px solid transparent!important;border-radius:14px!important;padding:24px!important;box-shadow:0 9px 22px rgba(20,52,82,.08)!important;background-clip:padding-box,border-box!important;background-origin:padding-box,border-box!important}
+body.gaas-page #governance .governance-grid article:nth-child(1){background:linear-gradient(145deg,#eaf5ff 0%,#f8fcff 100%) padding-box,linear-gradient(135deg,#2789cf,#83c7ef) border-box!important}
+body.gaas-page #governance .governance-grid article:nth-child(2){background:linear-gradient(145deg,#e8f9f8 0%,#f8fdfd 100%) padding-box,linear-gradient(135deg,#159b9b,#8adbd0) border-box!important}
+body.gaas-page #governance .governance-grid article:nth-child(3){background:linear-gradient(145deg,#eef8e9 0%,#fbfef8 100%) padding-box,linear-gradient(135deg,#65a94b,#b8d98a) border-box!important}
+body.gaas-page #governance .governance-grid article:nth-child(4){background:linear-gradient(145deg,#fff1e8 0%,#fffaf7 100%) padding-box,linear-gradient(135deg,#d88b42,#e7b4a5) border-box!important}
+body.gaas-page #governance .governance-grid h3{color:#173b59!important}
+body.gaas-page #governance .governance-grid p{color:#526a7e!important}
+@media(max-width:760px){body.gaas-page #governance .governance-grid{grid-template-columns:minmax(0,1fr)!important;gap:14px!important}body.gaas-page #governance .governance-grid article{min-height:0!important;padding:22px!important}body.gaas-page .gaas-nav{min-height:76px;padding:6px 5vw}body.gaas-page .gaas-nav .brand-logo{width:220px!important;height:62px!important}}
+@media(max-width:380px){body.gaas-page .gaas-nav .brand-logo{width:190px!important;height:56px!important}}
