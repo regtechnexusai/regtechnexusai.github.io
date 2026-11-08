@@ -37,7 +37,7 @@ jobs:
               "COUNTRY_OPTIONS", "function sampleHint", "country-filter", "plan-source-files",
               "chatgpt.com/?q=", "FIELDS NOT PROVIDED",
               "Bangladesh Financial Intelligence Unit", "does not search those authorities",
-              "placeholder=", "Attach them manually"
+              "placeholder=", "Attach them manually", 'const isCountry=f[0]==="jurisdiction"||f[0]==="jurisdictions";'
           ]
           missing = [item for item in required if item not in js]
           assert not missing, f"Missing QA safeguards: {missing}"
