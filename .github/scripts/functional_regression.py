@@ -188,3 +188,70 @@ def test_tool_pages_have_no_uncaught_page_errors(page: Page):
     for path, heading in routes:
         open_tool(page, path, heading)
     assert not errors, "Uncaught JavaScript errors: " + " | ".join(errors)
+
+def test_gaas_demo_is_local_and_all_scenarios_render(page: Page):
+    open_tool(page, "/gaas/", "Global GaaS")
+    external_requests = []
+    page.on("request", lambda request: external_requests.append(request.url) if not request.url.startswith(BASE) else None)
+    for value, expected in [("payments", "Payments operations"), ("outsourcing", "Third-party / outsourcing risk"), ("governance", "Governance and oversight")]:
+        page.locator("#demo-domain").select_option(value)
+        page.locator("#run-demo").click()
+        expect(page.locator("#demo-output")).to_contain_text(expected)
+        expect(page.locator("#demo-output")).to_contain_text("Human review required")
+    assert not external_requests, "GaaS demo attempted an external network request: " + ", ".join(external_requests)
+
+
+def test_gaas_mobile_navigation_keyboard_and_aria(page: Page):
+    page.set_viewport_size({"width": 390, "height": 844})
+    open_tool(page, "/gaas/", "Global GaaS")
+    menu = page.locator(".gaas-nav .menu")
+    nav = page.locator("#gaas-main-nav")
+    expect(menu).to_have_attribute("aria-expanded", "false")
+    menu.click()
+    expect(menu).to_have_attribute("aria-expanded", "true")
+    expect(nav.get_by_role("link", name="Platform")).to_be_visible()
+    page.keyboard.press("Escape")
+    expect(menu).to_have_attribute("aria-expanded", "false")
+    expect(nav.get_by_role("link", name="Platform")).to_be_hidden()
+    menu.click()
+    nav.get_by_role("link", name="Demo").click()
+    expect(menu).to_have_attribute("aria-expanded", "false")
+    expect(page).to_have_url(re.compile(r"#demo$"))
+
+
+def test_gaas_dummy_checkout_focus_escape_and_no_payment_fields(page: Page):
+    open_tool(page, "/gaas/", "Global GaaS")
+    trigger = page.get_by_role("button", name="Preview plan").nth(0)
+    trigger.click()
+    dialog = page.get_by_role("dialog", name="Plan preview")
+    expect(dialog).to_be_visible()
+    expect(dialog).to_contain_text("No account is created")
+    expect(dialog).to_contain_text("No payment details are collected")
+    assert dialog.locator("input, select, textarea").count() == 0, "Dummy checkout must not collect payment or account details."
+    close_x = dialog.get_by_role("button", name="Close plan preview")
+    close_button = dialog.get_by_role("button", name="Close preview")
+    expect(close_x).to_be_focused()
+    close_button.focus()
+    page.keyboard.press("Tab")
+    expect(close_x).to_be_focused()
+    page.keyboard.press("Shift+Tab")
+    expect(close_button).to_be_focused()
+    page.keyboard.press("Escape")
+    expect(dialog).to_be_hidden()
+    expect(trigger).to_be_focused()
+
+
+def test_gaas_workflow_and_navigation_contrast(page: Page):
+    open_tool(page, "/gaas/", "Global GaaS")
+    ratios = page.evaluate("""() => {
+      const rgb = value => { const m=value.match(/[\\d.]+/g); return m ? m.slice(0,3).map(Number) : [0,0,0]; };
+      const lum = color => { const c=rgb(color).map(v=>v/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4); return .2126*c[0]+.7152*c[1]+.0722*c[2]; };
+      const ratio = (fg,bg) => { const a=lum(fg),b=lum(bg); return (Math.max(a,b)+.05)/(Math.min(a,b)+.05); };
+      const section=document.querySelector(".gaas-workflow"), nav=document.querySelector(".gaas-nav nav a");
+      return {workflowHeading:ratio(getComputedStyle(section.querySelector(".section-intro h2")).color,getComputedStyle(section).backgroundColor),
+        workflowStep:ratio(getComputedStyle(section.querySelector(".workflow-steps h3")).color,getComputedStyle(section).backgroundColor),
+        navigation:ratio(getComputedStyle(nav).color,getComputedStyle(document.querySelector(".gaas-nav")).backgroundColor)};
+    }""")
+    for name, value in ratios.items():
+        assert value >= 4.5, f"{name} contrast ratio {value:.2f}:1 is below WCAG AA 4.5:1"
+
