@@ -226,3 +226,90 @@ body.gaas-page .gaas-final-cta .btn.primary{
   color:#fff!important;background:linear-gradient(105deg,#126b9e,#168c9b)!important;
   border:1px solid #167b9b!important;box-shadow:0 6px 16px rgba(18,107,158,.18);
 }
+
+
+/* GaaS visual refinement v4 — light workflow, colourful capability cards, non-obstructive mobile header. */
+body.gaas-page .gaas-workflow{
+  background:linear-gradient(135deg,#f1f8fd 0%,#eaf7f6 52%,#f4f1fc 100%)!important;
+  color:#173752!important;
+  border-top:1px solid #dbeaf0;border-bottom:1px solid #dbeaf0;
+}
+body.gaas-page .gaas-workflow .section-intro-light h2{color:#153653!important}
+body.gaas-page .gaas-workflow .section-intro-light .section-lead{color:#526d82!important}
+body.gaas-page .gaas-workflow .section-intro-light .kicker{color:#167b91!important}
+body.gaas-page .workflow-steps{
+  border-top:1px solid #d2e2ea!important;
+  border-bottom:1px solid #d2e2ea!important;
+  gap:12px!important;
+}
+body.gaas-page .workflow-steps article{
+  margin:0!important;padding:23px 19px!important;
+  border:1px solid #9fc8dc!important;border-radius:12px!important;
+  background:linear-gradient(145deg,#e3f2fc,#f8fcff)!important;
+  box-shadow:0 7px 18px rgba(26,74,106,.06);
+}
+body.gaas-page .workflow-steps article:nth-child(2){
+  border-color:#91cece!important;background:linear-gradient(145deg,#e2f7f3,#f8fdfc)!important;
+}
+body.gaas-page .workflow-steps article:nth-child(3){
+  border-color:#b6c995!important;background:linear-gradient(145deg,#eff7df,#fbfdf7)!important;
+}
+body.gaas-page .workflow-steps article:nth-child(4){
+  border-color:#d6b2d7!important;background:linear-gradient(145deg,#f6eafa,#fdf9ff)!important;
+}
+body.gaas-page .workflow-steps article:nth-child(5){
+  border-color:#e1bd91!important;background:linear-gradient(145deg,#fff0df,#fffaf4)!important;
+}
+body.gaas-page .workflow-steps article>span{color:#147b91!important}
+body.gaas-page .workflow-steps h3{color:#173b58!important}
+body.gaas-page .workflow-steps p{color:#536c80!important}
+
+/* Give all six platform capability boxes clear, distinct pastel fills and visible borders. */
+body.gaas-page .product-grid{gap:14px!important}
+body.gaas-page .product-card{
+  border:1px solid #8ebbd3!important;border-radius:14px!important;
+  background:linear-gradient(145deg,#eaf5ff 0%,#f8fbff 100%)!important;
+  box-shadow:0 8px 22px rgba(27,76,112,.07);
+}
+body.gaas-page .product-card:nth-child(2){
+  border-color:#86c9ce!important;background:linear-gradient(145deg,#e6f8f6,#f9fdfc)!important;
+}
+body.gaas-page .product-card:nth-child(3){
+  border-color:#b7c993!important;background:linear-gradient(145deg,#f0f7e5,#fcfdf9)!important;
+}
+body.gaas-page .product-card:nth-child(4){
+  border-color:#d8b3d9!important;background:linear-gradient(145deg,#f7edfb,#fdfaff)!important;
+}
+body.gaas-page .product-card:nth-child(5){
+  border-color:#e2bd91!important;background:linear-gradient(145deg,#fff2e5,#fffaf5)!important;
+}
+body.gaas-page .product-card:nth-child(6){
+  border-color:#a8b5df!important;background:linear-gradient(145deg,#edf0ff,#fafaff)!important;
+}
+body.gaas-page .product-card h3{color:#173b58!important}
+body.gaas-page .product-card p{color:#526b80!important}
+body.gaas-page .product-card .product-index{color:#167b91!important}
+body.gaas-page .product-card .product-state{background:rgba(255,255,255,.78)!important;color:#3c6277!important}
+body.gaas-page .product-card-primary{
+  background:linear-gradient(145deg,#dff2f8,#e9f6ff)!important;
+  border-color:#6eafc9!important;
+}
+body.gaas-page .product-card-primary h3{color:#153b58!important}
+body.gaas-page .product-card-primary p{color:#4b687c!important}
+body.gaas-page .product-card-primary .product-index{color:#167b91!important}
+body.gaas-page .product-card-primary .product-state{background:#cce9ee!important;color:#285a70!important}
+
+/* On small screens, let the header remain in normal document flow so it cannot cover page content. */
+@media(max-width:760px){
+  body.gaas-page header.gaas-nav{
+    position:relative!important;top:auto!important;
+    z-index:20!important;
+  }
+  body.gaas-page .workflow-steps{grid-template-columns:1fr 1fr!important}
+  body.gaas-page .workflow-steps article{padding:19px 16px!important}
+}
+@media(max-width:560px){
+  body.gaas-page header.gaas-nav{height:76px!important;min-height:76px!important}
+  body.gaas-page .workflow-steps{grid-template-columns:1fr!important}
+  body.gaas-page .workflow-steps article{border-radius:11px!important}
+}
