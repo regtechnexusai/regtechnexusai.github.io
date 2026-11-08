@@ -76,3 +76,89 @@ body.gaas-page .gaas-nav nav a{color:#263f59!important;font-size:13px!important;
 body.gaas-page .gaas-nav nav a:hover,body.gaas-page .gaas-nav nav a:focus-visible{color:#087f9b!important}
 body.gaas-page .gaas-nav .nav-cta{color:#fff!important}
 @media(max-width:760px){body.gaas-page .gaas-nav.open nav a{color:#263f59!important;font-size:14px!important}}
+
+
+/* GaaS visual refinement v2 — mobile-first pricing, colour accents and contrast. */
+.gaas-page .gaas-status-card h2{color:#f7fbff!important;opacity:1!important;text-shadow:none!important}
+.gaas-page .gaas-workflow .section-intro h2,
+.gaas-page .gaas-workflow .workflow-steps h3{color:#f7fbff!important;opacity:1!important;text-shadow:none!important}
+.gaas-page .gaas-final-cta h2{color:#fff!important;opacity:1!important;text-shadow:none!important}
+.gaas-page .gaas-final-cta p:not(.kicker){color:#e1f0f5!important}
+.gaas-page .gaas-status-card .status-kicker{color:#9deaf0!important}
+.gaas-page .gaas-status-card>p:not(.status-kicker){color:#d9e7f2!important}
+.gaas-page .gaas-status-card .status-row span{color:#d0dfeb!important}
+.gaas-page .gaas-status-card .status-row strong{color:#ffe09a!important}
+
+/* Distinct, restrained colour identities for the six proposed plans. */
+.gaas-page .price-card{
+  border:1px solid transparent;
+  background:
+    linear-gradient(155deg,#fff 0%,#f8fbff 100%) padding-box,
+    linear-gradient(135deg,#4c9fd6,#75d6d0,#9a8be8) border-box;
+  box-shadow:0 10px 26px rgba(17,45,74,.07);
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.gaas-page .price-card:nth-child(2){
+  background:linear-gradient(155deg,#fff 0%,#f2fbff 100%) padding-box,
+    linear-gradient(135deg,#42a5e8,#56d6dc) border-box;
+}
+.gaas-page .price-card:nth-child(3){
+  background:linear-gradient(155deg,#fff 0%,#f4f2ff 100%) padding-box,
+    linear-gradient(135deg,#7c65d8,#c18be9,#ee9ac8) border-box;
+}
+.gaas-page .price-card:nth-child(4){
+  background:linear-gradient(155deg,#fff 0%,#f1fbf6 100%) padding-box,
+    linear-gradient(135deg,#36a982,#a4d96f) border-box;
+}
+.gaas-page .price-card:nth-child(5){
+  background:linear-gradient(155deg,#fff 0%,#fff8ef 100%) padding-box,
+    linear-gradient(135deg,#e7a13d,#ed7e79) border-box;
+}
+.gaas-page .price-card:nth-child(6){
+  background:linear-gradient(155deg,#fff 0%,#f2f6fc 100%) padding-box,
+    linear-gradient(135deg,#536b91,#8aa8c9,#67b8c6) border-box;
+}
+.gaas-page .price-card:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(17,45,74,.12)}
+.gaas-page .price-card-featured{
+  border:2px solid transparent;
+  background:linear-gradient(155deg,#fff 0%,#f6f2ff 100%) padding-box,
+    linear-gradient(125deg,#6555d9,#a16be0,#e58bc2) border-box;
+  box-shadow:0 14px 32px rgba(113,91,202,.16);
+}
+.gaas-page .popular-label{background:linear-gradient(100deg,#5b55ce,#a34fc0,#d66d9c);color:#fff}
+.gaas-page .plan-button{
+  color:#fff!important;
+  border:1px solid transparent!important;
+  background:linear-gradient(105deg,#126b9e,#168c9b)!important;
+  box-shadow:0 4px 0 rgba(8,48,79,.16),0 8px 18px rgba(18,107,158,.16);
+  transition:filter .18s ease,transform .18s ease,box-shadow .18s ease;
+}
+.gaas-page .price-card:nth-child(2) .plan-button{background:linear-gradient(105deg,#1978bd,#20a9bd)!important}
+.gaas-page .price-card:nth-child(3) .plan-button{background:linear-gradient(105deg,#6155c8,#a15ac0)!important}
+.gaas-page .price-card:nth-child(4) .plan-button{background:linear-gradient(105deg,#188c73,#55ae76)!important}
+.gaas-page .price-card:nth-child(5) .plan-button{background:linear-gradient(105deg,#c47a28,#d65d61)!important}
+.gaas-page .price-card:nth-child(6) .plan-button{background:linear-gradient(105deg,#435d82,#287f99)!important}
+.gaas-page .plan-button:hover{filter:brightness(1.08);transform:translateY(-1px);box-shadow:0 6px 0 rgba(8,48,79,.12),0 12px 22px rgba(18,107,158,.2)}
+.gaas-page .plan-button:focus-visible,.gaas-page .btn:focus-visible{outline:3px solid #f0b84d;outline-offset:3px}
+.gaas-page .price-card li:before{color:#168d92}
+.gaas-page .governance-grid article{
+  border:1px solid transparent;
+  background:linear-gradient(#fff,#fff) padding-box,
+    linear-gradient(135deg,#78b8db,#a9d9cf,#c6b1e8) border-box;
+  box-shadow:0 7px 20px rgba(17,45,74,.045);
+}
+.gaas-page .governance-grid article:nth-child(2){background:linear-gradient(#fff,#fff) padding-box,linear-gradient(135deg,#65b6c7,#8e9fe1) border-box}
+.gaas-page .governance-grid article:nth-child(3){background:linear-gradient(#fff,#fff) padding-box,linear-gradient(135deg,#69bd9c,#b6d98b) border-box}
+.gaas-page .governance-grid article:nth-child(4){background:linear-gradient(#fff,#fff) padding-box,linear-gradient(135deg,#e1b36b,#dc91a7) border-box}
+
+@media(max-width:760px){
+  .gaas-page .pricing-grid,.gaas-page .governance-grid{grid-template-columns:minmax(0,1fr)}
+  .gaas-page .price-card{min-height:0;padding:24px}
+  .gaas-page .price-card ul{margin-bottom:20px}
+  .gaas-page .gaas-hero h1{font-size:clamp(36px,8vw,45px);line-height:1.08}
+  .gaas-page .gaas-status-card{max-width:none}
+  .gaas-page .gaas-strip{grid-template-columns:1fr 1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  .gaas-page .price-card,.gaas-page .plan-button{transition:none}
+}
