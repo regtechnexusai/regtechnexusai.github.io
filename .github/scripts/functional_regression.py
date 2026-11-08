@@ -182,6 +182,7 @@ def test_tool_pages_have_no_uncaught_page_errors(page: Page):
         ("/payscale-2026/", "PayScale 2026"),
         ("/md-ceo-performance-calculator/", "MD/CEO"),
         ("/icms-2026/", "ICMS"),
+        ("/gaas/", "Global GaaS"),
     ]
     errors = []
     page.on("pageerror", lambda error: errors.append(str(error)))
@@ -239,6 +240,7 @@ def test_gaas_dummy_checkout_focus_escape_and_no_payment_fields(page: Page):
     page.keyboard.press("Escape")
     expect(dialog).to_be_hidden()
     expect(trigger).to_be_focused()
+    expect(page.locator("body")).not_to_have_css("overflow", "hidden")
 
 
 def test_gaas_workflow_and_navigation_contrast(page: Page):
