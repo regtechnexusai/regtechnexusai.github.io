@@ -32,7 +32,16 @@ jobs:
           python -m pip install pytest pytest-playwright
           python -m playwright install --with-deps chromium
 
-      - name: Run read-only production functional tests
+      - name: Start local site for branch regression tests
+        run: |
+          python -m http.server 8000 --bind 127.0.0.1 > /tmp/regtech-http.log 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl --silent --fail http://127.0.0.1:8000/gaas/ > /dev/null; then break; fi
+            sleep 1
+          done
+          curl --silent --fail http://127.0.0.1:8000/gaas/ > /dev/null
+
+      - name: Run branch functional regression tests
         run: |
           pytest -v .github/scripts/functional_regression.py --junitxml=functional-regression-results.xml
 
