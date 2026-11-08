@@ -89,10 +89,10 @@ let control="";
 if(f[2]==="select"||f[0]==="jurisdiction"||f[0]==="jurisdictions"){
  const opts=(f[0]==="jurisdiction"||f[0]==="jurisdictions")?COUNTRY_OPTIONS:f[3];
  const multi=f[0]==="jurisdictions";
- control='<select id="field-'+f[0]+'" name="'+f[0]+'" '+(multi?'multiple size="5" aria-describedby="jurisdiction-hint"':'')+'><option value="">'+(multi?'Select one or more countries':'Choose a country / region')+'</option>'+opts.map(o=>'<option value="'+esc(o)+'">'+esc(o)+'</option>').join("")+'</select>';
+ control='<div class="country-select-wrap"><input class="country-filter" type="search" aria-label="Filter country and region options" placeholder="Type to filter country / region" data-filter-target="field-'+f[0]+'"><select id="field-'+f[0]+'" name="'+f[0]+'" '+(multi?'multiple size="5" aria-describedby="jurisdiction-hint"':'')+'><option value="">'+(multi?'Select one or more countries':'Choose a country / region')+'</option>'+opts.map(o=>'<option value="'+esc(o)+'">'+esc(o)+'</option>').join("")+'</select></div>';
 }else{
  const hint=sampleHint(f[0],f[1],f[3]);
- control='<input id="field-'+f[0]+'" name="'+f[0]+'" type="'+(f[2]==="date"?"date":"text")+'" '+(f[2]==="date"?'title="Choose a target date"':'placeholder="'+esc(hint)+'"')+' autocomplete="off">';
+ control='<input id="field-'+f[0]+'" name="'+f[0]+'" type="'+(f[2]==="date"?"date":"text")+'" '+(f[2]==="date"?'title="Choose a target date"':'placeholder="'+esc(hint)+'"')+' autocomplete="off">'+(f[2]==="date"?'<small class="field-example">e.g. Select a target review date</small>':'');
 }
 return '<label class="plan-field"><span>'+esc(f[1])+'</span>'+control+'</label>';
 }).join("");
@@ -156,7 +156,7 @@ function generatePlanOutput(form){
  const link=result.querySelector("#open-chatgpt-report");
  if(link){const opened=window.open(chatUrl,"_blank","noopener,noreferrer");if(!opened)link.textContent="Open ChatGPT (popup blocked — tap here)";}
 }
-document.addEventListener("change",event=>{if(event.target&&event.target.id==="plan-source-files"){const s=document.getElementById("plan-file-status"),n=event.target.files?.length||0;if(s)s.textContent=n?n+" file(s) selected. Attach them manually after ChatGPT opens.":"No files selected. Files are not uploaded to this website; attach them manually in ChatGPT.";}});
+document.addEventListener("input",event=>{if(event.target&&event.target.classList.contains("country-filter")){const target=document.getElementById(event.target.dataset.filterTarget),q=event.target.value.trim().toLowerCase();if(target)Array.from(target.options).forEach((option,i)=>{option.hidden=i!==0&&!option.text.toLowerCase().includes(q);});}});\ndocument.addEventListener("change",event=>{if(event.target&&event.target.id==="plan-source-files"){const s=document.getElementById("plan-file-status"),n=event.target.files?.length||0;if(s)s.textContent=n?n+" file(s) selected. Attach them manually after ChatGPT opens.":"No files selected. Files are not uploaded to this website; attach them manually in ChatGPT.";}});
 document.addEventListener("submit",event=>{if(event.target&&event.target.id==="plan-demo-form"){event.preventDefault();generatePlanOutput(event.target);}});
 function closePlan(){if(!modal)return;modal.hidden=true;document.body.classList.remove("modal-open");if(lastPlanTrigger)lastPlanTrigger.focus();}
 document.querySelectorAll("[data-plan]").forEach(button=>button.addEventListener("click",()=>openPlan(button)));
