@@ -162,3 +162,67 @@ body.gaas-page .gaas-nav .nav-cta{color:#fff!important}
 @media(prefers-reduced-motion:reduce){
   .gaas-page .price-card,.gaas-page .plan-button{transition:none}
 }
+
+
+/* GaaS visual refinement v3 — stronger governance colour, branded header and light CTA panel. */
+body.gaas-page header.gaas-nav{
+  min-height:82px;height:82px;padding:0 clamp(18px,5vw,72px);
+  background:linear-gradient(100deg,#f4faff 0%,#e8f7fb 48%,#eef2ff 100%)!important;
+  border-bottom:3px solid transparent!important;
+  border-image:linear-gradient(90deg,#197bb8,#39b9b0,#8c78d8) 1!important;
+  box-shadow:0 5px 20px rgba(18,66,100,.09);
+}
+body.gaas-page header.gaas-nav .brand-logo{
+  width:190px!important;height:62px!important;object-fit:contain;
+  background:transparent!important;
+}
+body.gaas-page header.gaas-nav .menu{
+  color:#123b5c!important;background:rgba(255,255,255,.82)!important;
+  border:1px solid #b8d5e3!important;border-radius:10px!important;
+  width:42px;height:42px;font-size:21px!important;
+  box-shadow:0 3px 10px rgba(14,58,87,.1);
+}
+body.gaas-page header.gaas-nav nav a{color:#173c59!important;font-weight:750!important}
+body.gaas-page header.gaas-nav .nav-cta{
+  background:linear-gradient(105deg,#126b9e,#168c9b)!important;
+  border-radius:8px;color:#fff!important;padding:12px 17px;
+}
+@media(max-width:560px){
+  body.gaas-page header.gaas-nav{height:76px;min-height:76px;padding:0 16px}
+  body.gaas-page header.gaas-nav .brand-logo{width:174px!important;height:56px!important}
+  body.gaas-page .gaas-nav.open nav{top:76px;background:linear-gradient(135deg,#f2f9ff,#e8f7f7)!important;border-bottom:2px solid #62b8c7;box-shadow:0 12px 22px rgba(15,53,82,.12)}
+}
+
+/* Make the four governance panels visibly colourful, not merely outlined. */
+body.gaas-page .governance-grid article{
+  border:1px solid #8ebbd3!important;
+  background:linear-gradient(145deg,#eaf6ff 0%,#f7fbff 100%)!important;
+  box-shadow:0 8px 22px rgba(27,76,112,.075);
+}
+body.gaas-page .governance-grid article:nth-child(2){
+  border-color:#83c7cb!important;
+  background:linear-gradient(145deg,#e6f8f6 0%,#f7fdfc 100%)!important;
+}
+body.gaas-page .governance-grid article:nth-child(3){
+  border-color:#a8c98c!important;
+  background:linear-gradient(145deg,#eff8e8 0%,#fbfdf7 100%)!important;
+}
+body.gaas-page .governance-grid article:nth-child(4){
+  border-color:#d7b18a!important;
+  background:linear-gradient(145deg,#fff2e8 0%,#fffaf5 100%)!important;
+}
+body.gaas-page .governance-grid article h3{color:#173b58!important}
+body.gaas-page .governance-grid article p{color:#506a7e!important}
+
+/* The lower contact/CTA panel is intentionally changed from dark navy to a light premium finish. */
+body.gaas-page section.gaas-final-cta{
+  background:linear-gradient(120deg,#edf7ff 0%,#e6f7f5 52%,#f1efff 100%)!important;
+  border-top:1px solid #d5e8f0;border-bottom:1px solid #d5e8f0;
+}
+body.gaas-page .gaas-final-cta .kicker{color:#176b91!important}
+body.gaas-page .gaas-final-cta h2{color:#123653!important;text-shadow:none!important}
+body.gaas-page .gaas-final-cta p:not(.kicker){color:#526d81!important}
+body.gaas-page .gaas-final-cta .btn.primary{
+  color:#fff!important;background:linear-gradient(105deg,#126b9e,#168c9b)!important;
+  border:1px solid #167b9b!important;box-shadow:0 6px 16px rgba(18,107,158,.18);
+}
