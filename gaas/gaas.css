@@ -568,3 +568,8 @@ body.modal-open{overflow:hidden}
 .gaas-page .plan-result-actions a,.gaas-page .plan-result-actions button{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 16px;border:0;border-radius:9px;background:#12395d;color:#fff;font-family:inherit;font-weight:600;font-size:13px;text-decoration:none;cursor:pointer}
 .gaas-page .plan-result-actions button{background:#e8f0f5;color:#23465f;border:1px solid #c6d8e3}
 @media(max-width:560px){.gaas-page .plan-result-actions{display:grid;grid-template-columns:1fr}.gaas-page .plan-result-actions a,.gaas-page .plan-result-actions button{width:100%}}
+
+.gaas-page .country-select-wrap{display:grid;gap:6px}
+.gaas-page .country-filter{min-height:36px;padding:7px 10px;border:1px solid #cbd9e3;border-radius:8px;background:#fff;color:#29465d;font-size:12px}
+.gaas-page .country-filter::placeholder{color:#aab5c1!important;font-weight:400}
+.gaas-page .field-example{display:block;margin-top:4px;color:#aab5c1;font-size:11px;font-weight:400}
