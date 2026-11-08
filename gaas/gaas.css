@@ -76,3 +76,7 @@ body.gaas-page .gaas-nav nav a{color:#263f59!important;font-size:13px!important;
 body.gaas-page .gaas-nav nav a:hover,body.gaas-page .gaas-nav nav a:focus-visible{color:#087f9b!important}
 body.gaas-page .gaas-nav .nav-cta{color:#fff!important}
 @media(max-width:760px){body.gaas-page .gaas-nav.open nav a{color:#263f59!important;font-size:14px!important}}
+
+/* Ensure navigation text is measured against an opaque light surface. */
+body.gaas-page .gaas-nav{background-color:#ffffff!important;background-image:none!important}
+body.gaas-page .gaas-nav nav a{color:#17324d!important}
