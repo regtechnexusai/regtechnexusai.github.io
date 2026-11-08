@@ -182,7 +182,7 @@ def test_tool_pages_have_no_uncaught_page_errors(page: Page):
         ("/payscale-2026/", "PayScale 2026"),
         ("/md-ceo-performance-calculator/", "MD/CEO"),
         ("/icms-2026/", "ICMS"),
-        ("/gaas/", "Global GaaS"),
+        ("/gaas/", "GLOBAL AGENTIC-AS-A-SERVICE"),
     ]
     errors = []
     page.on("pageerror", lambda error: errors.append(str(error)))
@@ -191,7 +191,7 @@ def test_tool_pages_have_no_uncaught_page_errors(page: Page):
     assert not errors, "Uncaught JavaScript errors: " + " | ".join(errors)
 
 def test_gaas_demo_is_local_and_all_scenarios_render(page: Page):
-    open_tool(page, "/gaas/", "Global GaaS")
+    open_tool(page, "/gaas/", "GLOBAL AGENTIC-AS-A-SERVICE")
     external_requests = []
     page.on("request", lambda request: external_requests.append(request.url) if not request.url.startswith(BASE) else None)
     for value, expected in [("payments", "Payments operations"), ("outsourcing", "Third-party / outsourcing risk"), ("governance", "Governance and oversight")]:
@@ -204,7 +204,7 @@ def test_gaas_demo_is_local_and_all_scenarios_render(page: Page):
 
 def test_gaas_mobile_navigation_keyboard_and_aria(page: Page):
     page.set_viewport_size({"width": 390, "height": 844})
-    open_tool(page, "/gaas/", "Global GaaS")
+    open_tool(page, "/gaas/", "GLOBAL AGENTIC-AS-A-SERVICE")
     menu = page.locator(".gaas-nav .menu")
     nav = page.locator("#gaas-main-nav")
     expect(menu).to_have_attribute("aria-expanded", "false")
@@ -221,7 +221,7 @@ def test_gaas_mobile_navigation_keyboard_and_aria(page: Page):
 
 
 def test_gaas_dummy_checkout_focus_escape_and_no_payment_fields(page: Page):
-    open_tool(page, "/gaas/", "Global GaaS")
+    open_tool(page, "/gaas/", "GLOBAL AGENTIC-AS-A-SERVICE")
     trigger = page.get_by_role("button", name="Preview plan").nth(0)
     trigger.click()
     dialog = page.get_by_role("dialog", name="Plan preview")
@@ -244,7 +244,7 @@ def test_gaas_dummy_checkout_focus_escape_and_no_payment_fields(page: Page):
 
 
 def test_gaas_workflow_and_navigation_contrast(page: Page):
-    open_tool(page, "/gaas/", "Global GaaS")
+    open_tool(page, "/gaas/", "GLOBAL AGENTIC-AS-A-SERVICE")
     ratios = page.evaluate("""() => {
       const rgb = value => { const m=value.match(/[\\d.]+/g); return m ? m.slice(0,3).map(Number) : [0,0,0]; };
       const lum = color => { const c=rgb(color).map(v=>v/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4); return .2126*c[0]+.7152*c[1]+.0722*c[2]; };
