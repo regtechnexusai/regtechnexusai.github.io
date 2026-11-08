@@ -35,7 +35,7 @@ jobs:
           required = [
               "function buildChatGPTPrompt", "function generatePlanOutput",
               "COUNTRY_OPTIONS", "function sampleHint", "country-filter", "plan-source-files",
-              "chatgpt.com/?q=", "FIELDS NOT PROVIDED",
+              "FIELDS NOT PROVIDED",
               "Bangladesh Financial Intelligence Unit", "does not search those authorities",
               "placeholder=", "Attach them manually", 'const isCountry=f[0]==="jurisdiction"||f[0]==="jurisdictions";',
               "const validation=validatePlan(plan,values);", 'const chatUrl="https://chatgpt.com/";',
