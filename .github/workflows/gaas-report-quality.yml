@@ -34,7 +34,7 @@ jobs:
           css = Path("gaas/gaas.css").read_text()
           required = [
               "function buildChatGPTPrompt", "function generatePlanOutput",
-              "COUNTRY_OPTIONS", "function sampleHint", "plan-source-files",
+              "COUNTRY_OPTIONS", "function sampleHint", "country-filter", "plan-source-files",
               "chatgpt.com/?q=", "FIELDS NOT PROVIDED",
               "Bangladesh Financial Intelligence Unit", "does not search those authorities",
               "placeholder=", "Attach them manually"
