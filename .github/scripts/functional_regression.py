@@ -7,11 +7,12 @@ import re
 from pathlib import Path
 from playwright.sync_api import Page, expect
 
-BASE = "http://127.0.0.1:8000"
+PRODUCTION_BASE = "https://regtechnexusai.com"
+LOCAL_BASE = "http://127.0.0.1:8000"
 
 
-def open_tool(page: Page, path: str, heading: str):
-    response = page.goto(f"{BASE}{path}", wait_until="domcontentloaded", timeout=60000)
+def open_tool(page: Page, path: str, heading: str, base: str = PRODUCTION_BASE):
+    response = page.goto(f"{base}{path}", wait_until="domcontentloaded", timeout=60000)
     assert response is not None and response.status < 400, f"{path} returned {response.status if response else 'no response'}"
     expect(page.locator("body")).to_contain_text(re.compile(heading, re.I), timeout=20000)
 
@@ -191,9 +192,9 @@ def test_tool_pages_have_no_uncaught_page_errors(page: Page):
     assert not errors, "Uncaught JavaScript errors: " + " | ".join(errors)
 
 def test_gaas_demo_is_local_and_all_scenarios_render(page: Page):
-    open_tool(page, "/gaas/", "GLOBAL AGENTIC-AS-A-SERVICE")
+    open_tool(page, "/gaas/", "GLOBAL AGENTIC-AS-A-SERVICE", LOCAL_BASE)
     external_requests = []
-    page.on("request", lambda request: external_requests.append(request.url) if not request.url.startswith(BASE) else None)
+    page.on("request", lambda request: external_requests.append(request.url) if not request.url.startswith(LOCAL_BASE) else None)
     for value, expected in [("payments", "Payments operations"), ("outsourcing", "Third-party / outsourcing risk"), ("governance", "Governance and oversight")]:
         page.locator("#demo-domain").select_option(value)
         page.locator("#run-demo").click()
