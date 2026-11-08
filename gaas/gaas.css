@@ -509,3 +509,33 @@ body.modal-open{overflow:hidden}
  body.gaas-page #plan-demo-result{position:absolute;inset:0;width:100%;margin:0}
  body.gaas-page .plan-result-actions{display:none!important}
 }
+
+
+/* QA fix: print only the single generated report node; never paginate the full modal/page. */
+@page{size:A4 portrait;margin:8mm}
+@media print{
+ html,body.gaas-page{width:100%!important;height:auto!important;min-height:0!important;margin:0!important;padding:0!important;background:#fff!important;overflow:visible!important}
+ body.gaas-page *{visibility:hidden!important}
+ body.gaas-page #plan-demo-result,
+ body.gaas-page #plan-demo-result *{visibility:visible!important}
+ body.gaas-page #plan-demo-result{
+   position:fixed!important;top:0!important;left:0!important;right:0!important;
+   width:100%!important;height:auto!important;max-height:none!important;margin:0!important;
+   padding:0!important;overflow:visible!important;background:#fff!important;z-index:2147483647!important;
+   break-before:avoid!important;break-after:avoid!important
+ }
+ body.gaas-page #plan-demo-result .plan-result-document{
+   width:100%!important;max-width:none!important;margin:0!important;border:1px solid #b9d6e0!important;
+   border-radius:0!important;box-shadow:none!important;overflow:visible!important;
+   break-inside:avoid!important;page-break-inside:avoid!important
+ }
+ body.gaas-page #plan-demo-result .plan-result-banner{padding:8px 10px!important}
+ body.gaas-page #plan-demo-result .plan-result-banner>strong{font-size:14px!important}
+ body.gaas-page #plan-demo-result .plan-result-rows section{padding:7px 9px!important}
+ body.gaas-page #plan-demo-result .plan-result-rows section strong{font-size:9px!important}
+ body.gaas-page #plan-demo-result .plan-result-rows section p{font-size:8px!important;line-height:1.35!important}
+ body.gaas-page #plan-demo-result .plan-result-warning{margin:8px!important;padding:7px 9px!important}
+ body.gaas-page #plan-demo-result .plan-result-warning p{font-size:8px!important;line-height:1.35!important}
+ body.gaas-page #plan-demo-result .plan-result-actions{display:none!important}
+ body.gaas-page #plan-demo-result .plan-validation-error{display:none!important}
+}
