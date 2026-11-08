@@ -156,7 +156,8 @@ function generatePlanOutput(form){
  const link=result.querySelector("#open-chatgpt-report");
  if(link){const opened=window.open(chatUrl,"_blank","noopener,noreferrer");if(!opened)link.textContent="Open ChatGPT (popup blocked — tap here)";}
 }
-document.addEventListener("change",event=>{if(event.target&&event.target.id==="plan-source-files"){const s=document.getElementById("plan-file-status"),n=event.target.files?.length||0;if(s)s.textContent=n?n+" file(s) selected. Attach them manually after ChatGPT opens.":"No files selected. Files are not uploaded to this website; attach them manually in ChatGPT.";}});\ndocument.addEventListener("submit",event=>{if(event.target&&event.target.id==="plan-demo-form"){event.preventDefault();generatePlanOutput(event.target);}});
+document.addEventListener("change",event=>{if(event.target&&event.target.id==="plan-source-files"){const s=document.getElementById("plan-file-status"),n=event.target.files?.length||0;if(s)s.textContent=n?n+" file(s) selected. Attach them manually after ChatGPT opens.":"No files selected. Files are not uploaded to this website; attach them manually in ChatGPT.";}});
+document.addEventListener("submit",event=>{if(event.target&&event.target.id==="plan-demo-form"){event.preventDefault();generatePlanOutput(event.target);}});
 function closePlan(){if(!modal)return;modal.hidden=true;document.body.classList.remove("modal-open");if(lastPlanTrigger)lastPlanTrigger.focus();}
 document.querySelectorAll("[data-plan]").forEach(button=>button.addEventListener("click",()=>openPlan(button)));
 document.querySelectorAll("[data-close-modal]").forEach(element=>element.addEventListener("click",closePlan));
