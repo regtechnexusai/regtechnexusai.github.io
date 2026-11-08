@@ -509,3 +509,46 @@ body.modal-open{overflow:hidden}
  body.gaas-page #plan-demo-result{position:absolute;inset:0;width:100%;margin:0}
  body.gaas-page .plan-result-actions{display:none!important}
 }
+
+
+/* QA fix: print only the single generated report node; never paginate the full modal/page. */
+@page{size:A4 portrait;margin:8mm}
+@media print{
+ html,body.gaas-page{width:100%!important;height:auto!important;min-height:0!important;margin:0!important;padding:0!important;background:#fff!important;overflow:visible!important}
+ body.gaas-page *{visibility:hidden!important}
+ body.gaas-page #plan-demo-result,
+ body.gaas-page #plan-demo-result *{visibility:visible!important}
+ body.gaas-page #plan-demo-result{
+   position:static!important;inset:auto!important;
+   width:100%!important;height:auto!important;max-height:none!important;margin:0!important;
+   padding:0!important;overflow:visible!important;background:#fff!important;z-index:2147483647!important;
+   break-before:avoid!important;break-after:avoid!important
+ }
+ body.gaas-page #plan-demo-result .plan-result-document{
+   width:100%!important;max-width:none!important;margin:0!important;border:1px solid #b9d6e0!important;
+   border-radius:0!important;box-shadow:none!important;overflow:visible!important;
+   break-inside:avoid!important;page-break-inside:avoid!important
+ }
+ body.gaas-page #plan-demo-result .plan-result-banner{padding:8px 10px!important}
+ body.gaas-page #plan-demo-result .plan-result-banner>strong{font-size:14px!important}
+ body.gaas-page #plan-demo-result .plan-result-rows section{padding:7px 9px!important}
+ body.gaas-page #plan-demo-result .plan-result-rows section strong{font-size:9px!important}
+ body.gaas-page #plan-demo-result .plan-result-rows section p{font-size:8px!important;line-height:1.35!important}
+ body.gaas-page #plan-demo-result .plan-result-warning{margin:8px!important;padding:7px 9px!important}
+ body.gaas-page #plan-demo-result .plan-result-warning p{font-size:8px!important;line-height:1.35!important}
+ body.gaas-page #plan-demo-result .plan-result-actions{display:none!important}
+ body.gaas-page #plan-demo-result .plan-validation-error{display:none!important}
+}
+/* Plan transparency: explain inputs, demo processing, outputs and live-source boundary. */
+.plan-explainer{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0 22px}
+.plan-explainer section{padding:14px;border:1px solid #c7dce8;border-radius:12px;background:linear-gradient(135deg,#f1f8fc,#f4fbf8)}
+.plan-explainer section:nth-child(2){background:linear-gradient(135deg,#f2f5ff,#eef9fc);border-color:#cbd8ef}
+.plan-explainer section:nth-child(3){background:linear-gradient(135deg,#f3fbf5,#f8fbef);border-color:#cfe4d3}
+.plan-explainer section:nth-child(4){background:linear-gradient(135deg,#fff8eb,#fff3f0);border-color:#ead8bb}
+.plan-explainer strong{display:block;color:#143653;font-size:13px;margin-bottom:6px}
+.plan-explainer p{margin:0;color:#52677a;font-size:12px;line-height:1.55}
+@media(max-width:640px){.plan-explainer{grid-template-columns:1fr}}
+@media print{
+ body.gaas-page #plan-demo-result{position:static!important;inset:auto!important;display:block!important}
+ body.gaas-page #plan-demo-result .plan-result-document{position:static!important;break-inside:auto!important;page-break-inside:auto!important}
+}
