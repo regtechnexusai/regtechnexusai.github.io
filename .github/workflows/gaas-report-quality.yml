@@ -1,0 +1,48 @@
+name: GaaS report quality checks
+
+on:
+  pull_request:
+    paths:
+      - "gaas/**"
+      - ".github/workflows/gaas-report-quality.yml"
+  push:
+    branches: [main]
+    paths:
+      - "gaas/**"
+      - ".github/workflows/gaas-report-quality.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-gaas-reports:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check JavaScript syntax
+        run: node --check gaas/gaas.js
+      - name: Check report QA safeguards
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          js = Path("gaas/gaas.js").read_text()
+          html = Path("gaas/index.html").read_text()
+          css = Path("gaas/gaas.css").read_text()
+          required = [
+              "function validatePlan", "function candidateAuthorities",
+              "function dateStatus", "Input consistency warnings",
+              "Math.random().toString(36)", "Bangladesh Financial Intelligence Unit",
+              "OVERDUE", "Research question must describe the regulatory issue"
+          ]
+          missing = [item for item in required if item not in js]
+          assert not missing, f"Missing QA safeguards: {missing}"
+          assert 'href="gaas.css?v=8"' in html
+          assert 'src="gaas.js?v=8"' in html
+          assert "@page{size:A4 portrait;margin:8mm}" in css
+          assert "plan-result-document" in css and "position:fixed!important" in css
+          print("GaaS report QA safeguards present.")
+          PY
