@@ -122,6 +122,157 @@ header.nav nav{z-index:1001}
   #chapters p,#work p,#supplement p,.sheet > p:not(.small):not(.callout){font-size:15px!important}
 }
 </style>
+
+<style id="operational-flow-visual-refresh">
+/* Presentation-only refresh: existing process content and rendering logic remain unchanged. */
+#process-flow{
+  --flow-navy:#102b46;--flow-blue:#176b9a;--flow-teal:#168b8b;
+  position:relative;isolation:isolate;overflow:hidden;
+  margin:34px 0 40px;padding:clamp(22px,3.5vw,38px);
+  border:1px solid #d5e4eb;border-radius:22px;
+  background:linear-gradient(145deg,#f9fcfe 0%,#f0f7fa 52%,#f8fbfc 100%);
+  box-shadow:0 14px 34px rgba(16,43,70,.07);
+}
+#process-flow:before{
+  content:"";position:absolute;inset:0 0 auto;height:5px;
+  background:linear-gradient(90deg,var(--flow-navy),var(--flow-blue),#35a6a0);
+}
+#process-flow h2{
+  display:flex;align-items:center;gap:12px;
+  margin:0 0 10px;padding:0;border:0;color:var(--flow-navy);
+  font-size:clamp(22px,3vw,28px);letter-spacing:-.025em;
+}
+#process-flow h2:before{
+  content:"";display:block;width:7px;height:27px;border-radius:8px;
+  background:linear-gradient(180deg,var(--flow-teal),var(--flow-blue));
+}
+#process-flow #flow-intro{
+  max-width:920px;margin:0;color:#536779;font-size:14px;line-height:1.7;
+  text-align:left!important;
+}
+#flow-diagram{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;margin:24px 0 18px;align-items:stretch;
+}
+#flow-diagram .flow-step{
+  position:relative;display:flex;min-width:0;min-height:150px;
+  flex-direction:column;align-items:flex-start;justify-content:flex-start;
+  gap:9px;padding:20px 18px 18px;text-align:left;
+  border:1px solid #d7e4eb;border-radius:16px;
+  background:#fff;box-shadow:0 5px 15px rgba(16,43,70,.045);
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+#flow-diagram .flow-step:not(.flow-decision):not(.flow-final):not(.flow-exception):hover{
+  transform:translateY(-2px);border-color:#8bc8ca;
+  box-shadow:0 10px 22px rgba(16,43,70,.09);
+}
+#flow-diagram .flow-step .flow-num{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:31px;height:31px;padding:0 8px;border-radius:10px;
+  background:#e6f4f3;color:#087c7d;font-size:12px;font-weight:800;
+}
+#flow-diagram .flow-step strong{
+  display:block;color:var(--flow-navy);font-size:15px;line-height:1.38;
+  font-weight:700;letter-spacing:-.01em;
+}
+#flow-diagram .flow-step>span:last-child{
+  color:#536779;font-size:12.5px;line-height:1.58;
+}
+#flow-diagram .flow-step:not(.flow-decision):not(.flow-final):not(.flow-exception):after{
+  content:none;
+}
+#flow-diagram .flow-decision{
+  grid-column:1/-1;min-height:0;align-items:center;text-align:center;
+  padding:19px 24px;border:1px solid #e7c77f;border-radius:16px;
+  background:linear-gradient(110deg,#fff8e9,#fffdf7);
+  box-shadow:inset 4px 0 0 #c58a28,0 5px 15px rgba(16,43,70,.035);
+}
+#flow-diagram .flow-decision .flow-num{
+  background:#f8e8bf;color:#80530b;
+}
+#flow-diagram .flow-decision strong{font-size:16px}
+#flow-diagram .flow-decision>span:last-child{max-width:780px}
+#flow-diagram .flow-branches{
+  grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:16px;
+  padding:0;position:relative;
+}
+#flow-diagram .flow-branches:before{content:none}
+#flow-diagram .flow-branch{
+  position:relative;min-width:0;min-height:130px;padding:21px 20px 18px;
+  border:1px solid #a8d9d2;border-radius:16px;text-align:left;
+  background:linear-gradient(145deg,#f0faf7,#fff);
+  box-shadow:0 5px 15px rgba(16,43,70,.045);
+}
+#flow-diagram .flow-branch:before{
+  content:"D/P PATH";display:inline-block;margin-bottom:10px;
+  padding:4px 9px;border-radius:6px;background:#d9f1eb;
+  color:#126b5c;font-size:10px;font-weight:800;letter-spacing:.09em;
+}
+#flow-diagram .flow-branch.da{
+  border-color:#b8d3e8;background:linear-gradient(145deg,#eff6fc,#fff);
+}
+#flow-diagram .flow-branch.da:before{
+  content:"D/A PATH";background:#deebf7;color:#205b85;
+}
+#flow-diagram .flow-branch strong{
+  display:block;margin:0 0 8px;color:var(--flow-navy);
+  font-size:15px;line-height:1.4;font-weight:700;
+}
+#flow-diagram .flow-branch span{color:#536779;font-size:12.5px;line-height:1.6}
+#flow-diagram .flow-final{
+  grid-column:auto;min-height:150px;border-color:#9fc9dd;
+  background:linear-gradient(145deg,#edf6fb,#fff);
+}
+#flow-diagram .flow-final strong{color:#174e73}
+#flow-diagram .flow-final:nth-of-type(4){
+  border-color:#9fc9dd;
+}
+#flow-diagram .flow-exception{
+  grid-column:1/-1;min-height:0;align-items:center;justify-content:center;
+  padding:15px 20px;border:1px solid #e7b4b0;border-radius:13px;
+  background:linear-gradient(100deg,#fff0ee,#fff8f7);
+  box-shadow:inset 4px 0 0 #a33a36;
+}
+#flow-diagram .flow-exception strong{
+  color:#8e302d;font-size:13px;text-align:center;
+}
+#process-flow #flow-note{
+  margin:18px 0 0;padding:14px 16px;border:1px solid #d7e4eb;
+  border-left:4px solid var(--flow-blue);border-radius:10px;
+  background:#fff;color:#4b6072;font-size:12.5px;line-height:1.65;
+}
+@media(max-width:760px){
+  #process-flow{margin:26px 0 32px;padding:23px 16px;border-radius:17px}
+  #flow-diagram{grid-template-columns:1fr;gap:11px;margin:20px 0 16px}
+  #flow-diagram .flow-step{min-height:0;padding:17px 16px;border-radius:13px}
+  #flow-diagram .flow-step strong{font-size:14px}
+  #flow-diagram .flow-step>span:last-child{font-size:12.5px}
+  #flow-diagram .flow-decision{grid-column:1;padding:17px 15px}
+  #flow-diagram .flow-branches{grid-column:1;grid-template-columns:1fr;gap:11px}
+  #flow-diagram .flow-branch{min-height:0;padding:18px 16px;border-radius:13px}
+  #flow-diagram .flow-final{grid-column:1;min-height:0}
+  #flow-diagram .flow-exception{grid-column:1}
+  #process-flow #flow-note{font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  #flow-diagram .flow-step{transition:none}
+  #flow-diagram .flow-step:hover{transform:none!important}
+}
+@media print{
+  #process-flow{padding:8mm;margin:5mm 0;border:1px solid #cbd8df;border-radius:0;box-shadow:none;background:#fff}
+  #process-flow:before{display:none}
+  #flow-diagram{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:5mm 0}
+  #flow-diagram .flow-step{min-height:0;padding:7px;border-radius:5px;box-shadow:none;break-inside:avoid}
+  #flow-diagram .flow-step .flow-num{min-width:20px;height:20px;border-radius:4px;font-size:8pt}
+  #flow-diagram .flow-step strong,#flow-diagram .flow-branch strong{font-size:8pt}
+  #flow-diagram .flow-step>span:last-child,#flow-diagram .flow-branch span{font-size:7pt;line-height:1.35}
+  #flow-diagram .flow-branches{grid-template-columns:1fr 1fr;gap:5px}
+  #flow-diagram .flow-branch{min-height:0;padding:7px;border-radius:5px;box-shadow:none;break-inside:avoid}
+  #flow-diagram .flow-exception{grid-column:1/-1}
+  #process-flow #flow-note{margin-top:5px;padding:7px;font-size:7pt}
+}
+</style>
+
 </head><body>
 <header class="nav">
   <a class="brand" href="/" aria-label="RegTech Nexus AI home">
