@@ -97,6 +97,9 @@ if(plan==="Small Business"&&values.due){const due=new Date(values.due+"T00:00:00
 if(plan==="Business Plus"&&/^(none|not provided)$/i.test(values.committee))warnings.push("No oversight forum is identified; committee decision checkpoints require an agreed accountable forum.");
 if(plan==="Enterprise"&&/^(yes|no|own|none)$/i.test(values.systems))errors.push("Name the systems to assess, or describe the inventory as pending.");
 if(plan==="Enterprise"&&/^(yes|no|own|none)$/i.test(values.governance))errors.push("Identify an executive sponsor role or governance forum.");
+if(plan==="Enterprise"&&/^(laws|circular check)$/i.test(values.jurisdictions))errors.push("Enter a jurisdiction or entity footprint, not a generic category or unrelated value.");
+if(plan==="Business Plus"&&/^laws$/i.test(values.jurisdictions))errors.push("Enter the countries or jurisdictions in scope, not the word Laws.");
+if(plan==="Professional"&&/give exposure/i.test(values.process))errors.push("Replace the placeholder process with a meaningful business process.");
 if(plan==="Professional Plus"&&/not known/i.test(values.process)&&/^Approved/.test(values.evidence))warnings.push("Evidence is marked approved while the process is unknown. Confirm that the evidence relates to the stated process and control.");
 if(plan==="Professional"&&/not a legal instrument|illustrative/i.test(values.instrument)&&/bank|regulator|authority/i.test(values.authority))warnings.push("The instrument is described as illustrative / non-legal but an issuing authority is named. Separate fictional examples from real authority-issued instruments.");
 if(plan==="Small Business"&&/United Kingdom/i.test(values.jurisdiction)&&/\bMFS\b/i.test(values.change))warnings.push("MFS is undefined in this UK profile. Expand the acronym and confirm jurisdictional relevance.");
