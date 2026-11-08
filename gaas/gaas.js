@@ -89,6 +89,7 @@ let control="";
 if(f[2]==="select"||f[0]==="jurisdiction"||f[0]==="jurisdictions"){
  const opts=(f[0]==="jurisdiction"||f[0]==="jurisdictions")?COUNTRY_OPTIONS:f[3];
  const multi=f[0]==="jurisdictions";
+ const isCountry=f[0]==="jurisdiction"||f[0]==="jurisdictions";
  control='<div class="country-select-wrap"><input class="country-filter" type="search" aria-label="Filter country and region options" placeholder="Type to filter country / region" data-filter-target="field-'+f[0]+'"><select id="field-'+f[0]+'" name="'+f[0]+'" '+(multi?'multiple size="5" aria-describedby="jurisdiction-hint"':'')+'><option value="">'+(multi?'Select one or more countries':isCountry?'Choose a country / region':'Select an option')+'</option>'+opts.map(o=>'<option value="'+esc(o)+'">'+esc(o)+'</option>').join("")+'</select></div>';
 }else{
  const hint=sampleHint(f[0],f[1],f[3]);
