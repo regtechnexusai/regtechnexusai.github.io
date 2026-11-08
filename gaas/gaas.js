@@ -86,7 +86,7 @@ if(audience)audience.textContent=(card?.querySelector(".price-audience")?.textCo
 const workspace=modal.querySelector("#plan-demo-workspace");if(!workspace)return;
 const fields=config.fields.map(f=>{
 let control="";
-if(f[2]==="select"){
+if(f[2]==="select"||f[0]==="jurisdiction"||f[0]==="jurisdictions"){
  const opts=(f[0]==="jurisdiction"||f[0]==="jurisdictions")?COUNTRY_OPTIONS:f[3];
  const multi=f[0]==="jurisdictions";
  control='<select id="field-'+f[0]+'" name="'+f[0]+'" '+(multi?'multiple size="5" aria-describedby="jurisdiction-hint"':'')+'><option value="">'+(multi?'Select one or more countries':'Choose a country / region')+'</option>'+opts.map(o=>'<option value="'+esc(o)+'">'+esc(o)+'</option>').join("")+'</select>';
