@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   production-functional-regression:
-    name: Production functional regression
+    name: Branch functional regression
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -32,8 +32,23 @@ jobs:
           python -m pip install pytest pytest-playwright
           python -m playwright install --with-deps chromium
 
-      - name: Run read-only production functional tests
+      - name: Run branch functional regression tests
         run: |
+          set -euo pipefail
+          python -m http.server 8000 --bind 127.0.0.1 > /tmp/regtech-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --silent --fail http://127.0.0.1:8000/gaas/ > /dev/null; then
+              break
+            fi
+            if ! kill -0 "$SERVER_PID" 2>/dev/null; then
+              cat /tmp/regtech-http.log
+              exit 1
+            fi
+            sleep 1
+          done
+          curl --silent --fail http://127.0.0.1:8000/gaas/ > /dev/null
           pytest -v .github/scripts/functional_regression.py --junitxml=functional-regression-results.xml
 
       - name: Upload test results
