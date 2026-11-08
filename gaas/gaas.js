@@ -15,9 +15,38 @@ outsourcing:{area:"Third-party / outsourcing risk",impact:"Potential supplier ov
 governance:{area:"Governance and oversight",impact:"Potential accountability and management-information impact",priority:"Illustrative: Moderate",candidate:"Named oversight responsibility and evidence of periodic challenge",actions:["Identify the accountable management function and committee.","Check whether responsibilities are documented and approved.","Review management reporting and challenge evidence.","Submit the candidate assessment to an independent reviewer."]}
 };
 if(demoButton&&demoDomain&&demoOutput){demoButton.addEventListener("click",()=>{const item=demoContent[demoDomain.value]||demoContent.payments;demoOutput.innerHTML='<div class="demo-result"><div class="demo-result-kicker">SIMULATED OUTPUT · NO AI CALL</div><h3>Candidate impact summary</h3><p>This fixed demonstration output is associated with the fictional GPSB-2026-004 notice. It is not a finding about any real jurisdiction or regulated entity.</p><div class="demo-result-grid"><div><span>Selected business area</span><strong>'+item.area+'</strong></div><div><span>Indicative priority</span><strong>'+item.priority+'</strong></div><div><span>Potential impact</span><strong>'+item.impact+'</strong></div><div><span>Candidate control theme</span><strong>'+item.candidate+'</strong></div></div><h4>Illustrative review actions</h4><ul>'+item.actions.map(action=>'<li>'+action+'</li>').join("")+'</ul><div class="demo-review-note"><strong>Human review required.</strong> Source authenticity, legal status, jurisdictional applicability, effective date, affected entity scope and control sufficiency have not been verified.</div></div>';});}
-function openPlan(plan){if(billingMode!=="DEMO"||!modal||!modalPlan)return;modalPlan.textContent=plan+" — preview only";modal.hidden=false;const close=modal.querySelector(".modal-close");if(close)close.focus();}
-function closePlan(){if(modal)modal.hidden=true;}
-document.querySelectorAll("[data-plan]").forEach(button=>button.addEventListener("click",()=>openPlan(button.getAttribute("data-plan")||"Selected plan")));
+let lastPlanTrigger=null;
+function openPlan(button){
+  if(billingMode!=="DEMO"||!modal||!modalPlan)return;
+  const card=button.closest(".price-card");
+  const plan=(button.getAttribute("data-plan")||"Selected plan").trim();
+  modalPlan.textContent=plan+" — preview only";
+  const featureList=modal.querySelector("#modal-plan-features");
+  if(featureList){
+    featureList.replaceChildren();
+    if(card){
+      card.querySelectorAll("li").forEach(item=>{
+        const li=document.createElement("li");
+        li.textContent=item.textContent.trim();
+        featureList.appendChild(li);
+      });
+    }
+  }
+  const audience=modal.querySelector("#modal-plan-audience");
+  if(audience) audience.textContent=card?.querySelector(".price-audience")?.textContent.trim()||"Plan preview";
+  lastPlanTrigger=button;
+  modal.hidden=false;
+  document.body.classList.add("modal-open");
+  const close=modal.querySelector(".modal-close");
+  if(close)close.focus();
+}
+function closePlan(){
+  if(!modal)return;
+  modal.hidden=true;
+  document.body.classList.remove("modal-open");
+  if(lastPlanTrigger)lastPlanTrigger.focus();
+}
+document.querySelectorAll("[data-plan]").forEach(button=>button.addEventListener("click",()=>openPlan(button)));
 document.querySelectorAll("[data-close-modal]").forEach(element=>element.addEventListener("click",closePlan));
 document.addEventListener("keydown",event=>{if(event.key==="Escape"&&modal&&!modal.hidden)closePlan();});
 })();
