@@ -313,3 +313,199 @@ body.gaas-page .product-card-primary .product-state{background:#cce9ee!important
   body.gaas-page .workflow-steps{grid-template-columns:1fr!important}
   body.gaas-page .workflow-steps article{border-radius:11px!important}
 }
+
+
+/* GaaS visual refinement v5 — align header with the RegTech Nexus AI homepage and lighten release-status panel. */
+body.gaas-page header.gaas-nav{
+  height:78px!important;min-height:78px!important;
+  display:flex!important;align-items:center!important;
+  padding:0 5vw!important;
+  position:sticky!important;top:0!important;z-index:100!important;
+  background:rgba(255,255,255,.97)!important;
+  border:0!important;border-bottom:1px solid #e8e8e8!important;
+  box-shadow:0 2px 10px rgba(16,32,59,.045)!important;
+  backdrop-filter:blur(12px);
+}
+body.gaas-page header.gaas-nav .brand{display:flex!important;align-items:center!important;min-width:0}
+body.gaas-page header.gaas-nav .brand-logo{
+  display:block!important;width:228px!important;height:72px!important;
+  max-width:100%!important;object-fit:contain!important;
+  background:transparent!important;
+}
+body.gaas-page header.gaas-nav nav{
+  display:flex;align-items:center;gap:25px!important;margin-left:auto;
+  font-size:13px!important;flex:0 1 auto!important;
+}
+body.gaas-page header.gaas-nav nav a{
+  color:#263f59!important;font-size:13px!important;font-weight:600!important;
+  padding:0!important;white-space:nowrap;
+}
+body.gaas-page header.gaas-nav nav a:hover{color:#0956a8!important}
+body.gaas-page header.gaas-nav .nav-cta{
+  margin-left:28px!important;padding:13px 17px!important;
+  border-radius:0!important;background:#10203b!important;
+  color:#fff!important;font-size:12px!important;font-weight:700!important;
+}
+body.gaas-page header.gaas-nav .menu{
+  display:none;margin-left:auto!important;
+  color:#10203b!important;background:transparent!important;
+  border:0!important;border-radius:0!important;box-shadow:none!important;
+  width:auto!important;height:auto!important;padding:0!important;
+  font-size:22px!important;
+}
+body.gaas-page .gaas-status-card{
+  background:linear-gradient(135deg,#eaf5ff 0%,#e7f7f5 55%,#f2efff 100%)!important;
+  color:#173752!important;
+  border:1px solid #b8d5e2!important;
+  box-shadow:0 18px 42px rgba(24,75,105,.10)!important;
+}
+body.gaas-page .gaas-status-card .status-kicker{color:#176d8a!important}
+body.gaas-page .gaas-status-card h2{color:#153653!important}
+body.gaas-page .gaas-status-card>p:not(.status-kicker){color:#526d82!important}
+body.gaas-page .gaas-status-card .status-divider{background:#c8dce5!important}
+body.gaas-page .gaas-status-card .status-row{border-bottom-color:#d4e4eb!important}
+body.gaas-page .gaas-status-card .status-row span{color:#536e82!important}
+body.gaas-page .gaas-status-card .status-row strong{color:#176d8a!important}
+@media(max-width:1100px){
+  body.gaas-page header.gaas-nav nav,
+  body.gaas-page header.gaas-nav .nav-cta{display:none!important}
+  body.gaas-page header.gaas-nav .menu{display:block!important}
+  body.gaas-page header.gaas-nav.open nav{
+    display:flex!important;position:absolute!important;top:78px!important;
+    left:0!important;right:0!important;margin:0!important;
+    padding:25px 5vw!important;flex-direction:column!important;
+    align-items:flex-start!important;gap:20px!important;
+    background:#fff!important;border:0!important;
+    border-bottom:1px solid #ddd!important;box-shadow:0 12px 24px rgba(16,32,59,.08);
+  }
+  body.gaas-page header.gaas-nav.open nav a{
+    color:#263f59!important;font-size:13px!important;font-weight:600!important;
+  }
+}
+@media(max-width:560px){
+  body.gaas-page header.gaas-nav{height:78px!important;min-height:78px!important;padding:0 4vw!important}
+  body.gaas-page header.gaas-nav .brand-logo{width:188px!important;height:61px!important}
+  body.gaas-page header.gaas-nav.open nav{top:78px!important;padding:22px 6vw!important}
+}
+
+
+/* Guided plan preview: readable, scrollable, responsive explanation of user actions and sample deliverables. */
+body.modal-open{overflow:hidden}
+.gaas-page .modal-panel{
+  width:min(100%,760px)!important;max-height:90vh;overflow-y:auto;
+  padding:clamp(22px,4vw,38px)!important;border-radius:20px!important;
+}
+.gaas-page .modal-panel .kicker{color:#176b91!important;font-size:12px;letter-spacing:.16em}
+.gaas-page .modal-panel h2{font-size:clamp(30px,5vw,42px)!important;margin:8px 0}
+.gaas-page .modal-plan-name{font-size:clamp(17px,3vw,22px);margin:0 0 3px}
+.gaas-page .modal-plan-audience{color:#60778a;font-size:13px;margin:0 0 22px}
+.gaas-page .plan-preview-guide{display:grid;gap:14px;margin:20px 0}
+.gaas-page .plan-guide-heading{display:flex;align-items:center;gap:12px;margin-top:8px}
+.gaas-page .plan-guide-heading>span{
+  display:grid;place-items:center;flex:0 0 34px;height:34px;border-radius:10px;
+  color:#fff;background:linear-gradient(135deg,#126b9e,#168c9b);font-size:12px;font-weight:800
+}
+.gaas-page .plan-guide-heading strong{display:block;color:#173b58;font-size:16px}
+.gaas-page .plan-guide-heading small{display:block;color:#6b8091;font-size:11px;margin-top:3px}
+.gaas-page .plan-guide-steps{list-style:none;counter-reset:planstep;display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:0;margin:0}
+.gaas-page .plan-guide-steps li{
+  counter-increment:planstep;position:relative;padding:15px 14px 14px 43px;
+  border:1px solid #c8dfe8;border-radius:11px;background:linear-gradient(145deg,#eef7ff,#fbfdff);
+  min-height:94px
+}
+.gaas-page .plan-guide-steps li:before{
+  content:counter(planstep,decimal-leading-zero);position:absolute;left:13px;top:15px;
+  color:#16869a;font-size:11px;font-weight:800
+}
+.gaas-page .plan-guide-steps li strong{display:block;color:#193c58;font-size:13px;margin-bottom:5px}
+.gaas-page .plan-guide-steps li span{display:block;color:#5b7183;font-size:11px;line-height:1.55}
+.gaas-page .sample-output{
+  border:1px solid #a9cddc;border-radius:13px;overflow:hidden;
+  background:linear-gradient(145deg,#f0f8ff,#f0fbf8)
+}
+.gaas-page .sample-output-top{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
+  padding:14px 16px;background:rgba(255,255,255,.72);border-bottom:1px solid #d6e7ed
+}
+.gaas-page .sample-output-top strong{color:#173b58;font-size:14px}
+.gaas-page .sample-output-top span{color:#167b91;font-size:9px;font-weight:800;letter-spacing:.1em}
+.gaas-page .sample-output-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.gaas-page .sample-output-grid>div{padding:12px 15px;border-bottom:1px solid #d9e8ed}
+.gaas-page .sample-output-grid small{display:block;color:#6b8091;font-size:10px;margin-bottom:5px}
+.gaas-page .sample-output-grid strong{display:block;color:#24465f;font-size:12px;line-height:1.45}
+.gaas-page .sample-output-grid .sample-pending{color:#a36a17}
+.gaas-page .sample-action{display:grid;gap:5px;padding:13px 15px;background:rgba(255,255,255,.7)}
+.gaas-page .sample-action strong{color:#176d83;font-size:12px}
+.gaas-page .sample-action span{color:#566f81;font-size:11px;line-height:1.55}
+.gaas-page .plan-scope{padding:14px 16px;border:1px solid #d5e3e9;border-radius:11px;background:#fbfdff}
+.gaas-page .plan-scope>strong{color:#24465f;font-size:12px}
+.gaas-page .plan-scope ul{margin:9px 0 0;padding-left:18px;color:#5b7183;font-size:11px;line-height:1.7}
+.gaas-page .modal-notice{margin-top:15px}
+.gaas-page .modal-small{font-size:12px!important}
+@media(max-width:560px){
+  .gaas-page .demo-modal{padding:10px!important;align-items:center}
+  .gaas-page .modal-panel{max-height:88vh;padding:23px 17px!important;border-radius:16px!important}
+  .gaas-page .plan-guide-steps{grid-template-columns:1fr}
+  .gaas-page .plan-guide-steps li{min-height:0}
+  .gaas-page .sample-output-grid{grid-template-columns:1fr}
+  .gaas-page .sample-output-grid>div{padding:10px 13px}
+}
+
+
+/* Plan-specific interactive demo workspace — responsive form, workflow and generated report. */
+.gaas-page .modal-panel{width:min(100%,820px)!important;max-height:91vh;overflow-y:auto}
+.gaas-page .plan-demo-workspace{display:grid;gap:15px;margin:20px 0}
+.gaas-page .plan-demo-steps,.gaas-page .plan-demo-form,.gaas-page .plan-demo-result{
+  border:1px solid #d6e5ec;border-radius:13px;padding:17px;background:#f8fbfd
+}
+.gaas-page .plan-demo-steps>strong{display:block;color:#173b58;font-size:14px;margin-bottom:10px}
+.gaas-page .plan-demo-steps ol{margin:0;padding-left:22px;display:grid;gap:7px;color:#536d81;font-size:12px;line-height:1.55}
+.gaas-page .plan-demo-steps li::marker{color:#16899a;font-weight:800}
+.gaas-page .plan-form-heading{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center;margin-bottom:14px}
+.gaas-page .plan-form-heading strong{color:#173b58;font-size:14px}
+.gaas-page .plan-form-heading span{color:#7a8d9d;font-size:10px}
+.gaas-page .plan-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gaas-page .plan-field{display:grid;gap:6px;align-content:start}
+.gaas-page .plan-field>span{font-size:11px;font-weight:800;color:#39566e}
+.gaas-page .plan-field b{color:#bd6c36}
+.gaas-page .plan-field input,.gaas-page .plan-field select{
+  width:100%;min-height:43px;border:1px solid #c8d9e3;border-radius:8px;
+  background:#fff;color:#1e3e58;padding:10px 11px;font:inherit;font-size:12px;
+}
+.gaas-page .plan-field input:focus,.gaas-page .plan-field select:focus{outline:2px solid #4aa9bc;outline-offset:1px}
+.gaas-page .plan-generate{width:100%;margin-top:15px;min-height:47px}
+.gaas-page .plan-result-empty{display:grid;gap:6px;padding:13px}
+.gaas-page .plan-result-empty strong{color:#24465f;font-size:13px}
+.gaas-page .plan-result-empty span{color:#718599;font-size:11px;line-height:1.55}
+.gaas-page .plan-result-document{border:1px solid #b9d6e0;border-radius:11px;overflow:hidden;background:#fff}
+.gaas-page .plan-result-banner{display:grid;gap:6px;padding:17px;background:linear-gradient(110deg,#e8f4ff,#e9f8f5)}
+.gaas-page .plan-result-banner>span{font-size:9px;font-weight:900;letter-spacing:.1em;color:#16798b}
+.gaas-page .plan-result-banner>strong{font-size:18px;color:#183b58}
+.gaas-page .plan-result-banner>small{font-size:10px;color:#60788b}
+.gaas-page .plan-result-reference{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding:11px 15px;background:#f5f8fa;border-bottom:1px solid #e1e9ed}
+.gaas-page .plan-result-reference span{font-size:9px;font-weight:800;color:#6a8192}
+.gaas-page .plan-result-reference strong{font-size:10px;color:#1d627b}
+.gaas-page .plan-result-rows{display:grid;grid-template-columns:1fr 1fr}
+.gaas-page .plan-result-rows section{padding:13px 15px;border-bottom:1px solid #e8eef1}
+.gaas-page .plan-result-rows section:nth-child(odd){border-right:1px solid #e8eef1}
+.gaas-page .plan-result-rows section strong{display:block;color:#1e4965;font-size:11px;margin-bottom:5px}
+.gaas-page .plan-result-rows section p{margin:0;color:#5b7182;font-size:11px;line-height:1.6;overflow-wrap:anywhere}
+.gaas-page .plan-result-warning{margin:13px;padding:12px 14px;border:1px solid #ead7ae;border-radius:8px;background:#fff8e9}
+.gaas-page .plan-result-warning strong{font-size:11px;color:#805e27}
+.gaas-page .plan-result-warning p{margin:5px 0 0;font-size:10px;line-height:1.6;color:#78633d}
+.gaas-page .plan-result-actions{display:flex;gap:9px;padding:0 13px 13px}
+.gaas-page .plan-result-actions button{min-height:37px;padding:8px 13px;border:1px solid #8db9ca;border-radius:7px;background:#edf7fa;color:#18536b;font-size:11px;font-weight:800}
+.gaas-page .plan-scope{margin-top:2px}
+@media(max-width:560px){
+ .gaas-page .modal-panel{width:100%!important;max-height:88vh;padding:22px 16px!important}
+ .gaas-page .plan-fields,.gaas-page .plan-result-rows{grid-template-columns:1fr}
+ .gaas-page .plan-result-rows section:nth-child(odd){border-right:0}
+ .gaas-page .plan-result-reference{display:grid;grid-template-columns:1fr}
+ .gaas-page .plan-result-actions{flex-direction:column}
+}
+@media print{
+ body.gaas-page *{visibility:hidden!important}
+ body.gaas-page #plan-demo-result,body.gaas-page #plan-demo-result *{visibility:visible!important}
+ body.gaas-page #plan-demo-result{position:absolute;inset:0;width:100%;margin:0}
+ body.gaas-page .plan-result-actions{display:none!important}
+}
