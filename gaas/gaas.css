@@ -67,3 +67,12 @@
 @media(max-width:760px){.gaas-hero{padding:64px 6vw}.gaas-strip{grid-template-columns:1fr 1fr;padding:20px 6vw;gap:12px}.gaas-strip div{border:0;padding:5px 0}.gaas-section,.gaas-workflow,.gaas-pricing{padding-left:6vw;padding-right:6vw}.demo-layout,.billing-preview{grid-template-columns:1fr}.workflow-steps{grid-template-columns:1fr 1fr}.workflow-steps article{margin:0;padding:19px 14px 19px 0}.workflow-steps article:nth-child(2n){border-right:0;margin:0}.workflow-steps article:last-child{border:0}.gaas-footer{padding-left:6vw;padding-right:6vw}}
 @media(max-width:560px){.gaas-page .gaas-nav nav{display:none}.gaas-page .gaas-nav.open nav{display:flex;position:absolute;top:78px;left:0;right:0;background:#fff;padding:22px 6vw;flex-direction:column;border-bottom:1px solid #dce5ec}.gaas-page .gaas-nav .nav-cta{display:none}.gaas-hero h1{font-size:45px}.gaas-hero .gaas-actions{flex-direction:column;align-items:stretch}.gaas-hero .gaas-actions .btn{width:100%}.gaas-proof{gap:6px}.gaas-proof span{font-size:9px}.product-grid,.pricing-grid,.governance-grid{grid-template-columns:1fr}.product-card{min-height:0}.workflow-steps{grid-template-columns:1fr}.workflow-steps article,.workflow-steps article:nth-child(2n){border-right:0;border-bottom:1px solid rgba(255,255,255,.14);padding:17px 0}.demo-source,.demo-output{padding:21px}.demo-result-grid{grid-template-columns:1fr 1fr}.billing-preview{padding:50px 6vw}.gaas-footer{grid-template-columns:1fr}.gaas-footer>div,.footer-disclaimer,.footer-bottom{grid-column:auto}.modal-panel{padding:27px 22px}}
 @media(prefers-reduced-motion:reduce){.gaas-page *{scroll-behavior:auto;transition:none!important}}
+
+/* GaaS contrast correction: keep the existing palette and layout, but make all workflow text legible. */
+body.gaas-page .gaas-workflow .section-intro h2{color:#f7fbff!important;opacity:1!important;text-shadow:none!important}
+body.gaas-page .gaas-workflow .workflow-steps h3{color:#f1f7ff!important;opacity:1!important}
+body.gaas-page .gaas-workflow .workflow-steps article>span{color:#82e3ec!important;opacity:1!important}
+body.gaas-page .gaas-nav nav a{color:#263f59!important;font-size:13px!important;font-weight:700!important;opacity:1!important}
+body.gaas-page .gaas-nav nav a:hover,body.gaas-page .gaas-nav nav a:focus-visible{color:#087f9b!important}
+body.gaas-page .gaas-nav .nav-cta{color:#fff!important}
+@media(max-width:760px){body.gaas-page .gaas-nav.open nav a{color:#263f59!important;font-size:14px!important}}
