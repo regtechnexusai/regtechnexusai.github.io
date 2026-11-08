@@ -313,3 +313,77 @@ body.gaas-page .product-card-primary .product-state{background:#cce9ee!important
   body.gaas-page .workflow-steps{grid-template-columns:1fr!important}
   body.gaas-page .workflow-steps article{border-radius:11px!important}
 }
+
+
+/* GaaS visual refinement v5 — align header with the RegTech Nexus AI homepage and lighten release-status panel. */
+body.gaas-page header.gaas-nav{
+  height:78px!important;min-height:78px!important;
+  display:flex!important;align-items:center!important;
+  padding:0 5vw!important;
+  position:sticky!important;top:0!important;z-index:100!important;
+  background:rgba(255,255,255,.97)!important;
+  border:0!important;border-bottom:1px solid #e8e8e8!important;
+  box-shadow:0 2px 10px rgba(16,32,59,.045)!important;
+  backdrop-filter:blur(12px);
+}
+body.gaas-page header.gaas-nav .brand{display:flex!important;align-items:center!important;min-width:0}
+body.gaas-page header.gaas-nav .brand-logo{
+  display:block!important;width:228px!important;height:72px!important;
+  max-width:100%!important;object-fit:contain!important;
+  background:transparent!important;
+}
+body.gaas-page header.gaas-nav nav{
+  display:flex;align-items:center;gap:25px!important;margin-left:auto;
+  font-size:13px!important;flex:0 1 auto!important;
+}
+body.gaas-page header.gaas-nav nav a{
+  color:#263f59!important;font-size:13px!important;font-weight:600!important;
+  padding:0!important;white-space:nowrap;
+}
+body.gaas-page header.gaas-nav nav a:hover{color:#0956a8!important}
+body.gaas-page header.gaas-nav .nav-cta{
+  margin-left:28px!important;padding:13px 17px!important;
+  border-radius:0!important;background:#10203b!important;
+  color:#fff!important;font-size:12px!important;font-weight:700!important;
+}
+body.gaas-page header.gaas-nav .menu{
+  display:none;margin-left:auto!important;
+  color:#10203b!important;background:transparent!important;
+  border:0!important;border-radius:0!important;box-shadow:none!important;
+  width:auto!important;height:auto!important;padding:0!important;
+  font-size:22px!important;
+}
+body.gaas-page .gaas-status-card{
+  background:linear-gradient(135deg,#eaf5ff 0%,#e7f7f5 55%,#f2efff 100%)!important;
+  color:#173752!important;
+  border:1px solid #b8d5e2!important;
+  box-shadow:0 18px 42px rgba(24,75,105,.10)!important;
+}
+body.gaas-page .gaas-status-card .status-kicker{color:#176d8a!important}
+body.gaas-page .gaas-status-card h2{color:#153653!important}
+body.gaas-page .gaas-status-card>p:not(.status-kicker){color:#526d82!important}
+body.gaas-page .gaas-status-card .status-divider{background:#c8dce5!important}
+body.gaas-page .gaas-status-card .status-row{border-bottom-color:#d4e4eb!important}
+body.gaas-page .gaas-status-card .status-row span{color:#536e82!important}
+body.gaas-page .gaas-status-card .status-row strong{color:#176d8a!important}
+@media(max-width:1100px){
+  body.gaas-page header.gaas-nav nav,
+  body.gaas-page header.gaas-nav .nav-cta{display:none!important}
+  body.gaas-page header.gaas-nav .menu{display:block!important}
+  body.gaas-page header.gaas-nav.open nav{
+    display:flex!important;position:absolute!important;top:78px!important;
+    left:0!important;right:0!important;margin:0!important;
+    padding:25px 5vw!important;flex-direction:column!important;
+    align-items:flex-start!important;gap:20px!important;
+    background:#fff!important;border:0!important;
+    border-bottom:1px solid #ddd!important;box-shadow:0 12px 24px rgba(16,32,59,.08);
+  }
+  body.gaas-page header.gaas-nav.open nav a{
+    color:#263f59!important;font-size:13px!important;font-weight:600!important;
+  }
+}
+@media(max-width:560px){
+  body.gaas-page header.gaas-nav{height:78px!important;min-height:78px!important;padding:0 4vw!important}
+  body.gaas-page header.gaas-nav .brand-logo{width:188px!important;height:61px!important}
+  body.gaas-page header.gaas-nav.open nav{top:78px!important;padding:22px 6vw!important}
+}
