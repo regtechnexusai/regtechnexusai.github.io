@@ -450,3 +450,62 @@ body.modal-open{overflow:hidden}
   .gaas-page .sample-output-grid{grid-template-columns:1fr}
   .gaas-page .sample-output-grid>div{padding:10px 13px}
 }
+
+
+/* Plan-specific interactive demo workspace — responsive form, workflow and generated report. */
+.gaas-page .modal-panel{width:min(100%,820px)!important;max-height:91vh;overflow-y:auto}
+.gaas-page .plan-demo-workspace{display:grid;gap:15px;margin:20px 0}
+.gaas-page .plan-demo-steps,.gaas-page .plan-demo-form,.gaas-page .plan-demo-result{
+  border:1px solid #d6e5ec;border-radius:13px;padding:17px;background:#f8fbfd
+}
+.gaas-page .plan-demo-steps>strong{display:block;color:#173b58;font-size:14px;margin-bottom:10px}
+.gaas-page .plan-demo-steps ol{margin:0;padding-left:22px;display:grid;gap:7px;color:#536d81;font-size:12px;line-height:1.55}
+.gaas-page .plan-demo-steps li::marker{color:#16899a;font-weight:800}
+.gaas-page .plan-form-heading{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center;margin-bottom:14px}
+.gaas-page .plan-form-heading strong{color:#173b58;font-size:14px}
+.gaas-page .plan-form-heading span{color:#7a8d9d;font-size:10px}
+.gaas-page .plan-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gaas-page .plan-field{display:grid;gap:6px;align-content:start}
+.gaas-page .plan-field>span{font-size:11px;font-weight:800;color:#39566e}
+.gaas-page .plan-field b{color:#bd6c36}
+.gaas-page .plan-field input,.gaas-page .plan-field select{
+  width:100%;min-height:43px;border:1px solid #c8d9e3;border-radius:8px;
+  background:#fff;color:#1e3e58;padding:10px 11px;font:inherit;font-size:12px;
+}
+.gaas-page .plan-field input:focus,.gaas-page .plan-field select:focus{outline:2px solid #4aa9bc;outline-offset:1px}
+.gaas-page .plan-generate{width:100%;margin-top:15px;min-height:47px}
+.gaas-page .plan-result-empty{display:grid;gap:6px;padding:13px}
+.gaas-page .plan-result-empty strong{color:#24465f;font-size:13px}
+.gaas-page .plan-result-empty span{color:#718599;font-size:11px;line-height:1.55}
+.gaas-page .plan-result-document{border:1px solid #b9d6e0;border-radius:11px;overflow:hidden;background:#fff}
+.gaas-page .plan-result-banner{display:grid;gap:6px;padding:17px;background:linear-gradient(110deg,#e8f4ff,#e9f8f5)}
+.gaas-page .plan-result-banner>span{font-size:9px;font-weight:900;letter-spacing:.1em;color:#16798b}
+.gaas-page .plan-result-banner>strong{font-size:18px;color:#183b58}
+.gaas-page .plan-result-banner>small{font-size:10px;color:#60788b}
+.gaas-page .plan-result-reference{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding:11px 15px;background:#f5f8fa;border-bottom:1px solid #e1e9ed}
+.gaas-page .plan-result-reference span{font-size:9px;font-weight:800;color:#6a8192}
+.gaas-page .plan-result-reference strong{font-size:10px;color:#1d627b}
+.gaas-page .plan-result-rows{display:grid;grid-template-columns:1fr 1fr}
+.gaas-page .plan-result-rows section{padding:13px 15px;border-bottom:1px solid #e8eef1}
+.gaas-page .plan-result-rows section:nth-child(odd){border-right:1px solid #e8eef1}
+.gaas-page .plan-result-rows section strong{display:block;color:#1e4965;font-size:11px;margin-bottom:5px}
+.gaas-page .plan-result-rows section p{margin:0;color:#5b7182;font-size:11px;line-height:1.6;overflow-wrap:anywhere}
+.gaas-page .plan-result-warning{margin:13px;padding:12px 14px;border:1px solid #ead7ae;border-radius:8px;background:#fff8e9}
+.gaas-page .plan-result-warning strong{font-size:11px;color:#805e27}
+.gaas-page .plan-result-warning p{margin:5px 0 0;font-size:10px;line-height:1.6;color:#78633d}
+.gaas-page .plan-result-actions{display:flex;gap:9px;padding:0 13px 13px}
+.gaas-page .plan-result-actions button{min-height:37px;padding:8px 13px;border:1px solid #8db9ca;border-radius:7px;background:#edf7fa;color:#18536b;font-size:11px;font-weight:800}
+.gaas-page .plan-scope{margin-top:2px}
+@media(max-width:560px){
+ .gaas-page .modal-panel{width:100%!important;max-height:88vh;padding:22px 16px!important}
+ .gaas-page .plan-fields,.gaas-page .plan-result-rows{grid-template-columns:1fr}
+ .gaas-page .plan-result-rows section:nth-child(odd){border-right:0}
+ .gaas-page .plan-result-reference{display:grid;grid-template-columns:1fr}
+ .gaas-page .plan-result-actions{flex-direction:column}
+}
+@media print{
+ body.gaas-page *{visibility:hidden!important}
+ body.gaas-page #plan-demo-result,body.gaas-page #plan-demo-result *{visibility:visible!important}
+ body.gaas-page #plan-demo-result{position:absolute;inset:0;width:100%;margin:0}
+ body.gaas-page .plan-result-actions{display:none!important}
+}
