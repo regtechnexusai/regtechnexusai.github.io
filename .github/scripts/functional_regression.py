@@ -7,7 +7,7 @@ import re
 from pathlib import Path
 from playwright.sync_api import Page, expect
 
-BASE = "https://regtechnexusai.com"
+BASE = "http://127.0.0.1:8000"
 
 
 def open_tool(page: Page, path: str, heading: str):
@@ -227,7 +227,7 @@ def test_gaas_dummy_checkout_focus_escape_and_no_payment_fields(page: Page):
     dialog = page.get_by_role("dialog", name="Plan preview")
     expect(dialog).to_be_visible()
     expect(dialog).to_contain_text("No account is created")
-    expect(dialog).to_contain_text("No payment details are collected")
+    expect(dialog).to_contain_text("no payment details are collected")
     assert dialog.locator("input, select, textarea").count() == 0, "Dummy checkout must not collect payment or account details."
     close_x = dialog.get_by_role("button", name="Close plan preview")
     close_button = dialog.get_by_role("button", name="Close preview")
