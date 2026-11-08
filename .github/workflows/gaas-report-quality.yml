@@ -37,7 +37,9 @@ jobs:
               "COUNTRY_OPTIONS", "function sampleHint", "country-filter", "plan-source-files",
               "chatgpt.com/?q=", "FIELDS NOT PROVIDED",
               "Bangladesh Financial Intelligence Unit", "does not search those authorities",
-              "placeholder=", "Attach them manually", 'const isCountry=f[0]==="jurisdiction"||f[0]==="jurisdictions";'
+              "placeholder=", "Attach them manually", 'const isCountry=f[0]==="jurisdiction"||f[0]==="jurisdictions";',
+              "const validation=validatePlan(plan,values);", 'const chatUrl="https://chatgpt.com/";',
+              "The URL does not contain your form data.", "Input validation notes"
           ]
           missing = [item for item in required if item not in js]
           assert not missing, f"Missing QA safeguards: {missing}"
