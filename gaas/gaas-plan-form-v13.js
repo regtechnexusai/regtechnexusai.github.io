@@ -169,6 +169,99 @@ function generatePlanOutput(form){
  const supplied=Object.entries(values).filter(([,v])=>Array.isArray(v)?v.length:String(v||"").trim()).map(([k,v])=>k+": "+(Array.isArray(v)?v.join(", "):v)).join(" · ");
  const fileNote=files.length?"Selected "+files.length+" file(s). Attach the same file(s) manually in the ChatGPT tab; this static page cannot transmit file contents.":"No files selected.";
  result.innerHTML='<div class="plan-result-document"><div class="plan-result-banner"><span>CHATGPT HANDOFF · USER-INITIATED</span><strong>'+esc(config.title)+'</strong><small>'+esc(plan)+' · Prepared from your entered information</small></div><div class="plan-result-rows"><section><strong>Information included</strong><p>'+esc(supplied||"No information entered; ChatGPT will be asked not to assume missing facts.")+'</p></section><section><strong>Supporting documents</strong><p>'+esc(fileNote+' '+fileNames.join("; "))+'</p></section><section><strong>Research scope</strong><p>Search official regulator websites, including authority publication pages outside a curated list; verify source status, dates, amendments and applicability; cite original sources.</p></section><section><strong>Input validation notes</strong><p>'+esc(validationWarnings)+'</p></section></div><div class="plan-result-warning"><strong>Important handoff limitation</strong><p>Copy the prompt using the button below. If clipboard access is unavailable, select and copy the complete prompt from the text box. The URL does not contain your form data. This GitHub Pages site cannot securely upload selected files or call the OpenAI API. Attach selected documents manually in ChatGPT. Do not submit confidential bank/customer information in this public preview.</p></div><label class="plan-prompt-fallback" for="chatgpt-prompt-fallback"><strong>Research prompt — manual copy fallback</strong><textarea id="chatgpt-prompt-fallback" rows="10" readonly spellcheck="false">'+esc(prompt)+'</textarea><small>Select the text above and copy it if the Copy button is unavailable.</small></label><div class="plan-result-actions"><a class="plan-print" id="open-chatgpt-report" href="'+esc(chatUrl)+'" target="_blank" rel="noopener noreferrer">Open ChatGPT and paste the prompt</a><button type="button" class="plan-reset" id="copy-chatgpt-prompt">Copy research prompt</button></div></div>';
+ // Live Phase 1 research is a separate, opt-in staging workflow. Existing ChatGPT handoff remains unchanged.
+ const livePanel=document.createElement("section");
+ livePanel.className="gaas-live-research";
+ livePanel.setAttribute("aria-labelledby","gaas-live-title");
+ livePanel.innerHTML='<div class="gaas-live-heading"><span class="gaas-live-kicker">PHASE 1 · LIVE RESEARCH STAGING</span><h3 id="gaas-live-title">Run source-led regulatory research</h3><p>Uses the staging research API and Cloudflare Turnstile. Do not enter confidential, customer, transaction or restricted institutional information.</p></div><div class="gaas-live-challenge"><div id="gaas-turnstile-widget"></div><small id="gaas-turnstile-status" role="status">Complete the security check before running research.</small></div><button type="button" class="btn primary gaas-live-run" id="gaas-live-run" disabled>Run live regulatory research</button><div id="gaas-live-status" class="gaas-live-status" role="status" aria-live="polite"></div><div id="gaas-live-result" class="gaas-live-result" aria-live="polite"></div><p class="gaas-live-footnote">Staging only · AI-assisted research · human verification required · no document upload or account storage.</p>';
+ result.appendChild(livePanel);
+ const liveRun=livePanel.querySelector("#gaas-live-run");
+ const turnstileStatus=livePanel.querySelector("#gaas-turnstile-status");
+ const liveStatus=livePanel.querySelector("#gaas-live-status");
+ const liveResult=livePanel.querySelector("#gaas-live-result");
+ let liveToken="";
+ let widgetId=null;
+ const renderChallenge=()=>{
+  if(!window.turnstile||widgetId!==null)return;
+  const mount=livePanel.querySelector("#gaas-turnstile-widget");
+  if(!mount)return;
+  try{
+   widgetId=window.turnstile.render(mount,{
+    sitekey:"0x4AAAAAAF5yBlsssEZ2K6FF",
+    action:"gaas_research",
+    callback:(token)=>{liveToken=token;liveRun.disabled=false;turnstileStatus.textContent="Security check completed.";},
+    "expired-callback":()=>{liveToken="";liveRun.disabled=true;turnstileStatus.textContent="Security check expired. Please complete it again.";},
+    "error-callback":()=>{liveToken="";liveRun.disabled=true;turnstileStatus.textContent="Security check unavailable. Refresh and retry.";}
+   });
+  }catch(error){turnstileStatus.textContent="Security check could not load. Please refresh the page.";}
+ };
+ if(window.turnstile){renderChallenge();}
+ else{
+  const waitForTurnstile=()=>{if(window.turnstile)renderChallenge();};
+  window.addEventListener("load",waitForTurnstile,{once:true});
+  let attempts=0;
+  const retry=setInterval(()=>{attempts++;waitForTurnstile();if(widgetId!==null||attempts>=20)clearInterval(retry);},500);
+ }
+ liveRun.addEventListener("click",async()=>{
+  if(!liveToken){liveStatus.textContent="Complete the security check first.";return;}
+  liveRun.disabled=true;
+  liveStatus.textContent="Research is running. This may take a short time…";
+  liveResult.replaceChildren();
+  const jurisdiction=values.jurisdiction||(Array.isArray(values.jurisdictions)?values.jurisdictions.join(", "):"")||"Not specified by user";
+  const topic=values.topic||values.theme||values.change||values.instrument||values.obligation||"Regulatory research and impact";
+  const researchQuestion=[
+   "Conduct current regulatory research for the selected GaaS workflow. Search the issuing regulator's official website and its publication pages, including relevant publications not present in curated source lists.",
+   "User-provided scope (not independently verified):",
+   ...Object.entries(values).map(([key,value])=>key+": "+(Array.isArray(value)?value.join(", "):String(value||"Not provided"))),
+   "Distinguish binding instruments from guidance, consultation, reports and enforcement notices. Verify publication/effective dates, amendments and current status where evidence allows.",
+   "Separate verified facts, AI analysis, assumptions, unverified items and human-review questions. Cite original official sources. Do not invent applicability, clauses, dates, internal controls or entity facts."
+  ].join("\n").slice(0,2450);
+  const payload={
+   plan, jurisdiction, topic:String(topic).slice(0,190), question:researchQuestion,
+   authority:values.authority||"",
+   institution:values.institution||values.entity||"",
+   businessArea:values.business||values.theme||values.entity||"",
+   process:values.process||"",
+   instrument:values.instrument||values.change||"",
+   researchPeriod:"Current position at research date",
+   language:"English",
+   turnstileToken:liveToken
+  };
+  try{
+   const response=await fetch("https://gaas-research-api-staging.regtechnexusai.workers.dev/api/research",{
+    method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(payload),credentials:"omit",cache:"no-store"
+   });
+   const data=await response.json().catch(()=>({error:"The service returned an unreadable response."}));
+   if(!response.ok)throw new Error(data.error||("Research request failed ("+response.status+")."));
+   liveStatus.textContent="Research response received. Human verification is still required.";
+   const report=document.createElement("div");report.className="gaas-live-report";
+   const heading=document.createElement("h4");heading.textContent="Research report";
+   const meta=document.createElement("p");meta.className="gaas-live-meta";meta.textContent="Research date: "+(data.researchDate?new Date(data.researchDate).toLocaleString():"Not supplied")+" · "+plan;
+   const body=document.createElement("div");body.className="gaas-live-report-text";body.textContent=data.report||"No report text returned.";
+   report.append(heading,meta,body);
+   const citationsHeading=document.createElement("h4");citationsHeading.textContent="Source citations ("+(Array.isArray(data.citations)?data.citations.length:0)+")";
+   const citations=document.createElement("ol");citations.className="gaas-live-citations";
+   (Array.isArray(data.citations)?data.citations:[]).forEach(item=>{
+    try{
+     const url=new URL(item.url);
+     if(url.protocol!=="https:")return;
+     const li=document.createElement("li"),a=document.createElement("a");
+     a.href=url.href;a.target="_blank";a.rel="noopener noreferrer";a.textContent=item.title||url.hostname;
+     li.appendChild(a);citations.appendChild(li);
+    }catch(e){}
+   });
+   if(!citations.children.length){const li=document.createElement("li");li.textContent="No structured citations were returned. Treat all claims as unverified until independently sourced.";citations.appendChild(li);}
+   const disclaimer=document.createElement("p");disclaimer.className="gaas-live-disclaimer";disclaimer.textContent=data.disclaimer||"AI-assisted research only. Verify original instruments, legal status, applicability and effective dates. Human review is required.";
+   liveResult.append(report,citationsHeading,citations,disclaimer);
+  }catch(error){
+   liveStatus.textContent=error.message||"Research request failed. Please retry.";
+  }finally{
+   liveToken="";
+   liveRun.disabled=true;
+   if(window.turnstile&&widgetId!==null){try{window.turnstile.reset(widgetId);}catch(e){}}
+   turnstileStatus.textContent="Complete the security check again before another request.";
+  }
+ });
  const fallback=result.querySelector("#chatgpt-prompt-fallback");
  const copy=result.querySelector("#copy-chatgpt-prompt");
  if(copy)copy.addEventListener("click",async()=>{
