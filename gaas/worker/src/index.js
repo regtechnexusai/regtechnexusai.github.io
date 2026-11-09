@@ -38,7 +38,12 @@ export function extractResponse(result) {
       }
     }
   }
-  const unique = [...new Map(citations.map(c => [c.url, c])).values()];
+  const seenUrls = new Set();
+  const unique = citations.filter(citation => {
+    if (seenUrls.has(citation.url)) return false;
+    seenUrls.add(citation.url);
+    return true;
+  });
   return { report: textParts.join("\n\n").trim(), citations: unique };
 }
 function buildResearchInput(data) {
