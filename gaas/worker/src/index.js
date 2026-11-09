@@ -49,7 +49,7 @@ function buildResearchInput(data) {
     "Required output: concise executive summary; search scope and research date; source register; document classification and status; relevant requirements with citations; potential business/process impact; candidate control/evidence mapping; uncertainties; and reviewer checklist."
   ].join("\n");
 }
-async function verifyTurnstile(token, ip, env) {
+async function verifyTurnstile(token, ip, expectedHostname, env) {
   if (!env.TURNSTILE_SECRET_KEY) throw new Error("Turnstile is not configured.");
   if (!token) return false;
   const body = new URLSearchParams({ secret: env.TURNSTILE_SECRET_KEY, response: token });
@@ -57,7 +57,7 @@ async function verifyTurnstile(token, ip, env) {
   const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body });
   if (!response.ok) return false;
   const result = await response.json();
-  const origin = new URL(request.headers.get("Origin") || "https://regtechnexusai.com").hostname;\n  return result.success === true && result.hostname === origin && (!result.action || result.action === "gaas_research");
+  return result.success === true && result.hostname === expectedHostname && result.action === "gaas_research";
 }
 async function handleResearch(request, env) {
   if (!env.OPENAI_API_KEY) return json({ error: "Research service is not configured." }, 503);
@@ -74,7 +74,7 @@ async function handleResearch(request, env) {
   const question = clean(body.question, 2500);
   if (!ALLOWED_PLANS.has(plan)) return json({ error: "Unknown GaaS plan." }, 400);
   if (!jurisdiction || !topic || !question) return json({ error: "Jurisdiction, topic and research question are required." }, 400);
-  const turnstileOk = await verifyTurnstile(clean(body.turnstileToken, 4000), request.headers.get("CF-Connecting-IP") || "", env);
+  const turnstileOk = await verifyTurnstile(clean(body.turnstileToken, 4000), request.headers.get("CF-Connecting-IP") || "", new URL(request.headers.get("Origin")).hostname, env);
   if (!turnstileOk) return json({ error: "Security verification failed. Please retry." }, 403);
   const requestData = {
     plan, jurisdiction, topic, question,
