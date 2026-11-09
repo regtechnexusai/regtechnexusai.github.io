@@ -1,0 +1,12 @@
+name = "gaas-research-api-staging"
+main = "src/index.js"
+compatibility_date = "2026-11-09"
+workers_dev = true
+
+[vars]
+ALLOWED_ORIGIN = "https://regtechnexusai.com,https://www.regtechnexusai.com"
+OPENAI_MODEL = "gpt-6-astra"
+
+# Keep these as encrypted Cloudflare Worker secrets; never commit values:
+# wrangler secret put OPENAI_API_KEY
+# wrangler secret put TURNSTILE_SECRET_KEY
