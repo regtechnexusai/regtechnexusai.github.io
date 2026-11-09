@@ -1,0 +1,29 @@
+name: GaaS Phase 1 Worker Tests
+
+on:
+  pull_request:
+    paths:
+      - "gaas/worker/**"
+      - ".github/workflows/gaas-worker-tests.yml"
+  push:
+    branches: [main]
+    paths:
+      - "gaas/worker/**"
+      - ".github/workflows/gaas-worker-tests.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  worker-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: gaas/worker
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - run: npm test
