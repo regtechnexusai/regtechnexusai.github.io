@@ -57,7 +57,7 @@ async function verifyTurnstile(token, ip, env) {
   const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body });
   if (!response.ok) return false;
   const result = await response.json();
-  return result.success === true;
+  const origin = new URL(request.headers.get("Origin") || "https://regtechnexusai.com").hostname;\n  return result.success === true && result.hostname === origin && (!result.action || result.action === "gaas_research");
 }
 async function handleResearch(request, env) {
   if (!env.OPENAI_API_KEY) return json({ error: "Research service is not configured." }, 503);
