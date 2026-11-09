@@ -55,10 +55,13 @@ describe("GaaS research API edge behaviour", () => {
   });
 
   it("rejects oversized requests before provider access", async () => {
+    // Use a real oversized body rather than a mismatched Content-Length header;
+    // Node's Fetch implementation rejects inconsistent request bodies at construction.
+    const oversizedBody = "x".repeat(13 * 1024);
     const response = await worker.fetch(new Request("https://worker.example/api/research", {
       method: "POST",
-      headers: { Origin: ORIGIN, "content-type": "application/json", "content-length": "13000" },
-      body: "{}"
+      headers: { Origin: ORIGIN, "content-type": "application/json" },
+      body: oversizedBody
     }), ENV);
     expect(response.status).toBe(413);
   });
