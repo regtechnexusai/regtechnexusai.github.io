@@ -1,5 +1,7 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, afterEach } from "vitest";
 import worker, { classifyOpenAIError, extractResponse } from "../src/index.js";
+
+afterEach(() => vi.unstubAllGlobals());
 
 const ORIGIN = "https://regtechnexusai.com";
 const ENV = {
@@ -123,5 +125,92 @@ describe("OpenAI provider diagnostic classification", () => {
   it("does not include raw provider error messages in client diagnostics", () => {
     const result = classifyOpenAIError(500, { message: "sensitive provider detail" });
     expect(result.message).not.toContain("sensitive provider detail");
+  });
+});
+
+
+describe("Live research request flow (mocked providers; no paid API calls)", () => {
+  const requestBody = {
+    plan: "Free Explorer",
+    jurisdiction: "Bangladesh",
+    topic: "AML/CFT",
+    question: "Find current official AML/CFT requirements for licensed financial institutions.",
+    turnstileToken: "test-turnstile-token"
+  };
+
+  it("rejects an invalid Turnstile response without calling OpenAI", async () => {
+    const fetchMock = vi.fn().mockResolvedValueOnce(new Response(JSON.stringify({
+      success: false, hostname: "regtechnexusai.com", action: "gaas_research"
+    }), { status: 200, headers: { "content-type": "application/json" } }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const response = await worker.fetch(new Request("https://worker.example/api/research", {
+      method: "POST",
+      headers: { Origin: ORIGIN, "content-type": "application/json" },
+      body: JSON.stringify(requestBody)
+    }), ENV);
+
+    expect(response.status).toBe(403);
+    expect(await response.json()).toMatchObject({ error: "Security verification failed. Please retry." });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock.mock.calls[0][0]).toBe("https://challenges.cloudflare.com/turnstile/v0/siteverify");
+  });
+
+  it("returns a source-cited research response after successful Turnstile and mocked provider response", async () => {
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce(new Response(JSON.stringify({
+        success: true, hostname: "regtechnexusai.com", action: "gaas_research"
+      }), { status: 200, headers: { "content-type": "application/json" } }))
+      .mockResolvedValueOnce(new Response(JSON.stringify({
+        output: [{
+          type: "message",
+          content: [{
+            type: "output_text",
+            text: "Bangladesh Bank's official publication should be reviewed for current AML/CFT obligations.",
+            annotations: [{
+              type: "url_citation",
+              title: "Bangladesh Bank — Official Publications",
+              url: "https://www.bb.org.bd/"
+            }]
+          }]
+        }]
+      }), { status: 200, headers: { "content-type": "application/json" } }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const response = await worker.fetch(new Request("https://worker.example/api/research", {
+      method: "POST",
+      headers: { Origin: ORIGIN, "content-type": "application/json" },
+      body: JSON.stringify(requestBody)
+    }), ENV);
+
+    const data = await response.json();
+    expect(response.status).toBe(200);
+    expect(data.status).toBe("research_complete_pending_human_review");
+    expect(data.report).toContain("Bangladesh Bank");
+    expect(data.citations).toEqual([{
+      title: "Bangladesh Bank — Official Publications",
+      url: "https://www.bb.org.bd/"
+    }]);
+    expect(data.disclaimer).toContain("Human review");
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(fetchMock.mock.calls[1][0]).toBe("https://api.openai.com/v1/responses");
+    const upstreamRequest = JSON.parse(fetchMock.mock.calls[1][1].body);
+    expect(upstreamRequest.model).toBe("gpt-6-astra");
+    expect(upstreamRequest.tools).toEqual([{ type: "web_search", search_context_size: "high" }]);
+    expect(upstreamRequest.tool_choice).toBe("required");
+  });
+
+  it("does not call external services when the Turnstile token is missing", async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+
+    const response = await worker.fetch(new Request("https://worker.example/api/research", {
+      method: "POST",
+      headers: { Origin: ORIGIN, "content-type": "application/json" },
+      body: JSON.stringify({ ...requestBody, turnstileToken: "" })
+    }), ENV);
+
+    expect(response.status).toBe(403);
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 });
