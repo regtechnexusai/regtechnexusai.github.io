@@ -61,6 +61,21 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Validate Cloudflare staging credentials
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ vars.CF_ACCOUNT_ID }}
+        run: |
+          set -eu
+          if [ -z "${CF_API_TOKEN}" ]; then
+            echo "::error::Missing GitHub Environment secret CF_API_TOKEN in gaas-staging."
+            exit 1
+          fi
+          if [ -z "${CF_ACCOUNT_ID}" ]; then
+            echo "::error::Missing GitHub Environment variable CF_ACCOUNT_ID in gaas-staging."
+            exit 1
+          fi
+
       - name: Deploy the existing staging Worker
         uses: cloudflare/wrangler-action@v3
         with:
