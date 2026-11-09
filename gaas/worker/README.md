@@ -1,6 +1,6 @@
 # GaaS Phase 1 — Live Regulatory Research API
 
-**Status:** Backend foundation / staging only. Not deployed and not production-approved.
+**Status:** Staging MVP. Worker health and the browser Turnstile challenge have been observed working; live OpenAI research remains unverified and currently returns a provider-capacity/quota error. Not production-approved.
 
 ## What this adds
 
@@ -10,7 +10,9 @@
 - Citation extraction from Responses API URL annotations
 - CORS origin allowlist, request-size limits and input validation
 - Cloudflare Turnstile server-side verification
-- Generic error responses that do not expose provider details
+- Safe provider-error classification (credit exhaustion, spend/usage limits, temporary rate limits, authentication, permissions, model availability and overload)
+- Sanitised diagnostic codes and provider request IDs; raw provider messages, prompts and secrets are not returned or logged
+- No automatic retry or credit purchase on quota/billing errors
 - Health endpoint: `GET /health`
 
 The worker does not store customer research requests or documents. The first phase uses public-web research only. Document upload, user authentication, tenant isolation, report history and billing are out of scope until their respective phases.
@@ -26,7 +28,7 @@ The worker does not store customer research requests or documents. The first pha
    - `ALLOWED_ORIGIN` — exact comma-separated frontend origins.
    - `OPENAI_MODEL` — a model enabled for the OpenAI project.
 5. Configure Cloudflare WAF rate limiting for `/api/research` (initial staging suggestion: no more than 5 requests per IP per 15 minutes, with a separate daily ceiling). Tune after observing legitimate usage.
-6. Deploy the Worker to a staging hostname first. Do not point the public GaaS page at it until frontend integration and acceptance tests are complete.
+6. Deploy the Worker to a staging hostname first. The current GaaS staging panel is integrated, but keep it labelled staging until live API and browser acceptance tests pass.
 
 Never put OpenAI or Turnstile secret keys in GitHub Pages files, browser JavaScript, commits, issue comments or chat messages.
 
