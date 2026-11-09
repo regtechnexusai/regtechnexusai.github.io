@@ -579,3 +579,22 @@ body.modal-open{overflow:hidden}
 .gaas-page .plan-prompt-fallback strong{color:#24465f;font-size:12px}
 .gaas-page .plan-prompt-fallback textarea{width:100%;min-height:180px;resize:vertical;padding:10px;border:1px solid #c4d6e0;border-radius:7px;background:#fff;color:#29465d;font:12px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace}
 .gaas-page .plan-prompt-fallback small{color:#687f90;font-size:11px;line-height:1.5}
+
+/* Phase 1 live research staging panel */
+.gaas-live-research{margin:18px 13px;padding:16px;border:1px solid #9fc8d8;border-radius:12px;background:#f3f9fc}
+.gaas-live-heading h3{margin:5px 0 7px;color:#153d5b;font-size:17px}
+.gaas-live-heading p,.gaas-live-footnote{color:#607789;font-size:11px;line-height:1.6}
+.gaas-live-kicker{font-size:9px;font-weight:800;letter-spacing:.1em;color:#177c83}
+.gaas-live-challenge{margin:13px 0;display:grid;gap:7px}
+.gaas-live-challenge small,.gaas-live-status{font-size:11px;color:#526c7e}
+.gaas-live-run{min-height:40px}
+.gaas-live-run:disabled{opacity:.55;cursor:not-allowed}
+.gaas-live-report{margin-top:14px;padding:14px;background:#fff;border:1px solid #d8e5eb;border-radius:9px}
+.gaas-live-report h4,.gaas-live-research>h4{margin:0 0 8px;color:#1b4965;font-size:13px}
+.gaas-live-meta{font-size:10px;color:#718493}
+.gaas-live-report-text{white-space:pre-wrap;overflow-wrap:anywhere;color:#263f53;font-size:12px;line-height:1.65}
+.gaas-live-citations{padding-left:22px;font-size:11px;line-height:1.7;overflow-wrap:anywhere}
+.gaas-live-citations a{color:#126b87;text-decoration:underline}
+.gaas-live-disclaimer{padding:10px;border-left:3px solid #c28a2c;background:#fff8eb;color:#715a32;font-size:11px;line-height:1.6}
+.gaas-live-footnote{margin-bottom:0}
+@media(max-width:560px){.gaas-live-research{margin:14px 0;padding:12px}.gaas-live-report-text{font-size:11px}}
