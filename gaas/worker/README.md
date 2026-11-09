@@ -90,3 +90,25 @@ The endpoint currently allows the six existing plan names but does not yet enfor
 - Add rate-limit and spend-limit monitoring.
 - Add integration tests for Turnstile rejection, invalid payloads, provider errors, citation extraction and request timeouts.
 - Independent security review before production.
+
+
+## Deploy the staging Worker safely
+
+**Important:** the default `wrangler.toml` names `gaas-research-api`; do not use that config to deploy the staging service. The staging service is `gaas-research-api-staging`.
+
+Use the dedicated staging config only:
+
+```bash
+cd gaas/worker
+npx wrangler@latest deploy --config wrangler.staging.toml
+```
+
+The staging config targets only `gaas-research-api-staging` and keeps the existing encrypted Worker secrets out of source control. Authenticate Wrangler to the same Cloudflare account and confirm the target Worker name before approving deployment. Do not paste API keys or Turnstile secrets into the command, repository, or chat.
+
+After deployment, verify:
+1. Cloudflare Deployments shows a new active version for `gaas-research-api-staging`.
+2. `GET /health` returns HTTP 200 and the expected Phase 1 JSON.
+3. Observability records the health request under the new version ID.
+4. Do not call `POST /api/research` unless paid OpenAI usage has been separately authorised.
+
+This procedure does not deploy `gaas-research-api` and does not trigger OpenAI API usage by itself.
