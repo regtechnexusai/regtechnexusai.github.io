@@ -68,13 +68,24 @@ async function handleResearch(request, env) {
   if (new TextEncoder().encode(raw).length > MAX_BODY_BYTES) return json({ error: "Request is too large." }, 413);
   let body;
   try { body = JSON.parse(raw); } catch { return json({ error: "Invalid JSON request." }, 400); }
+  if (!body || typeof body !== "object" || Array.isArray(body)) return json({ error: "Invalid request structure." }, 400);
   const plan = clean(body.plan, 60);
   const jurisdiction = clean(body.jurisdiction, 120);
   const topic = clean(body.topic, 200);
   const question = clean(body.question, 2500);
   if (!ALLOWED_PLANS.has(plan)) return json({ error: "Unknown GaaS plan." }, 400);
   if (!jurisdiction || !topic || !question) return json({ error: "Jurisdiction, topic and research question are required." }, 400);
-  const turnstileOk = await verifyTurnstile(clean(body.turnstileToken, 4000), request.headers.get("CF-Connecting-IP") || "", new URL(request.headers.get("Origin")).hostname, env);
+  const origin = request.headers.get("Origin");
+  if (!origin) return json({ error: "Origin header is required." }, 403);
+  let hostname;
+  try {
+    const parsedOrigin = new URL(origin);
+    if (parsedOrigin.protocol !== "https:" || parsedOrigin.origin !== origin) return json({ error: "Invalid origin." }, 403);
+    hostname = parsedOrigin.hostname;
+  } catch {
+    return json({ error: "Invalid origin." }, 403);
+  }
+  const turnstileOk = await verifyTurnstile(clean(body.turnstileToken, 4000), request.headers.get("CF-Connecting-IP") || "", hostname, env);
   if (!turnstileOk) return json({ error: "Security verification failed. Please retry." }, 403);
   const requestData = {
     plan, jurisdiction, topic, question,
@@ -116,6 +127,10 @@ async function handleResearch(request, env) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    // Public health endpoint; returns no secrets or environment configuration.
+    if (url.pathname === "/health" && request.method === "GET") {
+      return json({ status: "ok", service: "gaas-research-api", mode: "phase-1-mvp" });
+    }
     const origin = request.headers.get("Origin");
     const cors = corsHeaders(origin, env);
     if (request.method === "OPTIONS") {
@@ -123,15 +138,14 @@ export default {
       return new Response(null, { status: 204, headers: cors });
     }
     if (!Object.keys(cors).length) return json({ error: "Origin not allowed." }, 403);
-    if (url.pathname === "/health" && request.method === "GET") return json({ status: "ok", service: "gaas-research-api", mode: "phase-1-mvp" }, 200, cors);
     if (url.pathname !== "/api/research") return json({ error: "Not found." }, 404, cors);
     if (request.method !== "POST") return json({ error: "Method not allowed." }, 405, { ...cors, allow: "POST, OPTIONS" });
-    try { return await handleResearch(request, env).then(response => {
+    try {
+      const response = await handleResearch(request, env);
       const headers = new Headers(response.headers);
       for (const [key, value] of Object.entries(cors)) headers.set(key, value);
       return new Response(response.body, { status: response.status, headers });
-    }); }
-    catch (error) {
+    } catch (error) {
       return json({ error: "Research request failed safely. Please retry or contact support." }, 500, cors);
     }
   }
