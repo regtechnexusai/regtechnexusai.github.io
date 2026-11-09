@@ -1,0 +1,84 @@
+name: GaaS staging Worker deploy
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "gaas/worker/**"
+      - ".github/workflows/gaas-worker-staging-deploy.yml"
+  push:
+    branches: [main]
+    paths:
+      - "gaas/worker/**"
+      - ".github/workflows/gaas-worker-staging-deploy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gaas-staging-worker-deploy
+  cancel-in-progress: false
+
+jobs:
+  worker-regression:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: gaas/worker
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Worker regression tests
+        run: npm test
+
+  deploy-staging:
+    if: github.event_name != 'pull_request'
+    needs: worker-regression
+    runs-on: ubuntu-latest
+    environment: gaas-staging
+    defaults:
+      run:
+        working-directory: gaas/worker
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Deploy the existing staging Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ vars.CF_ACCOUNT_ID }}
+          command: deploy --config wrangler.staging.toml
+
+      - name: Verify staging health endpoint
+        run: |
+          set -eu
+          response="$(curl --fail --silent --show-error --retry 5 --retry-delay 3 --retry-connrefused https://gaas-research-api-staging.regtechnexusai.workers.dev/health)"
+          printf '%s\\n' "$response"
+          node --input-type=module -e '
+            let input = "";
+            for await (const chunk of process.stdin) input += chunk;
+            const data = JSON.parse(input);
+            if (data.status !== "ok" || data.service !== "gaas-research-api" || data.mode !== "phase-1-mvp") {
+              console.error("Unexpected staging health response");
+              process.exit(1);
+            }
+          ' <<< "$response"
