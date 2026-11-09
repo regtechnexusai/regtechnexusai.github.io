@@ -573,3 +573,9 @@ body.modal-open{overflow:hidden}
 .gaas-page .country-filter{min-height:36px;padding:7px 10px;border:1px solid #cbd9e3;border-radius:8px;background:#fff;color:#29465d;font-size:12px}
 .gaas-page .country-filter::placeholder{color:#aab5c1!important;font-weight:400}
 .gaas-page .field-example{display:block;margin-top:4px;color:#aab5c1;font-size:11px;font-weight:400}
+
+/* GaaS ChatGPT handoff: keep a manual-copy prompt available when clipboard access is denied. */
+.gaas-page .plan-prompt-fallback{display:grid;gap:7px;margin:14px 13px;padding:13px;border:1px solid #c8dce6;border-radius:10px;background:#f7fbfd}
+.gaas-page .plan-prompt-fallback strong{color:#24465f;font-size:12px}
+.gaas-page .plan-prompt-fallback textarea{width:100%;min-height:180px;resize:vertical;padding:10px;border:1px solid #c4d6e0;border-radius:7px;background:#fff;color:#29465d;font:12px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace}
+.gaas-page .plan-prompt-fallback small{color:#687f90;font-size:11px;line-height:1.5}
