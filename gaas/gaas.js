@@ -89,6 +89,7 @@ let control="";
 if(f[2]==="select"||f[0]==="jurisdiction"||f[0]==="jurisdictions"){
  const opts=(f[0]==="jurisdiction"||f[0]==="jurisdictions")?COUNTRY_OPTIONS:f[3];
  const multi=f[0]==="jurisdictions";
+ const isCountry=f[0]==="jurisdiction"||f[0]==="jurisdictions";
  control='<div class="country-select-wrap"><input class="country-filter" type="search" aria-label="Filter country and region options" placeholder="Type to filter country / region" data-filter-target="field-'+f[0]+'"><select id="field-'+f[0]+'" name="'+f[0]+'" '+(multi?'multiple size="5" aria-describedby="jurisdiction-hint"':'')+'><option value="">'+(multi?'Select one or more countries':isCountry?'Choose a country / region':'Select an option')+'</option>'+opts.map(o=>'<option value="'+esc(o)+'">'+esc(o)+'</option>').join("")+'</select></div>';
 }else{
  const hint=sampleHint(f[0],f[1],f[3]);
@@ -146,16 +147,29 @@ function generatePlanOutput(form){
  config.fields.forEach(f=>{const el=form.elements[f[0]];values[f[0]]=el?(el.multiple?Array.from(el.selectedOptions).map(o=>o.value).filter(Boolean):String(el.value||"").trim()):"";});
  const files=Array.from(form.querySelector("#plan-source-files")?.files||[]);
  const fileNames=files.map(f=>f.name+" ("+f.type+", "+Math.ceil(f.size/1024)+" KB)");
- const prompt=buildChatGPTPrompt(plan,values,fileNames);
- const chatUrl="https://chatgpt.com/?q="+encodeURIComponent(prompt.slice(0,12000));
+ const validation=validatePlan(plan,values);
  const result=modal.querySelector("#plan-demo-result");
+ if(validation.errors.length){
+  result.innerHTML='<div class="plan-validation-error" role="alert"><strong>More information is required before preparing this report.</strong><ul>'+validation.errors.map(message=>'<li>'+esc(message)+'</li>').join("")+'</ul></div>';
+  return;
+ }
+ const prompt=buildChatGPTPrompt(plan,values,fileNames);
+ // Keep user-entered information out of URL query strings and browser navigation history.
+ const chatUrl="https://chatgpt.com/";
+ const validationWarnings=validation.warnings.length?validation.warnings.join(" "):"No additional validation warnings.";
  const supplied=Object.entries(values).filter(([,v])=>Array.isArray(v)?v.length:String(v||"").trim()).map(([k,v])=>k+": "+(Array.isArray(v)?v.join(", "):v)).join(" · ");
  const fileNote=files.length?"Selected "+files.length+" file(s). Attach the same file(s) manually in the ChatGPT tab; this static page cannot transmit file contents.":"No files selected.";
- result.innerHTML='<div class="plan-result-document"><div class="plan-result-banner"><span>CHATGPT HANDOFF · USER-INITIATED</span><strong>'+esc(config.title)+'</strong><small>'+esc(plan)+' · Prepared from your entered information</small></div><div class="plan-result-rows"><section><strong>Information included</strong><p>'+esc(supplied||"No information entered; ChatGPT will be asked not to assume missing facts.")+'</p></section><section><strong>Supporting documents</strong><p>'+esc(fileNote+' '+fileNames.join("; "))+'</p></section><section><strong>Research scope</strong><p>Search official regulator websites, including authority publication pages outside a curated list; verify source status, dates, amendments and applicability; cite original sources.</p></section></div><div class="plan-result-warning"><strong>Important handoff limitation</strong><p>The ChatGPT link carries the form information as a prompt. This GitHub Pages site cannot securely upload selected files or call the OpenAI API. Attach selected documents manually in ChatGPT. Do not submit confidential bank/customer information in this public preview.</p></div><div class="plan-result-actions"><a class="plan-print" id="open-chatgpt-report" href="'+esc(chatUrl)+'" target="_blank" rel="noopener noreferrer">Open ChatGPT to generate report</a><button type="button" class="plan-reset" id="copy-chatgpt-prompt">Copy research prompt</button></div></div>';
+ result.innerHTML='<div class="plan-result-document"><div class="plan-result-banner"><span>CHATGPT HANDOFF · USER-INITIATED</span><strong>'+esc(config.title)+'</strong><small>'+esc(plan)+' · Prepared from your entered information</small></div><div class="plan-result-rows"><section><strong>Information included</strong><p>'+esc(supplied||"No information entered; ChatGPT will be asked not to assume missing facts.")+'</p></section><section><strong>Supporting documents</strong><p>'+esc(fileNote+' '+fileNames.join("; "))+'</p></section><section><strong>Research scope</strong><p>Search official regulator websites, including authority publication pages outside a curated list; verify source status, dates, amendments and applicability; cite original sources.</p></section><section><strong>Input validation notes</strong><p>'+esc(validationWarnings)+'</p></section></div><div class="plan-result-warning"><strong>Important handoff limitation</strong><p>The report prompt is copied to your clipboard when browser permissions allow; open ChatGPT and paste it. The URL does not contain your form data. This GitHub Pages site cannot securely upload selected files or call the OpenAI API. Attach selected documents manually in ChatGPT. Do not submit confidential bank/customer information in this public preview.</p></div><div class="plan-result-actions"><a class="plan-print" id="open-chatgpt-report" href="'+esc(chatUrl)+'" target="_blank" rel="noopener noreferrer">Open ChatGPT and paste the prompt</a><button type="button" class="plan-reset" id="copy-chatgpt-prompt">Copy research prompt</button></div></div>';
  const copy=result.querySelector("#copy-chatgpt-prompt");
  if(copy)copy.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(prompt);copy.textContent="Prompt copied";}catch(e){copy.textContent="Copy unavailable — use the ChatGPT link";}});
  const link=result.querySelector("#open-chatgpt-report");
- if(link){const opened=window.open(chatUrl,"_blank","noopener,noreferrer");if(!opened)link.textContent="Open ChatGPT (popup blocked — tap here)";}
+ if(link){
+  const opened=window.open(chatUrl,"_blank","noopener,noreferrer");
+  if(!opened)link.textContent="Open ChatGPT (popup blocked — tap here)";
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+   navigator.clipboard.writeText(prompt).then(()=>{if(copy)copy.textContent="Prompt copied — paste into ChatGPT";}).catch(()=>{});
+  }
+ }
 }
 document.addEventListener("input",event=>{if(event.target&&event.target.classList.contains("country-filter")){const target=document.getElementById(event.target.dataset.filterTarget),q=event.target.value.trim().toLowerCase();if(target)Array.from(target.options).forEach((option,i)=>{option.hidden=i!==0&&!option.text.toLowerCase().includes(q);});}});
 document.addEventListener("change",event=>{if(event.target&&event.target.id==="plan-source-files"){const s=document.getElementById("plan-file-status"),n=event.target.files?.length||0;if(s)s.textContent=n?n+" file(s) selected. Attach them manually after ChatGPT opens.":"No files selected. Files are not uploaded to this website; attach them manually in ChatGPT.";}});
