@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import worker, { extractResponse } from "../src/index.js";
+import worker, { classifyOpenAIError, extractResponse } from "../src/index.js";
 
 describe("GaaS research API edge behaviour", () => {
   it("returns a public health response without requiring an Origin header", async () => {
@@ -69,5 +69,27 @@ describe("OpenAI Responses citation extraction", () => {
     });
 
     expect(result.citations).toEqual([{ title: "Source A", url: "https://example.com/a" }]);
+  });
+});
+
+
+describe("OpenAI provider diagnostic classification", () => {
+  it("distinguishes exhausted prepaid credits from temporary rate limits", () => {
+    expect(classifyOpenAIError(429, { type: "insufficient_quota", code: "credit_balance_exhausted" }).code).toBe("OPENAI_CREDIT_BALANCE_EXHAUSTED");
+    expect(classifyOpenAIError(429, { type: "rate_limit_error", code: "rate_limit_exceeded" }).code).toBe("OPENAI_TEMPORARY_RATE_LIMIT");
+  });
+  it("identifies organization and project spend limits", () => {
+    expect(classifyOpenAIError(429, { code: "organization_spend_limit_exceeded" }).code).toBe("OPENAI_ORGANIZATION_SPEND_LIMIT");
+    expect(classifyOpenAIError(429, { code: "project_spend_limit_exceeded" }).code).toBe("OPENAI_PROJECT_SPEND_LIMIT");
+  });
+  it("identifies authentication, permission, model and overload errors", () => {
+    expect(classifyOpenAIError(401, {}).code).toBe("OPENAI_AUTHENTICATION_FAILED");
+    expect(classifyOpenAIError(403, {}).code).toBe("OPENAI_PERMISSION_DENIED");
+    expect(classifyOpenAIError(404, {}).code).toBe("OPENAI_MODEL_OR_ENDPOINT_NOT_FOUND");
+    expect(classifyOpenAIError(503, { code: "server_is_overloaded" }).code).toBe("OPENAI_MODEL_OVERLOADED");
+  });
+  it("does not include raw provider error messages in client diagnostics", () => {
+    const result = classifyOpenAIError(500, { message: "sensitive provider detail" });
+    expect(result.message).not.toContain("sensitive provider detail");
   });
 });
