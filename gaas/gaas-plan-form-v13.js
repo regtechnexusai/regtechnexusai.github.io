@@ -232,7 +232,7 @@ function generatePlanOutput(form){
     method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(payload),credentials:"omit",cache:"no-store"
    });
    const data=await response.json().catch(()=>({error:"The service returned an unreadable response."}));
-   if(!response.ok)throw new Error(data.error||("Research request failed ("+response.status+")."));
+   if(!response.ok){const diagnostic=[data.code?"Diagnostic: "+data.code:"",data.providerRequestId?"Provider request ID: "+data.providerRequestId:"",data.retryAfter?"Retry-After: "+data.retryAfter+" seconds":""].filter(Boolean).join(" · ");throw new Error((data.error||("Research request failed ("+response.status+")."))+(diagnostic?" ("+diagnostic+")":""));}
    liveStatus.textContent="Research response received. Human verification is still required.";
    const report=document.createElement("div");report.className="gaas-live-report";
    const heading=document.createElement("h4");heading.textContent="Research report";
