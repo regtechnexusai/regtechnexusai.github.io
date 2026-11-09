@@ -201,7 +201,7 @@ def test_gaas_plan_preview_and_live_research_staging_panel(page: Page):
     expect(page.locator("#plan-modal")).to_be_visible()
 
     # Exercise the fixed local demonstration separately; it must not make an AI request.
-    page.locator("[data-close-modal]").first.click()
+    page.locator(".modal-close").click()
     page.locator("#run-demo").click()
     expect(page.locator("#demo-output")).to_contain_text("SIMULATED OUTPUT")
 
