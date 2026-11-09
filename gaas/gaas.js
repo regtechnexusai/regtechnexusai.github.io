@@ -87,10 +87,14 @@ const workspace=modal.querySelector("#plan-demo-workspace");if(!workspace)return
 const fields=config.fields.map(f=>{
 let control="";
 if(f[2]==="select"||f[0]==="jurisdiction"||f[0]==="jurisdictions"){
- const opts=(f[0]==="jurisdiction"||f[0]==="jurisdictions")?COUNTRY_OPTIONS:f[3];
- const multi=f[0]==="jurisdictions";
  const isCountry=f[0]==="jurisdiction"||f[0]==="jurisdictions";
- control='<div class="country-select-wrap"><input class="country-filter" type="search" aria-label="Filter country and region options" placeholder="Type to filter country / region" data-filter-target="field-'+f[0]+'"><select id="field-'+f[0]+'" name="'+f[0]+'" '+(multi?'multiple size="5" aria-describedby="jurisdiction-hint"':'')+'><option value="">'+(multi?'Select one or more countries':isCountry?'Choose a country / region':'Select an option')+'</option>'+opts.map(o=>'<option value="'+esc(o)+'">'+esc(o)+'</option>').join("")+'</select></div>';
+ const opts=isCountry?COUNTRY_OPTIONS:f[3];
+ const multi=f[0]==="jurisdictions";
+ if(isCountry){
+  control='<div class="country-select-wrap"><input class="country-filter" type="search" aria-label="Filter country and region options" placeholder="Type to filter country / region" data-filter-target="field-'+f[0]+'"><select id="field-'+f[0]+'" name="'+f[0]+'" data-country-select="true" '+(multi?'multiple size="6" aria-describedby="jurisdiction-hint"':'')+'>'+(multi?'':'<option value="">Choose a country / region</option>')+opts.map(o=>'<option value="'+esc(o)+'">'+esc(o)+'</option>').join("")+'</select></div>';
+ }else{
+  control='<select id="field-'+f[0]+'" name="'+f[0]+'"><option value="">Select an option</option>'+opts.map(o=>'<option value="'+esc(o)+'">'+esc(o)+'</option>').join("")+'</select>';
+ }
 }else{
  const hint=sampleHint(f[0],f[1],f[3]);
  control='<input id="field-'+f[0]+'" name="'+f[0]+'" type="'+(f[2]==="date"?"date":"text")+'" '+(f[2]==="date"?'title="Choose a target date"':'placeholder="'+esc(hint)+'"')+' autocomplete="off">'+(f[2]==="date"?'<small class="field-example">e.g. Select a target review date</small>':'');
@@ -119,7 +123,7 @@ return "Identify the competent regulator and original issuing authority for the 
 function dateStatus(value){const due=new Date(value+"T00:00:00"),today=new Date();today.setHours(0,0,0,0);if(!value||Number.isNaN(due.getTime()))return "Date requires confirmation";const days=Math.floor((today-due)/86400000);return days>0?"OVERDUE — "+days+" day(s) past target":days===0?"Due today":"Upcoming — target date not yet reached";}
 function validatePlan(plan,values){
 const config=planWorkflows[plan],errors=[],warnings=[],junk=/^(?:nil|none|n\/?a|not known|unknown|f{2,}|[a-z]{1,3}|[a-z0-9]{7,})$/i;
-config.fields.forEach(f=>{const value=values[f[0]]||"";if(f[4]&&!value)errors.push(f[1]+" is required.");if(f[2]==="text"&&value&&(junk.test(value)||value.length<4))errors.push(f[1]+" contains a placeholder or insufficient detail.");});
+config.fields.forEach(f=>{const value=values[f[0]]??"";const missing=Array.isArray(value)?value.length===0:!String(value).trim();if(f[4]&&missing)errors.push(f[1]+" is required.");if(f[2]==="text"&&typeof value==="string"&&value&&(junk.test(value)||value.length<4))errors.push(f[1]+" contains a placeholder or insufficient detail.");});
 if(plan==="Free Explorer"&&values.question&&values.question.length<20)errors.push("Research question must describe the regulatory issue, not only your job role.");
 if(plan==="Small Business"&&values.due){const due=new Date(values.due+"T00:00:00"),today=new Date();today.setHours(0,0,0,0);if(due<today)warnings.push(dateStatus(values.due)+". Confirm whether this is a new target or an overdue action.");}
 if(plan==="Business Plus"&&/^(none|not provided)$/i.test(values.committee))warnings.push("No oversight forum is identified; committee decision checkpoints require an agreed accountable forum.");
@@ -171,7 +175,24 @@ function generatePlanOutput(form){
   }
  }
 }
-document.addEventListener("input",event=>{if(event.target&&event.target.classList.contains("country-filter")){const target=document.getElementById(event.target.dataset.filterTarget),q=event.target.value.trim().toLowerCase();if(target)Array.from(target.options).forEach((option,i)=>{option.hidden=i!==0&&!option.text.toLowerCase().includes(q);});}});
+document.addEventListener("input",event=>{
+ const input=event.target;
+ if(!input||!input.classList.contains("country-filter"))return;
+ const target=document.getElementById(input.dataset.filterTarget);
+ if(!target||target.dataset.countrySelect!=="true")return;
+ const query=input.value.trim().toLocaleLowerCase();
+ const selected=new Set(Array.from(target.selectedOptions).map(option=>option.value).filter(Boolean));
+ const matches=COUNTRY_OPTIONS.filter(country=>country.toLocaleLowerCase().includes(query)||selected.has(country));
+ const fragment=document.createDocumentFragment();
+ matches.forEach(country=>{
+  const option=document.createElement("option");
+  option.value=country;
+  option.textContent=country;
+  option.selected=selected.has(country);
+  fragment.appendChild(option);
+ });
+ target.replaceChildren(fragment);
+});
 document.addEventListener("change",event=>{if(event.target&&event.target.id==="plan-source-files"){const s=document.getElementById("plan-file-status"),n=event.target.files?.length||0;if(s)s.textContent=n?n+" file(s) selected. Attach them manually after ChatGPT opens.":"No files selected. Files are not uploaded to this website; attach them manually in ChatGPT.";}});
 document.addEventListener("submit",event=>{if(event.target&&event.target.id==="plan-demo-form"){event.preventDefault();generatePlanOutput(event.target);}});
 function closePlan(){if(!modal)return;modal.hidden=true;document.body.classList.remove("modal-open");if(lastPlanTrigger)lastPlanTrigger.focus();}
