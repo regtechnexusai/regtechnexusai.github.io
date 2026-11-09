@@ -38,6 +38,7 @@ jobs:
               "FIELDS NOT PROVIDED",
               "Bangladesh Financial Intelligence Unit", "does not search those authorities",
               "placeholder=", "Attach them manually", 'const isCountry=f[0]==="jurisdiction"||f[0]==="jurisdictions";',
+              "data-country-select=\"true\"", "target.replaceChildren(fragment)", "const missing=Array.isArray(value)?value.length===0:!String(value).trim();",
               "const validation=validatePlan(plan,values);", 'const chatUrl="https://chatgpt.com/";',
               "The URL does not contain your form data.", "Input validation notes"
           ]
