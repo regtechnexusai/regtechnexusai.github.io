@@ -175,7 +175,32 @@ document.addEventListener("input",event=>{if(event.target&&event.target.classLis
 document.addEventListener("change",event=>{if(event.target&&event.target.id==="plan-source-files"){const s=document.getElementById("plan-file-status"),n=event.target.files?.length||0;if(s)s.textContent=n?n+" file(s) selected. Attach them manually after ChatGPT opens.":"No files selected. Files are not uploaded to this website; attach them manually in ChatGPT.";}});
 document.addEventListener("submit",event=>{if(event.target&&event.target.id==="plan-demo-form"){event.preventDefault();generatePlanOutput(event.target);}});
 function closePlan(){if(!modal)return;modal.hidden=true;document.body.classList.remove("modal-open");if(lastPlanTrigger)lastPlanTrigger.focus();}
-document.querySelectorAll("[data-plan]").forEach(button=>button.addEventListener("click",()=>openPlan(button)));
+// Use delegated capture-phase handling so plan buttons remain functional on mobile
+// even if another component attaches handlers or the pricing cards are re-rendered.
+document.addEventListener("click",event=>{
+ const button=event.target&&event.target.closest?event.target.closest(".plan-button[data-plan]"):null;
+ if(!button)return;
+ event.preventDefault();
+ try{
+  openPlan(button);
+  if(modal&&modal.hidden){
+   const workspace=modal.querySelector("#plan-demo-workspace");
+   if(workspace)workspace.innerHTML='<p role="alert" class="plan-validation-error">This plan preview could not be opened. Please reload the page and try again.</p>';
+   modal.hidden=false;
+   document.body.classList.add("modal-open");
+  }
+ }catch(error){
+  console.error("GaaS plan preview failed:",error);
+  if(modal){
+   const workspace=modal.querySelector("#plan-demo-workspace");
+   if(workspace)workspace.innerHTML='<p role="alert" class="plan-validation-error">The plan preview encountered an error. Please reload the page and try again.</p>';
+   modal.hidden=false;
+   document.body.classList.add("modal-open");
+  }else{
+   window.alert("The plan preview could not be opened. Please reload the page and try again.");
+  }
+ }
+},true);
 document.querySelectorAll("[data-close-modal]").forEach(element=>element.addEventListener("click",closePlan));
 document.addEventListener("keydown",event=>{if(event.key==="Escape"&&modal&&!modal.hidden)closePlan();});
 })();
