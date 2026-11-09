@@ -62,7 +62,7 @@ rows:v=>[["Organisation profile",v.entity+" · "+v.jurisdiction],["Change under 
 "Business Plus":{
 subtitle:"Multi-workstream governance and portfolio oversight",
 steps:["Define institution profile, jurisdictions and change theme.","Set governance ownership and workstreams.","Generate a portfolio oversight pack and management information."],
-fields:[["institution","Institution / business profile","select",["Growing bank / NBFI","Multi-entity fintech","Payment group","Financial services group","Advisory network"],true],["jurisdictions","Jurisdiction coverage","text","",true],["theme","Regulatory theme","select",["AML/CFT and sanctions","Payments and operational resilience","Prudential and governance","Third-party / outsourcing","Data and AI governance"],true],["committee","Oversight forum / accountable committee","text","e.g. Risk and Compliance Committee",true],["workstreams","Number of workstreams","select",["2","3","4","5+"],true],["integration","Management reporting output","select",["Management dashboard and action tracker","GRC / issue register","Document repository and evidence register","Management dashboard plus document repository"],true]],
+fields:[["institution","Institution / business profile","select",["Growing bank / NBFI","Multi-entity fintech","Payment group","Financial services group","Advisory network"],true],["jurisdictions","Jurisdiction coverage","select",[],true],["theme","Regulatory theme","select",["AML/CFT and sanctions","Payments and operational resilience","Prudential and governance","Third-party / outsourcing","Data and AI governance"],true],["committee","Oversight forum / accountable committee","text","e.g. Risk and Compliance Committee",true],["workstreams","Number of workstreams","select",["2","3","4","5+"],true],["integration","Management reporting output","select",["Management dashboard and action tracker","GRC / issue register","Document repository and evidence register","Management dashboard plus document repository"],true]],
 title:"Business Plus Governance Oversight Pack",
 rows:v=>[["Institution profile",v.institution],["Jurisdiction scope",v.jurisdictions],["Regulatory theme",v.theme],["Oversight forum",v.committee],["Workstream model",v.workstreams+" workstreams — source governance; interpretation; business impact; control remediation; independent assurance as applicable."],["Reporting need",v.integration],["Management indicators","Changes identified; source verification pending; impact assessments open; controls requiring review; overdue actions; evidence awaiting validation; retests outstanding."],["Governance checkpoints","Approve scope; confirm owners; challenge impact ratings; review overdue actions; validate closure evidence; retain committee decisions."],["Implementation note","Shared workspace, integrations, team capacity and governed workflow require technical and security scoping before production use."]]
 },
@@ -91,7 +91,7 @@ if(f[2]==="select"||f[0]==="jurisdiction"||f[0]==="jurisdictions"){
  const opts=isCountry?COUNTRY_OPTIONS:f[3];
  const multi=f[0]==="jurisdictions";
  if(isCountry){
-  control='<div class="country-select-wrap"><input class="country-filter" type="search" aria-label="Filter country and region options" placeholder="Type to filter country / region" data-filter-target="field-'+f[0]+'"><select id="field-'+f[0]+'" name="'+f[0]+'" data-country-select="true" '+(multi?'multiple size="6" aria-describedby="jurisdiction-hint"':'')+'>'+(multi?'':'<option value="">Choose a country / region</option>')+opts.map(o=>'<option value="'+esc(o)+'">'+esc(o)+'</option>').join("")+'</select></div>';
+  control='<div class="country-select-wrap"><input class="country-filter" type="search" aria-label="Filter country and region options" placeholder="Type to filter country / region" data-filter-target="field-'+f[0]+'"><select id="field-'+f[0]+'" name="'+f[0]+'" data-country-select="true" aria-describedby="jurisdiction-hint" '+(multi?'multiple size="6"':'')+'>'+(multi?'':'<option value="">Choose a country / region</option>')+opts.map(o=>'<option value="'+esc(o)+'">'+esc(o)+'</option>').join("")+'</select></div>';
  }else{
   control='<select id="field-'+f[0]+'" name="'+f[0]+'"><option value="">Select an option</option>'+opts.map(o=>'<option value="'+esc(o)+'">'+esc(o)+'</option>').join("")+'</select>';
  }
@@ -102,7 +102,10 @@ if(f[2]==="select"||f[0]==="jurisdiction"||f[0]==="jurisdictions"){
 const fieldLabel=f[0]==="jurisdiction"?"Country / Region":f[0]==="jurisdictions"?"Country / Region coverage":f[1];
 return '<label class="plan-field"><span>'+esc(fieldLabel)+'</span>'+control+'</label>';
 }).join("");
-workspace.innerHTML='<div class="plan-demo-steps"><strong>How this plan works</strong><ol>'+config.steps.map(s=>'<li>'+esc(s)+'</li>').join("")+'</ol></div><form id="plan-demo-form" class="plan-demo-form"><div class="plan-form-heading"><strong>Try the '+esc(plan)+' workflow</strong><span>Sample inputs only · Do not enter confidential data</span></div><div class="plan-fields">'+fields+'</div><p class="field-hint" id="jurisdiction-hint">Country / region selection is a scope indicator only. Select multiple jurisdictions where relevant.</p><div class="plan-upload"><label for="plan-source-files"><strong>Attach supporting documents</strong><span>PDF, Word, Excel, PowerPoint, CSV or TXT · Select files from your device</span></label><input id="plan-source-files" type="file" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.ppt,.pptx,.txt,.rtf,.html"><small id="plan-file-status">No files selected. Files are not uploaded to this website; attach them manually in ChatGPT.</small></div><button class="btn primary plan-generate" type="submit">Prepare report with ChatGPT</button></form><div id="plan-demo-result" class="plan-demo-result" aria-live="polite"><div class="plan-result-empty"><strong>Your '+esc(plan)+' output will appear here.</strong><span>Complete the fields and run the demo to generate a plan-specific sample deliverable.</span></div></div><div class="plan-scope"><strong>Plan features shown on pricing page</strong><ul id="modal-plan-features"></ul></div>';
+const hasJurisdictionField=config.fields.some(f=>f[0]==="jurisdiction"||f[0]==="jurisdictions");
+const hasMultipleJurisdictions=config.fields.some(f=>f[0]==="jurisdictions");
+const jurisdictionHint=hasJurisdictionField?'<p class="field-hint" id="jurisdiction-hint">Country / region selection is a scope indicator only. '+(hasMultipleJurisdictions?'Select all relevant jurisdictions.':'Select the relevant jurisdiction.')+'</p>':'';
+workspace.innerHTML='<div class="plan-demo-steps"><strong>How this plan works</strong><ol>'+config.steps.map(s=>'<li>'+esc(s)+'</li>').join("")+'</ol></div><form id="plan-demo-form" class="plan-demo-form"><div class="plan-form-heading"><strong>Try the '+esc(plan)+' workflow</strong><span>Sample inputs only · Do not enter confidential data</span></div><div class="plan-fields">'+fields+'</div>'+jurisdictionHint+'<div class="plan-upload"><label for="plan-source-files"><strong>Attach supporting documents</strong><span>PDF, Word, Excel, PowerPoint, CSV or TXT · Select files from your device</span></label><input id="plan-source-files" type="file" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.ppt,.pptx,.txt,.rtf,.html"><small id="plan-file-status">No files selected. Files are not uploaded to this website; attach them manually in ChatGPT.</small></div><button class="btn primary plan-generate" type="submit">Prepare report with ChatGPT</button></form><div id="plan-demo-result" class="plan-demo-result" aria-live="polite"><div class="plan-result-empty"><strong>Your '+esc(plan)+' output will appear here.</strong><span>Complete the fields and run the demo to generate a plan-specific sample deliverable.</span></div></div><div class="plan-scope"><strong>Plan features shown on pricing page</strong><ul id="modal-plan-features"></ul></div>';
 const guide=planGuides[plan];
 const explain=document.createElement("div");
 explain.className="plan-explainer";
@@ -163,16 +166,24 @@ function generatePlanOutput(form){
  const validationWarnings=validation.warnings.length?validation.warnings.join(" "):"No additional validation warnings.";
  const supplied=Object.entries(values).filter(([,v])=>Array.isArray(v)?v.length:String(v||"").trim()).map(([k,v])=>k+": "+(Array.isArray(v)?v.join(", "):v)).join(" · ");
  const fileNote=files.length?"Selected "+files.length+" file(s). Attach the same file(s) manually in the ChatGPT tab; this static page cannot transmit file contents.":"No files selected.";
- result.innerHTML='<div class="plan-result-document"><div class="plan-result-banner"><span>CHATGPT HANDOFF · USER-INITIATED</span><strong>'+esc(config.title)+'</strong><small>'+esc(plan)+' · Prepared from your entered information</small></div><div class="plan-result-rows"><section><strong>Information included</strong><p>'+esc(supplied||"No information entered; ChatGPT will be asked not to assume missing facts.")+'</p></section><section><strong>Supporting documents</strong><p>'+esc(fileNote+' '+fileNames.join("; "))+'</p></section><section><strong>Research scope</strong><p>Search official regulator websites, including authority publication pages outside a curated list; verify source status, dates, amendments and applicability; cite original sources.</p></section><section><strong>Input validation notes</strong><p>'+esc(validationWarnings)+'</p></section></div><div class="plan-result-warning"><strong>Important handoff limitation</strong><p>The report prompt is copied to your clipboard when browser permissions allow; open ChatGPT and paste it. The URL does not contain your form data. This GitHub Pages site cannot securely upload selected files or call the OpenAI API. Attach selected documents manually in ChatGPT. Do not submit confidential bank/customer information in this public preview.</p></div><div class="plan-result-actions"><a class="plan-print" id="open-chatgpt-report" href="'+esc(chatUrl)+'" target="_blank" rel="noopener noreferrer">Open ChatGPT and paste the prompt</a><button type="button" class="plan-reset" id="copy-chatgpt-prompt">Copy research prompt</button></div></div>';
+ result.innerHTML='<div class="plan-result-document"><div class="plan-result-banner"><span>CHATGPT HANDOFF · USER-INITIATED</span><strong>'+esc(config.title)+'</strong><small>'+esc(plan)+' · Prepared from your entered information</small></div><div class="plan-result-rows"><section><strong>Information included</strong><p>'+esc(supplied||"No information entered; ChatGPT will be asked not to assume missing facts.")+'</p></section><section><strong>Supporting documents</strong><p>'+esc(fileNote+' '+fileNames.join("; "))+'</p></section><section><strong>Research scope</strong><p>Search official regulator websites, including authority publication pages outside a curated list; verify source status, dates, amendments and applicability; cite original sources.</p></section><section><strong>Input validation notes</strong><p>'+esc(validationWarnings)+'</p></section></div><div class="plan-result-warning"><strong>Important handoff limitation</strong><p>Copy the prompt using the button below. If clipboard access is unavailable, select and copy the complete prompt from the text box. The URL does not contain your form data. This GitHub Pages site cannot securely upload selected files or call the OpenAI API. Attach selected documents manually in ChatGPT. Do not submit confidential bank/customer information in this public preview.</p></div><label class="plan-prompt-fallback" for="chatgpt-prompt-fallback"><strong>Research prompt — manual copy fallback</strong><textarea id="chatgpt-prompt-fallback" rows="10" readonly spellcheck="false">'+esc(prompt)+'</textarea><small>Select the text above and copy it if the Copy button is unavailable.</small></label><div class="plan-result-actions"><a class="plan-print" id="open-chatgpt-report" href="'+esc(chatUrl)+'" target="_blank" rel="noopener noreferrer">Open ChatGPT and paste the prompt</a><button type="button" class="plan-reset" id="copy-chatgpt-prompt">Copy research prompt</button></div></div>';
+ const fallback=result.querySelector("#chatgpt-prompt-fallback");
  const copy=result.querySelector("#copy-chatgpt-prompt");
- if(copy)copy.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(prompt);copy.textContent="Prompt copied";}catch(e){copy.textContent="Copy unavailable — use the ChatGPT link";}});
- const link=result.querySelector("#open-chatgpt-report");
- if(link){
-  const opened=window.open(chatUrl,"_blank","noopener,noreferrer");
-  if(!opened)link.textContent="Open ChatGPT (popup blocked — tap here)";
-  if(navigator.clipboard&&navigator.clipboard.writeText){
-   navigator.clipboard.writeText(prompt).then(()=>{if(copy)copy.textContent="Prompt copied — paste into ChatGPT";}).catch(()=>{});
+ if(copy)copy.addEventListener("click",async()=>{
+  try{
+   if(!navigator.clipboard||!navigator.clipboard.writeText)throw new Error("Clipboard API unavailable");
+   await navigator.clipboard.writeText(prompt);
+   copy.textContent="Prompt copied — paste into ChatGPT";
+  }catch(e){
+   if(fallback){fallback.focus();fallback.select();fallback.setSelectionRange(0,fallback.value.length);}
+   copy.textContent="Select the prompt below and copy manually";
   }
+ });
+ const link=result.querySelector("#open-chatgpt-report");
+ if(navigator.clipboard&&navigator.clipboard.writeText){
+  navigator.clipboard.writeText(prompt).then(()=>{if(copy)copy.textContent="Prompt copied — paste into ChatGPT";}).catch(()=>{
+   if(copy)copy.textContent="Copy prompt below or use the Copy button";
+  });
  }
 }
 document.addEventListener("input",event=>{
@@ -181,10 +192,21 @@ document.addEventListener("input",event=>{
  const target=document.getElementById(input.dataset.filterTarget);
  if(!target||target.dataset.countrySelect!=="true")return;
  const query=input.value.trim().toLocaleLowerCase();
- const selected=new Set(Array.from(target.selectedOptions).map(option=>option.value).filter(Boolean));
- const matches=COUNTRY_OPTIONS.filter(country=>country.toLocaleLowerCase().includes(query)||selected.has(country));
+ const multi=target.multiple;
+ const selected=target._countrySelection instanceof Set
+  ? new Set(target._countrySelection)
+  : new Set(Array.from(target.selectedOptions).map(option=>option.value).filter(Boolean));
+ const matches=COUNTRY_OPTIONS.filter(country=>country.toLocaleLowerCase().includes(query));
+ const visibleCountries=[...matches,...Array.from(selected).filter(country=>!matches.includes(country))];
  const fragment=document.createDocumentFragment();
- matches.forEach(country=>{
+ if(!multi){
+  const placeholder=document.createElement("option");
+  placeholder.value="";
+  placeholder.textContent="Choose a country / region";
+  placeholder.selected=selected.size===0;
+  fragment.appendChild(placeholder);
+ }
+ visibleCountries.forEach(country=>{
   const option=document.createElement("option");
   option.value=country;
   option.textContent=country;
@@ -192,8 +214,23 @@ document.addEventListener("input",event=>{
   fragment.appendChild(option);
  });
  target.replaceChildren(fragment);
+ if(multi){
+  Array.from(target.options).forEach(option=>{option.selected=selected.has(option.value);});
+ }else{
+  target.value=selected.values().next().value||"";
+ }
+ target._countrySelection=selected;
 });
-document.addEventListener("change",event=>{if(event.target&&event.target.id==="plan-source-files"){const s=document.getElementById("plan-file-status"),n=event.target.files?.length||0;if(s)s.textContent=n?n+" file(s) selected. Attach them manually after ChatGPT opens.":"No files selected. Files are not uploaded to this website; attach them manually in ChatGPT.";}});
+document.addEventListener("change",event=>{
+ const target=event.target;
+ if(target&&target.dataset&&target.dataset.countrySelect==="true"){
+  target._countrySelection=new Set(Array.from(target.selectedOptions).map(option=>option.value).filter(Boolean));
+ }
+ if(target&&target.id==="plan-source-files"){
+  const s=document.getElementById("plan-file-status"),n=target.files?.length||0;
+  if(s)s.textContent=n?n+" file(s) selected. Attach them manually after opening ChatGPT.":"No files selected. Files are not uploaded to this website; attach them manually in ChatGPT.";
+ }
+});
 document.addEventListener("submit",event=>{if(event.target&&event.target.id==="plan-demo-form"){event.preventDefault();generatePlanOutput(event.target);}});
 function closePlan(){if(!modal)return;modal.hidden=true;document.body.classList.remove("modal-open");if(lastPlanTrigger)lastPlanTrigger.focus();}
 // Use delegated capture-phase handling so plan buttons remain functional on mobile
