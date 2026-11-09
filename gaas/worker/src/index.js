@@ -14,6 +14,21 @@ function clean(value, max = 1000) {
   if (typeof value !== "string") return "";
   return value.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "").trim().slice(0, max);
 }
+export function classifyOpenAIError(status, error = {}) {
+  const code = clean(error.code, 100).toLowerCase();
+  const type = clean(error.type, 100).toLowerCase();
+  if (code === "credit_balance_exhausted") return { code: "OPENAI_CREDIT_BALANCE_EXHAUSTED", message: "OpenAI API prepaid credit balance is exhausted. No automatic retry was attempted." };
+  if (code === "organization_spend_limit_exceeded") return { code: "OPENAI_ORGANIZATION_SPEND_LIMIT", message: "The OpenAI organization hard spend limit has been reached." };
+  if (code === "project_spend_limit_exceeded") return { code: "OPENAI_PROJECT_SPEND_LIMIT", message: "The OpenAI project hard spend limit has been reached." };
+  if (code === "organization_usage_limit_exceeded") return { code: "OPENAI_ORGANIZATION_USAGE_LIMIT", message: "The OpenAI organization usage limit has been reached." };
+  if (code === "rate_limit_exceeded" || code === "slow_down" || type === "rate_limit_error") return { code: "OPENAI_TEMPORARY_RATE_LIMIT", message: "OpenAI temporarily rate-limited this request. Wait before retrying; no automatic retry was attempted." };
+  if (type === "insufficient_quota" || status === 429) return { code: "OPENAI_QUOTA_OR_CREDIT_LIMIT", message: "OpenAI rejected the request for a quota, credit or usage-limit reason. Check the provider error code and project billing limits." };
+  if (status === 401) return { code: "OPENAI_AUTHENTICATION_FAILED", message: "OpenAI authentication failed. Check the Worker API key configuration without sharing the key." };
+  if (status === 403) return { code: "OPENAI_PERMISSION_DENIED", message: "The OpenAI project or API key does not have permission for this request or model." };
+  if (status === 404) return { code: "OPENAI_MODEL_OR_ENDPOINT_NOT_FOUND", message: "The configured OpenAI model or API endpoint was not found or is unavailable to this project." };
+  if (status === 503 || code === "server_is_overloaded") return { code: "OPENAI_MODEL_OVERLOADED", message: "The OpenAI service or selected model is temporarily overloaded. Retry later." };
+  return { code: "OPENAI_PROVIDER_ERROR", message: "The OpenAI provider could not complete the request. Check the diagnostic code and provider request ID." };
+}
 export function extractResponse(result) {
   const textParts = [];
   const citations = [];
@@ -125,8 +140,26 @@ async function handleResearch(request, env) {
   });
   const result = await upstream.json().catch(() => ({}));
   if (!upstream.ok) {
-    const status = upstream.status === 429 ? 429 : 502;
-    return json({ error: status === 429 ? "Research capacity is temporarily unavailable. Please retry later." : "The research provider could not complete this request." }, status);
+    const providerError = result && typeof result.error === "object" ? result.error : {};
+    const diagnostic = classifyOpenAIError(upstream.status, providerError);
+    const providerRequestId = clean(upstream.headers.get("x-request-id") || "", 160);
+    const retryAfter = clean(upstream.headers.get("retry-after") || "", 40);
+    // Log only provider status/category and request ID. Never log prompts, tokens, API keys or raw provider messages.
+    console.warn(JSON.stringify({
+      event: "gaas_openai_request_failed",
+      status: upstream.status,
+      diagnosticCode: diagnostic.code,
+      providerCode: clean(providerError.code || "", 100),
+      providerType: clean(providerError.type || "", 100),
+      providerRequestId
+    }));
+    const clientStatus = upstream.status === 429 ? 429 : upstream.status === 401 || upstream.status === 403 ? 502 : 502;
+    return json({
+      error: diagnostic.message,
+      code: diagnostic.code,
+      ...(providerRequestId ? { providerRequestId } : {}),
+      ...(retryAfter ? { retryAfter } : {})
+    }, clientStatus);
   }
   const parsed = extractResponse(result);
   if (!parsed.report) return json({ error: "The research service returned no report. Please retry." }, 502);
