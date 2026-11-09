@@ -24,12 +24,12 @@ jobs:
         with:
           node-version: "22"
       - name: Check JavaScript syntax
-        run: node --check gaas/gaas.js
+        run: node --check gaas/gaas-plan-form-v13.js
       - name: Check report QA safeguards
         run: |
           python - <<'PY'
           from pathlib import Path
-          js = Path("gaas/gaas.js").read_text()
+          js = Path("gaas/gaas-plan-form-v13.js").read_text()
           html = Path("gaas/index.html").read_text()
           css = Path("gaas/gaas.css").read_text()
           required = [
@@ -48,6 +48,8 @@ jobs:
           assert 'src="gaas-plan-form-v13.js"' in html
           assert "if(isCountry):" not in js  # country UI is guarded by the exact jurisdiction field predicate
           assert 'if(isCountry){' in js and 'class="country-filter"' in js
+          assert 'const isCountry=f[0]==="jurisdiction"||f[0]==="jurisdictions";' in js
+          assert 'control=\'<select id="field-\'+f[0]+\' name="\'+f[0]+\'">' in js
           assert 'data-country-select="true"' in js
           assert "@page{size:A4 portrait;margin:8mm}" in css
           assert "plan-result-document" in css and "position:static!important" in css
