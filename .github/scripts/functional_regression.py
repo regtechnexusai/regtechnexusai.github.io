@@ -175,6 +175,37 @@ def test_tradeguard_input_validation_assessment_and_exports(page: Page):
     assert txt_info.value.suggested_filename.lower().endswith(".txt")
 
 
+
+
+def test_gaas_plan_preview_and_live_research_staging_panel(page: Page):
+    open_tool(page, "/gaas/", "GLOBAL AGENTIC-AS-A-SERVICE")
+    expect(page.locator(".price-card")).to_have_count(6)
+    expect(page.locator("#plan-modal")).to_be_hidden()
+
+    # Open the existing Free Explorer demo; do not invoke any external AI service.
+    page.locator('.plan-button[data-plan="Free Explorer"]').click()
+    expect(page.locator("#plan-modal")).to_be_visible(timeout=10000)
+    page.locator("#field-jurisdiction").select_option(label="Bangladesh")
+    page.locator("#field-topic").select_option(label="AML/CFT")
+    page.locator("#field-role").select_option(label="Compliance officer")
+    page.locator("#field-question").fill(
+        "Find current official AML/CFT requirements for licensed financial institutions in Bangladesh."
+    )
+    page.get_by_role("button", name="Prepare report with ChatGPT").click()
+
+    expect(page.locator("#plan-demo-result")).to_contain_text("CHATGPT HANDOFF")
+    expect(page.locator("#gaas-live-title")).to_be_visible(timeout=10000)
+    expect(page.locator("#gaas-live-title")).to_contain_text("Run source-led regulatory research")
+    expect(page.locator("#gaas-live-run")).to_be_disabled()
+    expect(page.locator(".gaas-live-footnote")).to_contain_text("Staging only")
+    expect(page.locator("#plan-modal")).to_be_visible()
+
+    # Exercise the fixed local demonstration separately; it must not make an AI request.
+    page.locator("[data-close-modal]").first.click()
+    page.locator("#run-demo").click()
+    expect(page.locator("#demo-output")).to_contain_text("SIMULATED OUTPUT")
+
+
 def test_tool_pages_have_no_uncaught_page_errors(page: Page):
     routes = [
         ("/international-regulatory-calculators.html", "Individual calculators"),
@@ -182,6 +213,7 @@ def test_tool_pages_have_no_uncaught_page_errors(page: Page):
         ("/payscale-2026/", "PayScale 2026"),
         ("/md-ceo-performance-calculator/", "MD/CEO"),
         ("/icms-2026/", "ICMS"),
+        ("/gaas/", "GLOBAL AGENTIC-AS-A-SERVICE"),
     ]
     errors = []
     page.on("pageerror", lambda error: errors.append(str(error)))
