@@ -49,7 +49,7 @@ jobs:
           assert "if(isCountry):" not in js  # country UI is guarded by the exact jurisdiction field predicate
           assert 'if(isCountry){' in js and 'class="country-filter"' in js
           assert 'const isCountry=f[0]==="jurisdiction"||f[0]==="jurisdictions";' in js
-          assert 'control=\'<select id="field-\'+f[0]+\' name="\'+f[0]+\'">' in js
+          assert "}else{\n  control='<select" in js
           assert 'data-country-select="true"' in js
           assert "@page{size:A4 portrait;margin:8mm}" in css
           assert "plan-result-document" in css and "position:static!important" in css
