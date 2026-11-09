@@ -14,7 +14,7 @@ function clean(value, max = 1000) {
   if (typeof value !== "string") return "";
   return value.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "").trim().slice(0, max);
 }
-function extractResponse(result) {
+export function extractResponse(result) {
   const textParts = [];
   const citations = [];
   for (const item of result.output || []) {
@@ -22,8 +22,18 @@ function extractResponse(result) {
     for (const part of item.content || []) {
       if (part.type === "output_text" && part.text) textParts.push(part.text);
       for (const annotation of part.annotations || []) {
-        if (annotation.type === "url_citation" && annotation.url_citation?.url) {
-          citations.push({ title: clean(annotation.url_citation.title || "Source", 300), url: annotation.url_citation.url });
+        // Responses API URLCitation fields (url/title) are on the annotation itself.
+        if (annotation.type === "url_citation" && typeof annotation.url === "string") {
+          try {
+            const sourceUrl = new URL(annotation.url);
+            if (sourceUrl.protocol !== "https:") continue;
+            citations.push({
+              title: clean(annotation.title || sourceUrl.hostname, 300),
+              url: sourceUrl.href
+            });
+          } catch {
+            // Ignore malformed citation URLs rather than returning unsafe links.
+          }
         }
       }
     }
