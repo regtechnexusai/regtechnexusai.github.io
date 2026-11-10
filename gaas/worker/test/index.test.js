@@ -149,7 +149,7 @@ describe("OpenAI provider diagnostic classification", () => {
       question: "Find current official AML/CFT requirements for licensed financial institutions.",
       turnstileToken: "test-turnstile-token"
     })
-    }), { ALLOWED_ORIGIN: ORIGIN, OPENAI_API_KEY: "test", TURNSTILE_SECRET_KEY: "test" });
+    }), { ALLOWED_ORIGIN: ORIGIN, OPENAI_API_KEY: "test", RESEARCH_PROVIDER: "openai", TURNSTILE_SECRET_KEY: "test" });
     expect(response.status).toBe(503);
     expect(await response.json()).toMatchObject({ error: "Research rate limiting is not configured." });
   });
