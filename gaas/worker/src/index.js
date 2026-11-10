@@ -89,7 +89,9 @@ async function verifyTurnstile(token, ip, expectedHostname, env) {
   return result.success === true && result.hostname === expectedHostname && result.action === "gaas_research";
 }
 async function handleResearch(request, env) {
-  if (!env.OPENAI_API_KEY) return json({ error: "Research service is not configured." }, 503);
+  const provider = env.RESEARCH_PROVIDER;
+  if (provider !== "mock" && provider !== "openai") return json({ error: "Research provider is not configured." }, 503);
+  if (provider === "openai" && !env.OPENAI_API_KEY) return json({ error: "Research service is not configured." }, 503);
   if (!env.TURNSTILE_SECRET_KEY) return json({ error: "Abuse protection is not configured." }, 503);
   if (!env.GAAS_RESEARCH_LIMITER || typeof env.GAAS_RESEARCH_LIMITER.limit !== "function") {
     return json({ error: "Research rate limiting is not configured." }, 503);
@@ -157,6 +159,7 @@ async function handleResearch(request, env) {
     });
   }
 
+  if (provider !== "openai") return json({ error: "Paid research provider is disabled." }, 503);
   const upstream = await fetch("https://api.openai.com/v1/responses", {
     method: "POST",
     headers: { "authorization": "Bearer " + env.OPENAI_API_KEY, "content-type": "application/json" },
