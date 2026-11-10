@@ -91,6 +91,13 @@ async function verifyTurnstile(token, ip, expectedHostname, env) {
 async function handleResearch(request, env) {
   if (!env.OPENAI_API_KEY) return json({ error: "Research service is not configured." }, 503);
   if (!env.TURNSTILE_SECRET_KEY) return json({ error: "Abuse protection is not configured." }, 503);
+  if (!env.GAAS_RESEARCH_LIMITER || typeof env.GAAS_RESEARCH_LIMITER.limit !== "function") {
+    return json({ error: "Research rate limiting is not configured." }, 503);
+  }
+  const clientIp = request.headers.get("CF-Connecting-IP") || "";
+  if (!clientIp) return json({ error: "Client network identity is unavailable." }, 403);
+  const rate = await env.GAAS_RESEARCH_LIMITER.limit({ key: clientIp });
+  if (!rate.success) return json({ error: "Too many research requests. Please wait before trying again.", code: "GAAS_RATE_LIMITED" }, 429);
   const contentType = (request.headers.get("content-type") || "").split(";")[0].trim().toLowerCase();
   if (contentType !== "application/json") return json({ error: "Content-Type must be application/json." }, 415);
   const declared = Number(request.headers.get("content-length") || 0);
