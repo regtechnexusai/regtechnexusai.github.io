@@ -34,15 +34,16 @@ jobs:
           css = Path("gaas/gaas.css").read_text()
           required = [
               "function generatePlanOutput",
-              "COUNTRY_OPTIONS", "function sampleHint", "country-filter", "plan-source-files",
+              "COUNTRY_OPTIONS", "function sampleHint", "country-filter",
               "Bangladesh Financial Intelligence Unit", "does not search those authorities",
               "placeholder=", 'const isCountry=f[0]==="jurisdiction"||f[0]==="jurisdictions";',
               "data-country-select=\"true\"", "target.replaceChildren(fragment)", "const missing=Array.isArray(value)?value.length===0:!String(value).trim();",
               "const validation=validatePlan(plan,values);", "GAAS LIVE RESEARCH · DIRECT SUBMISSION", "Run live regulatory research",
-              "gaas-research-api-staging.regtechnexusai.workers.dev/api/research", "turnstileToken:liveToken", "Input validation notes"
+              "gaas-research-api-staging.regtechnexusai.workers.dev/api/research", "turnstileToken:liveToken", "Input validation notes", "Not supported in this public preview. No files are uploaded or processed."
           ]
           missing = [item for item in required if item not in js]
           assert not missing, f"Missing QA safeguards: {missing}"
+          assert "plan-source-files" not in js, "Obsolete document upload control must remain removed"
           html_required = [
               "FATF &amp; BASEL", "IFRS / IAS", "FinTech", "ICMS Manager",
               "ICMS Gap Analyzer", "TradeGuard", "MD/CEO Performance Evaluation",
