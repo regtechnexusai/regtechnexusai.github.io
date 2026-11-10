@@ -33,14 +33,13 @@ jobs:
           html = Path("gaas/index.html").read_text()
           css = Path("gaas/gaas.css").read_text()
           required = [
-              "function buildChatGPTPrompt", "function generatePlanOutput",
+              "function generatePlanOutput",
               "COUNTRY_OPTIONS", "function sampleHint", "country-filter", "plan-source-files",
-              "FIELDS NOT PROVIDED",
               "Bangladesh Financial Intelligence Unit", "does not search those authorities",
-              "placeholder=", "Attach them manually", 'const isCountry=f[0]==="jurisdiction"||f[0]==="jurisdictions";',
+              "placeholder=", 'const isCountry=f[0]==="jurisdiction"||f[0]==="jurisdictions";',
               "data-country-select=\"true\"", "target.replaceChildren(fragment)", "const missing=Array.isArray(value)?value.length===0:!String(value).trim();",
-              "const validation=validatePlan(plan,values);", 'const chatUrl="https://chatgpt.com/";',
-              "The URL does not contain your form data.", "Input validation notes"
+              "const validation=validatePlan(plan,values);", "GAAS LIVE RESEARCH · DIRECT SUBMISSION", "Run live regulatory research",
+              "gaas-research-api-staging.regtechnexusai.workers.dev/api/research", "turnstileToken:liveToken", "Input validation notes"
           ]
           missing = [item for item in required if item not in js]
           assert not missing, f"Missing QA safeguards: {missing}"
