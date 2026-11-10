@@ -7,6 +7,7 @@ const ORIGIN = "https://regtechnexusai.com";
 const ENV = {
   ALLOWED_ORIGIN: ORIGIN,
   OPENAI_API_KEY: "test-only-placeholder",
+  RESEARCH_PROVIDER: "openai",
   TURNSTILE_SECRET_KEY: "test-only-placeholder",
   GAAS_RESEARCH_LIMITER: { limit: vi.fn().mockResolvedValue({ success: true }) }
 };
@@ -186,7 +187,7 @@ describe("Staging mock provider mode (no paid API calls)", () => {
         plan: "Free Explorer", jurisdiction: "Bangladesh", topic: "AML/CFT",
         question: "Find current official AML/CFT requirements.", turnstileToken: "test-turnstile-token"
       })
-    }), { ...ENV, RESEARCH_PROVIDER: "mock" });
+    }), { ALLOWED_ORIGIN: ORIGIN, TURNSTILE_SECRET_KEY: "test-only-placeholder", GAAS_RESEARCH_LIMITER: ENV.GAAS_RESEARCH_LIMITER, RESEARCH_PROVIDER: "mock" });
 
     const data = await response.json();
     expect(response.status).toBe(200);
