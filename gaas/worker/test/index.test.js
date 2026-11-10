@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
-import worker, { classifyOpenAIError, extractResponse } from "../src/index.js";
+import worker, { buildResearchInput, classifyOpenAIError, extractResponse } from "../src/index.js";
 
 afterEach(() => vi.unstubAllGlobals());
 
@@ -212,5 +212,35 @@ describe("Live research request flow (mocked providers; no paid API calls)", () 
 
     expect(response.status).toBe(403);
     expect(fetchMock).not.toHaveBeenCalled();
+  });
+});
+
+
+describe("Global jurisdiction and standards research policy", () => {
+  it("does not assume a default country and separates cross-border jurisdictions", () => {
+    const prompt = buildResearchInput({
+      plan: "Free Explorer",
+      jurisdiction: "United Kingdom; Singapore; United Arab Emirates",
+      topic: "AML/CFT and prudential regulation",
+      question: "Compare applicable requirements."
+    });
+    expect(prompt).toContain("worldwide and country-neutral");
+    expect(prompt).toContain("never assume Bangladesh or any other default country");
+    expect(prompt).toContain("identify each jurisdiction separately");
+    expect(prompt).toContain("Do not generalise one country's law to another");
+  });
+
+  it("distinguishes international standards from domestic law and checks adoption", () => {
+    const prompt = buildResearchInput({
+      plan: "Professional",
+      jurisdiction: "Global",
+      topic: "FATF, Basel and IFRS",
+      question: "Identify relevant standards."
+    });
+    for (const framework of ["FATF", "Basel Committee/BIS", "IFRS/IAS", "IOSCO", "IAIS", "FSB", "OECD", "ISA/IAASB", "ISO", "COSO"]) {
+      expect(prompt).toContain(framework);
+    }
+    expect(prompt).toContain("Distinguish international standards, recommendations and guidance from binding domestic law");
+    expect(prompt).toContain("verify local adoption, endorsement, modifications and licensing restrictions");
   });
 });
