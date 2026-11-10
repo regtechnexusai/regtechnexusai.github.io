@@ -35,7 +35,7 @@ jobs:
           required = [
               "function generatePlanOutput",
               "COUNTRY_OPTIONS", "function sampleHint", "country-filter",
-              "Bangladesh Financial Intelligence Unit", "does not search those authorities",
+              "Bangladesh Financial Intelligence Unit", "without searching or retrieving publications",
               "placeholder=", 'const isCountry=f[0]==="jurisdiction"||f[0]==="jurisdictions";',
               "data-country-select=\"true\"", "target.replaceChildren(fragment)", "const missing=Array.isArray(value)?value.length===0:!String(value).trim();",
               "const validation=validatePlan(plan,values);", "GAAS LIVE RESEARCH · DIRECT SUBMISSION", "Run live regulatory research",
@@ -53,7 +53,7 @@ jobs:
           missing_html = [item for item in html_required if item not in html]
           assert not missing_html, f"Missing global product coverage: {missing_html}"
           assert 'href="gaas.css?v=11"' in html
-          assert 'src="gaas-plan-form-v13.js?v=14"' in html
+          assert 'src="gaas-plan-form-v13.js?v=15"' in html
           assert "if(isCountry):" not in js  # country UI is guarded by the exact jurisdiction field predicate
           assert 'if(isCountry){' in js and 'class="country-filter"' in js
           assert 'const isCountry=f[0]==="jurisdiction"||f[0]==="jurisdictions";' in js

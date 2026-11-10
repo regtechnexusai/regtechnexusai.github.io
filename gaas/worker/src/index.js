@@ -152,7 +152,7 @@ async function handleResearch(request, env) {
         "No regulator sources were searched and no legal or compliance conclusion is provided.",
         "Submitted jurisdiction: " + jurisdiction,
         "Submitted topic: " + topic,
-        "Submitted question: " + question
+        "Submitted research task: " + question
       ].join("\n\n"),
       citations: [],
       disclaimer: "MOCK MODE ONLY. No paid AI provider was called. This sample contains no verified regulatory research and must not be relied upon."
