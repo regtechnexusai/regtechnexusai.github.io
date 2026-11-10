@@ -172,6 +172,33 @@ describe("OpenAI provider diagnostic classification", () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
+describe("Staging mock provider mode (no paid API calls)", () => {
+  it("returns a clearly labelled mock report after Turnstile without calling OpenAI", async () => {
+    const fetchMock = vi.fn().mockResolvedValueOnce(new Response(JSON.stringify({
+      success: true, hostname: "regtechnexusai.com", action: "gaas_research"
+    }), { status: 200, headers: { "content-type": "application/json" } }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const response = await worker.fetch(new Request("https://worker.example/api/research", {
+      method: "POST",
+      headers: { Origin: ORIGIN, "content-type": "application/json", "CF-Connecting-IP": "192.0.2.12" },
+      body: JSON.stringify({
+        plan: "Free Explorer", jurisdiction: "Bangladesh", topic: "AML/CFT",
+        question: "Find current official AML/CFT requirements.", turnstileToken: "test-turnstile-token"
+      })
+    }), { ...ENV, RESEARCH_PROVIDER: "mock" });
+
+    const data = await response.json();
+    expect(response.status).toBe(200);
+    expect(data).toMatchObject({ status: "research_complete_pending_human_review", provider: "mock", mock: true });
+    expect(data.report).toContain("MOCK RESEARCH RESPONSE");
+    expect(data.citations).toEqual([]);
+    expect(data.disclaimer).toContain("No paid AI provider was called");
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock.mock.calls[0][0]).toBe("https://challenges.cloudflare.com/turnstile/v0/siteverify");
+  });
+});
+
 describe("Live research request flow (mocked providers; no paid API calls)", () => {
   const requestBody = {
     plan: "Free Explorer",
