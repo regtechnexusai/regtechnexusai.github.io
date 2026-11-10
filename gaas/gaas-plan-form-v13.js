@@ -142,7 +142,7 @@ if(plan==="Professional"&&/not a legal instrument|illustrative/i.test(values.ins
 if(plan==="Small Business"&&/United Kingdom/i.test(values.jurisdiction)&&/\bMFS\b/i.test(values.change))warnings.push("MFS is undefined in this UK profile. Expand the acronym and confirm jurisdictional relevance.");
 return {errors,warnings};
 }
-function buildChatGPTPrompt(plan,values,fileNames){
+function buildResearchInstructions(plan,values,fileNames){
  const supplied=Object.entries(values).filter(([,v])=>Array.isArray(v)?v.length>0:String(v||"").trim().length>0);
  const missing=Object.keys(values).filter(k=>!supplied.some(([key])=>key===k));
  const data=supplied.map(([k,v])=>"- "+k+": "+(Array.isArray(v)?v.join(", "):v)).join("\n")||"No form fields supplied.";
@@ -162,13 +162,13 @@ function generatePlanOutput(form){
   result.innerHTML='<div class="plan-validation-error" role="alert"><strong>More information is required before preparing this report.</strong><ul>'+validation.errors.map(message=>'<li>'+esc(message)+'</li>').join("")+'</ul></div>';
   return;
  }
- const prompt=buildChatGPTPrompt(plan,values,fileNames);
+ // Structured research instructions are assembled and submitted directly to the GaaS staging API.
  // Keep user-entered information out of URL query strings and browser navigation history.
- const chatUrl="https://chatgpt.com/";
+ 
  const validationWarnings=validation.warnings.length?validation.warnings.join(" "):"No additional validation warnings.";
  const supplied=Object.entries(values).filter(([,v])=>Array.isArray(v)?v.length:String(v||"").trim()).map(([k,v])=>k+": "+(Array.isArray(v)?v.join(", "):v)).join(" · ");
  const fileNote=files.length?"Selected "+files.length+" file(s). Attach the same file(s) manually in the research editor; this static page cannot transmit file contents.":"No files selected.";
- result.innerHTML='<div class="plan-result-document"><div class="plan-result-banner"><span>RESEARCH EDITOR HANDOFF · USER-INITIATED</span><strong>'+esc(config.title)+'</strong><small>'+esc(plan)+' · Prepared from your entered information</small></div><div class="plan-result-rows"><section><strong>Information included</strong><p>'+esc(supplied||"No information entered; missing facts will not be assumed.")+'</p></section><section><strong>Supporting documents</strong><p>'+esc(fileNote+' '+fileNames.join("; "))+'</p></section><section><strong>Research scope</strong><p>Search official regulator websites, including authority publication pages outside a curated list; verify source status, dates, amendments and applicability; cite original sources.</p></section><section><strong>Input validation notes</strong><p>'+esc(validationWarnings)+'</p></section></div><div class="plan-result-warning"><strong>External editor handoff</strong><p>Your structured research prompt is copied automatically when browser permissions allow. Open the research editor and paste it there. This public website does not transmit form data or selected files to the editor. Attach documents yourself only if authorised. Do not submit confidential bank/customer information in this public preview.</p></div><div class="plan-result-actions"><a class="plan-print" id="open-chatgpt-report" href="'+esc(chatUrl)+'" target="_blank" rel="noopener noreferrer">Open Research Editor</a></div></div>';
+ result.innerHTML='<div class="plan-result-document"><div class="plan-result-banner"><span>GAAS LIVE RESEARCH · DIRECT SUBMISSION</span><strong>'+esc(config.title)+'</strong><small>'+esc(plan)+' · Your entered information is ready for direct submission</small></div><div class="plan-result-rows"><section><strong>Information included</strong><p>'+esc(supplied||"No information entered; missing facts will not be assumed.")+'</p></section><section><strong>Supporting documents</strong><p>'+esc(fileNote+' '+fileNames.join("; "))+'</p></section><section><strong>Research scope</strong><p>GaaS sends the structured information from this form directly to its staging research API after you complete the security check and select Run Live Regulatory Research. No external editor or manual prompt transfer is required.</p></section><section><strong>Input validation notes</strong><p>'+esc(validationWarnings)+'</p></section></div><div class="plan-result-warning"><strong>Data handling</strong><p>Form fields are submitted directly to the GaaS staging research service when you run the research. Selected files are not uploaded or processed by this preview. Do not submit confidential bank/customer information, transaction records, SAR/STR data or restricted institutional material.</p></div></div>';
  // Live Phase 1 research is a separate, opt-in staging workflow. The editor handoff uses provider-neutral page labels.
  const livePanel=document.createElement("section");
  livePanel.className="gaas-live-research";
@@ -262,13 +262,7 @@ function generatePlanOutput(form){
    turnstileStatus.textContent="Complete the security check again before another request.";
   }
  });
- // Copy the structured prompt automatically; no separate copy/paste button is shown.
- if(navigator.clipboard&&navigator.clipboard.writeText){
-  navigator.clipboard.writeText(prompt).catch(()=>{
-   const warning=result.querySelector(".plan-result-warning p");
-   if(warning)warning.textContent="Automatic prompt copying was blocked by your browser. Open the research editor; form data is not transmitted by this link. Do not submit confidential bank/customer information.";
-  });
- }
+ // Form data is submitted directly to the GaaS research API below; no clipboard or external-editor handoff is used.
 }
 document.addEventListener("input",event=>{
  const input=event.target;
