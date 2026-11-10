@@ -61,7 +61,7 @@ export function extractResponse(result) {
   });
   return { report: textParts.join("\n\n").trim(), citations: unique };
 }
-function buildResearchInput(data) {
+export function buildResearchInput(data) {
   return [
     "You are the regulatory research assistant for RegTech Nexus AI GaaS.",
     "Conduct current, evidence-led regulatory research for the exact jurisdiction(s) requested. GaaS is worldwide and country-neutral: never assume Bangladesh or any other default country. Use web search to discover official regulator/authority websites and their own publication pages, including relevant pages not present in any curated source list.",
