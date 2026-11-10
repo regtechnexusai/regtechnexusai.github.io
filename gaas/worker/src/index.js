@@ -153,7 +153,7 @@ async function handleResearch(request, env) {
         "Submitted jurisdiction: " + jurisdiction,
         "Submitted topic: " + topic,
         "Submitted question: " + question
-      ].join("\\n\\n"),
+      ].join("\n\n"),
       citations: [],
       disclaimer: "MOCK MODE ONLY. No paid AI provider was called. This sample contains no verified regulatory research and must not be relied upon."
     });
