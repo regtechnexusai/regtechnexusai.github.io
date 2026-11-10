@@ -126,8 +126,8 @@ return "Identify the competent regulator and original issuing authority for the 
 }
 function dateStatus(value){const due=new Date(value+"T00:00:00"),today=new Date();today.setHours(0,0,0,0);if(!value||Number.isNaN(due.getTime()))return "Date requires confirmation";const days=Math.floor((today-due)/86400000);return days>0?"OVERDUE — "+days+" day(s) past target":days===0?"Due today":"Upcoming — target date not yet reached";}
 function validatePlan(plan,values){
-const config=planWorkflows[plan],errors=[],warnings=[],junk=/^(?:nil|none|n\/?a|not known|unknown|f{2,}|[a-z]{1,3}|[a-z0-9]{7,})$/i;
-config.fields.forEach(f=>{const value=values[f[0]]??"";const missing=Array.isArray(value)?value.length===0:!String(value).trim();if(f[4]&&missing)errors.push(f[1]+" is required.");if(f[2]==="text"&&typeof value==="string"&&value&&(junk.test(value)||value.length<4))errors.push(f[1]+" contains a placeholder or insufficient detail.");});
+const config=planWorkflows[plan],errors=[],warnings=[],junk=/^(?:nil|none|n\/?a|not known|unknown|f{2,}|e\.g\.?|placeholder|tbd|to be confirmed)$/i;
+config.fields.forEach(f=>{const value=values[f[0]]??"";const missing=Array.isArray(value)?value.length===0:!String(value).trim();if(f[4]&&missing)errors.push(f[1]+" is required.");if(f[2]==="text"&&typeof value==="string"&&value&&(junk.test(value)||(f[0]!=="authority"&&value.length<4)))errors.push(f[1]+" contains a placeholder or insufficient detail.");});
 if(plan==="Free Explorer"&&values.question&&values.question.length<20)errors.push("Research question must describe the regulatory issue, not only your job role.");
 if(plan==="Small Business"&&values.due){const due=new Date(values.due+"T00:00:00"),today=new Date();today.setHours(0,0,0,0);if(due<today)warnings.push(dateStatus(values.due)+". Confirm whether this is a new target or an overdue action.");}
 if(plan==="Business Plus"&&/^(none|not provided)$/i.test(values.committee))warnings.push("No oversight forum is identified; committee decision checkpoints require an agreed accountable forum.");
