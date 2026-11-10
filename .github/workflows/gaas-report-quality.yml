@@ -35,7 +35,7 @@ jobs:
           required = [
               "function generatePlanOutput",
               "COUNTRY_OPTIONS", "function sampleHint", "country-filter",
-              "Bangladesh Financial Intelligence Unit", "does not search those authorities",
+              "Bangladesh Financial Intelligence Unit", "without searching or retrieving publications",
               "placeholder=", 'const isCountry=f[0]==="jurisdiction"||f[0]==="jurisdictions";',
               "data-country-select=\"true\"", "target.replaceChildren(fragment)", "const missing=Array.isArray(value)?value.length===0:!String(value).trim();",
               "const validation=validatePlan(plan,values);", "GAAS LIVE RESEARCH · DIRECT SUBMISSION", "Run live regulatory research",
