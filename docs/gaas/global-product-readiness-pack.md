@@ -1,11 +1,11 @@
 # RegTech Nexus AI — Global GaaS Product Readiness Pack
 
-**Status:** Product-preview specification  
+**Status:** Public product preview; production SaaS release gates remain open  
 **Commercial model:** Global Agentic-as-a-Service (GaaS) + subscription software  
 **Product family:** AlfiQ  
 **Primary entry product:** Regulatory Intelligence & Change Impact  
 **Billing state:** Dummy mode only; no provider accounts or live payment integration  
-**Publication state:** Review branch; not yet published
+**Publication state:** Published at https://regtechnexusai.com/gaas/ after successful GitHub Pages deployment on 10 November 2026
 
 ## 1. Product purpose
 
@@ -184,3 +184,13 @@ These are management targets, not forecasts.
 ## 12. Publication statement
 
 The current /gaas/ page is a public-facing product preview. It may be published as a transparent product-development and early-access page after review of the page, demo, legal notices, accessibility and links. It must not be described as a live SaaS subscription service until the production release gates are satisfied.
+
+
+## 13. Latest release verification — 10 November 2026
+
+- GaaS global module and jurisdiction-coverage changes were merged to `main` in PR #260 (merge commit `8a41c60438243e701219f2b15c48412570d586ef`).
+- GitHub Pages build and deployment completed successfully for that commit.
+- Public-tools functional regression, GaaS report-quality checks, Worker unit tests, Worker dependency audit and static regulatory regression completed successfully.
+- The main-branch staging Worker deployment did not proceed: the `gaas-staging` GitHub Environment did not provide `CF_API_TOKEN` (the workflow log also showed `CF_ACCOUNT_ID` empty). Deployment and staging health verification were skipped.
+- The staging deployment must be rerun after the dedicated single-Worker Cloudflare token and account ID are configured as described in `cloudflare-staging-access.md`. Never paste credentials into ChatGPT or source control.
+- The live paid-provider research request, private customer data intake, tenant identity/isolation, live billing and production security acceptance remain unverified or not implemented. Do not describe the preview as production-ready SaaS.
