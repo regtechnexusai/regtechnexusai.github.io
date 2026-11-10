@@ -70,7 +70,7 @@ describe("GaaS research API edge behaviour", () => {
     const oversizedBody = "x".repeat(13 * 1024);
     const response = await worker.fetch(new Request("https://worker.example/api/research", {
       method: "POST",
-      headers: { Origin: ORIGIN, "content-type": "application/json" },
+      headers: { Origin: ORIGIN, "content-type": "application/json", "CF-Connecting-IP": "192.0.2.10" },
       body: oversizedBody
     }), ENV);
     expect(response.status).toBe(413);
@@ -78,7 +78,7 @@ describe("GaaS research API edge behaviour", () => {
 
   it("does not expose an unconfigured research endpoint", async () => {
     const response = await worker.fetch(new Request("https://worker.example/api/research", {
-      method: "POST", headers: { Origin: ORIGIN, "content-type": "application/json" }, body: "{}"
+      method: "POST", headers: { Origin: ORIGIN, "content-type": "application/json", "CF-Connecting-IP": "192.0.2.10" }, body: "{}"
     }), { ALLOWED_ORIGIN: ORIGIN });
     expect(response.status).toBe(503);
   });
@@ -177,7 +177,7 @@ describe("Live research request flow (mocked providers; no paid API calls)", () 
 
     const response = await worker.fetch(new Request("https://worker.example/api/research", {
       method: "POST",
-      headers: { Origin: ORIGIN, "content-type": "application/json" },
+      headers: { Origin: ORIGIN, "content-type": "application/json", "CF-Connecting-IP": "192.0.2.10" },
       body: JSON.stringify(requestBody)
     }), ENV);
 
@@ -210,7 +210,7 @@ describe("Live research request flow (mocked providers; no paid API calls)", () 
 
     const response = await worker.fetch(new Request("https://worker.example/api/research", {
       method: "POST",
-      headers: { Origin: ORIGIN, "content-type": "application/json" },
+      headers: { Origin: ORIGIN, "content-type": "application/json", "CF-Connecting-IP": "192.0.2.10" },
       body: JSON.stringify(requestBody)
     }), ENV);
 
@@ -241,7 +241,7 @@ describe("Live research request flow (mocked providers; no paid API calls)", () 
 
     const response = await worker.fetch(new Request("https://worker.example/api/research", {
       method: "POST",
-      headers: { Origin: ORIGIN, "content-type": "application/json" },
+      headers: { Origin: ORIGIN, "content-type": "application/json", "CF-Connecting-IP": "192.0.2.10" },
       body: JSON.stringify({ ...requestBody, turnstileToken: "" })
     }), ENV);
 
