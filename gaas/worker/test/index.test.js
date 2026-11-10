@@ -44,7 +44,7 @@ describe("GaaS research API edge behaviour", () => {
 
   it("rejects non-JSON content types before parsing or provider access", async () => {
     const response = await worker.fetch(new Request("https://worker.example/api/research", {
-      method: "POST", headers: { Origin: ORIGIN, "content-type": "text/plain" }, body: "{}"
+      method: "POST", headers: { Origin: ORIGIN, "content-type": "text/plain", "CF-Connecting-IP": "192.0.2.10" }, body: "{}"
     }), ENV);
     expect(response.status).toBe(415);
   });
@@ -141,7 +141,13 @@ describe("OpenAI provider diagnostic classification", () => {
     const response = await worker.fetch(new Request("https://worker.example/api/research", {
       method: "POST",
       headers: { Origin: ORIGIN, "content-type": "application/json", "CF-Connecting-IP": "192.0.2.10" },
-      body: JSON.stringify(requestBody)
+      body: JSON.stringify({
+      plan: "Free Explorer",
+      jurisdiction: "Bangladesh",
+      topic: "AML/CFT",
+      question: "Find current official AML/CFT requirements for licensed financial institutions.",
+      turnstileToken: "test-turnstile-token"
+    })
     }), { ALLOWED_ORIGIN: ORIGIN, OPENAI_API_KEY: "test", TURNSTILE_SECRET_KEY: "test" });
     expect(response.status).toBe(503);
     expect(await response.json()).toMatchObject({ error: "Research rate limiting is not configured." });
@@ -153,7 +159,13 @@ describe("OpenAI provider diagnostic classification", () => {
     const response = await worker.fetch(new Request("https://worker.example/api/research", {
       method: "POST",
       headers: { Origin: ORIGIN, "content-type": "application/json", "CF-Connecting-IP": "192.0.2.11" },
-      body: JSON.stringify(requestBody)
+      body: JSON.stringify({
+      plan: "Free Explorer",
+      jurisdiction: "Bangladesh",
+      topic: "AML/CFT",
+      question: "Find current official AML/CFT requirements for licensed financial institutions.",
+      turnstileToken: "test-turnstile-token"
+    })
     }), { ...ENV, GAAS_RESEARCH_LIMITER: { limit: vi.fn().mockResolvedValue({ success: false }) } });
     expect(response.status).toBe(429);
     expect(await response.json()).toMatchObject({ code: "GAAS_RATE_LIMITED" });
@@ -178,7 +190,13 @@ describe("Live research request flow (mocked providers; no paid API calls)", () 
     const response = await worker.fetch(new Request("https://worker.example/api/research", {
       method: "POST",
       headers: { Origin: ORIGIN, "content-type": "application/json", "CF-Connecting-IP": "192.0.2.10" },
-      body: JSON.stringify(requestBody)
+      body: JSON.stringify({
+      plan: "Free Explorer",
+      jurisdiction: "Bangladesh",
+      topic: "AML/CFT",
+      question: "Find current official AML/CFT requirements for licensed financial institutions.",
+      turnstileToken: "test-turnstile-token"
+    })
     }), ENV);
 
     expect(response.status).toBe(403);
@@ -211,7 +229,13 @@ describe("Live research request flow (mocked providers; no paid API calls)", () 
     const response = await worker.fetch(new Request("https://worker.example/api/research", {
       method: "POST",
       headers: { Origin: ORIGIN, "content-type": "application/json", "CF-Connecting-IP": "192.0.2.10" },
-      body: JSON.stringify(requestBody)
+      body: JSON.stringify({
+      plan: "Free Explorer",
+      jurisdiction: "Bangladesh",
+      topic: "AML/CFT",
+      question: "Find current official AML/CFT requirements for licensed financial institutions.",
+      turnstileToken: "test-turnstile-token"
+    })
     }), ENV);
 
     const data = await response.json();
