@@ -324,5 +324,14 @@ document.addEventListener("click",event=>{
  }
 },true);
 document.querySelectorAll("[data-close-modal]").forEach(element=>element.addEventListener("click",closePlan));
-document.addEventListener("keydown",event=>{if(event.key==="Escape"&&modal&&!modal.hidden)closePlan();});
+document.addEventListener("keydown",event=>{
+ if(!modal||modal.hidden)return;
+ if(event.key==="Escape"){closePlan();return;}
+ if(event.key!=="Tab")return;
+ const focusable=Array.from(modal.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])')).filter(el=>el.getClientRects().length>0);
+ if(!focusable.length){event.preventDefault();return;}
+ const first=focusable[0],last=focusable[focusable.length-1];
+ if(event.shiftKey&&(document.activeElement===first||!modal.contains(document.activeElement))){event.preventDefault();last.focus();}
+ else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
+});
 })();
