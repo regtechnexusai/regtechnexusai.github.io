@@ -7,7 +7,8 @@ const ORIGIN = "https://regtechnexusai.com";
 const ENV = {
   ALLOWED_ORIGIN: ORIGIN,
   OPENAI_API_KEY: "test-only-placeholder",
-  TURNSTILE_SECRET_KEY: "test-only-placeholder"
+  TURNSTILE_SECRET_KEY: "test-only-placeholder",
+  GAAS_RESEARCH_LIMITER: { limit: vi.fn().mockResolvedValue({ success: true }) }
 };
 
 describe("GaaS research API edge behaviour", () => {
@@ -135,6 +136,29 @@ describe("OpenAI provider diagnostic classification", () => {
   });
 });
 
+
+  it("fails closed when the research rate limiter is not configured", async () => {
+    const response = await worker.fetch(new Request("https://worker.example/api/research", {
+      method: "POST",
+      headers: { Origin: ORIGIN, "content-type": "application/json", "CF-Connecting-IP": "192.0.2.10" },
+      body: JSON.stringify(requestBody)
+    }), { ALLOWED_ORIGIN: ORIGIN, OPENAI_API_KEY: "test", TURNSTILE_SECRET_KEY: "test" });
+    expect(response.status).toBe(503);
+    expect(await response.json()).toMatchObject({ error: "Research rate limiting is not configured." });
+  });
+
+  it("blocks a request when the rate limiter rejects the client", async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+    const response = await worker.fetch(new Request("https://worker.example/api/research", {
+      method: "POST",
+      headers: { Origin: ORIGIN, "content-type": "application/json", "CF-Connecting-IP": "192.0.2.11" },
+      body: JSON.stringify(requestBody)
+    }), { ...ENV, GAAS_RESEARCH_LIMITER: { limit: vi.fn().mockResolvedValue({ success: false }) } });
+    expect(response.status).toBe(429);
+    expect(await response.json()).toMatchObject({ code: "GAAS_RATE_LIMITED" });
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
 
 describe("Live research request flow (mocked providers; no paid API calls)", () => {
   const requestBody = {
