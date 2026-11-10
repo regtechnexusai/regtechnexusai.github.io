@@ -106,7 +106,7 @@ return '<label class="plan-field"><span>'+esc(fieldLabel)+'</span>'+control+'</l
 const hasJurisdictionField=config.fields.some(f=>f[0]==="jurisdiction"||f[0]==="jurisdictions");
 const hasMultipleJurisdictions=config.fields.some(f=>f[0]==="jurisdictions");
 const jurisdictionHint=hasJurisdictionField?'<p class="field-hint" id="jurisdiction-hint">Country / region selection is a scope indicator only. '+(hasMultipleJurisdictions?'Select all relevant jurisdictions.':'Select the relevant jurisdiction.')+'</p>':'';
-workspace.innerHTML='<div class="plan-demo-steps"><strong>How this plan works</strong><ol>'+config.steps.map(s=>'<li>'+esc(s)+'</li>').join("")+'</ol></div><form id="plan-demo-form" class="plan-demo-form"><div class="plan-form-heading"><strong>Try the '+esc(plan)+' workflow</strong><span>Sample inputs only · Do not enter confidential data</span></div><div class="plan-fields">'+fields+'</div>'+jurisdictionHint+'<div class="plan-upload"><label for="plan-source-files"><strong>Attach supporting documents</strong><span>PDF, Word, Excel, PowerPoint, CSV or TXT · Select files from your device</span></label><input id="plan-source-files" type="file" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.ppt,.pptx,.txt,.rtf,.html"><small id="plan-file-status">No files selected. Selected files are not uploaded or processed by GaaS.</small></div><button class="btn primary plan-generate" type="submit">Prepare research brief</button></form><div id="plan-demo-result" class="plan-demo-result" aria-live="polite"><div class="plan-result-empty"><strong>Your '+esc(plan)+' output will appear here.</strong><span>Complete the fields and run the demo to generate a plan-specific sample deliverable.</span></div></div><div class="plan-scope"><strong>Plan features shown on pricing page</strong><ul id="modal-plan-features"></ul></div>';
+workspace.innerHTML='<div class="plan-demo-steps"><strong>How this plan works</strong><ol>'+config.steps.map(s=>'<li>'+esc(s)+'</li>').join("")+'</ol></div><form id="plan-demo-form" class="plan-demo-form"><div class="plan-form-heading"><strong>Try the '+esc(plan)+' workflow</strong><span>Sample inputs only · Do not enter confidential data</span></div><div class="plan-fields">'+fields+'</div>'+jurisdictionHint+'<p class="field-hint" role="note"><strong>Document processing is not enabled in this public preview.</strong> Do not attach or submit files. Supporting documents are not uploaded, parsed or analysed.</p><button class="btn primary plan-generate" type="submit">Prepare research brief</button></form><div id="plan-demo-result" class="plan-demo-result" aria-live="polite"><div class="plan-result-empty"><strong>Your '+esc(plan)+' output will appear here.</strong><span>Complete the fields and run the demo to generate a plan-specific sample deliverable.</span></div></div><div class="plan-scope"><strong>Plan features shown on pricing page</strong><ul id="modal-plan-features"></ul></div>';
 const guide=planGuides[plan];
 const explain=document.createElement("div");
 explain.className="plan-explainer";
@@ -147,8 +147,6 @@ function generatePlanOutput(form){
  const config=planWorkflows[plan];if(!config)return;
  const values={};
  config.fields.forEach(f=>{const el=form.elements[f[0]];values[f[0]]=el?(el.multiple?Array.from(el.selectedOptions).map(o=>o.value).filter(Boolean):String(el.value||"").trim()):"";});
- const files=Array.from(form.querySelector("#plan-source-files")?.files||[]);
- const fileNames=files.map(f=>f.name+" ("+f.type+", "+Math.ceil(f.size/1024)+" KB)");
  const validation=validatePlan(plan,values);
  const result=modal.querySelector("#plan-demo-result");
  if(validation.errors.length){
@@ -160,8 +158,7 @@ function generatePlanOutput(form){
  
  const validationWarnings=validation.warnings.length?validation.warnings.join(" "):"No additional validation warnings.";
  const supplied=Object.entries(values).filter(([,v])=>Array.isArray(v)?v.length:String(v||"").trim()).map(([k,v])=>k+": "+(Array.isArray(v)?v.join(", "):v)).join(" · ");
- const fileNote=files.length?"Selected "+files.length+" file(s). Selected files are not transmitted; only form fields are submitted to GaaS.":"No files selected.";
- result.innerHTML='<div class="plan-result-document"><div class="plan-result-banner"><span>GAAS LIVE RESEARCH · DIRECT SUBMISSION</span><strong>'+esc(config.title)+'</strong><small>'+esc(plan)+' · Your entered information is ready for direct submission</small></div><div class="plan-result-rows"><section><strong>Information included</strong><p>'+esc(supplied||"No information entered; missing facts will not be assumed.")+'</p></section><section><strong>Supporting documents</strong><p>'+esc(fileNote+' '+fileNames.join("; "))+'</p></section><section><strong>Research scope</strong><p>GaaS sends the structured information from this form directly to its staging research API after you complete the security check and select Run Live Regulatory Research. No external editor or manual prompt transfer is required.</p></section><section><strong>Input validation notes</strong><p>'+esc(validationWarnings)+'</p></section></div><div class="plan-result-warning"><strong>Data handling</strong><p>Form fields are submitted directly to the GaaS staging research service when you run the research. Selected files are not uploaded or processed by this preview. Do not submit confidential bank/customer information, transaction records, SAR/STR data or restricted institutional material.</p></div></div>';
+ result.innerHTML='<div class="plan-result-document"><div class="plan-result-banner"><span>GAAS LIVE RESEARCH · DIRECT SUBMISSION</span><strong>'+esc(config.title)+'</strong><small>'+esc(plan)+' · Your entered information is ready for direct submission</small></div><div class="plan-result-rows"><section><strong>Information included</strong><p>'+esc(supplied||"No information entered; missing facts will not be assumed.")+'</p></section><section><strong>Supporting documents</strong><p>Not supported in this public preview. No files are uploaded or processed.</p></section><section><strong>Research scope</strong><p>GaaS sends the structured information from this form directly to its staging research API after you complete the security check and select Run Live Regulatory Research. No external editor or manual prompt transfer is required.</p></section><section><strong>Input validation notes</strong><p>'+esc(validationWarnings)+'</p></section></div><div class="plan-result-warning"><strong>Data handling</strong><p>Form fields are submitted directly to the GaaS staging research service when you run the research. Selected files are not uploaded or processed by this preview. Do not submit confidential bank/customer information, transaction records, SAR/STR data or restricted institutional material.</p></div></div>';
  // Live Phase 1 research is a separate, opt-in staging workflow. The editor handoff uses provider-neutral page labels.
  const livePanel=document.createElement("section");
  livePanel.className="gaas-live-research";
@@ -297,10 +294,6 @@ document.addEventListener("change",event=>{
  if(target&&target.dataset&&target.dataset.countrySelect==="true"){
   target._countrySelection=new Set(Array.from(target.selectedOptions).map(option=>option.value).filter(Boolean));
  }
- if(target&&target.id==="plan-source-files"){
-  const s=document.getElementById("plan-file-status"),n=target.files?.length||0;
-  if(s)s.textContent=n?n+" file(s) selected. Selected files are not submitted to the GaaS service.":"No files selected. Selected files are not uploaded or processed by GaaS.";
- }
 });
 document.addEventListener("submit",event=>{if(event.target&&event.target.id==="plan-demo-form"){event.preventDefault();generatePlanOutput(event.target);}});
 function closePlan(){if(!modal)return;modal.hidden=true;document.body.classList.remove("modal-open");if(lastPlanTrigger)lastPlanTrigger.focus();}
@@ -331,5 +324,14 @@ document.addEventListener("click",event=>{
  }
 },true);
 document.querySelectorAll("[data-close-modal]").forEach(element=>element.addEventListener("click",closePlan));
-document.addEventListener("keydown",event=>{if(event.key==="Escape"&&modal&&!modal.hidden)closePlan();});
+document.addEventListener("keydown",event=>{
+ if(!modal||modal.hidden)return;
+ if(event.key==="Escape"){closePlan();return;}
+ if(event.key!=="Tab")return;
+ const focusable=Array.from(modal.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])')).filter(el=>el.getClientRects().length>0);
+ if(!focusable.length){event.preventDefault();return;}
+ const first=focusable[0],last=focusable[focusable.length-1];
+ if(event.shiftKey&&(document.activeElement===first||!modal.contains(document.activeElement))){event.preventDefault();last.focus();}
+ else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
+});
 })();

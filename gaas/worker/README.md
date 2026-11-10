@@ -8,7 +8,9 @@
 - OpenAI Responses API integration using hosted `web_search`
 - Required web search tool selection for each research request
 - Citation extraction from Responses API URL annotations
-- Exact-origin CORS allowlist, request-size limits and input validation
+- Exact-origin CORS allowlist, JSON content-type enforcement, request-size limits and input validation
+- Separate high-priority Responses API instructions from user-controlled research fields to reduce prompt-injection risk
+- Bounded hosted web-search calls and network timeouts for Turnstile/OpenAI requests
 - Cloudflare Turnstile server-side verification
 - Safe provider-error classification for credit exhaustion, spend/usage limits, temporary rate limits, authentication, permissions, model availability and overload
 - Sanitised diagnostic codes and provider request IDs; raw provider messages, prompts and secrets are not returned or logged
@@ -89,9 +91,9 @@ The endpoint currently recognises the six existing plan names but does not enfor
 | Frontend integration | GaaS page panel, Turnstile and response rendering | Implemented in source; browser UAT evidence still required |
 | Live API smoke test | Valid source-led research response and citations | Not run; requires separate explicit paid-usage authorisation |
 | Browser/mobile UAT | Desktop and mobile challenge, request state, error state and citation links | Pending |
-| Security acceptance | WAF rate limiting, secret review, privacy/logging review and independent security review | Pending |
+| Security acceptance | Cloudflare WAF rate limiting, secret review, privacy/logging review and independent security review | Pending; application code does not implement an IP/user quota limiter |
 
-A successful health check is not evidence that live research works. A successful unit-test run is not evidence of browser UAT or production security acceptance.
+The Worker has no authenticated user identity or server-side plan entitlement; plan names are accepted as request labels only. Configure Cloudflare WAF/rate limiting and provider hard spend limits before public promotion. A successful health check is not evidence that live research works. A successful unit-test run is not evidence of browser UAT or production security acceptance.
 
 ## Phase 2 entry criteria
 

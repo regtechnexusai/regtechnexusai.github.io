@@ -61,8 +61,7 @@ export function extractResponse(result) {
   });
   return { report: textParts.join("\n\n").trim(), citations: unique };
 }
-export function buildResearchInput(data) {
-  return [
+export const RESEARCH_INSTRUCTIONS = [
     "You are the regulatory research assistant for RegTech Nexus AI GaaS.",
     "Conduct current, evidence-led regulatory research for the exact jurisdiction(s) requested. GaaS is worldwide and country-neutral: never assume Bangladesh or any other default country. Use web search to discover official regulator/authority websites and their own publication pages, including relevant pages not present in any curated source list.",
     "For multi-jurisdiction requests, identify each jurisdiction separately and compare only genuinely comparable requirements. Do not generalise one country's law to another. If the user asks for global or cross-border coverage, explain the search scope and identify material jurisdiction coverage gaps.",
@@ -74,26 +73,35 @@ export function buildResearchInput(data) {
     "Separate VERIFIED FACTS, AI ANALYSIS, ASSUMPTIONS, UNVERIFIED ITEMS and QUESTIONS FOR HUMAN REVIEW. Do not invent clause numbers, dates, legal conclusions, internal controls, institution facts or applicability.",
     "Map requirements to the user's stated entity, business area and process only where supported. Include a source register, methodology, requirements, potential impact, candidate controls/evidence, gaps and human-review actions.",
     "If evidence is insufficient, state the limitation rather than filling gaps. This is research support, not legal advice or a final compliance determination.",
-    "",
-    "RESEARCH REQUEST",
-    JSON.stringify(data, null, 2),
-    "",
-    "Required output: concise executive summary; search scope and research date; source register; document classification and status; relevant requirements with citations; potential business/process impact; candidate control/evidence mapping; uncertainties; and reviewer checklist."
-  ].join("\n");
+].join("\n");
+export function buildResearchInput(data) {
+  // User-controlled fields remain user input, separate from trusted developer instructions.
+  return JSON.stringify(data, null, 2);
 }
 async function verifyTurnstile(token, ip, expectedHostname, env) {
   if (!env.TURNSTILE_SECRET_KEY) throw new Error("Turnstile is not configured.");
   if (!token) return false;
   const body = new URLSearchParams({ secret: env.TURNSTILE_SECRET_KEY, response: token });
   if (ip) body.set("remoteip", ip);
-  const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body });
+  const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body, signal: AbortSignal.timeout(10000) });
   if (!response.ok) return false;
   const result = await response.json();
   return result.success === true && result.hostname === expectedHostname && result.action === "gaas_research";
 }
 async function handleResearch(request, env) {
-  if (!env.OPENAI_API_KEY) return json({ error: "Research service is not configured." }, 503);
+  const provider = env.RESEARCH_PROVIDER;
+  if (provider !== "mock" && provider !== "openai") return json({ error: "Research provider is not configured." }, 503);
+  if (provider === "openai" && !env.OPENAI_API_KEY) return json({ error: "Research service is not configured." }, 503);
   if (!env.TURNSTILE_SECRET_KEY) return json({ error: "Abuse protection is not configured." }, 503);
+  if (!env.GAAS_RESEARCH_LIMITER || typeof env.GAAS_RESEARCH_LIMITER.limit !== "function") {
+    return json({ error: "Research rate limiting is not configured." }, 503);
+  }
+  const clientIp = request.headers.get("CF-Connecting-IP") || "";
+  if (!clientIp) return json({ error: "Client network identity is unavailable." }, 403);
+  const rate = await env.GAAS_RESEARCH_LIMITER.limit({ key: clientIp });
+  if (!rate.success) return json({ error: "Too many research requests. Please wait before trying again.", code: "GAAS_RATE_LIMITED" }, 429);
+  const contentType = (request.headers.get("content-type") || "").split(";")[0].trim().toLowerCase();
+  if (contentType !== "application/json") return json({ error: "Content-Type must be application/json." }, 415);
   const declared = Number(request.headers.get("content-length") || 0);
   if (declared > MAX_BODY_BYTES) return json({ error: "Request is too large." }, 413);
   const raw = await request.text();
@@ -129,14 +137,40 @@ async function handleResearch(request, env) {
     researchPeriod: clean(body.researchPeriod, 100),
     language: clean(body.language, 40) || "English"
   };
+  // Staging can exercise the full request/validation/response path without paid provider calls.
+  // The mock output is explicitly labelled and must never be presented as real research.
+  if (env.RESEARCH_PROVIDER === "mock") {
+    return json({
+      status: "research_complete_pending_human_review",
+      provider: "mock",
+      mock: true,
+      plan,
+      researchDate: new Date().toISOString(),
+      report: [
+        "MOCK RESEARCH RESPONSE — NOT REAL REGULATORY RESEARCH.",
+        "This deterministic sample confirms that request validation, Turnstile verification, rate limiting and response rendering are connected.",
+        "No regulator sources were searched and no legal or compliance conclusion is provided.",
+        "Submitted jurisdiction: " + jurisdiction,
+        "Submitted topic: " + topic,
+        "Submitted question: " + question
+      ].join("\\n\\n"),
+      citations: [],
+      disclaimer: "MOCK MODE ONLY. No paid AI provider was called. This sample contains no verified regulatory research and must not be relied upon."
+    });
+  }
+
+  if (provider !== "openai") return json({ error: "Paid research provider is disabled." }, 503);
   const upstream = await fetch("https://api.openai.com/v1/responses", {
     method: "POST",
     headers: { "authorization": "Bearer " + env.OPENAI_API_KEY, "content-type": "application/json" },
+    signal: AbortSignal.timeout(60000),
     body: JSON.stringify({
       model: env.OPENAI_MODEL || "gpt-6-astra",
       tools: [{ type: "web_search", search_context_size: "high" }],
       tool_choice: "required",
+      max_tool_calls: 6,
       max_output_tokens: 6000,
+      instructions: RESEARCH_INSTRUCTIONS,
       input: buildResearchInput(requestData)
     })
   });

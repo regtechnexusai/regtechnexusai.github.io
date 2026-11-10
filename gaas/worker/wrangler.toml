@@ -6,7 +6,16 @@ workers_dev = true
 [vars]
 ALLOWED_ORIGIN = "https://regtechnexusai.com,https://www.regtechnexusai.com"
 OPENAI_MODEL = "gpt-6-astra"
+RESEARCH_PROVIDER = "mock" # No paid provider calls until final production release
 
 # Configure these as encrypted Worker secrets, never as plaintext vars:
 # wrangler secret put OPENAI_API_KEY
 # wrangler secret put TURNSTILE_SECRET_KEY
+
+[[ratelimits]]
+name = "GAAS_RESEARCH_LIMITER"
+namespace_id = "926110267"
+
+  [ratelimits.simple]
+  limit = 5
+  period = 60
