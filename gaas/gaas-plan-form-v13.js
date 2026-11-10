@@ -106,7 +106,7 @@ return '<label class="plan-field"><span>'+esc(fieldLabel)+'</span>'+control+'</l
 const hasJurisdictionField=config.fields.some(f=>f[0]==="jurisdiction"||f[0]==="jurisdictions");
 const hasMultipleJurisdictions=config.fields.some(f=>f[0]==="jurisdictions");
 const jurisdictionHint=hasJurisdictionField?'<p class="field-hint" id="jurisdiction-hint">Country / region selection is a scope indicator only. '+(hasMultipleJurisdictions?'Select all relevant jurisdictions.':'Select the relevant jurisdiction.')+'</p>':'';
-workspace.innerHTML='<div class="plan-demo-steps"><strong>How this plan works</strong><ol>'+config.steps.map(s=>'<li>'+esc(s)+'</li>').join("")+'</ol></div><form id="plan-demo-form" class="plan-demo-form"><div class="plan-form-heading"><strong>Try the '+esc(plan)+' workflow</strong><span>Sample inputs only · Do not enter confidential data</span></div><div class="plan-fields">'+fields+'</div>'+jurisdictionHint+'<div class="plan-upload"><label for="plan-source-files"><strong>Attach supporting documents</strong><span>PDF, Word, Excel, PowerPoint, CSV or TXT · Select files from your device</span></label><input id="plan-source-files" type="file" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.ppt,.pptx,.txt,.rtf,.html"><small id="plan-file-status">No files selected. Files are not uploaded to this website; attach them manually in ChatGPT.</small></div><button class="btn primary plan-generate" type="submit">Prepare report with ChatGPT</button></form><div id="plan-demo-result" class="plan-demo-result" aria-live="polite"><div class="plan-result-empty"><strong>Your '+esc(plan)+' output will appear here.</strong><span>Complete the fields and run the demo to generate a plan-specific sample deliverable.</span></div></div><div class="plan-scope"><strong>Plan features shown on pricing page</strong><ul id="modal-plan-features"></ul></div>';
+workspace.innerHTML='<div class="plan-demo-steps"><strong>How this plan works</strong><ol>'+config.steps.map(s=>'<li>'+esc(s)+'</li>').join("")+'</ol></div><form id="plan-demo-form" class="plan-demo-form"><div class="plan-form-heading"><strong>Try the '+esc(plan)+' workflow</strong><span>Sample inputs only · Do not enter confidential data</span></div><div class="plan-fields">'+fields+'</div>'+jurisdictionHint+'<div class="plan-upload"><label for="plan-source-files"><strong>Attach supporting documents</strong><span>PDF, Word, Excel, PowerPoint, CSV or TXT · Select files from your device</span></label><input id="plan-source-files" type="file" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.ppt,.pptx,.txt,.rtf,.html"><small id="plan-file-status">No files selected. Files are not uploaded to this website; attach them manually in the external research editor.</small></div><button class="btn primary plan-generate" type="submit">Prepare research brief</button></form><div id="plan-demo-result" class="plan-demo-result" aria-live="polite"><div class="plan-result-empty"><strong>Your '+esc(plan)+' output will appear here.</strong><span>Complete the fields and run the demo to generate a plan-specific sample deliverable.</span></div></div><div class="plan-scope"><strong>Plan features shown on pricing page</strong><ul id="modal-plan-features"></ul></div>';
 const guide=planGuides[plan];
 const explain=document.createElement("div");
 explain.className="plan-explainer";
@@ -167,9 +167,9 @@ function generatePlanOutput(form){
  const chatUrl="https://chatgpt.com/";
  const validationWarnings=validation.warnings.length?validation.warnings.join(" "):"No additional validation warnings.";
  const supplied=Object.entries(values).filter(([,v])=>Array.isArray(v)?v.length:String(v||"").trim()).map(([k,v])=>k+": "+(Array.isArray(v)?v.join(", "):v)).join(" · ");
- const fileNote=files.length?"Selected "+files.length+" file(s). Attach the same file(s) manually in the ChatGPT tab; this static page cannot transmit file contents.":"No files selected.";
- result.innerHTML='<div class="plan-result-document"><div class="plan-result-banner"><span>CHATGPT HANDOFF · USER-INITIATED</span><strong>'+esc(config.title)+'</strong><small>'+esc(plan)+' · Prepared from your entered information</small></div><div class="plan-result-rows"><section><strong>Information included</strong><p>'+esc(supplied||"No information entered; ChatGPT will be asked not to assume missing facts.")+'</p></section><section><strong>Supporting documents</strong><p>'+esc(fileNote+' '+fileNames.join("; "))+'</p></section><section><strong>Research scope</strong><p>Search official regulator websites, including authority publication pages outside a curated list; verify source status, dates, amendments and applicability; cite original sources.</p></section><section><strong>Input validation notes</strong><p>'+esc(validationWarnings)+'</p></section></div><div class="plan-result-warning"><strong>Important handoff limitation</strong><p>Copy the prompt using the button below. If clipboard access is unavailable, select and copy the complete prompt from the text box. The URL does not contain your form data. This GitHub Pages site cannot securely upload selected files or call the OpenAI API. Attach selected documents manually in ChatGPT. Do not submit confidential bank/customer information in this public preview.</p></div><label class="plan-prompt-fallback" for="chatgpt-prompt-fallback"><strong>Research prompt — manual copy fallback</strong><textarea id="chatgpt-prompt-fallback" rows="10" readonly spellcheck="false">'+esc(prompt)+'</textarea><small>Select the text above and copy it if the Copy button is unavailable.</small></label><div class="plan-result-actions"><a class="plan-print" id="open-chatgpt-report" href="'+esc(chatUrl)+'" target="_blank" rel="noopener noreferrer">Open ChatGPT and paste the prompt</a><button type="button" class="plan-reset" id="copy-chatgpt-prompt">Copy research prompt</button></div></div>';
- // Live Phase 1 research is a separate, opt-in staging workflow. Existing ChatGPT handoff remains unchanged.
+ const fileNote=files.length?"Selected "+files.length+" file(s). Attach the same file(s) manually in the research editor; this static page cannot transmit file contents.":"No files selected.";
+ result.innerHTML='<div class="plan-result-document"><div class="plan-result-banner"><span>RESEARCH EDITOR HANDOFF · USER-INITIATED</span><strong>'+esc(config.title)+'</strong><small>'+esc(plan)+' · Prepared from your entered information</small></div><div class="plan-result-rows"><section><strong>Information included</strong><p>'+esc(supplied||"No information entered; missing facts will not be assumed.")+'</p></section><section><strong>Supporting documents</strong><p>'+esc(fileNote+' '+fileNames.join("; "))+'</p></section><section><strong>Research scope</strong><p>Search official regulator websites, including authority publication pages outside a curated list; verify source status, dates, amendments and applicability; cite original sources.</p></section><section><strong>Input validation notes</strong><p>'+esc(validationWarnings)+'</p></section></div><div class="plan-result-warning"><strong>External editor handoff</strong><p>Your structured research prompt is copied automatically when browser permissions allow. Open the research editor and paste it there. This public website does not transmit form data or selected files to the editor. Attach documents yourself only if authorised. Do not submit confidential bank/customer information in this public preview.</p></div><div class="plan-result-actions"><a class="plan-print" id="open-chatgpt-report" href="'+esc(chatUrl)+'" target="_blank" rel="noopener noreferrer">Open Research Editor</a></div></div>';
+ // Live Phase 1 research is a separate, opt-in staging workflow. The editor handoff uses provider-neutral page labels.
  const livePanel=document.createElement("section");
  livePanel.className="gaas-live-research";
  livePanel.setAttribute("aria-labelledby","gaas-live-title");
@@ -262,22 +262,11 @@ function generatePlanOutput(form){
    turnstileStatus.textContent="Complete the security check again before another request.";
   }
  });
- const fallback=result.querySelector("#chatgpt-prompt-fallback");
- const copy=result.querySelector("#copy-chatgpt-prompt");
- if(copy)copy.addEventListener("click",async()=>{
-  try{
-   if(!navigator.clipboard||!navigator.clipboard.writeText)throw new Error("Clipboard API unavailable");
-   await navigator.clipboard.writeText(prompt);
-   copy.textContent="Prompt copied — paste into ChatGPT";
-  }catch(e){
-   if(fallback){fallback.focus();fallback.select();fallback.setSelectionRange(0,fallback.value.length);}
-   copy.textContent="Select the prompt below and copy manually";
-  }
- });
- const link=result.querySelector("#open-chatgpt-report");
+ // Copy the structured prompt automatically; no separate copy/paste button is shown.
  if(navigator.clipboard&&navigator.clipboard.writeText){
-  navigator.clipboard.writeText(prompt).then(()=>{if(copy)copy.textContent="Prompt copied — paste into ChatGPT";}).catch(()=>{
-   if(copy)copy.textContent="Copy prompt below or use the Copy button";
+  navigator.clipboard.writeText(prompt).catch(()=>{
+   const warning=result.querySelector(".plan-result-warning p");
+   if(warning)warning.textContent="Automatic prompt copying was blocked by your browser. Open the research editor; form data is not transmitted by this link. Do not submit confidential bank/customer information.";
   });
  }
 }
@@ -323,7 +312,7 @@ document.addEventListener("change",event=>{
  }
  if(target&&target.id==="plan-source-files"){
   const s=document.getElementById("plan-file-status"),n=target.files?.length||0;
-  if(s)s.textContent=n?n+" file(s) selected. Attach them manually after opening ChatGPT.":"No files selected. Files are not uploaded to this website; attach them manually in ChatGPT.";
+  if(s)s.textContent=n?n+" file(s) selected. Attach them manually after opening ChatGPT.":"No files selected. Files are not uploaded to this website; attach them manually in the external research editor.";
  }
 });
 document.addEventListener("submit",event=>{if(event.target&&event.target.id==="plan-demo-form"){event.preventDefault();generatePlanOutput(event.target);}});
