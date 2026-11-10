@@ -193,6 +193,8 @@ describe("Staging mock provider mode (no paid API calls)", () => {
     expect(response.status).toBe(200);
     expect(data).toMatchObject({ status: "research_complete_pending_human_review", provider: "mock", mock: true });
     expect(data.report).toContain("MOCK RESEARCH RESPONSE");
+    expect(data.report).toContain("\n\n");
+    expect(data.report).not.toContain("\\n");
     expect(data.citations).toEqual([]);
     expect(data.disclaimer).toContain("No paid AI provider was called");
     expect(fetchMock).toHaveBeenCalledTimes(1);
