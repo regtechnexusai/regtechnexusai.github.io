@@ -135,6 +135,28 @@ async function handleResearch(request, env) {
     researchPeriod: clean(body.researchPeriod, 100),
     language: clean(body.language, 40) || "English"
   };
+  // Staging can exercise the full request/validation/response path without paid provider calls.
+  // The mock output is explicitly labelled and must never be presented as real research.
+  if (env.RESEARCH_PROVIDER === "mock") {
+    return json({
+      status: "research_complete_pending_human_review",
+      provider: "mock",
+      mock: true,
+      plan,
+      researchDate: new Date().toISOString(),
+      report: [
+        "MOCK RESEARCH RESPONSE — NOT REAL REGULATORY RESEARCH.",
+        "This deterministic sample confirms that request validation, Turnstile verification, rate limiting and response rendering are connected.",
+        "No regulator sources were searched and no legal or compliance conclusion is provided.",
+        "Submitted jurisdiction: " + jurisdiction,
+        "Submitted topic: " + topic,
+        "Submitted question: " + question
+      ].join("\\n\\n"),
+      citations: [],
+      disclaimer: "MOCK MODE ONLY. No paid AI provider was called. This sample contains no verified regulatory research and must not be relied upon."
+    });
+  }
+
   const upstream = await fetch("https://api.openai.com/v1/responses", {
     method: "POST",
     headers: { "authorization": "Bearer " + env.OPENAI_API_KEY, "content-type": "application/json" },
