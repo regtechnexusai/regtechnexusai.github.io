@@ -36,7 +36,10 @@ jobs:
           node-version: "22"
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
+
+      - name: Audit Worker test dependencies
+        run: npm audit --audit-level=moderate
 
       - name: Run Worker regression tests
         run: npm test
@@ -59,7 +62,7 @@ jobs:
           node-version: "22"
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Validate Cloudflare staging credentials
         env:
