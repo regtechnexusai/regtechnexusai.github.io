@@ -191,9 +191,9 @@ def test_gaas_plan_preview_and_live_research_staging_panel(page: Page):
     page.locator("#field-question").fill(
         "Find current official AML/CFT requirements for licensed financial institutions in Bangladesh."
     )
-    page.get_by_role("button", name="Prepare report with ChatGPT").click()
+    page.get_by_role("button", name="Prepare research brief").click()
 
-    expect(page.locator("#plan-demo-result")).to_contain_text("CHATGPT HANDOFF")
+    expect(page.locator("#plan-demo-result")).to_contain_text("GAAS LIVE RESEARCH · DIRECT SUBMISSION")
     expect(page.locator("#gaas-live-title")).to_be_visible(timeout=10000)
     expect(page.locator("#gaas-live-title")).to_contain_text("Run source-led regulatory research")
     expect(page.locator("#gaas-live-run")).to_be_disabled()
