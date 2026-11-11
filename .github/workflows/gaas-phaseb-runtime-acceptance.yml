@@ -69,7 +69,7 @@ jobs:
           TEST_TOKEN: ${{ secrets.PHASEB_RUNTIME_TEST_TOKEN }}
         run: |
           set -euo pipefail
-          worker_url="https://gaas-phaseb-runtime-test.${{ vars.CLOUDFLARE_WORKERS_SUBDOMAIN }}.workers.dev"
+          worker_url="https://gaas-phaseb-runtime-test.regtechnexusai.workers.dev"
           disable_worker() {
             sed -i 's/PHASEB_RUNTIME_TEST_ENABLED = "true"/PHASEB_RUNTIME_TEST_ENABLED = "false"/' wrangler.phaseb-test.toml
             npx --yes wrangler@4 deploy --config wrangler.phaseb-test.toml
