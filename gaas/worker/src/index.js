@@ -1,4 +1,5 @@
-import { handlePhaseBApi } from "./phaseb-api.js";\nimport { phaseBQueue } from "./phaseb-queue-consumer.js";
+import { handlePhaseBApi } from "./phaseb-api.js";
+import { phaseBQueue } from "./phaseb-queue-consumer.js";
 const JSON_HEADERS = { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" };
 const MAX_BODY_BYTES = 12 * 1024;
 const ALLOWED_PLANS = new Set(["Free Explorer", "Professional", "Professional Plus", "Small Business", "Business Plus", "Enterprise"]);
@@ -239,5 +240,8 @@ export default {
     } catch (error) {
       return json({ error: "Research request failed safely. Please retry or contact support." }, 500, cors);
     }
+  },
+  async queue(batch, env) {
+    return phaseBQueue(batch, env);
   }
 };
