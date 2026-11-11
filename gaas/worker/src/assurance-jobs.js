@@ -10,7 +10,7 @@ const TRANSITIONS = Object.freeze({
 });
 const REQUEST_FIELDS=new Set(["jurisdiction","topic","question","asOfDate","sourceScope"]);
 const MAX_TEXT={jurisdiction:80,topic:160,question:1800,asOfDate:10,sourceScope:300};
-const SENSITIVE_PATTERNS=[/\bSAR\b|\bSTR\b|suspicious activity report|suspicious transaction report/i,/\b(account|card|iban|swift|routing)\s*(number|no\.?|#)\s*[:=]?\s*[A-Z0-9-]{6,}/i,/\b(passport|national id|nid|ssn|tax id)\s*(number|no\.?|#)\s*[:=]?\s*[A-Z0-9-]{5,}/i,/\b\d{8,20}\b/,/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i,/(?:\+?\d[\d .()-]{8,}\d)/];
+const SENSITIVE_PATTERNS=[/\\bSAR\\b|\\bSTR\\b|suspicious activity report|suspicious transaction report/i,/\\b(account|card|iban|swift|routing)\\s*(number|no\\.?|#)\\s*[:=]?\\s*[A-Z0-9-]{6,}/i,/\\b(passport|national id|nid|ssn|tax id)\\s*(number|no\\.?|#)\\s*[:=]?\\s*[A-Z0-9-]{5,}/i,/\\b\\d{8,20}\\b/,/[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}/i,/(?:\\+?\\d[\\d .()-]{8,}\\d)/];
 function stableStringify(value){if(Array.isArray(value))return `[${value.map(stableStringify).join(",")}]`;if(value&&typeof value==="object")return `{${Object.keys(value).sort().map(k=>`${JSON.stringify(k)}:${stableStringify(value[k])}`).join(",")}}`;return JSON.stringify(value);}
 async function sha256(value){const digest=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(value));return [...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,"0")).join("");}
 function project(row){return row?{jobId:row.job_id,status:row.status,assuranceStatus:row.assurance_status,failureCode:row.failure_code,attemptCount:row.attempt_count,createdAt:row.created_at,updatedAt:row.updated_at,expiresAt:row.expires_at,version:row.version}:null;}
@@ -20,7 +20,7 @@ export function validateJobRequest(request){
   const keys=Object.keys(request);if(!keys.length||keys.some(k=>!REQUEST_FIELDS.has(k)))throw new Error("JOB_REQUEST_FIELD_NOT_ALLOWED");
   const clean={};for(const key of keys){const value=request[key];if(typeof value!=="string"||!value.trim()||value.length>MAX_TEXT[key])throw new Error("JOB_REQUEST_FIELD_INVALID");const text=value.trim();if(SENSITIVE_PATTERNS.some(p=>p.test(text)))throw new Error("JOB_REQUEST_SENSITIVE_DATA_BLOCKED");clean[key]=text;}
   if(clean.jurisdiction&&!/^[A-Z]{2,3}(?:-[A-Z0-9]{1,4})?$/.test(clean.jurisdiction))throw new Error("JOB_JURISDICTION_INVALID");
-  if(clean.asOfDate&&!/^\d{4}-\d{2}-\d{2}$/.test(clean.asOfDate))throw new Error("JOB_AS_OF_DATE_INVALID");
+  if(clean.asOfDate&&!/^\\d{4}-\\d{2}-\\d{2}$/.test(clean.asOfDate))throw new Error("JOB_AS_OF_DATE_INVALID");
   const canonical=stableStringify(clean);if(new TextEncoder().encode(canonical).byteLength>4096)throw new Error("JOB_REQUEST_TOO_LARGE");return{clean,canonical};
 }
 export function validateJobInput(input,authContext){
@@ -76,7 +76,13 @@ export async function persistTerminalQueueFailure(db,authContext,input){
 }
 export async function handleAssuranceQueueMessage(message,processJob,persistTerminal,deadLetterQueue,alertQueue){
   const jobId=message?.body?.jobId;
-  if(typeof jobId!=="string"||!jobId){if(deadLetterQueue?.send)await deadLetterQueue.send({type:"INVALID_MESSAGE",receivedAt:new Date().toISOString()});message?.ack?.();return{action:"ack_invalid_message"};}
+  if(typeof jobId!=="string"||!jobId){
+    // Never acknowledge a malformed delivery until it has been durably handed to the DLQ.
+    if(!deadLetterQueue?.send)throw new Error("DEAD_LETTER_QUEUE_REQUIRED_FOR_INVALID_MESSAGE");
+    await deadLetterQueue.send({type:"INVALID_MESSAGE",receivedAt:new Date().toISOString()});
+    message?.ack?.();
+    return{action:"ack_invalid_message"};
+  }
   try{await processJob(jobId);message.ack();return{action:"ack_processed"};}
   catch(error){
     const classification=classifyQueueError(error);
