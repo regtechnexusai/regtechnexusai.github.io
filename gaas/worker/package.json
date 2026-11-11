@@ -2,9 +2,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:unit": "vitest run test/*.test.js",
+    "test:d1": "vitest run test/assurance-d1.integration.test.js"
   },
   "devDependencies": {
-    "vitest": "4.1.12"
+    "vitest": "4.1.12",
+    "@cloudflare/vitest-plugin": "^1.0.0"
   }
 }
