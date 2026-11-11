@@ -89,7 +89,7 @@ export async function handleAssuranceQueueMessage(message,processJob,persistTerm
     if(classification.retryable&&Number(message.attempts||1)<5&&typeof message.retry==="function"){const delaySeconds=queueRetryDelaySeconds(message.attempts,error?.retryAfterSeconds);message.retry({delaySeconds});return{action:"retry",delaySeconds,code:classification.code};}
     const terminal=await persistTerminal(jobId,classification.code),deadLetter={jobId,failureCode:classification.code,status:terminal.status,failedAt:terminal.updatedAt};
     if(!deadLetterQueue?.send)throw new Error("DEAD_LETTER_QUEUE_REQUIRED");await deadLetterQueue.send(deadLetter);
-    if(alertQueue?.send)await alertQueue.send({type:"GAAS_JOB_TERMINAL_FAILURE",jobId,failureCode:classification.code});message.ack();return{action:"ack_terminal_persisted",code:classification.code};
+    let alertStatus="not_configured";if(alertQueue?.send){try{await alertQueue.send({type:"GAAS_JOB_TERMINAL_FAILURE",jobId,failureCode:classification.code});alertStatus="sent";}catch{alertStatus="failed";}}message.ack();return{action:alertStatus==="failed"?"ack_terminal_alert_failed":"ack_terminal_persisted",code:classification.code,alertStatus};
   }
 }
 export async function deleteExpiredAssuranceJobs(db,now=new Date(),limit=100){
