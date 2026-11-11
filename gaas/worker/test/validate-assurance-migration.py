@@ -13,6 +13,7 @@ try:
  raise AssertionError("tenant idempotency uniqueness not enforced")
 except sqlite3.IntegrityError: pass
 db.execute("""INSERT INTO assurance_jobs(job_id,tenant_id,idempotency_key,status,request_fingerprint,request_json,created_at,updated_at,expires_at) VALUES ('j3','tenant_other_123','key-1234567890123456','queued','fp1','{}','2026-11-11','2026-11-11','2026-11-12')""")
+db.commit()
 try:
  with db:
   db.execute("UPDATE assurance_jobs SET status='primary_research_running',version=version+1 WHERE job_id='j1' AND version=0")
