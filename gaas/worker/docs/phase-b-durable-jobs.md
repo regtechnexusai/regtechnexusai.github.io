@@ -32,3 +32,25 @@ No D1, Queue, DLQ, scheduled trigger, Worker binding, public job/result route, a
 - Implement server-side usage ledger, concurrency controls and aggregate hard spend guard before any provider adapter is reachable.
 - Prove primary report delivery despite optional reviewer failure.
 - Keep /api/research unchanged until end-to-end UAT and explicit production approval.
+
+
+## Queue consumer integration (PR follow-up)
+
+The Worker entrypoint exports a Queue handler through `src/phaseb-queue-consumer.js`.
+The handler requires the D1 binding and durable DLQ binding and delegates retry/ack
+semantics to `handleAssuranceQueueMessage`. Duplicate deliveries after a durable
+state transition are treated as idempotent no-ops.
+
+**Important processing boundary:** the production regulatory research processor is
+not implemented in this PR. Until a separately reviewed provider-neutral research
+pipeline is implemented, the consumer fails closed and routes the job through the
+terminal-failure/DLQ path; it must not represent this as completed research.
+The isolated Queue config sets `PHASEB_QUEUE_TEST_MODE=true`, which runs only
+synthetic state transitions ending in `completed_pending_human_review` with
+`assurance_status=synthetic_test_only`. This is queue plumbing acceptance only,
+not evidence of regulatory research functionality.
+
+Job submission is disabled unless `PHASEB_JOBS_ENABLED=true`. The normal
+`wrangler.toml` does not enable it. Do not enable the flag in staging or production
+until the real processor, Access application, D1 membership provisioning, Queue
+consumer, DLQ and spend controls have passed separate acceptance.
