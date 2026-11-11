@@ -16,10 +16,9 @@ The test uses synthetic tenant IDs and generic public test prompts. It cleans up
 ## Configure locally
 
 1. Copy `wrangler.phaseb-test.toml.example` to `wrangler.phaseb-test.toml`.
-2. Replace the placeholder database ID with the complete ID of the database named `gaas-phaseb-disposable-20261111`. Confirm the full name and ID in the Cloudflare D1 database list before proceeding.
-3. Confirm that this database is not `gaas-assurance-staging` and not used by any live Worker.
-4. Do not commit the local config containing the real database ID.
-5. Set a random one-time token using a password manager. Never paste the token into GitHub, chat, screenshots or source files.
+2. The template is pinned to the owner-confirmed disposable D1 ID `fd3f856f-870b-469c-afe1-b12f9519fd7d` for `gaas-phaseb-disposable-20261111`. Before deployment, independently re-check the database name and full ID in Cloudflare.
+3. Confirm that this database is not `gaas-assurance-staging` and is not bound to any live Worker.
+4. Set a random one-time token using a password manager. Never paste the token into GitHub, chat, screenshots or source files.
 
 ## Deploy only the isolated Worker
 
