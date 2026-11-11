@@ -44,6 +44,9 @@ jobs:
       - name: Run Worker regression tests
         run: npm test
 
+      - name: Validate assurance migration SQL and transactional constraints
+        run: python3 test/validate-assurance-migration.py
+
   deploy-staging:
     if: github.event_name != 'pull_request'
     needs: worker-regression
