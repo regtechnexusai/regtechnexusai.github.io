@@ -38,7 +38,8 @@ export async function handlePhaseBApi(request,env,url=new URL(request.url)){
   if(request.method==="OPTIONS")return new Response(null,{status:204,headers:HEADERS});
   try{
     const auth=await authenticate(request,env);
-    if(url.pathname==="/api/jobs"&&request.method==="POST"){\n      if(env.PHASEB_JOBS_ENABLED!=="true")return json({error:"PHASEB_JOBS_DISABLED"},503);
+    if(url.pathname==="/api/jobs"&&request.method==="POST"){
+      if(env.PHASEB_JOBS_ENABLED!=="true")return json({error:"PHASEB_JOBS_DISABLED"},503);
       if(!["tenant_admin","analyst"].includes(auth.role))return json({error:"ROLE_FORBIDDEN"},403);
       if(!env.ASSURANCE_QUEUE?.send)return json({error:"ASSURANCE_QUEUE_NOT_CONFIGURED"},503);
       const length=Number(request.headers.get("content-length")||0);
