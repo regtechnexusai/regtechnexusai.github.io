@@ -53,7 +53,7 @@ export async function transitionAssuranceJob(db,authContext,input){
   if(!TRANSITIONS[current.status]?.has(input.toStatus))throw new Error("JOB_TRANSITION_NOT_ALLOWED");const updatedAt=(input.now||new Date()).toISOString();
   const results=await db.batch([
     db.prepare("UPDATE assurance_jobs SET status=?,assurance_status=?,failure_code=?,updated_at=?,version=version+1 WHERE tenant_id=? AND job_id=? AND version=? AND status=?").bind(input.toStatus,input.assuranceStatus||null,input.failureCode||null,updatedAt,tenantId,input.jobId,input.expectedVersion,current.status),
-    db.prepare("INSERT INTO assurance_job_events (job_id,tenant_id,from_status,to_status,event_code,created_at) SELECT ?,?,?,?,?,? WHERE EXISTS (SELECT 1 FROM assurance_jobs WHERE tenant_id=? AND job_id=? AND version=? AND status=?)").bind(input.jobId,tenantId,current.status,input.toStatus,input.eventCode,updatedAt,tenantId,input.jobId,input.expectedVersion+1,input.toStatus)
+    db.prepare("INSERT INTO assurance_job_events (job_id,tenant_id,from_status,to_status,event_code,created_at,job_version) SELECT ?,?,?,?,?,?,? WHERE EXISTS (SELECT 1 FROM assurance_jobs WHERE tenant_id=? AND job_id=? AND version=? AND status=?)").bind(input.jobId,tenantId,current.status,input.toStatus,input.eventCode,updatedAt,input.expectedVersion+1,tenantId,input.jobId,input.expectedVersion+1,input.toStatus)
   ]);
   if(Number(results?.[0]?.meta?.changes||0)!==1||Number(results?.[1]?.meta?.changes||0)!==1)throw new Error("JOB_VERSION_CONFLICT");
   return project(await db.prepare("SELECT * FROM assurance_jobs WHERE tenant_id=? AND job_id=?").bind(tenantId,input.jobId).first());
