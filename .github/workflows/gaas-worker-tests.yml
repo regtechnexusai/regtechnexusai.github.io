@@ -1,10 +1,10 @@
 name: GaaS Worker Tests
 on:
   pull_request:
-    paths: ["gaas/worker/**", ".github/workflows/gaas-worker-tests.yml"]
+    paths: ["gaas/worker/**", ".github/workflows/**"]
   push:
     branches: [main]
-    paths: ["gaas/worker/**", ".github/workflows/gaas-worker-tests.yml"]
+    paths: ["gaas/worker/**", ".github/workflows/**"]
 permissions:
   contents: read
 jobs:
