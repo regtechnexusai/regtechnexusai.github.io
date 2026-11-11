@@ -26,7 +26,7 @@ function fail(error){
 }
 async function authenticate(request,env){
   const authorization=request.headers.get("Authorization")||"";
-  if(!/^Bearer\\s+\\S+/i.test(authorization)){
+  if(!/^Bearer\s+\S+/i.test(authorization)){
     return authenticateCloudflareAccess(request,env,null);
   }
   if(!env.ASSURANCE_DB?.prepare||!env.ASSURANCE_DB?.batch)throw Object.assign(new Error("TENANT_MEMBERSHIP_DATABASE_REQUIRED"),{status:503});
