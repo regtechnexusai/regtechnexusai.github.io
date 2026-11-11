@@ -77,14 +77,14 @@ describe("Cloudflare Workers runtime + D1 assurance integration", () => {
   it("rolls back the job update when the audit insert fails inside D1 batch", async () => {
     const jobId = await seedJob();
     const triggerName = `abort_event_${crypto.randomUUID().replace(/-/g, "")}`;
-    await env.DB.exec(`
+    await env.DB.prepare(`
       CREATE TRIGGER ${triggerName}
       BEFORE INSERT ON assurance_job_events
       WHEN NEW.event_code = 'FORCE_AUDIT_FAILURE'
       BEGIN
         SELECT RAISE(ABORT, 'forced audit insert failure');
-      END;
-    `);
+      END
+    `).run();
     try {
       await expect(transitionAssuranceJob(env.DB, {
         tenantId, jobId, expectedVersion: 0,
