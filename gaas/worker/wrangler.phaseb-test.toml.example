@@ -15,7 +15,7 @@ PHASEB_RUNTIME_TEST_ENABLED = "false"
 [[d1_databases]]
 binding = "ASSURANCE_DB"
 database_name = "gaas-phaseb-disposable-20261111"
-database_id = "REPLACE_WITH_FULL_DISPOSABLE_DATABASE_ID"
+database_id = "fd3f856f-870b-469c-afe1-b12f9519fd7d"
 migrations_dir = "migrations"
 
 # Set these as Worker secrets only after reviewing the isolated deployment:
