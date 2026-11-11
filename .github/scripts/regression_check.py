@@ -85,14 +85,26 @@ for rel,(heading,required) in institutional_pages.items():
   if "YOUR_FORM_ID" in content or "formspree.io/f/" in content:
    add("HIGH",rel,"Placeholder or unconfigured form endpoint must not be published.")
 
-# Portfolio-specific structural checks: the new page must be part of CI coverage.
+# Portfolio-specific structural checks: validate the current four published projects.
+# Keep this list explicit so adding/removing a project requires an intentional test update.
 portfolio_path=ROOT/"creations"/"index.html"
 if portfolio_path.exists():
  portfolio=portfolio_path.read_text(encoding="utf-8",errors="replace")
  cards=portfolio.count('class="creation-card"')
- if cards != 3:add("HIGH","creations/index.html","Expected exactly 3 project cards; found "+str(cards)+".")
- for required in ('href="/"','href="/mukul/"','href="https://traveltoknow.com.bd/"'):
-  if required not in portfolio:add("HIGH","creations/index.html","Required portfolio destination missing: "+required)
+ expected_projects={
+  'href="/"':"RegTech Nexus AI",
+  'href="/mukul/"':"MUKUL Agriculture Hub",
+  'href="https://traveltoknow.com.bd/"':"Travel To Know",
+  'href="/banking-learning/digital-trade-finance/"':"Digital Trade Finance Transformation",
+ }
+ if cards != len(expected_projects):
+  add("HIGH","creations/index.html","Expected "+str(len(expected_projects))+" project cards from the approved portfolio list; found "+str(cards)+".")
+ for destination,label in expected_projects.items():
+  if destination not in portfolio:
+   add("HIGH","creations/index.html","Required portfolio destination missing for "+label+": "+destination)
+ for label in expected_projects.values():
+  if label not in portfolio:
+   add("HIGH","creations/index.html","Required portfolio project title missing: "+label)
  for rel,minimum in (("index.html",2),("site-wide-shell.js",2)):
   source=ROOT/rel
   count=source.read_text(encoding="utf-8",errors="replace").count('href="/creations/"') if source.exists() else 0

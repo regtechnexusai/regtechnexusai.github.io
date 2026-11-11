@@ -1,0 +1,25 @@
+# Copy to wrangler.phaseb-test.toml locally, then replace the database_id
+# with the full ID of gaas-phaseb-disposable-20261111.
+# Never point this config at gaas-assurance-staging or production.
+# Do not deploy until the disposable database ID and one-time test token are verified.
+
+name = "gaas-phaseb-runtime-test"
+main = "src/phaseb-runtime-test.js"
+compatibility_date = "2026-11-11"
+workers_dev = true
+preview_urls = false
+
+[vars]
+PHASEB_RUNTIME_TEST_ENABLED = "false"
+
+[[d1_databases]]
+binding = "ASSURANCE_DB"
+database_name = "gaas-phaseb-disposable-20261111"
+database_id = "fd3f856f-870b-469c-afe1-b12f9519fd7d"
+migrations_dir = "migrations"
+
+# Set these as Worker secrets only after reviewing the isolated deployment:
+# npx wrangler secret put PHASEB_RUNTIME_TEST_TOKEN --config wrangler.phaseb-test.toml
+# PHASEB_RUNTIME_TEST_TOKEN must be a random value of at least 32 characters.
+# Enable the endpoint only for the acceptance window by changing the var to "true".
+# Do not add OPENAI_API_KEY, TURNSTILE_SECRET_KEY or any paid-provider credentials.
