@@ -2,9 +2,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "vitest run"
+    "test": "vitest run test/*.test.js",
+    "test:integration": "node --experimental-sqlite --test test/*.integration.test.js"
   },
-  "devDependencies": {
-    "vitest": "4.1.12"
-  }
+  "devDependencies": { "vitest": "4.1.12" }
 }
