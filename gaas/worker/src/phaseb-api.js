@@ -20,7 +20,8 @@ function fail(error){
     IDEMPOTENCY_KEY_INVALID:400,
     JOB_RETENTION_OUT_OF_RANGE:400,
     IDEMPOTENCY_KEY_CONFLICT:409,
-    JOB_NOT_FOUND:404
+    JOB_NOT_FOUND:404,
+    ASSURANCE_QUEUE_SEND_FAILED:503
   }[error?.message]||400);
   return json({error: error?.code||error?.message||"PHASEB_REQUEST_FAILED"},status);
 }
@@ -53,7 +54,18 @@ export async function handlePhaseBApi(request,env,url=new URL(request.url)){
       },auth);
       // Job IDs are globally random and the consumer must re-read tenant/job state from D1.
       // Re-enqueue queued idempotent submissions so a prior Queue-send outage can be recovered.
-      if(result.job.status==="queued")await env.ASSURANCE_QUEUE.send({jobId:result.job.jobId});
+      if(result.job.status==="queued"){
+        try {
+          await env.ASSURANCE_QUEUE.send({jobId:result.job.jobId});
+        } catch {
+          // Keep the durable job queued. A client retry with the same idempotency key
+          // can safely re-enqueue it; never report acceptance when publication failed.
+          throw Object.assign(new Error("ASSURANCE_QUEUE_SEND_FAILED"), {
+            status:503,
+            code:"ASSURANCE_QUEUE_SEND_FAILED"
+          });
+        }
+      }
       return json({job:result.job,created:result.created,queue:"accepted"},result.created?202:200);
     }
     const match=url.pathname.match(/^\/api\/jobs\/(job_[A-Za-z0-9]+)$/);
