@@ -117,7 +117,7 @@
     </fieldset>
     <p class="feedback-note"><strong>Privacy:</strong> This survey does not ask for your name, email address or employer. When you submit, your email app opens with your answers addressed to regtechnexusai@gmail.com. Your feedback is sent only if you choose to send that email. Do not include confidential or personal data.</p>
     <button class="feedback-submit" type="submit">Submit feedback by email ↗</button>
-    <div class="feedback-status" id="feedback-status" role="status" aria-live="polite">Your email draft should now be open. Please review it and press Send to deliver your feedback.</div>
+    <div class="feedback-status" id="feedback-status" role="status" aria-live="polite">Your email app may have opened in another tab or app. Your feedback is not sent until you press Send. If no draft opened, <a id="feedback-email-fallback" class="feedback-footer-link" href="#" hidden>tap here to open your feedback email</a>.</div>
   </form>
 </section>
 </main>
@@ -148,14 +148,20 @@ document.getElementById('visitor-feedback-form').addEventListener('submit',funct
     ['Page submitted from',window.location.href],
     ['Submission time',new Date().toISOString()]
   ];
+  const subject='RegTech Nexus AI — Visitor Feedback';
   const body='Visitor Feedback Survey\n\n'+fields.map(([label,value])=>label+': '+value).join('\n')+'\n\nPlease do not reply with confidential customer or transaction information.';
+  const mailto='mailto:regtechnexusai@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+  const fallback=document.getElementById('feedback-email-fallback');
+  fallback.href=mailto;
+  fallback.hidden=false;
+  document.getElementById('feedback-status').classList.add('visible');
+  if(typeof window.rtTrackEvent==='function'){
+    window.rtTrackEvent('contact_click',{contact_method:'email',contact_flow:'visitor_feedback'});
+  }
   if(window.RegTechEmail&&typeof window.RegTechEmail.open==='function'){
-    window.RegTechEmail.open('RegTech Nexus AI — Visitor Feedback',body,'regtechnexusai@gmail.com');
-    document.getElementById('feedback-status').classList.add('visible');
+    window.RegTechEmail.open(subject,body,'regtechnexusai@gmail.com');
   }else{
-    const mailto='mailto:regtechnexusai@gmail.com?subject='+encodeURIComponent('RegTech Nexus AI — Visitor Feedback')+'&body='+encodeURIComponent(body);
     window.location.href=mailto;
-    document.getElementById('feedback-status').classList.add('visible');
   }
 });
 </script>

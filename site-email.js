@@ -40,8 +40,15 @@
       body: prepared.body
     });
     const gmailUrl = 'https://mail.google.com/mail/?' + params.toString();
-    const popup = window.open(gmailUrl, '_blank', 'noopener,noreferrer');
-    if (!popup) window.location.href = fallbackMailto(prepared.subject, prepared.body, to);
+    // Do not pass noopener in window.open's feature string: browsers can return
+    // null when noopener is requested, incorrectly triggering the fallback every time.
+    const popup = window.open(gmailUrl, '_blank');
+    if (popup) {
+      try { popup.opener = null; } catch (error) { /* Cross-origin isolation is fine. */ }
+      return true;
+    }
+    window.location.href = fallbackMailto(prepared.subject, prepared.body, to);
+    return false;
   };
 
   window.RegTechEmail = Object.freeze({
