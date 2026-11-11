@@ -2,7 +2,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --check src/phaseb-runtime-test.js && vitest run test/assurance.test.js test/index.test.js test/assurance-jobs.test.js test/cloudflare-access-auth.test.js test/phaseb-api.test.js",
+    "test": "node --check src/phaseb-runtime-test.js && vitest run test/assurance.test.js test/index.test.js test/assurance-jobs.test.js test/cloudflare-access-auth.test.js test/phaseb-api.test.js test/phaseb-queue-consumer.test.js",
     "test:integration": "node --experimental-sqlite --test test/*.integration.test.js"
   },
   "devDependencies": {
