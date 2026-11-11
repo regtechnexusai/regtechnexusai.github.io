@@ -1,0 +1,10 @@
+import {describe,it,expect,vi} from "vitest";
+import {validateRequest,fingerprintRequest,isRetryableQueueError,queueRetryDelaySeconds,handleAssuranceQueueMessage} from "../src/assurance-jobs.js";
+const req={jurisdiction:"GB",topic:"AML/CFT regulatory updates",period:"2026-Q4"};
+describe("Phase B assurance hardening",()=>{
+it("allowlists request fields and rejects obvious personal data",()=>{expect(validateRequest(req).jurisdiction).toBe("GB");expect(()=>validateRequest({...req,customerName:"x"})).toThrow("REQUEST_FIELD_NOT_ALLOWED");expect(()=>validateRequest({jurisdiction:"GB",topic:"alice@example.com account review"})).toThrow("REQUEST_POSSIBLE_PERSONAL_DATA");});
+it("fingerprints canonical request content",async()=>{expect(await fingerprintRequest({jurisdiction:"GB",topic:"AML/CFT"})).toBe(await fingerprintRequest({topic:"AML/CFT",jurisdiction:"GB"}));});
+it("retries transient 429 only with explicit Retry-After",()=>{expect(isRetryableQueueError({status:503})).toBe(true);expect(isRetryableQueueError({status:429,code:"rate_limited",retryAfterSeconds:30})).toBe(true);expect(isRetryableQueueError({status:429,code:"quota_exhausted",retryAfterSeconds:30})).toBe(false);expect(isRetryableQueueError({code:"billing_hard_limit"})).toBe(false);expect(queueRetryDelaySeconds(2)).toBeGreaterThanOrEqual(1);});
+it("persists and dead-letters before acknowledging terminal failure",async()=>{const ack=vi.fn(),persist=vi.fn(),dlq=vi.fn();const out=await handleAssuranceQueueMessage({body:{jobId:"job-1"},attempts:1,ack},{processJob:vi.fn().mockRejectedValue({code:"quota_exhausted"}),persistTerminalFailure:persist,sendToDeadLetter:dlq});expect(out.action).toBe("ack_terminal_failure");expect(persist).toHaveBeenCalledOnce();expect(dlq).toHaveBeenCalledOnce();expect(ack).toHaveBeenCalledOnce();});
+it("does not acknowledge if terminal persistence handlers are missing",async()=>{const ack=vi.fn();await expect(handleAssuranceQueueMessage({body:{jobId:"job-1"},attempts:1,ack},{processJob:vi.fn().mockRejectedValue({status:401})})).rejects.toThrow("TERMINAL_FAILURE_HANDLERS_REQUIRED");expect(ack).not.toHaveBeenCalled();});
+});
