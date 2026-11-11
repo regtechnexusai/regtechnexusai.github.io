@@ -14,5 +14,6 @@ CREATE TABLE IF NOT EXISTS assurance_job_events (
  event_id INTEGER PRIMARY KEY AUTOINCREMENT, job_id TEXT NOT NULL REFERENCES assurance_jobs(job_id) ON DELETE CASCADE,
  tenant_id TEXT NOT NULL, from_status TEXT, to_status TEXT NOT NULL, event_code TEXT NOT NULL, created_at TEXT NOT NULL, metadata_json TEXT, job_version INTEGER NOT NULL DEFAULT 0 CHECK(job_version>=0)
 );
+CREATE UNIQUE INDEX IF NOT EXISTS idx_assurance_job_events_job_version ON assurance_job_events(job_id,job_version);
 CREATE INDEX IF NOT EXISTS idx_assurance_job_events_job_created ON assurance_job_events(job_id,created_at);
 CREATE INDEX IF NOT EXISTS idx_assurance_job_events_tenant_created ON assurance_job_events(tenant_id,created_at);
