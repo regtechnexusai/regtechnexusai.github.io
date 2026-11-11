@@ -82,7 +82,7 @@ async function runAcceptance(db) {
 
     let conflict = false;
     try {
-      await createAssuranceJob(db, createInput("phaseb-runtime-key-0001").request = {
+      await createAssuranceJob(db, {
         idempotencyKey: "phaseb-runtime-key-0001",
         retentionSeconds: RETENTION_SECONDS,
         request: { jurisdiction: "GB", topic: "Sanctions", question: "Different synthetic request" }
@@ -162,8 +162,12 @@ async function runAcceptance(db) {
     if (Number(expiredEvents?.count) !== 0) throw new Error("D1-10_CASCADE_DELETE_FAILED");
     record("D1-10", "Expired job deleted and child audit events cascaded");
 
-    record("D1-06", "Create batch atomicity covered by committed SQLite integration regression; runtime trigger injection requires a separately approved disposable-only trigger test");
-    return { status: "passed_with_one_deferred_case", passed, deferred: ["D1-06 runtime create-batch trigger injection"], totalPassed: passed.length };
+    return {
+      status: "passed_with_deferred_case",
+      passed,
+      deferred: [{ id: "D1-06", reason: "Runtime create-event trigger injection is not enabled in this harness; the SQLite integration regression covers create-batch rollback." }],
+      totalPassed: passed.length
+    };
   } finally {
     for (const jobId of createdIds) {
       await db.prepare("DELETE FROM assurance_jobs WHERE job_id=?").bind(jobId).run();
