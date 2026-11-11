@@ -2,8 +2,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "vitest run test/assurance.test.js test/index.test.js test/assurance-jobs.test.js",
+    "test": "node --check src/phaseb-runtime-test.js && vitest run test/assurance.test.js test/index.test.js test/assurance-jobs.test.js",
     "test:integration": "node --experimental-sqlite --test test/*.integration.test.js"
   },
-  "devDependencies": { "vitest": "4.1.12" }
+  "devDependencies": {
+    "vitest": "4.1.12"
+  }
 }
