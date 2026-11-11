@@ -101,7 +101,7 @@ describe("Cloudflare Workers runtime + D1 assurance integration", () => {
       expect(job).toEqual({ status: "queued", version: 0 });
       expect(count.count).toBe(1);
     } finally {
-      await env.DB.exec(`DROP TRIGGER IF EXISTS ${triggerName}`);
+      await env.DB.prepare(`DROP TRIGGER IF EXISTS ${triggerName}`).run();
     }
   });
 
