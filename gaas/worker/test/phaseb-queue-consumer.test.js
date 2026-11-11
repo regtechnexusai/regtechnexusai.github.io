@@ -2,10 +2,13 @@ import { describe, expect, it, vi } from "vitest";
 import { createPhaseBQueueConsumer } from "../src/phaseb-queue-consumer.js";
 
 function dbWithQueuedJob() {
-  return { prepare: () => ({ bind: () => ({ first: async () => ({
-    job_id: "job_0123456789abcdef", tenant_id: "tenant_alpha_001",
-    status: "queued", version: 0
-  }) }) }) };
+  return {
+    prepare: () => ({ bind: () => ({ first: async () => ({
+      job_id: "job_0123456789abcdef", tenant_id: "tenant_alpha_001",
+      status: "queued", version: 0
+    }) }) }),
+    batch: async () => []
+  };
 }
 function message(body={jobId:"job_0123456789abcdef"}, attempts=1) {
   return { body, attempts, ack:vi.fn(), retry:vi.fn() };
