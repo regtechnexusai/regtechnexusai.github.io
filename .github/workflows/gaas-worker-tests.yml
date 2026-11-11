@@ -1,19 +1,12 @@
-name: GaaS Phase 1 Worker Tests
-
+name: GaaS Worker Tests
 on:
   pull_request:
-    paths:
-      - "gaas/worker/**"
-      - ".github/workflows/gaas-worker-tests.yml"
+    paths: ["gaas/worker/**", ".github/workflows/gaas-worker-tests.yml"]
   push:
     branches: [main]
-    paths:
-      - "gaas/worker/**"
-      - ".github/workflows/gaas-worker-tests.yml"
-
+    paths: ["gaas/worker/**", ".github/workflows/gaas-worker-tests.yml"]
 permissions:
   contents: read
-
 jobs:
   worker-tests:
     runs-on: ubuntu-latest
@@ -27,3 +20,4 @@ jobs:
           node-version: 22
       - run: npm install --legacy-peer-deps
       - run: npm test
+      - run: npm run test:integration
