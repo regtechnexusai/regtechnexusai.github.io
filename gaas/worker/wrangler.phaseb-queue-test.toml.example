@@ -1,0 +1,39 @@
+# Isolated Phase B Queue acceptance Worker.
+# Provision only these queue resources; never reuse production queues.
+name = "gaas-phaseb-queue-test"
+main = "src/index.js"
+compatibility_date = "2026-11-11"
+workers_dev = true
+preview_urls = false
+
+[vars]
+ALLOWED_ORIGIN = "https://regtechnexusai.com"
+RESEARCH_PROVIDER = "mock"
+PHASEB_JOBS_ENABLED = "true"
+PHASEB_QUEUE_TEST_MODE = "true"
+
+[[d1_databases]]
+binding = "ASSURANCE_DB"
+database_name = "gaas-phaseb-disposable-20261111"
+database_id = "fd3f856f-870b-469c-afe1-b12f9519fd7d"
+migrations_dir = "migrations"
+
+[[queues.producers]]
+binding = "ASSURANCE_QUEUE"
+queue = "gaas-phaseb-test-jobs"
+
+[[queues.producers]]
+binding = "ASSURANCE_DLQ"
+queue = "gaas-phaseb-test-dlq"
+
+[[queues.consumers]]
+queue = "gaas-phaseb-test-jobs"
+max_batch_size = 1
+max_batch_timeout = 5
+max_retries = 4
+retry_delay = 10
+dead_letter_queue = "gaas-phaseb-test-dlq"
+
+# Set ACCESS_ISSUER and ACCESS_AUD as vars only after provisioning a test Access app.
+# Do not add paid provider secrets. Queue test mode processes synthetic lifecycle
+# transitions only and is never a real regulatory research processor.
