@@ -21,11 +21,11 @@ async function fixture(overrides = {}) {
 describe("Cloudflare Access identity and tenant binding",()=>{
   it("verifies a signed Access JWT and its issuer, audience and expiry",async()=>{
     const f=await fixture();
-    await expect(verifyCloudflareAccessJwt(f.token,f.env,f.fetcher)).resolves.toMatchObject({subject:"access-subject-001",issuer,email:"analyst@example.test"});
+    await expect(verifyCloudflareAccessJwt(f.token,f.env,f.fetcher)).resolves.toMatchObject({subject:"access-subject-001",issuer:f.env.ACCESS_ISSUER,email:"analyst@example.test"});
   });
   it("rejects an invalid audience",async()=>{
     const f=await fixture({aud:["wrong-audience"]});
-    await expect(verifyCloudflareAccessJwt(f.token,env,f.fetcher)).rejects.toMatchObject({code:"ACCESS_JWT_AUDIENCE_INVALID",status:401});
+    await expect(verifyCloudflareAccessJwt(f.token,f.env,f.fetcher)).rejects.toMatchObject({code:"ACCESS_JWT_AUDIENCE_INVALID",status:401});
   });
   it("rejects an expired token",async()=>{
     const f=await fixture({exp:1});
@@ -47,6 +47,6 @@ describe("Cloudflare Access identity and tenant binding",()=>{
     const f=await fixture();
     const db={prepare:vi.fn().mockReturnValue({bind:vi.fn().mockReturnValue({first:vi.fn().mockResolvedValue(null)})})};
     const request=new Request("https://gaas.example/api/jobs",{headers:{Authorization:`Bearer ${f.token}`}});
-    await expect(authenticateCloudflareAccess(request,env,db,f.fetcher)).rejects.toMatchObject({code:"TENANT_MEMBERSHIP_NOT_FOUND",status:403});
+    await expect(authenticateCloudflareAccess(request,f.env,db,f.fetcher)).rejects.toMatchObject({code:"TENANT_MEMBERSHIP_NOT_FOUND",status:403});
   });
 });
