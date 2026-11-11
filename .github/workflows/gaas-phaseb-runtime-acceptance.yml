@@ -1,0 +1,106 @@
+name: GaaS Phase B Disposable D1 Runtime Acceptance
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: "Type DEPLOY-ISOLATED-PHASEB-TEST to deploy and run the isolated disposable-DB test"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gaas-phaseb-disposable-runtime-test
+  cancel-in-progress: false
+
+jobs:
+  runtime-acceptance:
+    if: ${{ github.ref == 'refs/heads/main' && inputs.confirmation == 'DEPLOY-ISOLATED-PHASEB-TEST' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: gaas/worker
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate required secrets
+        env:
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          TEST_TOKEN: ${{ secrets.PHASEB_RUNTIME_TEST_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$CF_API_TOKEN" || { echo "Missing CLOUDFLARE_API_TOKEN"; exit 1; }
+          test -n "$CF_ACCOUNT_ID" || { echo "Missing CLOUDFLARE_ACCOUNT_ID"; exit 1; }
+          test -n "$TEST_TOKEN" || { echo "Missing PHASEB_RUNTIME_TEST_TOKEN"; exit 1; }
+          test "${#TEST_TOKEN}" -ge 32 || { echo "PHASEB_RUNTIME_TEST_TOKEN must be at least 32 characters"; exit 1; }
+      - name: Prepare isolated config and deploy disabled Worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          cp wrangler.phaseb-test.toml.example wrangler.phaseb-test.toml
+          npx --yes wrangler@4 deploy --config wrangler.phaseb-test.toml
+      - name: Install one-time runtime secret
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          TEST_TOKEN: ${{ secrets.PHASEB_RUNTIME_TEST_TOKEN }}
+        run: |
+          set -euo pipefail
+          printf '%s' "$TEST_TOKEN" | npx --yes wrangler@4 secret put PHASEB_RUNTIME_TEST_TOKEN --config wrangler.phaseb-test.toml
+      - name: Apply migration to the disposable D1 database
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          npx --yes wrangler@4 d1 migrations apply gaas-phaseb-disposable-20261111 --remote --config wrangler.phaseb-test.toml
+      - name: Enable, execute acceptance, and always disable endpoint
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          TEST_TOKEN: ${{ secrets.PHASEB_RUNTIME_TEST_TOKEN }}
+        run: |
+          set -euo pipefail
+          worker_url="https://gaas-phaseb-runtime-test.${{ vars.CLOUDFLARE_WORKERS_SUBDOMAIN }}.workers.dev"
+          disable_worker() {
+            sed -i 's/PHASEB_RUNTIME_TEST_ENABLED = "true"/PHASEB_RUNTIME_TEST_ENABLED = "false"/' wrangler.phaseb-test.toml
+            npx --yes wrangler@4 deploy --config wrangler.phaseb-test.toml
+          }
+          sed -i 's/PHASEB_RUNTIME_TEST_ENABLED = "false"/PHASEB_RUNTIME_TEST_ENABLED = "true"/' wrangler.phaseb-test.toml
+          npx --yes wrangler@4 deploy --config wrangler.phaseb-test.toml
+          set +e
+          health="$(curl --fail --silent --show-error "$worker_url/health")"
+          health_rc=$?
+          if [ "$health_rc" -ne 0 ]; then
+            echo "Health endpoint check failed"
+            test_rc=1
+          else
+            echo "$health"
+            echo "$health" | grep -q '"service":"gaas-phaseb-runtime-test"' || test_rc=1
+            echo "$health" | grep -q '"writesEnabled":false' || test_rc=1
+          fi
+          if [ "${test_rc:-0}" -eq 0 ]; then
+            http_code="$(curl --silent --show-error -o runtime-result.json -w '%{http_code}' -X POST "$worker_url/__phaseb/run" -H "x-phaseb-test-token: $TEST_TOKEN" -H 'content-type: application/json' --data '{}')"
+            cat runtime-result.json
+            if [ "$http_code" != "200" ] || ! grep -q '"status":"passed_with_deferred_case"' runtime-result.json; then
+              test_rc=1
+            fi
+          fi
+          set -e
+          if ! disable_worker; then
+            echo "CRITICAL: endpoint disable deployment failed; disable it manually in Cloudflare immediately."
+            exit 2
+          fi
+          if [ "${test_rc:-0}" -ne 0 ]; then
+            echo "Runtime acceptance did not pass."
+            exit 1
+          fi
+          echo "Runtime acceptance passed; endpoint redeployed disabled."
