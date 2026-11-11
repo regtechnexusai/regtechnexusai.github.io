@@ -29,7 +29,7 @@ describe("Cloudflare Access identity and tenant binding",()=>{
   });
   it("rejects an expired token",async()=>{
     const f=await fixture({exp:1});
-    await expect(verifyCloudflareAccessJwt(f.token,env,f.fetcher)).rejects.toMatchObject({code:"ACCESS_JWT_EXPIRED",status:401});
+    await expect(verifyCloudflareAccessJwt(f.token,f.env,f.fetcher)).rejects.toMatchObject({code:"ACCESS_JWT_EXPIRED",status:401});
   });
   it("rejects a missing bearer token",async()=>{
     await expect(verifyCloudflareAccessJwt(undefined,{ACCESS_ISSUER:"https://unused.cloudflareaccess.com",ACCESS_AUD:audience})).rejects.toMatchObject({code:"ACCESS_JWT_MISSING",status:401});
