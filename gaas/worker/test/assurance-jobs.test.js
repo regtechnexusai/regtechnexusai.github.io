@@ -4,8 +4,8 @@ const req={jurisdiction:"GB",topic:"AML/CFT regulatory updates",period:"2026-Q4"
 function transitionDb({current,results=[{meta:{changes:1}},{meta:{changes:1}}]}={}){
   const prepared=[];
   const db={
-    prepare:vi.fn((sql)=>({sql,values:[],bind(...values){this.values=values;prepared.push(this);return this;},first:vi.fn(async()=>current)})),
-    batch:vi.fn(async statements=>{db.batchStatements=statements;return results;})
+    prepare:vi.fn((sql)=>({sql,values:[],bind(...values){this.values=values;prepared.push(this);return this;},first:vi.fn(async()=>db.didBatch?{...current,status:"primary_research_running",version:current.version+1}:current)})),
+    batch:vi.fn(async statements=>{db.batchStatements=statements;db.didBatch=true;return results;})
   };
   return {db,prepared};
 }
