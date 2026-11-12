@@ -50,7 +50,7 @@
       menuButton.setAttribute("aria-controls", nav.id);
       if (!menuButton.getAttribute("aria-expanded")) menuButton.setAttribute("aria-expanded", "false");
       if (!menuButton.getAttribute("aria-label")) menuButton.setAttribute("aria-label", "Open menu");
-      if (!header.querySelector("img")) {
+      if (!header.querySelector(".brand, .brand-logo, img")) {
         header.insertBefore(make("a", { "class": "brand rt-shell-brand", "href": "/", "aria-label": "RegTech Nexus AI home" },
           '<img class="brand-logo" src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="190" height="62">'), header.firstChild);
       }
@@ -180,6 +180,8 @@
   }
 
   function addBackHome() {
+    // Legal pages already have an in-header return link; avoid a floating control obscuring the notice.
+    if (document.body.classList.contains("legal-page-shell")) return;
     if (document.querySelector(".rt-back-home")) return;
     var a = make("a", { "class": "rt-back-home", "href": "/", "aria-label": "Back to RegTech Nexus AI homepage" },
       '<span aria-hidden="true">←</span><span>Back to Home</span>');
