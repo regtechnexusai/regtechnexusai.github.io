@@ -3446,3 +3446,16 @@ body:not(.homepage-redesign) .hero p{color:#f4fbff}
     grid-template-columns: minmax(0, 1fr) !important;
   }
 }
+
+
+/* Mobile viewport containment — external stylesheet so it is permitted by the
+   site's style-src 'self' Content Security Policy. */
+@media screen and (max-width: 560px) {
+  html {
+    overflow-x: hidden !important;
+  }
+  body.homepage-redesign {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+}
