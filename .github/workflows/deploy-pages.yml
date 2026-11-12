@@ -37,6 +37,7 @@ jobs:
       # Rebuild this deployment whenever the PayScale source repo is updated on main.
       # Pension visual refresh is maintained in the canonical PayScale source repository.
       # Rebuild after PayScale footer contrast updates in the canonical source repository.
+      # Rebuild after the PayScale redesign stylesheet cache version is incremented.
       - name: Checkout original PayScale calculator
         uses: actions/checkout@v4
         with:
