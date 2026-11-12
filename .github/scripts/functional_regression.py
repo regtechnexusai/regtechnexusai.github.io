@@ -220,3 +220,34 @@ def test_tool_pages_have_no_uncaught_page_errors(page: Page):
     for path, heading in routes:
         open_tool(page, path, heading)
     assert not errors, "Uncaught JavaScript errors: " + " | ".join(errors)
+
+
+def test_pension_calculator_mobile_calculate_copy_and_print(page: Page):
+    """Exercise the pension page's primary actions at a phone-sized viewport."""
+    page.set_viewport_size({"width": 390, "height": 844})
+    open_tool(page, "/payscale-2026/pension.html", "পেনশন ও অবসর সুবিধার হিসাব")
+
+    calculate = page.get_by_role("button", name=re.compile("হিসাব করুন"))
+    expect(calculate).to_be_visible(timeout=15000)
+    expect(page.locator("#retirement-total-lump-sum")).to_have_text("—")
+
+    page.locator("#retirement-phase").select_option("custom")
+    page.locator("#retirement-basic").fill("50000")
+    page.locator("#retirement-service-years").select_option("25")
+    page.locator("#retirement-leave-months").select_option("18")
+    calculate.click()
+
+    expect(page.locator("#retirement-total-lump-sum")).not_to_have_text("—", timeout=10000)
+    expect(page.locator("#retirement-gross-pension")).not_to_have_text("—")
+
+    # Exercise copy without relying on browser clipboard permissions.
+    page.evaluate("""() => Object.defineProperty(navigator, 'clipboard', {
+        configurable: true,
+        value: { writeText: async () => Promise.resolve() }
+    })""")
+    page.get_by_role("button", name=re.compile("পেনশন ফলাফল কপি করুন")).click()
+    expect(page.locator("#pension-toast")).to_be_visible(timeout=5000)
+
+    intercept_print(page)
+    page.get_by_role("button", name=re.compile("প্রিন্ট / PDF")).click()
+    assert_print_called(page)
