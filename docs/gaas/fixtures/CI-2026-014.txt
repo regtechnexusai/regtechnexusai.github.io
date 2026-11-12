@@ -1,0 +1,22 @@
+FICTIONAL INTERNAL BANKING CIRCULAR — CI-2026-014
+NOT AN OFFICIAL REGULATORY INSTRUMENT
+
+Subject: Strengthening Monitoring of High-Value Cash Transactions
+Date: 5 November 2026
+Issuer: Head of Compliance, ABC Commercial Bank (Fictional)
+
+Instructions:
+1. All branches must review cash transactions exceeding BDT 10 lakh, subject to applicable regulatory reporting requirements and internal risk policies.
+2. Branch Operations must ensure that customer identification and transaction purpose are properly documented.
+3. Relationship Managers must review unusual transaction patterns and escalate suspicious activity to the Compliance Department.
+4. The AML Compliance Unit must review escalated cases and document its assessment.
+5. Branch Managers must submit a monthly compliance confirmation to the Head Office.
+6. Any suspected suspicious transaction must be escalated promptly under the bank's applicable AML/CFT procedures. Internal escalation must not delay any legally required external reporting.
+
+Implementation deadline: 30 November 2026.
+Reporting frequency: Monthly.
+
+Testing notes:
+- The BDT 10 lakh amount is a fictional internal review trigger in this fixture, not a statement of a statutory or universal regulatory reporting threshold.
+- The fixture does not identify a real regulator, statute, circular, or external reporting threshold.
+- The fixture is synthetic and must not be used as operational banking guidance.
