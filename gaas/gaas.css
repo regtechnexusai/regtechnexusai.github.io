@@ -840,3 +840,67 @@ body.gaas-page .data-warning{margin-top:18px!important;margin-bottom:18px!import
   body.gaas-page .billing-preview{padding-top:38px!important;padding-bottom:38px!important}
   body.gaas-page .gaas-final-cta{padding-top:42px!important;padding-bottom:42px!important}
 }
+
+
+/* Workflow cards: compact content-led sizing and accessible contrast on pastel cards. */
+body.gaas-page .gaas-workflow .workflow-steps{
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  gap:12px!important;
+  border:0!important;
+  align-items:stretch;
+}
+body.gaas-page .gaas-workflow .workflow-steps article,
+body.gaas-page .gaas-workflow .workflow-steps article:nth-child(n){
+  display:flex!important;
+  flex-direction:column;
+  justify-content:flex-start;
+  min-width:0;
+  min-height:0!important;
+  height:auto!important;
+  margin:0!important;
+  padding:18px 16px 17px!important;
+  border:1px solid #d6e4ec!important;
+  border-radius:13px!important;
+  box-shadow:0 5px 16px rgba(18,52,78,.045);
+}
+body.gaas-page .gaas-workflow .workflow-steps article>span{
+  display:block;
+  margin:0 0 10px!important;
+  color:#078b91!important;
+  font-size:11px!important;
+  line-height:1.2;
+}
+body.gaas-page .gaas-workflow .workflow-steps h3{
+  margin:0 0 8px!important;
+  color:#173b58!important;
+  font-size:18px!important;
+  line-height:1.25!important;
+  font-weight:750;
+}
+body.gaas-page .gaas-workflow .workflow-steps p{
+  margin:0!important;
+  color:#536c80!important;
+  font-size:12px!important;
+  line-height:1.55!important;
+}
+@media(max-width:1050px){
+  body.gaas-page .gaas-workflow .workflow-steps{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+}
+@media(max-width:760px){
+  body.gaas-page .gaas-workflow .workflow-steps{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+  }
+  body.gaas-page .gaas-workflow .workflow-steps article,
+  body.gaas-page .gaas-workflow .workflow-steps article:nth-child(n){
+    padding:16px 14px!important;
+  }
+}
+@media(max-width:480px){
+  body.gaas-page .gaas-workflow .workflow-steps{
+    grid-template-columns:1fr!important;
+    gap:9px!important;
+  }
+}
