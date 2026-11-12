@@ -35,13 +35,10 @@ jobs:
         env:
           CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          TEST_TOKEN: ${{ secrets.PHASEB_RUNTIME_TEST_TOKEN }}
         run: |
           set -euo pipefail
           test -n "$CF_API_TOKEN" || { echo "Missing CLOUDFLARE_API_TOKEN"; exit 1; }
           test -n "$CF_ACCOUNT_ID" || { echo "Missing CLOUDFLARE_ACCOUNT_ID"; exit 1; }
-          test -n "$TEST_TOKEN" || { echo "Missing PHASEB_RUNTIME_TEST_TOKEN"; exit 1; }
-          test "${#TEST_TOKEN}" -ge 32 || { echo "PHASEB_RUNTIME_TEST_TOKEN must be at least 32 characters"; exit 1; }
       - name: Prepare isolated config and deploy disabled Worker
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -54,10 +51,12 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          TEST_TOKEN: ${{ secrets.PHASEB_RUNTIME_TEST_TOKEN }}
         run: |
           set -euo pipefail
+          TEST_TOKEN="$(openssl rand -hex 32)"
+          echo "::add-mask::$TEST_TOKEN"
           printf '%s' "$TEST_TOKEN" | npx --yes wrangler@4 secret put PHASEB_RUNTIME_TEST_TOKEN --config wrangler.phaseb-test.toml
+          echo "PHASEB_RUNTIME_TEST_TOKEN=$TEST_TOKEN" >> "$GITHUB_ENV"
       - name: Apply migration to the disposable D1 database
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -69,7 +68,6 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          TEST_TOKEN: ${{ secrets.PHASEB_RUNTIME_TEST_TOKEN }}
         run: |
           set -euo pipefail
           worker_url="https://gaas-phaseb-runtime-test.regtechnexusai.workers.dev"
@@ -91,7 +89,7 @@ jobs:
             echo "$health" | grep -q '"writesEnabled":false' || test_rc=1
           fi
           if [ "${test_rc:-0}" -eq 0 ]; then
-            http_code="$(curl --silent --show-error -o runtime-result.json -w '%{http_code}' -X POST "$worker_url/__phaseb/run" -H "x-phaseb-test-token: $TEST_TOKEN" -H 'content-type: application/json' --data '{}')"
+            http_code="$(curl --silent --show-error -o runtime-result.json -w '%{http_code}' -X POST "$worker_url/__phaseb/run" -H "x-phaseb-test-token: $PHASEB_RUNTIME_TEST_TOKEN" -H 'content-type: application/json' --data '{}')"
             cat runtime-result.json
             if [ "$http_code" != "200" ] || ! grep -q '"status":"passed_with_deferred_case"' runtime-result.json; then
               test_rc=1
