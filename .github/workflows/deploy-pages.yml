@@ -42,6 +42,7 @@ jobs:
       # Rebuild after fixing the Google Translate Websites launch workflow on PayScale pages.
       # Refresh PayScale translation asset URLs after the launcher correction.
       # Rebuild after PayScale translation UX v3: visible URL, confirmed copy, compact selector and contrast fixes.
+      # Rebuild after replacing PayScale URL launcher with embedded FinTech Hub-style Google Translate widget.
       - name: Checkout original PayScale calculator
         uses: actions/checkout@v4
         with:
