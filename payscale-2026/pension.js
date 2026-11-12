@@ -55,7 +55,7 @@ function updateAuditSummary(basic, serviceYears, leaveMonths, phaseValue = '', c
     ? 'বর্তমান net pension: ' + money(currentNet)
     : 'বর্তমান net pension: দেওয়া হয়নি');
   setText('retirement-audit-commutation', Number.isFinite(commutationPercent) ? 'সমর্পণ: ' + toBn(commutationPercent) + '% ধরে' : 'সমর্পণ: নির্বাচন হয়নি');
-  setText('retirement-audit-source', 'সূত্র: Finance Division retirement-benefit Gazette · ১৭ সেপ্টেম্বর ২০২৬ · official PDF');
+  setText('retirement-audit-source', 'সূত্র: Finance Division retirement-benefit Gazette · ১৭ সেপ্টেম্বর ২০২৬; সংশোধনী S.R.O. 403-Ain/2026 · ১১ নভেম্বর ২০২৬');
   setText('retirement-audit-version', 'Version ' + (window.PAYSCALE_META?.version || '1.30'));
   setText('retirement-audit-generated', generated ? 'হিসাবের সময়: ' + auditTimestamp() : 'হিসাবের সময়: —');
 }
@@ -76,6 +76,10 @@ function gratuityRate(serviceYears) {
 
 function netBand(currentNet) {
   return RETIREMENT_RULES.netPensionBands.find((band) => currentNet >= (band.min || 0) && currentNet <= (band.max || Infinity)) || null;
+}
+
+function isAboveTransitionCeiling(currentNet) {
+  return Number.isFinite(currentNet) && currentNet > RETIREMENT_RULES.transitionCeiling;
 }
 
 function clearOutput() {
@@ -196,6 +200,19 @@ function renderRetirementBenefits() {
   setText('retirement-basic-note', selectedLabel(retirementPhase) + ' অনুযায়ী প্রযোজ্য basic ব্যবহার করা হয়েছে। গ্রস pension rate: ' + toBn(grossRate) + '%; ' + toBn(commutationPercent) + '% সমর্পণের পর অবশিষ্ট মাসিক pension দেখানো হয়েছে। সমর্পিত অংশ whole taka-য় round করে অবশিষ্ট অংশ gross pension থেকে বাদ দেওয়া হয়েছে। ' + (encashmentMonths === 18 ? 'পূর্ণ ১৮ মাসের অনুমোদিত leave balance আছে ধরে হিসাব করা হয়েছে। ' : '') + 'চিকিৎসা ভাতা, কর্তন ও অফিসিয়াল PPO এতে নেই।');
   updateAuditSummary(basic, serviceYears, leaveMonths, phaseValue, currentNet, commutationPercent, true);
   if (validationBox) validationBox.hidden = true;
+
+  if (isAboveTransitionCeiling(currentNet)) {
+    if (retirementNetCard) retirementNetCard.hidden = false;
+    if (retirementNetPlaceholder) retirementNetPlaceholder.hidden = true;
+    setText('retirement-net-band', '৳ ' + numberBn(RETIREMENT_RULES.transitionCeiling) + '-এর বেশি');
+    setText('retirement-net-rate', 'অপরিবর্তিত');
+    setText('retirement-net-result', money(currentNet));
+    setText('retirement-net-note', 'S.R.O. 403-Ain/2026 অনুযায়ী ৩০ জুন ২০২৬-এ নিট পেনশন ' + money(RETIREMENT_RULES.transitionCeiling) + '-এর বেশি হলে ১ জুলাই ২০২৭ তারিখে বার্ষিক নিট পেনশন বৃদ্ধি কার্যকর হওয়া পর্যন্ত বিদ্যমান হারে নিট পেনশন প্রাপ্য।');
+    if (liveSummary) {
+      liveSummary.textContent = 'S.R.O. 403-এর transition rule অনুযায়ী বর্তমান নিট পেনশন ' + money(currentNet) + ' অপরিবর্তিত দেখানো হয়েছে; ১ জুলাই ২০২৭-এর আগে band increase প্রয়োগ করা হয়নি।';
+    }
+    return;
+  }
 
   const band = Number.isFinite(currentNet) && currentNet > 0 ? netBand(currentNet) : null;
   if (!band) {
