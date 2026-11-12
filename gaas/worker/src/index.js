@@ -10,7 +10,7 @@ function json(data, status = 200, extra = {}) {
 function corsHeaders(origin, env) {
   const allowed = (env.ALLOWED_ORIGIN || "https://regtechnexusai.com").split(",").map(x => x.trim());
   if (!origin || !allowed.includes(origin)) return {};
-  return { "access-control-allow-origin": origin, "access-control-allow-methods": "POST, OPTIONS", "access-control-allow-headers": "content-type, authorization, idempotency-key", "access-control-max-age": "86400", "vary": "Origin" };
+  return { "access-control-allow-origin": origin, "access-control-allow-methods": "GET, POST, OPTIONS", "access-control-allow-headers": "content-type, authorization, idempotency-key", "access-control-max-age": "86400", "vary": "Origin" };
 }
 function clean(value, max = 1000) {
   if (typeof value !== "string") return "";
