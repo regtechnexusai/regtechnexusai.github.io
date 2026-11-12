@@ -33,7 +33,7 @@ jobs:
           path: site/tradeguard
 
       # PayScale source is canonical for the calculator and pension module; keep source checkout on main.
-      # Pension v1.32 includes current-date arrears, Gazette-checked allowance eligibility, explicit net-pension cap disclosure and print fixes.
+      # PayScale v1.32 final includes current-date arrears, Gazette-checked allowance eligibility, unified versioning, Bangla release banner, explicit pension cap disclosure and print fixes.
       # Rebuild this deployment whenever the PayScale source repo is updated on main.
       - name: Checkout original PayScale calculator
         uses: actions/checkout@v4
