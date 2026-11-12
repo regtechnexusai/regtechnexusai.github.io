@@ -1,0 +1,104 @@
+name: GaaS Phase B Isolated Queue End-to-End Acceptance
+
+on:
+  push:
+    branches:
+      - phaseb-queue-e2e-20261112
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gaas-phaseb-queue-e2e-isolated
+  cancel-in-progress: false
+
+jobs:
+  queue-e2e:
+    if: ${{ github.ref == 'refs/heads/phaseb-queue-e2e-20261112' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    defaults:
+      run:
+        working-directory: gaas/worker
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate isolated test resources
+        env:
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          test -n "$CF_API_TOKEN"
+          test -n "$CF_ACCOUNT_ID"
+          grep -q 'database_name = "gaas-phaseb-disposable-20261111"' wrangler.phaseb-queue-test.toml.example
+          grep -q 'queue = "gaas-phaseb-test-jobs"' wrangler.phaseb-queue-test.toml.example
+          grep -q 'PHASEB_QUEUE_TEST_MODE = "true"' wrangler.phaseb-queue-test.toml.example
+      - name: Insert one synthetic job into disposable D1 and publish to isolated Queue
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          QUEUE_ID: c745464cb1c04a39a076ebe98d17dcf2
+          D1_NAME: gaas-phaseb-disposable-20261111
+        run: |
+          set -euo pipefail
+          cp wrangler.phaseb-queue-test.toml.example wrangler.phaseb-queue-test.toml
+          JOB_ID="job_phasebQueueE2E$(date -u +%s)"
+          TENANT_ID="phaseb_queue_test_tenant"
+          NOW="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          EXPIRES="$(date -u -d '+1 hour' +%Y-%m-%dT%H:%M:%SZ)"
+          SQL="$(cat <<SQL
+          INSERT INTO assurance_jobs (
+            job_id, tenant_id, idempotency_key, status, request_fingerprint,
+            request_json, created_at, updated_at, expires_at, version
+          ) VALUES (
+            '$JOB_ID', '$TENANT_ID', 'phaseb-queue-e2e-$JOB_ID', 'queued',
+            '$(printf '%064d' 1)', '{"jurisdiction":"GB","topic":"AML/CFT","question":"Synthetic Queue E2E acceptance"}',
+            '$NOW', '$NOW', '$EXPIRES', 0
+          );
+          INSERT INTO assurance_job_events (
+            job_id, tenant_id, from_status, to_status, event_code, created_at, job_version
+          ) VALUES ('$JOB_ID', '$TENANT_ID', NULL, 'queued', 'JOB_CREATED', '$NOW', 0);
+          SQL
+          )"
+          npx --yes wrangler@4 d1 execute "$D1_NAME" --remote --config wrangler.phaseb-queue-test.toml --command "$SQL"
+          response="$(curl --fail --silent --show-error \
+            -X POST "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/queues/$QUEUE_ID/messages" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data "{\"body\":{\"jobId\":\"$JOB_ID\"},\"content_type\":\"json\"}")"
+          echo "$response"
+          echo "$response" | grep -q '"success":true'
+          echo "JOB_ID=$JOB_ID" >> "$GITHUB_ENV"
+          echo "TENANT_ID=$TENANT_ID" >> "$GITHUB_ENV"
+      - name: Verify Queue consumer transitions and audit events
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          D1_NAME: gaas-phaseb-disposable-20261111
+        run: |
+          set -euo pipefail
+          cp wrangler.phaseb-queue-test.toml.example wrangler.phaseb-queue-test.toml
+          result=""
+          for attempt in $(seq 1 20); do
+            result="$(npx --yes wrangler@4 d1 execute "$D1_NAME" --remote --config wrangler.phaseb-queue-test.toml --command "SELECT status || '|' || COALESCE(assurance_status,'') AS result FROM assurance_jobs WHERE job_id='$JOB_ID' AND tenant_id='$TENANT_ID';" 2>&1 || true)"
+            echo "$result" | tail -n 8
+            if echo "$result" | grep -q 'completed_pending_human_review|synthetic_test_only'; then
+              break
+            fi
+            if echo "$result" | grep -q '|failed'; then
+              echo "Queue job entered terminal failure state."
+              exit 1
+            fi
+            sleep 3
+          done
+          echo "$result" | grep -q 'completed_pending_human_review|synthetic_test_only'
+          events="$(npx --yes wrangler@4 d1 execute "$D1_NAME" --remote --config wrangler.phaseb-queue-test.toml --command "SELECT GROUP_CONCAT(event_code, ',') AS events FROM assurance_job_events WHERE job_id='$JOB_ID' AND tenant_id='$TENANT_ID';")"
+          echo "$events"
+          echo "$events" | grep -q 'SYNTHETIC_ACCEPTANCE_STARTED'
+          echo "$events" | grep -q 'SYNTHETIC_ACCEPTANCE_QUALITY_GATE'
+          echo "$events" | grep -q 'SYNTHETIC_ACCEPTANCE_COMPLETED'
+          npx --yes wrangler@4 d1 execute "$D1_NAME" --remote --config wrangler.phaseb-queue-test.toml --command "DELETE FROM assurance_jobs WHERE job_id='$JOB_ID' AND tenant_id='$TENANT_ID';"
+          echo "Queue E2E acceptance passed; synthetic job and child events cleaned up."
