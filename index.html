@@ -104,6 +104,22 @@
   "inLanguage":"en"
 }
 </script>
+<style id="rt-mobile-root-overflow-20261112">
+/* Keep the homepage root scrollport within the mobile viewport. Child content
+   retains its own intentional horizontal scrollers where explicitly defined. */
+@media (max-width: 560px) {
+  html {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+  body.homepage-redesign {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+}
+</style>
+
 <style id="rt-ui-20261006-critical">
 /* Critical responsive presentation override. Presentation only; no tools/calculators/algorithms changed. */
 @media (max-width:1180px){
