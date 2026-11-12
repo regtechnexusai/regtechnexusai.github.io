@@ -336,10 +336,16 @@ def test_mobile_layout_has_no_document_horizontal_overflow(page: Page):
                 }, offenders};
               }
             """)
-            overflow = diagnostic["docWidth"] > width + 1
-            assert not overflow, (
-                f"Horizontal document overflow at {width}x{height} on {path}; "
-                f"documentWidth={diagnostic['docWidth']}, viewport={diagnostic['viewport']}, "
-                f"htmlRect={diagnostic['htmlRect']}, bodyRect={diagnostic['bodyRect']}, "
-                f"rootStyles={diagnostic['rootStyles']}, offenders={diagnostic['offenders']}"
+            # scrollWidth can include intentionally clipped descendants and is not
+            # proof that the viewport itself can scroll horizontally. Verify the
+            # user-visible condition by attempting a horizontal window scroll.
+            page.evaluate("window.scrollTo({left: 1000, top: 0, behavior: 'instant'})")
+            horizontal_scroll = page.evaluate("window.scrollX")
+            page.evaluate("window.scrollTo({left: 0, top: 0, behavior: 'instant'})")
+            assert horizontal_scroll <= 1, (
+                f"Unexpected horizontal viewport scrolling at {width}x{height} on {path}; "
+                f"scrollX={horizontal_scroll}, documentWidth={diagnostic['docWidth']}, "
+                f"viewport={diagnostic['viewport']}, htmlRect={diagnostic['htmlRect']}, "
+                f"bodyRect={diagnostic['bodyRect']}, rootStyles={diagnostic['rootStyles']}, "
+                f"offenders={diagnostic['offenders']}"
             )
