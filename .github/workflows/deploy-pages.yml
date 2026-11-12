@@ -36,6 +36,7 @@ jobs:
       # PayScale v1.37 preserves calculation logic Version 1.33, improves pension PDF readability, and consistently labels the main calculator and pension page “PayScale 2026 Calculator”.
       # Rebuild this deployment whenever the PayScale source repo is updated on main.
       # Pension visual refresh is maintained in the canonical PayScale source repository.
+      # Rebuild after PayScale footer contrast updates in the canonical source repository.
       - name: Checkout original PayScale calculator
         uses: actions/checkout@v4
         with:
