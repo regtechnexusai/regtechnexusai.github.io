@@ -27,6 +27,7 @@ describe("GaaS research API edge behaviour", () => {
     expect(response.status).toBe(204);
     expect(response.headers.get("access-control-allow-origin")).toBe(ORIGIN);
     expect(response.headers.get("access-control-allow-methods")).toContain("POST");
+    expect(response.headers.get("access-control-allow-methods")).toContain("GET");
   });
 
   it("rejects an unapproved origin, including preflight", async () => {
