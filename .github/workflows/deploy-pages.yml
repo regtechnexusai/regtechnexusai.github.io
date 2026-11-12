@@ -39,6 +39,7 @@ jobs:
       # Rebuild after PayScale footer contrast updates in the canonical source repository.
       # Rebuild after the PayScale redesign stylesheet cache version is incremented.
       # Rebuild after adding the Google Translate launcher to both PayScale pages.
+      # Rebuild after fixing the Google Translate Websites launch workflow on PayScale pages.
       - name: Checkout original PayScale calculator
         uses: actions/checkout@v4
         with:
