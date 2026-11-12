@@ -29,6 +29,7 @@ const retirementCommutation = document.querySelector('#retirement-commutation');
 const retirementNetCard = document.querySelector('#retirement-net-card');
 const retirementNetPlaceholder = document.querySelector('#retirement-net-placeholder');
 const validationBox = document.querySelector('#retirement-validation');
+const calculateButton = document.querySelector('#calculate-pension-result');
 const copyButton = document.querySelector('#copy-pension-result');
 const toast = document.querySelector('#pension-toast');
 const liveSummary = document.querySelector('#retirement-live-summary');
@@ -279,10 +280,16 @@ function updateBasicInputState() {
 
 async function copyPensionResult() {
   const basic = parseMoney(retirementBasic?.value);
-  if (!Number.isFinite(basic) || basic <= 0 || !Number.isFinite(selectedCommutationPercent()) || document.querySelector('#retirement-total-lump-sum')?.textContent === '—') {
+  const missingResult = document.querySelector('#retirement-total-lump-sum')?.textContent === '—';
+  if (!Number.isFinite(basic) || basic <= 0 || !Number.isFinite(selectedCommutationPercent()) || missingResult) {
     if (validationBox) {
-      validationBox.textContent = !Number.isFinite(selectedCommutationPercent()) ? 'কপি করার আগে সমর্পণ / commutation assumption নির্বাচন করুন।' : 'কপি করার আগে অবসর সুবিধার জন্য প্রযোজ্য basic pay দিন।';
+      validationBox.textContent = !Number.isFinite(basic) || basic <= 0
+        ? 'কপি করার আগে অবসর সুবিধার জন্য প্রযোজ্য basic pay দিন।'
+        : !Number.isFinite(selectedCommutationPercent())
+          ? 'কপি করার আগে সমর্পণ / commutation assumption নির্বাচন করুন।'
+          : 'কপি করার আগে অবসরের পর্যায়, পেনশনযোগ্য চাকরিকাল ও ছুটি নগদায়নের মাস নির্বাচন করে “হিসাব করুন” চাপুন।';
       validationBox.hidden = false;
+      validationBox.scrollIntoView?.({ behavior: 'smooth', block: 'center' });
     }
     return;
   }
@@ -337,9 +344,21 @@ retirementBasic?.addEventListener('blur', () => {
   const parsed = parseMoney(retirementBasic.value);
   if (Number.isFinite(parsed)) retirementBasic.value = numberBn(parsed);
 });
+calculateButton?.addEventListener('click', () => {
+  renderRetirementBenefits();
+  if (validationBox && !validationBox.hidden) validationBox.scrollIntoView?.({ behavior: 'smooth', block: 'center' });
+  else liveSummary?.scrollIntoView?.({ behavior: 'smooth', block: 'nearest' });
+});
 copyButton?.addEventListener('click', copyPensionResult);
 document.querySelector('#print-pension-result')?.addEventListener('click', async () => {
-  if (document.querySelector('#retirement-total-lump-sum')?.textContent === '—') return;
+  if (document.querySelector('#retirement-total-lump-sum')?.textContent === '—') {
+    if (validationBox) {
+      validationBox.textContent = 'প্রিন্ট / PDF করার আগে প্রয়োজনীয় ইনপুট দিন এবং “হিসাব করুন” চাপুন।';
+      validationBox.hidden = false;
+      validationBox.scrollIntoView?.({ behavior: 'smooth', block: 'center' });
+    }
+    return;
+  }
   if (document.fonts?.ready) await document.fonts.ready;
   window.print();
 });
