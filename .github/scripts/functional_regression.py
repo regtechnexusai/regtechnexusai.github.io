@@ -299,10 +299,31 @@ def test_mobile_layout_has_no_document_horizontal_overflow(page: Page):
             open_tool(page, path, "RegTech Nexus AI" if path == "/" else (
                 "Student" if path == "/student/" else "GLOBAL AGENTIC-AS-A-SERVICE"
             ))
-            overflow = page.evaluate("""
-              () => Math.max(
-                document.documentElement.scrollWidth,
-                document.body ? document.body.scrollWidth : 0
-              ) > window.innerWidth + 1
+            diagnostic = page.evaluate("""
+              () => {
+                const docWidth = Math.max(document.documentElement.scrollWidth,
+                  document.body ? document.body.scrollWidth : 0);
+                const offenders = [...document.querySelectorAll('body *')]
+                  .map(el => {
+                    const r = el.getBoundingClientRect();
+                    const s = getComputedStyle(el);
+                    return {
+                      tag: el.tagName.toLowerCase(),
+                      id: el.id || '',
+                      className: typeof el.className === 'string' ? el.className.slice(0, 100) : '',
+                      left: Math.round(r.left), right: Math.round(r.right),
+                      width: Math.round(r.width), position: s.position,
+                      overflowX: s.overflowX
+                    };
+                  })
+                  .filter(x => x.width > 0 && (x.right > innerWidth + 1 || x.left < -1))
+                  .sort((a,b) => b.right - a.right)
+                  .slice(0, 15);
+                return {docWidth, viewport: innerWidth, offenders};
+              }
             """)
-            assert not overflow, f"Horizontal document overflow at {width}x{height} on {path}"
+            overflow = diagnostic["docWidth"] > width + 1
+            assert not overflow, (
+                f"Horizontal document overflow at {width}x{height} on {path}; "
+                f"documentWidth={diagnostic['docWidth']}, offenders={diagnostic['offenders']}"
+            )
