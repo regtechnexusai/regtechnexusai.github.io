@@ -1,6 +1,9 @@
 name: GaaS Phase B Disposable D1 Runtime Acceptance
 
 on:
+  push:
+    branches:
+      - phaseb-isolated-acceptance-20261112
   workflow_dispatch:
     inputs:
       confirmation:
@@ -17,7 +20,7 @@ concurrency:
 
 jobs:
   runtime-acceptance:
-    if: ${{ github.ref == 'refs/heads/main' && inputs.confirmation == 'DEPLOY-ISOLATED-PHASEB-TEST' }}
+    if: ${{ (github.ref == 'refs/heads/main' && inputs.confirmation == 'DEPLOY-ISOLATED-PHASEB-TEST') || github.ref == 'refs/heads/phaseb-isolated-acceptance-20261112' }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     defaults:
