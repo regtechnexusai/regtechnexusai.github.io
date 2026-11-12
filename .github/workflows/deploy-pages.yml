@@ -33,7 +33,7 @@ jobs:
           path: site/tradeguard
 
       # PayScale source is canonical for the calculator and pension module; keep source checkout on main.
-      # PayScale v1.37 preserves calculation logic Version 1.33, improves pension PDF readability, and consistently labels the main calculator and pension page “PayScale 2026 Calculator”.
+      # PayScale v1.38 preserves calculation logic Version 1.33, improves pension PDF print contrast and page flow, and consistently labels the main calculator and pension page “PayScale 2026 Calculator”.
       # Rebuild this deployment whenever the PayScale source repo is updated on main.
       # Pension visual refresh is maintained in the canonical PayScale source repository.
       # Rebuild after PayScale footer contrast updates in the canonical source repository.
