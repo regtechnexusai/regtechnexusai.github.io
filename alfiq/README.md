@@ -41,3 +41,13 @@ An additive, browser-only prototype under /alfiq/ for comparing earlier and newe
 
 ## Release controls
 This is a feature-branch proposal only. Do not merge to main or publish until the owner reviews the PR and explicitly approves. No existing file outside /alfiq/ should be modified by this feature.
+
+
+## Duplicate-paragraph regression cases
+The comparison must treat paragraph occurrences as a multiset, not only as a set. Verify these cases in the browser before release:
+- Earlier: one occurrence of paragraph A; newer: two occurrences of paragraph A → one added occurrence.
+- Earlier: two occurrences of paragraph A; newer: one occurrence of paragraph A → one removed occurrence.
+- Earlier and newer contain the same repeated paragraphs in a different order → no additions or removals.
+- Earlier and newer contain one identical paragraph each → no additions or removals.
+
+The current implementation counts repeated paragraph occurrences independently. These are acceptance cases, not evidence that desktop/mobile browser UAT has been completed.

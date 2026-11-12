@@ -112,7 +112,7 @@ function esc(s){return s.replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":
 function list(id,items,empty){$(id).innerHTML=items.length?items.map(function(x){return '<div class="item">'+esc(x)+'</div>';}).join(""):'<p class="muted small">'+empty+'</p>';}
 function analyse(){
 var old=$("oldText").value,now=$("newText").value;if(!old.trim()||!now.trim()){alert("Please provide both earlier and newer text extracts.");return;}
-var a=split(old),b=split(now),as=new Set(a),bs=new Set(b),added=b.filter(function(x){return !as.has(x);}),removed=a.filter(function(x){return !bs.has(x);}),corpus=added.join(" ").toLowerCase();
+var a=split(old),b=split(now),oldCounts=new Map(),newCounts=new Map();a.forEach(function(x){oldCounts.set(x,(oldCounts.get(x)||0)+1);});b.forEach(function(x){newCounts.set(x,(newCounts.get(x)||0)+1);});var seenNew=new Map(),seenOld=new Map(),added=b.filter(function(x){var n=(seenNew.get(x)||0)+1;seenNew.set(x,n);return n>(oldCounts.get(x)||0);}),removed=a.filter(function(x){var n=(seenOld.get(x)||0)+1;seenOld.set(x,n);return n>(newCounts.get(x)||0);}),corpus=added.join(" ").toLowerCase();
 var rules=[
 [["must","shall","required to"],"Mandatory language","Check subject, scope, obligation and exceptions."],
 [["within","days","business days","deadline"],"Time-bound requirement","Verify trigger event, deadline and day-count convention."],
