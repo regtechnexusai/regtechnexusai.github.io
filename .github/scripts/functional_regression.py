@@ -319,11 +319,27 @@ def test_mobile_layout_has_no_document_horizontal_overflow(page: Page):
                   .filter(x => x.width > 0 && (x.right > innerWidth + 1 || x.left < -1))
                   .sort((a,b) => b.right - a.right)
                   .slice(0, 15);
-                return {docWidth, viewport: innerWidth, offenders};
+                const htmlRect = document.documentElement.getBoundingClientRect();
+                const bodyRect = document.body.getBoundingClientRect();
+                const pseudo = el => {
+                  const cs = getComputedStyle(el);
+                  return {overflowX: cs.overflowX, width: cs.width, minWidth: cs.minWidth,
+                    before: getComputedStyle(el, '::before').content,
+                    after: getComputedStyle(el, '::after').content};
+                };
+                return {docWidth, viewport: innerWidth, htmlRect: {
+                  left: Math.round(htmlRect.left), right: Math.round(htmlRect.right),
+                  width: Math.round(htmlRect.width)}, bodyRect: {
+                  left: Math.round(bodyRect.left), right: Math.round(bodyRect.right),
+                  width: Math.round(bodyRect.width)}, rootStyles: {
+                  html: pseudo(document.documentElement), body: pseudo(document.body)
+                }, offenders};
               }
             """)
             overflow = diagnostic["docWidth"] > width + 1
             assert not overflow, (
                 f"Horizontal document overflow at {width}x{height} on {path}; "
-                f"documentWidth={diagnostic['docWidth']}, offenders={diagnostic['offenders']}"
+                f"documentWidth={diagnostic['docWidth']}, viewport={diagnostic['viewport']}, "
+                f"htmlRect={diagnostic['htmlRect']}, bodyRect={diagnostic['bodyRect']}, "
+                f"rootStyles={diagnostic['rootStyles']}, offenders={diagnostic['offenders']}"
             )
