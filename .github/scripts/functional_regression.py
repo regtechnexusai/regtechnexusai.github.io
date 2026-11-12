@@ -220,3 +220,132 @@ def test_tool_pages_have_no_uncaught_page_errors(page: Page):
     for path, heading in routes:
         open_tool(page, path, heading)
     assert not errors, "Uncaught JavaScript errors: " + " | ".join(errors)
+
+
+# ---------------------------------------------------------------------------
+# Website-wide regression coverage (REG-01, REG-02, REG-03, REG-10, REG-20)
+# Read-only checks against the published site; synthetic navigation only.
+# ---------------------------------------------------------------------------
+
+from urllib.parse import urljoin, urlparse
+
+
+def test_dual_pathway_entry_routes_from_homepage(page: Page):
+    open_tool(page, "/", "RegTech Nexus AI")
+    professional = page.get_by_role("link", name=re.compile("Explore Professional Tools", re.I))
+    student = page.get_by_role("link", name=re.compile("Enter Student Knowledge Hub", re.I))
+    expect(professional).to_be_visible()
+    expect(student).to_be_visible()
+    assert professional.get_attribute("href") in ("#solutions", "/#solutions")
+    assert urlparse(urljoin(BASE + "/", student.get_attribute("href"))).path.rstrip("/") == "/student"
+    student.click()
+    expect(page).to_have_url(re.compile(r"/student/?(?:[?#].*)?$"))
+
+
+def test_core_published_routes_return_success(page: Page):
+    routes = [
+        "/", "/student/", "/tradeguard/", "/icms-2026/", "/payscale-2026/",
+        "/gaas/", "/creations/", "/green-finance-climate-risk/",
+        "/derivatives/", "/tool-assurance/", "/fintech-intelligence-hub/",
+        "/international-regulatory-calculators.html",
+    ]
+    failures = []
+    for path in routes:
+        response = page.request.get(f"{BASE}{path}", timeout=60000)
+        if response.status >= 400:
+            failures.append(f"{path}: HTTP {response.status}")
+    assert not failures, "Published route failures: " + "; ".join(failures)
+
+
+def test_homepage_navigation_and_footer_links(page: Page):
+    open_tool(page, "/", "RegTech Nexus AI")
+    anchors = page.locator("nav a, footer a").evaluate_all("""
+      els => els.map(a => ({
+        href: a.getAttribute('href'),
+        target: a.getAttribute('target'),
+        rel: a.getAttribute('rel')
+      }))
+    """)
+    failures = []
+    checked = set()
+    for item in anchors:
+        href = (item.get("href") or "").strip()
+        if not href or href.startswith(("#", "mailto:", "tel:", "javascript:")):
+            continue
+        absolute = urljoin(BASE + "/", href)
+        parsed = urlparse(absolute)
+        if parsed.scheme not in ("http", "https"):
+            continue
+        if parsed.netloc == urlparse(BASE).netloc:
+            target = parsed.path or "/"
+            if target in checked:
+                continue
+            checked.add(target)
+            response = page.request.get(absolute, timeout=60000)
+            if response.status >= 400:
+                failures.append(f"{href}: HTTP {response.status}")
+        elif (item.get("target") or "").lower() == "_blank":
+            rel = set((item.get("rel") or "").lower().split())
+            if not {"noopener", "noreferrer"}.issubset(rel):
+                failures.append(f"External target=_blank missing rel protections: {href}")
+    assert not failures, "Navigation/footer link defects: " + "; ".join(failures)
+
+
+def test_mobile_layout_has_no_document_horizontal_overflow(page: Page):
+    routes = ["/", "/student/", "/gaas/"]
+    for width, height in ((375, 812), (414, 896)):
+        page.set_viewport_size({"width": width, "height": height})
+        for path in routes:
+            open_tool(page, path, "RegTech Nexus AI" if path == "/" else (
+                "Student" if path == "/student/" else "GLOBAL AGENTIC-AS-A-SERVICE"
+            ))
+            diagnostic = page.evaluate("""
+              () => {
+                const docWidth = Math.max(document.documentElement.scrollWidth,
+                  document.body ? document.body.scrollWidth : 0);
+                const offenders = [...document.querySelectorAll('body *')]
+                  .map(el => {
+                    const r = el.getBoundingClientRect();
+                    const s = getComputedStyle(el);
+                    return {
+                      tag: el.tagName.toLowerCase(),
+                      id: el.id || '',
+                      className: typeof el.className === 'string' ? el.className.slice(0, 100) : '',
+                      left: Math.round(r.left), right: Math.round(r.right),
+                      width: Math.round(r.width), position: s.position,
+                      overflowX: s.overflowX
+                    };
+                  })
+                  .filter(x => x.width > 0 && (x.right > innerWidth + 1 || x.left < -1))
+                  .sort((a,b) => b.right - a.right)
+                  .slice(0, 15);
+                const htmlRect = document.documentElement.getBoundingClientRect();
+                const bodyRect = document.body.getBoundingClientRect();
+                const pseudo = el => {
+                  const cs = getComputedStyle(el);
+                  return {overflowX: cs.overflowX, width: cs.width, minWidth: cs.minWidth,
+                    before: getComputedStyle(el, '::before').content,
+                    after: getComputedStyle(el, '::after').content};
+                };
+                return {docWidth, viewport: innerWidth, htmlRect: {
+                  left: Math.round(htmlRect.left), right: Math.round(htmlRect.right),
+                  width: Math.round(htmlRect.width)}, bodyRect: {
+                  left: Math.round(bodyRect.left), right: Math.round(bodyRect.right),
+                  width: Math.round(bodyRect.width)}, rootStyles: {
+                  html: pseudo(document.documentElement), body: pseudo(document.body)
+                }, offenders};
+              }
+            """)
+            # scrollWidth can include intentionally clipped descendants and is not
+            # proof that the viewport itself can scroll horizontally. Verify the
+            # user-visible condition by attempting a horizontal window scroll.
+            page.evaluate("window.scrollTo({left: 1000, top: 0, behavior: 'instant'})")
+            horizontal_scroll = page.evaluate("window.scrollX")
+            page.evaluate("window.scrollTo({left: 0, top: 0, behavior: 'instant'})")
+            assert horizontal_scroll <= 1, (
+                f"Unexpected horizontal viewport scrolling at {width}x{height} on {path}; "
+                f"scrollX={horizontal_scroll}, documentWidth={diagnostic['docWidth']}, "
+                f"viewport={diagnostic['viewport']}, htmlRect={diagnostic['htmlRect']}, "
+                f"bodyRect={diagnostic['bodyRect']}, rootStyles={diagnostic['rootStyles']}, "
+                f"offenders={diagnostic['offenders']}"
+            )
