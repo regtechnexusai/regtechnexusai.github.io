@@ -32,9 +32,9 @@ jobs:
           ref: main
           path: site/tradeguard
 
-      # PayScale source has compact mobile-first hero styles; keep source checkout on main.
+      # PayScale source is canonical for the calculator and pension module; keep source checkout on main.
+      # Pension v1.31 includes explicit net-pension cap disclosure, verified Gazette rates and print fixes.
       # Rebuild this deployment whenever the PayScale source repo is updated on main.
-      # The root-site workflow must be triggered after source-only PayScale changes.
       - name: Checkout original PayScale calculator
         uses: actions/checkout@v4
         with:
