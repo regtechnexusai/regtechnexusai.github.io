@@ -33,7 +33,7 @@ jobs:
           path: site/tradeguard
 
       # PayScale source is canonical for the calculator and pension module; keep source checkout on main.
-      # PayScale v1.33 includes corrected S.R.O. 347 travel allowance eligibility, Gazette pension-rate tables in print, and full pension-footer removal.
+      # PayScale v1.34 includes pension Gazette tables in browser PDF output, compact pagination, Bengali-first pension terminology, and footer/floating-link suppression.
       # Rebuild this deployment whenever the PayScale source repo is updated on main.
       - name: Checkout original PayScale calculator
         uses: actions/checkout@v4
