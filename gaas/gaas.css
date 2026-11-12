@@ -787,3 +787,56 @@ body.gaas-page footer.gaas-footer .gaas-footer-brand>a img{
  .gaas-page .product-card:hover,.gaas-page .price-card:hover,.gaas-page .governance-grid article:hover,
  .gaas-page .gaas-actions .btn:hover{transform:none}
 }
+
+
+/* GaaS follow-up polish: high-contrast actions and tighter section rhythm. */
+body.gaas-page .gaas-hero .gaas-actions .btn.primary,
+body.gaas-page .gaas-actions .btn.primary,
+body.gaas-page .gaas-final-cta .btn.primary{
+  color:#fff!important;
+  background:linear-gradient(115deg,#075b91 0%,#078b91 100%)!important;
+  border:1px solid #087b91!important;
+  text-shadow:none!important;
+  box-shadow:0 7px 17px rgba(7,91,145,.22)!important;
+}
+body.gaas-page .gaas-hero .gaas-actions .btn.primary:hover,
+body.gaas-page .gaas-actions .btn.primary:hover,
+body.gaas-page .gaas-final-cta .btn.primary:hover{
+  color:#fff!important;
+  background:linear-gradient(115deg,#064b79 0%,#06777d 100%)!important;
+  box-shadow:0 10px 22px rgba(7,91,145,.27)!important;
+}
+body.gaas-page .gaas-hero .gaas-actions .btn.ghost,
+body.gaas-page .gaas-actions .btn.ghost{
+  color:#123b5b!important;
+  background:#fff!important;
+  border:1px solid #bfd3e1!important;
+  text-shadow:none!important;
+  box-shadow:0 5px 13px rgba(18,59,91,.08)!important;
+}
+body.gaas-page .gaas-hero .gaas-actions .btn.ghost:hover,
+body.gaas-page .gaas-actions .btn.ghost:hover{
+  color:#075b83!important;background:#f1f8fb!important;border-color:#8eb9cc!important;
+}
+
+/* Reduce excessive vertical whitespace between major content blocks. */
+body.gaas-page .gaas-page .gaas-section,
+body.gaas-page .gaas-section,
+body.gaas-page .gaas-pricing,
+body.gaas-page .gaas-workflow{
+  padding-top:48px!important;
+  padding-bottom:48px!important;
+}
+body.gaas-page .section-intro{margin-bottom:26px!important}
+body.gaas-page .gaas-strip{padding-top:18px!important;padding-bottom:18px!important}
+body.gaas-page .billing-preview{padding-top:46px!important;padding-bottom:46px!important}
+body.gaas-page .gaas-final-cta{padding-top:50px!important;padding-bottom:50px!important}
+body.gaas-page .data-warning{margin-top:18px!important;margin-bottom:18px!important}
+@media(max-width:760px){
+  body.gaas-page .gaas-section,
+  body.gaas-page .gaas-pricing,
+  body.gaas-page .gaas-workflow{padding-top:40px!important;padding-bottom:40px!important}
+  body.gaas-page .section-intro{margin-bottom:22px!important}
+  body.gaas-page .billing-preview{padding-top:38px!important;padding-bottom:38px!important}
+  body.gaas-page .gaas-final-cta{padding-top:42px!important;padding-bottom:42px!important}
+}

@@ -52,7 +52,7 @@ jobs:
           ]
           missing_html = [item for item in html_required if item not in html]
           assert not missing_html, f"Missing global product coverage: {missing_html}"
-          assert 'href="gaas.css?v=13"' in html
+          assert 'href="gaas.css?v=14"' in html
           assert 'src="gaas-plan-form-v13.js?v=15"' in html
           assert "if(isCountry):" not in js  # country UI is guarded by the exact jurisdiction field predicate
           assert 'if(isCountry){' in js and 'class="country-filter"' in js
