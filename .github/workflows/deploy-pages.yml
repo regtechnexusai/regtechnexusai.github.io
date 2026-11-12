@@ -44,6 +44,7 @@ jobs:
       # Rebuild after PayScale translation UX v3: visible URL, confirmed copy, compact selector and contrast fixes.
       # Rebuild after replacing PayScale URL launcher with embedded FinTech Hub-style Google Translate widget.
       # Rebuild after allowing Google Translate script, frame, image and connection origins in PayScale CSP.
+      # Rebuild after setting Bengali as the PayScale Google Translate source language.
       - name: Checkout original PayScale calculator
         uses: actions/checkout@v4
         with:
