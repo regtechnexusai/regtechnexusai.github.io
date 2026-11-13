@@ -53,3 +53,11 @@ Confirm that the homepage CSP is present and analytics still works. Confirm that
 ## Release gate
 
 Do not merge until the branch's automated checks pass and the CSP compatibility check is complete. Do not describe the platform as penetration-tested or fully secure until the outstanding infrastructure and application tests have been completed and independently reviewed.
+
+## Supply-chain hardening follow-up — November 2026
+
+A follow-up change set pins GitHub Actions used by the repository workflows to full commit SHAs verified against the corresponding official action repository tag references. This reduces the risk of a mutable version tag being moved after review.
+
+The production assembly workflow also pins the TradeGuard and PayScale source checkouts to reviewed upstream commit SHAs. These pins intentionally make site assembly reproducible: upstream changes will not flow into the deployed site until the pinned commit is reviewed and deliberately updated. When either upstream repository changes, review its diff, run the relevant regression tests, update the SHA, and rebuild the site.
+
+This follow-up does not change application logic, calculator formulas, or the deployed Cloudflare configuration. It does not resolve the outstanding live-header, Cloudflare account, tenant-isolation, secret-history or independent penetration-testing release gates.
