@@ -305,7 +305,11 @@ def test_alfiq_services_scope_contact_and_brand_assets(page: Page):
     expect(header_logo).to_have_attribute("src", re.compile(r"/alfiq/alfiq-logo-photo2\.jpg$"))
     expect(footer_logo).to_have_attribute("src", re.compile(r"/alfiq/alfiq-logo-photo2\.jpg$"))
     assert header_logo.evaluate("(img) => img.complete && img.naturalWidth > 0"), "AlfiQ header logo did not decode."
-    assert footer_logo.evaluate("(img) => img.complete && img.naturalWidth > 0"), "AlfiQ footer logo did not decode."
+    footer_logo.scroll_into_view_if_needed()
+    page.wait_for_function(
+        "() => { const img = document.querySelector('.alfiq-premium-footer img'); return img && img.complete && img.naturalWidth > 0; }",
+        timeout=10000,
+    )
 
     footer_width = footer_logo.evaluate("(img) => img.getBoundingClientRect().width")
     assert footer_width <= 190, f"Mobile footer logo exceeds the approved width: {footer_width}px"
