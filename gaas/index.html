@@ -10,14 +10,14 @@
 <title>Global GaaS | RegTech Nexus AI</title>
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://gaas-research-api-staging.regtechnexusai.workers.dev https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 <link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="gaas.css?v=15"><script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
-<script src="gaas-plan-form-v13.js?v=15" defer></script>
+<script src="gaas-plan-form-v13.js?v=15" defer></script><script src="gaas-case-workspace.js?v=1" defer></script>
 </head>
 <body class="gaas-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <header class="nav gaas-nav">
 <a class="brand" href="/" aria-label="RegTech Nexus AI home"><img class="brand-logo" src="alfiq-gaas-logo.png" alt="AlfiQ GaaS — Powered by RegTech Nexus AI" width="190" height="62"></a>
 <button class="menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="gaas-main-nav">☰</button>
-<nav id="gaas-main-nav" aria-label="GaaS navigation"><a href="#platform">Platform</a><a href="#global-coverage">Global coverage</a><a href="#workflow">How it works</a><a href="#demo">Demo</a><a href="#pricing">Pricing</a><a href="#governance">Trust &amp; governance</a></nav>
+<nav id="gaas-main-nav" aria-label="GaaS navigation"><a href="#platform">Platform</a><a href="#global-coverage">Global coverage</a><a href="#workflow">How it works</a><a href="#case-workspace">Case workspace</a><a href="#demo">Demo</a><a href="#pricing">Pricing</a><a href="#governance">Trust &amp; governance</a></nav>
 <a class="nav-cta" href="#pricing">Explore plans ↓</a>
 </header>
 <main id="main-content">
@@ -61,6 +61,34 @@
 </section>
 <section id="workflow" class="gaas-workflow"><div class="section-intro section-intro-light"><p class="kicker">CONTROLLED WORKFLOW</p><h2>Automation should make decisions more reviewable—not less accountable.</h2><p class="section-lead">The intended operating model separates source discovery, analyst assessment, independent review and remediation. No AI output is treated as an authoritative legal conclusion.</p></div>
 <div class="workflow-steps"><article><span>01</span><h3>Discover</h3><p>Identify candidate publications from an approved source register.</p></article><article><span>02</span><h3>Verify</h3><p>Check origin, document identity, status, dates and jurisdiction.</p></article><article><span>03</span><h3>Assess</h3><p>Prepare candidate obligations, affected areas and control mappings.</p></article><article><span>04</span><h3>Review</h3><p>Require an authorised human reviewer and preserve the decision trail.</p></article><article><span>05</span><h3>Remediate</h3><p>Track owners, due dates, status and completion evidence.</p></article></div></section>
+<section id="case-workspace" class="gaas-section gaas-case-section">
+<div class="section-intro"><p class="kicker">GaaS · CASE WORKSPACE</p><h2>One review record. Clear accountability.</h2><p class="section-lead">Create a browser-local review case, collect non-sensitive findings from AlfiQ and the specialist tools, assign actions and export a portable case file. No server storage or automatic tool transfer is enabled.</p></div>
+<div class="gaas-case-shell">
+<div class="gaas-case-warning" role="note"><strong>Public prototype boundary</strong><span>Use synthetic, public or non-sensitive information only. Never enter customer data, account or transaction records, SAR/STR information, credentials or confidential institutional documents. This workspace does not save to a server; export files only through an approved process.</span></div>
+<div class="gaas-case-grid">
+<label>Case reference<input id="gc-case-ref" maxlength="60" placeholder="e.g. REG-2026-001"></label>
+<label>Case title<input id="gc-case-title" maxlength="140" placeholder="e.g. AML circular impact review"></label>
+<label>Jurisdiction<input id="gc-jurisdiction" maxlength="80" placeholder="e.g. Bangladesh"></label>
+<label>Case owner / function<input id="gc-owner" maxlength="100" placeholder="e.g. Compliance"></label>
+<label class="gc-wide">Regulatory source / reference<input id="gc-source" maxlength="240" placeholder="Authority · instrument · date · official URL (verified by reviewer)"></label>
+</div>
+<div class="gaas-case-subhead"><div><h3>Specialist review hand-off</h3><p>Paste only a reviewer-approved, non-sensitive output from a connected standalone tool.</p></div><span>Manual hand-off · no API</span></div>
+<div class="gaas-case-grid">
+<label>Originating module<select id="gc-module"><option>AlfiQ</option><option>Policy Gap Analyzer</option><option>ICMS Toolkit</option><option>TradeGuard</option><option>Manual review</option></select></label>
+<label>Finding / observation title<input id="gc-finding-title" maxlength="140" placeholder="Short finding title"></label>
+<label class="gc-wide">Finding, rationale or exported review notes<textarea id="gc-finding" rows="5" maxlength="12000" placeholder="Paste non-sensitive reviewer-approved notes or describe the potential issue. Preserve source references and limitations."></textarea></label>
+<label>Action owner<input id="gc-action-owner" maxlength="100" placeholder="Responsible function"></label>
+<label>Target date<input id="gc-due" type="date"></label>
+<label>Priority<select id="gc-priority"><option>High</option><option selected>Medium</option><option>Low</option><option>Unrated</option></select></label>
+<label>Status<select id="gc-status"><option>Open</option><option>Under review</option><option>Action in progress</option><option>Pending evidence</option><option>Ready for retest</option><option>Closed</option></select></label>
+<label class="gc-wide">Evidence reference / next action<input id="gc-evidence" maxlength="500" placeholder="Document ID, public URL, evidence location or next review step — no confidential file contents"></label>
+</div>
+<div class="gaas-case-actions"><button class="btn primary" id="gc-add" type="button">Add finding to case</button><button class="btn ghost" id="gc-export" type="button">Export case JSON</button><button class="btn ghost" id="gc-csv" type="button">Export findings CSV</button><label class="gc-import-label" for="gc-import">Import case JSON<input id="gc-import" type="file" accept=".json,application/json"></label><button class="btn ghost" id="gc-reset" type="button">Clear workspace</button></div>
+<p id="gc-status-message" class="gaas-case-message" role="status" aria-live="polite">No case is saved. Export a case file to retain your work.</p>
+<div class="gaas-case-register"><div class="gaas-case-register-head"><div><h3>Case register</h3><p id="gc-count">0 findings recorded</p></div><div class="gc-gates"><span>Review gates</span><label><input type="checkbox" id="gc-gate-source"> Source verified</label><label><input type="checkbox" id="gc-gate-applicability"> Applicability reviewed</label><label><input type="checkbox" id="gc-gate-owner"> Owner assigned</label><label><input type="checkbox" id="gc-gate-retest"> Retest completed</label></div></div>
+<div id="gc-empty" class="gc-empty">Create a case and add the first finding to begin.</div><div id="gc-findings" class="gc-findings" aria-live="polite"></div></div>
+</div></section>
+
 <section id="demo" class="gaas-section demo-section"><div class="section-intro"><p class="kicker">INTERACTIVE PREVIEW</p><h2>See the intended workflow using a fictional sample.</h2><p class="section-lead">Plan forms submit the information you enter directly to the GaaS staging research API after the security check. No external editor, prompt copying or manual pasting is required. The public page has no secure document-upload backend, account storage or live billing.</p></div>
 <div class="demo-layout">
 <div class="demo-source"><div class="demo-label"><span class="demo-pulse"></span> SYNTHETIC SOURCE · NOT A REAL REGULATOR</div><h3>Global Payments Supervisory Board</h3><p class="demo-ref">Illustrative Notice GPSB-2026-004 · 15 September 2026</p><p class="demo-quote">“Covered payment operators should maintain documented third-party incident escalation arrangements, assign accountable oversight and retain evidence of periodic testing.”</p><div class="demo-meta"><span>Document type: Fictional notice</span><span>Status: Demonstration only</span></div><label for="demo-domain">Choose an illustrative business area</label><select id="demo-domain"><option value="payments">Payments operations</option><option value="outsourcing">Third-party / outsourcing risk</option><option value="governance">Governance and oversight</option></select><button class="btn primary demo-run" id="run-demo" type="button">Run local demonstration</button></div>
