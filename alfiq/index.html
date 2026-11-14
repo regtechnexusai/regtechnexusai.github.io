@@ -95,10 +95,13 @@ body > header.alfiq-brand-shell .alfiq-logo-link,
 body > footer.alfiq-footer .alfiq-logo-link{display:inline-flex!important;align-items:center!important;flex:0 0 auto!important;min-width:0!important;text-decoration:none!important}
 body > header.alfiq-brand-shell .alfiq-inline-logo,
 body > footer.alfiq-footer .alfiq-inline-logo{display:block!important;width:190px!important;height:56px!important;max-width:min(46vw,190px)!important;max-height:56px!important;overflow:visible!important;opacity:1!important;visibility:visible!important}
-body > header.alfiq-brand-shell .alfiq-logo-header{color:#102d4b!important}
-body > footer.alfiq-footer .alfiq-logo-footer{color:#fff!important}
+body > header.alfiq-brand-shell .alfiq-logo-header{display:block!important;width:190px!important;height:auto!important;max-width:min(46vw,190px)!important;max-height:60px!important}
+body > footer.alfiq-footer .alfiq-logo-footer{display:block!important;width:190px!important;height:auto!important;max-width:100%!important;max-height:58px!important}
+body > footer.alfiq-footer .alfiq-footer-logo-backing{display:inline-flex!important;align-items:center!important;justify-content:center!important;background:#fff!important;padding:5px 10px!important;border-radius:10px!important;box-shadow:0 2px 10px rgba(0,0,0,.12)!important}
 @media(max-width:720px){
- body > header.alfiq-brand-shell .alfiq-inline-logo{width:150px!important;height:48px!important;max-width:calc(100vw - 100px)!important}
+ body > header.alfiq-brand-shell .alfiq-logo-header{width:155px!important;max-width:calc(100vw - 100px)!important}
+ body > footer.alfiq-footer .alfiq-logo-footer{width:175px!important}
+}
  body > footer.alfiq-footer .alfiq-inline-logo{width:165px!important;height:50px!important;max-width:100%!important}
 }
 /* AlfiQ-only brand header/footer; shared site shell behaviour remains intact. */
@@ -115,7 +118,35 @@ body > footer.alfiq-footer p{margin:0;color:#dceaf3;font-size:.9rem}
  body > footer.alfiq-footer .alfiq-footer-brand{justify-content:center!important}
  body > footer.alfiq-footer img{width:165px!important}
 }
-</style></head><body><header class="nav rt-shell-header alfiq-brand-shell" aria-label="AlfiQ page header"><a class="brand rt-shell-brand alfiq-logo-link" href="/alfiq/" aria-label="AlfiQ home"><svg class="alfiq-inline-logo alfiq-logo-header" viewBox="0 0 280 80" role="img" aria-labelledby="alfiq-head-title"><title id="alfiq-head-title">AlfiQ</title><defs><linearGradient id="alfiqHeadGrad" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#00c9e8"/><stop offset=".52" stop-color="#0876df"/><stop offset="1" stop-color="#16bd78"/></linearGradient></defs><text x="5" y="64" font-family="Arial,Helvetica,sans-serif" font-size="66" font-weight="800" letter-spacing="-4" fill="#102d4b">Alfi</text><text x="145" y="64" font-family="Arial,Helvetica,sans-serif" font-size="66" font-weight="800" letter-spacing="-4" fill="url(#alfiqHeadGrad)">Q</text><rect x="220" y="59" width="8" height="8" rx="1" fill="#00c9e8"/><rect x="232" y="66" width="7" height="7" rx="1" fill="#16bd78"/><rect x="243" y="72" width="5" height="5" rx="1" fill="#0876df"/></svg></a></header><main class="wrap">
+</style></head><body><header class="nav rt-shell-header alfiq-brand-shell" aria-label="AlfiQ page header"><a class="brand rt-shell-brand alfiq-logo-link" href="/alfiq/" aria-label="AlfiQ home"><svg class="alfiq-inline-logo alfiq-logo-header" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 220" role="img" aria-labelledby="alfiqHeader-title alfiqHeader-desc">
+<title id="alfiqHeader-title">AlfiQ</title><desc id="alfiqHeader-desc">AlfiQ wordmark in navy, electric blue, teal and green, with a split i, globe dot and pixelated AI-inspired Q.</desc>
+<defs>
+ <linearGradient id="alfiqHeader-navy" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1267c9"/><stop offset=".48" stop-color="#082d69"/><stop offset="1" stop-color="#061d49"/></linearGradient>
+ <linearGradient id="alfiqHeader-blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#00d8ee"/><stop offset=".55" stop-color="#0876e8"/><stop offset="1" stop-color="#142dce"/></linearGradient>
+ <linearGradient id="alfiqHeader-green" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#00e0a0"/><stop offset=".5" stop-color="#20c96a"/><stop offset="1" stop-color="#087e70"/></linearGradient>
+ <linearGradient id="alfiqHeader-qgrad" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#00d6dc"/><stop offset=".48" stop-color="#19c77a"/><stop offset="1" stop-color="#075d87"/></linearGradient>
+ <radialGradient id="alfiqHeader-orb" cx=".3" cy=".22" r=".8"><stop stop-color="#65ffe0"/><stop offset=".38" stop-color="#05aeea"/><stop offset="1" stop-color="#153ac8"/></radialGradient>
+</defs>
+<g font-family="Arial,Helvetica,sans-serif" font-weight="800" letter-spacing="-10">
+ <text x="12" y="165" font-size="166" fill="url(#alfiqHeader-navy)">alf</text>
+</g>
+<!-- A single-width, dual-colour i stem: the two strokes meet as one letter. -->
+<path d="M315 91 Q315 82 325 82 H338 V165 H309 Z" fill="url(#alfiqHeader-blue)"/>
+<path d="M339 82 H354 Q362 82 362 91 V165 H339 Z" fill="url(#alfiqHeader-green)"/>
+<!-- Glossy globe dot for the merged i. -->
+<circle cx="337" cy="43" r="29" fill="url(#alfiqHeader-orb)"/>
+<path d="M311 43 Q337 64 363 36" fill="none" stroke="#eaffff" stroke-width="5" stroke-linecap="round"/>
+<circle cx="326" cy="29" r="5" fill="#fff" opacity=".7"/>
+<!-- Geometric Q: squared AI-era silhouette with a cut-out and pixelated tail. -->
+<path fill="url(#alfiqHeader-qgrad)" fill-rule="evenodd" d="M431 36 H615 Q659 36 659 80 V125 Q659 169 615 169 H476 Q432 169 432 125 V80 Q432 36 476 36 Z M474 67 Q462 67 462 80 V125 Q462 139 476 139 H615 Q629 139 629 125 V80 Q629 67 615 67 Z"/>
+<path d="M565 125 L624 183 L652 183 L592 125 Z" fill="url(#alfiqHeader-blue)"/>
+<!-- Pixel/data trail at the lower-right tail only. -->
+<g fill="url(#alfiqHeader-green)">
+ <rect x="625" y="146" width="13" height="13" rx="1"/><rect x="644" y="154" width="11" height="11" rx="1"/>
+ <rect x="663" y="163" width="9" height="9" rx="1"/><rect x="635" y="168" width="10" height="10" rx="1"/>
+ <rect x="653" y="181" width="8" height="8" rx="1"/><rect x="674" y="183" width="7" height="7" rx="1"/>
+</g>
+</svg></a></header><main class="wrap">
 <section class="hero alfiq-hero"><div class="eyebrow">RegTech Nexus AI · Product Lab</div><h1>AlfiQ</h1><p><strong>Intelligence Beyond Rules.</strong> A regulatory change analysis workspace to compare document versions, surface potential obligation signals and organise a human-reviewed impact assessment.</p><span class="tag">Early prototype · Rule-based · Human review required</span></section>
 <section class="commercial-cta" aria-label="AlfiQ services"><div><strong>Need a structured regulatory change review?</strong><span>Explore our international pilot service, scope and deliverables.</span></div><a href="/alfiq/services/">Explore AlfiQ services</a></section>
 <div class="notice"><strong>Important limitation:</strong> This prototype runs in your browser. It does not verify regulatory sources, provide legal advice, make compliance determinations or use a live AI model. Use public documents or synthetic examples only. Do not enter confidential banking, customer, KYC or transaction data.</div>
@@ -132,7 +163,35 @@ body > footer.alfiq-footer p{margin:0;color:#dceaf3;font-size:.9rem}
 <section class="section"><h2>4. Product contact</h2><div class="panel"><p>Product enquiries and pilot discussions:</p><strong><a href="mailto:regtechnexusai@gmail.com">regtechnexusai@gmail.com</a></strong><p class="small muted">Published by RegTech Nexus AI. AlfiQ is an early-stage decision-support prototype. Outputs require independent verification and professional judgement.</p></div></section>
 <p class="foot">AlfiQ · Regulatory Change Impact Agent · Prototype 0.1. No automated regulatory monitoring, source authentication, live AI inference, customer accounts, payment processing or subscriptions are enabled.</p></main>
 <footer class="rt-shell-footer alfiq-footer" aria-label="AlfiQ page footer">
- <div class="alfiq-footer-brand"><a class="alfiq-logo-link" href="/alfiq/" aria-label="AlfiQ home"><svg class="alfiq-inline-logo alfiq-logo-footer" viewBox="0 0 280 80" role="img" aria-labelledby="alfiq-foot-title"><title id="alfiq-foot-title">AlfiQ</title><defs><linearGradient id="alfiqFootGrad" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#00d9ed"/><stop offset=".52" stop-color="#087fe8"/><stop offset="1" stop-color="#20d18b"/></linearGradient></defs><text x="5" y="64" font-family="Arial,Helvetica,sans-serif" font-size="66" font-weight="800" letter-spacing="-4" fill="#ffffff">Alfi</text><text x="145" y="64" font-family="Arial,Helvetica,sans-serif" font-size="66" font-weight="800" letter-spacing="-4" fill="url(#alfiqFootGrad)">Q</text><rect x="220" y="59" width="8" height="8" rx="1" fill="#00d9ed"/><rect x="232" y="66" width="7" height="7" rx="1" fill="#20d18b"/><rect x="243" y="72" width="5" height="5" rx="1" fill="#087fe8"/></svg></a><p>Intelligence Beyond Rules. · A product of RegTech Nexus AI</p></div>
+ <div class="alfiq-footer-brand"><a class="alfiq-logo-link alfiq-footer-logo-backing" href="/alfiq/" aria-label="AlfiQ home"><svg class="alfiq-inline-logo alfiq-logo-footer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 220" role="img" aria-labelledby="alfiqFooter-title alfiqFooter-desc">
+<title id="alfiqFooter-title">AlfiQ</title><desc id="alfiqFooter-desc">AlfiQ wordmark in navy, electric blue, teal and green, with a split i, globe dot and pixelated AI-inspired Q.</desc>
+<defs>
+ <linearGradient id="alfiqFooter-navy" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1267c9"/><stop offset=".48" stop-color="#082d69"/><stop offset="1" stop-color="#061d49"/></linearGradient>
+ <linearGradient id="alfiqFooter-blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#00d8ee"/><stop offset=".55" stop-color="#0876e8"/><stop offset="1" stop-color="#142dce"/></linearGradient>
+ <linearGradient id="alfiqFooter-green" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#00e0a0"/><stop offset=".5" stop-color="#20c96a"/><stop offset="1" stop-color="#087e70"/></linearGradient>
+ <linearGradient id="alfiqFooter-qgrad" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#00d6dc"/><stop offset=".48" stop-color="#19c77a"/><stop offset="1" stop-color="#075d87"/></linearGradient>
+ <radialGradient id="alfiqFooter-orb" cx=".3" cy=".22" r=".8"><stop stop-color="#65ffe0"/><stop offset=".38" stop-color="#05aeea"/><stop offset="1" stop-color="#153ac8"/></radialGradient>
+</defs>
+<g font-family="Arial,Helvetica,sans-serif" font-weight="800" letter-spacing="-10">
+ <text x="12" y="165" font-size="166" fill="url(#alfiqFooter-navy)">alf</text>
+</g>
+<!-- A single-width, dual-colour i stem: the two strokes meet as one letter. -->
+<path d="M315 91 Q315 82 325 82 H338 V165 H309 Z" fill="url(#alfiqFooter-blue)"/>
+<path d="M339 82 H354 Q362 82 362 91 V165 H339 Z" fill="url(#alfiqFooter-green)"/>
+<!-- Glossy globe dot for the merged i. -->
+<circle cx="337" cy="43" r="29" fill="url(#alfiqFooter-orb)"/>
+<path d="M311 43 Q337 64 363 36" fill="none" stroke="#eaffff" stroke-width="5" stroke-linecap="round"/>
+<circle cx="326" cy="29" r="5" fill="#fff" opacity=".7"/>
+<!-- Geometric Q: squared AI-era silhouette with a cut-out and pixelated tail. -->
+<path fill="url(#alfiqFooter-qgrad)" fill-rule="evenodd" d="M431 36 H615 Q659 36 659 80 V125 Q659 169 615 169 H476 Q432 169 432 125 V80 Q432 36 476 36 Z M474 67 Q462 67 462 80 V125 Q462 139 476 139 H615 Q629 139 629 125 V80 Q629 67 615 67 Z"/>
+<path d="M565 125 L624 183 L652 183 L592 125 Z" fill="url(#alfiqFooter-blue)"/>
+<!-- Pixel/data trail at the lower-right tail only. -->
+<g fill="url(#alfiqFooter-green)">
+ <rect x="625" y="146" width="13" height="13" rx="1"/><rect x="644" y="154" width="11" height="11" rx="1"/>
+ <rect x="663" y="163" width="9" height="9" rx="1"/><rect x="635" y="168" width="10" height="10" rx="1"/>
+ <rect x="653" y="181" width="8" height="8" rx="1"/><rect x="674" y="183" width="7" height="7" rx="1"/>
+</g>
+</svg></a><p>Intelligence Beyond Rules. · A product of RegTech Nexus AI</p></div>
  <p>Regulatory Change Impact Agent · Human review required</p>
 </footer>
 <script>
