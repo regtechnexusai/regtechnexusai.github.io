@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="RegTech Nexus AI Connected Workflow Desk — browser-local case coordination and evidence hand-off.">
+<title>Connected Workflow Desk | RegTech Nexus AI</title>
+<style>
+:root{--navy:#10243e;--blue:#145da0;--teal:#087f8c;--ink:#203047;--muted:#607086;--line:#dce5ec;--pale:#f3f7fa;--white:#fff;--gold:#8b6b24}
+*{box-sizing:border-box}body{margin:0;background:#f4f7fa;color:var(--ink);font:15px/1.55 Arial,Helvetica,sans-serif}
+header{background:linear-gradient(120deg,#10243e,#145879);color:#fff;padding:28px max(22px,calc((100% - 1120px)/2))}
+.brand{font-weight:700;letter-spacing:.04em;color:#b8e7e5;font-size:13px}.hero h1{font-size:clamp(30px,5vw,46px);line-height:1.08;margin:18px 0 10px}.hero p{max-width:760px;color:#e0edf5;margin:0}.wrap{max-width:1120px;margin:24px auto;padding:0 18px}.notice{border:1px solid #eadbb6;background:#fffaf0;color:#66552d;border-radius:10px;padding:14px 16px;margin-bottom:18px}.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}.panel{background:#fff;border:1px solid var(--line);border-radius:13px;padding:20px;box-shadow:0 5px 18px #10243e0a;margin-bottom:18px}.panel h2{font-size:20px;color:var(--navy);margin:0 0 14px}.tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.tool{border:1px solid var(--line);border-radius:10px;padding:13px}.tool strong{display:block;color:var(--navy)}.tool p{font-size:13px;color:var(--muted);margin:5px 0 8px}.tool a{color:var(--blue);font-weight:700;text-decoration:none}.tool a:hover{text-decoration:underline}
+label{display:block;font-size:13px;font-weight:700;margin:12px 0 5px}input,select,textarea{width:100%;border:1px solid #cbd6df;border-radius:8px;padding:10px 11px;font:inherit;background:#fff;color:var(--ink)}textarea{min-height:86px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}button{border:0;border-radius:8px;padding:10px 15px;font-weight:700;cursor:pointer;background:var(--blue);color:#fff}button.secondary{background:#eaf1f6;color:var(--navy);border:1px solid #cbd8e2}button.danger{background:#fff0ef;color:#9b3028;border:1px solid #efc7c3}.small{font-size:12px;color:var(--muted)}.status{margin-top:10px;color:var(--teal);font-size:13px;min-height:20px}.list{display:grid;gap:10px}.record{border:1px solid var(--line);border-radius:9px;padding:12px}.record strong{color:var(--navy)}.record p{margin:5px 0;color:var(--muted);font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}.pill{display:inline-block;background:#edf5f6;color:#17646b;border-radius:99px;padding:2px 8px;font-size:11px;font-weight:700}.empty{padding:16px;border:1px dashed #cbd6df;border-radius:9px;color:var(--muted);font-size:13px}footer{max-width:1120px;margin:20px auto;padding:16px 18px 30px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.tools{grid-template-columns:1fr}.row{grid-template-columns:1fr}.panel{padding:16px}}
+</style>
+</head>
+<body>
+<header><div class="brand">REGTECH NEXUS AI · AUDIT &amp; REGULATORY INTELLIGENCE</div><section class="hero"><h1>Connected Workflow Desk</h1><p>A browser-local coordination workspace to organise regulatory-change reviews, policy/control observations, ICMS actions and trade-finance review hand-offs in one portable case record.</p></section></header>
+<main class="wrap">
+<div class="notice"><strong>Prototype boundary:</strong> This first release coordinates reviewer-entered information and exports/imports a portable JSON case file. It does not automatically connect to the tools, verify regulatory sources, authenticate evidence, run legal analysis, calculate risk scores or store cases on a server. Use synthetic or public, non-sensitive information only. Do not enter customer, KYC, transaction, SAR/STR or confidential bank-policy data.</div>
+<div class="grid">
+<section>
+<div class="panel"><h2>1 · Case details</h2>
+<div class="row"><div><label for="caseId">Case reference</label><input id="caseId" maxlength="60" placeholder="e.g. RNX-REG-2026-001"></div><div><label for="caseTitle">Case title</label><input id="caseTitle" maxlength="160" placeholder="Regulatory change / control review"></div></div>
+<div class="row"><div><label for="jurisdiction">Jurisdiction</label><input id="jurisdiction" maxlength="100" placeholder="e.g. Bangladesh"></div><div><label for="owner">Review owner</label><input id="owner" maxlength="100" placeholder="Function / role (no personal data)"></div></div>
+<label for="source">Source / instrument reference</label><textarea id="source" placeholder="Issuing authority, instrument title/reference, publication/effective dates, official URL and page/paragraph. Mark anything not yet verified."></textarea>
+<label for="scope">Review scope and applicability questions</label><textarea id="scope" placeholder="Entity, product, business line, process, geography and applicability questions for human verification."></textarea>
+<div class="actions"><button id="saveCase">Update case record</button><button class="secondary" id="exportCase">Export case JSON</button><button class="secondary" id="importButton">Import case JSON</button><input id="importFile" type="file" accept=".json,application/json" hidden></div><div class="status" id="caseStatus" aria-live="polite"></div><p class="small">The record remains in this browser tab's memory until you export it or close/refresh the page. No server upload or browser storage is used.</p>
+</div>
+<div class="panel"><h2>2 · Add a review observation</h2>
+<div class="row"><div><label for="stage">Workflow stage</label><select id="stage"><option>AlfiQ — change triage</option><option>Policy Gap Analyzer — policy/control mapping</option><option>ICMS — governance/control review</option><option>TradeGuard — TBML/trade review</option><option>GaaS — research/assurance planning</option><option>Cross-tool — management action</option></select></div><div><label for="type">Observation type</label><select id="type"><option>Potential change signal</option><option>Policy/control gap signal</option><option>Evidence request</option><option>TBML red-flag observation</option><option>Management action</option><option>Reviewer decision</option></select></div></div>
+<label for="observation">Observation / reviewer-entered finding</label><textarea id="observation" placeholder="Describe the observed wording, control, document reference or issue. Separate fact from interpretation."></textarea>
+<label for="evidence">Evidence reference / link</label><input id="evidence" maxlength="500" placeholder="Public URL, file reference, page/paragraph or evidence ID">
+<div class="row"><div><label for="status">Review status</label><select id="status"><option>Unverified</option><option>Pending human review</option><option>Verified by reviewer</option><option>Not applicable — rationale required</option><option>Closed after review</option></select></div><div><label for="actionOwner">Action owner / function</label><input id="actionOwner" maxlength="100" placeholder="e.g. Compliance / Trade Finance"></div></div>
+<label for="nextAction">Next step / rationale</label><textarea id="nextAction" placeholder="Required validation, challenge, approval or remediation step."></textarea>
+<div class="actions"><button id="addObservation">Add observation</button></div><div class="status" id="observationStatus" aria-live="polite"></div>
+</div>
+</section>
+<aside>
+<div class="panel"><h2>3 · Open existing tools</h2><div class="tools">
+<div class="tool"><strong>AlfiQ</strong><p>Compare regulatory text and capture preliminary change signals.</p><a href="/alfiq/">Open AlfiQ ↗</a></div>
+<div class="tool"><strong>Policy Gap Analyzer</strong><p>Browser-local policy wording and control-pack review.</p><a href="/regulatory-gap-analyzer/">Open analyzer ↗</a></div>
+<div class="tool"><strong>ICMS Toolkit</strong><p>Governance, internal-control self-assessment and CAP tracking.</p><a href="/icms-2026/">Open ICMS ↗</a></div>
+<div class="tool"><strong>TradeGuard</strong><p>Open the published TradeGuard route for trade-based financial-crime review.</p><a href="/tradeguard/">Open TradeGuard ↗</a></div>
+<div class="tool"><strong>GaaS</strong><p>Review the current demo workflow and assurance disclosures.</p><a href="/gaas/">Open GaaS ↗</a></div>
+<div class="tool"><strong>Regulatory Source Register</strong><p>Use official source paths and record source verification.</p><a href="/regulatory-source-register/">Open source register ↗</a></div>
+</div><p class="small">Tool links open separately. Transfer only reviewer-approved, non-sensitive notes into this case record. No automatic import/export from those tools is enabled in this release.</p></div>
+<div class="panel"><h2>4 · Case observations</h2><div id="observations" class="list"><div class="empty">No observations added to this case yet.</div></div><div class="actions"><button class="secondary" id="exportCsv">Export observations CSV</button><button class="danger" id="clearCase">Clear this in-memory case</button></div></div>
+<div class="panel"><h2>5 · Review and assurance gates</h2><div class="small">
+<p><span class="pill">Gate 1</span> Source authority, status, version and dates independently verified.</p>
+<p><span class="pill">Gate 2</span> Applicability and affected entities/processes confirmed by Compliance/Legal.</p>
+<p><span class="pill">Gate 3</span> Original document references and evidence independently checked.</p>
+<p><span class="pill">Gate 4</span> Control owner validates design and operating evidence.</p>
+<p><span class="pill">Gate 5</span> Decisions, approvals, remediation and retesting are recorded.</p>
+<p><strong>Important:</strong> A tool-generated signal is not proof of a control failure, legal obligation or compliance status. Human review remains mandatory.</p>
+</div></div>
+</aside>
+</div>
+</main>
+<footer>Published by RegTech Nexus AI · Connected Workflow Desk v1.0 · Browser-local prototype · No server case storage, live AI inference or automated regulatory monitoring.</footer>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id);let record={schema:'rnx.case.v1',product:'RegTech Nexus AI Connected Workflow Desk',createdAt:new Date().toISOString(),updatedAt:new Date().toISOString(),case:{},observations:[]};
+const fields=['caseId','caseTitle','jurisdiction','owner','source','scope'];
+const readCase=()=>Object.fromEntries(fields.map(k=>[k,$(k).value.trim()]));
+const updateCase=()=>{record.case=readCase();record.updatedAt=new Date().toISOString();$('caseStatus').textContent='Case record updated in this tab.';};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const render=()=>{const root=$('observations');if(!record.observations.length){root.innerHTML='<div class="empty">No observations added to this case yet.</div>';return;}root.innerHTML=record.observations.map((o,i)=>'<article class="record"><strong>'+(i+1)+'. '+esc(o.stage)+' · '+esc(o.type)+'</strong><p>'+esc(o.observation)+'</p><p><b>Status:</b> '+esc(o.status)+' · <b>Owner:</b> '+esc(o.owner||'Not assigned')+'</p><p><b>Evidence:</b> '+esc(o.evidence||'Not supplied')+'</p><p><b>Next step:</b> '+esc(o.nextAction||'Not supplied')+'</p><button class="danger" data-remove="'+i+'" type="button">Remove</button></article>').join('');};
+$('saveCase').addEventListener('click',updateCase);
+$('addObservation').addEventListener('click',()=>{const observation=$('observation').value.trim();if(!observation){$('observationStatus').textContent='Enter an observation before adding it.';return;}record.observations.push({id:'OBS-'+String(record.observations.length+1).padStart(3,'0'),stage:$('stage').value,type:$('type').value,observation,evidence:$('evidence').value.trim(),status:$('status').value,owner:$('actionOwner').value.trim(),nextAction:$('nextAction').value.trim(),createdAt:new Date().toISOString()});['observation','evidence','actionOwner','nextAction'].forEach(k=>$(k).value='');$('observationStatus').textContent='Observation added to the in-memory case.';render();});
+$('observations').addEventListener('click',e=>{const b=e.target.closest('[data-remove]');if(!b)return;record.observations.splice(Number(b.dataset.remove),1);render();});
+const download=(name,data,type)=>{const blob=new Blob([data],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+$('exportCase').addEventListener('click',()=>{updateCase();download((record.case.caseId||'rnx-case')+'.json',JSON.stringify(record,null,2),'application/json');$('caseStatus').textContent='Portable JSON case file exported.';});
+$('exportCsv').addEventListener('click',()=>{const cols=['id','stage','type','observation','evidence','status','owner','nextAction','createdAt'];const q=v=>'"'+String(v??'').replace(/"/g,'""')+'"';const csv=[cols.join(','),...record.observations.map(o=>cols.map(k=>q(o[k])).join(','))].join('\r\n');download('rnx-case-observations.csv','\ufeff'+csv,'text/csv;charset=utf-8');});
+$('importButton').addEventListener('click',()=>$('importFile').click());
+$('importFile').addEventListener('change',async e=>{const f=e.target.files&&e.target.files[0];if(!f)return;if(f.size>1024*1024){$('caseStatus').textContent='Import rejected: JSON file exceeds 1 MB.';e.target.value='';return;}try{const parsed=JSON.parse(await f.text());if(parsed.schema!=='rnx.case.v1'||!parsed.case||!Array.isArray(parsed.observations))throw new Error('Unsupported case schema.');if(parsed.observations.length>500)throw new Error('Observation limit exceeded.');record={schema:'rnx.case.v1',product:'RegTech Nexus AI Connected Workflow Desk',createdAt:parsed.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString(),case:Object.fromEntries(fields.map(k=>[k,String(parsed.case[k]||'').slice(0,5000)])),observations:parsed.observations.map((o,i)=>({id:'OBS-'+String(i+1).padStart(3,'0'),stage:String(o.stage||'').slice(0,100),type:String(o.type||'').slice(0,100),observation:String(o.observation||'').slice(0,5000),evidence:String(o.evidence||'').slice(0,500),status:String(o.status||'Unverified').slice(0,100),owner:String(o.owner||'').slice(0,100),nextAction:String(o.nextAction||'').slice(0,3000),createdAt:String(o.createdAt||'')}))};fields.forEach(k=>$(k).value=record.case[k]||'');render();$('caseStatus').textContent='Case JSON imported. Review all imported content before relying on it.';}catch(err){$('caseStatus').textContent='Import failed: '+err.message;}finally{e.target.value='';}});
+$('clearCase').addEventListener('click',()=>{if(!confirm('Clear this in-memory case? Export it first if you need to keep a copy.'))return;record={schema:'rnx.case.v1',product:'RegTech Nexus AI Connected Workflow Desk',createdAt:new Date().toISOString(),updatedAt:new Date().toISOString(),case:{},observations:[]};fields.forEach(k=>$(k).value='');render();$('caseStatus').textContent='In-memory case cleared.';});
+})();
+</script>
+</body></html>
