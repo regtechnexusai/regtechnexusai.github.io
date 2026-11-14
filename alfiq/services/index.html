@@ -24,8 +24,9 @@ body:has(.wrap > .hero) .rt-back-home{position:static;right:auto;bottom:auto;z-i
 /* Premium AlfiQ Services footer — page scoped */
 .alfiq-premium-footer{margin-top:30px;padding:30px clamp(20px,4vw,38px) 20px;border-radius:0 0 18px 18px;background:linear-gradient(135deg,#071f36 0%,#0b3552 55%,#07566a 100%);color:#edf7fb;box-shadow:0 16px 36px rgba(7,31,54,.18);border-top:4px solid transparent;border-image:linear-gradient(90deg,#9be8dc,#1ba7bd,#64d8c6) 1}
 .alfiq-footer-top{display:flex;align-items:center;gap:14px}
-.alfiq-footer-brand{display:inline-flex;align-items:center;justify-content:flex-start;width:min(100%,260px);padding:0;border-radius:0;background:transparent;box-shadow:none}
+.alfiq-footer-brand{display:inline-flex;align-items:center;justify-content:center;width:min(100%,190px);padding:8px;border:1px solid rgba(255,255,255,.78);border-radius:13px;background:#fff;box-shadow:0 8px 22px rgba(0,0,0,.2)}
 .alfiq-footer-brand img{display:block;width:100%;height:auto;object-fit:contain}
+@media(max-width:560px){.alfiq-footer-brand{width:min(100%,176px);padding:7px;border-radius:11px}}
 body:has(.wrap > .hero) > header .brand-logo{width:clamp(180px,28vw,250px);height:auto;max-height:76px;object-fit:contain}
 @media(max-width:560px){body:has(.wrap > .hero) > header .brand-logo{width:min(62vw,220px);max-height:64px}}
 .alfiq-footer-brand-copy{display:flex;flex-direction:column;gap:2px}
