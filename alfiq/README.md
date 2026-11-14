@@ -16,7 +16,9 @@ An additive, browser-only prototype under /alfiq/ for comparing earlier and newe
 - Exact paragraph matching after whitespace normalisation; keyword prompts are heuristic only.
 - Public documents and synthetic examples only. Do not use confidential bank/customer/KYC/transaction data.
 
-## Controlled integration design\n\nSee [AlfiQ Controlled Integration Design — Phase 3](../docs/alfiq-controlled-integration-design-phase3.md). This is a design specification only; no cross-tool API or automatic data transfer is active.\n\n## Production requirements
+## Controlled integration design
+
+See [AlfiQ Controlled Integration Design — Phase 3](../docs/alfiq-controlled-integration-design-phase3.md). This is a design specification only; no cross-tool API or automatic data transfer is active.\n\n## Production requirements
 1. Secure backend and server-side AI provider credentials; never expose API keys in frontend code.
 2. Authentication, role-based access, tenant isolation and secure document storage.
 3. Document parsing with page/paragraph provenance and source/version tracking.
@@ -40,7 +42,7 @@ An additive, browser-only prototype under /alfiq/ for comparing earlier and newe
 - [ ] No secrets, personal data or confidential banking data are committed.
 
 ## Release controls
-This is a feature-branch proposal only. Do not merge to main or publish until the owner reviews the PR and explicitly approves. No existing file outside /alfiq/ should be modified by this feature.
+This prototype is published on the main site. Changes must be additive, limited to AlfiQ-specific files unless separately approved, and merged only after regression checks and explicit owner approval. The Phase 3 integration document is a design specification, not authority to activate integrations.
 
 
 ## Duplicate-paragraph regression cases
@@ -50,4 +52,4 @@ The comparison must treat paragraph occurrences as a multiset, not only as a set
 - Earlier and newer contain the same repeated paragraphs in a different order → no additions or removals.
 - Earlier and newer contain one identical paragraph each → no additions or removals.
 
-The current implementation counts repeated paragraph occurrences independently. These are acceptance cases, not evidence that desktop/mobile browser UAT has been completed.
+The current implementation counts repeated paragraph occurrences independently. PR #351 added browser regression coverage for paragraph comparison (including duplicate occurrences), local text-file intake, export, print and reset behaviour, plus mobile Services-page navigation and branding checks. This does not constitute independent security/privacy assurance or institutional pilot approval.
