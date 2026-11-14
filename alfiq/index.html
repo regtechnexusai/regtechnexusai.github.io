@@ -97,6 +97,8 @@ body > footer.alfiq-footer .alfiq-logo-link{display:inline-flex!important;align-
 body > footer.alfiq-footer .alfiq-footer-logo-backing{background:#fff!important;padding:7px 12px!important;border-radius:12px!important;box-shadow:0 2px 10px rgba(0,0,0,.12)!important}
 body > footer.alfiq-footer .alfiq-brand-logo{display:block!important;width:210px!important;height:auto!important;max-width:100%!important;max-height:76px!important;object-fit:contain!important}
 body > footer.alfiq-footer .alfiq-attribution{margin:16px 0 0!important;color:#d8e7f2!important;font-size:14px!important;text-align:center!important}
+body > footer.alfiq-footer .alfiq-attribution a{color:inherit!important;text-decoration:underline;text-decoration-color:rgba(216,231,242,.65);text-underline-offset:3px;cursor:pointer}
+body > footer.alfiq-footer .alfiq-attribution a:hover,body > footer.alfiq-footer .alfiq-attribution a:focus-visible{color:#fff!important;text-decoration-color:#fff}
 body > footer.alfiq-footer .alfiq-human-review{margin:10px 0 0!important;color:#c3d3df!important;font-size:13px!important;text-align:center!important}
 body .rt-back-home{z-index:1100!important}
 @media(max-width:720px){
@@ -163,7 +165,7 @@ body > footer.alfiq-footer p{margin:0;color:#dceaf3;font-size:.9rem}
 <section class="section"><h2>4. Product contact</h2><div class="panel"><p>Product enquiries and pilot discussions:</p><strong><a href="mailto:regtechnexusai@gmail.com">regtechnexusai@gmail.com</a></strong><p class="small muted">Published by RegTech Nexus AI. AlfiQ is an early-stage decision-support prototype. Outputs require independent verification and professional judgement.</p></div></section>
 <p class="foot">AlfiQ · Regulatory Change Impact Agent · Prototype 0.1. No automated regulatory monitoring, source authentication, live AI inference, customer accounts, payment processing or subscriptions are enabled.</p></main>
 <footer class="rt-shell-footer alfiq-footer" aria-label="AlfiQ page footer">
- <div class="alfiq-footer-brand"><a class="alfiq-logo-link alfiq-footer-logo-backing" href="/alfiq/" aria-label="AlfiQ home"><img class="alfiq-brand-logo alfiq-logo-footer" src="/alfiq/alfiq-logo-photo2.jpg" alt="AlfiQ" width="420" height="146"></a><p class="alfiq-attribution">Designed and Developed by RegTech Nexus AI</p></div>
+ <div class="alfiq-footer-brand"><a class="alfiq-logo-link alfiq-footer-logo-backing" href="/alfiq/" aria-label="AlfiQ home"><img class="alfiq-brand-logo alfiq-logo-footer" src="/alfiq/alfiq-logo-photo2.jpg" alt="AlfiQ" width="420" height="146"></a><p class="alfiq-attribution">Designed and Developed by <a href="/" aria-label="RegTech Nexus AI — go to homepage">RegTech Nexus AI</a></p></div>
  <p class="alfiq-human-review">Regulatory Change Impact Agent · Human review required</p>
 </footer>
 <script>
@@ -226,7 +228,7 @@ window.addEventListener("load",function(){
   var footer=document.querySelector("body > footer.alfiq-footer");
   if(footer){
     var attribution=footer.querySelector(".alfiq-attribution");
-    if(attribution) attribution.textContent="Designed and Developed by RegTech Nexus AI";
+    if(attribution) attribution.innerHTML='Designed and Developed by <a href="/" aria-label="RegTech Nexus AI — go to homepage">RegTech Nexus AI</a>';
   }
   var back=document.querySelector("body > .rt-back-home");
   if(back){
