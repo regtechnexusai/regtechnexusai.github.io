@@ -230,11 +230,11 @@ def test_alfiq_workspace_comparison_reset_local_file_and_exports(page: Page, tmp
     expect(page.locator("#newText")).to_be_visible()
 
     page.locator("#oldText").fill(
-        "The institution must retain records within 7 calendar days.\\n\\n"
+        "The institution must retain records within 7 calendar days.\n\n"
         "The institution shall maintain an audit trail."
     )
     page.locator("#newText").fill(
-        "The institution must retain records within 10 calendar days.\\n\\n"
+        "The institution must retain records within 10 calendar days.\n\n"
         "The institution shall maintain an audit trail."
     )
     page.locator("#meta").fill("Synthetic fixture | Example regulator | Test only")
@@ -248,7 +248,7 @@ def test_alfiq_workspace_comparison_reset_local_file_and_exports(page: Page, tmp
 
     # Duplicate paragraph occurrences are compared as a multiset, not a set.
     page.locator("#oldText").fill("Paragraph A")
-    page.locator("#newText").fill("Paragraph A\\n\\nParagraph A")
+    page.locator("#newText").fill("Paragraph A\n\nParagraph A")
     page.locator("#analyse").click()
     expect(page.locator("#addedN")).to_have_text("1")
     expect(page.locator("#removedN")).to_have_text("0")
@@ -302,8 +302,8 @@ def test_alfiq_services_scope_contact_and_brand_assets(page: Page):
     footer_logo = page.locator(".alfiq-premium-footer img")
     expect(header_logo).to_be_visible(timeout=15000)
     expect(footer_logo).to_be_visible()
-    expect(header_logo).to_have_attribute("src", re.compile(r"/alfiq/alfiq-logo-photo2\\.jpg$"))
-    expect(footer_logo).to_have_attribute("src", re.compile(r"/alfiq/alfiq-logo-photo2\\.jpg$"))
+    expect(header_logo).to_have_attribute("src", re.compile(r"/alfiq/alfiq-logo-photo2\.jpg$"))
+    expect(footer_logo).to_have_attribute("src", re.compile(r"/alfiq/alfiq-logo-photo2\.jpg$"))
     assert header_logo.evaluate("(img) => img.complete && img.naturalWidth > 0"), "AlfiQ header logo did not decode."
     assert footer_logo.evaluate("(img) => img.complete && img.naturalWidth > 0"), "AlfiQ footer logo did not decode."
 
