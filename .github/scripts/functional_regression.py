@@ -220,3 +220,97 @@ def test_tool_pages_have_no_uncaught_page_errors(page: Page):
     for path, heading in routes:
         open_tool(page, path, heading)
     assert not errors, "Uncaught JavaScript errors: " + " | ".join(errors)
+
+
+
+def test_alfiq_workspace_comparison_reset_local_file_and_exports(page: Page, tmp_path):
+    """Exercise AlfiQ's published rule-based prototype with synthetic text only."""
+    open_tool(page, "/alfiq/", "AlfiQ")
+    expect(page.locator("#oldText")).to_be_visible()
+    expect(page.locator("#newText")).to_be_visible()
+
+    page.locator("#oldText").fill(
+        "The institution must retain records within 7 calendar days.\\n\\n"
+        "The institution shall maintain an audit trail."
+    )
+    page.locator("#newText").fill(
+        "The institution must retain records within 10 calendar days.\\n\\n"
+        "The institution shall maintain an audit trail."
+    )
+    page.locator("#meta").fill("Synthetic fixture | Example regulator | Test only")
+    page.locator("#analyse").click()
+
+    expect(page.locator("#report")).to_be_visible()
+    expect(page.locator("#addedN")).to_have_text("1")
+    expect(page.locator("#removedN")).to_have_text("1")
+    expect(page.locator("#signals")).to_contain_text("Mandatory language")
+    expect(page.locator("#signals")).to_contain_text("Time-bound requirement")
+
+    # Duplicate paragraph occurrences are compared as a multiset, not a set.
+    page.locator("#oldText").fill("Paragraph A")
+    page.locator("#newText").fill("Paragraph A\\n\\nParagraph A")
+    page.locator("#analyse").click()
+    expect(page.locator("#addedN")).to_have_text("1")
+    expect(page.locator("#removedN")).to_have_text("0")
+
+    with page.expect_download(timeout=15000) as download_info:
+        page.locator("#download").click()
+    download = download_info.value
+    assert download.suggested_filename.endswith(".txt")
+    downloaded = download.path()
+    assert downloaded is not None
+    report_text = Path(downloaded).read_text(encoding="utf-8")
+    assert "Human review is mandatory" in report_text
+    assert "Paragraph A" in report_text
+
+    intercept_print(page)
+    page.locator("#print").click()
+    assert_print_called(page)
+
+    # Local-only text intake: no server upload is used by the published flow.
+    fixture = tmp_path / "alfiq-public-synthetic.txt"
+    fixture.write_text("Synthetic public paragraph for local intake.", encoding="utf-8")
+    page.locator("#fileTarget").select_option("oldText")
+    page.locator("#file").set_input_files(str(fixture))
+    expect(page.locator("#fileStatus")).to_contain_text("read locally", timeout=10000)
+    expect(page.locator("#oldText")).to_have_value("Synthetic public paragraph for local intake.")
+    page.locator("#clearFile").click()
+    expect(page.locator("#file")).to_have_value("")
+
+    page.locator("#reset").click()
+    expect(page.locator("#report")).to_be_hidden()
+    expect(page.locator("#empty")).to_be_visible()
+    expect(page.locator("#oldText")).to_have_value("")
+    expect(page.locator("#newText")).to_have_value("")
+    assert page.locator(".checklist input:checked").count() == 0
+
+
+def test_alfiq_services_scope_contact_and_brand_assets(page: Page):
+    """Verify the public services route, scope anchors, and both logo assets."""
+    page.set_viewport_size({"width": 390, "height": 844})
+    open_tool(page, "/alfiq/services/", "AlfiQ Regulatory Change Impact Review")
+
+    expect(page.locator("#scope")).to_be_visible()
+    expect(page.get_by_role("link", name=re.compile("Request a pilot discussion", re.I))).to_have_attribute(
+        "href", re.compile(r"^mailto:regtechnexusai@gmail.com")
+    )
+    expect(page.locator(".alfiq-premium-footer a[href='/privacy.html']")).to_be_visible()
+    expect(page.locator(".alfiq-premium-footer a[href='/terms.html']")).to_be_visible()
+    expect(page.locator(".alfiq-premium-footer a[href='/alfiq/']")).to_be_visible()
+
+    header_logo = page.locator("body > header .brand-logo")
+    footer_logo = page.locator(".alfiq-premium-footer img")
+    expect(header_logo).to_be_visible(timeout=15000)
+    expect(footer_logo).to_be_visible()
+    expect(header_logo).to_have_attribute("src", re.compile(r"/alfiq/alfiq-logo-photo2\\.jpg$"))
+    expect(footer_logo).to_have_attribute("src", re.compile(r"/alfiq/alfiq-logo-photo2\\.jpg$"))
+    assert header_logo.evaluate("(img) => img.complete && img.naturalWidth > 0"), "AlfiQ header logo did not decode."
+    assert footer_logo.evaluate("(img) => img.complete && img.naturalWidth > 0"), "AlfiQ footer logo did not decode."
+
+    footer_width = footer_logo.evaluate("(img) => img.getBoundingClientRect().width")
+    assert footer_width <= 190, f"Mobile footer logo exceeds the approved width: {footer_width}px"
+
+    # Confirm the pilot scope CTA navigates to the actual scope section.
+    page.get_by_role("link", name=re.compile("View pilot scope", re.I)).click()
+    expect(page).to_have_url(re.compile(r"/alfiq/services/#scope$"))
+    expect(page.locator("#scope")).to_be_in_viewport()
