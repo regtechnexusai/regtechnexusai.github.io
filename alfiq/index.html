@@ -120,6 +120,17 @@ body > footer.alfiq-footer p{margin:0;color:#dceaf3;font-size:.9rem}
  body > footer.alfiq-footer .alfiq-footer-brand{justify-content:center!important}
  body > footer.alfiq-footer img{width:165px!important}
 }
+
+/* AlfiQ connected workflow: page-local navigation only; no cross-tool data transfer. */
+.alfiq-workflow{margin-top:26px}.alfiq-workflow-intro{max-width:850px;color:var(--muted)}
+.alfiq-workflow-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
+.alfiq-workflow-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:17px;min-width:0}
+.alfiq-workflow-card h3{margin:0 0 6px;color:var(--navy);font-size:1.05rem}
+.alfiq-workflow-card p{margin:0 0 10px;color:var(--muted);font-size:.94rem}
+.alfiq-workflow-card a{font-weight:750;color:var(--blue);text-decoration-thickness:1px;text-underline-offset:3px}
+.alfiq-workflow-note{margin-top:14px;padding:14px 16px;border-left:4px solid var(--teal);background:#edf7f6;border-radius:8px;color:#234b4c;font-size:.92rem}
+@media(max-width:720px){.alfiq-workflow-grid{grid-template-columns:1fr}}
+
 </style></head><body><header class="nav rt-shell-header alfiq-brand-shell" aria-label="AlfiQ page header"><a class="brand rt-shell-brand alfiq-logo-link" href="/alfiq/" aria-label="AlfiQ home"><svg class="alfiq-inline-logo alfiq-logo-header" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 220" role="img" aria-labelledby="alfiqHeader-title alfiqHeader-desc">
 <title id="alfiqHeader-title">AlfiQ</title><desc id="alfiqHeader-desc">AlfiQ wordmark in navy, electric blue, teal and green, with a split i, globe dot and pixelated AI-inspired Q.</desc>
 <defs>
@@ -151,6 +162,21 @@ body > footer.alfiq-footer p{margin:0;color:#dceaf3;font-size:.9rem}
 </svg></a></header><main class="wrap">
 <section class="hero alfiq-hero"><div class="eyebrow">RegTech Nexus AI · Product Lab</div><h1>AlfiQ</h1><p><strong>Intelligence Beyond Rules.</strong> A regulatory change analysis workspace to compare document versions, surface potential obligation signals and organise a human-reviewed impact assessment.</p><span class="tag">Early prototype · Rule-based · Human review required</span></section>
 <section class="commercial-cta" aria-label="AlfiQ services"><div><strong>Need a structured regulatory change review?</strong><span>Explore our international pilot service, scope and deliverables.</span></div><a href="/alfiq/services/">Explore AlfiQ services</a></section>
+
+<section class="section alfiq-workflow" aria-labelledby="connected-workflow-title">
+<h2 id="connected-workflow-title">Connected regulatory workflow</h2>
+<p class="alfiq-workflow-intro">AlfiQ is the regulatory-change triage workspace. Use the existing RegTech Nexus AI tools for their distinct review stages; open each tool separately and transfer only non-sensitive, reviewer-approved information manually.</p>
+<div class="alfiq-workflow-grid">
+<article class="alfiq-workflow-card"><h3>1. Verify the regulatory source</h3><p>Check the issuing authority, instrument status, publication and effective dates, and source references before relying on a change signal.</p><a href="/regulatory-source-register/">Open Regulatory Source Register</a></article>
+<article class="alfiq-workflow-card"><h3>2. Compare and triage the change</h3><p>Use AlfiQ to compare text versions, record potential signals and organise human review. Its current prototype does not authenticate sources or determine legal applicability.</p><a href="/alfiq/">Use AlfiQ workspace</a></article>
+<article class="alfiq-workflow-card"><h3>3. Map policy and control gaps</h3><p>Use the browser-local Policy Gap Analyzer to identify policy-to-control review signals and prepare an evidence-gap action plan.</p><a href="/regulatory-gap-analyzer/">Open Policy Gap Analyzer</a></article>
+<article class="alfiq-workflow-card"><h3>4. Assess governance and remediation</h3><p>Use ICMS for broader internal-control governance, ownership, evidence review and corrective-action follow-up. This is a separate toolkit.</p><a href="/icms-2026/">Open ICMS Toolkit</a></article>
+<article class="alfiq-workflow-card"><h3>5. Explain, challenge and review</h3><p>Use the Explainable AI and Agentic AI Governance guidance to structure rationale, human challenge, approval gates and monitoring expectations.</p><a href="/explainable-ai.html">Explainable AI</a> · <a href="/agentic-ai-governance.html">Agentic AI Governance</a></article>
+<article class="alfiq-workflow-card"><h3>6. Check tool scope and trust disclosures</h3><p>Review each tool’s stated capabilities, limitations, evidence expectations and responsible-use disclosures before institutional use.</p><a href="/tool-assurance/">Tool Assurance Register</a> · <a href="/trust/">Trust &amp; Verification Centre</a></article>
+</div>
+<div class="alfiq-workflow-note"><strong>Integration status:</strong> These are linked, standalone pages—not a connected software pipeline. No automatic data transfer, shared case record, API integration or background regulatory monitoring is enabled by this navigation. Human verification and approval remain mandatory. Use public or synthetic information only in the public prototype.</div>
+</section>
+
 <div class="notice"><strong>Important limitation:</strong> This prototype runs in your browser. It does not verify regulatory sources, provide legal advice, make compliance determinations or use a live AI model. Use public documents or synthetic examples only. Do not enter confidential banking, customer, KYC or transaction data.</div>
 <section class="section"><h2>1. Compare regulatory text</h2><p class="muted">Paste relevant extracts from the earlier and newer documents. Add source details and page/paragraph references in the notes.</p>
 <div class="grid"><div class="panel"><label for="oldText">Earlier / existing requirement</label><textarea id="oldText" placeholder="Paste earlier regulatory text..."></textarea></div><div class="panel"><label for="newText">New / revised requirement</label><textarea id="newText" placeholder="Paste newer regulatory text..."></textarea></div></div>
