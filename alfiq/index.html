@@ -89,20 +89,15 @@ body:not(.homepage-redesign) .rt-back-home{z-index:1100!important}
 
 
 
-/* Inline AlfiQ wordmarks: avoid external SVG loading/MIME/cache dependencies.
-   Separate contrast variants keep the mark visible on the white header and navy footer. */
+/* Inline the approved AlfiQ artwork so the mark does not depend on external image loading. */
 body > header.alfiq-brand-shell .alfiq-logo-link,
-body > footer.alfiq-footer .alfiq-logo-link{display:inline-flex!important;align-items:center!important;flex:0 0 auto!important;min-width:0!important;text-decoration:none!important}
-body > header.alfiq-brand-shell .alfiq-inline-logo,
-body > footer.alfiq-footer .alfiq-inline-logo{display:block!important;width:190px!important;height:56px!important;max-width:min(46vw,190px)!important;max-height:56px!important;overflow:visible!important;opacity:1!important;visibility:visible!important}
-body > header.alfiq-brand-shell .alfiq-logo-header{display:block!important;width:190px!important;height:auto!important;max-width:min(46vw,190px)!important;max-height:60px!important}
-body > footer.alfiq-footer .alfiq-logo-footer{display:block!important;width:190px!important;height:auto!important;max-width:100%!important;max-height:58px!important}
-body > footer.alfiq-footer .alfiq-footer-logo-backing{display:inline-flex!important;align-items:center!important;justify-content:center!important;background:#fff!important;padding:5px 10px!important;border-radius:10px!important;box-shadow:0 2px 10px rgba(0,0,0,.12)!important}
+body > footer.alfiq-footer .alfiq-logo-link{display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:0 0 auto!important;min-width:0!important;text-decoration:none!important}
+body > header.alfiq-brand-shell .alfiq-logo-header{display:block!important;width:190px!important;height:auto!important;max-width:min(46vw,190px)!important;max-height:60px!important;overflow:visible!important;visibility:visible!important;opacity:1!important}
+body > footer.alfiq-footer .alfiq-logo-footer{display:block!important;width:190px!important;height:auto!important;max-width:100%!important;max-height:58px!important;overflow:visible!important;visibility:visible!important;opacity:1!important}
+body > footer.alfiq-footer .alfiq-footer-logo-backing{background:#fff!important;padding:5px 10px!important;border-radius:10px!important;box-shadow:0 2px 10px rgba(0,0,0,.12)!important}
 @media(max-width:720px){
  body > header.alfiq-brand-shell .alfiq-logo-header{width:155px!important;max-width:calc(100vw - 100px)!important}
  body > footer.alfiq-footer .alfiq-logo-footer{width:175px!important}
-}
- body > footer.alfiq-footer .alfiq-inline-logo{width:165px!important;height:50px!important;max-width:100%!important}
 }
 /* AlfiQ-only brand header/footer; shared site shell behaviour remains intact. */
 body > header.alfiq-brand-shell{display:flex!important;align-items:center!important;min-height:78px!important;padding:8px clamp(14px,3vw,32px)!important}
