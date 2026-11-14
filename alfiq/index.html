@@ -89,15 +89,20 @@ body:not(.homepage-redesign) .rt-back-home{z-index:1100!important}
 
 
 
-/* Inline the approved AlfiQ artwork so the mark does not depend on external image loading. */
-body > header.alfiq-brand-shell .alfiq-logo-link,
-body > footer.alfiq-footer .alfiq-logo-link{display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:0 0 auto!important;min-width:0!important;text-decoration:none!important}
-body > header.alfiq-brand-shell .alfiq-logo-header{display:block!important;width:190px!important;height:auto!important;max-width:min(46vw,190px)!important;max-height:60px!important;overflow:visible!important;visibility:visible!important;opacity:1!important}
-body > footer.alfiq-footer .alfiq-logo-footer{display:block!important;width:190px!important;height:auto!important;max-width:100%!important;max-height:58px!important;overflow:visible!important;visibility:visible!important;opacity:1!important}
-body > footer.alfiq-footer .alfiq-footer-logo-backing{background:#fff!important;padding:5px 10px!important;border-radius:10px!important;box-shadow:0 2px 10px rgba(0,0,0,.12)!important}
+/* AlfiQ page-only brand presentation: use the supplied final logo image. */
+body > header.rt-shell-header .brand.rt-shell-brand,
+body > header.rt-shell-header .brand{display:inline-flex!important;align-items:center!important;flex:0 0 auto!important;min-width:0!important}
+body > header.rt-shell-header .alfiq-brand-logo{display:block!important;width:190px!important;height:auto!important;max-width:min(48vw,190px)!important;max-height:64px!important;object-fit:contain!important}
+body > footer.alfiq-footer .alfiq-logo-link{display:inline-flex!important;align-items:center!important;justify-content:center!important;text-decoration:none!important}
+body > footer.alfiq-footer .alfiq-footer-logo-backing{background:#fff!important;padding:7px 12px!important;border-radius:12px!important;box-shadow:0 2px 10px rgba(0,0,0,.12)!important}
+body > footer.alfiq-footer .alfiq-brand-logo{display:block!important;width:210px!important;height:auto!important;max-width:100%!important;max-height:76px!important;object-fit:contain!important}
+body > footer.alfiq-footer .alfiq-attribution{margin:16px 0 0!important;color:#d8e7f2!important;font-size:14px!important;text-align:center!important}
+body > footer.alfiq-footer .alfiq-human-review{margin:10px 0 0!important;color:#c3d3df!important;font-size:13px!important;text-align:center!important}
+body .rt-back-home{z-index:1100!important}
 @media(max-width:720px){
- body > header.alfiq-brand-shell .alfiq-logo-header{width:155px!important;max-width:calc(100vw - 100px)!important}
- body > footer.alfiq-footer .alfiq-logo-footer{width:175px!important}
+ body > header.rt-shell-header .alfiq-brand-logo{width:155px!important;max-width:calc(100vw - 100px)!important;max-height:58px!important}
+ body > footer.alfiq-footer .alfiq-brand-logo{width:190px!important}
+ body > footer.alfiq-footer .alfiq-attribution{font-size:13px!important}
 }
 /* AlfiQ-only brand header/footer; shared site shell behaviour remains intact. */
 body > header.alfiq-brand-shell{display:flex!important;align-items:center!important;min-height:78px!important;padding:8px clamp(14px,3vw,32px)!important}
@@ -158,36 +163,8 @@ body > footer.alfiq-footer p{margin:0;color:#dceaf3;font-size:.9rem}
 <section class="section"><h2>4. Product contact</h2><div class="panel"><p>Product enquiries and pilot discussions:</p><strong><a href="mailto:regtechnexusai@gmail.com">regtechnexusai@gmail.com</a></strong><p class="small muted">Published by RegTech Nexus AI. AlfiQ is an early-stage decision-support prototype. Outputs require independent verification and professional judgement.</p></div></section>
 <p class="foot">AlfiQ · Regulatory Change Impact Agent · Prototype 0.1. No automated regulatory monitoring, source authentication, live AI inference, customer accounts, payment processing or subscriptions are enabled.</p></main>
 <footer class="rt-shell-footer alfiq-footer" aria-label="AlfiQ page footer">
- <div class="alfiq-footer-brand"><a class="alfiq-logo-link alfiq-footer-logo-backing" href="/alfiq/" aria-label="AlfiQ home"><svg class="alfiq-inline-logo alfiq-logo-footer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 220" role="img" aria-labelledby="alfiqFooter-title alfiqFooter-desc">
-<title id="alfiqFooter-title">AlfiQ</title><desc id="alfiqFooter-desc">AlfiQ wordmark in navy, electric blue, teal and green, with a split i, globe dot and pixelated AI-inspired Q.</desc>
-<defs>
- <linearGradient id="alfiqFooter-navy" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1267c9"/><stop offset=".48" stop-color="#082d69"/><stop offset="1" stop-color="#061d49"/></linearGradient>
- <linearGradient id="alfiqFooter-blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#00d8ee"/><stop offset=".55" stop-color="#0876e8"/><stop offset="1" stop-color="#142dce"/></linearGradient>
- <linearGradient id="alfiqFooter-green" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#00e0a0"/><stop offset=".5" stop-color="#20c96a"/><stop offset="1" stop-color="#087e70"/></linearGradient>
- <linearGradient id="alfiqFooter-qgrad" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#00d6dc"/><stop offset=".48" stop-color="#19c77a"/><stop offset="1" stop-color="#075d87"/></linearGradient>
- <radialGradient id="alfiqFooter-orb" cx=".3" cy=".22" r=".8"><stop stop-color="#65ffe0"/><stop offset=".38" stop-color="#05aeea"/><stop offset="1" stop-color="#153ac8"/></radialGradient>
-</defs>
-<g font-family="Arial,Helvetica,sans-serif" font-weight="800" letter-spacing="-10">
- <text x="12" y="165" font-size="166" fill="url(#alfiqFooter-navy)">alf</text>
-</g>
-<!-- A single-width, dual-colour i stem: the two strokes meet as one letter. -->
-<path d="M315 91 Q315 82 325 82 H338 V165 H309 Z" fill="url(#alfiqFooter-blue)"/>
-<path d="M339 82 H354 Q362 82 362 91 V165 H339 Z" fill="url(#alfiqFooter-green)"/>
-<!-- Glossy globe dot for the merged i. -->
-<circle cx="337" cy="43" r="29" fill="url(#alfiqFooter-orb)"/>
-<path d="M311 43 Q337 64 363 36" fill="none" stroke="#eaffff" stroke-width="5" stroke-linecap="round"/>
-<circle cx="326" cy="29" r="5" fill="#fff" opacity=".7"/>
-<!-- Geometric Q: squared AI-era silhouette with a cut-out and pixelated tail. -->
-<path fill="url(#alfiqFooter-qgrad)" fill-rule="evenodd" d="M431 36 H615 Q659 36 659 80 V125 Q659 169 615 169 H476 Q432 169 432 125 V80 Q432 36 476 36 Z M474 67 Q462 67 462 80 V125 Q462 139 476 139 H615 Q629 139 629 125 V80 Q629 67 615 67 Z"/>
-<path d="M565 125 L624 183 L652 183 L592 125 Z" fill="url(#alfiqFooter-blue)"/>
-<!-- Pixel/data trail at the lower-right tail only. -->
-<g fill="url(#alfiqFooter-green)">
- <rect x="625" y="146" width="13" height="13" rx="1"/><rect x="644" y="154" width="11" height="11" rx="1"/>
- <rect x="663" y="163" width="9" height="9" rx="1"/><rect x="635" y="168" width="10" height="10" rx="1"/>
- <rect x="653" y="181" width="8" height="8" rx="1"/><rect x="674" y="183" width="7" height="7" rx="1"/>
-</g>
-</svg></a><p>Intelligence Beyond Rules. · A product of RegTech Nexus AI</p></div>
- <p>Regulatory Change Impact Agent · Human review required</p>
+ <div class="alfiq-footer-brand"><a class="alfiq-logo-link alfiq-footer-logo-backing" href="/alfiq/" aria-label="AlfiQ home"><img class="alfiq-brand-logo alfiq-logo-footer" src="/alfiq/alfiq-logo-photo2.jpg" alt="AlfiQ" width="420" height="146"></a><p class="alfiq-attribution">Designed and Developed by RegTech Nexus AI</p></div>
+ <p class="alfiq-human-review">Regulatory Change Impact Agent · Human review required</p>
 </footer>
 <script>
 (function(){
@@ -233,4 +210,30 @@ $("clearFile").addEventListener("click",function(){cancelPendingFileRead();$("fi
 function validateLocalTextFile(file,buffer){var type=(file.type||"").toLowerCase();if(type==="application/pdf"||type.indexOf("image/")===0||type.indexOf("audio/")===0||type.indexOf("video/")===0||type==="application/zip"||type==="application/x-zip-compressed"||type==="application/gzip"||type==="application/x-7z-compressed"||type==="application/x-rar-compressed"||type==="application/msword"||type==="application/vnd.openxmlformats-officedocument.wordprocessingml.document"){return "Unsupported file content type. Select a plain-text .txt, .md or .csv file.";}var bytes=new Uint8Array(buffer),header="",limit=Math.min(bytes.length,1024),controls=0;if(bytes.some(function(b){return b===0;})){return "The selected file appears to contain binary data. Choose a plain-text file.";}for(var i=0;i<limit;i++)header+=String.fromCharCode(bytes[i]);if(header.indexOf("%PDF-")!==-1){return "PDF content is not supported, even if the filename ends in .txt, .md or .csv.";}for(var j=0;j<bytes.length;j++){var b=bytes[j];if((b<32&&b!==9&&b!==10&&b!==12&&b!==13))controls++;}if(controls>Math.max(1,Math.floor(bytes.length*0.01))){return "The selected file appears to contain binary data. Choose a plain-text file.";}return "";}
 $("file").addEventListener("change",function(e){cancelPendingFileRead();var f=e.target.files&&e.target.files[0];if(!f)return;var name=f.name||"",ext=(name.split(".").pop()||"").toLowerCase(),allowed={txt:true,md:true,csv:true};if(!Object.prototype.hasOwnProperty.call(allowed,ext)){$("file").value="";$("fileStatus").textContent="Unsupported file type. Select a .txt, .md or .csv file.";return;}if(f.size>2*1024*1024){$("file").value="";$("fileStatus").textContent="File exceeds the 2 MB limit. Select a smaller public text file.";return;}if(f.size===0){$("file").value="";$("fileStatus").textContent="The selected file is empty. Choose a non-empty text file.";return;}var target=$("fileTarget").value,token=fileReadToken,reader=new FileReader();activeReader=reader;reader.onload=function(){if(token!==fileReadToken||$("file").files[0]!==f)return;activeReader=null;var problem=validateLocalTextFile(f,reader.result);if(problem){$("file").value="";$("fileStatus").textContent=problem;return;}try{var decoded=new TextDecoder("utf-8",{fatal:true}).decode(reader.result);$(target).value=decoded;$("fileStatus").textContent=f.name+" read locally into "+(target==="oldText"?"earlier":"newer")+" text field. Maximum file size: 2 MB.";}catch(err){$("file").value="";$("fileStatus").textContent="The selected file is not valid UTF-8 text. Save it as UTF-8 and try again.";}};reader.onerror=function(){if(token!==fileReadToken)return;activeReader=null;$("fileStatus").textContent="Could not read selected file.";};reader.onabort=function(){if(token===fileReadToken){activeReader=null;$("fileStatus").textContent="File reading was cancelled.";}};reader.readAsArrayBuffer(f);});
 })();
+</script>
+<script>
+/* AlfiQ-only shell branding. Replace the shared header logo with the standalone AlfiQ mark. */
+window.addEventListener("load",function(){
+  var header=document.querySelector("body > header.rt-shell-header");
+  if(header){
+    var brand=header.querySelector("a.brand");
+    if(brand){
+      brand.href="/alfiq/";
+      brand.setAttribute("aria-label","AlfiQ home");
+      brand.innerHTML='<img class="brand-logo alfiq-brand-logo" src="/alfiq/alfiq-logo-photo2.jpg" alt="AlfiQ" width="420" height="146">';
+    }
+  }
+  var footer=document.querySelector("body > footer.alfiq-footer");
+  if(footer){
+    var attribution=footer.querySelector(".alfiq-attribution");
+    if(attribution) attribution.textContent="Designed and Developed by RegTech Nexus AI";
+  }
+  var back=document.querySelector("body > .rt-back-home");
+  if(back){
+    back.href="/";
+    back.setAttribute("aria-label","Back to Homepage");
+    var label=back.querySelector("span:last-child");
+    if(label) label.textContent="Back to Homepage";
+  }
+},{once:true});
 </script><script src="/site-wide-shell.js?v=20261107-alfiq-02" defer></script></body></html>
