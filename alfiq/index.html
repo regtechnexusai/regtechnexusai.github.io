@@ -87,7 +87,22 @@ body:not(.homepage-redesign) .rt-back-home{z-index:1100!important}
   body:not(.homepage-redesign) .rt-back-home{display:none!important}
 }
 
-</style></head><body><main class="wrap">
+
+/* AlfiQ-only brand header/footer; shared site shell behaviour remains intact. */
+body > header.alfiq-brand-shell{display:flex!important;align-items:center!important;min-height:78px!important;padding:8px clamp(14px,3vw,32px)!important}
+body > header.alfiq-brand-shell .brand-logo{display:block!important;width:190px!important;height:auto!important;max-height:64px!important;object-fit:contain!important}
+body > footer.alfiq-footer{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:22px!important;flex-wrap:wrap!important;padding:24px clamp(16px,4vw,40px)!important}
+body > footer.alfiq-footer .alfiq-footer-brand{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+body > footer.alfiq-footer img{display:block;width:190px;height:auto;max-height:58px;object-fit:contain}
+body > footer.alfiq-footer p{margin:0;color:#dceaf3;font-size:.9rem}
+@media(max-width:720px){
+ body > header.alfiq-brand-shell{min-height:68px!important}
+ body > header.alfiq-brand-shell .brand-logo{width:150px!important;max-height:52px!important}
+ body > footer.alfiq-footer{justify-content:center!important;text-align:center!important}
+ body > footer.alfiq-footer .alfiq-footer-brand{justify-content:center!important}
+ body > footer.alfiq-footer img{width:165px!important}
+}
+</style></head><body><header class="nav rt-shell-header alfiq-brand-shell" aria-label="AlfiQ page header"><a class="brand rt-shell-brand" href="/alfiq/" aria-label="AlfiQ home"><img class="brand-logo" src="/alfiq/alfiq-final.svg" alt="AlfiQ" width="190" height="56"></a></header><main class="wrap">
 <section class="hero alfiq-hero"><div class="eyebrow">RegTech Nexus AI · Product Lab</div><h1>AlfiQ</h1><p><strong>Intelligence Beyond Rules.</strong> A regulatory change analysis workspace to compare document versions, surface potential obligation signals and organise a human-reviewed impact assessment.</p><span class="tag">Early prototype · Rule-based · Human review required</span></section>
 <section class="commercial-cta" aria-label="AlfiQ services"><div><strong>Need a structured regulatory change review?</strong><span>Explore our international pilot service, scope and deliverables.</span></div><a href="/alfiq/services/">Explore AlfiQ services</a></section>
 <div class="notice"><strong>Important limitation:</strong> This prototype runs in your browser. It does not verify regulatory sources, provide legal advice, make compliance determinations or use a live AI model. Use public documents or synthetic examples only. Do not enter confidential banking, customer, KYC or transaction data.</div>
@@ -103,6 +118,10 @@ body:not(.homepage-redesign) .rt-back-home{z-index:1100!important}
 <section class="section" id="intake"><h2>3. Local document intake</h2><div class="panel"><label for="file">Select a public text file (.txt, .md or .csv)</label><div class="file-picker-row"><input id="file" type="file" accept=".txt,.md,.csv,text/plain,text/markdown,text/csv"><button class="secondary" id="clearFile" type="button" aria-label="Clear selected file and allow reselection">Clear / refresh</button></div><label for="fileTarget">Load selected file into</label><select id="fileTarget"><option value="oldText">Earlier / existing requirement</option><option value="newText">New / revised requirement</option></select><p class="small muted">The selected file is read in this browser session only; it is not uploaded to a server. PDF/OCR extraction is not included. Clear / refresh removes the file selection; text already copied into the comparison fields remains until you clear the workspace.</p><p id="fileStatus" class="small muted" aria-live="polite"></p></div></section>
 <section class="section"><h2>4. Product contact</h2><div class="panel"><p>Product enquiries and pilot discussions:</p><strong><a href="mailto:regtechnexusai@gmail.com">regtechnexusai@gmail.com</a></strong><p class="small muted">Published by RegTech Nexus AI. AlfiQ is an early-stage decision-support prototype. Outputs require independent verification and professional judgement.</p></div></section>
 <p class="foot">AlfiQ · Regulatory Change Impact Agent · Prototype 0.1. No automated regulatory monitoring, source authentication, live AI inference, customer accounts, payment processing or subscriptions are enabled.</p></main>
+<footer class="rt-shell-footer alfiq-footer" aria-label="AlfiQ page footer">
+ <div class="alfiq-footer-brand"><a href="/alfiq/" aria-label="AlfiQ home"><img src="/alfiq/alfiq-final.svg" alt="AlfiQ" width="190" height="56"></a><p>Intelligence Beyond Rules. · A product of RegTech Nexus AI</p></div>
+ <p>Regulatory Change Impact Agent · Human review required</p>
+</footer>
 <script>
 (function(){
 "use strict";
