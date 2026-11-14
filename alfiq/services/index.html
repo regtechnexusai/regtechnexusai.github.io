@@ -24,8 +24,10 @@ body:has(.wrap > .hero) .rt-back-home{position:static;right:auto;bottom:auto;z-i
 /* Premium AlfiQ Services footer — page scoped */
 .alfiq-premium-footer{margin-top:30px;padding:30px clamp(20px,4vw,38px) 20px;border-radius:0 0 18px 18px;background:linear-gradient(135deg,#071f36 0%,#0b3552 55%,#07566a 100%);color:#edf7fb;box-shadow:0 16px 36px rgba(7,31,54,.18);border-top:4px solid transparent;border-image:linear-gradient(90deg,#9be8dc,#1ba7bd,#64d8c6) 1}
 .alfiq-footer-top{display:flex;align-items:center;gap:14px}
-.alfiq-footer-brand{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;padding:7px;border-radius:13px;background:#fff;box-shadow:0 5px 14px rgba(0,0,0,.16)}
-.alfiq-footer-brand img{display:block;width:100%;height:100%;object-fit:contain}
+.alfiq-footer-brand{display:inline-flex;align-items:center;justify-content:flex-start;width:min(100%,260px);padding:0;border-radius:0;background:transparent;box-shadow:none}
+.alfiq-footer-brand img{display:block;width:100%;height:auto;object-fit:contain}
+body:has(.wrap > .hero) > header .brand-logo{width:clamp(180px,28vw,250px);height:auto;max-height:76px;object-fit:contain}
+@media(max-width:560px){body:has(.wrap > .hero) > header .brand-logo{width:min(62vw,220px);max-height:64px}}
 .alfiq-footer-brand-copy{display:flex;flex-direction:column;gap:2px}
 .alfiq-footer-product{font-size:1.42rem;line-height:1.1;font-weight:850;letter-spacing:.015em;color:#fff}
 .alfiq-footer-tagline{font-size:.68rem;font-weight:800;letter-spacing:.15em;color:#a9e8e2}
@@ -58,7 +60,7 @@ body:has(.wrap > .hero) .rt-back-home{position:static;right:auto;bottom:auto;z-i
 <footer class="alfiq-premium-footer" aria-label="AlfiQ and RegTech Nexus AI footer">
   <div class="alfiq-footer-top">
     <a class="alfiq-footer-brand" href="https://regtechnexusai.com/" aria-label="RegTech Nexus AI homepage">
-      <img src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" loading="lazy">
+      <img src="/assets/alfiq-logo-2026.jpg" alt="AlfiQ" loading="lazy">
     </a>
     <div class="alfiq-footer-brand-copy">
       <span class="alfiq-footer-product">AlfiQ</span>
@@ -73,8 +75,8 @@ body:has(.wrap > .hero) .rt-back-home{position:static;right:auto;bottom:auto;z-i
   </div>
   <div class="alfiq-footer-links">
     <div><h3>Explore</h3><a href="/alfiq/">AlfiQ Workspace</a><a href="/alfiq/services/#scope">Pilot Services</a><a href="https://regtechnexusai.com/">RegTech Nexus AI</a></div>
-    <div><h3>Information</h3><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/terms.html">Terms of Use</a></div>
+    <div><h3>Information</h3><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms of Use</a></div>
   </div>
   <div class="alfiq-footer-bottom"><span>© RegTech Nexus AI</span><span>Designed for accountable human review</span></div>
 </footer>
-</main><script src="/site-wide-shell.js?v=20261107-alfiq-commercial" defer></script></body></html>
+</main><script src="/site-wide-shell.js?v=20261107-alfiq-commercial" defer></script><script>document.addEventListener("DOMContentLoaded",function(){var logo=document.querySelector("body > header .brand-logo");if(logo){logo.src="/assets/alfiq-logo-2026.jpg";logo.alt="AlfiQ";logo.removeAttribute("width");logo.removeAttribute("height");}});</script></body></html>
