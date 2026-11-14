@@ -7,7 +7,7 @@ import argparse, datetime, json, re, sys
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 ROOT=Path(__file__).resolve().parents[2]
-CRITICAL=["index.html","creations/index.html","tool-assurance/index.html","regulatory-source-register/index.html","bank-use-review.html","regulatory-gap-analyzer/index.html","icms-2026/index.html","international-regulatory-calculators.html","payscale-2026/index.html","md-ceo-performance-calculator/index.html","explainable-ai.html","derivatives/index.html","engagement-policy/index.html","trust/index.html","vendor-due-diligence/index.html"]
+CRITICAL=["index.html","alfiq/index.html","alfiq/services/index.html","creations/index.html","tool-assurance/index.html","regulatory-source-register/index.html","bank-use-review.html","regulatory-gap-analyzer/index.html","icms-2026/index.html","international-regulatory-calculators.html","payscale-2026/index.html","md-ceo-performance-calculator/index.html","explainable-ai.html","derivatives/index.html","engagement-policy/index.html","trust/index.html","vendor-due-diligence/index.html"]
 class Parser(HTMLParser):
  def __init__(self):
   super().__init__(convert_charrefs=True); self.ids=[]; self.links=[]; self.in_title=False; self.title_text=False
