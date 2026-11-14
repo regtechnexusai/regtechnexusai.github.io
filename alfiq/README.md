@@ -18,7 +18,9 @@ An additive, browser-only prototype under /alfiq/ for comparing earlier and newe
 
 ## Controlled integration design
 
-See [AlfiQ Controlled Integration Design — Phase 3](../docs/alfiq-controlled-integration-design-phase3.md). This is a design specification only; no cross-tool API or automatic data transfer is active.\n\n## Production requirements
+See [AlfiQ Controlled Integration Design — Phase 3](../docs/alfiq-controlled-integration-design-phase3.md). This is a design specification only; no cross-tool API or automatic data transfer is active.
+
+## Production requirements
 1. Secure backend and server-side AI provider credentials; never expose API keys in frontend code.
 2. Authentication, role-based access, tenant isolation and secure document storage.
 3. Document parsing with page/paragraph provenance and source/version tracking.
