@@ -7,6 +7,43 @@
 <link rel="canonical" href="https://regtechnexusai.com/tool-assurance/"><meta name="robots" content="index,follow"><meta name="theme-color" content="#0956a8"><link rel="icon" href="/regtech-nexus-ai-logo-2026.png"><link rel="stylesheet" href="/styles.css?v=20261015-homepage-polish2">
 <style>
 .assurance-page{max-width:1160px;margin:0 auto;padding:clamp(18px,4vw,42px) 18px 60px;color:#172033}.assurance-hero{padding:clamp(24px,5vw,48px);border:1px solid #d5e4f4;border-radius:22px;background:linear-gradient(125deg,#edf6ff,#f9fbff 58%,#eaf8f3)}.assurance-kicker{font-size:.78rem;letter-spacing:.12em;font-weight:800;color:#1559a5;text-transform:uppercase}.assurance-hero h1{max-width:900px;font-size:clamp(2rem,5vw,3.35rem);line-height:1.08;letter-spacing:-.035em;margin:.65rem 0 1rem}.assurance-page p,.assurance-page li{line-height:1.7}.assurance-section{margin-top:32px}.assurance-section h2{font-size:clamp(1.4rem,3vw,2rem);margin-bottom:10px}.assurance-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:15px;margin-top:18px}.assurance-card{min-width:0;border:1px solid #dce5ef;border-radius:16px;background:#fff;padding:clamp(16px,2.5vw,22px);box-shadow:0 5px 20px #142c460c}.assurance-card h3{margin:.4rem 0 .65rem;font-size:1.15rem}.assurance-tag{display:inline-block;border-radius:999px;padding:5px 9px;background:#edf4ff;color:#174f91;font-size:.75rem;font-weight:800}.assurance-card dl{margin:14px 0 0}.assurance-card dt{font-weight:800;margin-top:12px}.assurance-card dd{margin:3px 0 0;line-height:1.6;color:#425268}.assurance-note{padding:15px 17px;border-left:4px solid #d29b2b;border-radius:8px;background:#fff9e9;line-height:1.7}.assurance-table-wrap{overflow-x:auto;border:1px solid #dce5ef;border-radius:12px}.assurance-table{width:100%;border-collapse:collapse;min-width:680px;background:#fff}.assurance-table th,.assurance-table td{padding:12px 14px;text-align:left;vertical-align:top;border-bottom:1px solid #e5ebf2;line-height:1.55}.assurance-table th{background:#f3f7fb;color:#173451}.assurance-table tr:last-child td{border-bottom:0}.assurance-page a{overflow-wrap:anywhere}.assurance-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.assurance-btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:11px 16px;border:1px solid #1458a6;border-radius:10px;background:#1458a6;color:#fff;text-decoration:none;font-weight:750}.assurance-btn.secondary{background:#fff;color:#1458a6;border-color:#b9cee3}.assurance-footer{margin-top:38px;padding-top:18px;border-top:1px solid #dce4ed;font-size:.9rem}header.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:12px 18px}header.nav nav{display:flex!important;flex-wrap:wrap;align-items:center;gap:8px 12px}header.nav nav a{font-size:.9rem}header.nav .brand{flex:0 0 auto}header.nav .brand-logo{display:block;width:clamp(145px,17vw,190px);height:auto;max-height:58px;object-fit:contain}@media(max-width:760px){header.nav{align-items:flex-start}header.nav nav{width:100%;gap:8px}header.nav nav a{display:inline-flex;padding:7px 9px;border-radius:8px;background:#f0f5fa;color:#173451;font-size:.84rem}.assurance-page{padding-left:14px;padding-right:14px}.assurance-hero{border-radius:16px}.assurance-actions .assurance-btn{width:100%}}
+
+/* Page-scoped glossy 3D action buttons */
+.assurance-page .assurance-actions .assurance-btn,
+.assurance-page .assurance-card > p > a{
+ position:relative;isolation:isolate;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+ min-height:48px;padding:12px 20px;border:1px solid rgba(255,255,255,.52);border-radius:13px;
+ background:linear-gradient(145deg,#4c9df0 0%,#1768c5 48%,#0b438f 100%);color:#fff!important;
+ font-weight:800;text-decoration:none!important;letter-spacing:.005em;
+ box-shadow:inset 0 2px 1px rgba(255,255,255,.48),inset 0 -3px 0 rgba(4,31,78,.28),0 5px 0 #0a3979,0 9px 16px rgba(15,66,126,.22);
+ text-shadow:0 1px 1px rgba(0,28,70,.28);transform:translateY(0);
+ transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;
+}
+.assurance-page .assurance-actions .assurance-btn::before,
+.assurance-page .assurance-card > p > a::before{
+ content:"";position:absolute;z-index:-1;left:5%;right:5%;top:2px;height:46%;border-radius:10px;
+ background:linear-gradient(180deg,rgba(255,255,255,.42),rgba(255,255,255,0));pointer-events:none;
+}
+.assurance-page .assurance-actions .assurance-btn:hover,
+.assurance-page .assurance-card > p > a:hover{
+ transform:translateY(-2px);filter:saturate(1.12) brightness(1.06);
+ box-shadow:inset 0 2px 1px rgba(255,255,255,.55),inset 0 -3px 0 rgba(4,31,78,.25),0 7px 0 #0a3979,0 13px 20px rgba(15,66,126,.25);
+}
+.assurance-page .assurance-actions .assurance-btn:active,
+.assurance-page .assurance-card > p > a:active{
+ transform:translateY(3px);box-shadow:inset 0 2px 4px rgba(0,0,0,.18),0 2px 0 #0a3979,0 4px 8px rgba(15,66,126,.18);
+}
+.assurance-page .assurance-actions .assurance-btn:focus-visible,
+.assurance-page .assurance-card > p > a:focus-visible{outline:3px solid #f2b84b;outline-offset:4px}
+.assurance-page .assurance-actions .assurance-btn.secondary{
+ background:linear-gradient(145deg,#42c9c0 0%,#078e9b 52%,#086477 100%);box-shadow:inset 0 2px 1px rgba(255,255,255,.52),inset 0 -3px 0 rgba(0,54,66,.25),0 5px 0 #075361,0 9px 16px rgba(8,103,119,.2);
+}
+.assurance-page .assurance-actions .assurance-btn.secondary:hover{box-shadow:inset 0 2px 1px rgba(255,255,255,.55),inset 0 -3px 0 rgba(0,54,66,.25),0 7px 0 #075361,0 13px 20px rgba(8,103,119,.24)}
+.assurance-page .assurance-card:nth-child(3n+2) > p > a{background:linear-gradient(145deg,#9c82f5,#6545c6 55%,#452d98);box-shadow:inset 0 2px 1px rgba(255,255,255,.5),inset 0 -3px 0 rgba(35,20,91,.28),0 5px 0 #39247f,0 9px 16px rgba(69,45,152,.2)}
+.assurance-page .assurance-card:nth-child(3n) > p > a{background:linear-gradient(145deg,#36c995,#0a946b 55%,#08704f);box-shadow:inset 0 2px 1px rgba(255,255,255,.5),inset 0 -3px 0 rgba(0,55,38,.28),0 5px 0 #075c43,0 9px 16px rgba(8,112,79,.2)}
+@media(max-width:760px){.assurance-page .assurance-card > p > a{width:100%;box-sizing:border-box;text-align:center}.assurance-page .assurance-actions .assurance-btn{min-height:50px}}
+@media(prefers-reduced-motion:reduce){.assurance-page .assurance-actions .assurance-btn,.assurance-page .assurance-card > p > a{transition:none}}
+
 </style></head>
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
