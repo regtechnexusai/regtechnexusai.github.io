@@ -37,6 +37,8 @@ jobs:
               Path("/tmp/alfiq-inline-%d.js" % index).write_text(script, encoding="utf-8")
           PY
           for script in /tmp/alfiq-inline-*.js; do node --check "$script"; done
+      - name: Run AlfiQ change-analysis smoke tests
+        run: node tests/alfiq-change-analysis.test.cjs
       - name: Upload regression report
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
