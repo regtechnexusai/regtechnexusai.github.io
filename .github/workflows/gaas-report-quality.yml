@@ -48,7 +48,7 @@ jobs:
               "FATF &amp; BASEL", "IFRS / IAS", "FinTech", "ICMS Manager",
               "ICMS Gap Analyzer", "TradeGuard", "MD/CEO Performance Evaluation",
               "No default country", "Verified", "Partially verified", "Research pending", "Not covered",
-              "GaaS integration not yet connected"
+              "No server storage or automatic tool transfer is enabled.", "Manual hand-off · no API"
           ]
           missing_html = [item for item in html_required if item not in html]
           assert not missing_html, f"Missing global product coverage: {missing_html}"
