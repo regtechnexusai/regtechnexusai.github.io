@@ -206,11 +206,14 @@ function esc(s){return s.replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":
 function list(id,items,empty){$(id).innerHTML=items.length?items.map(function(x){return '<div class="item">'+esc(x)+'</div>';}).join(""):'<p class="muted small">'+empty+'</p>';}
 function tokens(s){return (s.match(/[A-Za-z0-9]+(?:['’-][A-Za-z0-9]+)*/g)||[]);}
 function clauseDiff(oldP,newP){
- var a=tokens(oldP),b=tokens(newP),start=0;
- while(start<a.length&&start<b.length&&a[start].toLowerCase()===b[start].toLowerCase())start++;
- var endA=a.length,endB=b.length;
- while(endA>start&&endB>start&&a[endA-1].toLowerCase()===b[endB-1].toLowerCase()){endA--;endB--;}
- return {removed:a.slice(start,endA).join(" ")||"—",added:b.slice(start,endB).join(" ")||"—"};
+ var a=tokens(oldP),b=tokens(newP),n=a.length,m=b.length;
+ if(n>300||m>300){var s=0;while(s<n&&s<m&&a[s].toLowerCase()===b[s].toLowerCase())s++;var ea=n,eb=m;while(ea>s&&eb>s&&a[ea-1].toLowerCase()===b[eb-1].toLowerCase()){ea--;eb--;}return [{removed:a.slice(s,ea).join(" ")||"—",added:b.slice(s,eb).join(" ")||"—"}];}
+ var dp=Array(n+1);for(var x=0;x<=n;x++)dp[x]=new Uint16Array(m+1);
+ for(var x=n-1;x>=0;x--)for(var y=m-1;y>=0;y--)dp[x][y]=a[x].toLowerCase()===b[y].toLowerCase()?1+dp[x+1][y+1]:Math.max(dp[x+1][y],dp[x][y+1]);
+ var i=0,k=0,del=[],ins=[],hunks=[];
+ function flush(){if(del.length||ins.length){hunks.push({removed:del.join(" ")||"—",added:ins.join(" ")||"—"});del=[];ins=[];}}
+ while(i<n||k<m){if(i<n&&k<m&&a[i].toLowerCase()===b[k].toLowerCase()){flush();i++;k++;continue;}if(i<n&&(k===m||dp[i+1][k]>=dp[i][k+1]))del.push(a[i++]);else if(k<m)ins.push(b[k++]);}
+ flush();return hunks;
 }
 function similarity(a,b){
  var aa=new Set(tokens(a).map(function(x){return x.toLowerCase();})),bb=new Set(tokens(b).map(function(x){return x.toLowerCase();}));
@@ -223,7 +226,7 @@ function buildClauseChanges(added,removed){
   var best=-1,score=0;removed.forEach(function(o,i){if(used.has(i))return;var s=similarity(o,n);if(s>score){score=s;best=i;}});
   if(best>=0&&score>=.32){used.add(best);var d=clauseDiff(removed[best],n);pairs.push({old:removed[best],now:n,d:d,score:score});}
  });
- var out=pairs.map(function(p){return '<div class="item"><strong>Amended paragraph · candidate match</strong><p><span class="muted">Removed phrase:</span> <del>'+esc(p.d.removed)+'</del></p><p><span class="muted">Added phrase:</span> <ins>'+esc(p.d.added)+'</ins></p><p class="small muted">Paragraph similarity: '+Math.round(p.score*100)+'% (heuristic)</p></div>';});
+ var out=pairs.map(function(p){return '<div class="item"><strong>Amended paragraph · candidate match</strong>'+p.d.map(function(h){return '<p><span class="muted">Removed:</span> <del>'+esc(h.removed)+'</del></p><p><span class="muted">Added:</span> <ins>'+esc(h.added)+'</ins></p>';}).join("")+'<p class="small muted">Paragraph similarity: '+Math.round(p.score*100)+'% (heuristic)</p></div>';});
  if(added.length||removed.length){if(!pairs.length)out.push('<p class="muted small">No confident paragraph pair found. Review the added and removed paragraph lists separately.</p>');}
  else out.push('<p class="muted small">No paragraph changes identified.</p>');
  $("clauseChanges").innerHTML=out.join("");
@@ -284,7 +287,7 @@ var ar=[
 ],areas=[];ar.forEach(function(r){if(r[0].some(function(t){return corpus.indexOf(t)!==-1;}))areas.push(r[1]);});
 $("empty").hidden=true;$("report").hidden=false;$("addedN").textContent=added.length;$("removedN").textContent=removed.length;$("signalsN").textContent=signals.length;
 list("added",added,"No exact new paragraphs identified.");list("removed",removed,"No exact removed paragraphs identified.");var clausePairs=buildClauseChanges(added,removed);var obligationFields=obligationModel(added,$("meta").value);var impactRows=impactModel(added);list("signals",signals,"No configured keyword signals found. This does not mean there is no impact.");list("areas",areas,"No prompt identified; manual applicability assessment is required.");
-lastReport="ALFIQ — PRELIMINARY REGULATORY CHANGE REVIEW\nPrototype 0.2 | Rule-based phrase and obligation prompts | Human review required\n\nSOURCE NOTES\n"+($("meta").value.trim()||"Not supplied")+"\n\nCLAUSE-LEVEL CHANGES (HEURISTIC)\n"+(clausePairs.map(function(p){return "Removed phrase: "+p.d.removed+"\nAdded phrase: "+p.d.added;}).join("\n\n")||"No paired amendment identified; review added/removed paragraphs.")+"\n\nSTRUCTURED OBLIGATION SIGNALS\n"+obligationFields.map(function(x){return x[0]+": "+x[1];}).join("\n")+"\n\nPRELIMINARY IMPACT MATRIX\n"+impactRows.map(function(x){return x[0]+": "+(x[2]?"Review indicated by text":"Not indicated by configured terms")+" — "+x[1];}).join("\n")+"\n\nADDED PARAGRAPHS\n"+(added.join("\n\n")||"None identified")+"\n\nREMOVED PARAGRAPHS\n"+(removed.join("\n\n")||"None identified")+"\n\nPOTENTIAL SIGNALS\n"+(signals.join("\n")||"None identified")+"\n\nSUGGESTED BUSINESS AREAS\n"+(areas.join("\n")||"Manual assessment required")+"\n\nLIMITATIONS\nExact paragraph matching after whitespace normalisation. Keyword prompts are heuristics, not legal interpretations. Source authenticity, legal status, applicability, dates and references are not verified. Human review is mandatory. Not legal advice or a compliance determination.";
+lastReport="ALFIQ — PRELIMINARY REGULATORY CHANGE REVIEW\nPrototype 0.2 | Rule-based phrase and obligation prompts | Human review required\n\nSOURCE NOTES\n"+($("meta").value.trim()||"Not supplied")+"\n\nCLAUSE-LEVEL CHANGES (HEURISTIC)\n"+(clausePairs.map(function(p){return p.d.map(function(h){return "Removed phrase: "+h.removed+"\nAdded phrase: "+h.added;}).join("\n");})).join("\n\n")||"No paired amendment identified; review added/removed paragraphs.")+"\n\nSTRUCTURED OBLIGATION SIGNALS\n"+obligationFields.map(function(x){return x[0]+": "+x[1];}).join("\n")+"\n\nPRELIMINARY IMPACT MATRIX\n"+impactRows.map(function(x){return x[0]+": "+(x[2]?"Review indicated by text":"Not indicated by configured terms")+" — "+x[1];}).join("\n")+"\n\nADDED PARAGRAPHS\n"+(added.join("\n\n")||"None identified")+"\n\nREMOVED PARAGRAPHS\n"+(removed.join("\n\n")||"None identified")+"\n\nPOTENTIAL SIGNALS\n"+(signals.join("\n")||"None identified")+"\n\nSUGGESTED BUSINESS AREAS\n"+(areas.join("\n")||"Manual assessment required")+"\n\nLIMITATIONS\nExact paragraph matching after whitespace normalisation. Keyword prompts are heuristics, not legal interpretations. Source authenticity, legal status, applicability, dates and references are not verified. Human review is mandatory. Not legal advice or a compliance determination.";
 }
 $("analyse").addEventListener("click",analyse);
 $("reset").addEventListener("click",function(){cancelPendingFileRead();$("oldText").value="";$("newText").value="";$("meta").value="";$("report").hidden=true;$("empty").hidden=false;lastReport="";$("file").value="";$("fileStatus").textContent="";document.querySelectorAll(".checklist input").forEach(function(x){x.checked=false;});});
