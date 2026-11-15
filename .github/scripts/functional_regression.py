@@ -177,33 +177,25 @@ def test_tradeguard_input_validation_assessment_and_exports(page: Page):
 
 
 
-def test_gaas_plan_preview_and_live_research_staging_panel(page: Page):
+def test_gaas_design_partner_preview_and_local_demo(page: Page):
     open_tool(page, "/gaas/", "Design-partner preview")
-    expect(page.locator(".price-card")).to_have_count(6)
-    expect(page.locator("#plan-modal")).to_be_hidden()
 
-    # Open the existing Free Explorer demo; do not invoke any external AI service.
-    page.locator('.plan-button[data-plan="Free Explorer"]').click()
-    expect(page.locator("#plan-modal")).to_be_visible(timeout=10000)
-    page.locator("#field-jurisdiction").select_option(label="Bangladesh")
-    page.locator("#field-topic").select_option(label="AML/CFT")
-    page.locator("#field-role").select_option(label="Compliance officer")
-    page.locator("#field-question").fill(
-        "Find current official AML/CFT requirements for licensed financial institutions in Bangladesh."
-    )
-    page.get_by_role("button", name="Prepare research brief").click()
+    # Validate the currently published design-partner offer, not retired plan/pricing UI.
+    pilot = page.locator("#pilot")
+    expect(pilot).to_be_visible()
+    expect(pilot).to_contain_text("DESIGN-PARTNER PROGRAMME")
+    expect(pilot.locator(".governance-grid article")).to_have_count(4)
+    expect(pilot).to_contain_text("No self-service subscription or payment checkout is active")
+    expect(pilot).to_contain_text("No confidential institutional data")
+    expect(page.locator(".price-card")).to_have_count(0)
+    expect(page.locator("#plan-modal")).to_have_count(0)
 
-    expect(page.locator("#plan-demo-result")).to_contain_text("GAAS LIVE RESEARCH · DIRECT SUBMISSION")
-    expect(page.locator("#gaas-live-title")).to_be_visible(timeout=10000)
-    expect(page.locator("#gaas-live-title")).to_contain_text("Run source-led regulatory research")
-    expect(page.locator("#gaas-live-run")).to_be_disabled()
-    expect(page.locator(".gaas-live-footnote")).to_contain_text("Staging only")
-    expect(page.locator("#plan-modal")).to_be_visible()
-
-    # Exercise the fixed local demonstration separately; it must not make an AI request.
-    page.locator(".modal-close").click()
+    # Exercise only the fixed local demonstration; do not invoke the staging API or an AI provider.
+    page.locator("#demo-domain").select_option("outsourcing")
     page.locator("#run-demo").click()
     expect(page.locator("#demo-output")).to_contain_text("SIMULATED OUTPUT")
+    expect(page.locator("#demo-output")).to_contain_text("Third-party / outsourcing risk")
+    expect(page.locator("#demo-output")).to_contain_text("Human review required.")
 
 
 def test_tool_pages_have_no_uncaught_page_errors(page: Page):
