@@ -190,7 +190,7 @@ body > footer.alfiq-footer p{margin:0;color:#dceaf3;font-size:.9rem}
 <div class="actions"><button id="download">Download review notes (.txt)</button><button class="secondary" id="print">Print / Save PDF</button></div></div></section>
 <section class="section" id="intake"><h2>3. Local document intake</h2><div class="panel"><label for="file">Select a public text file (.txt, .md or .csv)</label><div class="file-picker-row"><input id="file" type="file" accept=".txt,.md,.csv,text/plain,text/markdown,text/csv"><button class="secondary" id="clearFile" type="button" aria-label="Clear selected file and allow reselection">Clear / refresh</button></div><label for="fileTarget">Load selected file into</label><select id="fileTarget"><option value="oldText">Earlier / existing requirement</option><option value="newText">New / revised requirement</option></select><p class="small muted">The selected file is read in this browser session only; it is not uploaded to a server. PDF/OCR extraction is not included. Clear / refresh removes the file selection; text already copied into the comparison fields remains until you clear the workspace.</p><p id="fileStatus" class="small muted" aria-live="polite"></p></div></section>
 <section class="section"><h2>4. Product contact</h2><div class="panel"><p>Product enquiries and pilot discussions:</p><strong><a href="mailto:regtechnexusai@gmail.com">regtechnexusai@gmail.com</a></strong><p class="small muted">Published by RegTech Nexus AI. AlfiQ is an early-stage decision-support prototype. Outputs require independent verification and professional judgement.</p></div></section>
-<p class="foot">AlfiQ · Regulatory Change Impact Agent · Prototype 0.2. No automated regulatory monitoring, source authentication, live AI inference, customer accounts, payment processing or subscriptions are enabled.</p><p class="foot">Central review record: <a href="/gaas/#case-workspace">Open the GaaS Case Workspace ↗</a>. Export and transfer only reviewer-approved, non-sensitive notes.</p>
+<p class="foot">AlfiQ · Regulatory Change Impact Agent · Prototype 0.4. No automated regulatory monitoring, source authentication, live AI inference, customer accounts, payment processing or subscriptions are enabled.</p><p class="foot">Central review record: <a href="/gaas/#case-workspace">Open the GaaS Case Workspace ↗</a>. Export and transfer only reviewer-approved, non-sensitive notes.</p>
 </main>
 <footer class="rt-shell-footer alfiq-footer" aria-label="AlfiQ page footer">
  <div class="alfiq-footer-brand"><a class="alfiq-logo-link alfiq-footer-logo-backing" href="/alfiq/" aria-label="AlfiQ home"><img class="alfiq-brand-logo alfiq-logo-footer" src="/alfiq/alfiq-logo-photo2.jpg" alt="AlfiQ" width="420" height="146"></a><p class="alfiq-attribution">Designed and Developed by <a href="/" aria-label="RegTech Nexus AI — go to homepage">RegTech Nexus AI</a></p></div>
@@ -252,19 +252,25 @@ function buildClauseChanges(added,removed){
  $("clauseChanges").innerHTML=out.join("");
  return pairs;
 }
-function extractField(text,patterns){
- for(var i=0;i<patterns.length;i++){var m=text.match(patterns[i]);if(m)return (m[1]||m[0]).trim();}
- return "Not identified — manual review";
+function collectFields(text,pattern){
+ var out=[],m;pattern.lastIndex=0;
+ while((m=pattern.exec(text))!==null){
+  var value=(m[1]||m[0]).replace(/\s+/g," ").trim();
+  if(value&&!out.some(function(x){return x.toLowerCase()===value.toLowerCase();}))out.push(value);
+  if(!pattern.global)break;
+  if(m[0]==="")pattern.lastIndex++;
+ }
+ return out.length?out.join("; "):"Not identified — manual review";
 }
 function obligationModel(changed,meta){
- var t=changed.join(" "),low=t.toLowerCase();
- var actor=extractField(t,[/\b((?:(?:a|an|the)\s+)?(?:(?:covered|reporting|financial)\s+)?(?:banks?|institutions?|entities|compliance officer|covered entities|financial institutions|reporting entities))\s+(?=shall|must|is required to|are required to|should|may)/i,/\b(the\s+[A-Z][A-Za-z&/ -]{2,70}?)\s+(?=shall|must|is required to|are required to)/i]);
- var modal=extractField(t,[/\b(?:shall|must|is required to|are required to|should|may)\b/i]);
- var frequency=extractField(t,[/\b(?:at least once every\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|\w+)(?:\s+(?:days?|weeks?|months?|years?))?|every\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|\w+)(?:\s+(?:business\s+)?(?:days?|weeks?|months?|years?))?|at least annually|semi-annually|quarterly|monthly|weekly|daily|annually|yearly)\b/i]);
- var approval=extractField(t,[/\b(?:approval|approved|authorisation|authorization|sign-off)\b[^.;\n]{0,100}/i,/\b(?:by the (?:head|chief|board|committee)[^.;\n]{0,70})/i]);
- var evidence=extractField(t,[/\b(?:documented evidence|evidence|records?|audit trail|minutes)\b[^.;\n]{0,100}/i]);
- var deadline=extractField(t,[/\bwithin\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|sixty|ninety|\w+-?\s+\w+)\s+(?:calendar\s+|business\s+)?days?\b/i,/\bno later than[^.;\n]{0,80}/i,/\bby \d{1,2}[/-]\d{1,2}[/-]\d{2,4}\b/i]);
- var effective=extractField(meta,[/effective date\s*[:|]\s*[^|\n]+/i,/commencement date\s*[:|]\s*[^|\n]+/i]);
+ var t=changed.join(" ");
+ var actor=collectFields(t,/\b((?:(?:a|an|the)\s+)?(?:(?:covered|reporting|financial)\s+)?(?:banks?|institutions?|entities|compliance officer|covered entities|financial institutions|reporting entities))\s+(?=shall|must|is required to|are required to|should|may)/gi);
+ var modal=collectFields(t,/\b(?:shall|must|is required to|are required to|should|may)\b/gi);
+ var frequency=collectFields(t,/\b(?:at least once every\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|\w+)(?:\s+(?:days?|weeks?|months?|years?))?|every\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|\w+)(?:\s+(?:business\s+)?(?:days?|weeks?|months?|years?))?|at least annually|semi-annually|quarterly|monthly|weekly|daily|annually|yearly)\b/gi);
+ var approval=collectFields(t,/\b(?:approval|approved|authorisation|authorization|sign-off)\b[^.;\n]{0,100}/gi);
+ var evidence=collectFields(t,/\b(?:documented evidence|evidence|records?|audit trail|minutes)\b[^.;\n]{0,100}/gi);
+ var deadline=collectFields(t,/\bwithin\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|sixty|ninety|\w+-?\s+\w+)\s+(?:calendar\s+|business\s+)?days?\b|\bno later than[^.;\n]{0,80}|\bby \d{1,2}[/-]\d{1,2}[/-]\d{2,4}\b/gi);
+ var effective=collectFields(meta,/\b(?:effective date|commencement date)\s*[:|]\s*[^|\n]+/gi);
  var fields=[["Responsible party / actor",actor],["Obligation modality",modal],["Frequency / cadence",frequency],["Approval / authority",approval],["Evidence / record",evidence],["Deadline / time limit",deadline],["Effective date (source notes)",effective]];
  $("obligationFields").innerHTML=fields.map(function(x){return '<div class="item"><strong>'+esc(x[0])+'</strong><div>'+esc(x[1])+'</div></div>';}).join("");
  return fields;
