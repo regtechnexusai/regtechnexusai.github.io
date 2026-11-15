@@ -262,7 +262,7 @@ function collectFields(text,pattern){
  }
  return out.length?out.join("; "):"Not identified — manual review";
 }
-function obligationModel(changed,meta,removed){
+function obligationModel(changed,meta,removed,amended,unchanged){
  var t=changed.join(" ");
  var actorSpecific=collectFields(t,/\b((?:(?:a|an|the)\s+)?(?:(?:covered|reporting|financial)\s+)?(?:banks?|institutions?|entities|compliance officer|covered entities|financial institutions|reporting entities|money laundering reporting officer|mlro))\s+(?=shall|must|is required to|are required to|should|may)/gi);
  var actorNamed=collectFields(t,/\b((?:the|a|an)\s+[A-Z][A-Za-z&/ -]{2,70}?(?:\s*\([A-Z]{2,8}\))?)\s+(?=shall|must|is required to|are required to|should|may)/gi);
@@ -279,9 +279,11 @@ function obligationModel(changed,meta,removed){
  var earlierDate=collectFields(earlierBlock,/\b(?:effective date|commencement date)\s*[:|]\s*[^|\n]+/gi);
  var revisedDate=collectFields(revisedBlock,/\b(?:effective date|commencement date)\s*[:|]\s*[^|\n]+/gi);
  var effective=earlierBlock||revisedBlock?("Earlier: "+earlierDate+"; Revised: "+revisedDate):collectFields(meta,/\b(?:effective date|commencement date)\s*[:|]\s*[^|\n]+/gi);
- var removedObligations=(removed||[]).filter(function(x){return /\b(?:shall|must|required to|is required to|are required to|may not|must not)\b/i.test(x);});
- var removedReview=removedObligations.length?removedObligations.join("; "):"No removed mandatory-language paragraph identified";
- var fields=[["Responsible party / actor",actor],["Obligation modality",modal],["Frequency / cadence",frequency],["Recipient / notified authority",recipient],["Approval / authority",approval],["Evidence / record",evidence],["Deadline / time limit",deadline],["Effective date (source notes)",effective],["Removed obligation(s) requiring review",removedReview]];
+ var mandatory=/\b(?:shall|must|required to|is required to|are required to|may not|must not)\b/i;
+ var amendedReview=(amended||[]).filter(function(x){return mandatory.test(x);});
+ var removedObligations=(removed||[]).filter(function(x){return mandatory.test(x);});
+ var unchangedObligations=(unchanged||[]).filter(function(x){return mandatory.test(x);});
+ var fields=[["Responsible party / actor",actor],["Obligation modality",modal],["Frequency / cadence",frequency],["Recipient / notified authority",recipient],["Approval / authority",approval],["Evidence / record",evidence],["Deadline / time limit",deadline],["Effective date (source notes)",effective],["Amended / replaced obligation(s)",amendedReview.length?amendedReview.join("; "):"No matched amended mandatory-language paragraph identified"],["Removed obligation(s) requiring review",removedObligations.length?removedObligations.join("; "):"No unmatched removed mandatory-language paragraph identified"],["Unchanged obligation(s) — context only",unchangedObligations.length?unchangedObligations.join("; "):"No unchanged mandatory-language paragraph identified"]];
  $("obligationFields").innerHTML=fields.map(function(x){return '<div class="item"><strong>'+esc(x[0])+'</strong><div>'+esc(x[1])+'</div></div>';}).join("");
  return fields;
 }
@@ -322,7 +324,7 @@ var ar=[
 [["capital","liquidity","credit","market risk"],"Risk Management / Finance"]
 ],areas=[];ar.forEach(function(r){if(r[0].some(function(t){return corpus.indexOf(t)!==-1;}))areas.push(r[1]);});
 $("empty").hidden=true;$("report").hidden=false;$("addedN").textContent=added.length;$("removedN").textContent=removed.length;$("signalsN").textContent=signals.length;
-list("added",added,"No exact new paragraphs identified.");list("removed",removed,"No exact removed paragraphs identified.");var clausePairs=buildClauseChanges(added,removed);var obligationFields=obligationModel(added,$("meta").value,removed);var impactRows=impactModel(added);list("signals",signals,"No configured keyword signals found. This does not mean there is no impact.");list("areas",areas,"No prompt identified; manual applicability assessment is required.");
+list("added",added,"No exact new paragraphs identified.");list("removed",removed,"No exact removed paragraphs identified.");var clausePairs=buildClauseChanges(added,removed);var amendedOld=clausePairs.map(function(p){return p.old;});var unchanged=a.filter(function(x){return b.indexOf(x)!==-1;});var obligationFields=obligationModel(added,$("meta").value,removed.filter(function(x){return amendedOld.indexOf(x)===-1;}),amendedOld,unchanged);var impactRows=impactModel(added);list("signals",signals,"No configured keyword signals found. This does not mean there is no impact.");list("areas",areas,"No prompt identified; manual applicability assessment is required.");
 lastReport="ALFIQ — PRELIMINARY REGULATORY CHANGE REVIEW\nPrototype 0.5 | Clause segmentation and rule-based obligation prompts | Human review required\n\nREVIEWER-ENTERED SOURCE NOTES (NOT INDEPENDENTLY VERIFIED)\n"+($("meta").value.trim()||"Not supplied")+"\n\nCLAUSE-LEVEL CHANGES (HEURISTIC)\n"+(clausePairs.map(function(p){return p.d.map(function(h){return "Removed phrase: "+h.removed+"\nAdded phrase: "+h.added;}).join("\n");}).join("\n\n")||"No paired amendment identified; review added/removed paragraphs.")+"\n\nSTRUCTURED OBLIGATION SIGNALS\n"+obligationFields.map(function(x){return x[0]+": "+x[1];}).join("\n")+"\n\nPRELIMINARY IMPACT MATRIX\n"+impactRows.map(function(x){return x[0]+": "+(x[2]?"Review indicated by text":"Not indicated by configured terms")+" — "+x[1];}).join("\n")+"\n\nADDED PARAGRAPHS\n"+(added.join("\n\n")||"None identified")+"\n\nREMOVED PARAGRAPHS\n"+(removed.join("\n\n")||"None identified")+"\n\nPOTENTIAL SIGNALS\n"+(signals.join("\n")||"None identified")+"\n\nSUGGESTED BUSINESS AREAS\n"+(areas.join("\n")||"Manual assessment required")+"\n\nLIMITATIONS\nExact paragraph matching after whitespace normalisation. Keyword prompts are heuristics, not legal interpretations. Source authenticity, legal status, applicability, dates and references are not verified. Human review is mandatory. Not legal advice or a compliance determination.";
 $("printReport").textContent=lastReport;
 $("analysisStatus").textContent="Analysis complete. "+added.length+" added paragraph(s), "+removed.length+" removed paragraph(s), "+signals.length+" potential signal(s). Review the results below; then download or print.";
