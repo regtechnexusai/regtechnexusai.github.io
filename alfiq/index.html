@@ -201,7 +201,27 @@ body > footer.alfiq-footer p{margin:0;color:#dceaf3;font-size:.9rem}
 "use strict";
 var $=function(id){return document.getElementById(id);},lastReport="",activeReader=null,fileReadToken=0;
 function cancelPendingFileRead(){fileReadToken++;if(activeReader&&activeReader.readyState===FileReader.LOADING){activeReader.abort();}activeReader=null;}
-function split(s){return s.split(/\n\s*\n/).map(function(x){return x.replace(/\s+/g," ").trim();}).filter(Boolean);}
+function split(s){
+ var lines=s.replace(/\r\n?/g,"\n").split("\n").filter(function(line){
+  var x=line.trim();
+  if(!x)return true;
+  if(/^#{1,6}\s/.test(x)||/^>\s?/.test(x))return false;
+  if(/^synthetic test document\b/i.test(x)||/^earlier version$/i.test(x)||/^revised version$/i.test(x))return false;
+  if(/^(?:[-*]\s*)?(?:test metadata|authority\s*:|reference\s*:|status\s*:|publication date\s*:|effective date\s*:|source url\s*:|review purpose\s*:)/i.test(x))return false;
+  if(/^not a real regulation\b/i.test(x))return false;
+  return true;
+ });
+ var cleaned=lines.join("\n").replace(/([^\n])\s+(?=\d{1,3}[.)]\s+)/g,"$1\n");
+ var blocks=cleaned.split(/\n\s*\n/),out=[];
+ blocks.forEach(function(block){
+  var parts=block.split(/\n(?=\s*\d{1,3}[.)]\s+)/);
+  parts.forEach(function(part){
+   var x=part.replace(/^\s*\d{1,3}[.)]\s+/,"").replace(/\s+/g," ").trim();
+   if(x)out.push(x);
+  });
+ });
+ return out;
+}
 function esc(s){return s.replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
 function list(id,items,empty){$(id).innerHTML=items.length?items.map(function(x){return '<div class="item">'+esc(x)+'</div>';}).join(""):'<p class="muted small">'+empty+'</p>';}
 function tokens(s){return (s.match(/[A-Za-z0-9]+(?:['’-][A-Za-z0-9]+)*/g)||[]);}
@@ -238,9 +258,9 @@ function extractField(text,patterns){
 }
 function obligationModel(changed,meta){
  var t=changed.join(" "),low=t.toLowerCase();
- var actor=extractField(t,[/\b((?:the\s+)?(?:bank|banks|institution|institutions|compliance officer|covered entity|covered entities|financial institution|financial institutions|reporting entity|reporting entities))\s+(?=shall|must|is required to|are required to|should|may)/i,/\b(the\s+[A-Z][A-Za-z&/ -]{2,70}?)\s+(?=shall|must|is required to|are required to)/i]);
+ var actor=extractField(t,[/\b((?:(?:a|an|the)\s+)?(?:(?:covered|reporting|financial)\s+)?(?:banks?|institutions?|entities|compliance officer|covered entities|financial institutions|reporting entities))\s+(?=shall|must|is required to|are required to|should|may)/i,/\b(the\s+[A-Z][A-Za-z&/ -]{2,70}?)\s+(?=shall|must|is required to|are required to)/i]);
  var modal=extractField(t,[/\b(?:shall|must|is required to|are required to|should|may)\b/i]);
- var frequency=extractField(t,[/\b(?:daily|weekly|monthly|quarterly|semi-annually|annually|yearly|at least once every \w+|every \w+)\b/i]);
+ var frequency=extractField(t,[/\b(?:at least once every\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|\w+)(?:\s+(?:days?|weeks?|months?|years?))?|every\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|\w+)(?:\s+(?:business\s+)?(?:days?|weeks?|months?|years?))?|at least annually|semi-annually|quarterly|monthly|weekly|daily|annually|yearly)\b/i]);
  var approval=extractField(t,[/\b(?:approval|approved|authorisation|authorization|sign-off)\b[^.;\n]{0,100}/i,/\b(?:by the (?:head|chief|board|committee)[^.;\n]{0,70})/i]);
  var evidence=extractField(t,[/\b(?:documented evidence|evidence|records?|audit trail|minutes)\b[^.;\n]{0,100}/i]);
  var deadline=extractField(t,[/\bwithin\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|sixty|ninety|\w+-?\s+\w+)\s+(?:calendar\s+|business\s+)?days?\b/i,/\bno later than[^.;\n]{0,80}/i,/\bby \d{1,2}[/-]\d{1,2}[/-]\d{2,4}\b/i]);
@@ -251,11 +271,11 @@ function obligationModel(changed,meta){
 }
 function impactModel(changed){
  var t=changed.join(" ").toLowerCase(),rows=[
- ["Policy","Review policy wording, scope, approval and review cycle.",/policy|procedure|standard|framework/.test(t)],
- ["Process","Map affected operational steps, hand-offs and escalation.",/process|review|submit|notify|screen|monitor/.test(t)],
- ["Control","Assess control design, frequency, evidence and testing.",/control|check|reconcile|monitor|evidence|review/.test(t)],
- ["Ownership","Confirm accountable function, approver and maker-checker roles.",/head of|owner|department|committee|board|approve|approval|responsible/.test(t)],
- ["Evidence","Define retained records, audit trail, retrieval and retention.",/record|retain|evidence|document|audit trail/.test(t)]
+ ["Policy","Review policy wording, scope, approval and review cycle.",/\b(policy|procedure|standard|framework)\b/.test(t)],
+ ["Process","Map affected operational steps, hand-offs and escalation.",/\b(onboard\w*|establish\w*|conduct\w*|review\w*|notify\w*|report\w*|submit\w*|screen\w*|monitor\w*|escalat\w*|process\w*)\b/.test(t)],
+ ["Control","Assess control design, frequency, evidence and testing.",/\b(control\w*|check\w*|reconcil\w*|screen\w*|monitor\w*|review\w*|maintain\w*|verif\w*|test\w*)\b/.test(t)],
+ ["Ownership","Confirm accountable function, approver and maker-checker roles.",/\b(owner|department|committee|board|head of|approved by|approval|responsible function|accountable)\b/.test(t)],
+ ["Evidence","Define retained records, audit trail, retrieval and retention.",/\b(record\w*|retain\w*|evidence|document\w*|audit trail|minutes)\b/.test(t)]
  ];
  $("impactMatrix").innerHTML=rows.map(function(r){return '<div class="item"><strong>'+esc(r[0])+'</strong><span class="tag">'+(r[2]?"Review indicated by text":"Not indicated by configured terms")+'</span><p class="small muted">'+esc(r[1])+'</p></div>';}).join("");
  return rows;
@@ -287,7 +307,7 @@ var ar=[
 ],areas=[];ar.forEach(function(r){if(r[0].some(function(t){return corpus.indexOf(t)!==-1;}))areas.push(r[1]);});
 $("empty").hidden=true;$("report").hidden=false;$("addedN").textContent=added.length;$("removedN").textContent=removed.length;$("signalsN").textContent=signals.length;
 list("added",added,"No exact new paragraphs identified.");list("removed",removed,"No exact removed paragraphs identified.");var clausePairs=buildClauseChanges(added,removed);var obligationFields=obligationModel(added,$("meta").value);var impactRows=impactModel(added);list("signals",signals,"No configured keyword signals found. This does not mean there is no impact.");list("areas",areas,"No prompt identified; manual applicability assessment is required.");
-lastReport="ALFIQ — PRELIMINARY REGULATORY CHANGE REVIEW\nPrototype 0.3 | Rule-based phrase and obligation prompts | Human review required\n\nSOURCE NOTES\n"+($("meta").value.trim()||"Not supplied")+"\n\nCLAUSE-LEVEL CHANGES (HEURISTIC)\n"+(clausePairs.map(function(p){return p.d.map(function(h){return "Removed phrase: "+h.removed+"\nAdded phrase: "+h.added;}).join("\n");}).join("\n\n")||"No paired amendment identified; review added/removed paragraphs.")+"\n\nSTRUCTURED OBLIGATION SIGNALS\n"+obligationFields.map(function(x){return x[0]+": "+x[1];}).join("\n")+"\n\nPRELIMINARY IMPACT MATRIX\n"+impactRows.map(function(x){return x[0]+": "+(x[2]?"Review indicated by text":"Not indicated by configured terms")+" — "+x[1];}).join("\n")+"\n\nADDED PARAGRAPHS\n"+(added.join("\n\n")||"None identified")+"\n\nREMOVED PARAGRAPHS\n"+(removed.join("\n\n")||"None identified")+"\n\nPOTENTIAL SIGNALS\n"+(signals.join("\n")||"None identified")+"\n\nSUGGESTED BUSINESS AREAS\n"+(areas.join("\n")||"Manual assessment required")+"\n\nLIMITATIONS\nExact paragraph matching after whitespace normalisation. Keyword prompts are heuristics, not legal interpretations. Source authenticity, legal status, applicability, dates and references are not verified. Human review is mandatory. Not legal advice or a compliance determination.";
+lastReport="ALFIQ — PRELIMINARY REGULATORY CHANGE REVIEW\nPrototype 0.4 | Clause segmentation and rule-based obligation prompts | Human review required\n\nREVIEWER-ENTERED SOURCE NOTES (NOT INDEPENDENTLY VERIFIED)\n"+($("meta").value.trim()||"Not supplied")+"\n\nCLAUSE-LEVEL CHANGES (HEURISTIC)\n"+(clausePairs.map(function(p){return p.d.map(function(h){return "Removed phrase: "+h.removed+"\nAdded phrase: "+h.added;}).join("\n");}).join("\n\n")||"No paired amendment identified; review added/removed paragraphs.")+"\n\nSTRUCTURED OBLIGATION SIGNALS\n"+obligationFields.map(function(x){return x[0]+": "+x[1];}).join("\n")+"\n\nPRELIMINARY IMPACT MATRIX\n"+impactRows.map(function(x){return x[0]+": "+(x[2]?"Review indicated by text":"Not indicated by configured terms")+" — "+x[1];}).join("\n")+"\n\nADDED PARAGRAPHS\n"+(added.join("\n\n")||"None identified")+"\n\nREMOVED PARAGRAPHS\n"+(removed.join("\n\n")||"None identified")+"\n\nPOTENTIAL SIGNALS\n"+(signals.join("\n")||"None identified")+"\n\nSUGGESTED BUSINESS AREAS\n"+(areas.join("\n")||"Manual assessment required")+"\n\nLIMITATIONS\nExact paragraph matching after whitespace normalisation. Keyword prompts are heuristics, not legal interpretations. Source authenticity, legal status, applicability, dates and references are not verified. Human review is mandatory. Not legal advice or a compliance determination.";
 $("printReport").textContent=lastReport;
 $("analysisStatus").textContent="Analysis complete. "+added.length+" added paragraph(s), "+removed.length+" removed paragraph(s), "+signals.length+" potential signal(s). Review the results below; then download or print.";
 $("results").scrollIntoView({behavior:"smooth",block:"start"});
