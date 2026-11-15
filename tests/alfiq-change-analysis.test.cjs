@@ -10,7 +10,7 @@ const elements = new Map();
 function element(id) {
   if (!elements.has(id)) elements.set(id, {
     id, value: "", hidden: false, textContent: "", innerHTML: "",
-    handlers: {}, addEventListener(name, fn) { this.handlers[name] = fn; }
+    handlers: {}, addEventListener(name, fn) { this.handlers[name] = fn; }, focus() { this.focused = true; }, scrollIntoView() { this.scrolled = true; }
   });
   return elements.get(id);
 }
@@ -56,6 +56,8 @@ assert.match(obligations, /quarterly/, "frequency is extracted");
 assert.match(obligations, /approval by the Head of Compliance/, "approval signal is extracted");
 assert.match(obligations, /documented evidence/, "evidence signal is extracted");
 assert.match(element("printReport").textContent, /quarterly/, "complete report is prepared for print");
+assert.match(element("analysisStatus").textContent, /Analysis complete/, "successful analysis status is displayed");
+assert.equal(element("results").scrolled, true, "results are brought into view after analysis");
 element("download").handlers.click();
 assert.equal(clickedAnchors.length, 1, "download link is clicked");
 assert.equal(clickedAnchors[0].download, "alfiq-preliminary-review.txt", "download filename is set");
@@ -71,6 +73,11 @@ const matrix = element("impactMatrix").innerHTML;
 for (const area of ["Policy", "Process", "Control", "Ownership", "Evidence"]) {
   assert.match(matrix, new RegExp(area), area + " impact row is present");
 }
+element("oldText").value = "";
+element("newText").value = oldText;
+element("analyse").handlers.click();
+assert.match(element("analysisStatus").textContent, /Earlier \/ existing requirement/, "missing earlier text is identified");
+assert.equal(element("oldText").focused, true, "missing field receives focus");
 element("oldText").value = oldText;
 element("newText").value = oldText;
 element("analyse").handlers.click();
