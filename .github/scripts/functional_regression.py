@@ -178,7 +178,7 @@ def test_tradeguard_input_validation_assessment_and_exports(page: Page):
 
 
 def test_gaas_plan_preview_and_live_research_staging_panel(page: Page):
-    open_tool(page, "/gaas/", "GLOBAL AGENTIC-AS-A-SERVICE")
+    open_tool(page, "/gaas/", "Design-partner preview")
     expect(page.locator(".price-card")).to_have_count(6)
     expect(page.locator("#plan-modal")).to_be_hidden()
 
@@ -213,7 +213,7 @@ def test_tool_pages_have_no_uncaught_page_errors(page: Page):
         ("/payscale-2026/", "PayScale 2026"),
         ("/md-ceo-performance-calculator/", "MD/CEO"),
         ("/icms-2026/", "ICMS"),
-        ("/gaas/", "GLOBAL AGENTIC-AS-A-SERVICE"),
+        ("/gaas/", "Design-partner preview"),
     ]
     errors = []
     page.on("pageerror", lambda error: errors.append(str(error)))
