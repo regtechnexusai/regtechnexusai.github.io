@@ -284,7 +284,7 @@ function impactModel(changed){
  ["Policy","Review policy wording, scope, approval and review cycle.",/\b(policy|procedure|standard|framework)\b/.test(t)],
  ["Process","Map affected operational steps, hand-offs and escalation.",/\b(onboard\w*|establish\w*|conduct\w*|review\w*|notify\w*|report\w*|submit\w*|screen\w*|monitor\w*|escalat\w*|process\w*)\b/.test(t)],
  ["Control","Assess control design, frequency, evidence and testing.",/\b(control\w*|check\w*|reconcil\w*|screen\w*|monitor\w*|review\w*|maintain\w*|verif\w*|test\w*)\b/.test(t)],
- ["Ownership","Confirm accountable function, approver and maker-checker roles.",/\b(owner|department|committee|board|head of|approved by|approval|responsible function|accountable)\b/.test(t)],
+ ["Ownership","Confirm accountable function, approver and maker-checker roles.",/\b(owner|department|committee|board|head of|approved by|approval|responsible function|accountable|compliance officer|mlro|money laundering reporting officer|risk officer|control owner|process owner|designated officer|responsible officer)\b/.test(t)],
  ["Evidence","Define retained records, audit trail, retrieval and retention.",/\b(record\w*|retain\w*|evidence|document\w*|audit trail|minutes)\b/.test(t)]
  ];
  $("impactMatrix").innerHTML=rows.map(function(r){return '<div class="item"><strong>'+esc(r[0])+'</strong><span class="tag">'+(r[2]?"Review indicated by text":"Not indicated by configured terms")+'</span><p class="small muted">'+esc(r[1])+'</p></div>';}).join("");
