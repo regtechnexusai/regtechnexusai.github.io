@@ -238,12 +238,12 @@ function extractField(text,patterns){
 }
 function obligationModel(changed,meta){
  var t=changed.join(" "),low=t.toLowerCase();
- var actor=extractField(t,[/\b(the\s+[A-Z][A-Za-z&/ -]{2,70}?)\s+(?=shall|must|is required to|are required to)/i]);
+ var actor=extractField(t,[/\b((?:the\s+)?(?:bank|banks|institution|institutions|compliance officer|covered entity|covered entities|financial institution|financial institutions|reporting entity|reporting entities))\s+(?=shall|must|is required to|are required to|should|may)/i,/\b(the\s+[A-Z][A-Za-z&/ -]{2,70}?)\s+(?=shall|must|is required to|are required to)/i]);
  var modal=extractField(t,[/\b(?:shall|must|is required to|are required to|should|may)\b/i]);
  var frequency=extractField(t,[/\b(?:daily|weekly|monthly|quarterly|semi-annually|annually|yearly|at least once every \w+|every \w+)\b/i]);
  var approval=extractField(t,[/\b(?:approval|approved|authorisation|authorization|sign-off)\b[^.;\n]{0,100}/i,/\b(?:by the (?:head|chief|board|committee)[^.;\n]{0,70})/i]);
  var evidence=extractField(t,[/\b(?:documented evidence|evidence|records?|audit trail|minutes)\b[^.;\n]{0,100}/i]);
- var deadline=extractField(t,[/\b(?:within \d+ (?:calendar |business )?days|no later than[^.;\n]{0,80}|by \d{1,2}[/-]\d{1,2}[/-]\d{2,4})\b/i]);
+ var deadline=extractField(t,[/\bwithin\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|sixty|ninety|\w+-?\s+\w+)\s+(?:calendar\s+|business\s+)?days?\b/i,/\bno later than[^.;\n]{0,80}/i,/\bby \d{1,2}[/-]\d{1,2}[/-]\d{2,4}\b/i]);
  var effective=extractField(meta,[/effective date\s*[:|]\s*[^|\n]+/i,/commencement date\s*[:|]\s*[^|\n]+/i]);
  var fields=[["Responsible party / actor",actor],["Obligation modality",modal],["Frequency / cadence",frequency],["Approval / authority",approval],["Evidence / record",evidence],["Deadline / time limit",deadline],["Effective date (source notes)",effective]];
  $("obligationFields").innerHTML=fields.map(function(x){return '<div class="item"><strong>'+esc(x[0])+'</strong><div>'+esc(x[1])+'</div></div>';}).join("");
@@ -262,7 +262,7 @@ function impactModel(changed){
 }
 
 function analyse(){
-var old=$("oldText").value,now=$("newText").value;var missing=[];if(!old.trim())missing.push("Earlier / existing requirement");if(!now.trim())missing.push("New / revised requirement");if(missing.length){lastReport="";$("report").hidden=true;$("empty").hidden=false;$("analysisStatus").textContent="Analysis not run. Please complete: "+missing.join(" and ")+". Paste text or load a supported file into each field.";var target=!old.trim()?$ ("oldText"):$("newText");target.focus();target.scrollIntoView({behavior:"smooth",block:"center"});return;}
+var old=$("oldText").value,now=$("newText").value;var staleMarker=/ALFIQ\s*[—-]\s*PRELIMINARY REGULATORY CHANGE REVIEW|ADDED PARAGRAPHS|REMOVED PARAGRAPHS|STRUCTURED OBLIGATION SIGNALS/i;if(staleMarker.test(old)||staleMarker.test(now)){lastReport="";$("report").hidden=true;$("empty").hidden=false;$("analysisStatus").textContent="Analysis stopped: a previous AlfiQ report appears to have been pasted into a source field. Clear the workspace, then paste only the original earlier requirement and the revised requirement. Do not paste exported review notes into either source field.";return;}var missing=[];if(!old.trim())missing.push("Earlier / existing requirement");if(!now.trim())missing.push("New / revised requirement");if(missing.length){lastReport="";$("report").hidden=true;$("empty").hidden=false;$("analysisStatus").textContent="Analysis not run. Please complete: "+missing.join(" and ")+". Paste text or load a supported file into each field.";var target=!old.trim()?$ ("oldText"):$("newText");target.focus();target.scrollIntoView({behavior:"smooth",block:"center"});return;}
 var a=split(old),b=split(now),oldCounts=new Map(),newCounts=new Map();a.forEach(function(x){oldCounts.set(x,(oldCounts.get(x)||0)+1);});b.forEach(function(x){newCounts.set(x,(newCounts.get(x)||0)+1);});var seenNew=new Map(),seenOld=new Map(),added=b.filter(function(x){var n=(seenNew.get(x)||0)+1;seenNew.set(x,n);return n>(oldCounts.get(x)||0);}),removed=a.filter(function(x){var n=(seenOld.get(x)||0)+1;seenOld.set(x,n);return n>(newCounts.get(x)||0);}),corpus=added.join(" ").toLowerCase();
 var rules=[
 [["must","shall","required to"],"Mandatory language","Check subject, scope, obligation and exceptions."],
