@@ -369,7 +369,6 @@ def test_gaas_case_workspace_create_export_import_and_reset(page: Page, tmp_path
     assert "REG-TEST-001" in csv_text
 
     # Import the exported JSON back into the browser-local workspace.
-    page.locator("#gc-reset").click()
     page.once("dialog", lambda dialog: dialog.accept())
     page.locator("#gc-reset").click()
     expect(page.locator("#gc-count")).to_have_text("0 findings recorded")
