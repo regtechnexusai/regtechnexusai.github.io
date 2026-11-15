@@ -1,4 +1,4 @@
-# AlfiQ — Regulatory Change Impact Agent (Prototype 0.1)
+# AlfiQ — Regulatory Change Impact Agent (Prototype 0.2)
 
 ## Purpose
 An additive, browser-only prototype under /alfiq/ for comparing earlier and newer regulatory text, identifying exact paragraph additions/removals, surfacing transparent keyword-based obligation prompts, suggesting business areas for human triage, and producing preliminary review notes.
@@ -13,7 +13,10 @@ An additive, browser-only prototype under /alfiq/ for comparing earlier and newe
 - Local text input and TXT/MD/CSV file reading in the browser.
 - No file upload to a server and no PDF/OCR extraction.
 - No live AI model, regulatory-source monitoring, source authentication or legal interpretation.
-- Exact paragraph matching after whitespace normalisation; keyword prompts are heuristic only.
+- Exact paragraph matching after whitespace normalisation, with heuristic paragraph pairing and phrase-level changed-token display for likely amendments.
+- Structured candidate prompts for responsible party, obligation modality, frequency, approval, evidence, deadline and effective-date notes.
+- Preliminary policy/process/control/ownership/evidence impact matrix based on transparent configured terms.
+- Phrase matching, obligation fields and impact rows are triage aids only; no semantic/legal interpretation, source authentication or applicability determination is performed.
 - Public documents and synthetic examples only. Do not use confidential bank/customer/KYC/transaction data.
 
 ## Controlled integration design
