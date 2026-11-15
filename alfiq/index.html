@@ -264,7 +264,7 @@ function collectFields(text,pattern){
 }
 function obligationModel(changed,meta){
  var t=changed.join(" ");
- var actor=collectFields(t,/\b((?:(?:a|an|the)\s+)?(?:(?:covered|reporting|financial)\s+)?(?:banks?|institutions?|entities|compliance officer|covered entities|financial institutions|reporting entities))\s+(?=shall|must|is required to|are required to|should|may)/gi);
+ var actorSpecific=collectFields(t,/\b((?:(?:a|an|the)\s+)?(?:(?:covered|reporting|financial)\s+)?(?:banks?|institutions?|entities|compliance officer|covered entities|financial institutions|reporting entities))\s+(?=shall|must|is required to|are required to|should|may)/gi);\n var actorNamed=collectFields(t,/\b((?:the|a|an)\s+[A-Z][A-Za-z&/ -]{2,70}?)\s+(?=shall|must|is required to|are required to|should|may)/gi);\n var actor=actorSpecific==="Not identified — manual review"?actorNamed:actorNamed==="Not identified — manual review"?actorSpecific:Array.from(new Set((actorSpecific+"; "+actorNamed).split("; ").map(function(x){return x.trim();}))).join("; ");
  var modal=collectFields(t,/\b(?:shall|must|is required to|are required to|should|may)\b/gi);
  var frequency=collectFields(t,/\b(?:at least once every\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|\w+)(?:\s+(?:days?|weeks?|months?|years?))?|every\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|\w+)(?:\s+(?:business\s+)?(?:days?|weeks?|months?|years?))?|at least annually|semi-annually|quarterly|monthly|weekly|daily|annually|yearly)\b/gi);
  var approval=collectFields(t,/\b(?:approval|approved|authorisation|authorization|sign-off)\b[^.;\n]{0,100}/gi);
