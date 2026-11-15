@@ -310,3 +310,79 @@ def test_alfiq_services_scope_contact_and_brand_assets(page: Page):
     page.get_by_role("link", name=re.compile("View pilot scope", re.I)).click()
     expect(page).to_have_url(re.compile(r"/alfiq/services/#scope$"))
     expect(page.locator("#scope")).to_be_in_viewport()
+
+
+
+def test_gaas_case_workspace_create_export_import_and_reset(page: Page, tmp_path: Path):
+    """Exercise the browser-local case register using synthetic, non-sensitive data."""
+    page.set_viewport_size({"width": 390, "height": 844})
+    open_tool(page, "/gaas/", "Design-partner preview")
+    page.locator("#case-workspace").scroll_into_view_if_needed()
+
+    # The mobile workspace must not introduce page-level horizontal overflow.
+    page.wait_for_timeout(250)
+    width = page.evaluate("({viewport: window.innerWidth, document: document.documentElement.scrollWidth})")
+    assert width["document"] <= width["viewport"] + 2, (
+        f"GaaS case workspace causes horizontal overflow on mobile: {width}"
+    )
+
+    page.locator("#gc-case-ref").fill("REG-TEST-001")
+    page.locator("#gc-case-title").fill("Synthetic AML circular impact review")
+    page.locator("#gc-jurisdiction").fill("Bangladesh")
+    page.locator("#gc-owner").fill("Compliance")
+    page.locator("#gc-source").fill("Synthetic test source — not a real circular")
+    page.locator("#gc-gate-source").check()
+    page.locator("#gc-gate-applicability").check()
+
+    page.locator("#gc-module").select_option(label="AlfiQ")
+    page.locator("#gc-finding-title").fill("Potential policy review required")
+    page.locator("#gc-finding").fill("Synthetic finding for functional regression only.")
+    page.locator("#gc-action-owner").fill("Compliance Testing")
+    page.locator("#gc-priority").select_option("High")
+    page.locator("#gc-status").select_option("Under review")
+    page.locator("#gc-evidence").fill("Synthetic evidence reference")
+    page.locator("#gc-add").click()
+
+    expect(page.locator("#gc-count")).to_have_text("1 finding recorded")
+    expect(page.locator("#gc-findings")).to_contain_text("Potential policy review required")
+    expect(page.locator("#gc-status-message")).to_contain_text("Export JSON")
+
+    with page.expect_download(timeout=15000) as json_info:
+        page.locator("#gc-export").click()
+    json_download = json_info.value
+    assert json_download.suggested_filename.endswith(".json")
+    json_path = tmp_path / json_download.suggested_filename
+    json_download.save_as(json_path)
+    payload = json_path.read_text(encoding="utf-8")
+    assert '"schema": "rnx.gaas.case.v1"' in payload
+    assert '"REG-TEST-001"' in payload
+    assert '"sourceVerified": true' in payload
+
+    with page.expect_download(timeout=15000) as csv_info:
+        page.locator("#gc-csv").click()
+    csv_download = csv_info.value
+    assert csv_download.suggested_filename.endswith(".csv")
+    csv_path = tmp_path / csv_download.suggested_filename
+    csv_download.save_as(csv_path)
+    csv_text = csv_path.read_text(encoding="utf-8-sig")
+    assert "Potential policy review required" in csv_text
+    assert "REG-TEST-001" in csv_text
+
+    # Import the exported JSON back into the browser-local workspace.
+    page.locator("#gc-reset").click()
+    page.once("dialog", lambda dialog: dialog.accept())
+    page.locator("#gc-reset").click()
+    expect(page.locator("#gc-count")).to_have_text("0 findings recorded")
+    page.locator("#gc-import").set_input_files(str(json_path))
+    expect(page.locator("#gc-count")).to_have_text("1 finding recorded")
+    expect(page.locator("#gc-case-ref")).to_have_value("REG-TEST-001")
+    expect(page.locator("#gc-gate-source")).to_be_checked()
+    expect(page.locator("#gc-findings")).to_contain_text("Potential policy review required")
+    expect(page.locator("#gc-status-message")).to_contain_text("imported into this browser session")
+
+    # Reset is deliberately destructive and must require confirmation.
+    page.once("dialog", lambda dialog: dialog.accept())
+    page.locator("#gc-reset").click()
+    expect(page.locator("#gc-count")).to_have_text("0 findings recorded")
+    expect(page.locator("#gc-case-ref")).to_have_value("")
+    expect(page.locator("#gc-empty")).to_be_visible()
