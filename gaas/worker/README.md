@@ -12,6 +12,7 @@
 - Separate high-priority Responses API instructions from user-controlled research fields to reduce prompt-injection risk
 - Bounded hosted web-search calls and network timeouts for Turnstile/OpenAI requests
 - Cloudflare Turnstile server-side verification
+- Cloudflare Workers Rate Limiting binding keyed by client IP; the checked-in staging and production Wrangler configs set a limit of 5 requests per 60 seconds. This is an IP-level abuse control, not authenticated user/tenant quotas or plan entitlements.
 - Safe provider-error classification for credit exhaustion, spend/usage limits, temporary rate limits, authentication, permissions, model availability and overload
 - Sanitised diagnostic codes and provider request IDs; raw provider messages, prompts and secrets are not returned or logged
 - No automatic retry or credit purchase on quota/billing errors
@@ -91,9 +92,9 @@ The endpoint currently recognises the six existing plan names but does not enfor
 | Frontend integration | GaaS page panel, Turnstile and response rendering | Implemented in source; browser UAT evidence still required |
 | Live API smoke test | Valid source-led research response and citations | Not run; requires separate explicit paid-usage authorisation |
 | Browser/mobile UAT | Desktop and mobile challenge, request state, error state and citation links | Pending |
-| Security acceptance | Cloudflare WAF rate limiting, secret review, privacy/logging review and independent security review | Pending; application code does not implement an IP/user quota limiter |
+| Security acceptance | Verify the deployed Workers Rate Limiting binding (5 requests per 60 seconds per client IP), secret configuration, privacy/logging controls and independent security review | IP-level rate limiting is implemented in Worker code/config; deployed binding and threshold still require staging verification. Authenticated user/tenant quotas, server-side plan entitlements and independent security review remain pending |
 
-The Worker has no authenticated user identity or server-side plan entitlement; plan names are accepted as request labels only. Configure Cloudflare WAF/rate limiting and provider hard spend limits before public promotion. A successful health check is not evidence that live research works. A successful unit-test run is not evidence of browser UAT or production security acceptance.
+The Worker has no authenticated user identity or server-side plan entitlement; plan names are accepted as request labels only. The configured Workers Rate Limiting binding is keyed by client IP and does not replace user/tenant quotas, authenticated abuse controls or provider hard spend limits. Verify the deployed binding and configure provider hard spend limits before any live provider activation. A successful health check is not evidence that live research works. A successful unit-test run is not evidence of browser UAT or production security acceptance.
 
 ## Phase 2 entry criteria
 
