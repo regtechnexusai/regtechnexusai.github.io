@@ -952,3 +952,57 @@ body.gaas-page .gaas-workflow .workflow-steps p{
     width: 158px !important;
   }
 }
+
+/* Mobile footer layout correction: explicit link columns and intrinsic logo panel width. */
+@media (max-width: 760px) {
+  .gaas-page footer.gaas-footer {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+    align-items: start !important;
+    column-gap: 18px !important;
+    row-gap: 22px !important;
+  }
+  .gaas-page footer.gaas-footer > .gaas-footer-brand,
+  .gaas-page footer.gaas-footer > .footer-disclaimer,
+  .gaas-page footer.gaas-footer > .footer-bottom {
+    grid-column: 1 / -1 !important;
+  }
+  .gaas-page footer.gaas-footer > div:nth-child(2),
+  .gaas-page footer.gaas-footer > div:nth-child(3) {
+    grid-column: auto !important;
+    grid-row: 2 !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+  }
+  .gaas-page footer.gaas-footer > .gaas-footer-brand > a {
+    display: inline-flex !important;
+    width: max-content !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 6px 8px !important;
+    margin: 0 0 4px !important;
+  }
+  .gaas-page footer.gaas-footer > .gaas-footer-brand > a img {
+    display: block !important;
+    width: 190px !important;
+    max-width: 100% !important;
+    height: auto !important;
+  }
+  .gaas-page footer.gaas-footer > .footer-disclaimer {
+    grid-row: 3 !important;
+  }
+  .gaas-page footer.gaas-footer > .footer-bottom {
+    grid-row: 4 !important;
+  }
+}
+@media (max-width: 360px) {
+  .gaas-page footer.gaas-footer {
+    column-gap: 12px !important;
+  }
+  .gaas-page footer.gaas-footer > .gaas-footer-brand > a img {
+    width: 170px !important;
+  }
+}
