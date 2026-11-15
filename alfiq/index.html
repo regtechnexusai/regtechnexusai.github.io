@@ -292,7 +292,40 @@ $("printReport").textContent=lastReport;
 $("analysisStatus").textContent="Analysis complete. "+added.length+" added paragraph(s), "+removed.length+" removed paragraph(s), "+signals.length+" potential signal(s). Review the results below; then download or print.";
 $("results").scrollIntoView({behavior:"smooth",block:"start"});
 }
-$("analyse").addEventListener("click",analyse);
+$("analyse").addEventListener("click",function(){
+ try {
+  analyse();
+ } catch (error) {
+  /* Keep the core comparison available if a secondary analysis component fails. */
+  var oldValue=$("oldText").value||"",newValue=$("newText").value||"";
+  if(!oldValue.trim()||!newValue.trim()){
+   $("analysisStatus").textContent="Analysis not run. Enter both the earlier and revised regulatory text.";
+   return;
+  }
+  function fallbackParagraphs(value){
+   return value.split(/\\n\\s*\\n/).map(function(part){return part.replace(/\\s+/g," ").trim();}).filter(Boolean);
+  }
+  function fallbackDifference(current,previous){
+   var remaining=previous.slice(),result=[];
+   current.forEach(function(part){var index=remaining.indexOf(part);if(index===-1)result.push(part);else remaining.splice(index,1);});
+   return result;
+  }
+  var oldParts=fallbackParagraphs(oldValue),newParts=fallbackParagraphs(newValue);
+  var added=fallbackDifference(newParts,oldParts),removed=fallbackDifference(oldParts,newParts);
+  lastReport="ALFIQ — PRELIMINARY REGULATORY CHANGE REVIEW\\nBasic comparison fallback\\nHuman review required\\n\\nSOURCE NOTES\\n"+(($("meta").value||"").trim()||"Not supplied")+"\\n\\nADDED PARAGRAPHS\\n"+(added.join("\\n\\n")||"None identified by exact paragraph comparison")+"\\n\\nREMOVED PARAGRAPHS\\n"+(removed.join("\\n\\n")||"None identified by exact paragraph comparison")+"\\n\\nLIMITATIONS\\nThe detailed analysis component encountered an error. This fallback reports exact paragraph differences only; it does not provide obligation extraction, impact classification or legal interpretation. Verify all findings against the original regulatory source. Human review is mandatory.";
+  $("empty").hidden=true;$("report").hidden=false;
+  $("addedN").textContent=added.length;$("removedN").textContent=removed.length;$("signalsN").textContent="—";
+  $("added").textContent=added.join("\\n\\n")||"No exact new paragraphs identified.";
+  $("removed").textContent=removed.join("\\n\\n")||"No exact removed paragraphs identified.";
+  $("clauseChanges").textContent="Detailed clause matching was unavailable. Review the added and removed paragraph lists above.";
+  $("obligationFields").textContent="Not generated in fallback mode. Manual obligation review is required.";
+  $("impactMatrix").textContent="Not generated in fallback mode. Manual impact assessment is required.";
+  $("signals").textContent="Not generated in fallback mode. Manual regulatory triage is required.";
+  $("areas").textContent="Not generated in fallback mode. Manual applicability assessment is required.";
+  $("printReport").textContent=lastReport;
+  $("analysisStatus").textContent="Basic comparison report generated. Detailed analysis was unavailable; the report states this limitation. You can now download or print the basic report.";
+ }
+});
 $("reset").addEventListener("click",function(){cancelPendingFileRead();$("oldText").value="";$("newText").value="";$("meta").value="";$("report").hidden=true;$("empty").hidden=false;lastReport="";$("analysisStatus").textContent="Workspace cleared. Enter both text versions and select Analyse."; $("file").value="";$("fileStatus").textContent="";document.querySelectorAll(".checklist input").forEach(function(x){x.checked=false;});});
 $("download").addEventListener("click",function(){if(!lastReport){alert("Please analyse both text versions before downloading the review notes.");return;}var blob=new Blob(["\uFEFF",lastReport],{type:"text/plain;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="alfiq-preliminary-review.txt";a.style.position="absolute";a.style.left="-9999px";a.setAttribute("aria-hidden","true");document.body.appendChild(a);a.click();a.remove();window.setTimeout(function(){URL.revokeObjectURL(url);},60000);});
 $("print").addEventListener("click",function(){if(!lastReport){alert("Please analyse both text versions before printing the review.");return;}$("printReport").textContent=lastReport;window.print();});
