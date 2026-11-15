@@ -24,6 +24,19 @@ jobs:
           python-version: "3.12"
       - name: Run static regression checks
         run: python .github/scripts/regression_check.py
+      - name: Validate AlfiQ inline JavaScript syntax
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          html = Path("alfiq/index.html").read_text(encoding="utf-8")
+          scripts = re.findall(r"<script>(.*?)</script>", html, flags=re.S)
+          if not scripts:
+              raise SystemExit("No inline AlfiQ scripts found")
+          for index, script in enumerate(scripts):
+              Path("/tmp/alfiq-inline-%d.js" % index).write_text(script, encoding="utf-8")
+          PY
+          for script in /tmp/alfiq-inline-*.js; do node --check "$script"; done
       - name: Upload regression report
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
