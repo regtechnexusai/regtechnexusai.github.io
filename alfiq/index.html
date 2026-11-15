@@ -303,7 +303,7 @@ $("analyse").addEventListener("click",function(){
    return;
   }
   function fallbackParagraphs(value){
-   return value.split(/\\n\\s*\\n/).map(function(part){return part.replace(/\\s+/g," ").trim();}).filter(Boolean);
+   return value.split(/\n\\s*\n/).map(function(part){return part.replace(/\\s+/g," ").trim();}).filter(Boolean);
   }
   function fallbackDifference(current,previous){
    var remaining=previous.slice(),result=[];
@@ -312,11 +312,11 @@ $("analyse").addEventListener("click",function(){
   }
   var oldParts=fallbackParagraphs(oldValue),newParts=fallbackParagraphs(newValue);
   var added=fallbackDifference(newParts,oldParts),removed=fallbackDifference(oldParts,newParts);
-  lastReport="ALFIQ — PRELIMINARY REGULATORY CHANGE REVIEW\\nBasic comparison fallback\\nHuman review required\\n\\nSOURCE NOTES\\n"+(($("meta").value||"").trim()||"Not supplied")+"\\n\\nADDED PARAGRAPHS\\n"+(added.join("\\n\\n")||"None identified by exact paragraph comparison")+"\\n\\nREMOVED PARAGRAPHS\\n"+(removed.join("\\n\\n")||"None identified by exact paragraph comparison")+"\\n\\nLIMITATIONS\\nThe detailed analysis component encountered an error. This fallback reports exact paragraph differences only; it does not provide obligation extraction, impact classification or legal interpretation. Verify all findings against the original regulatory source. Human review is mandatory.";
+  lastReport="ALFIQ — PRELIMINARY REGULATORY CHANGE REVIEW\nBasic comparison fallback\nHuman review required\n\nSOURCE NOTES\n"+(($("meta").value||"").trim()||"Not supplied")+"\n\nADDED PARAGRAPHS\n"+(added.join("\n\n")||"None identified by exact paragraph comparison")+"\n\nREMOVED PARAGRAPHS\n"+(removed.join("\n\n")||"None identified by exact paragraph comparison")+"\n\nLIMITATIONS\nThe detailed analysis component encountered an error: "+(error&&error.message?error.message:String(error))+". This fallback reports exact paragraph differences only; it does not provide obligation extraction, impact classification or legal interpretation. Verify all findings against the original regulatory source. Human review is mandatory.";
   $("empty").hidden=true;$("report").hidden=false;
   $("addedN").textContent=added.length;$("removedN").textContent=removed.length;$("signalsN").textContent="—";
-  $("added").textContent=added.join("\\n\\n")||"No exact new paragraphs identified.";
-  $("removed").textContent=removed.join("\\n\\n")||"No exact removed paragraphs identified.";
+  $("added").textContent=added.join("\n\n")||"No exact new paragraphs identified.";
+  $("removed").textContent=removed.join("\n\n")||"No exact removed paragraphs identified.";
   $("clauseChanges").textContent="Detailed clause matching was unavailable. Review the added and removed paragraph lists above.";
   $("obligationFields").textContent="Not generated in fallback mode. Manual obligation review is required.";
   $("impactMatrix").textContent="Not generated in fallback mode. Manual impact assessment is required.";
