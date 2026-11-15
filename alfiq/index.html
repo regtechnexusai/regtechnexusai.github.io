@@ -184,13 +184,13 @@ body > footer.alfiq-footer p{margin:0;color:#dceaf3;font-size:.9rem}
 <div class="panel"><label for="meta">Source register notes (optional)</label><textarea id="meta" style="min-height:85px" placeholder="Authority | document title | reference number | publication date | effective date (if verified) | URL | page/paragraph"></textarea><div class="actions"><button id="analyse">Analyse text changes</button><button class="secondary" id="reset">Clear workspace</button></div><p class="small muted">Comparison uses exact paragraph matching after whitespace normalisation. Keyword prompts are heuristics, not legal interpretations.</p></div></section>
 <section class="section" id="results" aria-live="polite"><h2>2. Preliminary change register</h2><div class="empty" id="empty">No analysis yet. Enter both text versions and select Analyse.</div><div id="report" hidden>
 <div class="kpis"><div class="kpi">Added paragraphs<strong id="addedN">0</strong></div><div class="kpi">Removed paragraphs<strong id="removedN">0</strong></div><div class="kpi">Potential signals<strong id="signalsN">0</strong></div></div>
-<div class="panel"><h3>Added text</h3><div id="added"></div></div><div class="panel"><h3>Removed text</h3><div id="removed"></div></div><div class="panel"><h3>Potential obligation signals</h3><div id="signals"></div></div><div class="panel"><h3>Suggested business areas for human triage</h3><div id="areas"></div></div>
+<div class="panel"><h3>Added text</h3><div id="added"></div></div><div class="panel"><h3>Clause-level changes (preliminary)</h3><div id="clauseChanges"></div><p class="small muted">Phrase-level comparison is a text-difference aid. It does not determine legal meaning or whether a clause is substantively equivalent.</p></div><div class="panel"><h3>Structured obligation signals (candidate extraction)</h3><div id="obligationFields"></div><p class="small muted">Fields are extracted from changed text using transparent keyword and pattern rules. “Not identified” means manual review is required, not that no obligation exists.</p></div><div class="panel"><h3>Preliminary impact assessment matrix</h3><div id="impactMatrix"></div><p class="small muted">Suggested review areas are hypotheses for human triage, not confirmed impacts or control gaps.</p></div><div class="panel"><h3>Potential obligation signals</h3><div id="signals"></div></div><div class="panel"><h3>Suggested business areas for human triage</h3><div id="areas"></div></div>
 <div class="panel"><h3>Human review checklist</h3><div class="checklist">
 <label><input type="checkbox"> Confirm issuing authority and source authenticity.</label><label><input type="checkbox"> Confirm status: binding instrument, guidance, consultation, proposal or report.</label><label><input type="checkbox"> Verify publication date, effective date, transition period and superseded provisions.</label><label><input type="checkbox"> Validate findings against original document page/paragraph references.</label><label><input type="checkbox"> Assess applicability, affected entities, products, processes and jurisdictions.</label><label><input type="checkbox"> Obtain Compliance, Legal and control-owner review before relying on findings.</label></div></div>
 <div class="actions"><button id="download">Download review notes (.txt)</button><button class="secondary" id="print">Print / Save PDF</button></div></div></section>
 <section class="section" id="intake"><h2>3. Local document intake</h2><div class="panel"><label for="file">Select a public text file (.txt, .md or .csv)</label><div class="file-picker-row"><input id="file" type="file" accept=".txt,.md,.csv,text/plain,text/markdown,text/csv"><button class="secondary" id="clearFile" type="button" aria-label="Clear selected file and allow reselection">Clear / refresh</button></div><label for="fileTarget">Load selected file into</label><select id="fileTarget"><option value="oldText">Earlier / existing requirement</option><option value="newText">New / revised requirement</option></select><p class="small muted">The selected file is read in this browser session only; it is not uploaded to a server. PDF/OCR extraction is not included. Clear / refresh removes the file selection; text already copied into the comparison fields remains until you clear the workspace.</p><p id="fileStatus" class="small muted" aria-live="polite"></p></div></section>
 <section class="section"><h2>4. Product contact</h2><div class="panel"><p>Product enquiries and pilot discussions:</p><strong><a href="mailto:regtechnexusai@gmail.com">regtechnexusai@gmail.com</a></strong><p class="small muted">Published by RegTech Nexus AI. AlfiQ is an early-stage decision-support prototype. Outputs require independent verification and professional judgement.</p></div></section>
-<p class="foot">AlfiQ · Regulatory Change Impact Agent · Prototype 0.1. No automated regulatory monitoring, source authentication, live AI inference, customer accounts, payment processing or subscriptions are enabled.</p><p class="foot">Central review record: <a href="/gaas/#case-workspace">Open the GaaS Case Workspace ↗</a>. Export and transfer only reviewer-approved, non-sensitive notes.</p>
+<p class="foot">AlfiQ · Regulatory Change Impact Agent · Prototype 0.2. No automated regulatory monitoring, source authentication, live AI inference, customer accounts, payment processing or subscriptions are enabled.</p><p class="foot">Central review record: <a href="/gaas/#case-workspace">Open the GaaS Case Workspace ↗</a>. Export and transfer only reviewer-approved, non-sensitive notes.</p>
 </main>
 <footer class="rt-shell-footer alfiq-footer" aria-label="AlfiQ page footer">
  <div class="alfiq-footer-brand"><a class="alfiq-logo-link alfiq-footer-logo-backing" href="/alfiq/" aria-label="AlfiQ home"><img class="alfiq-brand-logo alfiq-logo-footer" src="/alfiq/alfiq-logo-photo2.jpg" alt="AlfiQ" width="420" height="146"></a><p class="alfiq-attribution">Designed and Developed by <a href="/" aria-label="RegTech Nexus AI — go to homepage">RegTech Nexus AI</a></p></div>
@@ -204,6 +204,60 @@ function cancelPendingFileRead(){fileReadToken++;if(activeReader&&activeReader.r
 function split(s){return s.split(/\n\s*\n/).map(function(x){return x.replace(/\s+/g," ").trim();}).filter(Boolean);}
 function esc(s){return s.replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
 function list(id,items,empty){$(id).innerHTML=items.length?items.map(function(x){return '<div class="item">'+esc(x)+'</div>';}).join(""):'<p class="muted small">'+empty+'</p>';}
+function tokens(s){return (s.match(/[A-Za-z0-9]+(?:['’-][A-Za-z0-9]+)*/g)||[]);}
+function clauseDiff(oldP,newP){
+ var a=tokens(oldP),b=tokens(newP),start=0;
+ while(start<a.length&&start<b.length&&a[start].toLowerCase()===b[start].toLowerCase())start++;
+ var endA=a.length,endB=b.length;
+ while(endA>start&&endB>start&&a[endA-1].toLowerCase()===b[endB-1].toLowerCase()){endA--;endB--;}
+ return {removed:a.slice(start,endA).join(" ")||"—",added:b.slice(start,endB).join(" ")||"—"};
+}
+function similarity(a,b){
+ var aa=new Set(tokens(a).map(function(x){return x.toLowerCase();})),bb=new Set(tokens(b).map(function(x){return x.toLowerCase();}));
+ if(!aa.size||!bb.size)return 0;var common=0;aa.forEach(function(x){if(bb.has(x))common++;});
+ return common/(aa.size+bb.size-common);
+}
+function buildClauseChanges(added,removed){
+ var used=new Set(),pairs=[];
+ added.forEach(function(n){
+  var best=-1,score=0;removed.forEach(function(o,i){if(used.has(i))return;var s=similarity(o,n);if(s>score){score=s;best=i;}});
+  if(best>=0&&score>=.32){used.add(best);var d=clauseDiff(removed[best],n);pairs.push({old:removed[best],now:n,d:d,score:score});}
+ });
+ var out=pairs.map(function(p){return '<div class="item"><strong>Amended paragraph · candidate match</strong><p><span class="muted">Removed phrase:</span> <del>'+esc(p.d.removed)+'</del></p><p><span class="muted">Added phrase:</span> <ins>'+esc(p.d.added)+'</ins></p><p class="small muted">Paragraph similarity: '+Math.round(p.score*100)+'% (heuristic)</p></div>';});
+ if(added.length||removed.length){if(!pairs.length)out.push('<p class="muted small">No confident paragraph pair found. Review the added and removed paragraph lists separately.</p>');}
+ else out.push('<p class="muted small">No paragraph changes identified.</p>');
+ $("clauseChanges").innerHTML=out.join("");
+ return pairs;
+}
+function extractField(text,patterns){
+ for(var i=0;i<patterns.length;i++){var m=text.match(patterns[i]);if(m)return m[0].trim();}
+ return "Not identified — manual review";
+}
+function obligationModel(changed,meta){
+ var t=changed.join(" "),low=t.toLowerCase();
+ var actor=extractField(t,[/\b(?:the\s+)?[A-Z][A-Za-z&/ -]{2,70}?(?=\s+(?:shall|must|is required to|are required to))\s+(?:shall|must|is required to|are required to)/i]);
+ var modal=extractField(t,[/\b(?:shall|must|is required to|are required to|should|may)\b/i]);
+ var frequency=extractField(t,[/\b(?:daily|weekly|monthly|quarterly|semi-annually|annually|yearly|at least once every \w+|every \w+)\b/i]);
+ var approval=extractField(t,[/\b(?:approval|approved|authorisation|authorization|sign-off)\b[^.;\n]{0,100}/i,/\b(?:by the (?:head|chief|board|committee)[^.;\n]{0,70})/i]);
+ var evidence=extractField(t,[/\b(?:documented evidence|evidence|records?|audit trail|minutes)\b[^.;\n]{0,100}/i]);
+ var deadline=extractField(t,[/\b(?:within \d+ (?:calendar |business )?days|no later than[^.;\n]{0,80}|by \d{1,2}[/-]\d{1,2}[/-]\d{2,4})\b/i]);
+ var effective=extractField(meta,[/effective date\s*[:|]\s*[^|\n]+/i,/commencement date\s*[:|]\s*[^|\n]+/i]);
+ var fields=[["Responsible party / actor",actor],["Obligation modality",modal],["Frequency / cadence",frequency],["Approval / authority",approval],["Evidence / record",evidence],["Deadline / time limit",deadline],["Effective date (source notes)",effective]];
+ $("obligationFields").innerHTML=fields.map(function(x){return '<div class="item"><strong>'+esc(x[0])+'</strong><div>'+esc(x[1])+'</div></div>';}).join("");
+ return fields;
+}
+function impactModel(changed){
+ var t=changed.join(" ").toLowerCase(),rows=[
+ ["Policy","Review policy wording, scope, approval and review cycle.",/policy|procedure|standard|framework/.test(t)],
+ ["Process","Map affected operational steps, hand-offs and escalation.",/process|review|submit|notify|screen|monitor/.test(t)],
+ ["Control","Assess control design, frequency, evidence and testing.",/control|check|reconcile|monitor|evidence|review/.test(t)],
+ ["Ownership","Confirm accountable function, approver and maker-checker roles.",/head of|owner|department|committee|board|approve|approval|responsible/.test(t)],
+ ["Evidence","Define retained records, audit trail, retrieval and retention.",/record|retain|evidence|document|audit trail/.test(t)]
+ ];
+ $("impactMatrix").innerHTML=rows.map(function(r){return '<div class="item"><strong>'+esc(r[0])+'</strong><span class="tag">'+(r[2]?"Review indicated by text":"Not indicated by configured terms")+'</span><p class="small muted">'+esc(r[1])+'</p></div>';}).join("");
+ return rows;
+}
+
 function analyse(){
 var old=$("oldText").value,now=$("newText").value;if(!old.trim()||!now.trim()){alert("Please provide both earlier and newer text extracts.");return;}
 var a=split(old),b=split(now),oldCounts=new Map(),newCounts=new Map();a.forEach(function(x){oldCounts.set(x,(oldCounts.get(x)||0)+1);});b.forEach(function(x){newCounts.set(x,(newCounts.get(x)||0)+1);});var seenNew=new Map(),seenOld=new Map(),added=b.filter(function(x){var n=(seenNew.get(x)||0)+1;seenNew.set(x,n);return n>(oldCounts.get(x)||0);}),removed=a.filter(function(x){var n=(seenOld.get(x)||0)+1;seenOld.set(x,n);return n>(newCounts.get(x)||0);}),corpus=added.join(" ").toLowerCase();
@@ -229,8 +283,8 @@ var ar=[
 [["capital","liquidity","credit","market risk"],"Risk Management / Finance"]
 ],areas=[];ar.forEach(function(r){if(r[0].some(function(t){return corpus.indexOf(t)!==-1;}))areas.push(r[1]);});
 $("empty").hidden=true;$("report").hidden=false;$("addedN").textContent=added.length;$("removedN").textContent=removed.length;$("signalsN").textContent=signals.length;
-list("added",added,"No exact new paragraphs identified.");list("removed",removed,"No exact removed paragraphs identified.");list("signals",signals,"No configured keyword signals found. This does not mean there is no impact.");list("areas",areas,"No prompt identified; manual applicability assessment is required.");
-lastReport="ALFIQ — PRELIMINARY REGULATORY CHANGE REVIEW\nPrototype 0.1 | Rule-based text comparison | Human review required\n\nSOURCE NOTES\n"+($("meta").value.trim()||"Not supplied")+"\n\nADDED PARAGRAPHS\n"+(added.join("\n\n")||"None identified")+"\n\nREMOVED PARAGRAPHS\n"+(removed.join("\n\n")||"None identified")+"\n\nPOTENTIAL SIGNALS\n"+(signals.join("\n")||"None identified")+"\n\nSUGGESTED BUSINESS AREAS\n"+(areas.join("\n")||"Manual assessment required")+"\n\nLIMITATIONS\nExact paragraph matching after whitespace normalisation. Keyword prompts are heuristics, not legal interpretations. Source authenticity, legal status, applicability, dates and references are not verified. Human review is mandatory. Not legal advice or a compliance determination.";
+list("added",added,"No exact new paragraphs identified.");list("removed",removed,"No exact removed paragraphs identified.");var clausePairs=buildClauseChanges(added,removed);var obligationFields=obligationModel(added,$("meta").value);var impactRows=impactModel(added);list("signals",signals,"No configured keyword signals found. This does not mean there is no impact.");list("areas",areas,"No prompt identified; manual applicability assessment is required.");
+lastReport="ALFIQ — PRELIMINARY REGULATORY CHANGE REVIEW\nPrototype 0.2 | Rule-based phrase and obligation prompts | Human review required\n\nSOURCE NOTES\n"+($("meta").value.trim()||"Not supplied")+"\n\nCLAUSE-LEVEL CHANGES (HEURISTIC)\n"+(clausePairs.map(function(p){return "Removed phrase: "+p.d.removed+"\nAdded phrase: "+p.d.added;}).join("\n\n")||"No paired amendment identified; review added/removed paragraphs.")+"\n\nSTRUCTURED OBLIGATION SIGNALS\n"+obligationFields.map(function(x){return x[0]+": "+x[1];}).join("\n")+"\n\nPRELIMINARY IMPACT MATRIX\n"+impactRows.map(function(x){return x[0]+": "+(x[2]?"Review indicated by text":"Not indicated by configured terms")+" — "+x[1];}).join("\n")+"\n\nADDED PARAGRAPHS\n"+(added.join("\n\n")||"None identified")+"\n\nREMOVED PARAGRAPHS\n"+(removed.join("\n\n")||"None identified")+"\n\nPOTENTIAL SIGNALS\n"+(signals.join("\n")||"None identified")+"\n\nSUGGESTED BUSINESS AREAS\n"+(areas.join("\n")||"Manual assessment required")+"\n\nLIMITATIONS\nExact paragraph matching after whitespace normalisation. Keyword prompts are heuristics, not legal interpretations. Source authenticity, legal status, applicability, dates and references are not verified. Human review is mandatory. Not legal advice or a compliance determination.";
 }
 $("analyse").addEventListener("click",analyse);
 $("reset").addEventListener("click",function(){cancelPendingFileRead();$("oldText").value="";$("newText").value="";$("meta").value="";$("report").hidden=true;$("empty").hidden=false;lastReport="";$("file").value="";$("fileStatus").textContent="";document.querySelectorAll(".checklist input").forEach(function(x){x.checked=false;});});
