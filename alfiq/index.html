@@ -230,12 +230,12 @@ function buildClauseChanges(added,removed){
  return pairs;
 }
 function extractField(text,patterns){
- for(var i=0;i<patterns.length;i++){var m=text.match(patterns[i]);if(m)return m[0].trim();}
+ for(var i=0;i<patterns.length;i++){var m=text.match(patterns[i]);if(m)return (m[1]||m[0]).trim();}
  return "Not identified — manual review";
 }
 function obligationModel(changed,meta){
  var t=changed.join(" "),low=t.toLowerCase();
- var actor=extractField(t,[/\b(?:the\s+)?[A-Z][A-Za-z&/ -]{2,70}?(?=\s+(?:shall|must|is required to|are required to))\s+(?:shall|must|is required to|are required to)/i]);
+ var actor=extractField(t,[/\b(the\s+[A-Z][A-Za-z&/ -]{2,70}?)\s+(?=shall|must|is required to|are required to)/i]);
  var modal=extractField(t,[/\b(?:shall|must|is required to|are required to|should|may)\b/i]);
  var frequency=extractField(t,[/\b(?:daily|weekly|monthly|quarterly|semi-annually|annually|yearly|at least once every \w+|every \w+)\b/i]);
  var approval=extractField(t,[/\b(?:approval|approved|authorisation|authorization|sign-off)\b[^.;\n]{0,100}/i,/\b(?:by the (?:head|chief|board|committee)[^.;\n]{0,70})/i]);
