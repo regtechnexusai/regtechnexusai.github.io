@@ -14,11 +14,30 @@ function element(id) {
   });
   return elements.get(id);
 }
+const clickedAnchors = [];
+const appended = [];
 const document = {
+  body: {
+    appendChild(node) { appended.push(node); },
+    removeChild(node) { appended.splice(appended.indexOf(node), 1); }
+  },
   getElementById: element,
+  createElement(tag) {
+    return { tag, style: {}, attrs: {}, setAttribute(k, v) { this.attrs[k] = v; },
+      click() { this.clicked = true; clickedAnchors.push(this); },
+      remove() { this.removed = true; } };
+  },
   querySelectorAll() { return []; }
 };
-const sandbox = { document, alert(message) { throw new Error(message); }, console };
+const revoked = [];
+const sandbox = {
+  document, Blob,
+  URL: { createObjectURL(blob) { sandbox.lastBlob = blob; return "blob:alfiq-test"; },
+    revokeObjectURL(url) { revoked.push(url); } },
+  window: { setTimeout(fn, delay) { sandbox.delayedRevoke = { fn, delay }; },
+    print() { sandbox.didPrint = true; } },
+  alert(message) { throw new Error(message); }, console
+};
 vm.runInNewContext(scripts[0], sandbox, { timeout: 2000 });
 const oldText = "The Compliance Department shall review the AML policy annually and maintain documented evidence of the review.";
 const newText = "The Compliance Department shall review the AML policy quarterly and maintain documented evidence of the review, including approval by the Head of Compliance.";
@@ -36,6 +55,18 @@ assert.match(obligations, /shall/, "obligation modality is extracted");
 assert.match(obligations, /quarterly/, "frequency is extracted");
 assert.match(obligations, /approval by the Head of Compliance/, "approval signal is extracted");
 assert.match(obligations, /documented evidence/, "evidence signal is extracted");
+assert.match(element("printReport").textContent, /quarterly/, "complete report is prepared for print");
+element("download").handlers.click();
+assert.equal(clickedAnchors.length, 1, "download link is clicked");
+assert.equal(clickedAnchors[0].download, "alfiq-preliminary-review.txt", "download filename is set");
+assert.equal(clickedAnchors[0].href, "blob:alfiq-test", "download uses a generated Blob URL");
+assert.equal(clickedAnchors[0].removed, true, "temporary download link is removed after click");
+assert.equal(sandbox.delayedRevoke.delay, 60000, "Blob URL is retained for mobile download hand-off");
+sandbox.delayedRevoke.fn();
+assert.deepEqual(revoked, ["blob:alfiq-test"], "Blob URL is eventually revoked");
+element("print").handlers.click();
+assert.equal(sandbox.didPrint, true, "print action opens the browser print flow");
+assert.match(element("printReport").textContent, /STRUCTURED OBLIGATION SIGNALS/, "print-only report includes structured fields");
 const matrix = element("impactMatrix").innerHTML;
 for (const area of ["Policy", "Process", "Control", "Ownership", "Evidence"]) {
   assert.match(matrix, new RegExp(area), area + " impact row is present");
