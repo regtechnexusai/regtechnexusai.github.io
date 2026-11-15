@@ -207,7 +207,7 @@ function split(s){
   if(!x)return true;
   if(/^#{1,6}\s/.test(x)||/^>\s?/.test(x))return false;
   if(/^synthetic test document\b/i.test(x)||/^earlier version$/i.test(x)||/^revised version$/i.test(x))return false;
-  if(/^(?:test metadata|authority\s*:|reference\s*:|status\s*:|publication date\s*:|effective date\s*:|source url\s*:|review purpose\s*:)/i.test(x))return false;
+  if(/^(?:[-*]\s*)?(?:test metadata|authority\s*:|reference\s*:|status\s*:|publication date\s*:|effective date\s*:|source url\s*:|review purpose\s*:)/i.test(x))return false;
   if(/^not a real regulation\b/i.test(x))return false;
   return true;
  });
