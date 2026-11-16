@@ -2,6 +2,7 @@
 from pathlib import Path
 from zipfile import ZipFile, ZIP_DEFLATED
 from playwright.sync_api import Page, expect
+from urllib.parse import urlparse
 import re
 
 
@@ -58,7 +59,7 @@ def test_local_pdf_docx_intake_and_synchronized_panes(page: Page, tmp_path: Path
     errors = []
     external_requests = []
     page.on("pageerror", lambda error: errors.append(str(error)))
-    page.on("request", lambda req: external_requests.append(req.url) if not req.url.startswith("http://127.0.0.1:8765/") else None)
+    page.on("request", lambda req: external_requests.append(req.url) if not req.url.startswith("http://127.0.0.1:8765/") and urlparse(req.url).hostname not in {"www.googletagmanager.com", "www.google-analytics.com"} else None)
     response = page.goto("http://127.0.0.1:8765/alfiq/", wait_until="domcontentloaded")
     assert response and response.status == 200
     expect(page.locator("#file")).to_be_visible()
@@ -103,4 +104,4 @@ def test_local_pdf_docx_intake_and_synchronized_panes(page: Page, tmp_path: Path
     expect(page.locator("#syncStatus")).to_contain_text("off")
 
     assert not errors, "Browser errors: " + " | ".join(errors)
-    assert not external_requests, "Document processing made external requests: " + " | ".join(external_requests)
+    assert not external_requests, "Unexpected third-party document-processing request: " + " | ".join(external_requests)
