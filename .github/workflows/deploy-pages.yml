@@ -78,6 +78,20 @@ jobs:
             --exclude='*.md' \
             payscale-source/ \
             site/payscale-2026/
+      - name: Bundle pinned AlfiQ document parsers (self-hosted)
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/alfiq-pdfjs" "$RUNNER_TEMP/alfiq-mammoth" site/alfiq/vendor
+          PDF_TGZ=$(npm pack pdfjs-dist@6.5.438 --pack-destination "$RUNNER_TEMP/alfiq-pdfjs" --silent)
+          tar -xzf "$RUNNER_TEMP/alfiq-pdfjs/$PDF_TGZ" -C "$RUNNER_TEMP/alfiq-pdfjs" package/build/pdf.mjs package/build/pdf.worker.mjs package/LICENSE
+          cp "$RUNNER_TEMP/alfiq-pdfjs/package/build/pdf.mjs" site/alfiq/vendor/pdf.mjs
+          cp "$RUNNER_TEMP/alfiq-pdfjs/package/build/pdf.worker.mjs" site/alfiq/vendor/pdf.worker.mjs
+          cp "$RUNNER_TEMP/alfiq-pdfjs/package/LICENSE" site/alfiq/vendor/PDFJS-LICENSE.txt
+          MAMMOTH_TGZ=$(npm pack mammoth@1.13.0 --pack-destination "$RUNNER_TEMP/alfiq-mammoth" --silent)
+          tar -xzf "$RUNNER_TEMP/alfiq-mammoth/$MAMMOTH_TGZ" -C "$RUNNER_TEMP/alfiq-mammoth" package/mammoth.browser.min.js package/LICENSE
+          cp "$RUNNER_TEMP/alfiq-mammoth/package/mammoth.browser.min.js" site/alfiq/vendor/mammoth.browser.min.js
+          cp "$RUNNER_TEMP/alfiq-mammoth/package/LICENSE" site/alfiq/vendor/MAMMOTH-LICENSE.txt
+
       - name: Apply site-wide email composer to assembled PayScale pages
         run: |
           cp root-site/site-email.js site/payscale-2026/site-email.js
