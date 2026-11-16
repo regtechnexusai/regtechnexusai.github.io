@@ -68,14 +68,14 @@ def test_local_pdf_docx_intake_and_synchronized_panes(page: Page, tmp_path: Path
     page.locator("#fileTarget").select_option("oldText")
     page.locator("#file").set_input_files(str(pdf))
     expect(page.locator("#fileStatus")).to_contain_text("PDF text", timeout=30000)
-    expect(page.locator("#oldText")).to_contain_text("Synthetic PDF regulation clause")
+    expect(page.locator("#oldText")).to_have_value(re.compile("Synthetic PDF regulation clause"))
 
     docx = tmp_path / "synthetic-regulation.docx"
     make_docx(docx)
     page.locator("#fileTarget").select_option("newText")
     page.locator("#file").set_input_files(str(docx))
     expect(page.locator("#fileStatus")).to_contain_text("DOCX text extracted locally", timeout=30000)
-    expect(page.locator("#newText")).to_contain_text("Synthetic DOCX regulatory clause")
+    expect(page.locator("#newText")).to_have_value(re.compile("Synthetic DOCX regulatory clause"))
 
     page.locator("#analyse").click()
     expect(page.locator("#report")).to_be_visible(timeout=15000)
@@ -85,7 +85,7 @@ def test_local_pdf_docx_intake_and_synchronized_panes(page: Page, tmp_path: Path
     page.locator("#fileTarget").select_option("oldText")
     page.locator("#file").set_input_files(str(scanned))
     expect(page.locator("#fileStatus")).to_contain_text(re.compile("scanned/image-only|OCR is not included", re.I), timeout=30000)
-    expect(page.locator("#oldText")).to_contain_text("Synthetic PDF regulation clause")
+    expect(page.locator("#oldText")).to_have_value(re.compile("Synthetic PDF regulation clause"))
 
     # Proportional scroll synchronisation between the two existing side-by-side panes.
     long_text = "\n\n".join("Clause %d — synthetic regulatory review text." % i for i in range(1, 100))
