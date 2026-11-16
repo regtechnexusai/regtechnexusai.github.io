@@ -481,7 +481,7 @@ async function buildApprovedRecord(){
  return stamp;
 }
 function downloadText(text){
- var blob=new Blob(["\\uFEFF",text],{type:"text/plain;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+ var blob=new Blob(["\uFEFF",text],{type:"text/plain;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");
  a.href=url;a.download="alfiq-approved-review.txt";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},60000);
 }
 document.addEventListener("click",async function(event){
@@ -491,7 +491,7 @@ document.addEventListener("click",async function(event){
  try{
   var stamp=await buildApprovedRecord();
   var report=$("printReport").textContent||"ALFIQ — PRELIMINARY REGULATORY CHANGE REVIEW";
-  var complete=report+"\\n\\nAUDIT AND REVIEW SIGN-OFF\\n"+JSON.stringify(stamp,null,2);
+  var complete=report+"\n\nAUDIT AND REVIEW SIGN-OFF\n"+JSON.stringify(stamp,null,2);
   if(target.id==="download")downloadText(complete);
   else{$("printReport").textContent=complete;window.print();}
  }catch(error){$("gateStatus").textContent=error.message;}
