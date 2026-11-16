@@ -427,9 +427,9 @@ function makeTriageUI(){
  var cards=host.querySelectorAll(".item");
  cards.forEach(function(card,index){
   var select=card.querySelector(".clause-triage");
-  if(select)select.addEventListener("change",function(){invalidate();});
+  if(select)select.addEventListener("change",function(){gate();});
   var comment=card.querySelector(".triage-comment");
-  if(comment)comment.addEventListener("input",function(){invalidate();});
+  if(comment)comment.addEventListener("input",function(){gate();});
  });
  if(!host.querySelector(".alfiq-filter-row")){
   var bar=document.createElement("div");bar.className="alfiq-filter-row";
@@ -502,8 +502,8 @@ checks.forEach(function(x){x.addEventListener("change",gate);});
 $("analyse").addEventListener("click",function(){
  setTimeout(function(){
   analysisFresh=!$("report").hidden&&!!$("printReport").textContent;
-  sourceSnapshot=JSON.stringify({old:$("oldText").value,now:$("newText").value,meta:$("meta").value,reviewer:$("reviewerName").value.trim(),role:$("reviewerRole").value.trim(),checks:checklistState(),triage:collectTriage(),rulePack:window.AlfiQRulePack?window.AlfiQRulePack.packVersion:"general-1.0"});
-  makeTriageUI();sourceSnapshot=JSON.stringify({old:$("oldText").value,now:$("newText").value,meta:$("meta").value,reviewer:$("reviewerName").value.trim(),role:$("reviewerRole").value.trim(),checks:checklistState(),triage:collectTriage(),rulePack:window.AlfiQRulePack?window.AlfiQRulePack.packVersion:"general-1.0"});
+  sourceSnapshot=JSON.stringify({old:$("oldText").value,now:$("newText").value,meta:$("meta").value});
+  makeTriageUI();sourceSnapshot=JSON.stringify({old:$("oldText").value,now:$("newText").value,meta:$("meta").value});
   gate();
  },0);
 });
