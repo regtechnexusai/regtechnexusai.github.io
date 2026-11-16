@@ -183,14 +183,14 @@ Relevant employees must receive AML/CFT training at induction and refresher trai
 
     page.evaluate("window.print = () => { window.__alfiqPrintCalled = true; }")
     page.locator("#print").click()
-    expect.poll(lambda: page.evaluate("window.__alfiqPrintCalled === true")).to_be_truthy()
+    page.wait_for_function("window.__alfiqPrintCalled === true")
 
     page.evaluate("""() => {
       window.__alfiqOpenedUrl = "";
       window.open = (url) => { window.__alfiqOpenedUrl = url; return null; };
     }""")
     page.locator("#transfer-approved").click()
-    expect.poll(lambda: page.evaluate("window.__alfiqOpenedUrl")).to_contain_text("alfiq_handoff=")
+    page.wait_for_function("window.__alfiqOpenedUrl.includes('alfiq_handoff=')")
     handoff_count = page.evaluate("""() => Object.keys(localStorage).filter(
       key => key.startsWith("regtechnexusai.alfiq.handoff.")
     ).length""")
