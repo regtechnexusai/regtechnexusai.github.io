@@ -89,7 +89,7 @@
   }catch(error){if(requestToken===token){setStatus("Document extraction stopped: "+(error&&error.message?error.message:"unknown error")+". Your existing text was not replaced.");}}
  });
  if(clear)clear.addEventListener("click",()=>{token++;});
- const reset=document.getElementById("reset");if(reset)reset.addEventListener("click",()=>{token++;});
+ const reset=document.getElementById("reset");if(reset)reset.addEventListener("click",()=>{token++;const packInput=document.getElementById("rulePackFile"),packSelect=document.getElementById("builtInRulePack"),packStatus=document.getElementById("rulePackStatus");if(packInput)packInput.value="";if(packSelect){packSelect.value="general.json";packSelect.dispatchEvent(new Event("change",{bubbles:true}));}else if(packStatus){packStatus.textContent="Rule-pack selection cleared. General Compliance will be restored when the workspace reloads.";}});
  const oldPane=document.getElementById("oldText"),newPane=document.getElementById("newText"),sync=document.getElementById("syncScroll"),syncStatus=document.getElementById("syncStatus");
  if(oldPane&&newPane&&sync){
   let locked=false,frame=0;
