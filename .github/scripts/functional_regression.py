@@ -245,6 +245,15 @@ def test_alfiq_workspace_comparison_reset_local_file_and_exports(page: Page, tmp
     expect(page.locator("#addedN")).to_have_text("1")
     expect(page.locator("#removedN")).to_have_text("0")
 
+    # AlfiQ 0.6 deliberately gates exports behind documented human sign-off.
+    expect(page.locator("#download")).to_be_disabled()
+    page.locator("#reviewerName").fill("Regression Test Reviewer")
+    page.locator("#reviewerRole").fill("Compliance Tester")
+    for item in page.locator(".checklist input[type=checkbox]").all():
+        item.check()
+    expect(page.locator("#download")).to_be_enabled(timeout=10000)
+    expect(page.locator("#print")).to_be_enabled(timeout=10000)
+
     with page.expect_download(timeout=15000) as download_info:
         page.locator("#download").click()
     download = download_info.value
