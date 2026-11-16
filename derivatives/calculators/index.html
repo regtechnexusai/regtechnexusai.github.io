@@ -210,7 +210,7 @@ function crossCurrencyCashflows(){
 }
 function swapReportElement(){return document.getElementById('ccCashResult');}
 function swapExportStatus(message){const el=document.getElementById('ccExportStatus');if(el)el.textContent=message;}
-function copySwapReport(){const el=swapReportElement();if(!el||!el.querySelector('table')){swapExportStatus('Build the cash-flow schedule first.');return;}const text=el.innerText.replace(/Copy report\s*Download CSV\s*Print report/g,'').trim();if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(()=>swapExportStatus('Report copied.')).catch(()=>swapCopyFallback(text));}else swapCopyFallback(text);}
+function copySwapReport(){const el=swapReportElement();if(!el||!el.querySelector('table')){swapExportStatus('Build the cash-flow schedule first.');return;}const report=el.cloneNode(true);report.querySelectorAll('.export-actions').forEach(node=>node.remove());const text=Array.from(report.children).map(node=>node.innerText.trim()).filter(Boolean).join('\n\n');if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(()=>swapExportStatus('Report copied.')).catch(()=>swapCopyFallback(text));}else swapCopyFallback(text);}
 function swapCopyFallback(text){const area=document.createElement('textarea');area.value=text;area.setAttribute('readonly','');area.style.position='fixed';area.style.opacity='0';document.body.appendChild(area);area.select();try{document.execCommand('copy');swapExportStatus('Report copied.');}catch(e){swapExportStatus('Copy was blocked by the browser.');}area.remove();}
 function swapCsvCell(value){return '"'+String(value??'').replace(/"/g,'""')+'"';}
 function swapCsvNumber(value){return Number(value).toFixed(6);}
@@ -227,7 +227,7 @@ function downloadSwapCSV(){
  ['usd_discount_rate_percent',d.discUSD*100],['bdt_discount_rate_percent',d.discBDT*100],['discounting_convention','Continuous compounding; elapsed days / 365'],
  ['maturity_usd_principal_usd',d.maturityUSD],['maturity_bdt_principal_bdt',d.maturityBDT],
  ['usd_leg_pv_usd',d.pvUsd],['bdt_leg_pv_bdt',d.pvBdt],['net_pv_bdt_at_spot',d.netPV],
- ['usd_coupon_total_usd',d.usdCouponTotal],['bdt_coupon_total_bdt',d.bdtCouponTotal],
+ ['usd_coupon_total_usd',(d.direction==='receive'?1:-1)*d.usdCouponTotal],['bdt_coupon_total_bdt',(d.direction==='receive'?-1:1)*d.bdtCouponTotal],['coupon_total_sign_convention','Signed from selected cash-flow perspective; receipts positive, payments negative'],
  ['cip_reference_forward_bdt_per_usd',d.spot*(1+(d.bdtRate*d.days/Number(document.getElementById('ccBasis').value)))/(1+(d.usdRate*d.days/Number(document.getElementById('ccBasis').value)))],
  ['cip_forward_points_bdt_per_usd',d.spot*(1+(d.bdtRate*d.days/Number(document.getElementById('ccBasis').value)))/(1+(d.usdRate*d.days/Number(document.getElementById('ccBasis').value)))-d.spot],
  ['cip_reference_forward_day_count_basis',document.getElementById('ccBasis').value],
