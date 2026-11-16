@@ -105,3 +105,62 @@ def test_local_pdf_docx_intake_and_synchronized_panes(page: Page, tmp_path: Path
 
     assert not errors, "Browser errors: " + " | ".join(errors)
     assert not external_requests, "Unexpected third-party document-processing request: " + " | ".join(external_requests)
+
+
+def test_synthetic_obligation_diff_and_audit_gate(page: Page):
+    """Regression for clause pairing, unchanged obligations, extraction and sign-off gating."""
+    page.set_viewport_size({"width": 1280, "height": 900})
+    response = page.goto("http://127.0.0.1:8765/alfiq/", wait_until="domcontentloaded")
+    assert response and response.status == 200
+
+    earlier = """Record retention
+The institution must retain customer due diligence records and transaction records for at least five years after the business relationship ends or the transaction is completed.
+
+Suspicious activity escalation
+Employees must promptly refer potentially suspicious activity to the Compliance Officer. The Compliance Officer must document the assessment and any decision to submit a report.
+
+Monitoring review
+The institution must review its transaction monitoring scenarios at least once every twelve months and document material changes.
+
+Staff training
+Relevant employees must receive AML/CFT training at induction and refresher training at least annually."""
+
+    revised = """Record retention
+The institution must retain customer due diligence records and transaction records for at least seven years after the business relationship ends or the transaction is completed.
+
+Suspicious activity escalation
+Employees must refer potentially suspicious activity to the Compliance Officer without undue delay. The Compliance Officer must document the assessment and any decision to submit a report within two business days of escalation.
+
+Monitoring review
+The institution must review its transaction monitoring scenarios at least once every six months and document material changes, validation results and approval by the designated control owner.
+
+Staff training
+Relevant employees must receive AML/CFT training at induction and refresher training at least annually. Completion records must be retained for at least seven years."""
+
+    page.locator("#oldText").fill(earlier)
+    page.locator("#newText").fill(revised)
+    page.locator("#analyse").click()
+    expect(page.locator("#report")).to_be_visible(timeout=15000)
+    page.wait_for_timeout(100)
+
+    obligations = page.locator("#obligationFields").inner_text()
+    assert "Compliance Officer" in obligations, obligations
+    assert "within two business days" in obligations, obligations
+    assert "at least seven years" in obligations, obligations
+    assert "Relevant employees must receive AML/CFT training at induction and refresher training at least annually." in obligations, obligations
+    assert "Removed obligation(s) requiring review" in obligations
+    removed_field = obligations.split("Removed obligation(s) requiring review", 1)[1].split("Unchanged obligation(s)", 1)[0]
+    assert "Staff training" not in removed_field, removed_field
+    transition_field = obligations.split("Transition / implementation arrangements", 1)[1].split("Source references", 1)[0]
+    assert "Not identified" in transition_field, transition_field
+
+    # Checklist and reviewer identity alone must not permit export while clause triage is pending.
+    for checkbox in page.locator(".checklist input[type=checkbox]").all():
+        checkbox.check()
+    page.locator("#reviewerName").fill("Synthetic Reviewer")
+    page.locator("#reviewerRole").fill("Compliance Officer")
+    expect(page.locator("#download")).to_be_disabled()
+    expect(page.locator("#gateStatus")).to_contain_text("triage every changed clause")
+    for select in page.locator(".clause-triage").all():
+        select.select_option(label="Action Required")
+    expect(page.locator("#download")).to_be_enabled()
