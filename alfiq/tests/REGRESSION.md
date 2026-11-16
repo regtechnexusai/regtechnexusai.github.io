@@ -28,6 +28,14 @@ Run against the PR preview before merge. Use synthetic/public text only.
 - [ ] Invalid schema, duplicate IDs, invalid regular expressions and oversized packs are rejected.
 - [ ] No imported pack can bypass the sign-off gate.
 
+## Approved AlfiQ handoff
+- [ ] Handoff button remains disabled until all six checks, reviewer details and fresh analysis are complete.
+- [ ] Handoff opens the Policy Gap Analyzer on the same origin.
+- [ ] Receiver consumes and deletes the one-time localStorage item.
+- [ ] Expired, malformed and replayed identifiers are rejected.
+- [ ] Receiver displays only summary metadata and triage states; no original source text or reviewer comments are transferred.
+- [ ] Handoff summary is explicitly labelled context only and is not analysed as a policy excerpt.
+
 ## Mobile and privacy
 - [ ] Layout remains usable at 360px viewport width.
 - [ ] No source document text is sent to an external service.
@@ -35,4 +43,4 @@ Run against the PR preview before merge. Use synthetic/public text only.
 - [ ] Browser refresh does not claim that unsaved work was persisted.
 
 ## Deferred scope
-PDF/DOCX extraction and automated Policy Gap Analyzer handoff are not enabled in this release. Add them only after the PDF.js/Mammoth distributions are self-hosted and the receiving tool implements a verified same-origin intake contract.
+PDF/DOCX extraction and synchronized split-screen rendering are not enabled in this release. Add document parsing only after the PDF.js/Mammoth distributions are self-hosted and licence-reviewed.
