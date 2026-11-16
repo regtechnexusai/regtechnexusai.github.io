@@ -250,7 +250,7 @@ function collInterest(){let P=n('ciP'),r=n('ciR')/100,d=n('ciD'),b=n('ciB');if(!
       sample='Current calculation: '+position+'; strike='+strike+', premium='+premium+', expiry price='+expiry+', multiplier='+multiplier+'. Breakeven='+fmt(be)+'.';
     }
     const fields=[];
-    card.querySelectorAll('.field').forEach(field=>{const label=field.querySelector('label')?.textContent.trim();const control=field.querySelector('input,select,textarea');if(label&&control&&!control.hidden)fields.push({label,value:control.value});});
+    card.querySelectorAll('.field').forEach(field=>{const label=field.querySelector('label')?.textContent.trim();const control=field.querySelector('input,select,textarea');if(label&&control&&!control.hidden)fields.push({label,value:control.tagName==='SELECT'?(control.options[control.selectedIndex]?.textContent.trim()||control.value):control.value});});
     const resultNodes=[...card.querySelectorAll('.result')];
     const lines=resultNodes.flatMap((node,i)=>{const part=resultLines(node);return part.length?[(i===0?'PRINCIPAL-EXCHANGE ANALYSIS:':'CASH-FLOW SCHEDULE & PRESENT VALUE:'),...part]:[];});
     return {title,desc,sample,fields,result:lines.join('\n')||'No result calculated yet.',resultLines:lines,timestamp:isoUtc()};
