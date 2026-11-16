@@ -210,7 +210,7 @@ function crossCurrencyCashflows(){
 }
 function swapReportElement(){return document.getElementById('ccCashResult');}
 function swapExportStatus(message){const el=document.getElementById('ccExportStatus');if(el)el.textContent=message;}
-function copySwapReport(){const el=swapReportElement();if(!el||!el.querySelector('table')){swapExportStatus('Build the cash-flow schedule first.');return;}const text=el.innerText.replace(/Copy report\\s*Download CSV\\s*Print report/g,'').trim();if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(()=>swapExportStatus('Report copied.')).catch(()=>swapCopyFallback(text));}else swapCopyFallback(text);}
+function copySwapReport(){const el=swapReportElement();if(!el||!el.querySelector('table')){swapExportStatus('Build the cash-flow schedule first.');return;}const text=el.innerText.replace(/Copy report\s*Download CSV\s*Print report/g,'').trim();if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(()=>swapExportStatus('Report copied.')).catch(()=>swapCopyFallback(text));}else swapCopyFallback(text);}
 function swapCopyFallback(text){const area=document.createElement('textarea');area.value=text;area.setAttribute('readonly','');area.style.position='fixed';area.style.opacity='0';document.body.appendChild(area);area.select();try{document.execCommand('copy');swapExportStatus('Report copied.');}catch(e){swapExportStatus('Copy was blocked by the browser.');}area.remove();}
 function swapCsvCell(value){return '"'+String(value??'').replace(/"/g,'""')+'"';}
 function swapCsvNumber(value){return Number(value).toFixed(6);}
