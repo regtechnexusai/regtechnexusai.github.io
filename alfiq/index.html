@@ -522,9 +522,21 @@ $("loadSample").addEventListener("click",function(){
 });
 /* Add custom rule-pack import; the built-in engine remains available. */
 var rulePanel=document.createElement("div");rulePanel.className="panel alfiq-rule-panel";
-rulePanel.innerHTML='<div><strong>Custom local rule pack (JSON)</strong><p class="small muted">Import a validated rule dictionary. The file is read in this browser only.</p></div><input type="file" id="rulePackFile" accept=".json,application/json"><span id="rulePackStatus" class="small muted" role="status">Default heuristic rules active.</span>';
+rulePanel.innerHTML='<div><strong>Regulatory rule packs</strong><p class="small muted">Select a built-in dictionary or import a custom JSON pack. Files are processed in this browser.</p></div><select id="builtInRulePack" aria-label="Built-in rule pack"><option value="general.json">General Compliance</option><option value="banking-aml.json">Banking / AML</option><option value="data-privacy.json">Data Privacy</option></select><input type="file" id="rulePackFile" accept=".json,application/json"><span id="rulePackStatus" class="small muted" role="status">Loading General Compliance rules…</span>';
 var intake=document.getElementById("intake");if(intake)intake.insertBefore(rulePanel,intake.firstChild);
 window.AlfiQRulePack=null;
+async function loadBuiltInRulePack(filename){
+ try{
+  var response=await fetch("/alfiq/assets/rules/"+encodeURIComponent(filename),{cache:"no-store",credentials:"same-origin"});
+  if(!response.ok)throw new Error("Rule pack could not be loaded ("+response.status+").");
+  var pack=await response.json();
+  if(pack.schemaVersion!=="1.0"||!Array.isArray(pack.rules))throw new Error("Built-in rule pack schema is invalid.");
+  window.AlfiQRulePack=pack;
+  $("rulePackStatus").textContent="Active: "+pack.packName+" ("+pack.packVersion+").";
+ }catch(error){window.AlfiQRulePack=null;$("rulePackStatus").textContent=error.message;}
+}
+$("builtInRulePack").addEventListener("change",function(e){loadBuiltInRulePack(e.target.value);invalidate();});
+loadBuiltInRulePack("general.json");
 $("rulePackFile").addEventListener("change",async function(e){
  var file=e.target.files&&e.target.files[0];if(!file)return;
  if(file.size>256*1024){$("rulePackStatus").textContent="Rule pack exceeds 256 KB.";return;}
