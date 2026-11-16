@@ -107,7 +107,7 @@ def test_local_pdf_docx_intake_and_synchronized_panes(page: Page, tmp_path: Path
     assert not external_requests, "Unexpected third-party document-processing request: " + " | ".join(external_requests)
 
 
-def test_synthetic_obligation_diff_and_audit_gate(page: Page):
+def test_synthetic_obligation_diff_and_audit_gate(page: Page, tmp_path: Path):
     """Regression for clause pairing, unchanged obligations, extraction and sign-off gating."""
     page.set_viewport_size({"width": 1280, "height": 900})
     response = page.goto("http://127.0.0.1:8765/alfiq/", wait_until="domcontentloaded")
@@ -160,7 +160,38 @@ Relevant employees must receive AML/CFT training at induction and refresher trai
     page.locator("#reviewerName").fill("Synthetic Reviewer")
     page.locator("#reviewerRole").fill("Compliance Officer")
     expect(page.locator("#download")).to_be_disabled()
-    expect(page.locator("#gateStatus")).to_contain_text("triage every changed clause")
+    expect(page.locator("#gateStatus")).to_contain_text("Changed-clause triage")
+    expect(page.locator("#gateStatus")).to_contain_text("0/")
+    expect(page.locator("#gateStatus")).to_contain_text("Current-input analysis: Complete")
     for select in page.locator(".clause-triage").all():
         select.select_option(label="Action Required")
+    expect(page.locator("#gateStatus")).to_contain_text("Sign-off complete — export is ready.")
     expect(page.locator("#download")).to_be_enabled()
+    expect(page.locator("#print")).to_be_enabled()
+    expect(page.locator("#transfer-approved")).to_be_enabled()
+
+    # Exercise all three export actions, not just their enabled/disabled state.
+    with page.expect_download() as download_info:
+        page.locator("#download").click()
+    download = download_info.value
+    assert download.suggested_filename == "alfiq-approved-review.txt"
+    downloaded = tmp_path / download.suggested_filename
+    download.save_as(downloaded)
+    exported = downloaded.read_text(encoding="utf-8-sig")
+    assert "AUDIT AND REVIEW SIGN-OFF" in exported
+    assert '"applicationVersion": "0.9.0"' in exported
+
+    page.evaluate("window.print = () => { window.__alfiqPrintCalled = true; }")
+    page.locator("#print").click()
+    page.wait_for_function("window.__alfiqPrintCalled === true")
+
+    page.evaluate("""() => {
+      window.__alfiqOpenedUrl = "";
+      window.open = (url) => { window.__alfiqOpenedUrl = url; return null; };
+    }""")
+    page.locator("#transfer-approved").click()
+    page.wait_for_function("window.__alfiqOpenedUrl.includes('alfiq_handoff=')")
+    handoff_count = page.evaluate("""() => Object.keys(localStorage).filter(
+      key => key.startsWith("regtechnexusai.alfiq.handoff.")
+    ).length""")
+    assert handoff_count == 1

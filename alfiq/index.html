@@ -405,6 +405,7 @@ $("print").addEventListener("click",function(){if(!lastReport){alert("Please ana
 /* AlfiQ workspace upgrade */
 .intake-card{display:flex;flex-direction:column;gap:9px;min-width:0}.intake-card input[type=file]{font-size:.9rem}.clear-one{align-self:flex-start}.file-preview{border:1px solid var(--line);border-radius:9px;padding:10px;background:#f8fbfd}.file-preview summary{cursor:pointer;font-weight:700;color:var(--blue)}.file-preview pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:260px;overflow:auto;font:.82rem/1.5 ui-monospace,monospace;margin:10px 0 0}.rule-pack-guide h3{margin-top:0;color:var(--navy)}.rule-guide-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.rule-guide-grid article{padding:12px;border:1px solid var(--line);border-radius:10px;background:#f8fbfd}.rule-guide-grid article p{margin:6px 0 0;color:var(--muted);font-size:.9rem}@media(max-width:720px){.rule-guide-grid{grid-template-columns:1fr}}
 .alfiq-sandbox{border-left:4px solid var(--teal);background:#f0f8f7}
+.gate-status-list{margin:8px 0 0;padding-left:20px}.gate-status-list li{display:flex;justify-content:space-between;gap:14px;max-width:760px;padding:3px 0}.gate-status-list li strong{white-space:nowrap;color:var(--navy)}@media(max-width:600px){.gate-status-list li{align-items:flex-start;flex-direction:column;gap:0}}
 .reviewer-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
 .reviewer-fields input,.triage-comment,.clause-triage,#rulePackFile{width:100%;padding:10px;border:1px solid #c8d7e1;border-radius:8px;font:inherit;background:#fff;color:var(--ink)}
 button:disabled{opacity:.48;cursor:not-allowed;filter:grayscale(.3)}
@@ -433,13 +434,22 @@ function checklistState(){return checks.map(function(x){return !!x.checked;});}
 function currentSnapshot(){return JSON.stringify({old:$("oldText").value,now:$("newText").value,meta:$("meta").value,reviewer:$("reviewerName").value.trim(),role:$("reviewerRole").value.trim(),checks:checklistState(),triage:collectTriage(),rulePack:window.AlfiQRulePack?window.AlfiQRulePack.packVersion:"general-1.0"});}
 function collectTriage(){return Array.prototype.slice.call(document.querySelectorAll(".clause-triage")).map(function(sel){var i=sel.getAttribute("data-clause-index"),comment=document.querySelector('.triage-comment[data-clause-index="'+i+'"]');return {clauseIndex:Number(i),status:sel.value,comment:comment?comment.value.trim():""};});}
 function gate(){
- var all=checks.length===6&&checks.every(function(x){return x.checked;});
+ var checked=checks.filter(function(x){return x.checked;}).length;
+ var all=checks.length===6&&checked===6;
  var reviewer=$("reviewerName").value.trim(),role=$("reviewerRole").value.trim();
+ var identity=!!reviewer&&!!role;
  var fresh=analysisFresh&&sourceSnapshot===JSON.stringify({old:$("oldText").value,now:$("newText").value,meta:$("meta").value});
- var triage=collectTriage(),triageComplete=triage.every(function(item){return item.status!=="Unreviewed";});
- var ready=all&&!!reviewer&&!!role&&fresh&&triageComplete;
+ var triage=collectTriage(),reviewed=triage.filter(function(item){return item.status&&item.status!=="Unreviewed";}).length;
+ var triageComplete=reviewed===triage.length;
+ var ready=all&&identity&&fresh&&triageComplete;
  $("download").disabled=!ready;$("print").disabled=!ready;$("transfer-approved").disabled=!ready;
- $("gateStatus").textContent=ready?"Sign-off complete. Audit-stamped export is enabled.":"Export locked: complete all six checks, reviewer name and role, triage every changed clause, and run analysis on the current inputs.";
+ var rows=[
+  ["Human-review checklist",checked+"/"+checks.length,all],
+  ["Reviewer name and role",identity?"Complete":"Incomplete",identity],
+  ["Current-input analysis",fresh?"Complete":"Required — run Analyse text changes again",fresh],
+  ["Changed-clause triage",reviewed+"/"+triage.length+" reviewed",triageComplete]
+ ];
+ $("gateStatus").innerHTML="<strong>"+(ready?"Sign-off complete — export is ready.":"Export locked — outstanding requirements:")+"</strong><ul class='gate-status-list'>"+rows.map(function(row){return "<li><span>"+row[0]+": "+row[1]+"</span><strong>"+(row[2]?"Complete":"Required")+"</strong></li>";}).join("")+"</ul>"+(ready?"":"<p class='small muted'>Complete the items marked Required. For clause triage, select a status for every changed clause in Section 4 above. The audit controls remain locked until all checks are complete.</p>");
  return ready;
 }
 function invalidate(){analysisFresh=false;gate();}
