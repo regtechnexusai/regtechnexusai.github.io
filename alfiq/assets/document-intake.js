@@ -12,6 +12,7 @@
  function setStatus(side,message){$(side.status).textContent=message;}
  function invalidate(){if(typeof window.AlfiQInvalidateAnalysis==="function")window.AlfiQInvalidateAnalysis();}
  function updateAnalyse(){const button=$("analyse");if(button)button.disabled=!(($("oldText").value||"").trim()&&($("newText").value||"").trim());}
+ ["oldText","newText"].forEach(id=>$(id).addEventListener("input",updateAnalyse));
  function applyText(side,file,text,label,warning){
   if(!text||!text.trim())throw new Error("No selectable text was extracted. This may be a scanned or image-only document; OCR is not included.");
   if(text.length>MAX_TEXT)throw new Error("Extracted text exceeds the 2 MB limit. Split the source document and retry.");
@@ -107,7 +108,7 @@
  const reset=$("reset");if(reset)reset.addEventListener("click",()=>{
   sides.forEach(side=>{tokens[side.input]=(tokens[side.input]||0)+1;$(side.input).value="";$(side.preview).hidden=true;$(side.previewText).textContent="";setStatus(side,"No document selected.");});
   const packInput=$("rulePackFile"),packSelect=$("builtInRulePack"),packStatus=$("rulePackStatus");if(packInput)packInput.value="";
-  if(packSelect){packSelect.value="general.json";packSelect.dispatchEvent(new Event("change",{bubbles:true}));}else if(packStatus)packStatus.textContent="General Compliance rules will be restored when the workspace reloads.";
+  if(packSelect){packSelect.value="general.json";packSelect.dispatchEvent(new Event("change",{bubbles:true}));}else if(packStatus)packStatus.textContent="General Compliance rules will be restored when the workspace reloads.";updateAnalyse();
  });
  const oldPane=$("oldText"),newPane=$("newText"),sync=$("syncScroll"),syncStatus=$("syncStatus");
  if(oldPane&&newPane&&sync){
