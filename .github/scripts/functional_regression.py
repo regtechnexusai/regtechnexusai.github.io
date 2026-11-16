@@ -272,7 +272,7 @@ def test_alfiq_workspace_comparison_reset_local_file_and_exports(page: Page, tmp
     fixture = tmp_path / "alfiq-public-synthetic.txt"
     fixture.write_text("Synthetic public paragraph for local intake.", encoding="utf-8")
     page.locator("#earlierFile").set_input_files(str(fixture))
-    expect(page.locator("#earlierFileStatus")).to_contain_text("read locally", timeout=10000)
+    expect(page.locator("#earlierFileStatus")).to_contain_text("Text extracted locally into its matching text field", timeout=10000)
     expect(page.locator("#oldText")).to_have_value("Synthetic public paragraph for local intake.")
     page.locator("#clearEarlierFile").click()
     expect(page.locator("#earlierFile")).to_have_value("")
