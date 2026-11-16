@@ -42,5 +42,19 @@ Run against the PR preview before merge. Use synthetic/public text only.
 - [ ] Built-in rule-pack requests remain same-origin.
 - [ ] Browser refresh does not claim that unsaved work was persisted.
 
+## Local document intake and synchronized panes
+- [ ] Text/Markdown/CSV continues to load locally with its 2 MB limit.
+- [ ] Valid PDF text is extracted locally using the self-hosted PDF.js build.
+- [ ] PDF intake rejects files above 10 MB and documents above 200 pages.
+- [ ] PDF extraction rejects extracted text above 2 MB.
+- [ ] Scanned/image-only PDFs are clearly identified; no OCR or diagnosis is claimed.
+- [ ] Valid DOCX text is extracted locally using the self-hosted Mammoth browser build.
+- [ ] Invalid PDF headers and invalid DOCX ZIP signatures are rejected without replacing existing pane text.
+- [ ] Extracted text dispatches the input event and invalidates any prior analysis/sign-off.
+- [ ] Source-pane scroll position is synchronized proportionally when enabled.
+- [ ] Scroll synchronization can be disabled and does not introduce horizontal overflow.
+- [ ] Browser regression confirms no source document content is sent to an external origin.
+- [ ] PDF.js and Mammoth licences are shipped with the self-hosted build assets.
+
 ## Deferred scope
-PDF/DOCX extraction and synchronized split-screen rendering are not enabled in this release. Add document parsing only after the PDF.js/Mammoth distributions are self-hosted and licence-reviewed.
+OCR for scanned/image-only PDFs, exact visual fidelity for complex tables/footnotes, and semantic clause equivalence remain out of scope. The synchronized panes use proportional scroll position, not guaranteed clause-to-clause alignment. PDF/DOCX extraction is text extraction only; reviewers must validate layout and references against the original files.
