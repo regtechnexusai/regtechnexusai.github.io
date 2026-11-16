@@ -179,18 +179,18 @@ body > footer.alfiq-footer p{margin:0;color:#dceaf3;font-size:.9rem}
 </section>
 
 <div class="notice"><strong>Important limitation:</strong> This prototype runs in your browser. It does not verify regulatory sources, provide legal advice, make compliance determinations or use a live AI model. Use public documents or synthetic examples only. Do not enter confidential banking, customer, KYC or transaction data.</div>
-<section class="section"><h2>1. Compare regulatory text</h2><p class="muted">Paste relevant extracts from the earlier and newer documents. Add source details and page/paragraph references in the notes.</p>
+<section class="section"><h2>1. Compare regulatory text</h2><div class="panel alfiq-sandbox"><strong>Try AlfiQ immediately</strong><p class="small muted">Load a clearly labelled synthetic AML example. No real regulation or source is represented.</p><button type="button" id="loadSample">Load Sample Regulation</button></div><p class="muted">Paste relevant extracts from the earlier and newer documents. Add source details and page/paragraph references in the notes.</p>
 <div class="grid"><div class="panel"><label for="oldText">Earlier / existing requirement</label><textarea id="oldText" placeholder="Paste earlier regulatory text..."></textarea></div><div class="panel"><label for="newText">New / revised requirement</label><textarea id="newText" placeholder="Paste newer regulatory text..."></textarea></div></div>
-<div class="panel"><label for="meta">Source register notes (optional)</label><textarea id="meta" style="min-height:85px" placeholder="Authority | document title | reference number | publication date | effective date (if verified) | URL | page/paragraph"></textarea><div class="actions"><button id="analyse" type="button">Analyse text changes</button><button class="secondary" id="reset" type="button">Clear workspace</button></div><p id="analysisStatus" class="small muted" role="status" aria-live="polite">Enter both text versions, then select Analyse. Results will appear in the change register below.</p><p class="small muted">Comparison uses exact paragraph matching after whitespace normalisation. Keyword prompts are heuristics, not legal interpretations.</p></div></section>
+<div class="panel"><label for="meta">Source register notes (optional)</label><textarea id="meta" style="min-height:85px" placeholder="Authority | document title | reference number | publication date | effective date (if verified) | URL | page/paragraph"></textarea><div class="actions"><button id="analyse" type="button">Analyse text changes</button><button class="secondary" id="reset" type="button">Clear workspace</button></div><p id="analysisStatus" class="small muted" role="status" aria-live="polite">Enter both text versions, then select Analyse. Results will appear in the change register below.</p><p class="small muted">Comparison uses candidate paragraph pairing at 60% Jaccard word overlap, followed by phrase-level word comparison. Matching and keyword prompts are heuristics, not legal interpretations.</p></div></section>
 <section class="section" id="results" aria-live="polite"><h2>2. Preliminary change register</h2><div class="empty" id="empty">No analysis yet. Enter both text versions and select Analyse.</div><div id="report" hidden>
 <pre id="printReport" class="print-only" aria-label="Complete generated review notes"></pre><div class="kpis"><div class="kpi">Added paragraphs<strong id="addedN">0</strong></div><div class="kpi">Removed paragraphs<strong id="removedN">0</strong></div><div class="kpi">Potential signals<strong id="signalsN">0</strong></div></div>
 <div class="panel"><h3>Added text</h3><div id="added"></div></div><div class="panel"><h3>Removed text</h3><div id="removed"></div></div><div class="panel"><h3>Clause-level changes (preliminary)</h3><div id="clauseChanges"></div><p class="small muted">Phrase-level comparison is a text-difference aid. It does not determine legal meaning or whether a clause is substantively equivalent.</p></div><div class="panel"><h3>Structured obligation signals (candidate extraction)</h3><div id="obligationFields"></div><p class="small muted">Fields are extracted from changed text using transparent keyword and pattern rules. “Not identified” means manual review is required, not that no obligation exists.</p></div><div class="panel"><h3>Preliminary impact assessment matrix</h3><div id="impactMatrix"></div><p class="small muted">Suggested review areas are hypotheses for human triage, not confirmed impacts or control gaps.</p></div><div class="panel"><h3>Potential obligation signals</h3><div id="signals"></div></div><div class="panel"><h3>Suggested business areas for human triage</h3><div id="areas"></div></div>
 <div class="panel"><h3>Human review checklist</h3><div class="checklist">
-<label><input type="checkbox"> Confirm issuing authority and source authenticity.</label><label><input type="checkbox"> Confirm status: binding instrument, guidance, consultation, proposal or report.</label><label><input type="checkbox"> Verify publication date, effective date, transition period and superseded provisions.</label><label><input type="checkbox"> Validate findings against original document page/paragraph references.</label><label><input type="checkbox"> Assess applicability, affected entities, products, processes and jurisdictions.</label><label><input type="checkbox"> Obtain Compliance, Legal and control-owner review before relying on findings.</label></div></div>
-<div class="actions"><button id="download">Download review notes (.txt)</button><button class="secondary" id="print">Print / Save PDF</button></div></div></section>
+<label><input type="checkbox"> Confirm issuing authority and source authenticity.</label><label><input type="checkbox"> Confirm status: binding instrument, guidance, consultation, proposal or report.</label><label><input type="checkbox"> Verify publication date, effective date, transition period and superseded provisions.</label><label><input type="checkbox"> Validate findings against original document page/paragraph references.</label><label><input type="checkbox"> Assess applicability, affected entities, products, processes and jurisdictions.</label><label><input type="checkbox"> Obtain Compliance, Legal and control-owner review before relying on findings.</label></div><div class="reviewer-fields"><label for="reviewerName">Reviewer name</label><input id="reviewerName" type="text" maxlength="100" autocomplete="name" placeholder="Enter reviewer name"><label for="reviewerRole">Reviewer role</label><input id="reviewerRole" type="text" maxlength="100" placeholder="e.g. Compliance Officer"></div><p id="gateStatus" class="small muted" role="status" aria-live="polite">Export locked until all six checks and reviewer details are complete.</p></div>
+<div class="actions"><button id="download" disabled>Download review notes (.txt)</button><button class="secondary" id="print" disabled>Print / Save PDF</button><button class="secondary" id="transfer-approved" disabled>Transfer Approved Notes to Policy Gap Analyzer</button></div></div></section>
 <section class="section" id="intake"><h2>3. Local document intake</h2><div class="panel"><label for="file">Select a public text file (.txt, .md or .csv)</label><div class="file-picker-row"><input id="file" type="file" accept=".txt,.md,.csv,text/plain,text/markdown,text/csv"><button class="secondary" id="clearFile" type="button" aria-label="Clear selected file and allow reselection">Clear / refresh</button></div><label for="fileTarget">Load selected file into</label><select id="fileTarget"><option value="oldText">Earlier / existing requirement</option><option value="newText">New / revised requirement</option></select><p class="small muted">The selected file is read in this browser session only; it is not uploaded to a server. PDF/OCR extraction is not included. Clear / refresh removes the file selection; text already copied into the comparison fields remains until you clear the workspace.</p><p id="fileStatus" class="small muted" aria-live="polite"></p></div></section>
 <section class="section"><h2>4. Product contact</h2><div class="panel"><p>Product enquiries and pilot discussions:</p><strong><a href="mailto:regtechnexusai@gmail.com">regtechnexusai@gmail.com</a></strong><p class="small muted">Published by RegTech Nexus AI. AlfiQ is an early-stage decision-support prototype. Outputs require independent verification and professional judgement.</p></div></section>
-<p class="foot">AlfiQ · Regulatory Change Impact Agent · Prototype 0.5. No automated regulatory monitoring, source authentication, live AI inference, customer accounts, payment processing or subscriptions are enabled.</p><p class="foot">Central review record: <a href="/gaas/#case-workspace">Open the GaaS Case Workspace ↗</a>. Export and transfer only reviewer-approved, non-sensitive notes.</p>
+<p class="foot">AlfiQ · Regulatory Change Impact Agent · Prototype 0.6. No automated regulatory monitoring, source authentication, live AI inference, customer accounts, payment processing or subscriptions are enabled.</p><p class="foot">Central review record: <a href="/gaas/#case-workspace">Open the GaaS Case Workspace ↗</a>. Export and transfer only reviewer-approved, non-sensitive notes.</p>
 </main>
 <footer class="rt-shell-footer alfiq-footer" aria-label="AlfiQ page footer">
  <div class="alfiq-footer-brand"><a class="alfiq-logo-link alfiq-footer-logo-backing" href="/alfiq/" aria-label="AlfiQ home"><img class="alfiq-brand-logo alfiq-logo-footer" src="/alfiq/alfiq-logo-photo2.jpg" alt="AlfiQ" width="420" height="146"></a><p class="alfiq-attribution">Designed and Developed by <a href="/" aria-label="RegTech Nexus AI — go to homepage">RegTech Nexus AI</a></p></div>
@@ -244,9 +244,9 @@ function buildClauseChanges(added,removed){
  var used=new Set(),pairs=[];
  added.forEach(function(n){
   var best=-1,score=0;removed.forEach(function(o,i){if(used.has(i))return;var s=similarity(o,n);if(s>score){score=s;best=i;}});
-  if(best>=0&&score>=.32){used.add(best);var d=clauseDiff(removed[best],n);pairs.push({old:removed[best],now:n,d:d,score:score});}
+  if(best>=0&&score>=.60){used.add(best);var d=clauseDiff(removed[best],n);pairs.push({old:removed[best],now:n,d:d,score:score,status:"Unreviewed",comment:""});}
  });
- var out=pairs.map(function(p){return '<div class="item"><strong>Amended paragraph · candidate match</strong>'+p.d.map(function(h){return '<p><span class="muted">Removed:</span> <del>'+esc(h.removed)+'</del></p><p><span class="muted">Added:</span> <ins>'+esc(h.added)+'</ins></p>';}).join("")+'<p class="small muted">Paragraph similarity: '+Math.round(p.score*100)+'% (heuristic)</p></div>';});
+ var out=pairs.map(function(p){return '<div class="item"><strong>Amended paragraph · candidate match</strong>'+p.d.map(function(h){return '<p><span class="muted">Removed:</span> <del>'+esc(h.removed)+'</del></p><p><span class="muted">Added:</span> <ins>'+esc(h.added)+'</ins></p>';}).join("")+'<p class="small muted">Paragraph similarity: '+Math.round(p.score*100)+'% (heuristic)</p><label for="triage-'+pairs.indexOf(p)+'">Reviewer triage status</label><select class="clause-triage" id="triage-'+pairs.indexOf(p)+'" data-clause-index="'+pairs.indexOf(p)+'"><option>Unreviewed</option><option>Action Required</option><option>No Impact</option><option>Escalate to Legal</option></select><label for="triage-comment-'+pairs.indexOf(p)+'">Reviewer comment (optional)</label><input class="triage-comment" id="triage-comment-'+pairs.indexOf(p)+'" data-clause-index="'+pairs.indexOf(p)+'" maxlength="500" placeholder="Record rationale or next action"></div>';});
  if(added.length||removed.length){if(!pairs.length)out.push('<p class="muted small">No confident paragraph pair found. Review the added and removed paragraph lists separately.</p>');}
  else out.push('<p class="muted small">No paragraph changes identified.</p>');
  $("clauseChanges").innerHTML=out.join("");
@@ -320,6 +320,7 @@ var rules=[
 [["outsourcing","third party","service provider","cloud"],"Third-party / technology risk","Review due diligence, contracts, access, resilience and exit controls."]
 ];
 var signals=[];rules.forEach(function(r){var hits=r[0].filter(function(t){return corpus.indexOf(t)!==-1;});if(hits.length)signals.push(r[1]+" — "+r[2]+" Matched terms: "+hits.join(", "));});
+if(window.AlfiQRulePack&&Array.isArray(window.AlfiQRulePack.rules)){window.AlfiQRulePack.rules.filter(function(r){return r.enabled!==false;}).forEach(function(r){var haystack=corpus;var hits=(r.keywords||[]).filter(function(k){return k&&haystack.indexOf(String(k).toLowerCase())!==-1;});(r.patterns||[]).forEach(function(pattern){try{var re=new RegExp(pattern,"i");var match=haystack.match(re);if(match&&match[0])hits.push(match[0]);}catch(e){}});if(hits.length)signals.push((r.signal||r.category||r.ruleId)+" — "+(r.reviewPrompt||r.description||"Manual verification required.")+" Matched terms: "+Array.from(new Set(hits)).join(", "));});}
 var ar=[
 [["customer","client","onboarding","due diligence","beneficial owner"],"KYC / Customer Operations"],
 [["transaction","monitor","suspicious","sanction","payment"],"AML / Financial Crime Operations"],
@@ -378,6 +379,213 @@ function validateLocalTextFile(file,buffer){var type=(file.type||"").toLowerCase
 $("file").addEventListener("change",function(e){cancelPendingFileRead();var f=e.target.files&&e.target.files[0];if(!f)return;var name=f.name||"",ext=(name.split(".").pop()||"").toLowerCase(),allowed={txt:true,md:true,csv:true};if(!Object.prototype.hasOwnProperty.call(allowed,ext)){$("file").value="";$("fileStatus").textContent="Unsupported file type. Select a .txt, .md or .csv file.";return;}if(f.size>2*1024*1024){$("file").value="";$("fileStatus").textContent="File exceeds the 2 MB limit. Select a smaller public text file.";return;}if(f.size===0){$("file").value="";$("fileStatus").textContent="The selected file is empty. Choose a non-empty text file.";return;}var target=$("fileTarget").value,token=fileReadToken,reader=new FileReader();activeReader=reader;reader.onload=function(){if(token!==fileReadToken||$("file").files[0]!==f)return;activeReader=null;var problem=validateLocalTextFile(f,reader.result);if(problem){$("file").value="";$("fileStatus").textContent=problem;return;}try{var decoded=new TextDecoder("utf-8",{fatal:true}).decode(reader.result);$(target).value=decoded;$("fileStatus").textContent=f.name+" read locally into "+(target==="oldText"?"earlier":"newer")+" text field. Maximum file size: 2 MB.";}catch(err){$("file").value="";$("fileStatus").textContent="The selected file is not valid UTF-8 text. Save it as UTF-8 and try again.";}};reader.onerror=function(){if(token!==fileReadToken)return;activeReader=null;$("fileStatus").textContent="Could not read selected file.";};reader.onabort=function(){if(token===fileReadToken){activeReader=null;$("fileStatus").textContent="File reading was cancelled.";}};reader.readAsArrayBuffer(f);});
 })();
 </script>
+
+<style>
+/* AlfiQ workspace upgrade */
+.alfiq-sandbox{border-left:4px solid var(--teal);background:#f0f8f7}
+.reviewer-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.reviewer-fields input,.triage-comment,.clause-triage,#rulePackFile{width:100%;padding:10px;border:1px solid #c8d7e1;border-radius:8px;font:inherit;background:#fff;color:var(--ink)}
+button:disabled{opacity:.48;cursor:not-allowed;filter:grayscale(.3)}
+.clause-triage{max-width:340px;margin:4px 0 10px}
+.triage-comment{max-width:520px;margin:4px 0 8px}
+.alfiq-filter-row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.alfiq-filter-row button{font-size:.85rem;padding:8px 11px}
+.alfiq-filter-row button[aria-pressed=true]{background:var(--navy);color:#fff}
+.alfiq-rule-panel{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.alfiq-rule-panel input{max-width:360px}
+@media(max-width:720px){.reviewer-fields{grid-template-columns:1fr}}
+@media print{.reviewer-fields,.alfiq-sandbox,.alfiq-filter-row{display:none!important}}
+</style>
+<script>
+/* AlfiQ 0.6 client-side governance and review enhancements.
+   Source text is never transmitted. */
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+var checks=Array.prototype.slice.call(document.querySelectorAll(".checklist input[type=checkbox]"));
+var sourceSnapshot=null,analysisFresh=false,triageRows=[];
+var sampleOld="Covered institutions shall retain customer due-diligence records for five years after termination of the business relationship.";
+var sampleNew="Covered institutions shall retain customer due-diligence records for seven years after termination of the business relationship and ensure that such records can be retrieved promptly by authorised personnel.";
+var sampleMeta="Issuer: Fictional Financial Supervisory Authority\nInstrument: Synthetic AML Notice 2026-04\nReference: SYN-AML-2026-04\nPublication date: 15 October 2026\nEffective date: 1 January 2027\nStatus: Synthetic training material; not a real regulation.";
+function checklistState(){return checks.map(function(x){return !!x.checked;});}
+function currentSnapshot(){return JSON.stringify({old:$("oldText").value,now:$("newText").value,meta:$("meta").value,reviewer:$("reviewerName").value.trim(),role:$("reviewerRole").value.trim(),checks:checklistState(),triage:collectTriage(),rulePack:window.AlfiQRulePack?window.AlfiQRulePack.packVersion:"general-1.0"});}
+function collectTriage(){return Array.prototype.slice.call(document.querySelectorAll(".clause-triage")).map(function(sel){var i=sel.getAttribute("data-clause-index"),comment=document.querySelector('.triage-comment[data-clause-index="'+i+'"]');return {clauseIndex:Number(i),status:sel.value,comment:comment?comment.value.trim():""};});}
+function gate(){
+ var all=checks.length===6&&checks.every(function(x){return x.checked;});
+ var reviewer=$("reviewerName").value.trim(),role=$("reviewerRole").value.trim();
+ var fresh=analysisFresh&&sourceSnapshot===JSON.stringify({old:$("oldText").value,now:$("newText").value,meta:$("meta").value});
+ var ready=all&&!!reviewer&&!!role&&fresh;
+ $("download").disabled=!ready;$("print").disabled=!ready;$("transfer-approved").disabled=!ready;
+ $("gateStatus").textContent=ready?"Sign-off complete. Audit-stamped export is enabled.":"Export locked: complete all six checks, reviewer name and role, and run analysis on the current inputs.";
+ return ready;
+}
+function invalidate(){analysisFresh=false;gate();}
+function makeTriageUI(){
+ triageRows=collectTriage();
+ var host=$("clauseChanges");
+ if(!host)return;
+ var cards=host.querySelectorAll(".item");
+ cards.forEach(function(card,index){
+  var select=card.querySelector(".clause-triage");
+  if(select)select.addEventListener("change",function(){gate();});
+  var comment=card.querySelector(".triage-comment");
+  if(comment)comment.addEventListener("input",function(){gate();});
+ });
+ if(!host.querySelector(".alfiq-filter-row")){
+  var bar=document.createElement("div");bar.className="alfiq-filter-row";
+  ["All changes","Unreviewed","Action Required","No Impact","Escalate to Legal"].forEach(function(label,index){
+   var button=document.createElement("button");button.type="button";button.className=index?"secondary":"";
+   button.textContent=label;button.setAttribute("aria-pressed",index===0?"true":"false");
+   button.addEventListener("click",function(){
+    bar.querySelectorAll("button").forEach(function(b){b.setAttribute("aria-pressed","false");});
+    button.setAttribute("aria-pressed","true");
+    host.querySelectorAll(".item").forEach(function(card){
+     var status=card.querySelector(".clause-triage");
+     card.hidden=!!(index&&status&&status.value!==label);
+    });
+   });
+   bar.appendChild(button);
+  });
+  host.insertBefore(bar,host.firstChild);
+ }
+}
+function auditHash(text){
+ if(!crypto||!crypto.subtle)throw new Error("Web Crypto SHA-256 is unavailable. Open AlfiQ over HTTPS in a supported browser.");
+ return crypto.subtle.digest("SHA-256",new TextEncoder().encode(text)).then(function(buf){
+  return Array.prototype.map.call(new Uint8Array(buf),function(b){return b.toString(16).padStart(2,"0");}).join("");
+ });
+}
+async function buildApprovedRecord(){
+ if(!gate())throw new Error("Mandatory reviewer sign-off is incomplete or the analysis is stale.");
+ var old=$("oldText").value,now=$("newText").value,meta=$("meta").value;
+ var reviewer=$("reviewerName").value.trim(),role=$("reviewerRole").value.trim();
+ var checksBefore=checklistState().slice(),triageBefore=JSON.stringify(collectTriage());
+ var hashes=await Promise.all([auditHash(old),auditHash(now)]);
+ if(old!==$("oldText").value||now!==$("newText").value||meta!==$("meta").value||
+    reviewer!==$("reviewerName").value.trim()||role!==$("reviewerRole").value.trim()||
+    JSON.stringify(checklistState())!==JSON.stringify(checksBefore)||
+    JSON.stringify(collectTriage())!==triageBefore||!analysisFresh||!gate()){
+  throw new Error("Review inputs changed during audit preparation. Analyse and sign off again.");
+ }
+ var stamp={
+  application:"AlfiQ",applicationVersion:"0.6.0",auditSchema:"1.0",
+  reviewedAt:new Date().toISOString(),
+  reviewer:{name:reviewer,role:role},
+  sourceFingerprints:{earlierDocument:{algorithm:"SHA-256",hash:hashes[0]},revisedDocument:{algorithm:"SHA-256",hash:hashes[1]}},
+  checklist:{items:checksBefore,allConfirmed:checksBefore.length===6&&checksBefore.every(Boolean)},
+  clauseTriage:collectTriage(),
+  rulePack:window.AlfiQRulePack?{id:window.AlfiQRulePack.packId,version:window.AlfiQRulePack.packVersion}:{id:"general",version:"1.0"},
+  sourceNotes:meta,
+  limitations:"Client-side fingerprint of the exact input text; not proof of source authenticity, reviewer identity, legal applicability or immutable storage. Human verification remains mandatory."
+ };
+ return stamp;
+}
+function downloadText(text){
+ var blob=new Blob(["\uFEFF",text],{type:"text/plain;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+ a.href=url;a.download="alfiq-approved-review.txt";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},60000);
+}
+$("transfer-approved").addEventListener("click",function(){
+ if(!gate())return;
+ try{
+  var id=crypto.randomUUID();
+  var now=Date.now();
+  var payload={
+   schemaVersion:"1.0",
+   createdAt:now,
+   expiresAt:now+5*60*1000,
+   origin:"alfiq",
+   summary:{
+    title:"Approved AlfiQ regulatory change review",
+    reviewer:$("reviewerName").value.trim(),
+    reviewerRole:$("reviewerRole").value.trim(),
+    reviewedAt:new Date().toISOString(),
+    rulePack:window.AlfiQRulePack?window.AlfiQRulePack.packName:"General Compliance",
+    addedParagraphs:Number($("addedN").textContent)||0,
+    removedParagraphs:Number($("removedN").textContent)||0,
+    potentialSignals:Number($("signalsN").textContent)||0,
+    triage:collectTriage().map(function(item){return {clauseIndex:item.clauseIndex,status:item.status};})
+   },
+   boundary:"Summary only. Original source texts, clause wording, reviewer comments and document contents are not transferred."
+  };
+  localStorage.setItem("regtechnexusai.alfiq.handoff."+id,JSON.stringify(payload));
+  window.open("/regulatory-gap-analyzer/?alfiq_handoff="+encodeURIComponent(id),"_blank","noopener");
+  $("gateStatus").textContent="Approved non-sensitive summary prepared for the Policy Gap Analyzer. The transfer expires in five minutes.";
+ }catch(error){$("gateStatus").textContent="Transfer could not be prepared: "+error.message;}
+});
+document.addEventListener("click",async function(event){
+ var target=event.target.closest("#download,#print");
+ if(!target)return;
+ event.preventDefault();event.stopImmediatePropagation();
+ try{
+  var stamp=await buildApprovedRecord();
+  var report=$("printReport").textContent||"ALFIQ — PRELIMINARY REGULATORY CHANGE REVIEW";
+  var complete=report+"\n\nAUDIT AND REVIEW SIGN-OFF\n"+JSON.stringify(stamp,null,2);
+  if(target.id==="download")downloadText(complete);
+  else{$("printReport").textContent=complete;window.print();}
+ }catch(error){$("gateStatus").textContent=error.message;}
+},true);
+checks.forEach(function(x){x.addEventListener("change",gate);});
+["reviewerName","reviewerRole"].forEach(function(id){$(id).addEventListener("input",gate);});
+["oldText","newText","meta"].forEach(function(id){$(id).addEventListener("input",invalidate);});
+$("analyse").addEventListener("click",function(){
+ setTimeout(function(){
+  analysisFresh=!$("report").hidden&&!!$("printReport").textContent;
+  sourceSnapshot=JSON.stringify({old:$("oldText").value,now:$("newText").value,meta:$("meta").value});
+  makeTriageUI();sourceSnapshot=JSON.stringify({old:$("oldText").value,now:$("newText").value,meta:$("meta").value});
+  gate();
+ },0);
+});
+$("reset").addEventListener("click",function(){
+ analysisFresh=false;sourceSnapshot=null;$("reviewerName").value="";$("reviewerRole").value="";
+ checks.forEach(function(x){x.checked=false;});gate();
+});
+$("loadSample").addEventListener("click",function(){
+ $("reset").click();
+ $("oldText").value=sampleOld;$("newText").value=sampleNew;$("meta").value=sampleMeta;
+ $("analysisStatus").textContent="Synthetic AML example loaded. Select Analyse to generate the preliminary change register.";
+ $("oldText").dispatchEvent(new Event("input",{bubbles:true}));
+ $("newText").dispatchEvent(new Event("input",{bubbles:true}));
+ $("meta").dispatchEvent(new Event("input",{bubbles:true}));
+ $("oldText").focus();
+});
+/* Add custom rule-pack import; the built-in engine remains available. */
+var rulePanel=document.createElement("div");rulePanel.className="panel alfiq-rule-panel";
+rulePanel.innerHTML='<div><strong>Regulatory rule packs</strong><p class="small muted">Select a built-in dictionary or import a custom JSON pack. Files are processed in this browser.</p></div><select id="builtInRulePack" aria-label="Built-in rule pack"><option value="general.json">General Compliance</option><option value="banking-aml.json">Banking / AML</option><option value="data-privacy.json">Data Privacy</option></select><input type="file" id="rulePackFile" accept=".json,application/json"><span id="rulePackStatus" class="small muted" role="status">Loading General Compliance rules…</span>';
+var intake=document.getElementById("intake");if(intake)intake.insertBefore(rulePanel,intake.firstChild);
+window.AlfiQRulePack=null;
+async function loadBuiltInRulePack(filename){
+ try{
+  var response=await fetch("/alfiq/assets/rules/"+encodeURIComponent(filename),{cache:"no-store",credentials:"same-origin"});
+  if(!response.ok)throw new Error("Rule pack could not be loaded ("+response.status+").");
+  var pack=await response.json();
+  if(pack.schemaVersion!=="1.0"||!Array.isArray(pack.rules))throw new Error("Built-in rule pack schema is invalid.");
+  window.AlfiQRulePack=pack;
+  $("rulePackStatus").textContent="Active: "+pack.packName+" ("+pack.packVersion+").";
+ }catch(error){window.AlfiQRulePack=null;$("rulePackStatus").textContent=error.message;}
+}
+$("builtInRulePack").addEventListener("change",function(e){loadBuiltInRulePack(e.target.value);invalidate();});
+loadBuiltInRulePack("general.json");
+$("rulePackFile").addEventListener("change",async function(e){
+ var file=e.target.files&&e.target.files[0];if(!file)return;
+ if(file.size>256*1024){$("rulePackStatus").textContent="Rule pack exceeds 256 KB.";return;}
+ try{
+  var pack=JSON.parse(await file.text());
+  if(pack.schemaVersion!=="1.0"||typeof pack.packId!=="string"||!Array.isArray(pack.rules)||pack.rules.length>200)throw new Error("Invalid schema, pack ID or rule count.");
+  var ids=new Set();
+  pack.rules.forEach(function(r){
+   if(!r||typeof r.ruleId!=="string"||ids.has(r.ruleId)||!Array.isArray(r.keywords)||!Array.isArray(r.patterns))throw new Error("Invalid or duplicate rule definition.");
+   ids.add(r.ruleId);
+   if(r.keywords.length>50||r.patterns.length>20)throw new Error("Rule keyword/pattern limit exceeded.");
+   r.patterns.forEach(function(p){if(typeof p!=="string"||p.length>300)throw new Error("Invalid pattern.");new RegExp(p,"i");});
+  });
+  window.AlfiQRulePack=pack;invalidate();
+  $("rulePackStatus").textContent="Loaded "+pack.packName+" ("+pack.packVersion+"). Run analysis again.";
+ }catch(err){window.AlfiQRulePack=null;$("rulePackStatus").textContent="Rule pack rejected: "+err.message;}
+});
+gate();
+})();
+</script>
+
 <script>
 /* AlfiQ-only shell branding. Replace the shared header logo with the standalone AlfiQ mark. */
 window.addEventListener("load",function(){

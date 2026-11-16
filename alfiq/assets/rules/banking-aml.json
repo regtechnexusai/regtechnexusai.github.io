@@ -1,0 +1,86 @@
+{
+  "schemaVersion": "1.0",
+  "packId": "banking-aml",
+  "packName": "Banking and AML Compliance",
+  "packVersion": "1.0.0",
+  "jurisdiction": "GLOBAL",
+  "rules": [
+    {
+      "ruleId": "AML-001",
+      "category": "CDD / EDD",
+      "description": "Customer due diligence",
+      "keywords": [
+        "customer due diligence",
+        "beneficial owner",
+        "identity verification",
+        "enhanced due diligence"
+      ],
+      "patterns": [
+        "\\bbeneficial owner\\b",
+        "\\benhanced due diligence\\b",
+        "\\bcustomer due diligence\\b"
+      ],
+      "signal": "CDD / EDD review signal",
+      "reviewPrompt": "Assess onboarding, beneficial ownership, refresh and escalation.",
+      "severity": "Review",
+      "enabled": true
+    },
+    {
+      "ruleId": "AML-002",
+      "category": "Record retention",
+      "description": "Records retention",
+      "keywords": [
+        "retain records",
+        "record retention",
+        "maintain records",
+        "retention period"
+      ],
+      "patterns": [
+        "\\bretain\\w* records\\b",
+        "\\bretention period\\b"
+      ],
+      "signal": "Record retention review signal",
+      "reviewPrompt": "Verify record categories, retention duration, trigger and retrieval.",
+      "severity": "Review",
+      "enabled": true
+    },
+    {
+      "ruleId": "AML-003",
+      "category": "Suspicious transaction reporting",
+      "description": "FIU reporting",
+      "keywords": [
+        "suspicious transaction",
+        "suspicious activity",
+        "report to the FIU",
+        "file a report"
+      ],
+      "patterns": [
+        "\\bsuspicious transaction\\b",
+        "\\breport to the FIU\\b"
+      ],
+      "signal": "Financial intelligence reporting signal",
+      "reviewPrompt": "Verify reporting trigger, recipient, timeline and confidentiality.",
+      "severity": "Review",
+      "enabled": true
+    },
+    {
+      "ruleId": "AML-004",
+      "category": "Sanctions",
+      "description": "Sanctions screening and restrictions",
+      "keywords": [
+        "sanctions screening",
+        "designated person",
+        "freeze funds",
+        "prohibited transaction"
+      ],
+      "patterns": [
+        "\\bsanctions? screening\\b",
+        "\\bfreeze\\s+(?:funds|assets)\\b"
+      ],
+      "signal": "Sanctions review signal",
+      "reviewPrompt": "Verify applicable lists, timing, escalation and legal obligations.",
+      "severity": "Review",
+      "enabled": true
+    }
+  ]
+}

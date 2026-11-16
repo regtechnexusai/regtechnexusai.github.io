@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "1.0",
+  "packId": "general-compliance",
+  "packName": "General Compliance",
+  "packVersion": "1.0.0",
+  "jurisdiction": "GLOBAL",
+  "rules": [
+    {
+      "ruleId": "GEN-001",
+      "category": "Mandatory obligation",
+      "description": "Mandatory language",
+      "keywords": [
+        "shall",
+        "must",
+        "required to"
+      ],
+      "patterns": [
+        "\\bshall\\b",
+        "\\bmust\\b",
+        "\\brequired to\\b"
+      ],
+      "signal": "Mandatory language detected",
+      "reviewPrompt": "Verify obligated party, scope, exceptions and legal effect.",
+      "severity": "Review",
+      "enabled": true
+    },
+    {
+      "ruleId": "GEN-002",
+      "category": "Deadline",
+      "description": "Time-bound requirements",
+      "keywords": [
+        "within",
+        "no later than",
+        "business days",
+        "calendar days"
+      ],
+      "patterns": [
+        "\\bwithin\\s+\\d+\\s+(?:business|calendar)?\\s*days\\b",
+        "\\bno later than\\b"
+      ],
+      "signal": "Time-bound requirement detected",
+      "reviewPrompt": "Verify trigger, deadline and day-count convention.",
+      "severity": "Review",
+      "enabled": true
+    },
+    {
+      "ruleId": "GEN-003",
+      "category": "Governance",
+      "description": "Approval and oversight",
+      "keywords": [
+        "board approval",
+        "senior management",
+        "committee",
+        "approved by"
+      ],
+      "patterns": [
+        "\\bboard approval\\b",
+        "\\bapproved by\\b"
+      ],
+      "signal": "Governance or approval signal",
+      "reviewPrompt": "Confirm decision authority, oversight and approval evidence.",
+      "severity": "Review",
+      "enabled": true
+    }
+  ]
+}
