@@ -76,7 +76,7 @@
    if(!extracted.trim())throw new Error("No selectable text was found. This appears to be a scanned/image-only PDF; AlfiQ does not perform OCR.");
    const warning=emptyPages.length?"No selectable text on "+emptyPages.length+" page(s) ("+emptyPages.slice(0,12).join(", ")+(emptyPages.length>12?", …":"")+"); scanned pages require OCR.":"";
    applyText(extracted,"PDF text ("+pdf.numPages+" pages)",warning);
-  }finally{await pdf.destroy();}
+  }finally{await loading.destroy();}
  }
  file.addEventListener("change",async event=>{
   const selected=event.target.files&&event.target.files[0];if(!selected)return;
