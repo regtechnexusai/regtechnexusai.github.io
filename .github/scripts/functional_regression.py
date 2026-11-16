@@ -418,8 +418,8 @@ def test_usd_bdt_swap_maturity_direction_and_pv(page: Page):
     final_cells = rows.nth(13).locator("td")
     expect(final_cells.nth(0)).to_have_text("13")
     expect(final_cells.nth(1)).to_have_text("1095")
-    expect(final_cells.nth(2)).to_have_text(re.compile(r"^10,016,666\\.666667$"))
-    expect(final_cells.nth(3)).to_have_text(re.compile(r"^-1,225,013,698\\.630137$"))
+    expect(final_cells.nth(2)).to_have_text(re.compile(r"^10,016,666\.666667$"))
+    expect(final_cells.nth(3)).to_have_text(re.compile(r"^-1,225,013,698\.630137$"))
 
     # The reverse perspective must reverse both currency legs and the net PV.
     page.locator("#ccDirection").select_option("pay")
@@ -429,5 +429,5 @@ def test_usd_bdt_swap_maturity_direction_and_pv(page: Page):
     expect(result).to_contain_text("BDT -3,844,302.248")
     expect(result).to_contain_text("BDT -5,079,124.305")
     reverse_cells = result.locator("tbody tr").nth(13).locator("td")
-    expect(reverse_cells.nth(2)).to_have_text(re.compile(r"^-10,016,666\\.666667$"))
-    expect(reverse_cells.nth(3)).to_have_text(re.compile(r"^1,225,013,698\\.630137$"))
+    expect(reverse_cells.nth(2)).to_have_text(re.compile(r"^-10,016,666\.666667$"))
+    expect(reverse_cells.nth(3)).to_have_text(re.compile(r"^1,225,013,698\.630137$"))
