@@ -155,7 +155,8 @@ Relevant employees must receive AML/CFT training at induction and refresher trai
     assert "Not identified" in transition_field, transition_field
 
     # Checklist and reviewer identity alone must not permit export while clause triage is pending.
-    page.locator(".checklist input[type=checkbox]").check()
+    for checkbox in page.locator(".checklist input[type=checkbox]").all():
+        checkbox.check()
     page.locator("#reviewerName").fill("Synthetic Reviewer")
     page.locator("#reviewerRole").fill("Compliance Officer")
     expect(page.locator("#download")).to_be_disabled()
