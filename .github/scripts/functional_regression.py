@@ -271,12 +271,11 @@ def test_alfiq_workspace_comparison_reset_local_file_and_exports(page: Page, tmp
     # Local-only text intake: no server upload is used by the published flow.
     fixture = tmp_path / "alfiq-public-synthetic.txt"
     fixture.write_text("Synthetic public paragraph for local intake.", encoding="utf-8")
-    page.locator("#fileTarget").select_option("oldText")
-    page.locator("#file").set_input_files(str(fixture))
-    expect(page.locator("#fileStatus")).to_contain_text("read locally", timeout=10000)
+    page.locator("#earlierFile").set_input_files(str(fixture))
+    expect(page.locator("#earlierFileStatus")).to_contain_text("Text extracted locally into its matching text field", timeout=10000)
     expect(page.locator("#oldText")).to_have_value("Synthetic public paragraph for local intake.")
-    page.locator("#clearFile").click()
-    expect(page.locator("#file")).to_have_value("")
+    page.locator("#clearEarlierFile").click()
+    expect(page.locator("#earlierFile")).to_have_value("")
 
     page.locator("#reset").click()
     expect(page.locator("#report")).to_be_hidden()
@@ -419,8 +418,8 @@ def test_usd_bdt_swap_maturity_direction_and_pv(page: Page):
     final_cells = rows.nth(13).locator("td")
     expect(final_cells.nth(0)).to_have_text("13")
     expect(final_cells.nth(1)).to_have_text("1095")
-    expect(final_cells.nth(2)).to_have_text("10,016,666.67")
-    expect(final_cells.nth(3)).to_have_text("-1,225,013,698.63")
+    expect(final_cells.nth(2)).to_have_text(re.compile(r"^10,016,666\.666667$"))
+    expect(final_cells.nth(3)).to_have_text(re.compile(r"^-1,225,013,698\.630137$"))
 
     # The reverse perspective must reverse both currency legs and the net PV.
     page.locator("#ccDirection").select_option("pay")
@@ -430,5 +429,5 @@ def test_usd_bdt_swap_maturity_direction_and_pv(page: Page):
     expect(result).to_contain_text("BDT -3,844,302.248")
     expect(result).to_contain_text("BDT -5,079,124.305")
     reverse_cells = result.locator("tbody tr").nth(13).locator("td")
-    expect(reverse_cells.nth(2)).to_have_text("-10,016,666.67")
-    expect(reverse_cells.nth(3)).to_have_text("1,225,013,698.63")
+    expect(reverse_cells.nth(2)).to_have_text(re.compile(r"^-10,016,666\.666667$"))
+    expect(reverse_cells.nth(3)).to_have_text(re.compile(r"^1,225,013,698\.630137$"))
