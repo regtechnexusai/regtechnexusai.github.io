@@ -291,7 +291,8 @@ function obligationModel(changed,meta,removed,amended,unchanged){
  var frequency=collectFields(t,/\b(?:at least once every\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|\w+)(?:\s+(?:days?|weeks?|months?|years?))?|every\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|\w+)(?:\s+(?:business\s+)?(?:days?|weeks?|months?|years?))?|at least annually|semi-annually|quarterly|monthly|weekly|daily|annually|yearly)\b/gi);
  var approval=collectFields(t,/\b(?:approval|approved|authorisation|authorization|sign-off)\b[^.;\n]{0,100}/gi);
  var recipientText=changed.concat(removed||[]).join(" ");
- var referralRecipient=collectFields(recipientText,/\b(?:refer|refers|referred)\b[^.;\n]{0,120}?\bto\s+((?:the\s+)?(?:Compliance Officer|MLRO|Money Laundering Reporting Officer|competent authority|relevant authority|supervisory authority|regulator))\b/gi);\n var recipientRaw=referralRecipient==="Not identified — manual review"?collectFields(recipientText,/\b(?:notify|notifies|notified|report|reports|reported|submit|submits|submitted|send|sends|sent)\s+(?:to\s+)?((?:the\s+)?(?:[A-Z][A-Za-z0-9&/.'’ -]{2,70}?|competent authority|relevant authority|supervisory authority|regulator))(?=\s+(?:within|by|no later than|at least|on|before|after|without)\b|[.;,]|$)/g):referralRecipient;
+ var referralRecipient=collectFields(recipientText,/\b(?:refer|refers|referred)\b[^.;\n]{0,120}?\bto\s+((?:the\s+)?(?:Compliance Officer|MLRO|Money Laundering Reporting Officer|competent authority|relevant authority|supervisory authority|regulator))\b/gi);
+ var recipientRaw=referralRecipient==="Not identified — manual review"?collectFields(recipientText,/\b(?:notify|notifies|notified|report|reports|reported|submit|submits|submitted|send|sends|sent)\s+(?:to\s+)?((?:the\s+)?(?:[A-Z][A-Za-z0-9&/.'’ -]{2,70}?|competent authority|relevant authority|supervisory authority|regulator))(?=\s+(?:within|by|no later than|at least|on|before|after|without)\b|[.;,]|$)/g):referralRecipient;
  var recipient=recipientRaw.replace(/^the\s+/i,"");
  var evidence=collectFields(t,/[^.;\n]*(?:documented evidence|evidence|records?|retain|retention|audit trail|minutes)[^.;\n]*/gi);
  var deadline=collectFields(t,/\bwithin\s+(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|sixty|ninety|\w+-?\s+\w+)\s+(?:calendar\s+|business\s+)?days?\b|\bno later than[^.;\n]{0,80}|\bby \d{1,2}[/-]\d{1,2}[/-]\d{2,4}\b/gi);
@@ -434,7 +435,8 @@ function gate(){
  var all=checks.length===6&&checks.every(function(x){return x.checked;});
  var reviewer=$("reviewerName").value.trim(),role=$("reviewerRole").value.trim();
  var fresh=analysisFresh&&sourceSnapshot===JSON.stringify({old:$("oldText").value,now:$("newText").value,meta:$("meta").value});
- var triage=collectTriage(),triageComplete=triage.every(function(item){return item.status!=="Unreviewed";});\n var ready=all&&!!reviewer&&!!role&&fresh&&triageComplete;
+ var triage=collectTriage(),triageComplete=triage.every(function(item){return item.status!=="Unreviewed";});
+ var ready=all&&!!reviewer&&!!role&&fresh&&triageComplete;
  $("download").disabled=!ready;$("print").disabled=!ready;$("transfer-approved").disabled=!ready;
  $("gateStatus").textContent=ready?"Sign-off complete. Audit-stamped export is enabled.":"Export locked: complete all six checks, reviewer name and role, triage every changed clause, and run analysis on the current inputs.";
  return ready;
