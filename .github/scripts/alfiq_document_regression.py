@@ -62,20 +62,21 @@ def test_local_pdf_docx_intake_and_synchronized_panes(page: Page, tmp_path: Path
     page.on("request", lambda req: external_requests.append(req.url) if not req.url.startswith("http://127.0.0.1:8765/") and urlparse(req.url).hostname not in {"www.googletagmanager.com", "www.google-analytics.com"} else None)
     response = page.goto("http://127.0.0.1:8765/alfiq/", wait_until="domcontentloaded")
     assert response and response.status == 200
-    expect(page.locator("#file")).to_be_visible()
+    expect(page.locator("#earlierFile")).to_be_visible()
+    expect(page.locator("#revisedFile")).to_be_visible()
 
     pdf = tmp_path / "synthetic-regulation.pdf"
     make_pdf(pdf, "Synthetic PDF regulation clause")
-    page.locator("#fileTarget").select_option("oldText")
-    page.locator("#file").set_input_files(str(pdf))
-    expect(page.locator("#fileStatus")).to_contain_text("PDF text", timeout=30000)
+    page.locator("#earlierFile").set_input_files(str(pdf))
+    expect(page.locator("#earlierFileStatus")).to_contain_text("PDF text", timeout=30000)
+    expect(page.locator("#earlierPreview")).to_be_visible()
     expect(page.locator("#oldText")).to_have_value(re.compile("Synthetic PDF regulation clause"))
 
     docx = tmp_path / "synthetic-regulation.docx"
     make_docx(docx)
-    page.locator("#fileTarget").select_option("newText")
-    page.locator("#file").set_input_files(str(docx))
-    expect(page.locator("#fileStatus")).to_contain_text("DOCX text extracted locally", timeout=30000)
+    page.locator("#revisedFile").set_input_files(str(docx))
+    expect(page.locator("#revisedFileStatus")).to_contain_text("DOCX text", timeout=30000)
+    expect(page.locator("#revisedPreview")).to_be_visible()
     expect(page.locator("#newText")).to_have_value(re.compile("Synthetic DOCX regulatory clause"))
 
     page.locator("#analyse").click()
@@ -83,9 +84,8 @@ def test_local_pdf_docx_intake_and_synchronized_panes(page: Page, tmp_path: Path
 
     scanned = tmp_path / "scanned-only.pdf"
     make_pdf(scanned, None)
-    page.locator("#fileTarget").select_option("oldText")
-    page.locator("#file").set_input_files(str(scanned))
-    expect(page.locator("#fileStatus")).to_contain_text(re.compile("scanned/image-only|OCR is not included", re.I), timeout=30000)
+    page.locator("#earlierFile").set_input_files(str(scanned))
+    expect(page.locator("#earlierFileStatus")).to_contain_text(re.compile("scanned/image-only|OCR is not included", re.I), timeout=30000)
     expect(page.locator("#oldText")).to_have_value(re.compile("Synthetic PDF regulation clause"))
 
     # Proportional scroll synchronisation between the two existing side-by-side panes.
