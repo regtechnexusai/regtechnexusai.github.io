@@ -394,3 +394,41 @@ def test_gaas_case_workspace_create_export_import_and_reset(page: Page, tmp_path
     expect(page.locator("#gc-count")).to_have_text("0 findings recorded")
     expect(page.locator("#gc-case-ref")).to_have_value("")
     expect(page.locator("#gc-empty")).to_be_visible()
+
+
+def test_usd_bdt_swap_maturity_direction_and_pv(page: Page):
+    """Guard the USD/BDT maturity principal direction and independent PV outputs."""
+    open_tool(page, "/derivatives/calculators/", "Cross-Currency Swap")
+
+    # Use the published default 3-year fixture: USD 10m, spot 122, 4%/10%,
+    # 90-day coupons, Actual/360 USD and Actual/365 BDT, with a 15-day stub.
+    page.locator("#ccDirection").select_option("receive")
+    page.locator("#ccBasis").select_option("365")
+    page.locator("#ccUSDBasis").select_option("360")
+    page.locator("#ccBDTBasis").select_option("365")
+    page.get_by_role("button", name=re.compile("Build Cash-Flow Schedule", re.I)).click()
+
+    result = page.locator("#ccCashResult")
+    expect(result).to_contain_text("Receive USD / Pay BDT")
+    expect(result).to_contain_text("USD 10,121.49")
+    expect(result).to_contain_text("BDT 3,844,302.248")
+    expect(result).to_contain_text("BDT 5,079,124.305")
+
+    rows = result.locator("tbody tr")
+    expect(rows).to_have_count(14)  # initial exchange + 12 full periods + final stub
+    final_cells = rows.nth(13).locator("td")
+    expect(final_cells.nth(0)).to_have_text("13")
+    expect(final_cells.nth(1)).to_have_text("1095")
+    expect(final_cells.nth(2)).to_have_text("10,016,666.67")
+    expect(final_cells.nth(3)).to_have_text("-1,225,013,698.63")
+
+    # The reverse perspective must reverse both currency legs and the net PV.
+    page.locator("#ccDirection").select_option("pay")
+    page.get_by_role("button", name=re.compile("Build Cash-Flow Schedule", re.I)).click()
+    expect(result).to_contain_text("Pay USD / Receive BDT")
+    expect(result).to_contain_text("USD -10,121.49")
+    expect(result).to_contain_text("BDT -3,844,302.248")
+    expect(result).to_contain_text("BDT -5,079,124.305")
+    reverse_cells = result.locator("tbody tr").nth(13).locator("td")
+    expect(reverse_cells.nth(2)).to_have_text("-10,016,666.67")
+    expect(reverse_cells.nth(3)).to_have_text("1,225,013,698.63")
