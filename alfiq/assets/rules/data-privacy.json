@@ -1,0 +1,85 @@
+{
+  "schemaVersion": "1.0",
+  "packId": "data-privacy",
+  "packName": "Data Privacy and Protection",
+  "packVersion": "1.0.0",
+  "jurisdiction": "GLOBAL",
+  "rules": [
+    {
+      "ruleId": "PRIV-001",
+      "category": "Personal data processing",
+      "description": "Processing purpose and lawful basis",
+      "keywords": [
+        "personal data",
+        "lawful basis",
+        "processing purpose",
+        "consent"
+      ],
+      "patterns": [
+        "\\blawful basis\\b",
+        "\\bprocessing purpose\\b"
+      ],
+      "signal": "Personal data processing review signal",
+      "reviewPrompt": "Verify purpose limitation, lawful basis, transparency and scope.",
+      "severity": "Review",
+      "enabled": true
+    },
+    {
+      "ruleId": "PRIV-002",
+      "category": "Data subject rights",
+      "description": "Data subject request",
+      "keywords": [
+        "data subject",
+        "access request",
+        "right to erasure",
+        "rectification"
+      ],
+      "patterns": [
+        "\\bright to erasure\\b",
+        "\\bdata subject access\\b"
+      ],
+      "signal": "Data subject rights review signal",
+      "reviewPrompt": "Assess request intake, identity verification, timelines and exceptions.",
+      "severity": "Review",
+      "enabled": true
+    },
+    {
+      "ruleId": "PRIV-003",
+      "category": "Security and breach",
+      "description": "Personal data security and incident notification",
+      "keywords": [
+        "personal data breach",
+        "security incident",
+        "notify supervisory authority",
+        "breach notification"
+      ],
+      "patterns": [
+        "\\bpersonal data breach\\b",
+        "\\bbreach notification\\b"
+      ],
+      "signal": "Privacy incident reporting signal",
+      "reviewPrompt": "Verify incident thresholds, notification deadlines and evidence.",
+      "severity": "Review",
+      "enabled": true
+    },
+    {
+      "ruleId": "PRIV-004",
+      "category": "Retention and deletion",
+      "description": "Data retention and deletion",
+      "keywords": [
+        "data retention",
+        "delete personal data",
+        "retention period",
+        "storage limitation"
+      ],
+      "patterns": [
+        "\\bstorage limitation\\b",
+        "\\bdelete\\s+personal data\\b"
+      ],
+      "signal": "Privacy retention review signal",
+      "reviewPrompt": "Verify retention schedule, deletion trigger, exceptions and audit evidence.",
+      "severity": "Review",
+      "enabled": true
+    }
+  ]
+}
