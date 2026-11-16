@@ -78,7 +78,7 @@ body.article-page:not(.homepage-redesign) .hero p{color:#50647a!important}
 <div class="field"><label>Illustrative BDT discount rate %</label><input id="ccDiscBDT" type="number" step="any" value="10"></div>
 </div>
 <button class="calc" onclick="crossCurrencyCashflows()">Build Cash-Flow Schedule &amp; PV</button><div class="result" id="ccCashResult" aria-live="polite"></div>
-<div class="sample">Assumptions: fixed notionals between exchanges; simple-interest coupons using actual period days divided by the selected day-count basis; no resets, fees, basis spread, collateral, tax or optionality. Discount rates are flat continuous-compounding assumptions supplied by the user.</div>
+<div class="sample">Assumptions: fixed notionals between exchanges; simple-interest coupons using separate USD and BDT day-count bases; no resets, fees, basis spread, collateral, tax or optionality. Discount rates are flat continuous-compounding assumptions supplied by the user.</div>
 <div class="sample" id="ccBaseSample">Illustrative sample only. The agreed swap forward rate, periodic interest exchanges, reset terms, fees, basis, collateral and contractual repayment mechanics must be taken from executed documentation.</div></section>
 
 <section class="card"><h2>European Option — Black-Scholes</h2><p class="desc">Indicative European call/put value plus Delta, Gamma, Vega and Theta. Assumes continuous rates/dividend yield and lognormal dynamics.</p><div class="fields">
@@ -192,8 +192,8 @@ function crossCurrencyCashflows(){
  rows.push({period:'Initial exchange',day:0,usd:sign*usd,bdt:-sign*(usd*spot),netBdt:0});
  let elapsed=0,period=0;
  while(elapsed<days){
-  const next=Math.min(elapsed+frequency,days),periodDays=next-elapsed,accrual=periodDays/basis,t=next/basis;
-  const usdCoupon=usd*usdRate*accrual,bdtCoupon=(usd*spot)*bdtRate*accrual;
+  const next=Math.min(elapsed+frequency,days),periodDays=next-elapsed,usdAccrual=periodDays/usdBasis,bdtAccrual=periodDays/bdtBasis,t=next/365;
+  const usdCoupon=usd*usdRate*usdAccrual,bdtCoupon=(usd*spot)*bdtRate*bdtAccrual;
   let usdFlow=sign*usdCoupon,bdtFlow=-sign*bdtCoupon;
   if(next===days){usdFlow+=sign*maturityUSD;bdtFlow-=sign*maturityBDT;}
   pvUsd+=usdFlow*Math.exp(-discUSD*t);
@@ -201,7 +201,7 @@ function crossCurrencyCashflows(){
   rows.push({period:String(++period),day:next,usd:usdFlow,bdt:bdtFlow,netBdt:usdFlow*spot+bdtFlow});
   elapsed=next;
  }
- const netPV=pvUsd*spot+pvBdt,usdCouponTotal=usd*usdRate*(days/basis),bdtCouponTotal=usd*spot*bdtRate*(days/basis);
+ const netPV=pvUsd*spot+pvBdt,usdCouponTotal=usd*usdRate*(days/usdBasis),bdtCouponTotal=usd*spot*bdtRate*(days/bdtBasis);
  const fmtRows=rows.map(r=>'<tr><td>'+r.period+'</td><td>'+r.day+'</td><td>'+fmt(r.usd)+'</td><td>'+fmt(r.bdt)+'</td><td>'+fmt(r.netBdt)+'</td></tr>').join('');
  out.innerHTML='<b>Cash-flow direction:</b> '+(direction==='receive'?'Receive USD / Pay BDT':'Pay USD / Receive BDT')+'<br><b>USD leg PV:</b> USD '+fmt(pvUsd)+'<br><b>BDT leg PV:</b> BDT '+fmt(pvBdt)+'<br><b>Net PV (BDT equivalent at spot):</b> BDT '+fmt(netPV)+'<br><b>Undiscounted USD coupon total:</b> USD '+fmt(sign*usdCouponTotal)+'<br><b>Undiscounted BDT coupon total:</b> BDT '+fmt(-sign*bdtCouponTotal)+'<div style="overflow-x:auto;margin-top:12px"><table style="width:100%;border-collapse:collapse;min-width:560px;font-size:.82rem"><thead><tr><th style="text-align:left;padding:7px;border-bottom:1px solid #cbddea">Period</th><th style="text-align:right;padding:7px;border-bottom:1px solid #cbddea">Day</th><th style="text-align:right;padding:7px;border-bottom:1px solid #cbddea">USD cash flow</th><th style="text-align:right;padding:7px;border-bottom:1px solid #cbddea">BDT cash flow</th><th style="text-align:right;padding:7px;border-bottom:1px solid #cbddea">Net BDT at spot</th></tr></thead><tbody>'+fmtRows+'</tbody></table></div><p class="small">PV includes the initial principal exchange at time zero and discounts each later coupon/principal flow using flat continuously compounded rates. Positive amounts are receipts from the selected perspective. The net PV converts the USD-leg PV at the current spot rate.</p><p class="small"><b>Day-count convention:</b> USD coupon accrual uses Actual/'+usdBasis+'; BDT coupon accrual uses Actual/'+bdtBasis+'. These are simplified user-selected conventions; executed transaction documentation and currency-specific market conventions govern an actual transaction.</p><p class="small"><b>Model boundary:</b> Illustrative cash-flow and flat-rate sensitivity only—not a market-standard swap valuation, executable quote, fair-value measurement or hedge-accounting result. No forward FX curve, cross-currency basis, payment-date calendar, business-day adjustment, reset, collateral, CVA, funding valuation adjustment or transaction costs are modelled.</p>';
 }
@@ -229,7 +229,8 @@ function collInterest(){let P=n('ciP'),r=n('ciR')/100,d=n('ciD'),b=n('ciB');if(!
     const title=card.querySelector('h2')?.textContent.trim()||'Derivatives Calculator';
     const desc=cleanText(card.querySelector('.desc')?.textContent||'');
     let sample=cleanText(card.querySelector('.sample')?.textContent||'');
-    if(title==='Cross-Currency Swap — USD / BDT'){sample='USD principal and BDT principal re-exchange are shown separately from the CIP FX-forward reference. Cash-flow schedule and PV are included in the report.';}\n    if(title==='FX Forward Rate'){
+    if(title==='Cross-Currency Swap — USD / BDT'){sample='USD principal and BDT principal re-exchange are shown separately from the CIP FX-forward reference. Cash-flow schedule and PV are included in the report.';}
+    if(title==='FX Forward Rate'){
       const spot=card.querySelector('#fxs')?.value??'',dom=card.querySelector('#fxrd')?.value??'',foreign=card.querySelector('#fxrf')?.value??'',tenor=card.querySelector('#fxt')?.value??'',basis=card.querySelector('#fxb')?.value??'';
       sample='Current inputs: Spot '+spot+'; domestic '+dom+'%; foreign '+foreign+'%; '+tenor+' days; '+basis+'-day basis.';
     }
