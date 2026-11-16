@@ -179,7 +179,7 @@ function crossCurrencySwap(){
  const T=days/basis,usdDen=1+usdRate*T,bdtDen=1+bdtRate*T;
  if(!(usdDen>0&&bdtDen>0)){inputError('ccResult','Both simple-interest accumulation factors must be positive.');return;}
  const initialBDT=usd*spot,theoreticalForward=spot*bdtDen/usdDen,maturityBDT=maturityUSD*theoreticalForward,stressBDT=maturityUSD*stress,fxSensitivity=stressBDT-maturityUSD*spot,forwardPoints=theoreticalForward-spot;
- out.innerHTML='<b>Initial USD principal:</b> USD '+fmt(usd)+'<br><b>Initial BDT equivalent:</b> BDT '+fmt(initialBDT)+'<br><b>Indicative CIP reference forward:</b> '+fmt(theoreticalForward)+' BDT/USD<br><b>Forward points:</b> '+fmt(forwardPoints)+' BDT/USD<br><b>Maturity USD principal:</b> USD '+fmt(maturityUSD)+'<br><b>Agreed swap re-exchange (spot-locked BDT principal):</b> BDT '+fmt(n("ccMaturityBDT"))+'<br><b>Separate FX-forward reference rate:</b> '+fmt(theoreticalForward)+' BDT/USD<br><b>FX-forward reference equivalent of maturity USD principal:</b> BDT '+fmt(maturityBDT)+'<br><b>Unhedged revaluation at stress FX vs initial BDT equivalent:</b> BDT '+fmt(fxSensitivity)+'<br><span class="small">The agreed swap re-exchange is the separately entered contractual BDT principal. The forward-based amount is an FX-forward reference only; it is not the agreed swap re-exchange. The stress amount is an unhedged FX revaluation versus the initial spot equivalent, not a loss on a principal exchange that has been contractually locked.</span>';
+ out.innerHTML='<b>Initial USD principal:</b> USD '+fmt(usd)+'<br><b>Initial BDT equivalent:</b> BDT '+fmt(initialBDT)+'<br><b>Indicative CIP reference forward:</b> '+fmt(theoreticalForward)+' BDT/USD<br><b>Forward points:</b> '+fmt(forwardPoints)+' BDT/USD<br><b>Maturity USD principal:</b> USD '+fmt(maturityUSD)+'<br><b>Agreed swap re-exchange (spot-locked BDT principal):</b> BDT '+fmt(n("ccMaturityBDT"))+'<br><b>Separate FX-forward reference rate:</b> '+fmt(theoreticalForward)+' BDT/USD<br><b>FX-forward reference equivalent of maturity USD principal:</b> BDT '+fmt(maturityBDT)+'<br><b>Unhedged revaluation at stress FX vs initial BDT equivalent:</b> BDT '+fmt(fxSensitivity)+'<br><span class="small">At inception, the selected perspective receives USD and pays BDT; at maturity, the principal exchange reverses (pays USD and receives BDT). The agreed BDT re-exchange is the separately entered contractual BDT principal. The forward-based amount is an FX-forward reference only; it is not the agreed swap re-exchange. The stress amount is an unhedged FX revaluation versus the initial spot equivalent, not a loss on a principal exchange that has been contractually locked.</span>';
  const sample=document.getElementById('ccBaseSample');sample.textContent='Current inputs: USD '+fmt(usd)+'; spot '+fmt(spot)+'; USD rate '+fmt(usdRate*100)+'%; BDT rate '+fmt(bdtRate*100)+'%; tenor '+days+' days; stress FX '+fmt(stress)+' BDT/USD.';
 }
 function crossCurrencyCashflows(){
@@ -189,13 +189,13 @@ function crossCurrencyCashflows(){
  if(days>36500){inputError('ccCashResult','Tenor is limited to 36,500 days for this illustrative schedule.');return;}
  const sign=direction==='receive'?1:-1,rows=[];
  let pvUsd=sign*usd,pvBdt=-sign*(usd*spot);
- rows.push({period:'Initial exchange',day:0,usd:sign*usd,bdt:-sign*(usd*spot),netBdt:0});
+ rows.push({period:'Initial principal exchange',day:0,usd:sign*usd,bdt:-sign*(usd*spot),netBdt:0});
  let elapsed=0,period=0;
  while(elapsed<days){
   const next=Math.min(elapsed+frequency,days),periodDays=next-elapsed,usdAccrual=periodDays/usdBasis,bdtAccrual=periodDays/bdtBasis,t=next/365;
   const usdCoupon=usd*usdRate*usdAccrual,bdtCoupon=(usd*spot)*bdtRate*bdtAccrual;
   let usdFlow=sign*usdCoupon,bdtFlow=-sign*bdtCoupon;
-  if(next===days){usdFlow+=sign*maturityUSD;bdtFlow-=sign*maturityBDT;}
+  if(next===days){usdFlow-=sign*maturityUSD;bdtFlow+=sign*maturityBDT;}
   pvUsd+=usdFlow*Math.exp(-discUSD*t);
   pvBdt+=bdtFlow*Math.exp(-discBDT*t);
   rows.push({period:String(++period),day:next,usd:usdFlow,bdt:bdtFlow,netBdt:usdFlow*spot+bdtFlow});
