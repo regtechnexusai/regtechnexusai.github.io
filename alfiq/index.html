@@ -307,8 +307,9 @@ function obligationModel(changed,meta,removed,amended,unchanged){
  var transition=collectFields(transitionText,/(?:\b(?:transitional period|transition period|grace period|phased implementation|shall apply from|will apply from|applies from|effective from|come[s]? into force|takes effect)\b)[^.;\n]{0,180}/gi);
  var sourceRefs=collectFields(meta,/\b(?:reference|ref(?:erence)?\s*(?:no\.?|number)?|instrument\s*(?:no\.?|number)?)\s*[:|]\s*[^|\n]+/gi);
  var mandatory=/\b(?:shall|must|required to|is required to|are required to|may not|must not)\b/i;
- var amendedReview=(amended||[]).filter(function(x){return mandatory.test(x);});
- var removedObligations=(removed||[]).filter(function(x){return mandatory.test(x);});
+ var unchangedSet=new Set((unchanged||[]).map(function(x){return x.toLowerCase();}));
+ var amendedReview=sentenceUnits(amended||[]).filter(function(x){return mandatory.test(x)&&!unchangedSet.has(x.toLowerCase());});
+ var removedObligations=sentenceUnits(removed||[]).filter(function(x){return mandatory.test(x);});
  var unchangedObligations=(unchanged||[]).filter(function(x){return mandatory.test(x);});
  var fields=[["Responsible party / actor",actor],["Obligation modality",modal],["Frequency / cadence",frequency],["Recipient / notified authority (changed or removed text)",recipient],["Approval / authority",approval],["Evidence / record",evidence],["Deadline / time limit",deadline],["Conditional scope / exceptions (review signal)",conditions],["Transition / implementation arrangements (review signal)",transition],["Source references (reviewer-entered; not verified)",sourceRefs],["Effective date (source notes)",effective],["Amended / replaced obligation(s)",amendedReview.length?amendedReview.join("; "):"No matched amended mandatory-language paragraph identified"],["Removed obligation(s) requiring review",removedObligations.length?removedObligations.join("; "):"No unmatched removed mandatory-language paragraph identified"],["Unchanged obligation(s) — context only",unchangedObligations.length?unchangedObligations.join("; "):"No unchanged mandatory-language paragraph identified"]];
  $("obligationFields").innerHTML=fields.map(function(x){return '<div class="item"><strong>'+esc(x[0])+'</strong><div>'+esc(x[1])+'</div></div>';}).join("");
