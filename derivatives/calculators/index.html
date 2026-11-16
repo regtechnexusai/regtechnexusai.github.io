@@ -261,7 +261,30 @@ function collInterest(){let P=n('ciP'),r=n('ciR')/100,d=n('ciD'),b=n('ciB');if(!
   const EXPORT_NOTICE='Educational/analytical output only — not investment, legal, accounting or regulatory advice.';
   function cleanText(s){return String(s||'').replace(/\\s+/g,' ').trim();}
   function isoUtc(){return new Date().toISOString();}
-  function resultLines(el){return String(el?.innerHTML||'').replace(/<\/tr>/gi,'\n').replace(/<\/t[dh]>/gi,' | ').replace(/<br\s*\/?>(?=.)/gi,'\n').replace(/<[^>]*>/g,'').split('\n').map(s=>s.trim()).filter(Boolean);}
+  function resultLines(el){
+    if(!el)return [];
+    const lines=[];
+    function walk(node){
+      if(node.nodeType!==1)return;
+      if(node.matches('.export-actions,.export-tools,.export-status,button'))return;
+      if(node.matches('table')){
+        node.querySelectorAll('tr').forEach(tr=>{
+          const cells=[...tr.querySelectorAll('th,td')].map(cell=>cleanText(cell.textContent));
+          if(cells.length)lines.push(cells.join(' | '));
+        });
+        return;
+      }
+      if(node.matches('p,li,h1,h2,h3,h4')){
+        const value=cleanText(node.textContent);
+        if(value)lines.push(value);
+        return;
+      }
+      if(node.children.length){[...node.children].forEach(walk);}
+      else {const value=cleanText(node.textContent);if(value)lines.push(value);}
+    }
+    [...el.children].forEach(walk);
+    return lines;
+  }
   function getData(card){
     const title=card.querySelector('h2')?.textContent.trim()||'Derivatives Calculator';
     const desc=cleanText(card.querySelector('.desc')?.textContent||'');
@@ -297,8 +320,21 @@ function collInterest(){let P=n('ciP'),r=n('ciR')/100,d=n('ciD'),b=n('ciB');if(!
     const rows=[['RegTech Nexus AI','Derivatives Calculator Export'],['Calculator',d.title],['Generated (UTC)',d.timestamp],[],['Input','Value']];
     d.fields.forEach(x=>rows.push([x.label,x.value]));
     rows.push([],['Result','Metric','Value']);
-    d.resultLines.forEach(line=>{const i=line.indexOf(':');if(i>0)rows.push(['Result',line.slice(0,i).trim(),line.slice(i+1).trim()]);else rows.push(['Result','',line]);});
-    rows.push([],['Notes',d.desc],['Sample',d.sample],['Disclaimer',EXPORT_NOTICE]);
+    let inSchedule=false;
+    d.resultLines.forEach(line=>{
+      const cells=line.split(' | ').map(value=>value.trim());
+      if(cells.length===5&&cells[0]==='Period'&&cells[1]==='Day'){
+        rows.push([],['Schedule',...cells]);inSchedule=true;return;
+      }
+      if(inSchedule&&cells.length===5&&/^\\d+$/.test(cells[0])){
+        rows.push(['Schedule',...cells]);return;
+      }
+      inSchedule=false;
+      const i=line.indexOf(':');
+      if(i>0)rows.push(['Result',line.slice(0,i).trim(),line.slice(i+1).trim()]);
+      else rows.push(['Result','',line]);
+    });
+    rows.push([],['Notes',d.desc],['Additional context',d.sample],['Disclaimer',EXPORT_NOTICE]);
     return rows.map(r=>r.map(csvEscape).join(',')).join('\r\n');
   }
   function downloadBlob(name,content,type){
@@ -371,7 +407,7 @@ function collInterest(){let P=n('ciP'),r=n('ciR')/100,d=n('ciD'),b=n('ciB');if(!
             await navigator.clipboard.writeText(reportText(d));
             setStatus(card,'Copied');
           }else if(action==='csv'){
-            downloadBlob(base+'.csv','\\uFEFF'+csvFor(d),'text/csv;charset=utf-8');
+            downloadBlob(base+'.csv','\uFEFF'+csvFor(d),'text/csv;charset=utf-8');
             setStatus(card,'CSV downloaded');
           }else if(action==='download'){
             downloadBlob(base+'.txt',reportText(d),'text/plain;charset=utf-8');
