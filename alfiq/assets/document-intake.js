@@ -21,10 +21,32 @@
   });
   return mammothPromise;
  }
+ function validateDocxArchive(bytes){
+  const view=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength);
+  const start=Math.max(0,bytes.length-65557);let eocd=-1;
+  for(let i=bytes.length-22;i>=start;i--){if(view.getUint32(i,true)===0x06054b50){eocd=i;break;}}
+  if(eocd<0)throw new Error("DOCX ZIP directory is missing or malformed.");
+  const entries=view.getUint16(eocd+10,true),directorySize=view.getUint32(eocd+12,true),directoryOffset=view.getUint32(eocd+16,true);
+  if(entries===0xffff||directorySize===0xffffffff||directoryOffset===0xffffffff)throw new Error("ZIP64 DOCX archives are not supported by this browser intake.");
+  if(entries>1000||directoryOffset+directorySize>bytes.length)throw new Error("DOCX archive structure exceeds the supported limits.");
+  let offset=directoryOffset,total=0;
+  for(let i=0;i<entries;i++){
+   if(offset+46>bytes.length||view.getUint32(offset,true)!==0x02014b50)throw new Error("DOCX ZIP directory entry is invalid.");
+   const flags=view.getUint16(offset+8,true),uncompressed=view.getUint32(offset+24,true);
+   const nameLength=view.getUint16(offset+28,true),extraLength=view.getUint16(offset+30,true),commentLength=view.getUint16(offset+32,true);
+   if(flags&1)throw new Error("Encrypted DOCX archives are not supported.");
+   if(uncompressed===0xffffffff)throw new Error("ZIP64 DOCX entries are not supported.");
+   total+=uncompressed;
+   if(uncompressed>10*1024*1024||total>30*1024*1024)throw new Error("DOCX expands beyond the 30 MB safety limit.");
+   offset+=46+nameLength+extraLength+commentLength;
+  }
+  if(offset>directoryOffset+directorySize)throw new Error("DOCX ZIP directory bounds are invalid.");
+ }
  async function extractDocx(file,requestToken){
   if(file.size>MAX_BYTES)throw new Error("DOCX exceeds the 10 MB limit.");
   const bytes=new Uint8Array(await file.arrayBuffer());if(requestToken!==token)return;
   if(bytes[0]!==0x50||bytes[1]!==0x4b)throw new Error("The selected .docx file is not a valid Office Open XML ZIP document.");
+  validateDocxArchive(bytes);
   const mammoth=await loadMammoth();if(requestToken!==token)return;
   const result=await mammoth.extractRawText({arrayBuffer:bytes.buffer});if(requestToken!==token)return;
   const warning=result.messages&&result.messages.length?"DOCX parser reported "+result.messages.length+" conversion note(s); check the original.":"";
