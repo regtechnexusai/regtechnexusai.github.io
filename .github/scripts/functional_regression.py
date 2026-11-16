@@ -411,8 +411,8 @@ def test_usd_bdt_swap_maturity_direction_and_pv(page: Page):
     result = page.locator("#ccCashResult")
     expect(result).to_contain_text("Receive USD / Pay BDT")
     expect(result).to_contain_text("USD 10,121.49")
-    expect(result).to_contain_text("BDT 3,844,302.25")
-    expect(result).to_contain_text("BDT 5,079,124.31")
+    expect(result).to_contain_text("BDT 3,844,302.248")
+    expect(result).to_contain_text("BDT 5,079,124.305")
 
     rows = result.locator("tbody tr")
     expect(rows).to_have_count(14)  # initial exchange + 12 full periods + final stub
@@ -427,8 +427,8 @@ def test_usd_bdt_swap_maturity_direction_and_pv(page: Page):
     page.get_by_role("button", name=re.compile("Build Cash-Flow Schedule", re.I)).click()
     expect(result).to_contain_text("Pay USD / Receive BDT")
     expect(result).to_contain_text("USD -10,121.49")
-    expect(result).to_contain_text("BDT -3,844,302.25")
-    expect(result).to_contain_text("BDT -5,079,124.31")
+    expect(result).to_contain_text("BDT -3,844,302.248")
+    expect(result).to_contain_text("BDT -5,079,124.305")
     reverse_cells = result.locator("tbody tr").nth(13).locator("td")
     expect(reverse_cells.nth(2)).to_have_text("-10,016,666.67")
     expect(reverse_cells.nth(3)).to_have_text("1,225,013,698.63")
