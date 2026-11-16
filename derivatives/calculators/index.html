@@ -224,7 +224,7 @@ function collInterest(){let P=n('ciP'),r=n('ciR')/100,d=n('ciD'),b=n('ciB');if(!
   const EXPORT_NOTICE='Educational/analytical output only — not investment, legal, accounting or regulatory advice.';
   function cleanText(s){return String(s||'').replace(/\\s+/g,' ').trim();}
   function isoUtc(){return new Date().toISOString();}
-  function resultLines(el){return String(el?.innerHTML||'').replace(/<br\s*\/?>(?=.)/gi,'\n').replace(/<[^>]*>/g,'').split('\n').map(s=>s.trim()).filter(Boolean);}
+  function resultLines(el){return String(el?.innerHTML||'').replace(/<\/tr>/gi,'\n').replace(/<\/t[dh]>/gi,' | ').replace(/<br\s*\/?>(?=.)/gi,'\n').replace(/<[^>]*>/g,'').split('\n').map(s=>s.trim()).filter(Boolean);}
   function getData(card){
     const title=card.querySelector('h2')?.textContent.trim()||'Derivatives Calculator';
     const desc=cleanText(card.querySelector('.desc')?.textContent||'');
@@ -250,7 +250,8 @@ function collInterest(){let P=n('ciP'),r=n('ciR')/100,d=n('ciD'),b=n('ciB');if(!
     }
     const fields=[];
     card.querySelectorAll('.field').forEach(field=>{const label=field.querySelector('label')?.textContent.trim();const control=field.querySelector('input,select,textarea');if(label&&control&&!control.hidden)fields.push({label,value:control.value});});
-    const lines=resultLines(card.querySelector('.result'));
+    const resultNodes=[...card.querySelectorAll('.result')];
+    const lines=resultNodes.flatMap((node,i)=>{const part=resultLines(node);return part.length?['Output '+(i+1)+':',...part]:[];});
     return {title,desc,sample,fields,result:lines.join('\n')||'No result calculated yet.',resultLines:lines,timestamp:isoUtc()};
   }
   function csvEscape(v){return '"'+String(v??'').replace(/"/g,'""')+'"';}
