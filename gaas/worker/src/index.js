@@ -1,5 +1,6 @@
 import { handlePhaseBApi } from "./phaseb-api.js";
 import { phaseBQueue } from "./phaseb-queue-consumer.js";
+import { handleEmailApi } from "./email-service.js";
 const JSON_HEADERS = { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" };
 const MAX_BODY_BYTES = 12 * 1024;
 const ALLOWED_PLANS = new Set(["Free Explorer", "Professional", "Professional Plus", "Small Business", "Business Plus", "Enterprise"]);
@@ -224,6 +225,17 @@ export default {
       return new Response(null, { status: 204, headers: cors });
     }
     if (!Object.keys(cors).length) return json({ error: "Origin not allowed." }, 403);
+    if (url.pathname === "/api/email/contact") {
+      if (request.method !== "POST") return json({ error: "Method not allowed." }, 405, { ...cors, allow: "POST, OPTIONS" });
+      try {
+        const response = await handleEmailApi(request, env);
+        const headers = new Headers(response.headers);
+        for (const [key, value] of Object.entries(cors)) headers.set(key, value);
+        return new Response(response.body, { status: response.status, headers });
+      } catch {
+        return json({ error: "Email request failed safely. Please retry or contact support." }, 500, cors);
+      }
+    }
     if (url.pathname.startsWith("/api/jobs")) {
       const response = await handlePhaseBApi(request, env, url);
       const headers = new Headers(response.headers);

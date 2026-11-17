@@ -336,3 +336,114 @@ describe("Global jurisdiction and standards research policy", () => {
     expect(prompt).toContain("Identify relevant standards.");
   });
 });
+
+
+describe("Central Resend email endpoint", () => {
+  const emailEnv = {
+    ALLOWED_ORIGIN: ORIGIN,
+    RESEND_API_KEY: "re_test_only",
+    TURNSTILE_SECRET_KEY: "turnstile_test_only",
+    GAAS_RESEARCH_LIMITER: { limit: vi.fn().mockResolvedValue({ success: true }) }
+  };
+  const emailBody = {
+    name: "Test User",
+    organisation: "Example Bank",
+    email: "test@example.com",
+    category: "Product / pilot enquiry",
+    message: "Please contact me about an institutional pilot.",
+    turnstileToken: "test-turnstile-token"
+  };
+  const makeEmailRequest = (body = emailBody, method = "POST") => new Request("https://worker.example/api/email/contact", {
+    method,
+    headers: { Origin: ORIGIN, "content-type": "application/json", "CF-Connecting-IP": "192.0.2.20" },
+    ...(method === "POST" ? { body: JSON.stringify(body) } : {})
+  });
+
+  it("fails closed when Resend or Turnstile secrets are missing", async () => {
+    const response = await worker.fetch(makeEmailRequest(), {
+      ALLOWED_ORIGIN: ORIGIN,
+      TURNSTILE_SECRET_KEY: "test",
+      GAAS_RESEARCH_LIMITER: emailEnv.GAAS_RESEARCH_LIMITER
+    });
+    expect(response.status).toBe(503);
+    expect(await response.json()).toMatchObject({ error: "Email delivery is not configured." });
+  });
+
+  it("rejects unsupported methods", async () => {
+    const response = await worker.fetch(makeEmailRequest(emailBody, "GET"), emailEnv);
+    expect(response.status).toBe(405);
+  });
+
+  it("sends only to the configured inbox after successful Turnstile verification", async () => {
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce(new Response(JSON.stringify({
+        success: true, hostname: "regtechnexusai.com", action: "site_email"
+      }), { status: 200, headers: { "content-type": "application/json" } }))
+      .mockResolvedValueOnce(new Response(JSON.stringify({ id: "email_test_123" }), {
+        status: 200, headers: { "content-type": "application/json" }
+      }));
+    vi.stubGlobal("fetch", fetchMock);
+    const response = await worker.fetch(makeEmailRequest(), emailEnv);
+    const data = await response.json();
+    expect(response.status).toBe(200);
+    expect(data).toMatchObject({ status: "sent", reference: "email_test_123" });
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(fetchMock.mock.calls[0][0]).toBe("https://challenges.cloudflare.com/turnstile/v0/siteverify");
+    expect(fetchMock.mock.calls[1][0]).toBe("https://api.resend.com/emails");
+    const payload = JSON.parse(fetchMock.mock.calls[1][1].body);
+    expect(payload.to).toEqual(["regtechnexusai@gmail.com"]);
+    expect(payload.reply_to).toBe("test@example.com");
+    expect(payload.from).toContain("noreply@regtechnexusai.com");
+    expect(payload.html).toContain("Example Bank");
+    expect(payload.subject).toContain("Product / pilot enquiry");
+  });
+
+  it("escapes user HTML and never accepts a caller-controlled recipient", async () => {
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce(new Response(JSON.stringify({
+        success: true, hostname: "regtechnexusai.com", action: "site_email"
+      }), { status: 200, headers: { "content-type": "application/json" } }))
+      .mockResolvedValueOnce(new Response(JSON.stringify({ id: "email_test_456" }), {
+        status: 200, headers: { "content-type": "application/json" }
+      }));
+    vi.stubGlobal("fetch", fetchMock);
+    const response = await worker.fetch(makeEmailRequest({
+      ...emailBody, name: "<script>alert(1)</script>", message: "<img src=x onerror=alert(1)>",
+      to: "attacker@example.com"
+    }), emailEnv);
+    expect(response.status).toBe(200);
+    const payload = JSON.parse(fetchMock.mock.calls[1][1].body);
+    expect(payload.to).toEqual(["regtechnexusai@gmail.com"]);
+    expect(payload.html).not.toContain("<script>");
+    expect(payload.html).not.toContain("<img");
+    expect(payload.html).toContain("&lt;script&gt;");
+  });
+
+  it("rejects invalid addresses and categories before external calls", async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+    const response = await worker.fetch(makeEmailRequest({ ...emailBody, email: "not-an-email", category: "arbitrary" }), emailEnv);
+    expect(response.status).toBe(400);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("quietly discards honeypot submissions", async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+    const response = await worker.fetch(makeEmailRequest({ ...emailBody, website: "spam.example" }), emailEnv);
+    expect(response.status).toBe(202);
+    expect(await response.json()).toMatchObject({ status: "accepted" });
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("blocks rate-limited submissions before contacting providers", async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+    const response = await worker.fetch(makeEmailRequest(), {
+      ...emailEnv, GAAS_RESEARCH_LIMITER: { limit: vi.fn().mockResolvedValue({ success: false }) }
+    });
+    expect(response.status).toBe(429);
+    expect(await response.json()).toMatchObject({ code: "SITE_EMAIL_RATE_LIMITED" });
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+});

@@ -110,3 +110,19 @@ Proposed Phase 2 deliverable: a Regulatory Change Impact Pack workflow with:
 - reviewer decisions, version history and management summary.
 
 Every item must distinguish verified source facts, analyst assessment, assumptions and unverified matters. No legal status, obligation, institution applicability or control effectiveness may be fabricated.
+
+
+## Central website email service (Resend)
+
+The same Worker exposes `POST /api/email/contact` as the shared transactional notification endpoint for RegTech Nexus AI website modules. The public contact page is the first integrated caller; other modules should use this endpoint rather than creating independent Resend integrations.
+
+- Provider: Resend API, called server-side only.
+- Required encrypted Worker secrets: `RESEND_API_KEY` and `TURNSTILE_SECRET_KEY`.
+- Optional non-secret Worker variables: `RESEND_FROM_EMAIL` (defaults to `RegTech Nexus AI <noreply@regtechnexusai.com>`) and `SITE_EMAIL_TO` (defaults to `regtechnexusai@gmail.com`).
+- The destination is selected by Worker configuration and is never accepted from browser input.
+- Cloudflare Turnstile action: `site_email`; origin must be on the configured HTTPS allowlist.
+- The endpoint uses the existing per-IP Worker rate-limit binding, validates a strict category allowlist, limits request size, escapes HTML and does not log enquiry content.
+- It sends a notification to the configured inbox with the submitter's address as Reply-To. It does not send an automatic customer acknowledgement.
+- No attachments are accepted. Do not submit confidential customer, transaction, SAR/STR or restricted institutional information.
+
+Configure the secret on the `gaas-research-api-staging` Worker in the intended Cloudflare environment using the dashboard's encrypted Secret control or `wrangler secret put RESEND_API_KEY --config wrangler.staging.toml`. Never place the key in source control, a plain variable, browser code or a chat message. Configure the optional sender/recipient variables only after confirming the sender domain is verified in Resend. The GitHub staging deployment workflow must continue to deploy only the staging Worker.
