@@ -1,0 +1,75 @@
+name: SEO metadata validation
+
+on:
+  pull_request:
+    paths:
+      - "seo-config.json"
+      - "scripts/apply_seo_metadata.py"
+      - ".github/workflows/deploy-pages.yml"
+      - ".github/workflows/seo-metadata-validation.yml"
+      - "**/*.html"
+      - "sitemap.xml"
+  push:
+    branches:
+      - main
+    paths:
+      - "seo-config.json"
+      - "scripts/apply_seo_metadata.py"
+      - ".github/workflows/deploy-pages.yml"
+      - ".github/workflows/seo-metadata-validation.yml"
+      - "**/*.html"
+      - "sitemap.xml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+
+      - name: Checkout pinned TradeGuard source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: regtechnexusai/tradeguard
+          ref: eaf061382cb278eb657eb018f48132561536b6c1
+          path: tradeguard-source
+
+      - name: Validate configured page paths and metadata application
+        run: |
+          set -euo pipefail
+          python3 -m json.tool seo-config.json >/dev/null
+          python3 - <<'PY'
+          import json
+          import shutil
+          import subprocess
+          import sys
+          import tempfile
+          from pathlib import Path
+
+          config_path = Path("seo-config.json")
+          config = json.loads(config_path.read_text(encoding="utf-8"))
+          with tempfile.TemporaryDirectory(prefix="seo-metadata-") as temp:
+              site = Path(temp)
+              for relative in config.get("pages", {}):
+                  source = Path("tradeguard-source") / Path(relative).relative_to("tradeguard") if relative.startswith("tradeguard/") else Path(relative)
+                  if not source.is_file():
+                      raise SystemExit(f"Configured SEO page does not exist: {relative} (source: {source})")
+                  target = site / relative
+                  target.parent.mkdir(parents=True, exist_ok=True)
+                  shutil.copy2(source, target)
+              sitemap = Path("sitemap.xml")
+              if sitemap.is_file():
+                  shutil.copy2(sitemap, site / "sitemap.xml")
+              command = [
+                  sys.executable,
+                  "scripts/apply_seo_metadata.py",
+                  "--site-dir", str(site),
+                  "--config", str(config_path),
+              ]
+              subprocess.run(command, check=True)
+              subprocess.run(command + ["--check"], check=True)
+          PY
