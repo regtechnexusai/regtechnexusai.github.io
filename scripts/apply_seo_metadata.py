@@ -59,9 +59,14 @@ def apply_page(path: Path, record: dict, site: dict, check: bool) -> list[str]:
     if title:
         title_tag = f"<title>{html.escape(title)}</title>"
         if TITLE_RE.search(updated):
-            updated = TITLE_RE.sub(lambda _: title_tag, updated, count=1)
-            # Remove duplicate title elements.
-            updated = TITLE_RE.sub("", updated)
+            first = True
+            def title_replacer(_: re.Match[str]) -> str:
+                nonlocal first
+                if first:
+                    first = False
+                    return title_tag
+                return ""
+            updated = TITLE_RE.sub(title_replacer, updated)
         else:
             close = HEAD_CLOSE_RE.search(updated)
             if not close:
