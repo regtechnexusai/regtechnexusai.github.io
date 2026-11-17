@@ -147,6 +147,27 @@
     });
   }
 
+  function ensurePublicEmailFooter() {
+    var footer = document.querySelector("footer");
+    if (!footer || footer.querySelector('a[href="mailto:regtechnexusai@gmail.com"]')) return;
+    var connect = Array.prototype.slice.call(footer.children).find(function (child) {
+      var heading = child.querySelector && child.querySelector("b, strong");
+      return heading && heading.textContent.trim().toLowerCase() === "connect";
+    });
+    if (connect) {
+      connect.appendChild(make("a", {
+        href: "mailto:regtechnexusai@gmail.com",
+        "aria-label": "Email RegTech Nexus AI"
+      }, "Email: regtechnexusai@gmail.com"));
+      return;
+    }
+    var group = make("div", { "class": "rt-public-email", "aria-label": "Email contact" },
+      '<b>Email</b><a href="mailto:regtechnexusai@gmail.com">regtechnexusai@gmail.com</a>');
+    var legal = footer.querySelector(".legal, .rt-shell-legal");
+    if (legal) footer.insertBefore(group, legal);
+    else footer.appendChild(group);
+  }
+
   function ensureCentralContactLinks() {
     var nav = document.querySelector("body > header nav");
     if (nav && !nav.querySelector('a[href="/contact.html"], a[href="contact.html"], a[href$="/contact.html"]')) {
@@ -222,6 +243,7 @@
     addStandardFooter();
     ensureTrustNavLinks();
     ensureCentralContactLinks();
+    ensurePublicEmailFooter();
     ensureTrustLinks();
     normalizeShellLinks();
     bindMenu();
