@@ -131,7 +131,7 @@ def apply_page(path: Path, record: dict, site: dict, check: bool) -> list[str]:
             if len(found) != 1 or html.unescape(found[0]) != expected:
                 problems.append(f"{key[0]}:{key[1]}")
         if canonical:
-            links = [attrs(tag).get("href", "") for tag in CANONICAL_RE.findall(original)]
+            links = [attrs(match.group(0)).get("href", "") for match in CANONICAL_RE.finditer(original)]
             if len(links) != 1 or html.unescape(links[0]) != canonical:
                 problems.append("canonical")
         if problems:
