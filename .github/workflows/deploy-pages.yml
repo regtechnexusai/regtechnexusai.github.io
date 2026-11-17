@@ -143,6 +143,13 @@ jobs:
           PY
           touch site/.nojekyll
 
+      - name: Apply and validate page-specific SEO metadata
+        run: |
+          set -euo pipefail
+          python3 -m json.tool root-site/seo-config.json >/dev/null
+          python3 root-site/scripts/apply_seo_metadata.py --site-dir site --config root-site/seo-config.json
+          python3 root-site/scripts/apply_seo_metadata.py --site-dir site --config root-site/seo-config.json --check
+
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b
 
