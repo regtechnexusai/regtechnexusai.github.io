@@ -120,8 +120,22 @@ def apply_page(path: Path, record: dict, site: dict, check: bool) -> list[str]:
             updated = updated[:close.start()] + canonical_tag + "\n" + updated[close.start():]
 
     if check:
-        if updated != original:
-            raise ValueError(f"{path}: metadata differs from seo-config.json; run the deployment apply step")
+        problems = []
+        if title:
+            titles = TITLE_RE.findall(original)
+            actual_title = html.unescape(re.sub(r"<[^>]+>", "", titles[0])).strip() if titles else ""
+            if len(titles) != 1 or actual_title != title:
+                problems.append("title")
+        for key, expected in desired.items():
+            found = [attrs(tag).get("content", "") for tag in TAG_RE.findall(original) if meta_key(tag) == key]
+            if len(found) != 1 or html.unescape(found[0]) != expected:
+                problems.append(f"{key[0]}:{key[1]}")
+        if canonical:
+            links = [attrs(tag).get("href", "") for tag in CANONICAL_RE.findall(original)]
+            if len(links) != 1 or html.unescape(links[0]) != canonical:
+                problems.append("canonical")
+        if problems:
+            raise ValueError(f"{path}: metadata does not match seo-config.json: {', '.join(problems)}")
     elif updated != original:
         path.write_text(updated, encoding="utf-8")
     return [str(path)]
