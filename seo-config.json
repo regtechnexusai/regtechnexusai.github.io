@@ -90,6 +90,41 @@
       "title": "Mathematics Formula Library | RegTech Nexus AI Student Knowledge Hub",
       "description": "A structured mathematics formula library covering algebra, geometry and higher-level study with worked-learning support.",
       "canonical": "https://regtechnexusai.com/student/subjects/mathematics/formulas.html"
+    },
+    "alfiq/index.html": {
+      "title": "AlfiQ | Regulatory Change Impact Analysis | RegTech Nexus AI",
+      "description": "AlfiQ is an early-stage, human-reviewed regulatory change analysis prototype for comparing document versions and organising potential obligation impacts. Public prototype; source verification and professional review required.",
+      "canonical": "https://regtechnexusai.com/alfiq/"
+    },
+    "gaas/index.html": {
+      "title": "Global GaaS | Regulatory Intelligence & Change Workflow | RegTech Nexus AI",
+      "description": "Explore the RegTech Nexus AI Global GaaS design-partner preview for source-led regulatory intelligence and human-reviewed change-impact workflows. Demo and staging capabilities are clearly identified.",
+      "canonical": "https://regtechnexusai.com/gaas/"
+    },
+    "trust/index.html": {
+      "title": "Trust & Verification Centre | RegTech Nexus AI",
+      "description": "Review RegTech Nexus AI governance, methodology, regulatory-source boundaries, service limitations, responsible use and institutional accountability information.",
+      "canonical": "https://regtechnexusai.com/trust/"
+    },
+    "tool-assurance/index.html": {
+      "title": "Tool Assurance & Evidence Register | RegTech Nexus AI",
+      "description": "Review the purpose, evidence boundaries, testing status, source traceability and limitations of RegTech Nexus AI public decision-support tools.",
+      "canonical": "https://regtechnexusai.com/tool-assurance/"
+    },
+    "regulatory-source-register/index.html": {
+      "title": "Regulatory Source Register | RegTech Nexus AI",
+      "description": "Explore the regulatory-source register methodology for issuer, jurisdiction, instrument identity, publication status, effective dates, supersession and verification evidence.",
+      "canonical": "https://regtechnexusai.com/regulatory-source-register/"
+    },
+    "vendor-due-diligence/index.html": {
+      "title": "Vendor Due Diligence | RegTech Nexus AI",
+      "description": "Institutional vendor due-diligence information for organisations evaluating a defined RegTech Nexus AI service, including governance, security, privacy and methodology evidence boundaries.",
+      "canonical": "https://regtechnexusai.com/vendor-due-diligence/"
+    },
+    "mukul/index.html": {
+      "title": "MUKUL Agriculture Hub | RegTech Nexus AI",
+      "description": "MUKUL is a multilingual, free-first agriculture knowledge and farm-support hub. Explore practical learning resources and responsible prototype tools.",
+      "canonical": "https://regtechnexusai.com/mukul/"
     }
   },
   "topicClusters": [
