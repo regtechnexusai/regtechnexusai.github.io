@@ -7,7 +7,7 @@ function json(body, status = 200) {
 }
 function clean(value, max = 1000) {
   if (typeof value !== "string") return "";
-  return value.replace(/[\\u0000-\\u0008\\u000B\\u000C\\u000E-\\u001F\\u007F]/g, "").trim().slice(0, max);
+  return value.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "").trim().slice(0, max);
 }
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, character => ({
@@ -15,7 +15,7 @@ function escapeHtml(value) {
   })[character]);
 }
 function validEmail(value) {
-  return /^[^\\s@<>]+@[^\\s@<>]+\\.[^\\s@<>]+$/.test(value) && value.length <= 254;
+  return /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(value) && value.length <= 254;
 }
 async function verifyTurnstile(token, ip, hostname, env) {
   if (!env.TURNSTILE_SECRET_KEY || !token) return false;
@@ -54,12 +54,11 @@ export async function handleEmailApi(request, env) {
   const declared = Number(request.headers.get("content-length") || 0);
   if (declared > MAX_BODY_BYTES) return json({ error: "Request is too large." }, 413);
   const raw = await request.text();
-  if (new TextEncoder().encode(raw).byteLength > MAX_BODY_BYTES) return json({ error: "Request is too large." }, 413);
+  if (new TextEncoder().encode(raw).length > MAX_BODY_BYTES) return json({ error: "Request is too large." }, 413);
   let body;
   try { body = JSON.parse(raw); } catch { return json({ error: "Invalid JSON request." }, 400); }
   if (!body || typeof body !== "object" || Array.isArray(body)) return json({ error: "Invalid request structure." }, 400);
 
-  // Quietly accept honeypot submissions without sending email.
   if (clean(body.website, 200)) return json({ status: "accepted" }, 202);
 
   const name = clean(body.name, 120);
@@ -89,13 +88,13 @@ export async function handleEmailApi(request, env) {
     "",
     "Message:",
     message
-  ].join("\\n");
+  ].join("\n");
   const html = "<h2>New website enquiry</h2>"
     + "<p><strong>Name:</strong> " + escapeHtml(name) + "</p>"
     + "<p><strong>Organisation:</strong> " + escapeHtml(organisation || "Not provided") + "</p>"
     + "<p><strong>Reply-to:</strong> " + escapeHtml(email) + "</p>"
     + "<p><strong>Category:</strong> " + escapeHtml(category) + "</p>"
-    + "<h3>Message</h3><p>" + escapeHtml(message).replace(/\\n/g, "<br>") + "</p>"
+    + "<h3>Message</h3><p>" + escapeHtml(message).replace(/\n/g, "<br>") + "</p>"
     + "<hr><p>Submitted through https://regtechnexusai.com/contact.html</p>";
 
   let upstream;
@@ -105,12 +104,7 @@ export async function handleEmailApi(request, env) {
       headers: { "authorization": "Bearer " + env.RESEND_API_KEY, "content-type": "application/json" },
       signal: AbortSignal.timeout(10000),
       body: JSON.stringify({
-        from: sender,
-        to: [recipient],
-        reply_to: email,
-        subject,
-        text,
-        html,
+        from: sender, to: [recipient], reply_to: email, subject, text, html,
         tags: [
           { name: "module", value: "website" },
           { name: "category", value: category.toLowerCase().replace(/[^a-z0-9_-]/g, "-").slice(0, 40) }
@@ -124,8 +118,7 @@ export async function handleEmailApi(request, env) {
   const result = await upstream.json().catch(() => ({}));
   if (!upstream.ok || !result.id) {
     console.warn(JSON.stringify({
-      event: "site_email_delivery_failed",
-      status: upstream.status,
+      event: "site_email_delivery_failed", status: upstream.status,
       providerRequestId: clean(upstream.headers.get("x-request-id") || "", 120)
     }));
     return json({ error: "The enquiry could not be delivered right now. Please email regtechnexusai@gmail.com directly." }, 502);
