@@ -9,7 +9,7 @@
     '',
     'Regards,',
     'RegTech Nexus AI',
-    FROM,
+    'info@regtechnexusai.com',
     'https://regtechnexusai.com'
   ].join('\n');
 
