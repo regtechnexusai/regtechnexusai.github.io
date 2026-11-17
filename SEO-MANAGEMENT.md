@@ -10,6 +10,8 @@ This package includes a maintainable SEO baseline for `regtechnexusai.com`.
 - `robots.txt` with the public sitemap location.
 - `sitemap.xml` covering the known indexable root pages.
 - `seo-config.json` as the editable source of truth for page metadata, topic clusters and social profiles.
+- `scripts/apply_seo_metadata.py` applies configured titles, descriptions, canonical URLs, robots directives and Open Graph/Twitter metadata to the assembled deployment site; it also validates configured page paths and sitemap URL uniqueness.
+- The GitHub Pages deployment workflow runs the metadata application and a read-only consistency check before uploading the Pages artifact. This ensures the JSON configuration is reflected in deployed HTML rather than remaining documentation-only.
 - `Privacy` and `Terms` marked `noindex,follow` so thin utility pages do not compete with the main content.
 - Real indexable content pages for Blog, Regulatory Explainers, Frameworks &amp; Toolkits, Publications and three insight topics.
 - An on-domain `/payscale-2026/` calculator route with WebApplication metadata and an explicit non-official disclaimer.
@@ -22,12 +24,13 @@ Use this approved description when a consistent short SEO description is needed:
 
 ## Ongoing management workflow
 
-1. Add each new public article to `seo-config.json` with a unique title, description and canonical URL.
+1. Add each new public article to `seo-config.json` with a unique title, description and canonical URL; the deployment pipeline applies these values to the built HTML.
 2. Add its canonical URL to `sitemap.xml` only after the page is live and internally linked.
 3. Add one descriptive, search-friendly title and one clear summary before publishing; do not keyword-stuff.
 4. Keep claims evidence-aware and consistent with the site's governance-first positioning.
 5. Review Search Console coverage, sitemap status, Core Web Vitals, title/description duplication and broken canonical URLs after deployment.
 6. Re-submit the sitemap after a material content release.
+7. Treat a failed SEO metadata validation step as a deployment blocker; resolve the source/configuration mismatch before release.
 
 ## Deployment note
 
