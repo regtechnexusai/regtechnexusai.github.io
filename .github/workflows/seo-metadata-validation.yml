@@ -31,6 +31,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
 
+      - name: Checkout pinned TradeGuard source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: regtechnexusai/tradeguard
+          ref: eaf061382cb278eb657eb018f48132561536b6c1
+          path: tradeguard-source
+
       - name: Validate configured page paths and metadata application
         run: |
           set -euo pipefail
@@ -48,9 +55,9 @@ jobs:
           with tempfile.TemporaryDirectory(prefix="seo-metadata-") as temp:
               site = Path(temp)
               for relative in config.get("pages", {}):
-                  source = Path(relative)
+                  source = Path("tradeguard-source") / Path(relative).relative_to("tradeguard") if relative.startswith("tradeguard/") else Path(relative)
                   if not source.is_file():
-                      raise SystemExit(f"Configured SEO page does not exist: {relative}")
+                      raise SystemExit(f"Configured SEO page does not exist: {relative} (source: {source})")
                   target = site / relative
                   target.parent.mkdir(parents=True, exist_ok=True)
                   shutil.copy2(source, target)
