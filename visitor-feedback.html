@@ -115,7 +115,7 @@
       <label class="feedback-label" for="suggestion">6. What is one thing you would like us to add or improve? (Optional)</label>
       <textarea id="suggestion" name="suggestion" maxlength="1500" placeholder="Please do not include confidential customer, transaction, bank or supervisory information."></textarea>
     </fieldset>
-    <p class="feedback-note"><strong>Privacy:</strong> This survey does not ask for your name, email address or employer. When you submit, your email app opens with your answers addressed to regtechnexusai@gmail.com. Your feedback is sent only if you choose to send that email. Do not include confidential or personal data.</p>
+    <p class="feedback-note"><strong>Privacy:</strong> This survey does not ask for your name, email address or employer. When you submit, your email app opens with your answers addressed to info@regtechnexusai.com. Your feedback is sent only if you choose to send that email. Do not include confidential or personal data.</p>
     <button class="feedback-submit" type="submit">Submit feedback by email ↗</button>
     <div class="feedback-status" id="feedback-status" role="status" aria-live="polite">Your email draft should now be open. Please review it and press Send to deliver your feedback.</div>
   </form>
@@ -126,7 +126,7 @@
  <div><b>Solutions</b><a href="/tradeguard/">TradeGuard</a><a href="/icms-2026/">ICMS Toolkit</a><a href="/#solutions">All Solutions</a></div>
  <div><b>Expertise</b><a href="/#capabilities">Audit &amp; Regulatory Intelligence</a><a href="/#capabilities">Compliance &amp; Financial Crime</a><a href="/#about">Responsible AI</a></div>
  <div><b>Knowledge</b><a href="/insights.html">Research &amp; Insights</a><a href="/blog.html">Blog</a><a href="/student/">Student Knowledge Hub</a></div>
- <div><b>Connect</b><a href="/contact.html">Contact</a><a href="/visitor-feedback.html" aria-current="page">Visitor Feedback</a><a href="mailto:regtechnexusai@gmail.com">Email RegTech Nexus AI</a></div>
+ <div><b>Connect</b><a href="/contact.html">Contact</a><a href="/visitor-feedback.html" aria-current="page">Visitor Feedback</a><a href="mailto:info@regtechnexusai.com">Email RegTech Nexus AI</a></div>
  <p class="footer-note">Research and digital tools support professional analysis. They do not provide legal advice, regulatory approval or an automatic compliance determination. Review findings against evidence and applicable requirements.</p>
  <div class="legal"><span>© 2026 RegTech Nexus AI</span><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/contact.html">Contact</a></div>
 </footer>
@@ -150,10 +150,10 @@ document.getElementById('visitor-feedback-form').addEventListener('submit',funct
   ];
   const body='Visitor Feedback Survey\n\n'+fields.map(([label,value])=>label+': '+value).join('\n')+'\n\nPlease do not reply with confidential customer or transaction information.';
   if(window.RegTechEmail&&typeof window.RegTechEmail.open==='function'){
-    window.RegTechEmail.open('RegTech Nexus AI — Visitor Feedback',body,'regtechnexusai@gmail.com');
+    window.RegTechEmail.open('RegTech Nexus AI — Visitor Feedback',body,'info@regtechnexusai.com');
     document.getElementById('feedback-status').classList.add('visible');
   }else{
-    const mailto='mailto:regtechnexusai@gmail.com?subject='+encodeURIComponent('RegTech Nexus AI — Visitor Feedback')+'&body='+encodeURIComponent(body);
+    const mailto='mailto:info@regtechnexusai.com?subject='+encodeURIComponent('RegTech Nexus AI — Visitor Feedback')+'&body='+encodeURIComponent(body);
     window.location.href=mailto;
     document.getElementById('feedback-status').classList.add('visible');
   }
