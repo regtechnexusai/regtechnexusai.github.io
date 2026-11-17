@@ -292,7 +292,7 @@ def test_alfiq_services_scope_contact_and_brand_assets(page: Page):
 
     expect(page.locator("#scope")).to_be_visible()
     expect(page.get_by_role("link", name=re.compile("Request a pilot discussion", re.I))).to_have_attribute(
-        "href", re.compile(r"^mailto:regtechnexusai@gmail.com")
+        "href", re.compile(r"^mailto:info@regtechnexusai.com")
     )
     expect(page.locator(".alfiq-premium-footer a[href='/privacy.html']")).to_be_visible()
     expect(page.locator(".alfiq-premium-footer a[href='/terms.html']")).to_be_visible()
