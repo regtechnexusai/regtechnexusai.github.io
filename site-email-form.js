@@ -5,6 +5,13 @@
   const submit = document.getElementById("site-email-submit");
   const challengeStatus = document.getElementById("site-email-challenge-status");
   const result = document.getElementById("site-email-result");
+  const category = document.getElementById("site-email-category");
+  if (category) {
+    const requestedCategory = new URLSearchParams(window.location.search).get("category");
+    if (requestedCategory && Array.from(category.options).some(option => option.value === requestedCategory)) {
+      category.value = requestedCategory;
+    }
+  }
   let token = "";
   let widgetId = null;
   let submitting = false;

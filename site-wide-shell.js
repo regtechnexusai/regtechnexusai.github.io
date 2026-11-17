@@ -147,6 +147,22 @@
     });
   }
 
+  function ensureCentralContactLinks() {
+    var nav = document.querySelector("body > header nav");
+    if (nav && !nav.querySelector('a[href="/contact.html"], a[href="contact.html"], a[href$="/contact.html"]')) {
+      nav.appendChild(make("a", { href: "/contact.html", "data-rt-central-contact": "true" }, "Contact"));
+    }
+    var footer = document.querySelector("body > footer");
+    if (footer && !footer.querySelector('a[href="/contact.html"], a[href="contact.html"], a[href$="/contact.html"]')) {
+      var connect = Array.prototype.slice.call(footer.children).find(function (child) {
+        var heading = child.querySelector && child.querySelector("b, strong");
+        return heading && heading.textContent.trim().toLowerCase() === "connect";
+      });
+      var target = connect || footer;
+      target.appendChild(make("a", { href: "/contact.html", "data-rt-central-contact": "true" }, "Contact RegTech Nexus AI"));
+    }
+  }
+
   function bindMenu() {
     var header = document.querySelector("body > header.rt-shell-header");
     if (!header) return;
@@ -205,6 +221,7 @@
     addStandardHeader();
     addStandardFooter();
     ensureTrustNavLinks();
+    ensureCentralContactLinks();
     ensureTrustLinks();
     normalizeShellLinks();
     bindMenu();
