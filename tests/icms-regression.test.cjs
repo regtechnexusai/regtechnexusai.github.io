@@ -56,7 +56,7 @@ test('ICMS blocks a result while any core question is unanswered', () => {
   const app = boot();
   submit(app);
   assert.match(app.get('assessment-error').textContent, /24 remain unanswered/);
-  assert.equal(app.get('assessment-result').hidden, false); // DOM default is false; no score is populated
+  assert.equal(app.get('assessment-result').hidden, true);
   assert.equal(app.get('result-score').textContent, '');
 });
 for (const [value, score, band] of [
@@ -74,7 +74,7 @@ for (const [value, score, band] of [
     assert.equal(app.get('result-count').textContent, '24 / 24');
   });
 }
-test('ICMS AHR weighted composite remains 82.0 and Very Good', () => {
+test('ICMS AHR weighted composite remains 83.0 and Very Good', () => {
   const app = boot();
   app.get('ahr-financial').value = '100';
   app.get('ahr-icms').value = '80';
