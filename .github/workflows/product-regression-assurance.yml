@@ -1,0 +1,30 @@
+name: Product regression assurance
+on:
+  pull_request:
+    paths:
+      - "icms-2026/**"
+      - "tests/**"
+      - ".github/workflows/product-regression-assurance.yml"
+  push:
+    branches: [main]
+    paths:
+      - "icms-2026/**"
+      - "tests/**"
+      - ".github/workflows/product-regression-assurance.yml"
+permissions:
+  contents: read
+jobs:
+  synthetic-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: regtechnexusai/tradeguard
+          ref: eaf061382cb278eb657eb018f48132561536b6c1
+          path: tradeguard-source
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 22
+      - name: Run ICMS and TradeGuard synthetic regression tests
+        run: node --test tests/icms-regression.test.cjs tests/tradeguard-rules-regression.test.mjs
