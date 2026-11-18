@@ -31,7 +31,7 @@
       body: prepared.body
     });
     // Use the visitor's configured mail handler; do not force a Gmail account.
-    window.location.href = 'mailto:' + encodeURIComponent(recipient) + '?' + params.toString();
+    window.location.href = 'mailto:' + recipient + '?' + params.toString();
   };
 
   window.RegTechEmail = Object.freeze({
