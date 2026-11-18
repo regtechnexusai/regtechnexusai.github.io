@@ -5,6 +5,7 @@ on:
     paths:
       - "seo-config.json"
       - "scripts/apply_seo_metadata.py"
+      - "scripts/audit_site_quality.py"
       - ".github/workflows/deploy-pages.yml"
       - ".github/workflows/seo-metadata-validation.yml"
       - "**/*.html"
@@ -72,4 +73,6 @@ jobs:
               ]
               subprocess.run(command, check=True)
               subprocess.run(command + ["--check"], check=True)
+              audit = [sys.executable, "scripts/audit_site_quality.py", "--site-dir", str(site), "--config", str(config_path), "--output", str(site / "site-quality-report.md")]
+              subprocess.run(audit, check=True)
           PY
