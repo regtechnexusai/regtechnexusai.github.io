@@ -69,6 +69,7 @@ test('TradeGuard mobile navigation is compact, scroll-contained and responsive',
       overflowY: style.overflowY,
       maxHeight: parseFloat(style.maxHeight),
       headingColumn: heading ? getComputedStyle(heading).gridColumn : null,
+      headingDisplay: heading ? getComputedStyle(heading).display : null,
       linkCount: element.querySelectorAll('a').length,
       expanded: document.querySelector('.tradeguard-main-nav .menu').getAttribute('aria-expanded')
     };
@@ -77,6 +78,7 @@ test('TradeGuard mobile navigation is compact, scroll-contained and responsive',
   assert.equal(mobile.overflowY, 'auto');
   assert.ok(mobile.maxHeight > 0 && mobile.maxHeight < 844);
   assert.match(mobile.headingColumn || '', /1.*-1/);
+  assert.equal(mobile.headingDisplay, 'block');
   assert.ok(mobile.linkCount >= 15);
   assert.equal(mobile.expanded, 'true');
 
