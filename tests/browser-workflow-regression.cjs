@@ -50,3 +50,39 @@ test('TradeGuard transaction-monitoring and document-assessment workspaces rende
   assert.equal(await page.locator('#runDocumentAssessment').isEnabled(),true);
   await page.close();
 });
+test('TradeGuard mobile navigation is compact, scroll-contained and responsive', async () => {
+  const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  await page.goto(base + '/tradeguard/', { waitUntil: 'domcontentloaded' });
+  const menu = page.locator('.tradeguard-main-nav .menu');
+  const nav = page.locator('.tradeguard-main-nav nav');
+  await menu.click();
+  await nav.waitFor({ state: 'visible' });
+  await page.waitForFunction(() => {
+    const element = document.querySelector('.tradeguard-main-nav nav');
+    return element && getComputedStyle(element).display === 'grid';
+  });
+  const mobile = await nav.evaluate(element => {
+    const style = getComputedStyle(element);
+    const heading = element.querySelector('.nav-menu-heading');
+    return {
+      columns: style.gridTemplateColumns.split(' ').length,
+      overflowY: style.overflowY,
+      maxHeight: parseFloat(style.maxHeight),
+      headingColumn: heading ? getComputedStyle(heading).gridColumn : null,
+      linkCount: element.querySelectorAll('a').length,
+      expanded: document.querySelector('.tradeguard-main-nav .menu').getAttribute('aria-expanded')
+    };
+  });
+  assert.equal(mobile.columns, 2);
+  assert.equal(mobile.overflowY, 'auto');
+  assert.ok(mobile.maxHeight > 0 && mobile.maxHeight < 844);
+  assert.match(mobile.headingColumn || '', /1.*-1/);
+  assert.ok(mobile.linkCount >= 15);
+  assert.equal(mobile.expanded, 'true');
+
+  await page.setViewportSize({ width: 360, height: 800 });
+  const narrowColumns = await nav.evaluate(element => getComputedStyle(element).gridTemplateColumns.split(' ').length);
+  assert.equal(narrowColumns, 1);
+  await page.close();
+});
+
