@@ -42,4 +42,10 @@ rule = css[pos:css.find("}", pos)]
 if "filter:" in rule.lower() and "filter:none!important" not in rule.lower():
     sys.exit("Homepage hero image CSS must not apply a filter effect")
 
+
+logo_webp_sources = html.count('srcset="regtech-nexus-ai-logo-2026.webp"')
+logo_png_fallbacks = html.count('src="regtech-nexus-ai-logo-2026.png"')
+if logo_webp_sources != 2 or logo_png_fallbacks != 2:
+    sys.exit("Homepage must retain two WebP logo sources and two PNG fallbacks")
+
 print("PASS: homepage LCP image is eager/high-priority, dimensioned, preloaded and free of SVG/CSS filters.")
