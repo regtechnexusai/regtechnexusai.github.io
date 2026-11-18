@@ -216,3 +216,10 @@ body.bank-review-page .bank-review-hero .kicker {
   color:#b8fff4 !important;
   opacity:1 !important;
 }
+
+/* 2026-11-19 mobile/tablet readability: keep cards fluid and make wide register navigation explicit. */
+body.bank-review-page .review-card-grid,body.bank-review-page .review-stat-grid,body.bank-review-page .condition-list{min-width:0}
+body.bank-review-page .review-table-wrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-inline:contain;position:relative}
+body.bank-review-page .review-table{min-width:900px}
+@media(max-width:900px){body.bank-review-page .review-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){body.bank-review-page .review-card-grid,body.bank-review-page .review-stat-grid,body.bank-review-page .condition-list{grid-template-columns:minmax(0,1fr)}body.bank-review-page .review-table-wrap:after{content:"Swipe horizontally to view all portfolio columns";display:block;padding:9px 12px;background:#edf4fa;color:#344b63;font-size:12px;border-top:1px solid #d7e5ef}body.bank-review-page .bank-review-hero h1{font-size:clamp(34px,9vw,43px)}body.bank-review-page .bank-review-section{overflow-wrap:anywhere}}
