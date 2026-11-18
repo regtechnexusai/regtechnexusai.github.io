@@ -13,6 +13,7 @@ on:
       - "styles.css"
       - "assets/**/*.svg"
       - "scripts/test_homepage_lcp.py"
+      - "tests/**"
   push:
     branches:
       - main
@@ -26,6 +27,7 @@ on:
       - "styles.css"
       - "assets/**/*.svg"
       - "scripts/test_homepage_lcp.py"
+      - "tests/**"
   workflow_dispatch:
 
 permissions:
@@ -33,7 +35,7 @@ permissions:
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
@@ -52,6 +54,25 @@ jobs:
 
       - name: Run ICMS and TradeGuard synthetic regression tests
         run: node --test tests/icms-regression.test.cjs tests/tradeguard-rules-regression.test.mjs
+
+      - name: Install browser test dependencies
+        run: |
+          npm install --prefix "$RUNNER_TEMP/regtech-browser-tools" --no-save --no-audit --no-fund playwright@1.56.1
+          "$RUNNER_TEMP/regtech-browser-tools/node_modules/.bin/playwright" install --with-deps chromium
+
+      - name: Run AlfiQ, ICMS and TradeGuard browser workflow tests
+        run: |
+          set -euo pipefail
+          mkdir -p tradeguard
+          cp -a tradeguard-source/. tradeguard/
+          python3 -m http.server 4173 --bind 127.0.0.1 >"$RUNNER_TEMP/regtech-test-server.log" 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4173/alfiq/ >/dev/null; then break; fi
+            sleep 1
+          done
+          NODE_PATH="$RUNNER_TEMP/regtech-browser-tools/node_modules" TEST_BASE_URL=http://127.0.0.1:4173 node --test tests/browser-workflow-regression.cjs
 
       - name: Validate homepage LCP asset remains filter-free
         run: python3 scripts/test_homepage_lcp.py
