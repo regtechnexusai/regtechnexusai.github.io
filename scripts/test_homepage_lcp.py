@@ -50,8 +50,10 @@ if logo_webp_sources != 2 or logo_png_fallbacks != 2:
 
 # Keep the Cloudflare Web Analytics beacon narrowly allowlisted. The existing
 # connect-src 'self' permits automatic-injection RUM posts to /cdn-cgi/rum.
-if "https://static.cloudflareinsights.com/beacon.min.js" not in html:
-    sys.exit("Homepage CSP must allow the Cloudflare Web Analytics beacon script")
+if "https://static.cloudflareinsights.com" not in html:
+    sys.exit("Homepage CSP must allow the Cloudflare Web Analytics beacon origin")
+if "https://static.cloudflareinsights.com/beacon.min.js" in html:
+    sys.exit("Homepage CSP must not restrict the versioned Cloudflare beacon to an incomplete script path")
 if "connect-src 'self'" not in html:
     sys.exit("Homepage CSP must retain same-origin connection permission for automatic Cloudflare RUM")
 
