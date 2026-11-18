@@ -22,6 +22,7 @@ class PageAudit(HTMLParser):
         self.viewport = 0
         self.titles = 0
         self.descriptions = 0
+        self.robots = ""
         self.canonicals = 0
         self.h1_count = 0
         self.images_without_alt = 0
@@ -41,6 +42,8 @@ class PageAudit(HTMLParser):
                 self.viewport += 1
             elif name == "description":
                 self.descriptions += 1
+            elif name == "robots":
+                self.robots = (a.get("content") or "").lower()
         elif tag == "link" and "canonical" in (a.get("rel") or "").lower().split():
             self.canonicals += 1
         elif tag == "title":
@@ -48,8 +51,11 @@ class PageAudit(HTMLParser):
             self._title_depth += 1
         elif tag == "h1":
             self.h1_count += 1
-        elif tag == "img" and "alt" not in a:
-            self.images_without_alt += 1
+        elif tag == "img":
+            if "alt" not in a:
+                self.images_without_alt += 1
+            elif self._links and (a.get("alt") or "").strip():
+                self._links[-1]["text"] = str(self._links[-1]["text"]) + str(a.get("alt"))
         elif tag == "a":
             has_name = bool((a.get("aria-label") or "").strip() or (a.get("title") or "").strip())
             self._links.append({"named": has_name or bool(a.get("href") is None), "text": ""})
@@ -97,7 +103,7 @@ def main() -> int:
             "missing viewport": audit.viewport == 0,
             "duplicate viewport": audit.viewport > 1,
             "missing/duplicate title": audit.titles != 1,
-            "missing/duplicate meta description": audit.descriptions != 1,
+            "missing/duplicate meta description": "noindex" not in audit.robots.split(",") and audit.descriptions != 1,
             "missing/duplicate canonical": audit.canonicals != 1,
             "missing/multiple h1": audit.h1_count != 1,
             "images without alt attribute": audit.images_without_alt > 0,
