@@ -842,3 +842,21 @@ body:not(.homepage-redesign) .hero p{color:#f4fbff}
     grid-column:1!important;
   }
 }
+
+
+/* 2026-11-19: keep the shared Back to Home action in document flow on phones.
+   The injected link follows the page footer; it must not cover legal-page content. */
+@media(max-width:600px){
+  .rt-back-home{
+    position:static!important;
+    right:auto!important;
+    bottom:auto!important;
+    z-index:auto!important;
+    display:flex!important;
+    width:max-content!important;
+    max-width:calc(100% - 24px)!important;
+    box-sizing:border-box!important;
+    margin:18px 12px 24px auto!important;
+    transform:none!important;
+  }
+}
