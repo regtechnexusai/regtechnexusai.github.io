@@ -31,6 +31,7 @@ function boot() {
     const el = makeElement('q' + (i + 1)); el.name = 'q' + (i + 1); el.value = '';
     return el;
   });
+  get('assessment-result').hidden = true;
   const form = get('icms-assessment-form');
   form.querySelectorAll = selector => selector === 'select[name^="q"]' ? questions : [];
   const inputIds = ['business-unit-score','ahr-financial','ahr-icms','ahr-reputation','shariah-score'];
