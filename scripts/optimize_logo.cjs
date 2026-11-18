@@ -34,7 +34,7 @@ async function walk(dir) {
     .toFile(output);
 
   const outputMeta = await sharp(output).metadata();
-  if (outputMeta.format !== "webp" || outputMeta.width !== 460 || !outputMeta.hasAlpha) {
+  if (outputMeta.format !== "webp" || outputMeta.width !== 460 || outputMeta.hasAlpha !== metadata.hasAlpha) {
     throw new Error("Optimized logo failed format, dimension or transparency validation");
   }
 
