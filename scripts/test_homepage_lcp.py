@@ -48,4 +48,11 @@ logo_png_fallbacks = html.count('src="regtech-nexus-ai-logo-2026.png"')
 if logo_webp_sources != 2 or logo_png_fallbacks != 2:
     sys.exit("Homepage must retain two WebP logo sources and two PNG fallbacks")
 
-print("PASS: homepage LCP image is eager/high-priority, dimensioned, preloaded and free of SVG/CSS filters.")
+# Keep the Cloudflare Web Analytics beacon narrowly allowlisted. The existing
+# connect-src 'self' permits automatic-injection RUM posts to /cdn-cgi/rum.
+if "https://static.cloudflareinsights.com/beacon.min.js" not in html:
+    sys.exit("Homepage CSP must allow the Cloudflare Web Analytics beacon script")
+if "connect-src 'self'" not in html:
+    sys.exit("Homepage CSP must retain same-origin connection permission for automatic Cloudflare RUM")
+
+print("PASS: homepage LCP image and Cloudflare Web Analytics CSP checks passed.")
