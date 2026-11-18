@@ -1,0 +1,52 @@
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const { chromium } = require('playwright');
+const base = process.env.TEST_BASE_URL || 'http://127.0.0.1:4173';
+let browser;
+test.before(async () => { browser = await chromium.launch({ headless: true }); });
+test.after(async () => { await browser?.close(); });
+test('AlfiQ accepts local text documents on both sides and produces a preliminary comparison', async () => {
+  const page = await browser.newPage();
+  await page.goto(base + '/alfiq/', { waitUntil: 'domcontentloaded' });
+  await page.locator('#earlierFile').setInputFiles({name:'earlier.txt',mimeType:'text/plain',buffer:Buffer.from('The bank shall review customer risk annually.')});
+  await page.locator('#revisedFile').setInputFiles({name:'revised.txt',mimeType:'text/plain',buffer:Buffer.from('The bank shall review customer risk quarterly and document escalation.')});
+  await page.getByText(/extracted locally into its matching text field/).first().waitFor();
+  await page.locator('#analyse').click();
+  await page.locator('#report').waitFor({state:'visible'});
+  assert.equal(await page.locator('#analyse').isEnabled(),true);
+  await page.close();
+});
+test('AlfiQ rejects a malformed DOCX archive without replacing existing text', async () => {
+  const page = await browser.newPage();
+  await page.goto(base + '/alfiq/', {waitUntil:'domcontentloaded'});
+  await page.locator('#oldText').fill('Existing synthetic source text');
+  await page.locator('#earlierFile').setInputFiles({name:'broken.docx',mimeType:'application/vnd.openxmlformats-officedocument.wordprocessingml.document',buffer:Buffer.from('PK-not-a-valid-docx')});
+  await page.getByText(/Document extraction stopped:/).waitFor();
+  assert.equal(await page.locator('#oldText').inputValue(),'Existing synthetic source text');
+  await page.close();
+});
+test('ICMS completes a 24-answer assessment and downloads its report', async () => {
+  const page = await browser.newPage();
+  await page.goto(base + '/icms-2026/', {waitUntil:'domcontentloaded'});
+  await page.locator('#icms-assessment-form select[name^="q"]').evaluateAll(fields => fields.forEach(field => {field.value='3';field.dispatchEvent(new Event('change',{bubbles:true}));}));
+  await page.getByRole('button',{name:/Calculate indicative result/}).click();
+  await page.locator('#assessment-result').waitFor({state:'visible'});
+  assert.equal(await page.locator('#result-score').textContent(),'72');
+  assert.match(await page.locator('#result-band').textContent(),/Ready for validation/);
+  const downloadPromise=page.waitForEvent('download');
+  await page.locator('#download-report').click();
+  const download=await downloadPromise;
+  assert.match(download.suggestedFilename(),/^icms-readiness-report-.*\.html$/);
+  await page.close();
+});
+test('TradeGuard transaction-monitoring and document-assessment workspaces render', async () => {
+  const page=await browser.newPage();
+  await page.goto(base+'/tradeguard/proactive-monitoring.html',{waitUntil:'domcontentloaded'});
+  await page.getByRole('heading',{name:/Transaction monitoring before the pattern/}).waitFor();
+  assert.equal(await page.locator('#proactiveForm').count(),1);
+  await page.goto(base+'/tradeguard/document-assessment.html',{waitUntil:'domcontentloaded'});
+  await page.getByRole('heading',{name:'Document Assessment'}).waitFor();
+  assert.equal(await page.locator('#documentFileInput').count(),1);
+  assert.equal(await page.locator('#runDocumentAssessment').isEnabled(),true);
+  await page.close();
+});
