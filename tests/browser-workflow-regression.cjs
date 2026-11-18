@@ -80,10 +80,13 @@ test('TradeGuard mobile navigation is compact, scroll-contained and responsive',
       headingColumn: heading ? getComputedStyle(heading).gridColumn : null,
       headingDisplay: heading ? getComputedStyle(heading).display : null,
       linkCount: element.querySelectorAll('a').length,
+      panelWidth: element.getBoundingClientRect().width,
+      panelLeft: element.getBoundingClientRect().left,
       expanded: document.querySelector('.tradeguard-main-nav .menu').getAttribute('aria-expanded')
     };
   });
   assert.equal(mobile.columns, 2);
+  assert.ok(mobile.panelWidth >= 340 && mobile.panelLeft >= 0);
   assert.equal(mobile.overflowY, 'auto');
   assert.ok(mobile.maxHeight > 0 && mobile.maxHeight < 844);
   assert.match(mobile.headingColumn || '', /1.*-1/);
