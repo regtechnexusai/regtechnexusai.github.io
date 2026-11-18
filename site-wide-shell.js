@@ -225,12 +225,12 @@
     var links = document.querySelectorAll('link[rel="stylesheet"]');
     for (var i = 0; i < links.length; i++) {
       if (/\/site-wide-shell\.css(?:\?|$)/.test(links[i].getAttribute("href") || "")) {
-        links[i].setAttribute("href", "/site-wide-shell.css?v=20261017-v2");
+        links[i].setAttribute("href", "/site-wide-shell.css?v=20261118-desktop-nav-v1");
         links[i].setAttribute("data-rt-shell-latest", "true");
         return;
       }
     }
-    document.head.appendChild(make("link", { "rel": "stylesheet", "href": "/site-wide-shell.css?v=20261017-v2", "data-rt-shell-latest": "true" }));
+    document.head.appendChild(make("link", { "rel": "stylesheet", "href": "/site-wide-shell.css?v=20261118-desktop-nav-v1", "data-rt-shell-latest": "true" }));
   }
 
   function init() {
