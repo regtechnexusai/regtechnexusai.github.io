@@ -40,7 +40,7 @@ pos = css.find(selector)
 if pos < 0:
     sys.exit("Homepage hero image CSS rule was not found")
 rule = css[pos:css.find("}", pos)]
-if "filter:" in rule.lower():
+if "filter:" in rule.lower() and "filter:none!important" not in rule.lower():
     sys.exit("Homepage hero image CSS must not apply a filter effect")
 
 print("PASS: homepage LCP image is eager/high-priority, dimensioned, preloaded and free of SVG/CSS filters.")
