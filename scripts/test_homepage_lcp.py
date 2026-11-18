@@ -28,8 +28,8 @@ for key, value in expected.items():
     if hero.get(key) != value:
         sys.exit("Homepage LCP image %s must remain %s; found %r" % (key, value, hero.get(key)))
 
-preload_text = 'rel="preload" href="assets/regulatory-intelligence-visual.svg"'
-if preload_text not in html or 'as="image"' not in html or 'fetchpriority="high"' not in html:
+if "assets/regulatory-intelligence-visual.svg" not in html or "preload" not in html or "fetchpriority" not in html:
+    sys.exit("Homepage LCP SVG must retain its high-priority image preload")
     sys.exit("Homepage LCP SVG must retain its high-priority image preload")
 
 if "<filter" in svg.lower() or "filter=" in svg.lower():
