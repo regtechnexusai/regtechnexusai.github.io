@@ -12,6 +12,8 @@ This package includes a maintainable SEO baseline for `regtechnexusai.com`.
 - `seo-config.json` as the editable source of truth for page metadata, topic clusters and social profiles.
 - `scripts/apply_seo_metadata.py` applies configured titles, descriptions, canonical URLs, robots directives and Open Graph/Twitter metadata to the assembled deployment site; it also validates configured page paths and sitemap URL uniqueness.
 - The GitHub Pages deployment workflow runs the metadata application and a read-only consistency check before uploading the Pages artifact. This ensures the JSON configuration is reflected in deployed HTML rather than remaining documentation-only.
+- `scripts/audit_site_quality.py` produces a dependency-free structural smoke-test report for every configured public page. It checks language, viewport, title/description/canonical counts, H1 structure, image alternative-text attributes, link names and duplicate IDs. Findings are reported in the Actions summary; the scan is not represented as a WCAG audit or browser-based test.
+- `regulatory-instrument-evidence-template.csv` provides a blank instrument-level record for issuer, jurisdiction, instrument identity, legal character, publication/effective dates, source URL, supersession, reviewer, verification evidence and approval status.
 - `Privacy` and `Terms` marked `noindex,follow` so thin utility pages do not compete with the main content.
 - Real indexable content pages for Blog, Regulatory Explainers, Frameworks &amp; Toolkits, Publications and three insight topics.
 - An on-domain `/payscale-2026/` calculator route with WebApplication metadata and an explicit non-official disclaimer.
@@ -28,7 +30,7 @@ Use this approved description when a consistent short SEO description is needed:
 2. Add its canonical URL to `sitemap.xml` only after the page is live and internally linked.
 3. Add one descriptive, search-friendly title and one clear summary before publishing; do not keyword-stuff.
 4. Keep claims evidence-aware and consistent with the site's governance-first positioning.
-5. Review Search Console coverage, sitemap status, Core Web Vitals, title/description duplication and broken canonical URLs after deployment.
+5. Review Search Console coverage, sitemap status, the static site-quality Actions summary, Core Web Vitals, title/description duplication and broken canonical URLs after deployment.
 6. Re-submit the sitemap after a material content release.
 7. Treat a failed SEO metadata validation step as a deployment blocker; resolve the source/configuration mismatch before release.
 
