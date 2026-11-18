@@ -149,6 +149,8 @@ jobs:
           python3 -m json.tool root-site/seo-config.json >/dev/null
           python3 root-site/scripts/apply_seo_metadata.py --site-dir site --config root-site/seo-config.json
           python3 root-site/scripts/apply_seo_metadata.py --site-dir site --config root-site/seo-config.json --check
+          python3 root-site/scripts/audit_site_quality.py --site-dir site --config root-site/seo-config.json --output "$RUNNER_TEMP/site-quality-report.md"
+          cat "$RUNNER_TEMP/site-quality-report.md" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b
