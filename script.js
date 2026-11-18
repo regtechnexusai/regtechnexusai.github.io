@@ -37,6 +37,7 @@
     let rafId = 0;
     let resumeTimer = 0;
     let lastTime = 0;
+    let isInViewport = false;
 
     const maxScroll = () =>
       Math.max(0, toolkitRail.scrollWidth - toolkitRail.clientWidth);
@@ -48,16 +49,14 @@
     };
 
     const autoMove = (time) => {
-      if (document.hidden) {
-        lastTime = time;
-        rafId = requestAnimationFrame(autoMove);
+      if (document.hidden || !isInViewport) {
+        stopAuto();
         return;
       }
 
       const max = maxScroll();
       if (max <= 1) {
-        lastTime = time;
-        rafId = requestAnimationFrame(autoMove);
+        stopAuto();
         return;
       }
 
@@ -83,11 +82,24 @@
     };
 
     const startAuto = () => {
-      if (!rafId) {
+      if (!document.hidden && isInViewport && !rafId) {
         lastTime = 0;
         rafId = requestAnimationFrame(autoMove);
       }
     };
+
+    if ('IntersectionObserver' in window) {
+      const railObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          isInViewport = entry.isIntersecting;
+          if (isInViewport) startAuto();
+          else stopAuto();
+        });
+      });
+      railObserver.observe(toolkitRail);
+    } else {
+      isInViewport = true;
+    }
 
     const pauseBriefly = () => {
       stopAuto();
