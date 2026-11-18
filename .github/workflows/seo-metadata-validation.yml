@@ -44,7 +44,7 @@ jobs:
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           repository: regtechnexusai/tradeguard
-          ref: b861b3c26054472f4f25fb7dc30b14f3f7221fc9
+          ref: 2b5b514b94ff92a2f4500ffb7f9894d84d05ce2e
           path: tradeguard-source
 
       - name: Set up Node.js for product regression tests
