@@ -50,15 +50,18 @@
     },
     "ai-ready-banking.html": {
       "title": "AI-Ready Banking | Responsible AI | RegTech Nexus AI",
-      "canonical": "https://regtechnexusai.com/ai-ready-banking.html"
+      "canonical": "https://regtechnexusai.com/ai-ready-banking.html",
+      "description": "A governance-first view of AI-ready banking: capability, human judgment, data, controls and responsible AI."
     },
     "tbml-over-invoicing.html": {
       "title": "TBML Through Over-Invoicing | RegTech Nexus AI",
-      "canonical": "https://regtechnexusai.com/tbml-over-invoicing.html"
+      "canonical": "https://regtechnexusai.com/tbml-over-invoicing.html",
+      "description": "A practical review perspective on over-invoicing as a possible trade-based money-laundering indicator, with evidence and human-review safeguards."
     },
     "intelligent-supervision.html": {
       "title": "From Manual to Intelligent Supervision | RegTech Nexus AI",
-      "canonical": "https://regtechnexusai.com/intelligent-supervision.html"
+      "canonical": "https://regtechnexusai.com/intelligent-supervision.html",
+      "description": "How connected data and supervisory technology can support more consistent, explainable and human-led regulatory review."
     },
     "privacy.html": {
       "robots": "noindex,follow"
