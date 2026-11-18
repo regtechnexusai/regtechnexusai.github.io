@@ -80,10 +80,13 @@ test('TradeGuard mobile navigation is compact, scroll-contained and responsive',
       headingColumn: heading ? getComputedStyle(heading).gridColumn : null,
       headingDisplay: heading ? getComputedStyle(heading).display : null,
       linkCount: element.querySelectorAll('a').length,
+      panelWidth: element.getBoundingClientRect().width,
+      panelLeft: element.getBoundingClientRect().left,
       expanded: document.querySelector('.tradeguard-main-nav .menu').getAttribute('aria-expanded')
     };
   });
   assert.equal(mobile.columns, 2);
+  assert.ok(mobile.panelWidth >= 340 && mobile.panelLeft >= 0);
   assert.equal(mobile.overflowY, 'auto');
   assert.ok(mobile.maxHeight > 0 && mobile.maxHeight < 844);
   assert.match(mobile.headingColumn || '', /1.*-1/);
@@ -93,5 +96,41 @@ test('TradeGuard mobile navigation is compact, scroll-contained and responsive',
   await page.setViewportSize({ width: 360, height: 800 });
   const narrowColumns = await nav.evaluate(element => getComputedStyle(element).gridTemplateColumns.split(' ').length);
   assert.equal(narrowColumns, 1);
+  await page.close();
+});
+
+test('Homepage mobile navigation is compact, two-column and scroll-contained', async () => {
+  const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  await page.goto(base + '/', { waitUntil: 'domcontentloaded' });
+  const menu = page.locator('body.homepage-redesign .nav .menu');
+  const nav = page.locator('body.homepage-redesign .nav nav');
+  await menu.click();
+  await nav.waitFor({ state: 'visible' });
+  await page.waitForFunction(() => {
+    const element = document.querySelector('body.homepage-redesign .nav nav');
+    return element && getComputedStyle(element).display === 'grid';
+  });
+  const state = await nav.evaluate(element => {
+    const style = getComputedStyle(element);
+    const rect = element.getBoundingClientRect();
+    const heading = element.querySelector('.nav-menu-heading');
+    return {
+      columns: style.gridTemplateColumns.split(' ').length,
+      overflowY: style.overflowY,
+      maxHeight: parseFloat(style.maxHeight),
+      left: rect.left,
+      right: rect.right,
+      headingColumn: heading ? getComputedStyle(heading).gridColumn : null,
+      linkCount: element.querySelectorAll('a').length
+    };
+  });
+  assert.equal(state.columns, 2);
+  assert.equal(state.overflowY, 'auto');
+  assert.ok(state.maxHeight > 0 && state.maxHeight < 844);
+  assert.ok(state.left >= 0 && state.right <= 390);
+  assert.match(state.headingColumn || '', /1.*-1/);
+  assert.ok(state.linkCount >= 15);
+  await page.setViewportSize({ width: 360, height: 800 });
+  assert.equal(await nav.evaluate(element => getComputedStyle(element).gridTemplateColumns.split(' ').length), 1);
   await page.close();
 });
