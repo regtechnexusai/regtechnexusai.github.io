@@ -188,8 +188,14 @@
     var nav = header.querySelector("nav.rt-shell-nav");
     if (!button || !nav || button.getAttribute("data-rt-bound") === "true") return;
     button.setAttribute("data-rt-bound", "true");
+    function clearDesktopPanel() {
+      ["position","top","right","left","bottom","width","max-width","max-height","overflow-x","overflow-y","box-sizing","margin","padding","border","border-radius","background","box-shadow","z-index","display","flex-direction","align-items","gap"].forEach(function (name) {
+        nav.style.removeProperty(name);
+      });
+    }
     function close() {
       nav.classList.remove("is-open");
+      clearDesktopPanel();
       button.setAttribute("aria-expanded", "false");
       button.setAttribute("aria-label", "Open menu");
     }
@@ -199,6 +205,32 @@
       event.stopImmediatePropagation();
       var open = !nav.classList.contains("is-open");
       nav.classList.toggle("is-open", open);
+      if (open && window.matchMedia("(min-width: 651px)").matches) {
+        nav.style.setProperty("position", "fixed", "important");
+        nav.style.setProperty("top", "88px", "important");
+        nav.style.setProperty("right", "24px", "important");
+        nav.style.setProperty("left", "auto", "important");
+        nav.style.setProperty("bottom", "auto", "important");
+        nav.style.setProperty("width", "min(440px, calc(100vw - 48px))", "important");
+        nav.style.setProperty("max-width", "440px", "important");
+        nav.style.setProperty("max-height", "calc(100vh - 112px)", "important");
+        nav.style.setProperty("overflow-x", "hidden", "important");
+        nav.style.setProperty("overflow-y", "auto", "important");
+        nav.style.setProperty("box-sizing", "border-box", "important");
+        nav.style.setProperty("margin", "0", "important");
+        nav.style.setProperty("padding", "18px", "important");
+        nav.style.setProperty("border", "1px solid #dce7ed", "important");
+        nav.style.setProperty("border-radius", "16px", "important");
+        nav.style.setProperty("background", "#ffffff", "important");
+        nav.style.setProperty("box-shadow", "0 18px 48px rgba(16,43,73,.18)", "important");
+        nav.style.setProperty("z-index", "2000", "important");
+        nav.style.setProperty("display", "flex", "important");
+        nav.style.setProperty("flex-direction", "column", "important");
+        nav.style.setProperty("align-items", "stretch", "important");
+        nav.style.setProperty("gap", "6px", "important");
+      } else if (!open) {
+        clearDesktopPanel();
+      }
       button.setAttribute("aria-expanded", open ? "true" : "false");
       button.setAttribute("aria-label", open ? "Close menu" : "Open menu");
     }, true);
@@ -221,16 +253,20 @@
   }
 
   function ensureShellStyles() {
-    if (document.querySelector('link[data-rt-shell-latest="true"]')) return;
+    var latest = document.querySelector('link[data-rt-shell-latest="true"]');
+    if (latest) {
+      latest.setAttribute("href", "/site-wide-shell.css?v=20261118-desktop-menu-v3");
+      return;
+    }
     var links = document.querySelectorAll('link[rel="stylesheet"]');
     for (var i = 0; i < links.length; i++) {
       if (/\/site-wide-shell\.css(?:\?|$)/.test(links[i].getAttribute("href") || "")) {
-        links[i].setAttribute("href", "/site-wide-shell.css?v=20261118-desktop-nav-v2");
+        links[i].setAttribute("href", "/site-wide-shell.css?v=20261118-desktop-menu-v3");
         links[i].setAttribute("data-rt-shell-latest", "true");
         return;
       }
     }
-    document.head.appendChild(make("link", { "rel": "stylesheet", "href": "/site-wide-shell.css?v=20261118-desktop-nav-v2", "data-rt-shell-latest": "true" }));
+    document.head.appendChild(make("link", { "rel": "stylesheet", "href": "/site-wide-shell.css?v=20261118-desktop-menu-v3", "data-rt-shell-latest": "true" }));
   }
 
   function init() {
