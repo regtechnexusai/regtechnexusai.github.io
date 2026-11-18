@@ -697,3 +697,42 @@ body:not(.homepage-redesign) .hero p{color:#f4fbff}
 .rt-trust-links b{color:#fff;margin-bottom:2px}
 .rt-trust-links a{color:#e0edf8!important;text-decoration:none}
 .rt-trust-links a:hover{color:#70d5df!important;text-decoration:underline;text-underline-offset:3px}
+
+
+/* 2026-11-18 desktop navigation overflow correction.
+   Keep the shared header compact at desktop widths; use the same accessible menu
+   already used on smaller screens. Presentation-only; page tools remain unchanged. */
+@media (min-width: 651px) {
+  body:not(.homepage-redesign) header.rt-shell-header,
+  body:not(.homepage-redesign) > header.rt-shell-header {
+    display:flex!important;
+    align-items:center!important;
+    flex-wrap:nowrap!important;
+    gap:14px!important;
+    min-width:0!important;
+  }
+  body:not(.homepage-redesign) header.rt-shell-header .rt-shell-brand,
+  body:not(.homepage-redesign) header.rt-shell-header > .brand {
+    flex:0 1 auto!important;
+    min-width:0!important;
+    max-width: min(230px, 36vw)!important;
+  }
+  body:not(.homepage-redesign) header.rt-shell-header .rt-shell-menu {
+    display:inline-flex!important;
+    flex:0 0 44px!important;
+    width:44px!important;
+    height:42px!important;
+    margin-left:auto!important;
+    visibility:visible!important;
+    opacity:1!important;
+  }
+  body:not(.homepage-redesign) header.rt-shell-header .rt-shell-nav:not(.is-open) {
+    display:none!important;
+  }
+  body:not(.homepage-redesign) header.rt-shell-header .rt-shell-nav.is-open {
+    display:flex!important;
+  }
+  body:not(.homepage-redesign) header.rt-shell-header .nav-cta {
+    display:none!important;
+  }
+}
