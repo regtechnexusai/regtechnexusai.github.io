@@ -1,0 +1,45 @@
+# RegTech Nexus AI
+
+> RegTech Nexus AI publishes regulatory-intelligence, banking-risk, AML/CFT, TBML, audit, compliance and responsible-AI resources for banking and regulated-sector professionals. The website also hosts learning resources and decision-support tools. Outputs require verification against applicable official sources and professional judgment.
+
+## Platform and flagship resources
+
+- [AlfiQ GaaS](https://regtechnexusai.com/gaas/): Public preview of a global-first regulatory-intelligence service concept. The public demo is simulated; research functionality is staging, not a production SaaS service.
+- [TradeGuard](https://regtechnexusai.com/tradeguard/): Trade-based money-laundering (TBML) review and decision-support resource.
+- [ICMS Toolkit](https://regtechnexusai.com/icms-2026/): Internal control management and control-readiness resources.
+- [Regulatory Copilot and AI resources](https://regtechnexusai.com/): Regulatory and responsible-AI decision-support resources available through the main platform.
+- [Tool Assurance and Evidence Register](https://regtechnexusai.com/tool-assurance/): Public assurance information and evidence boundaries for available tools.
+- [Vendor Due Diligence](https://regtechnexusai.com/vendor-due-diligence/): Vendor due-diligence information and evidence resources.
+- [Trust and Verification](https://regtechnexusai.com/trust/): Trust, verification and transparency information.
+
+## Regulatory intelligence and source material
+
+- [Regulatory Source Register](https://regtechnexusai.com/regulatory-source-register/): Source register for regulatory and supervisory materials.
+- [Regulatory Explainers](https://regtechnexusai.com/regulatory-explainers.html): Explanatory resources on regulatory and compliance topics.
+- [Global Financial Systems and International Readiness](https://regtechnexusai.com/global-financial-systems.html): Jurisdiction-oriented financial-system and regulatory-readiness resources.
+- [Research and Insights](https://regtechnexusai.com/insights.html): Research, analysis and professional commentary.
+- [Case Studies](https://regtechnexusai.com/case-studies/): Case-based learning resources.
+
+## Tools and professional learning
+
+- [Policy Gap Analyzer](https://regtechnexusai.com/regulatory-gap-analyzer/): Policy-to-control review and evidence-gap action planning.
+- [PayScale 2026 Calculator](https://regtechnexusai.com/payscale-2026/): Compensation calculation tool.
+- [Derivatives Risk and Compliance](https://regtechnexusai.com/derivatives/): Derivatives risk, regulation and control-learning resources.
+- [Student Knowledge Hub](https://regtechnexusai.com/student/): Educational resources and student learning tools.
+- [MUKUL Agriculture Hub](https://regtechnexusai.com/mukul/): Bangladesh-focused agriculture information and farmer-support resources.
+
+## How to interpret outputs
+
+- Treat regulatory materials as jurisdiction- and date-specific. Verify binding instruments, amendments, effective dates and supervisory guidance against the issuing authority's official publication.
+- Distinguish laws, regulations and binding circulars from guidance, consultation papers, research and commentary.
+- Treat calculator and analytical outputs as decision support; validate inputs, assumptions and results before operational use.
+- AI-generated content, classifications and suggested control impacts require human review and source verification.
+- Do not infer that a public preview or staging component is a live production service.
+- Do not infer certification, regulatory approval, customer adoption, independent assurance or guaranteed compliance unless explicitly supported by published evidence.
+
+## Policies and contact
+
+- [Privacy](https://regtechnexusai.com/privacy.html)
+- [Terms](https://regtechnexusai.com/terms.html)
+- [Contact](https://regtechnexusai.com/contact.html)
+- [Website sitemap](https://regtechnexusai.com/sitemap.xml)
