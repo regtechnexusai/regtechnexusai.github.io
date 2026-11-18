@@ -1,0 +1,12 @@
+{
+  "module": "mukul-gemini-vision",
+  "enabled": false,
+  "provider": "gemini",
+  "apiBaseUrl": "",
+  "authorisedOrigins": [],
+  "requiresServerSideProxy": true,
+  "requiresTurnstile": true,
+  "secretName": "GEMINI_API_KEY",
+  "secretStorage": "server-side secret binding only",
+  "notes": "Non-secret template only. Never add an API key, token, credential, or private endpoint secret to this file or the browser."
+}

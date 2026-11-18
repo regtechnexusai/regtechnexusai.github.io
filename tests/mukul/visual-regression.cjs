@@ -99,10 +99,10 @@ const path = require('node:path');
     const span = label && label.querySelector('span');
     if (!label || !span) return { missing: true };
     const lr = label.getBoundingClientRect(), sr = span.getBoundingClientRect();
-    return { viewport: document.documentElement.clientWidth, label: { left: lr.left, right: lr.right, width: lr.width }, text: { left: sr.left, right: sr.right, width: sr.width } };
+    return { viewport: document.documentElement.clientWidth, label: { left: lr.left, right: lr.right, width: lr.width }, text: { left: sr.left, right: sr.right, width: sr.width }, textContent: span.textContent };
   });
-  if (consentLayout.missing) throw new Error('MUKUL Vision API consent label/text is missing');
-  if (consentLayout.label.left < 8 || consentLayout.label.right > consentLayout.viewport - 8 || consentLayout.text.left < consentLayout.label.left || consentLayout.text.right > consentLayout.label.right + 1 || consentLayout.text.width < 100) throw new Error('MUKUL mobile Vision API consent text is collapsed or clipped: ' + JSON.stringify(consentLayout));
+  if (consentLayout.missing) throw new Error('MUKUL locked Vision privacy notice is missing');
+  if (consentLayout.label.left < 8 || consentLayout.label.right > consentLayout.viewport - 8 || consentLayout.text.left < consentLayout.label.left || consentLayout.text.right > consentLayout.label.right + 1 || consentLayout.text.width < 100) throw new Error('MUKUL mobile locked Vision notice is collapsed or clipped: ' + JSON.stringify(consentLayout));
   await page.setViewportSize({ width: 1440, height: 1000 });
   const homeIds = await page.locator('[id]').evaluateAll(nodes => nodes.map(n => n.id));
   if (new Set(homeIds).size !== homeIds.length) throw new Error('Duplicate IDs on MUKUL homepage');
@@ -140,25 +140,13 @@ const path = require('node:path');
   await page.locator('#crop-photos').setInputFiles(samplePath);
   await page.waitForFunction(() => !!document.querySelector('#media-preview img'));
   await page.locator('.mukul-ai-lab-disclosure > summary').click();
-  await page.locator('#mukul-gemini-key').fill('dummy-test-key-never-sent');
-  await page.locator('#mukul-run-vision').click();
-  const noConsentStatus = await page.locator('#mukul-ai-status').innerText();
-  if (!noConsentStatus.includes('Explicit consent is required')) throw new Error('Vision analysis did not clearly block a request without explicit consent: ' + noConsentStatus);
-  if (mockedVisionRequests !== 0) throw new Error('Vision API request was attempted without consent');
-  // Error-path regression: the upstream 503 is mocked locally and must be surfaced safely.
-  await page.locator('#mukul-gemini-consent').check();
-  // The UI intentionally clears the API-key field after every attempt, including blocked consent attempts.
-  // Re-enter the dummy key for the independent outage-path request.
-  await page.locator('#mukul-gemini-key').fill('dummy-test-key-never-sent');
-  await page.locator('#mukul-run-vision').click();
-  // Playwright click resolves before the async FileReader/fetch handler finishes; wait for the
-  // production handler's finally block (which clears the key) before asserting the mocked response.
-  await page.waitForFunction(() => document.querySelector('#mukul-gemini-key').value === '', { timeout: 10000 });
-  const outageStatus = await page.locator('#mukul-ai-status').innerText();
-  if (mockedVisionRequests !== 1) throw new Error('Expected exactly one locally mocked Vision request during outage test; observed=' + mockedVisionRequests + '; status=' + outageStatus + '; consent=' + await page.locator('#mukul-gemini-consent').isChecked() + '; photoCount=' + await page.locator('#crop-photos').evaluate(el => el.files ? el.files.length : -1));
-  if (!outageStatus.includes('Mocked upstream outage for regression testing')) throw new Error('Vision API outage message was not surfaced to the user: ' + outageStatus);
-  if ((await page.locator('#mukul-gemini-key').inputValue()) !== '') throw new Error('Vision API key input was not cleared after the failed request');
-  await page.locator('#mukul-gemini-consent').uncheck();
+  // Locked integration regression: no browser key entry, consent toggle, or outbound Vision request is permitted.
+  if (!(await page.locator('#mukul-gemini-key').isDisabled())) throw new Error('Gemini key control must remain disabled');
+  if (!(await page.locator('#mukul-gemini-consent').isDisabled())) throw new Error('Gemini consent control must remain disabled');
+  if (!(await page.locator('#mukul-run-vision').isDisabled())) throw new Error('Gemini Vision action must remain disabled');
+  if (!(await page.locator('#mukul-run-compare').isDisabled())) throw new Error('Gemini comparison action must remain disabled');
+  if (!(await page.locator('#mukul-vision-module-lock').innerText()).includes('locked')) throw new Error('Locked Vision module disclosure is missing');
+  if (mockedVisionRequests !== 0) throw new Error('Locked Vision module attempted an outbound request');
 
 
   // Functional regression: guidance must match the selected observation and must never
@@ -199,7 +187,7 @@ const path = require('node:path');
   for (const value of ['Khulna / Dighalia', 'Aman', 'BRRI dhan example', '45 Days', '2026-10-10', '5 শতক', 'Yes, increasing', 'Standing water', 'Rain after irrigation', 'Older / lower leaves', 'Patches in parts of the field', 'Insects near leaves or plant base']) {
     if (!resultText.includes(value)) throw new Error('Submitted local context missing from result: ' + value);
   }
-  if (!resultText.includes('A request was made to send the selected photo to Google Gemini API') || !resultText.includes('not a diagnosis from photos')) throw new Error('Recorded Vision request status or no-diagnosis boundary missing');
+  if (!resultText.includes('no request from this form to send a photo to Google Vision API was recorded') || !resultText.includes('not a diagnosis from photos')) throw new Error('Locked Vision no-transmission status or no-diagnosis boundary missing');
   if (await page.locator('#crop-result-actions').isHidden()) throw new Error('Result print/PDF action did not appear');
   await page.evaluate(() => { window.__printCalled = false; window.print = () => { window.__printCalled = true; }; });
   await page.locator('#print-crop-result').click();
