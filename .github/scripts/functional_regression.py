@@ -431,3 +431,32 @@ def test_usd_bdt_swap_maturity_direction_and_pv(page: Page):
     reverse_cells = result.locator("tbody tr").nth(13).locator("td")
     expect(reverse_cells.nth(2)).to_have_text(re.compile(r"^-10,016,666\.666667$"))
     expect(reverse_cells.nth(3)).to_have_text(re.compile(r"^1,225,013,698\.630137$"))
+
+
+
+def test_mobile_shared_back_home_does_not_cover_page_content(page: Page):
+    """The injected Back to Home action must remain in document flow on mobile."""
+    page.set_viewport_size({"width": 390, "height": 844})
+    routes = [
+        "/privacy.html",
+        "/terms.html",
+        "/trust/",
+        "/tool-assurance/",
+    ]
+    for path in routes:
+        response = page.goto(f"{BASE}{path}", wait_until="domcontentloaded", timeout=60000)
+        assert response is not None and response.status < 400, (
+            f"{path} returned {response.status if response else 'no response'}"
+        )
+        link = page.locator("a.rt-back-home")
+        expect(link).to_be_visible(timeout=15000)
+        style = link.evaluate("(el) => getComputedStyle(el).position")
+        assert style == "static", f"{path}: Back to Home is {style}, expected in-flow static positioning"
+        bounds = link.bounding_box()
+        assert bounds is not None and bounds["width"] <= 366, (
+            f"{path}: Back to Home exceeds the 390px mobile content width: {bounds}"
+        )
+        dimensions = page.evaluate("({viewport: innerWidth, document: document.documentElement.scrollWidth})")
+        assert dimensions["document"] <= dimensions["viewport"] + 2, (
+            f"{path}: horizontal overflow on mobile: {dimensions}"
+        )
