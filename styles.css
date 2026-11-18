@@ -2505,7 +2505,7 @@ body.homepage-redesign .hero-visual img{
   max-height:390px!important;
   height:auto!important;
   object-fit:contain!important;
-  filter:drop-shadow(0 18px 24px rgba(20,56,82,.09))!important;
+  filter:none!important;
 }
 
 /* Harmonise the long page: lighter surfaces, consistent measures and cards. */
