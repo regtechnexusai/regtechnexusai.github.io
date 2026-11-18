@@ -29,7 +29,7 @@ jobs:
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           repository: regtechnexusai/tradeguard
-          ref: f2dc67a349b95ba00a14bf34b05b1f4891cec8e1
+          ref: 86819077a01657bec70fbf5a126ddf4760598cec
           path: site/tradeguard
 
       # PayScale source is canonical for the calculator and pension module; pin to the reviewed upstream commit.
