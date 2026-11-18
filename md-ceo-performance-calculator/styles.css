@@ -88,3 +88,68 @@
     letter-spacing:-.02em;
   }
 }
+
+
+/* 18 Nov 2026 — lighter MD/CEO hero and high-contrast export actions */
+.mdceo-page .mdceo-hero{
+  background:linear-gradient(135deg,#f1f8ff 0%,#e4f4fb 58%,#d9f1f5 100%) !important;
+  color:#102b49 !important;
+}
+.mdceo-page .mdceo-hero:after{
+  border-color:rgba(7,91,169,.16);
+  box-shadow:0 0 0 44px rgba(7,91,169,.035),0 0 0 90px rgba(8,123,158,.025);
+}
+.mdceo-page .mdceo-hero .kicker{color:#075ba9 !important}
+.mdceo-page .mdceo-hero p{color:#294967 !important}
+.mdceo-page .mdceo-hero-meta{color:#496985 !important}
+.mdceo-page .mdceo-hero-meta a{color:#075ba9 !important;border-color:#087b9e !important}
+.mdceo-page .mdceo-hero h1{
+  color:#102b49 !important;
+  text-shadow:none !important;
+  box-shadow:0 8px 24px rgba(16,43,73,.10) !important;
+}
+.mdceo-page .mdceo-hero h1 span{
+  color:#075ba9 !important;
+  text-shadow:none !important;
+  -webkit-text-stroke:0 !important;
+}
+.mdceo-page .quick-actions-buttons .btn,
+.mdceo-page .quick-actions-buttons .btn:disabled{
+  color:#fff !important;
+  -webkit-text-fill-color:#fff !important;
+  font-weight:900 !important;
+  text-shadow:0 1px 1px rgba(0,0,0,.22) !important;
+  opacity:1 !important;
+  filter:none !important;
+  border:1px solid transparent !important;
+}
+.mdceo-page .quick-actions-buttons .quick-process,
+.mdceo-page .quick-actions-buttons .quick-process:disabled{
+  background:linear-gradient(135deg,#087f3f,#16a34a) !important;
+  border-color:#087f3f !important;
+}
+.mdceo-page .quick-actions-buttons .quick-csv,
+.mdceo-page .quick-actions-buttons .quick-csv:disabled{
+  background:linear-gradient(135deg,#075ba9,#1686d9) !important;
+  border-color:#075ba9 !important;
+}
+.mdceo-page .quick-actions-buttons .quick-print,
+.mdceo-page .quick-actions-buttons .quick-print:disabled{
+  background:linear-gradient(135deg,#c65a08,#f08a16) !important;
+  border-color:#c65a08 !important;
+}
+.mdceo-page .quick-actions-buttons .quick-email,
+.mdceo-page .quick-actions-buttons .quick-email:disabled{
+  background:linear-gradient(135deg,#673ab7,#8b5bd6) !important;
+  border-color:#673ab7 !important;
+}
+.mdceo-page .quick-actions-buttons .btn:disabled{
+  cursor:not-allowed !important;
+  box-shadow:0 4px 10px rgba(16,32,59,.12) !important;
+}
+.mdceo-page .quick-actions-buttons .btn:disabled:hover{transform:none !important}
+@media(max-width:760px){
+  .mdceo-page .mdceo-hero{padding-top:54px;padding-bottom:38px}
+  .mdceo-page .mdceo-hero h1{max-width:100%;padding:15px 16px !important}
+  .mdceo-page .quick-actions-buttons .btn{min-height:48px;font-size:12px}
+}
