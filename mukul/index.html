@@ -358,7 +358,7 @@ html body .site-header .header-inner .header-actions{display:flex!important;flex
 <label for="help-symptom" data-i18n="symptomLabel">Main observation</label><select id="help-symptom" required><option value="yellow" data-i18n="symYellow">Yellowing or discoloured leaves</option><option value="spots" data-i18n="symSpots">Spots, lesions or unusual marks</option><option value="wilt" data-i18n="symWilt">Wilting or drying</option><option value="pests" data-i18n="symPests">Visible insects or feeding damage</option><option value="growth" data-i18n="symGrowth">Poor growth or low yield</option><option value="storage" data-i18n="symStorage">Storage or post-harvest issue</option><option value="other" data-i18n="symOther">Other / unsure</option></select>
      <div class="media-intake" id="crop-media-intake">
       <h4 data-i18n="mediaTitle">Photo, video or live camera (optional)</h4>
-      <p data-i18n="mediaIntro">Add clear photos in daylight: the whole plant, a close-up of affected parts, both sides of a leaf, and a healthy comparison plant where possible. Photos are previewed on this device by default. The external Gemini Vision test is temporarily disabled pending a secure server-side design.</p><p class="privacy-inline" data-en="Privacy: crop photos may contain location metadata. This prototype does not guarantee EXIF removal. Avoid sharing sensitive images." data-bn="গোপনীয়তা: ফসলের ছবিতে অবস্থান-সংক্রান্ত মেটাডেটা থাকতে পারে। এই প্রোটোটাইপে EXIF তথ্য মুছে ফেলার নিশ্চয়তা নেই। সংবেদনশীল ছবি শেয়ার করবেন না।">গোপনীয়তা: ফসলের ছবিতে অবস্থান-সংক্রান্ত মেটাডেটা থাকতে পারে। এই প্রোটোটাইপে EXIF তথ্য মুছে ফেলার নিশ্চয়তা নেই। সংবেদনশীল ছবি শেয়ার করবেন না।</p><a class="privacy-inline-link" href="/mukul/farm-records/privacy.html" data-en="Read privacy and limitations" data-bn="গোপনীয়তা ও সীমাবদ্ধতা পড়ুন">গোপনীয়তা ও সীমাবদ্ধতা পড়ুন</a>
+      <p data-i18n="mediaIntro">Add clear photos in daylight: the whole plant, a close-up of affected parts, both sides of a leaf, and a healthy comparison plant where possible. Photos are previewed on this device by default. The optional Gemini Vision module is preserved but locked. It will only be enabled through an approved server-side integration on an authorised domain.</p><p class="privacy-inline" data-en="Privacy: crop photos may contain location metadata. This prototype does not guarantee EXIF removal. Avoid sharing sensitive images." data-bn="গোপনীয়তা: ফসলের ছবিতে অবস্থান-সংক্রান্ত মেটাডেটা থাকতে পারে। এই প্রোটোটাইপে EXIF তথ্য মুছে ফেলার নিশ্চয়তা নেই। সংবেদনশীল ছবি শেয়ার করবেন না।">গোপনীয়তা: ফসলের ছবিতে অবস্থান-সংক্রান্ত মেটাডেটা থাকতে পারে। এই প্রোটোটাইপে EXIF তথ্য মুছে ফেলার নিশ্চয়তা নেই। সংবেদনশীল ছবি শেয়ার করবেন না।</p><a class="privacy-inline-link" href="/mukul/farm-records/privacy.html" data-en="Read privacy and limitations" data-bn="গোপনীয়তা ও সীমাবদ্ধতা পড়ুন">গোপনীয়তা ও সীমাবদ্ধতা পড়ুন</a>
       <label for="crop-photos" data-i18n="mediaPhotoLabel">Upload up to 5 photos</label><input id="crop-photos" type="file" accept="image/*" multiple>
       <label for="crop-video-file" data-i18n="mediaVideoLabel">Upload one short video (maximum 20 MB)</label><input id="crop-video-file" type="file" accept="video/*">
       <div class="media-buttons"><button type="button" id="start-live-camera" data-i18n="cameraStart">Open live camera</button><button type="button" id="capture-live-frame" data-i18n="cameraCapture" hidden>Capture photo</button><button type="button" id="record-live-video" data-i18n="cameraRecord" hidden>Record 20-second clip</button><button type="button" id="stop-recording" data-i18n="cameraStopRecord" hidden>Stop recording</button><button type="button" id="stop-live-camera" data-i18n="cameraStop" hidden>Close camera</button></div>
@@ -371,7 +371,7 @@ html body .site-header .header-inner .header-actions{display:flex!important;flex
       <details class="mukul-ai-lab-disclosure"><summary data-en="Experimental AI image tools (advanced; optional)" data-bn="পরীক্ষামূলক AI ছবি বিশ্লেষণ (উন্নত; ঐচ্ছিক)">পরীক্ষামূলক AI ছবি বিশ্লেষণ (উন্নত; ঐচ্ছিক)</summary><section class="mukul-ai-lab" id="mukul-ai-lab" aria-labelledby="mukul-ai-title">
        <h4 id="mukul-ai-title">পরীক্ষামূলক AI ছবি বিশ্লেষণ / Experimental AI image analysis</h4>
        <p>প্রথম নির্বাচিত ছবিটি নিয়ে গবেষণা-পরীক্ষা করুন। ONNX মডেলটি ডিভাইসে চলে; প্রথমবার প্রায় 98 MB মডেল ডাউনলোড হতে পারে। এটি মাত্র ৪টি প্রশিক্ষিত শ্রেণি দেয় এবং বাংলাদেশি মাঠে স্বাধীনভাবে যাচাই করা হয়নি।</p>
-       <div class="ai-warning"><strong>গুরুত্বপূর্ণ:</strong> এটি রোগ নির্ণয় নয় এবং চিকিৎসা/কীটনাশক/সারের পরামর্শ দেয় না। ONNX ফলাফল কেবল মডেলের পরীক্ষামূলক শ্রেণি-অনুমান। Gemini Vision API পরীক্ষা নিরাপত্তা ও গোপনীয়তা পর্যালোচনা এবং নিরাপদ server-side proxy প্রস্তুত না হওয়া পর্যন্ত সাময়িকভাবে বন্ধ। এই পৃষ্ঠায় কোনো API key দেবেন না। সংবেদনশীল ছবি শেয়ার করবেন না।</div>
+       <div class="ai-warning"><strong>গুরুত্বপূর্ণ:</strong> এটি রোগ নির্ণয় নয় এবং চিকিৎসা/কীটনাশক/সারের পরামর্শ দেয় না। ONNX ফলাফল কেবল মডেলের পরীক্ষামূলক শ্রেণি-অনুমান। Gemini Vision মডিউলটি ভবিষ্যৎ ব্যবহারের জন্য সংরক্ষিত কিন্তু লক করা। অনুমোদিত ডোমেইন ও নিরাপদ server-side proxy প্রস্তুত না হওয়া পর্যন্ত চালু হবে না। এই পৃষ্ঠায় কোনো API key দেবেন না। সংবেদনশীল ছবি শেয়ার করবেন না।</div>
        <div class="ai-controls">
         <div>
          <label for="mukul-reference-label">বিশেষজ্ঞ-যাচাইকৃত রেফারেন্স শ্রেণি / Expert-verified reference label (ঐচ্ছিক / optional)</label>
@@ -387,11 +387,14 @@ html body .site-header .header-inner .header-actions{display:flex!important;flex
          </select>
          <label class="ai-consent" for="mukul-bangladesh-field"><input id="mukul-bangladesh-field" type="checkbox"><span>এই ছবি বাংলাদেশের ধানের জমি থেকে তোলা / This photo is from a Bangladesh rice field</span></label>
         </div>
-        <div>
-         <label for="mukul-gemini-key">Gemini Vision API — temporarily disabled / সাময়িকভাবে বন্ধ</label>
-         <input id="mukul-gemini-key" type="password" autocomplete="off" disabled placeholder="Disabled pending secure server-side proxy" maxlength="300">
+        <div class="photo-quality-note" id="mukul-vision-module-lock" role="note" aria-live="polite">
+         <strong>Gemini Vision — locked integration module / লক করা ইন্টিগ্রেশন মডিউল</strong>
+         <p>এই ফিচারটি MUKUL-এর ভবিষ্যৎ ব্যবহারের জন্য সংরক্ষিত। বর্তমানে কোনো API key নেওয়া হয় না এবং কোনো ছবি Gemini-তে পাঠানো হয় না। অনুমোদিত নতুন ডোমেইন, নিরাপদ server-side proxy এবং privacy review সম্পন্ন না হওয়া পর্যন্ত এটি বন্ধ থাকবে।</p>
+         <p>This module is retained for future deployment. It is inactive on this website; do not enter or store an API key in the browser.</p>
+         <a href="/mukul/vision-module/README.md" target="_blank" rel="noopener noreferrer">Future deployment and security requirements</a>
         </div>
-        <label class="ai-consent" for="mukul-gemini-consent"><input id="mukul-gemini-consent" type="checkbox" disabled><span>Vision API সাময়িকভাবে বন্ধ। কোনো ছবি বা API key এই ফিচারের মাধ্যমে Google-এ পাঠানো হচ্ছে না।</span></label>
+        <input id="mukul-gemini-key" type="hidden" value="" autocomplete="off" disabled>
+        <input id="mukul-gemini-consent" type="checkbox" hidden disabled>
        </div>
        <div class="field-grid" id="mukul-photo-part-field" style="margin:12px 0">
         <label for="mukul-photo-part">ছবিতে প্রধানত কী দেখা যাচ্ছে? / Main subject in photo</label>
@@ -407,8 +410,8 @@ html body .site-header .header-inner .header-actions{display:flex!important;flex
        </div>
        <div class="ai-buttons">
         <button type="button" id="mukul-run-onnx">শুধু ONNX পরীক্ষা / Run local ONNX</button>
-        <button type="button" id="mukul-run-vision" class="secondary" disabled>Vision API সাময়িকভাবে বন্ধ / Temporarily disabled</button>
-        <button type="button" id="mukul-run-compare" disabled>তুলনা সাময়িকভাবে বন্ধ / Comparison temporarily disabled</button>
+        <button type="button" id="mukul-run-vision" class="secondary" disabled>Vision AI লক করা / Locked for future deployment</button>
+        <button type="button" id="mukul-run-compare" disabled>তুলনা লক করা / Comparison locked</button>
         <button type="button" id="mukul-download-compare" class="secondary" hidden>তুলনার ফলাফল ডাউনলোড / Export comparison</button>
         <button type="button" id="mukul-save-test-record" class="secondary" hidden>টেস্ট সেটে যোগ করুন / Add to test set</button>
         <button type="button" id="mukul-export-test-set" class="secondary" hidden>পুরো টেস্ট সেট ডাউনলোড / Download test set</button>
@@ -416,11 +419,11 @@ html body .site-header .header-inner .header-actions{display:flex!important;flex
        <div class="mukul-ai-status" id="mukul-ai-status" role="status" aria-live="polite">প্রথমে সর্বোচ্চ ১০ MB-এর একটি পরিষ্কার ছবি নির্বাচন করুন। / Select one clear photo (10 MB max) first.</div>
        <div class="mukul-ai-results">
         <article class="mukul-ai-result"><h5>ONNX Runtime Web — ডিভাইসেই / On-device</h5><pre id="mukul-onnx-result">এখনো চালানো হয়নি / Not run yet</pre></article>
-        <article class="mukul-ai-result"><h5>Gemini Vision API — temporarily disabled / সাময়িকভাবে বন্ধ</h5><pre id="mukul-vision-result">Disabled pending secure server-side proxy.</pre></article>
+        <article class="mukul-ai-result"><h5>Gemini Vision — locked module / লক করা মডিউল</h5><pre id="mukul-vision-result">Locked for future deployment. No API key or image is sent.</pre></article>
        </div>
        <p class="mukul-ai-meta">ONNX model: <a href="https://huggingface.co/nihal4/rice-disease-model" target="_blank" rel="noopener noreferrer">nihal4/rice-disease-model</a> (Apache-2.0; 4 classes; model card reports 98.47% validation accuracy, not independent field accuracy). Runtime: <a href="https://onnxruntime.ai/docs/tutorials/web/" target="_blank" rel="noopener noreferrer">ONNX Runtime Web</a>. Vision model: Gemini 3.8 Flash. Research comparison only; no clinical/agronomic diagnosis.</p>
       </section></details>
-      <p class="media-status" id="media-status" data-i18n="mediaPrivacy">Media is previewed locally by default. ONNX testing runs on this device. Gemini Vision API is temporarily disabled pending a secure server-side design. ONNX output is not a diagnosis or treatment recommendation.</p>
+      <p class="media-status" id="media-status" data-i18n="mediaPrivacy">Media is previewed locally by default. ONNX testing runs on this device. Gemini Vision is retained as a locked module and is inactive until an approved server-side integration is deployed on an authorised domain. ONNX output is not a diagnosis or treatment recommendation.</p>
      </div>     <details class="crop-optional-details">
 <summary data-en="Add more details (optional)" data-bn="আরও তথ্য দিন (ঐচ্ছিক)">আরও তথ্য দিন (ঐচ্ছিক)</summary>
 <label for="help-region" data-i18n="regionLabel">Country or region</label><select id="help-region" required><option value="global" data-i18n="regionGlobal">Not specified / global</option><option value="bangladesh" selected data-i18n="regionBangladesh">Bangladesh</option><option value="nepal" data-i18n="regionNepal">Nepal</option><option value="india" data-i18n="regionIndia">India</option><option value="east-africa" data-i18n="regionEastAfrica">East Africa</option><option value="other" data-i18n="regionOther">Other country or region</option></select>
