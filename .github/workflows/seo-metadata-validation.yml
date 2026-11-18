@@ -38,6 +38,30 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
 
+      - name: Test responsive logo optimisation
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/rt-image-opt" sharp@0.34.3 --no-audit --no-fund
+          mkdir -p "$RUNNER_TEMP/logo-test"
+          cp regtech-nexus-ai-logo-2026.png "$RUNNER_TEMP/logo-test/"
+          cp site-wide-shell.js "$RUNNER_TEMP/logo-test/"
+          printf '%s\n' '<img src="regtech-nexus-ai-logo-2026.png">' '<meta property="og:image" content="https://regtechnexusai.com/regtech-nexus-ai-logo-2026.png">' > "$RUNNER_TEMP/logo-test/index.html"
+          SHARP_MODULE_PATH="$RUNNER_TEMP/rt-image-opt/node_modules/sharp" node scripts/optimize_logo.cjs "$RUNNER_TEMP/logo-test"
+          node - "$RUNNER_TEMP/logo-test" <<'JS'
+          const fs = require('node:fs');
+          const path = require('node:path');
+          const dir = process.argv[2];
+          const html = fs.readFileSync(path.join(dir, 'index.html'), 'utf8');
+          const shell = fs.readFileSync(path.join(dir, 'site-wide-shell.js'), 'utf8');
+          const png = fs.statSync(path.join(dir, 'regtech-nexus-ai-logo-2026.png')).size;
+          const webp = fs.statSync(path.join(dir, 'regtech-nexus-ai-logo-2026.webp')).size;
+          if (!html.includes('src="regtech-nexus-ai-logo-2026.webp"')) throw new Error('HTML logo src was not upgraded');
+          if (!html.includes('og:image" content="https://regtechnexusai.com/regtech-nexus-ai-logo-2026.png"')) throw new Error('Social preview PNG reference must remain unchanged');
+          if (!shell.includes('/regtech-nexus-ai-logo-2026.webp')) throw new Error('Shared shell logo was not upgraded');
+          if (webp >= png) throw new Error('WebP logo must be smaller than the source PNG');
+          console.log('PASS: responsive WebP logo generated; HTML and shared-shell references updated; social preview retained.');
+          JS
+
       - name: Checkout pinned TradeGuard source
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
