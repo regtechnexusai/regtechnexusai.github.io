@@ -41,3 +41,9 @@ body.institutional-page{margin:0;background:#f5f8fc;color:var(--it-ink);font-fam
 .rt-trust-links b{color:var(--it-ink);margin-bottom:2px}
 .rt-trust-links a{color:var(--it-blue);text-decoration:none}
 .rt-trust-links a:hover{text-decoration:underline;text-underline-offset:3px}
+
+/* 2026-11-19 responsive assurance: prevent narrow cards and clipped data tables on phones. */
+.it-section,.it-card,.it-hero{min-width:0;overflow-wrap:anywhere}
+.it-table-wrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-inline:contain;border:1px solid var(--it-line);border-radius:10px}
+.it-table{min-width:640px}
+@media(max-width:760px){.institutional-page .it-main{width:calc(100% - 24px);padding-top:22px}.it-hero{padding:22px 18px}.it-hero h1{font-size:clamp(1.8rem,8vw,2.4rem)}.it-section{padding:20px 16px}.it-grid{grid-template-columns:minmax(0,1fr)}.it-card{padding:15px}.it-links .it-link{width:100%;text-align:center}.it-table-wrap:after{content:"Swipe horizontally to view all table columns";display:block;padding:8px 12px;color:#52677d;background:#f2f7fb;font-size:.78rem}}
