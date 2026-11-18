@@ -11,6 +11,8 @@
 body{overflow-x:hidden}
 .hero,.section:not(.dark),.thinking,.responsible,.closing,.capabilities{position:relative;isolation:isolate;overflow:hidden}
 .hero::before,.section:not(.dark)::before,.thinking::before,.responsible::before,.closing::before{content:"";position:absolute;inset:-18%;z-index:-1;pointer-events:none;background:radial-gradient(circle at 14% 18%,rgba(11,88,168,.07),transparent 26%),radial-gradient(circle at 87% 26%,rgba(0,161,157,.075),transparent 27%),radial-gradient(circle at 54% 102%,rgba(194,155,70,.045),transparent 24%);filter:blur(32px)}
+/* Keep the LCP hero background gradients unfiltered on the critical first paint. */
+.hero::before{filter:none}
 .hero::after,.section:not(.dark)::after,.thinking::after,.responsible::after,.closing::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(120deg,transparent 0 32%,rgba(255,255,255,.38) 48%,transparent 64%);opacity:.48}
 .hero>*,.section>* ,.thinking>* ,.responsible>* ,.closing>* ,.capabilities>*{position:relative;z-index:1}
 .insights-page{background:#f7f8f7}
