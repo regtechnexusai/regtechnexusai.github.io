@@ -78,6 +78,33 @@ jobs:
             --exclude='*.md' \
             payscale-source/ \
             site/payscale-2026/
+      - name: Generate optimized homepage logo WebP
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/regtech-image-tools" --no-save --no-audit --no-fund sharp@0.34.5
+          NODE_PATH="$RUNNER_TEMP/regtech-image-tools/node_modules" node <<'NODE'
+          const sharp = require("sharp");
+          const input = "root-site/regtech-nexus-ai-logo-2026.png";
+          const output = "site/regtech-nexus-ai-logo-2026.webp";
+          (async () => {
+            const metadata = await sharp(input).metadata();
+            if (metadata.width !== 1391 || metadata.height !== 476) {
+              throw new Error("Unexpected source logo dimensions; refusing an unreviewed transformation");
+            }
+            await sharp(input)
+              .resize({ width: 460, withoutEnlargement: true })
+              .webp({ quality: 90, effort: 5, alphaQuality: 100 })
+              .toFile(output);
+            const result = await sharp(output).metadata();
+            const fs = require("fs");
+            const bytes = fs.statSync(output).size;
+            if (result.width !== 460 || result.format !== "webp" || bytes > 120000) {
+              throw new Error("Optimized logo failed dimensions, format or 120 KB size gate: " + JSON.stringify({result, bytes}));
+            }
+            console.log("Optimized homepage logo: " + bytes + " bytes (PNG source: " + fs.statSync(input).size + " bytes)");
+          })().catch(error => { console.error(error); process.exit(1); });
+          NODE
+
       - name: Bundle pinned AlfiQ document parsers (self-hosted)
         run: |
           set -euo pipefail
