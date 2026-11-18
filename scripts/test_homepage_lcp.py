@@ -30,7 +30,6 @@ for key, value in expected.items():
 
 if "assets/regulatory-intelligence-visual.svg" not in html or "preload" not in html or "fetchpriority" not in html:
     sys.exit("Homepage LCP SVG must retain its high-priority image preload")
-    sys.exit("Homepage LCP SVG must retain its high-priority image preload")
 
 if "<filter" in svg.lower() or "filter=" in svg.lower():
     sys.exit("Homepage LCP SVG must not reintroduce SVG filter effects")
