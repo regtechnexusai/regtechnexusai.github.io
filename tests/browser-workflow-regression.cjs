@@ -52,10 +52,18 @@ test('TradeGuard transaction-monitoring and document-assessment workspaces rende
 });
 
 test('TradeGuard mobile navigation is compact, scroll-contained and responsive', async () => {
-  const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
   await page.goto(base + '/tradeguard/', { waitUntil: 'domcontentloaded' });
   const menu = page.locator('.tradeguard-main-nav .menu');
   const nav = page.locator('.tradeguard-main-nav nav');
+  await menu.click();
+  await nav.waitFor({ state: 'visible' });
+  const desktop = await nav.evaluate(element => ({ display: getComputedStyle(element).display, direction: getComputedStyle(element).flexDirection, width: element.getBoundingClientRect().width }));
+  assert.equal(desktop.display, 'flex');
+  assert.equal(desktop.direction, 'column');
+  assert.ok(desktop.width <= 440);
+  await menu.click();
+  await page.setViewportSize({ width: 390, height: 844 });
   await menu.click();
   await nav.waitFor({ state: 'visible' });
   await page.waitForFunction(() => {
