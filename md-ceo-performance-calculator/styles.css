@@ -153,3 +153,70 @@
   .mdceo-page .mdceo-hero h1{max-width:100%;padding:15px 16px !important}
   .mdceo-page .quick-actions-buttons .btn{min-height:48px;font-size:12px}
 }
+
+
+/* 18 Nov 2026 — production cache-bust and actual export-bar button contrast */
+.mdceo-page .mdceo-hero{
+  background:linear-gradient(135deg,#f1f8ff 0%,#e4f4fb 58%,#d9f1f5 100%) !important;
+  color:#102b49 !important;
+}
+.mdceo-page .mdceo-hero:after{
+  border-color:rgba(7,91,169,.16) !important;
+  box-shadow:0 0 0 44px rgba(7,91,169,.035),0 0 0 90px rgba(8,123,158,.025) !important;
+}
+.mdceo-page .mdceo-hero .kicker{color:#075ba9 !important}
+.mdceo-page .mdceo-hero p{color:#294967 !important}
+.mdceo-page .mdceo-hero-meta{color:#496985 !important}
+.mdceo-page .mdceo-hero-meta a{color:#075ba9 !important;border-color:#087b9e !important}
+.mdceo-page .mdceo-hero h1{
+  color:#102b49 !important;
+  text-shadow:none !important;
+  box-shadow:0 8px 24px rgba(16,43,73,.10) !important;
+}
+.mdceo-page .mdceo-hero h1 span{
+  color:#075ba9 !important;
+  text-shadow:none !important;
+  -webkit-text-stroke:0 !important;
+}
+/* The screenshot's four buttons are in .mdceo-export-actions, not only quick-actions-buttons. */
+.mdceo-page .mdceo-export-actions .btn,
+.mdceo-page .mdceo-quick-actions .quick-actions-buttons .btn{
+  color:#fff !important;
+  -webkit-text-fill-color:#fff !important;
+  font-weight:900 !important;
+  text-shadow:0 1px 1px rgba(0,0,0,.22) !important;
+  border:1px solid transparent !important;
+}
+.mdceo-page .mdceo-export-actions #copy-results,
+.mdceo-page .mdceo-export-actions #download-csv,
+.mdceo-page .mdceo-quick-actions .quick-process{
+  background:linear-gradient(135deg,#087f3f,#16a34a) !important;
+  border-color:#087f3f !important;
+}
+.mdceo-page .mdceo-export-actions #download-csv,
+.mdceo-page .mdceo-quick-actions .quick-csv{
+  background:linear-gradient(135deg,#075ba9,#1686d9) !important;
+  border-color:#075ba9 !important;
+}
+.mdceo-page .mdceo-export-actions #print-report,
+.mdceo-page .mdceo-quick-actions .quick-print{
+  background:linear-gradient(135deg,#c65a08,#f08a16) !important;
+  border-color:#c65a08 !important;
+}
+.mdceo-page .mdceo-export-actions #share-email,
+.mdceo-page .mdceo-quick-actions .quick-email{
+  background:linear-gradient(135deg,#673ab7,#8b5bd6) !important;
+  border-color:#673ab7 !important;
+}
+.mdceo-page .mdceo-export-actions .btn:disabled{
+  color:#fff !important;
+  -webkit-text-fill-color:#fff !important;
+  opacity:1 !important;
+  filter:none !important;
+  cursor:not-allowed !important;
+}
+@media(max-width:760px){
+  .mdceo-page .mdceo-hero{padding-top:54px;padding-bottom:38px}
+  .mdceo-page .mdceo-hero h1{max-width:100%;padding:15px 16px !important}
+  .mdceo-page .mdceo-export-actions .btn{min-height:48px;font-size:12px}
+}
