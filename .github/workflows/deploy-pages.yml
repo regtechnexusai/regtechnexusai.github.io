@@ -78,6 +78,12 @@ jobs:
             --exclude='*.md' \
             payscale-source/ \
             site/payscale-2026/
+      - name: Optimise site logo for responsive delivery
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/rt-image-opt" sharp@0.34.3 --no-audit --no-fund
+          SHARP_MODULE_PATH="$RUNNER_TEMP/rt-image-opt/node_modules/sharp" node root-site/scripts/optimize_logo.cjs site
+
       - name: Bundle pinned AlfiQ document parsers (self-hosted)
         run: |
           set -euo pipefail
