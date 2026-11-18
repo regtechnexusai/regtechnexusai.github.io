@@ -13,6 +13,9 @@ on:
       - "styles.css"
       - "assets/**/*.svg"
       - "scripts/test_homepage_lcp.py"
+      - "scripts/optimize_logo.cjs"
+      - "site-wide-shell.js"
+      - "regtech-nexus-ai-logo-2026.png"
   push:
     branches:
       - main
@@ -26,6 +29,9 @@ on:
       - "styles.css"
       - "assets/**/*.svg"
       - "scripts/test_homepage_lcp.py"
+      - "scripts/optimize_logo.cjs"
+      - "site-wide-shell.js"
+      - "regtech-nexus-ai-logo-2026.png"
   workflow_dispatch:
 
 permissions:
