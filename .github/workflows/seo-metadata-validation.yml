@@ -10,6 +10,9 @@ on:
       - ".github/workflows/seo-metadata-validation.yml"
       - "**/*.html"
       - "sitemap.xml"
+      - "styles.css"
+      - "assets/**/*.svg"
+      - "scripts/test_homepage_lcp.py"
   push:
     branches:
       - main
@@ -20,6 +23,9 @@ on:
       - ".github/workflows/seo-metadata-validation.yml"
       - "**/*.html"
       - "sitemap.xml"
+      - "styles.css"
+      - "assets/**/*.svg"
+      - "scripts/test_homepage_lcp.py"
   workflow_dispatch:
 
 permissions:
@@ -38,6 +44,9 @@ jobs:
           repository: regtechnexusai/tradeguard
           ref: eaf061382cb278eb657eb018f48132561536b6c1
           path: tradeguard-source
+
+      - name: Validate homepage LCP asset remains filter-free
+        run: python3 scripts/test_homepage_lcp.py
 
       - name: Validate configured page paths and metadata application
         run: |
