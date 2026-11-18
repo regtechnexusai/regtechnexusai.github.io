@@ -1,5 +1,5 @@
 (() => {
-  const FROM = 'regtechnexusai@gmail.com';
+  const CONTACT_ADDRESS = 'info@regtechnexusai.com';
   const GREETING = 'Greetings from RegTech Nexus AI.';
   const DEFAULT_SUBJECT = 'Greetings from RegTech Nexus AI';
   const DEFAULT_BODY = [
@@ -9,7 +9,7 @@
     '',
     'Regards,',
     'RegTech Nexus AI',
-    'info@regtechnexusai.com',
+    CONTACT_ADDRESS,
     'https://regtechnexusai.com'
   ].join('\n');
 
@@ -23,29 +23,19 @@
     return { subject: resolvedSubject, body: bodyWithGreeting };
   };
 
-  const fallbackMailto = (subject = '', body = '', to = '') =>
-    'mailto:' + encodeURIComponent(to)
-    + '?subject=' + encodeURIComponent(subject)
-    + '&body=' + encodeURIComponent(body);
-
-  const open = (subject = '', body = '', to = '') => {
+  const open = (subject = '', body = '', to = CONTACT_ADDRESS) => {
     const prepared = prepareEmail(subject, body);
+    const recipient = String(to || CONTACT_ADDRESS).trim();
     const params = new URLSearchParams({
-      view: 'cm',
-      fs: '1',
-      tf: '1',
-      authuser: FROM,
-      to,
-      su: prepared.subject,
+      subject: prepared.subject,
       body: prepared.body
     });
-    const gmailUrl = 'https://mail.google.com/mail/?' + params.toString();
-    const popup = window.open(gmailUrl, '_blank', 'noopener,noreferrer');
-    if (!popup) window.location.href = fallbackMailto(prepared.subject, prepared.body, to);
+    // Use the visitor's configured mail handler; do not force a Gmail account.
+    window.location.href = 'mailto:' + recipient + '?' + params.toString();
   };
 
   window.RegTechEmail = Object.freeze({
-    from: FROM,
+    from: CONTACT_ADDRESS,
     open
   });
 
@@ -55,14 +45,14 @@
       const rawHref = link.getAttribute('href') || '';
       let subject = link.dataset.subject || '';
       let body = link.dataset.body || '';
-      let to = '';
+      let to = CONTACT_ADDRESS;
       try {
         const parsed = new URL(rawHref, window.location.href);
-        to = decodeURIComponent(parsed.pathname || '');
+        to = decodeURIComponent(parsed.pathname || '') || CONTACT_ADDRESS;
         subject = parsed.searchParams.get('subject') || subject;
         body = parsed.searchParams.get('body') || body;
       } catch {
-        // Use the explicit data attributes when a legacy mailto value cannot be parsed.
+        // Fall back to the configured domain contact address.
       }
       open(subject, body, to);
     });
