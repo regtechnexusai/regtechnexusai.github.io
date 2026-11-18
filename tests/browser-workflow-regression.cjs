@@ -45,7 +45,7 @@ test('TradeGuard transaction-monitoring and document-assessment workspaces rende
   await page.getByRole('heading',{name:/Transaction monitoring before the pattern/}).waitFor();
   assert.equal(await page.locator('#proactiveForm').count(),1);
   await page.goto(base+'/tradeguard/document-assessment.html',{waitUntil:'domcontentloaded'});
-  await page.getByRole('heading',{name:'Document Assessment'}).waitFor();
+  await page.getByRole('heading',{name:'Document Assessment',exact:true}).waitFor();
   assert.equal(await page.locator('#documentFileInput').count(),1);
   assert.equal(await page.locator('#runDocumentAssessment').isEnabled(),true);
   await page.close();
