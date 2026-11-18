@@ -80,7 +80,7 @@ test('ICMS AHR weighted composite remains 83.0 and Very Good', () => {
   app.get('ahr-icms').value = '80';
   app.get('ahr-reputation').value = '60';
   app.inputs[1].listeners.input();
-  assert.match(app.get('ahr-output').innerHTML, /82\.0 \/ 100/);
+  assert.match(app.get('ahr-output').innerHTML, /83\.0 \/ 100/);
   assert.match(app.get('ahr-output').innerHTML, /Very Good/);
 });
 test('ICMS business-unit boundaries preserve current bands', () => {
