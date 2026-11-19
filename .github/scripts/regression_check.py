@@ -200,6 +200,24 @@ else:
  if "site_favicon.js --self-test" not in workflow_source or "site_favicon.js --site-dir site" not in workflow_source:
   add("HIGH",".github/workflows/deploy-pages.yml","Pages assembly must run the site favicon synthetic tests and transformation.")
 
+
+# PR-time synthetic and clean-archive test for site-wide favicon generation.
+site_favicon_ci=ROOT/".github/workflows/site-favicon-regression.yml"
+if not site_favicon_ci.is_file():
+ add("HIGH",".github/workflows/site-favicon-regression.yml","Site favicon optimizer must have a PR-time synthetic and real-source test workflow.")
+else:
+ site_favicon_ci_source=site_favicon_ci.read_text(encoding="utf-8",errors="replace")
+ for token in (
+  "site_favicon.js --self-test",
+  "git archive HEAD",
+  "site-favicon-test-site",
+  "site_favicon.js",
+  "sharp@0.34.5",
+  "regtech-nexus-ai-favicon-128.png",
+ ):
+  if token not in site_favicon_ci_source:
+   add("HIGH",".github/workflows/site-favicon-regression.yml","Site favicon PR workflow missing a required test step or output gate: "+token)
+
 # AlfiQ services page: keep the shared picture source and fallback on the product logo.
 alfiq_services=ROOT/"alfiq/services/index.html"
 if not alfiq_services.is_file():
