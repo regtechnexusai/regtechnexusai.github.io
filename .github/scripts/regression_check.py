@@ -140,7 +140,8 @@ else:
   'const SOURCE_WIDTH = 1536;',
   'const SOURCE_HEIGHT = 1536;',
   'const OUTPUT_WIDTH = 128;',
-  'const OUTPUT_HEIGHT = 128;',
+  'outputMeta.height !== OUTPUT_WIDTH',
+  'metadata.height !== OUTPUT_WIDTH',
   'const MAX_BYTES = 30000;',
   'const ORIGINAL_LINK = \'<link rel="icon" href="regtech-nexus-ai-logo.png" type="image/png" />\';',
   'const OPTIMIZED_LINK = \'<link rel="icon" href="regtech-nexus-ai-favicon-128.png" type="image/png" />\';',
@@ -258,7 +259,7 @@ for rel,(heading,required) in institutional_pages.items():
   if "YOUR_FORM_ID" in content or "formspree.io/f/" in content:
    add("HIGH",rel,"Placeholder or unconfigured form endpoint must not be published.")
 
-# Portfolio-specific structural checks: validate the current four published projects.
+# Portfolio-specific structural checks: validate the current five published projects.
 # Keep this list explicit so adding/removing a project requires an intentional test update.
 portfolio_path=ROOT/"creations"/"index.html"
 if portfolio_path.exists():
@@ -268,6 +269,7 @@ if portfolio_path.exists():
   'href="/"':"RegTech Nexus AI",
   'href="/mukul/"':"MUKUL Agriculture Hub",
   'href="https://traveltoknow.com.bd/"':"Travel To Know",
+  'href="/gaas/"':"AlfiQ GaaS",
   'href="/banking-learning/digital-trade-finance/"':"Digital Trade Finance Transformation",
  }
  if cards != len(expected_projects):
