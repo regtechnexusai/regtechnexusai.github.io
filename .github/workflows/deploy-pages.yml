@@ -155,14 +155,14 @@ jobs:
               content = page.read_text(encoding="utf-8")
               existing = [line for line in content.splitlines() if "NotoSansBengali.ttf" in line]
               if existing:
-                  if len(existing) != 1 or "rel="preload" not in existing[0] or "as="font"" not in existing[0] or "crossorigin" not in existing[0]:
+                  if len(existing) != 1 or 'rel="preload"' not in existing[0] or 'as="font"' not in existing[0] or "crossorigin" not in existing[0]:
                       raise SystemExit(f"Existing Bengali font preload is incomplete or duplicated: {page}")
               else:
                   marker = '<link rel="stylesheet"'
                   position = content.lower().find(marker)
                   if position < 0:
                       raise SystemExit(f"Stylesheet insertion point missing: {page}")
-                  content = content[:position] + preload + "\\n    " + content[position:]
+                  content = content[:position] + preload + "\n    " + content[position:]
               if content.count("NotoSansBengali.ttf") != 1:
                   raise SystemExit(f"Font preload count is not exactly one: {page}")
               page.write_text(content, encoding="utf-8")
