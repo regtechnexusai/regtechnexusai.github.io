@@ -270,7 +270,7 @@ if portfolio_path.exists():
   'href="https://traveltoknow.com.bd/"':"Travel To Know",
   'href="/gaas/"':"AlfiQ GaaS",
   'href="/banking-learning/digital-trade-finance/"':"Digital Trade Finance Transformation",
-}
+ }
  if cards != len(expected_projects):
   add("HIGH","creations/index.html","Expected "+str(len(expected_projects))+" project cards from the approved portfolio list; found "+str(cards)+".")
  for destination,label in expected_projects.items():
