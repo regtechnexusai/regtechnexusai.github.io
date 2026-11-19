@@ -105,6 +105,12 @@ jobs:
           })().catch(error => { console.error(error); process.exit(1); });
           NODE
 
+      - name: Generate optimized AlfiQ GaaS logo WebP
+        run: |
+          set -euo pipefail
+          NODE_PATH="$RUNNER_TEMP/regtech-image-tools/node_modules" node root-site/.github/scripts/gaas_logo_webp.js --self-test
+          NODE_PATH="$RUNNER_TEMP/regtech-image-tools/node_modules" node root-site/.github/scripts/gaas_logo_webp.js --site-dir site
+
       - name: Generate optimized PayScale favicon from pinned source
         run: |
           set -euo pipefail

@@ -77,6 +77,57 @@ else:
  if "site/regtech-nexus-ai-logo-2026.webp" not in workflow_source or "resize({ width: 460" not in workflow_source or "bytes > 120000" not in workflow_source:
   add("HIGH",".github/workflows/deploy-pages.yml","The shared-header WebP must be generated, resized and size-gated during Pages assembly.")
 
+# AlfiQ GaaS logo: generate a bounded WebP while preserving transparent PNG source.
+gaas_logo_optimizer=ROOT/".github/scripts/gaas_logo_webp.js"
+if not gaas_logo_optimizer.is_file():
+ add("HIGH",".github/scripts/gaas_logo_webp.js","GaaS logo WebP optimizer missing; source-image delivery cannot be verified.")
+else:
+ gaas_logo_source=gaas_logo_optimizer.read_text(encoding="utf-8",errors="replace")
+ for token in (
+  'const SOURCE_REL = "gaas/alfiq-gaas-logo.png";',
+  'const OUTPUT_REL = "gaas/alfiq-gaas-logo.webp";',
+  'const SOURCE_WIDTH = 2172;',
+  'const SOURCE_HEIGHT = 724;',
+  'const OUTPUT_WIDTH = 460;',
+  'const OUTPUT_HEIGHT = 153;',
+  'const MAX_BYTES = 120000;',
+  '.webp({ quality: 90, effort: 5, alphaQuality: 100 })',
+  'async function selfTest()',
+  'Buffer.compare(fs.readFileSync(firstPath), fs.readFileSync(secondPath))',
+ ):
+  if token not in gaas_logo_source:
+   add("HIGH",".github/scripts/gaas_logo_webp.js","GaaS logo optimizer missing a required dimension, alpha, size or deterministic self-test guard: "+token)
+ gaas_workflow=ROOT/".github/workflows/deploy-pages.yml"
+ gaas_workflow_source=gaas_workflow.read_text(encoding="utf-8",errors="replace") if gaas_workflow.is_file() else ""
+ if "gaas_logo_webp.js --self-test" not in gaas_workflow_source or "gaas_logo_webp.js --site-dir site" not in gaas_workflow_source:
+  add("HIGH",".github/workflows/deploy-pages.yml","Pages assembly must run the GaaS logo synthetic test and size-gated WebP generation.")
+
+# Require optimized logo source and original PNG fallback on the affected audited pages.
+optimized_logo_pages={
+ "gaas/index.html":('srcset="alfiq-gaas-logo.webp"','src="alfiq-gaas-logo.png"',2),
+ "icms-2026/index.html":('srcset="../regtech-nexus-ai-logo-2026.webp"','src="../regtech-nexus-ai-logo-2026.png"',2),
+ "regulatory-gap-analyzer/index.html":('srcset="../regtech-nexus-ai-logo-2026.webp"','src="../regtech-nexus-ai-logo-2026.png"',2),
+ "trust/index.html":('srcset="/regtech-nexus-ai-logo-2026.webp"','src="/regtech-nexus-ai-logo-2026.png"',1),
+}
+for rel,(source,fallback,count) in optimized_logo_pages.items():
+ page=ROOT/rel
+ if not page.is_file():
+  add("HIGH",rel,"Audited page missing; optimized logo delivery cannot be verified.")
+  continue
+ content=page.read_text(encoding="utf-8",errors="replace")
+ pictures=re.findall(r"<picture\b[^>]*>.*?</picture>",content,flags=re.I|re.S)
+ if len(pictures)!=count or any(source not in picture or fallback not in picture for picture in pictures):
+  add("HIGH",rel,"Expected "+str(count)+" WebP logo picture(s) with original PNG fallback.")
+ if count==2 and rel in ("gaas/index.html","icms-2026/index.html","regulatory-gap-analyzer/index.html"):
+  if 'loading="lazy"' not in pictures[1] or 'decoding="async"' not in pictures[1]:
+   add("MEDIUM",rel,"Footer logo should remain lazy-loaded and asynchronously decoded.")
+# Shared shell footer: use generated WebP, retain original PNG and lazy/async attributes.
+expected_shell_footer_picture='<picture><source srcset="/regtech-nexus-ai-logo-2026.webp" type="image/webp"><img src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" loading="lazy" decoding="async" width="230" height="70"></picture>'
+shell_footer_script=ROOT/"site-wide-shell.js"
+shell_footer_source=shell_footer_script.read_text(encoding="utf-8",errors="replace") if shell_footer_script.is_file() else ""
+if shell_footer_source.count(expected_shell_footer_picture)!=1:
+ add("HIGH","site-wide-shell.js","Standard injected footer must use the generated WebP source with PNG fallback and preserve lazy/async/dimensions.")
+
 # PayScale favicon: preserve source artwork while generating a small PNG favicon in Pages assembly.
 payscale_favicon_script=ROOT/".github/scripts/payscale_favicon.js"
 if not payscale_favicon_script.is_file():
