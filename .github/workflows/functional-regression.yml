@@ -8,6 +8,8 @@ on:
     paths:
       - ".github/scripts/functional_regression.py"
       - ".github/workflows/functional-regression.yml"
+      - ".github/workflows/deploy-pages.yml"
+      - ".github/scripts/payscale_logo_webp.py"
 
 permissions:
   contents: read

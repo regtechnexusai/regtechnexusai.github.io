@@ -169,6 +169,9 @@ jobs:
               print(f"PASS: Preloaded Bengali font on {page}")
           PY
 
+      - name: Use optimized WebP logo on PayScale footer
+        run: python3 root-site/.github/scripts/payscale_logo_webp.py --site-dir site
+
       - name: Apply unified site header/footer styles
         run: |
           python3 - <<'PY'
