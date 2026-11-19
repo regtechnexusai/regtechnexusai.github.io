@@ -35,7 +35,7 @@ jobs:
       # PayScale source is canonical for the calculator and pension module; pin to the reviewed upstream commit.
       # PayScale v1.38 preserves calculation logic Version 1.33, improves pension PDF print contrast and page flow, and consistently labels the main calculator and pension page “PayScale 2026 Calculator”.
       # Rebuild this deployment whenever the PayScale source repo is updated on main.
-      # 19 Nov 2026: local data, metadata and calculator scripts are deferred in order; formulas remain unchanged.
+      # 19 Nov 2026: local scripts deferred in order and footer logo served from generated WebP; formulas remain unchanged.
       # Pension visual refresh is maintained in the canonical PayScale source repository.
       # Rebuild after PayScale footer contrast updates in the canonical source repository.
       # Rebuild after the PayScale redesign stylesheet cache version is incremented.
@@ -55,7 +55,7 @@ jobs:
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           repository: regtechnexusai/PayScale-2026-calculator
-          ref: 28648ec1162bdb9a38b7636c518ab0d801d43969
+          ref: ac4eb5b5bb5f6dae21418ebabf3d88f201ab226e
           path: payscale-source
 
       - name: Assemble site
