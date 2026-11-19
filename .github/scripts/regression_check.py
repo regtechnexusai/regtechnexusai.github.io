@@ -77,6 +77,23 @@ else:
  if "site/regtech-nexus-ai-logo-2026.webp" not in workflow_source or "resize({ width: 460" not in workflow_source or "bytes > 120000" not in workflow_source:
   add("HIGH",".github/workflows/deploy-pages.yml","The shared-header WebP must be generated, resized and size-gated during Pages assembly.")
 
+# AlfiQ services page: keep the shared picture source and fallback on the product logo.
+alfiq_services=ROOT/"alfiq/services/index.html"
+if not alfiq_services.is_file():
+ add("HIGH","alfiq/services/index.html","AlfiQ services page missing; page-specific header brand override cannot be verified.")
+else:
+ alfiq_services_source=alfiq_services.read_text(encoding="utf-8",errors="replace")
+ for token in (
+  'logo.closest("picture")',
+  'picture.querySelector("source")',
+  'source.setAttribute("srcset","/alfiq/alfiq-logo-photo2.jpg")',
+  'source.setAttribute("type","image/jpeg")',
+  'logo.src="/alfiq/alfiq-logo-photo2.jpg"',
+  'logo.alt="AlfiQ"',
+ ):
+  if token not in alfiq_services_source:
+   add("HIGH","alfiq/services/index.html","AlfiQ page must synchronize the picture source with its fallback logo: "+token)
+
 # Institutional governance pages: verify required disclosures and working page structure.
 institutional_pages={
  "engagement-policy/index.html":("Institutional Engagement &amp; Operational Governance Policy",("No physical founder access is offered","supervisory-confidential information")),
