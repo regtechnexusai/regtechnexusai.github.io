@@ -1,0 +1,104 @@
+name: Live Lighthouse Quality Baseline
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 4 * * 1"
+  pull_request:
+    paths:
+      - ".github/workflows/live-lighthouse-quality.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  lighthouse:
+    name: Live public-site quality baseline
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 22
+
+      - name: Install pinned Lighthouse
+        run: npm install --global lighthouse@12.8.2
+
+      - name: Measure key public pages (mobile and desktop)
+        env:
+          LH: lighthouse
+        run: |
+          set -uo pipefail
+          mkdir -p reports
+          pages=(
+            "homepage|https://regtechnexusai.com/"
+            "trust|https://regtechnexusai.com/trust/"
+            "gaas|https://regtechnexusai.com/gaas/"
+            "mukul|https://regtechnexusai.com/mukul/"
+            "icms|https://regtechnexusai.com/icms-2026/"
+            "regulatory-gap|https://regtechnexusai.com/regulatory-gap-analyzer/"
+            "payscale|https://regtechnexusai.com/payscale-2026/"
+            "md-ceo|https://regtechnexusai.com/md-ceo-performance-calculator/"
+          )
+          failures=0
+          for entry in "${pages[@]}"; do
+            slug="${entry%%|*}"
+            url="${entry#*|}"
+            for mode in mobile desktop; do
+              preset=()
+              if [ "$mode" = "desktop" ]; then preset=(--preset=desktop); fi
+              echo "Auditing $slug ($mode): $url"
+              "$LH" "$url" \
+                --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" \
+                --quiet \
+                "${preset[@]}" \
+                --output=json --output=html \
+                --output-path="reports/${slug}-${mode}.json" || failures=$((failures+1))
+            done
+          done
+          echo "Lighthouse command failures: $failures"
+          echo "$failures" > reports/command-failures.txt
+          exit 0
+
+      - name: Build score summary
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import json, glob, os
+          rows=[]
+          for file in sorted(glob.glob("reports/*.json")):
+              try:
+                  data=json.load(open(file,encoding="utf-8"))
+                  cats=data.get("categories",{})
+                  rows.append((os.path.basename(file), *[
+                      round((cats.get(key,{}).get("score") or 0)*100)
+                      for key in ("performance","accessibility","best-practices","seo")
+                  ]))
+              except Exception as exc:
+                  rows.append((os.path.basename(file), "ERROR", "ERROR", "ERROR", "ERROR"))
+          with open("reports/score-summary.md","w",encoding="utf-8") as out:
+              out.write("# Live Lighthouse Quality Baseline\n\n")
+              out.write("Scores are reported measurements, not certification. Target threshold: 90/100 per category.\n\n")
+              out.write("| Report | Performance | Accessibility | Best Practices | SEO |\n|---|---:|---:|---:|---:|\n")
+              for row in rows:
+                  out.write("| "+ " | ".join(map(str,row)) + " |\n")
+              out.write("\n## Interpretation\n")
+              out.write("- 90+ is a target, not a pass asserted in advance.\n")
+              out.write("- Investigate reproducible findings before modifying production.\n")
+              out.write("- Scores vary by network, cache, server response and Lighthouse environment.\n")
+              out.write("- Calculator formulas, algorithms and product logic are outside this workflow's scope.\n")
+          print(open("reports/score-summary.md",encoding="utf-8").read())
+          PY
+
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: live-lighthouse-reports
+          path: reports/
+          if-no-files-found: warn
+          retention-days: 90
