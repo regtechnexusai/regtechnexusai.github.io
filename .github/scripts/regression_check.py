@@ -77,6 +77,32 @@ else:
  if "site/regtech-nexus-ai-logo-2026.webp" not in workflow_source or "resize({ width: 460" not in workflow_source or "bytes > 120000" not in workflow_source:
   add("HIGH",".github/workflows/deploy-pages.yml","The shared-header WebP must be generated, resized and size-gated during Pages assembly.")
 
+# PayScale favicon: preserve source artwork while generating a small PNG favicon in Pages assembly.
+payscale_favicon_script=ROOT/".github/scripts/payscale_favicon.js"
+if not payscale_favicon_script.is_file():
+ add("HIGH",".github/scripts/payscale_favicon.js","PayScale favicon optimizer missing; source-size reduction cannot be verified.")
+else:
+ payscale_favicon_source=payscale_favicon_script.read_text(encoding="utf-8",errors="replace")
+ for token in (
+  'const SOURCE_REL = "payscale-2026/regtech-nexus-ai-logo.png";',
+  'const OUTPUT_REL = "payscale-2026/regtech-nexus-ai-favicon-128.png";',
+  'const SOURCE_WIDTH = 1536;',
+  'const SOURCE_HEIGHT = 1536;',
+  'const OUTPUT_WIDTH = 128;',
+  'const MAX_BYTES = 30000;',
+  'const ORIGINAL_LINK = \'<link rel="icon" href="regtech-nexus-ai-logo.png" type="image/png" />\';',
+  'const OPTIMIZED_LINK = \'<link rel="icon" href="regtech-nexus-ai-favicon-128.png" type="image/png" />\';',
+  'function transformHtml(content)',
+  'async function generateFavicon(source, output)',
+  'transformHtml(optimized) !== optimized',
+  'payscale-2026/index.html',
+  'payscale-2026/pension.html',
+ ):
+  if token not in payscale_favicon_source:
+   add("HIGH",".github/scripts/payscale_favicon.js","PayScale favicon optimizer missing a required fail-closed, dimension, size or idempotency safeguard: "+token)
+ if "payscale_favicon.js --self-test" not in workflow_source or "payscale_favicon.js --site-dir site" not in workflow_source:
+  add("HIGH",".github/workflows/deploy-pages.yml","Pages assembly must run the PayScale favicon synthetic test and source transformation.")
+
 # AlfiQ services page: keep the shared picture source and fallback on the product logo.
 alfiq_services=ROOT/"alfiq/services/index.html"
 if not alfiq_services.is_file():
