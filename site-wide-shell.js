@@ -25,7 +25,7 @@
     if (!header) {
       header = make("header", { "class": "nav rt-shell-header", "aria-label": "RegTech Nexus AI site navigation" });
       header.appendChild(make("a", { "class": "brand", "href": "/", "aria-label": "RegTech Nexus AI home" },
-        '<img class="brand-logo" src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="190" height="62">'));
+        '<picture><source srcset="/regtech-nexus-ai-logo-2026.webp" type="image/webp"><img class="brand-logo" src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="190" height="62"></picture>'));
       var menu = make("button", { "class": "menu rt-shell-menu", "type": "button", "aria-label": "Open menu", "aria-expanded": "false", "aria-controls": "rt-main-nav" }, "☰");
       header.appendChild(menu);
       header.appendChild(make("nav", { "id": "rt-main-nav", "class": "rt-shell-nav", "aria-label": "Main navigation" }, standardNav()));
@@ -52,7 +52,7 @@
       if (!menuButton.getAttribute("aria-label")) menuButton.setAttribute("aria-label", "Open menu");
       if (!header.querySelector("img")) {
         header.insertBefore(make("a", { "class": "brand rt-shell-brand", "href": "/", "aria-label": "RegTech Nexus AI home" },
-          '<img class="brand-logo" src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="190" height="62">'), header.firstChild);
+          '<picture><source srcset="/regtech-nexus-ai-logo-2026.webp" type="image/webp"><img class="brand-logo" src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="190" height="62"></picture>'), header.firstChild);
       }
     }
   }
