@@ -24,6 +24,8 @@ jobs:
           python-version: "3.12"
       - name: Run static regression checks
         run: python .github/scripts/regression_check.py
+      - name: Test PayScale footer WebP transformation
+        run: python .github/scripts/payscale_logo_webp.py --self-test
       - name: Validate AlfiQ inline JavaScript syntax
         run: |
           python - <<'PY'
