@@ -1,0 +1,47 @@
+name: Site favicon regression
+on:
+  pull_request:
+    paths:
+      - ".github/scripts/site_favicon.js"
+      - ".github/scripts/regression_check.py"
+      - ".github/workflows/deploy-pages.yml"
+      - ".github/workflows/site-favicon-regression.yml"
+permissions:
+  contents: read
+jobs:
+  site-favicon:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "22"
+      - name: Install pinned image tooling
+        run: npm install --prefix "$RUNNER_TEMP/site-favicon-test" --no-save --no-audit --no-fund sharp@0.34.5
+      - name: Run synthetic favicon self-test
+        run: NODE_PATH="$RUNNER_TEMP/site-favicon-test/node_modules" node .github/scripts/site_favicon.js --self-test
+      - name: Run transformation against a clean repository archive
+        run: |
+          set -euo pipefail
+          test_site="$RUNNER_TEMP/site-favicon-test-site"
+          mkdir -p "$test_site"
+          git archive HEAD | tar -x -C "$test_site"
+          NODE_PATH="$RUNNER_TEMP/site-favicon-test/node_modules" node "$test_site/.github/scripts/site_favicon.js" --site-dir "$test_site"
+          test -s "$test_site/regtech-nexus-ai-favicon-128.png"
+          NODE_PATH="$RUNNER_TEMP/site-favicon-test/node_modules" node - "$test_site" <<'NODE'
+          const fs = require("node:fs");
+          const path = require("node:path");
+          const sharp = require("sharp");
+          (async () => {
+            const root = process.argv[2];
+            const favicon = path.join(root, "regtech-nexus-ai-favicon-128.png");
+            const metadata = await sharp(favicon).metadata();
+            const bytes = fs.statSync(favicon).size;
+            if (metadata.format !== "png" || metadata.width !== 128 || metadata.height !== 128 || bytes > 30000) {
+              throw new Error("Site favicon output failed its format, dimensions or size gate: " + JSON.stringify({ metadata, bytes }));
+            }
+            console.log("PASS: assembled repository favicon is 128x128 PNG and " + bytes + " bytes");
+          })().catch(error => { console.error(error); process.exit(1); });
+          NODE

@@ -140,6 +140,7 @@ else:
   'const SOURCE_WIDTH = 1536;',
   'const SOURCE_HEIGHT = 1536;',
   'const OUTPUT_WIDTH = 128;',
+  'const OUTPUT_HEIGHT = 128;',
   'const MAX_BYTES = 30000;',
   'const ORIGINAL_LINK = \'<link rel="icon" href="regtech-nexus-ai-logo.png" type="image/png" />\';',
   'const OPTIMIZED_LINK = \'<link rel="icon" href="regtech-nexus-ai-favicon-128.png" type="image/png" />\';',
@@ -153,6 +154,70 @@ else:
    add("HIGH",".github/scripts/payscale_favicon.js","PayScale favicon optimizer missing a required fail-closed, dimension, size or idempotency safeguard: "+token)
  if "payscale_favicon.js --self-test" not in workflow_source or "payscale_favicon.js --site-dir site" not in workflow_source:
   add("HIGH",".github/workflows/deploy-pages.yml","Pages assembly must run the PayScale favicon synthetic test and source transformation.")
+
+
+# Site-wide favicon optimization: pin square source, bounded 128px output and fail-closed coverage.
+site_favicon_optimizer=ROOT/".github/scripts/site_favicon.js"
+if not site_favicon_optimizer.is_file():
+ add("HIGH",".github/scripts/site_favicon.js","Site-wide favicon optimizer missing; source-icon delivery cannot be verified.")
+else:
+ site_favicon_source=site_favicon_optimizer.read_text(encoding="utf-8",errors="replace")
+ for token in (
+  'const SOURCE_REL = "regtech-nexus-ai-logo.jpg";',
+  'const OUTPUT_REL = "regtech-nexus-ai-favicon-128.png";',
+  'const SOURCE_SHA256 = "585d3257e430d657851afebbc151f8ec9f2855eef9b5da00a553fb67977c0971";',
+  'const SOURCE_WIDTH = 1536;',
+  'const SOURCE_HEIGHT = 1536;',
+  'const OUTPUT_WIDTH = 128;',
+  'const MAX_BYTES = 30000;',
+  'const OUTPUT_HREF = "/regtech-nexus-ai-favicon-128.png";',
+  'const TARGET_SOURCE_PATHS = new Set([',
+  'const REQUIRED_PAGES = [',
+  'function transformHtml(content, pageRel, siteDir)',
+  'async function generateFavicon(source, output)',
+  'function walkHtmlFiles(siteDir)',
+  'Buffer.compare(fs.readFileSync(first), fs.readFileSync(second))',
+  'async function selfTest()',
+ ):
+  if token not in site_favicon_source:
+   add("HIGH",".github/scripts/site_favicon.js","Site favicon optimizer missing a required source, dimension, size, coverage or deterministic self-test guard: "+token)
+ for rel in (
+  "index.html",
+  "icms-2026/index.html",
+  "md-ceo-performance-calculator/index.html",
+  "regulatory-gap-analyzer/index.html",
+  "trust/index.html",
+  "gaas/index.html",
+  "global-financial-systems.html",
+  "explainable-ai.html",
+  "payscale-2026/terms.html",
+  "payscale-2026/methodology.html",
+  "payscale-2026/about.html",
+  "payscale-2026/changelog.html",
+  "payscale-2026/privacy.html",
+ ):
+  if rel not in site_favicon_source:
+   add("HIGH",".github/scripts/site_favicon.js","Required audited or branded favicon page missing from transform coverage: "+rel)
+ if "site_favicon.js --self-test" not in workflow_source or "site_favicon.js --site-dir site" not in workflow_source:
+  add("HIGH",".github/workflows/deploy-pages.yml","Pages assembly must run the site favicon synthetic tests and transformation.")
+
+
+# PR-time synthetic and clean-archive test for site-wide favicon generation.
+site_favicon_ci=ROOT/".github/workflows/site-favicon-regression.yml"
+if not site_favicon_ci.is_file():
+ add("HIGH",".github/workflows/site-favicon-regression.yml","Site favicon optimizer must have a PR-time synthetic and real-source test workflow.")
+else:
+ site_favicon_ci_source=site_favicon_ci.read_text(encoding="utf-8",errors="replace")
+ for token in (
+  "site_favicon.js --self-test",
+  "git archive HEAD",
+  "site-favicon-test-site",
+  "site_favicon.js",
+  "sharp@0.34.5",
+  "regtech-nexus-ai-favicon-128.png",
+ ):
+  if token not in site_favicon_ci_source:
+   add("HIGH",".github/workflows/site-favicon-regression.yml","Site favicon PR workflow missing a required test step or output gate: "+token)
 
 # AlfiQ services page: keep the shared picture source and fallback on the product logo.
 alfiq_services=ROOT/"alfiq/services/index.html"
