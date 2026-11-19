@@ -308,8 +308,8 @@ def test_alfiq_services_scope_contact_and_brand_assets(page: Page):
         timeout=10000,
     )
     expect(footer_logo).to_be_visible(timeout=10000)
-    expect(header_logo).to_have_attribute("src", re.compile(r"/alfiq/alfiq-logo-photo2\\.jpg$"))
-    expect(footer_logo).to_have_attribute("src", re.compile(r"/alfiq/alfiq-logo-photo2\\.jpg$"))
+    expect(header_logo).to_have_attribute("src", re.compile(r"/alfiq/alfiq-logo-photo2\.jpg$"))
+    expect(footer_logo).to_have_attribute("src", re.compile(r"/alfiq/alfiq-logo-photo2\.jpg$"))
     assert header_logo.evaluate("(img) => img.complete && img.naturalWidth > 0"), "AlfiQ header logo did not decode."
 
     footer_width = footer_logo.evaluate("(img) => img.getBoundingClientRect().width")
