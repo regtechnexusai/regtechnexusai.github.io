@@ -258,7 +258,7 @@ for rel,(heading,required) in institutional_pages.items():
   if "YOUR_FORM_ID" in content or "formspree.io/f/" in content:
    add("HIGH",rel,"Placeholder or unconfigured form endpoint must not be published.")
 
-# Portfolio-specific structural checks: validate the current four published projects.
+# Portfolio-specific structural checks: validate the current five published projects.
 # Keep this list explicit so adding/removing a project requires an intentional test update.
 portfolio_path=ROOT/"creations"/"index.html"
 if portfolio_path.exists():
@@ -266,6 +266,10 @@ if portfolio_path.exists():
  cards=portfolio.count('class="creation-card"')
  expected_projects={
   'href="/"':"RegTech Nexus AI",
+  'href="/mukul/"':"MUKUL Agriculture Hub",
+  'href="https://traveltoknow.com.bd/"':"Travel To Know",
+  'href="/gaas/"':"AlfiQ GaaS",
+  'href="/banking-learning/digital-trade-finance/"':"Digital Trade Finance Transformation",
   'href="/mukul/"':"MUKUL Agriculture Hub",
   'href="https://traveltoknow.com.bd/"':"Travel To Know",
   'href="/banking-learning/digital-trade-finance/"':"Digital Trade Finance Transformation",
