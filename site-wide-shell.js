@@ -277,7 +277,6 @@
     ensureTrustNavLinks();
     ensureCentralContactLinks();
     ensurePublicEmailFooter();
-    ensurePublicEmailFooter();
     ensureTrustLinks();
     normalizeShellLinks();
     bindMenu();
