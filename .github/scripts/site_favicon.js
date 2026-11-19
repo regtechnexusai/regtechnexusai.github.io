@@ -13,6 +13,7 @@ const SOURCE_SHA256 = "585d3257e430d657851afebbc151f8ec9f2855eef9b5da00a553fb679
 const SOURCE_WIDTH = 1536;
 const SOURCE_HEIGHT = 1536;
 const OUTPUT_WIDTH = 128;
+const OUTPUT_HEIGHT = 128;
 const MAX_BYTES = 30000;
 const OUTPUT_HREF = "/regtech-nexus-ai-favicon-128.png";
 const TARGET_SOURCE_PATHS = new Set([
