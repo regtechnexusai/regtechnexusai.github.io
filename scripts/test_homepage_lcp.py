@@ -57,4 +57,10 @@ if "https://static.cloudflareinsights.com/beacon.min.js" in html:
 if "connect-src 'self'" not in html:
     sys.exit("Homepage CSP must retain same-origin connection permission for automatic Cloudflare RUM")
 
-print("PASS: homepage LCP image and Cloudflare Web Analytics CSP checks passed.")
+
+# Shared-shell injected logos also prefer the build-generated WebP with PNG fallback.
+shell_js = (ROOT / "site-wide-shell.js").read_text(encoding="utf-8")
+if shell_js.count('srcset="/regtech-nexus-ai-logo-2026.webp"') != 3 or shell_js.count('src="/regtech-nexus-ai-logo-2026.png"') != 3:
+    sys.exit("Shared shell must retain three WebP logo sources and PNG fallbacks")
+
+print("PASS: homepage LCP, generated WebP logo sources and Cloudflare Web Analytics CSP checks passed.")
