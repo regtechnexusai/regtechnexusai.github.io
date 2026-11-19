@@ -140,6 +140,7 @@ else:
   'const SOURCE_WIDTH = 1536;',
   'const SOURCE_HEIGHT = 1536;',
   'const OUTPUT_WIDTH = 128;',
+  'const OUTPUT_HEIGHT = 128;',
   'const MAX_BYTES = 30000;',
   'const ORIGINAL_LINK = \'<link rel="icon" href="regtech-nexus-ai-logo.png" type="image/png" />\';',
   'const OPTIMIZED_LINK = \'<link rel="icon" href="regtech-nexus-ai-favicon-128.png" type="image/png" />\';',
