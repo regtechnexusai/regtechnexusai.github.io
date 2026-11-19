@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Guard the homepage LCP illustration against filter regressions."""
 from html.parser import HTMLParser
+import re
 from pathlib import Path
 import sys
 
@@ -57,4 +58,11 @@ if "https://static.cloudflareinsights.com/beacon.min.js" in html:
 if "connect-src 'self'" not in html:
     sys.exit("Homepage CSP must retain same-origin connection permission for automatic Cloudflare RUM")
 
-print("PASS: homepage LCP image and Cloudflare Web Analytics CSP checks passed.")
+
+# MD/CEO header and footer reuse the build-generated 460px WebP logo while retaining PNG fallback.
+mdceo_html = (ROOT / "md-ceo-performance-calculator/index.html").read_text(encoding="utf-8")
+mdceo_pictures = re.findall(r"<picture\b[^>]*>.*?</picture>", mdceo_html, flags=re.I | re.S)
+if len(mdceo_pictures) != 2 or any('srcset="../regtech-nexus-ai-logo-2026.webp"' not in block or 'type="image/webp"' not in block or 'src="../regtech-nexus-ai-logo-2026.png"' not in block for block in mdceo_pictures):
+    sys.exit("MD/CEO header and footer must use generated WebP sources with PNG fallbacks")
+
+print("PASS: homepage LCP, generated WebP logo sources and Cloudflare Web Analytics CSP checks passed.")
