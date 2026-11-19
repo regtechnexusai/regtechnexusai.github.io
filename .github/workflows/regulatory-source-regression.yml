@@ -26,6 +26,11 @@ jobs:
         run: python .github/scripts/regression_check.py
       - name: Test PayScale footer WebP transformation
         run: python .github/scripts/payscale_logo_webp.py --self-test
+      - name: Test PayScale favicon transformation
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/regtech-favicon-test" --no-save --no-audit --no-fund sharp@0.34.5
+          NODE_PATH="$RUNNER_TEMP/regtech-favicon-test/node_modules" node .github/scripts/payscale_favicon.js --self-test
       - name: Validate AlfiQ inline JavaScript syntax
         run: |
           python - <<'PY'
