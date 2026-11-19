@@ -136,6 +136,39 @@ jobs:
           PY
 
 
+ 
+      - name: Preload Bengali font on PayScale pages
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          site = Path("site/payscale-2026")
+          font = site / "NotoSansBengali.ttf"
+          if not font.is_file():
+              raise SystemExit("Expected Bengali font missing from pinned PayScale source")
+
+          preload = '<link rel="preload" href="/payscale-2026/NotoSansBengali.ttf" as="font" type="font/ttf" crossorigin>'
+          for page in (site / "index.html", site / "pension.html"):
+              if not page.is_file():
+                  raise SystemExit(f"Expected PayScale page missing: {page}")
+              content = page.read_text(encoding="utf-8")
+              existing = [line for line in content.splitlines() if "NotoSansBengali.ttf" in line]
+              if existing:
+                  if len(existing) != 1 or "rel="preload" not in existing[0] or "as="font"" not in existing[0] or "crossorigin" not in existing[0]:
+                      raise SystemExit(f"Existing Bengali font preload is incomplete or duplicated: {page}")
+              else:
+                  marker = '<link rel="stylesheet"'
+                  position = content.lower().find(marker)
+                  if position < 0:
+                      raise SystemExit(f"Stylesheet insertion point missing: {page}")
+                  content = content[:position] + preload + "\\n    " + content[position:]
+              if content.count("NotoSansBengali.ttf") != 1:
+                  raise SystemExit(f"Font preload count is not exactly one: {page}")
+              page.write_text(content, encoding="utf-8")
+              print(f"PASS: Preloaded Bengali font on {page}")
+          PY
+
       - name: Apply unified site header/footer styles
         run: |
           python3 - <<'PY'
