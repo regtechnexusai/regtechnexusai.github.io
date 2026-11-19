@@ -220,6 +220,17 @@ else:
   if token not in site_favicon_ci_source:
    add("HIGH",".github/workflows/site-favicon-regression.yml","Site favicon PR workflow missing a required test step or output gate: "+token)
 
+
+# AlfiQ landing page canonical URL: verify the exact sitemap-backed canonical.
+alfiq_home=ROOT/"alfiq"/"index.html"
+if not alfiq_home.is_file():
+ add("HIGH","alfiq/index.html","AlfiQ landing page missing; canonical URL cannot be verified.")
+else:
+ alfiq_home_source=alfiq_home.read_text(encoding="utf-8",errors="replace")
+ canonical_url="https://regtechnexusai.com/alfiq/"
+ if 'rel="canonical"' not in alfiq_home_source or canonical_url not in alfiq_home_source:
+  add("MEDIUM","alfiq/index.html","Canonical URL should match the sitemap entry: "+canonical_url)
+
 # AlfiQ services page: keep the shared picture source and fallback on the product logo.
 alfiq_services=ROOT/"alfiq/services/index.html"
 if not alfiq_services.is_file():
