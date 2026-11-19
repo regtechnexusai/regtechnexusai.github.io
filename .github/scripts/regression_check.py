@@ -63,6 +63,20 @@ for rel in CRITICAL:
    try:other.feed(dest.read_text(encoding="utf-8",errors="replace"))
    except Exception:pass
    if fragment not in other.ids:add("MEDIUM",rel,"Fragment target not found: "+raw)
+# Shared-header logo optimization: require WebP with PNG fallback in both injection branches.
+shell_script=ROOT/"site-wide-shell.js"
+if not shell_script.is_file():
+ add("HIGH","site-wide-shell.js","Shared site-shell script missing; optimized header logo cannot be verified.")
+else:
+ shell_source=shell_script.read_text(encoding="utf-8",errors="replace")
+ expected_picture='<picture><source srcset="/regtech-nexus-ai-logo-2026.webp" type="image/webp"><img class="brand-logo" src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="190" height="62"></picture>'
+ if shell_source.count(expected_picture)!=2:
+  add("HIGH","site-wide-shell.js","Both shared-header insertion branches must use the generated WebP source and PNG fallback.")
+ deploy_workflow=ROOT/".github/workflows/deploy-pages.yml"
+ workflow_source=deploy_workflow.read_text(encoding="utf-8",errors="replace") if deploy_workflow.is_file() else ""
+ if "site/regtech-nexus-ai-logo-2026.webp" not in workflow_source or "resize({ width: 460" not in workflow_source or "bytes > 120000" not in workflow_source:
+  add("HIGH",".github/workflows/deploy-pages.yml","The shared-header WebP must be generated, resized and size-gated during Pages assembly.")
+
 # Institutional governance pages: verify required disclosures and working page structure.
 institutional_pages={
  "engagement-policy/index.html":("Institutional Engagement &amp; Operational Governance Policy",("No physical founder access is offered","supervisory-confidential information")),
