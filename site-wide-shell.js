@@ -78,7 +78,7 @@
     var footer = document.querySelector("footer");
     if (!footer) {
       footer = make("footer", { "class": "rt-shell-footer", "aria-label": "RegTech Nexus AI site footer" },
-        '<div class="rt-shell-footer-brand"><a href="/" aria-label="RegTech Nexus AI home"><img src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="230" height="70"></a>' +
+        '<div class="rt-shell-footer-brand"><a href="/" aria-label="RegTech Nexus AI home"><img src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" loading="lazy" decoding="async" width="230" height="70"></a>' +
         '<p>Audit · Regulatory Intelligence · Compliance · Risk · Technology</p></div>' +
         '<div><b>Solutions</b><a href="/tradeguard/">TradeGuard</a><a href="/icms-2026/">ICMS Toolkit</a>' +
         '<a href="/payscale-2026/">PayScale 2026 Calculator</a><a href="/regulatory-gap-analyzer/">Policy Gap Analyzer</a>' +
