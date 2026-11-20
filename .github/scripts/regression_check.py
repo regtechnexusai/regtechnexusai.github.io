@@ -87,6 +87,32 @@ else:
  if "site/regtech-nexus-ai-logo-2026.webp" not in workflow_source or "resize({ width: 460" not in workflow_source or "bytes > 120000" not in workflow_source:
   add("HIGH",".github/workflows/deploy-pages.yml","The shared-header WebP must be generated, resized and size-gated during Pages assembly.")
 
+# PayScale shared-shell stylesheet: avoid a runtime cache-version rewrite and duplicate CSS fetch.
+payscale_shell_css_script=ROOT/".github/scripts/payscale_shell_css.py"
+if not payscale_shell_css_script.is_file():
+ add("HIGH",".github/scripts/payscale_shell_css.py","PayScale shell stylesheet normalizer is missing.")
+else:
+ payscale_shell_css_source=payscale_shell_css_script.read_text(encoding="utf-8",errors="replace")
+ for token in (
+  'LATEST_HREF = "/site-wide-shell.css?v=20261119-mobile-back-home-v5"',
+  'def transform_html(html: str)',
+  'def self_test()',
+  'transform_html(updated) == updated',
+  'Expected exactly one shared-shell stylesheet link',
+ ):
+  if token not in payscale_shell_css_source:
+   add("HIGH",".github/scripts/payscale_shell_css.py","Shell stylesheet normalizer missing required fail-closed or idempotency guard: "+token)
+ if "payscale_shell_css.py --self-test" not in workflow_source or "payscale_shell_css.py --page-dir site/payscale-2026" not in workflow_source:
+  add("HIGH",".github/workflows/deploy-pages.yml","Pages assembly must test and normalize both PayScale shell stylesheet links.")
+ if 'href="/site-wide-shell.css?v=20261119-mobile-back-home-v5"' not in workflow_source or 'data-rt-shell-latest="true"' not in workflow_source:
+  add("HIGH",".github/workflows/deploy-pages.yml","Shared-shell stylesheet injection must use the latest cache URL and mark it current.")
+ if "20261119-mobile-back-home-v5" not in shell_source:
+  add("HIGH","site-wide-shell.js","Shared-shell stylesheet cache version is out of sync with Pages assembly.")
+ static_workflow=ROOT/".github/workflows/regulatory-source-regression.yml"
+ static_workflow_source=static_workflow.read_text(encoding="utf-8",errors="replace") if static_workflow.is_file() else ""
+ if "payscale_shell_css.py --self-test" not in static_workflow_source or "payscale_shell_css.py --page-dir payscale-source" not in static_workflow_source:
+  add("HIGH",".github/workflows/regulatory-source-regression.yml","PR static CI must self-test the shell stylesheet transform and run it against the pinned PayScale source.")
+
 # AlfiQ GaaS logo: generate a bounded WebP while preserving transparent PNG source.
 gaas_logo_optimizer=ROOT/".github/scripts/gaas_logo_webp.js"
 if not gaas_logo_optimizer.is_file():
