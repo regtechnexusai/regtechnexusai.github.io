@@ -84,6 +84,12 @@ jobs:
           python3 root-site/.github/scripts/payscale_shell_css.py --self-test
           python3 root-site/.github/scripts/payscale_shell_css.py --page-dir site/payscale-2026
 
+      - name: Apply PayScale third-party privacy disclosure
+        run: |
+          set -euo pipefail
+          python3 root-site/.github/scripts/payscale_privacy_disclosure.py --self-test
+          python3 root-site/.github/scripts/payscale_privacy_disclosure.py --site-dir site/payscale-2026
+
       - name: Generate optimized homepage logo WebP
         run: |
           set -euo pipefail
