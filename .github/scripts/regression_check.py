@@ -310,14 +310,15 @@ else:
   'regtech-nexus-ai-logo-2026.png',
   'regtech-nexus-ai-logo-460.png',
   'ee4ec2520c4727461ce18da178219fa61ec733bb552c80808d0b2a75a3f9a5f4',
-  'SOURCE_WIDTH=1391',
-  'OUTPUT_WIDTH=460',
-  'OUTPUT_HEIGHT=157',
-  'MAX_BYTES=120000',
-  'function transformHtml(html)',
-  'async function generateFallback(source,output',
-  'async function selfTest()',
-  'transformHtml(updated)!==updated',
+  'SOURCE_WIDTH = 1391;',
+  'SOURCE_HEIGHT = 476;',
+  'OUTPUT_WIDTH = 460;',
+  'OUTPUT_HEIGHT = 157;',
+  'MAX_BYTES = 120000;',
+  'function transformHtml(html) {',
+  'async function generateFallback(source, output, expectedHash = SOURCE_SHA256)',
+  'async function selfTest() {',
+  'transformHtml(updated) !== updated',
   'Expected exactly two ICMS WebP picture sources',
  ):
   if token not in icms_logo_fallback_source:
@@ -342,6 +343,7 @@ else:
    add("HIGH","icms-2026/index.html","ICMS source must contain exactly one header and footer logo fallback with preserved WebP source and dimensions.")
   if "og:image" not in icms_page_source or "twitter:image" not in icms_page_source:
    add("HIGH","icms-2026/index.html","ICMS social image metadata must remain present.")
+
 
 # AlfiQ landing page canonical URL: verify the exact sitemap-backed canonical.
 alfiq_home=ROOT/"alfiq"/"index.html"
