@@ -78,6 +78,12 @@ jobs:
             --exclude='*.md' \
             payscale-source/ \
             site/payscale-2026/
+      - name: Normalize PayScale shared-shell stylesheet
+        run: |
+          set -euo pipefail
+          python3 root-site/.github/scripts/payscale_shell_css.py --self-test
+          python3 root-site/.github/scripts/payscale_shell_css.py --page-dir site/payscale-2026
+
       - name: Generate optimized homepage logo WebP
         run: |
           set -euo pipefail
@@ -197,7 +203,7 @@ jobs:
           import re
 
           site = Path("site")
-          stylesheet = '<link rel="stylesheet" href="/site-wide-shell.css?v=20261016-tradeguard-shell1" data-regtech-site-shell="true">'
+          stylesheet = '<link rel="stylesheet" href="/site-wide-shell.css?v=20261119-mobile-back-home-v5" data-rt-shell-latest="true" data-regtech-site-shell="true">'
           protected = {
               "index.html",
               "googleb678d3f045b8f91e.html",
