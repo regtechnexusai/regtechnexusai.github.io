@@ -85,7 +85,7 @@ jobs:
         with:
           name: icms-logo-fallback-preview
           path: |
-            $RUNNER_TEMP/icms-logo-fallback-test-site/regtech-nexus-ai-logo-460.png
-            $RUNNER_TEMP/icms-logo-fallback-test-site/icms-2026/index.html
+            ${{ runner.temp }}/icms-logo-fallback-test-site/regtech-nexus-ai-logo-460.png
+            ${{ runner.temp }}/icms-logo-fallback-test-site/icms-2026/index.html
           retention-days: 7
 
