@@ -55,6 +55,12 @@ jobs:
           set -euo pipefail
           python3 .github/scripts/payscale_shell_css.py --self-test
           python3 .github/scripts/payscale_shell_css.py --page-dir payscale-source
+      - name: Test PayScale third-party privacy disclosure
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/payscale_privacy_disclosure.py --self-test
+          python3 .github/scripts/payscale_privacy_disclosure.py --site-dir payscale-source
+          python3 .github/scripts/payscale_privacy_disclosure.py --site-dir payscale-2026
       - name: Run AlfiQ change-analysis smoke tests
         run: node tests/alfiq-change-analysis.test.cjs
       - name: Upload regression report
