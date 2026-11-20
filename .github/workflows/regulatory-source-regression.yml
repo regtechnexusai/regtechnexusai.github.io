@@ -44,6 +44,17 @@ jobs:
               Path("/tmp/alfiq-inline-%d.js" % index).write_text(script, encoding="utf-8")
           PY
           for script in /tmp/alfiq-inline-*.js; do node --check "$script"; done
+      - name: Checkout pinned PayScale source for shell stylesheet tests
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: regtechnexusai/PayScale-2026-calculator
+          ref: 292f03f9f6a88e022983d969d88c8ca9965d9923
+          path: payscale-source
+      - name: Test PayScale shared-shell stylesheet normalization
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/payscale_shell_css.py --self-test
+          python3 .github/scripts/payscale_shell_css.py --page-dir payscale-source
       - name: Run AlfiQ change-analysis smoke tests
         run: node tests/alfiq-change-analysis.test.cjs
       - name: Upload regression report
