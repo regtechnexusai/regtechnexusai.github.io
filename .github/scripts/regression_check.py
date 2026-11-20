@@ -330,7 +330,7 @@ else:
  icms_favicon_workflow=ROOT/".github/workflows/site-favicon-regression.yml"
  icms_favicon_ci_source=icms_favicon_workflow.read_text(encoding="utf-8",errors="replace") if icms_favicon_workflow.is_file() else ""
  icms_favicon_ci_normalized=icms_favicon_ci_source.replace('"', "").replace("'", "")
-if "icms_logo_fallback_png.js --self-test" not in icms_favicon_ci_normalized or "--site-dir $icms_site" not in icms_favicon_ci_normalized:
+ if "icms_logo_fallback_png.js --self-test" not in icms_favicon_ci_normalized or "--site-dir $icms_site" not in icms_favicon_ci_normalized:
   add("HIGH",".github/workflows/site-favicon-regression.yml","PR CI must self-test and transform the ICMS fallback on a clean archive.")
  icms_page=ROOT/"icms-2026/index.html"
  if not icms_page.is_file():
