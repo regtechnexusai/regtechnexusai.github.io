@@ -115,6 +115,47 @@ else:
  if "payscale_shell_css.py --self-test" not in static_workflow_source or "payscale_shell_css.py --page-dir payscale-source" not in static_workflow_source:
   add("HIGH",".github/workflows/regulatory-source-regression.yml","PR static CI must self-test the shell stylesheet transform and run it against the pinned PayScale source.")
 
+
+# PayScale privacy disclosure: accurately describe observed third-party services.
+payscale_privacy_script=ROOT/".github/scripts/payscale_privacy_disclosure.py"
+if not payscale_privacy_script.is_file():
+ add("HIGH",".github/scripts/payscale_privacy_disclosure.py","PayScale privacy-disclosure transformer is missing.")
+else:
+ payscale_privacy_source=payscale_privacy_script.read_text(encoding="utf-8",errors="replace")
+ for token in (
+  "INDEX_DISCLOSURE =",
+  "PRIVACY_DISCLOSURE =",
+  "def transform_html(page_name: str, html: str)",
+  "def self_test()",
+  "transform_html(name, updated) != updated",
+  "Expected exactly one outdated or updated disclosure",
+  "Google Analytics 4 (GA4)",
+  "Cloudflare Insights",
+  "Google Translate widget",
+ ):
+  if token not in payscale_privacy_source:
+   add("HIGH",".github/scripts/payscale_privacy_disclosure.py","PayScale disclosure transformer missing required content, fail-closed or idempotency guard: "+token)
+ privacy_deploy_workflow=ROOT/".github/workflows/deploy-pages.yml"
+ privacy_deploy_source=privacy_deploy_workflow.read_text(encoding="utf-8",errors="replace") if privacy_deploy_workflow.is_file() else ""
+ if "payscale_privacy_disclosure.py --self-test" not in privacy_deploy_source or "payscale_privacy_disclosure.py --site-dir site/payscale-2026" not in privacy_deploy_source:
+  add("HIGH",".github/workflows/deploy-pages.yml","Pages assembly must self-test and apply the PayScale third-party privacy disclosure.")
+ privacy_static_workflow=ROOT/".github/workflows/regulatory-source-regression.yml"
+ privacy_static_source=privacy_static_workflow.read_text(encoding="utf-8",errors="replace") if privacy_static_workflow.is_file() else ""
+ if ("payscale_privacy_disclosure.py --self-test" not in privacy_static_source
+     or "payscale_privacy_disclosure.py --site-dir payscale-source" not in privacy_static_source
+     or "payscale_privacy_disclosure.py --site-dir payscale-2026" not in privacy_static_source):
+  add("HIGH",".github/workflows/regulatory-source-regression.yml","Static CI must self-test the disclosure transformer against both pinned and local PayScale copies.")
+ for privacy_page in ("payscale-2026/index.html","payscale-2026/privacy.html"):
+  privacy_file=ROOT/privacy_page
+  if not privacy_file.is_file():
+   add("HIGH",privacy_page,"PayScale privacy disclosure source page missing.")
+   continue
+  privacy_content=privacy_file.read_text(encoding="utf-8",errors="replace")
+  if "analytics বা third-party script ব্যবহার করা হয়নি" in privacy_content:
+   add("HIGH",privacy_page,"PayScale disclosure incorrectly claims analytics and third-party scripts are not used.")
+  if any(token not in privacy_content for token in ("Google Analytics 4 (GA4)","Cloudflare Insights","Google Translate widget")):
+   add("HIGH",privacy_page,"PayScale disclosure must identify GA4, Cloudflare Insights and Google Translate.")
+
 # AlfiQ GaaS logo: generate a bounded WebP while preserving transparent PNG source.
 gaas_logo_optimizer=ROOT/".github/scripts/gaas_logo_webp.js"
 if not gaas_logo_optimizer.is_file():
