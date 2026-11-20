@@ -63,6 +63,16 @@ for rel in CRITICAL:
    try:other.feed(dest.read_text(encoding="utf-8",errors="replace"))
    except Exception:pass
    if fragment not in other.ids:add("MEDIUM",rel,"Fragment target not found: "+raw)
+# MUKUL favicon: avoid implicit /favicon.ico request and its observed 404.
+mukul_favicon_page=ROOT/"mukul"/"index.html"
+if not mukul_favicon_page.is_file():
+ add("HIGH","mukul/index.html","MUKUL page missing; favicon cannot be verified.")
+else:
+ mukul_favicon_source=mukul_favicon_page.read_text(encoding="utf-8",errors="replace")
+ expected_mukul_favicon='<link rel="icon" type="image/png" href="/regtech-nexus-ai-favicon-128.png">'
+ if expected_mukul_favicon not in mukul_favicon_source:
+  add("MEDIUM","mukul/index.html","MUKUL should explicitly reference the generated optimized site favicon to prevent implicit /favicon.ico requests.")
+
 # Shared-header logo optimization: require WebP with PNG fallback in both injection branches.
 shell_script=ROOT/"site-wide-shell.js"
 if not shell_script.is_file():
