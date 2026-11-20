@@ -117,6 +117,12 @@ jobs:
           })().catch(error => { console.error(error); process.exit(1); });
           NODE
 
+      - name: Generate bounded ICMS logo PNG fallback
+        run: |
+          set -euo pipefail
+          NODE_PATH="$RUNNER_TEMP/regtech-image-tools/node_modules" node root-site/.github/scripts/icms_logo_fallback_png.js --self-test
+          NODE_PATH="$RUNNER_TEMP/regtech-image-tools/node_modules" node root-site/.github/scripts/icms_logo_fallback_png.js --site-dir site
+
       - name: Generate optimized AlfiQ GaaS logo WebP
         run: |
           set -euo pipefail
