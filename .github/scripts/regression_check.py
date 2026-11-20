@@ -74,6 +74,7 @@ else:
   add("MEDIUM","mukul/index.html","MUKUL should explicitly reference the generated optimized site favicon to prevent implicit /favicon.ico requests.")
 
 # Shared-header logo optimization: require WebP with PNG fallback in both injection branches.
+shell_source=""
 shell_script=ROOT/"site-wide-shell.js"
 if not shell_script.is_file():
  add("HIGH","site-wide-shell.js","Shared site-shell script missing; optimized header logo cannot be verified.")
