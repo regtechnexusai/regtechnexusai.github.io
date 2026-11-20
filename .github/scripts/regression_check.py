@@ -181,9 +181,21 @@ else:
  if "gaas_logo_webp.js --self-test" not in gaas_workflow_source or "gaas_logo_webp.js --site-dir site" not in gaas_workflow_source:
   add("HIGH",".github/workflows/deploy-pages.yml","Pages assembly must run the GaaS logo synthetic test and size-gated WebP generation.")
 
-# Require optimized logo source and original PNG fallback on the affected audited pages.
+# Require optimized logo delivery on audited pages. GaaS intentionally uses direct PNG
+# references for the custom brand logo; other pages retain WebP with PNG fallback.
+gaas_page=ROOT/"gaas/index.html"
+gaas_content=gaas_page.read_text(encoding="utf-8",errors="replace") if gaas_page.is_file() else ""
+if not gaas_page.is_file():
+ add("HIGH","gaas/index.html","Audited page missing; GaaS logo delivery cannot be verified.")
+else:
+ if gaas_content.count('src="alfiq-gaas-logo.png?v=2"')!=2:
+  add("HIGH","gaas/index.html","Header and footer must both use the current AlfiQ GaaS PNG logo with cache-busting.")
+ if "alfiq-gaas-logo.webp" in gaas_content:
+  add("HIGH","gaas/index.html","GaaS must not reference the missing WebP logo file.")
+ footer_match=re.search(r'<footer\\b[^>]*>.*?</footer>',gaas_content,flags=re.I|re.S)
+ if footer_match and ('loading="lazy"' not in footer_match.group(0) or 'decoding="async"' not in footer_match.group(0)):
+  add("MEDIUM","gaas/index.html","Footer logo should remain lazy-loaded and asynchronously decoded.")
 optimized_logo_pages={
- "gaas/index.html":('srcset="alfiq-gaas-logo.webp"','src="alfiq-gaas-logo.png"',2),
  "icms-2026/index.html":('srcset="../regtech-nexus-ai-logo-2026.webp"','src="../regtech-nexus-ai-logo-2026.png"',2),
  "regulatory-gap-analyzer/index.html":('srcset="../regtech-nexus-ai-logo-2026.webp"','src="../regtech-nexus-ai-logo-2026.png"',2),
  "trust/index.html":('srcset="/regtech-nexus-ai-logo-2026.webp"','src="/regtech-nexus-ai-logo-2026.png"',1),
@@ -194,12 +206,13 @@ for rel,(source,fallback,count) in optimized_logo_pages.items():
   add("HIGH",rel,"Audited page missing; optimized logo delivery cannot be verified.")
   continue
  content=page.read_text(encoding="utf-8",errors="replace")
- pictures=re.findall(r"<picture\b[^>]*>.*?</picture>",content,flags=re.I|re.S)
+ pictures=re.findall(r"<picture\\b[^>]*>.*?</picture>",content,flags=re.I|re.S)
  if len(pictures)!=count or any(source not in picture or fallback not in picture for picture in pictures):
   add("HIGH",rel,"Expected "+str(count)+" WebP logo picture(s) with original PNG fallback.")
- if count==2 and rel in ("gaas/index.html","icms-2026/index.html","regulatory-gap-analyzer/index.html"):
-  if 'loading="lazy"' not in pictures[1] or 'decoding="async"' not in pictures[1]:
+ if count==2:
+  if len(pictures)>=2 and ('loading="lazy"' not in pictures[1] or 'decoding="async"' not in pictures[1]):
    add("MEDIUM",rel,"Footer logo should remain lazy-loaded and asynchronously decoded.")
+
 # Shared shell footer: use generated WebP, retain original PNG and lazy/async attributes.
 expected_shell_footer_picture='<picture><source srcset="/regtech-nexus-ai-logo-2026.webp" type="image/webp"><img src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" loading="lazy" decoding="async" width="230" height="70"></picture>'
 shell_footer_script=ROOT/"site-wide-shell.js"
