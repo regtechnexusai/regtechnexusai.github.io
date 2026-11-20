@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - ".github/scripts/site_favicon.js"
+      - ".github/scripts/icms_logo_fallback_png.js"
       - ".github/scripts/regression_check.py"
       - ".github/workflows/deploy-pages.yml"
       - ".github/workflows/site-favicon-regression.yml"
@@ -45,3 +46,46 @@ jobs:
             console.log("PASS: assembled repository favicon is 128x128 PNG and " + bytes + " bytes");
           })().catch(error => { console.error(error); process.exit(1); });
           NODE
+
+      - name: Test ICMS logo fallback on clean repository archive
+        run: |
+          set -euo pipefail
+          icms_site="$RUNNER_TEMP/icms-logo-fallback-test-site"
+          mkdir -p "$icms_site"
+          git archive HEAD | tar -x -C "$icms_site"
+          NODE_PATH="$RUNNER_TEMP/site-favicon-test/node_modules" node "$icms_site/.github/scripts/icms_logo_fallback_png.js" --self-test
+          NODE_PATH="$RUNNER_TEMP/site-favicon-test/node_modules" node "$icms_site/.github/scripts/icms_logo_fallback_png.js" --site-dir "$icms_site"
+          test -s "$icms_site/regtech-nexus-ai-logo-460.png"
+          NODE_PATH="$RUNNER_TEMP/site-favicon-test/node_modules" node - "$icms_site" <<'NODE'
+          const fs = require("node:fs");
+          const path = require("node:path");
+          const sharp = require("sharp");
+          (async () => {
+            const root = process.argv[2];
+            const png = path.join(root, "regtech-nexus-ai-logo-460.png");
+            const page = path.join(root, "icms-2026/index.html");
+            const meta = await sharp(png).metadata();
+            const bytes = fs.statSync(png).size;
+            const html = fs.readFileSync(page, "utf8");
+            const header = '<img class="brand-logo" src="../regtech-nexus-ai-logo-460.png" alt="RegTech Nexus AI" width="160" height="55">';
+            const footer = '<img class="brand-logo" src="../regtech-nexus-ai-logo-460.png" alt="RegTech Nexus AI" width="248" height="80" loading="lazy" decoding="async">';
+            const oldHeader = '<img class="brand-logo" src="../regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="160" height="55">';
+            const oldFooter = '<img class="brand-logo" src="../regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="248" height="80" loading="lazy" decoding="async">';
+            if (meta.format !== "png" || meta.width !== 460 || meta.height !== 157 || bytes > 120000) throw new Error("ICMS fallback PNG format, dimensions or 120 KB gate failed: " + JSON.stringify({meta,bytes}));
+            if (html.split(header).length !== 2 || html.split(footer).length !== 2 || html.includes(oldHeader) || html.includes(oldFooter)) throw new Error("ICMS fallback markup did not verify exactly");
+            if (html.split('<source srcset="../regtech-nexus-ai-logo-2026.webp" type="image/webp">').length !== 3) throw new Error("WebP picture sources were not preserved");
+            if (!html.includes('og:image') || !html.includes('twitter:image')) throw new Error("Social image metadata missing");
+            console.log("PASS: clean archive generated ICMS 460x157 PNG fallback (" + bytes + " bytes) and rewrote only two picture img src attributes");
+          })().catch(error => { console.error(error); process.exit(1); });
+          NODE
+
+      - name: Upload ICMS logo fallback preview
+        if: success()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: icms-logo-fallback-preview
+          path: |
+            $RUNNER_TEMP/icms-logo-fallback-test-site/regtech-nexus-ai-logo-460.png
+            $RUNNER_TEMP/icms-logo-fallback-test-site/icms-2026/index.html
+          retention-days: 7
+
