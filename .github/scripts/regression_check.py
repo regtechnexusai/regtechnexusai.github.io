@@ -313,6 +313,52 @@ else:
    add("HIGH",".github/workflows/site-favicon-regression.yml","Site favicon PR workflow missing a required test step or output gate: "+token)
 
 
+# ICMS PNG fallback: bound the size of the verified logo fallback request.
+icms_logo_fallback_script=ROOT/".github/scripts/icms_logo_fallback_png.js"
+if not icms_logo_fallback_script.is_file():
+ add("HIGH",".github/scripts/icms_logo_fallback_png.js","ICMS fallback PNG optimizer missing; fallback image delivery cannot be verified.")
+else:
+ icms_logo_fallback_source=icms_logo_fallback_script.read_text(encoding="utf-8",errors="replace")
+ for token in (
+  'regtech-nexus-ai-logo-2026.png',
+  'regtech-nexus-ai-logo-460.png',
+  'ee4ec2520c4727461ce18da178219fa61ec733bb552c80808d0b2a75a3f9a5f4',
+  'SOURCE_WIDTH = 1391;',
+  'SOURCE_HEIGHT = 476;',
+  'OUTPUT_WIDTH = 460;',
+  'OUTPUT_HEIGHT = 157;',
+  'MAX_BYTES = 120000;',
+  'function transformHtml(html) {',
+  'async function generateFallback(source, output, expectedHash = SOURCE_SHA256)',
+  'async function selfTest() {',
+  'transformHtml(updated) !== updated',
+  'Expected exactly two ICMS WebP picture sources',
+ ):
+  if token not in icms_logo_fallback_source:
+   add("HIGH",".github/scripts/icms_logo_fallback_png.js","ICMS fallback optimizer missing a required pinned-source, dimensions, size, fail-closed or idempotency safeguard: "+token)
+ icms_deploy_workflow=ROOT/".github/workflows/deploy-pages.yml"
+ icms_deploy_source=icms_deploy_workflow.read_text(encoding="utf-8",errors="replace") if icms_deploy_workflow.is_file() else ""
+ if "icms_logo_fallback_png.js --self-test" not in icms_deploy_source or "icms_logo_fallback_png.js --site-dir site" not in icms_deploy_source:
+  add("HIGH",".github/workflows/deploy-pages.yml","Pages assembly must self-test and apply the bounded ICMS logo fallback.")
+ icms_favicon_workflow=ROOT/".github/workflows/site-favicon-regression.yml"
+ icms_favicon_ci_source=icms_favicon_workflow.read_text(encoding="utf-8",errors="replace") if icms_favicon_workflow.is_file() else ""
+ icms_favicon_ci_normalized=icms_favicon_ci_source.replace('"', "").replace("'", "")
+ if "icms_logo_fallback_png.js --self-test" not in icms_favicon_ci_normalized or "--site-dir $icms_site" not in icms_favicon_ci_normalized:
+  add("HIGH",".github/workflows/site-favicon-regression.yml","PR CI must self-test and transform the ICMS fallback on a clean archive.")
+ icms_page=ROOT/"icms-2026/index.html"
+ if not icms_page.is_file():
+  add("HIGH","icms-2026/index.html","ICMS page missing; fallback source and explicit logo attributes cannot be verified.")
+ else:
+  icms_page_source=icms_page.read_text(encoding="utf-8",errors="replace")
+  header_old='<img class="brand-logo" src="../regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="160" height="55">'
+  footer_old='<img class="brand-logo" src="../regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="248" height="80" loading="lazy" decoding="async">'
+  webp_source='<source srcset="../regtech-nexus-ai-logo-2026.webp" type="image/webp">'
+  if icms_page_source.count(header_old)!=1 or icms_page_source.count(footer_old)!=1 or icms_page_source.count(webp_source)!=2:
+   add("HIGH","icms-2026/index.html","ICMS source must contain exactly one header and footer logo fallback with preserved WebP source and dimensions.")
+  if "og:image" not in icms_page_source or "twitter:image" not in icms_page_source:
+   add("HIGH","icms-2026/index.html","ICMS social image metadata must remain present.")
+
+
 # AlfiQ landing page canonical URL: verify the exact sitemap-backed canonical.
 alfiq_home=ROOT/"alfiq"/"index.html"
 if not alfiq_home.is_file():
