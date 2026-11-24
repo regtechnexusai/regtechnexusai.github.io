@@ -6,10 +6,10 @@ const os = require("os");
 const path = require("path");
 const sharp = require("sharp");
 
-const SOURCE_REL = "gaas/alfiq-gaas-logo.png";
+const SOURCE_REL = "gaas/alfiq-gaas-logo-approved.png";
 const OUTPUT_REL = "gaas/alfiq-gaas-logo.webp";
-const SOURCE_WIDTH = 600;
-const SOURCE_HEIGHT = 200;
+const SOURCE_WIDTH = 1200;
+const SOURCE_HEIGHT = 400;
 const OUTPUT_WIDTH = 460;
 const OUTPUT_HEIGHT = 153;
 const MAX_BYTES = 120000;
