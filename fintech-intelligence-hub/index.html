@@ -631,10 +631,72 @@
   <div style="margin:1rem 0;padding:.85rem 1rem;border-left:4px solid #d69b28;background:#fff8e8;border-radius:8px">
     <strong>Prototype and evidence boundary:</strong> Search results are not automatically verified regulatory requirements. Confirm issuing authority, original publication, jurisdiction, legal status, date and applicability. Do not enter customer information, bank-confidential data, credentials or other sensitive information.
   </div>
-  <div style="position:relative;width:100%;height:900px;overflow:hidden;border:1px solid #d7e1eb;border-radius:12px;background:#fff">
-    <iframe src="https://regintel-ai-y391.onrender.com/?embed=true" title="RegIntel AI research workbench" loading="lazy" style="display:block;width:100%;height:100%;border:0" referrerpolicy="strict-origin-when-cross-origin" allow="clipboard-read; clipboard-write"></iframe>
+  <style>
+    #regintel-ai-workbench .regintel-stage{position:relative;min-height:680px;height:min(900px,82vh);overflow:hidden;border:1px solid #c8d9e8;border-radius:18px;background:#071a2d;isolation:isolate;box-shadow:0 18px 48px rgba(8,35,62,.16)}
+    #regintel-ai-workbench .regintel-frame{position:relative;z-index:1;display:block;width:100%;height:100%;min-height:680px;border:0;background:#fff}
+    #regintel-ai-workbench .regintel-loader{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;padding:1.5rem;color:#effaff;background:radial-gradient(ellipse at 50% 38%,rgba(18,105,133,.34),transparent 48%),linear-gradient(145deg,#061426 0%,#0b2942 52%,#102f49 100%);transition:opacity .65s ease,visibility .65s ease}
+    #regintel-ai-workbench .regintel-loader.is-hidden{opacity:0;visibility:hidden;pointer-events:none}
+    #regintel-ai-workbench .regintel-loader:before,#regintel-ai-workbench .regintel-loader:after{content:"";position:absolute;border:1px solid rgba(111,220,226,.12);border-radius:50%;width:min(72vw,650px);aspect-ratio:1;animation:regintel-pulse 5s ease-in-out infinite}
+    #regintel-ai-workbench .regintel-loader:after{width:min(52vw,470px);animation-delay:-2.5s}
+    #regintel-ai-workbench .regintel-loader-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;max-width:520px}
+    #regintel-ai-workbench .regintel-mark{position:relative;display:grid;place-items:center;width:112px;height:112px;margin-bottom:1.35rem;border:1px solid rgba(111,220,226,.48);border-radius:32px;background:linear-gradient(145deg,rgba(26,111,139,.55),rgba(12,44,70,.9));box-shadow:0 0 45px rgba(44,205,204,.16),inset 0 0 28px rgba(92,222,221,.12)}
+    #regintel-ai-workbench .regintel-mark svg{width:70px;height:70px;filter:drop-shadow(0 0 12px rgba(93,226,224,.45))}
+    #regintel-ai-workbench .regintel-orbit{position:absolute;inset:-12px;border:1px solid rgba(100,225,224,.48);border-left-color:transparent;border-right-color:transparent;border-radius:50%;animation:regintel-spin 5s linear infinite}
+    #regintel-ai-workbench .regintel-orbit:after{content:"";position:absolute;top:8px;left:13px;width:8px;height:8px;border-radius:50%;background:#76f0dc;box-shadow:0 0 15px #76f0dc}
+    #regintel-ai-workbench .regintel-kicker{margin:0 0 .65rem;color:#7ee6df;font-size:.72rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase}
+    #regintel-ai-workbench .regintel-loader h3{margin:0;color:#fff;font-size:clamp(1.8rem,5vw,2.7rem);letter-spacing:-.04em}
+    #regintel-ai-workbench .regintel-loader-copy{margin:.65rem 0 1.5rem;color:#c3dce9;font-size:1rem;line-height:1.6}
+    #regintel-ai-workbench .regintel-loader-status{display:flex;align-items:center;gap:.65rem;color:#a8f1e6;font-size:.9rem;font-weight:700}
+    #regintel-ai-workbench .regintel-spinner{width:17px;height:17px;border:2px solid rgba(126,230,223,.25);border-top-color:#7ee6df;border-radius:50%;animation:regintel-spin .85s linear infinite}
+    #regintel-ai-workbench .regintel-track{width:min(270px,70vw);height:4px;margin:1rem 0 0;overflow:hidden;border-radius:9px;background:rgba(190,224,239,.17)}
+    #regintel-ai-workbench .regintel-track span{display:block;width:38%;height:100%;border-radius:9px;background:linear-gradient(90deg,#48bfc5,#8af2d8);animation:regintel-travel 1.8s ease-in-out infinite}
+    #regintel-ai-workbench .regintel-loader-foot{margin:1.6rem 0 0;color:#9bb8c9;font-size:.76rem;letter-spacing:.08em}
+    #regintel-ai-workbench .regintel-fallback{display:none;margin:1rem 0 0;color:#ffdf9d;font-size:.88rem;line-height:1.5}
+    #regintel-ai-workbench .regintel-fallback a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+    @keyframes regintel-spin{to{transform:rotate(360deg)}}
+    @keyframes regintel-travel{0%{transform:translateX(-120%)}100%{transform:translateX(360%)}}
+    @keyframes regintel-pulse{0%,100%{transform:scale(.94);opacity:.35}50%{transform:scale(1.04);opacity:1}}
+    @media(prefers-reduced-motion:reduce){#regintel-ai-workbench .regintel-orbit,#regintel-ai-workbench .regintel-spinner,#regintel-ai-workbench .regintel-track span,#regintel-ai-workbench .regintel-loader:before,#regintel-ai-workbench .regintel-loader:after{animation:none!important}#regintel-ai-workbench .regintel-loader{transition:none}}
+    @media(max-width:640px){#regintel-ai-workbench .regintel-stage{height:82vh;min-height:640px;border-radius:13px}#regintel-ai-workbench .regintel-frame{min-height:640px}#regintel-ai-workbench .regintel-mark{width:94px;height:94px;border-radius:27px}#regintel-ai-workbench .regintel-mark svg{width:60px;height:60px}}
+  </style>
+  <div class="regintel-stage" id="regintel-stage">
+    <div class="regintel-loader" id="regintel-loader" role="status" aria-live="polite" aria-label="RegIntel AI is connecting">
+      <div class="regintel-loader-inner">
+        <div class="regintel-mark" aria-hidden="true">
+          <span class="regintel-orbit"></span>
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M40 8 64 21.8v27.4L40 63 16 49.2V21.8L40 8Z" stroke="#7EE6DF" stroke-width="2"/><path d="m40 19 14 8v16L40 51l-14-8V27l14-8Z" stroke="#D9FBF4" stroke-width="2"/><circle cx="40" cy="35" r="6" fill="#7EE6DF"/><path d="M40 2v9M70 19l-8 5M70 55l-8-5M40 78v-9M10 55l8-5M10 19l8 5" stroke="#7EE6DF" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <p class="regintel-kicker">RegTech Nexus AI presents</p>
+        <h3>RegIntel AI</h3>
+        <p class="regintel-loader-copy">Preparing your regulatory research workspace.<br>Evidence first. Decisions with confidence.</p>
+        <div class="regintel-loader-status"><span class="regintel-spinner" aria-hidden="true"></span><span id="regintel-loader-message">Establishing secure connection…</span></div>
+        <div class="regintel-track" aria-hidden="true"><span></span></div>
+        <p class="regintel-loader-foot">INTELLIGENCE BEYOND RULES · REGULATORY RESEARCH WORKBENCH</p>
+        <p class="regintel-fallback" id="regintel-fallback">The research engine is taking longer than usual to wake up. You can <a href="https://regintel-ai-y391.onrender.com/" target="_blank" rel="noopener noreferrer">open RegIntel AI in a new tab</a> while it connects.</p>
+      </div>
+    </div>
+    <iframe class="regintel-frame" id="regintel-frame" src="https://regintel-ai-y391.onrender.com/?embed=true" title="RegIntel AI research workbench" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="clipboard-read; clipboard-write" onload="regintelFrameLoaded()"></iframe>
   </div>
-  <p style="font-size:.9rem;color:#526273;margin-top:.75rem">If the embedded application does not load, use the standalone link above. Render Free instances may take 50 seconds or more to wake after inactivity.</p>
+  <p style="font-size:.9rem;color:#526273;margin-top:.75rem">The branded connection screen appears while the embedded research engine starts. If it takes longer than expected, use the standalone link above. Render Free instances may take 50 seconds or more to wake after inactivity.</p>
+  <script>
+    (function(){
+      var frame=document.getElementById('regintel-frame'),loader=document.getElementById('regintel-loader'),message=document.getElementById('regintel-loader-message'),fallback=document.getElementById('regintel-fallback'),started=false,timeout=null,rotate=null;
+      window.regintelFrameLoaded=function(){
+        if(timeout)clearTimeout(timeout);if(rotate)clearInterval(rotate);
+        window.setTimeout(function(){loader.classList.add('is-hidden');loader.setAttribute('aria-hidden','true');},700);
+      };
+      function startWait(){
+        if(started)return;started=true;
+        var messages=['Establishing secure connection…','Waking the research engine…','Preparing the evidence workspace…','Almost ready — loading the workbench…'],index=0;
+        rotate=window.setInterval(function(){index=(index+1)%messages.length;message.textContent=messages[index];},4200);
+        timeout=window.setTimeout(function(){fallback.style.display='block';message.textContent='Still connecting to the research engine…';},65000);
+      }
+      if('IntersectionObserver' in window){
+        var observer=new IntersectionObserver(function(entries){if(entries.some(function(entry){return entry.isIntersecting})){startWait();observer.disconnect();}},{rootMargin:'180px'});
+        observer.observe(document.getElementById('regintel-stage'));
+      }else{startWait();}
+    })();
+  </script>
 </section>
 <section class="fih-section" aria-labelledby="fih-ai-governance-title" style="margin:2rem auto;max-width:1100px;padding:1.25rem;border:1px solid #d5e4f4;border-radius:16px;background:#f5f9ff">
 <h2 id="fih-ai-governance-title">AI Governance &amp; Model Risk in Financial Services</h2>
