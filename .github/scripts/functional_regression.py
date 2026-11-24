@@ -511,3 +511,24 @@ def test_public_security_headers_and_route_availability(page: Page):
         if path == "/":
             assert "content-security-policy-report-only" in headers, "Report-Only CSP header is absent"
             assert "default-src 'self'" in headers["content-security-policy-report-only"]
+
+
+def test_public_security_header_baseline_and_page_csp(page: Page):
+    """Read-only check of live security headers and page-level enforced CSP."""
+    for path in ("/", "/gaas/"):
+        response = page.goto(f"{BASE}{path}", wait_until="domcontentloaded", timeout=60000)
+        assert response is not None and response.status == 200, f"{path} did not return HTTP 200"
+        headers = {key.lower(): value for key, value in response.all_headers().items()}
+        assert headers.get("strict-transport-security", "").startswith("max-age=31536000"), f"{path}: HSTS missing or unexpected"
+        assert headers.get("x-frame-options", "").upper() == "SAMEORIGIN", f"{path}: X-Frame-Options missing or unexpected"
+        assert headers.get("x-content-type-options", "").lower() == "nosniff", f"{path}: X-Content-Type-Options missing or unexpected"
+        assert headers.get("referrer-policy", "").lower() == "strict-origin-when-cross-origin", f"{path}: Referrer-Policy missing or unexpected"
+        assert "permissions-policy" in headers, f"{path}: Permissions-Policy missing"
+        # A Report-Only response header is monitoring, not enforcement. The page-level
+        # meta policy is separately checked for an enforced CSP on these HTML routes.
+        meta_csp = page.locator('meta[http-equiv="Content-Security-Policy"]')
+        assert meta_csp.count() == 1, f"{path}: expected exactly one page-level enforced CSP meta policy"
+        policy = (meta_csp.get_attribute("content") or "").lower()
+        assert "default-src 'self'" in policy, f"{path}: CSP default-src is missing"
+        assert "object-src 'none'" in policy, f"{path}: CSP object-src is not disabled"
+        assert "base-uri 'self'" in policy, f"{path}: CSP base-uri is not restricted"
