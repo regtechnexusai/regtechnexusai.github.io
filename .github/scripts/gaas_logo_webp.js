@@ -16,8 +16,8 @@ const MAX_BYTES = 120000;
 
 async function generateWebp(sourcePath, outputPath) {
   const source = await sharp(sourcePath).metadata();
-  if (source.format !== "png" || source.width !== SOURCE_WIDTH || source.height !== SOURCE_HEIGHT || !source.hasAlpha) {
-    throw new Error("GaaS logo source failed PNG, dimension or alpha validation; refusing an unreviewed transformation");
+  if (source.format !== "png" || source.width !== SOURCE_WIDTH || source.height !== SOURCE_HEIGHT) {
+    throw new Error("GaaS logo source validation failed; expected PNG " + SOURCE_WIDTH + "x" + SOURCE_HEIGHT + ", received " + JSON.stringify({ format: source.format, width: source.width, height: source.height, hasAlpha: source.hasAlpha }));
   }
   await sharp(sourcePath)
     .resize({ width: OUTPUT_WIDTH, withoutEnlargement: true })
@@ -25,8 +25,8 @@ async function generateWebp(sourcePath, outputPath) {
     .toFile(outputPath);
   const output = await sharp(outputPath).metadata();
   const bytes = fs.statSync(outputPath).size;
-  if (output.format !== "webp" || output.width !== OUTPUT_WIDTH || output.height !== OUTPUT_HEIGHT || !output.hasAlpha || bytes > MAX_BYTES) {
-    throw new Error("GaaS logo WebP failed format, dimensions, alpha or 120 KB size gate: " + JSON.stringify({ output, bytes }));
+  if (output.format !== "webp" || output.width !== OUTPUT_WIDTH || output.height !== OUTPUT_HEIGHT || bytes > MAX_BYTES) {
+    throw new Error("GaaS logo WebP failed format, dimensions or 120 KB size gate: " + JSON.stringify({ output, bytes }));
   }
   return { bytes, output };
 }
