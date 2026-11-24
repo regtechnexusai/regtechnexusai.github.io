@@ -472,3 +472,42 @@ def test_mobile_shared_back_home_does_not_cover_page_content(page: Page):
     page.add_style_tag(content=shell_css)
     desktop_position = page.locator("a.rt-back-home").evaluate("(el) => getComputedStyle(el).position")
     assert desktop_position == "fixed", f"Desktop Back to Home changed unexpectedly: {desktop_position}"
+
+
+def test_public_security_headers_and_route_availability(page: Page):
+    """Regression-check published security headers and key routes (read-only)."""
+    routes = [
+        ("/", "RegTech Nexus AI"),
+        ("/contact.html", "CONTACT"),
+        ("/privacy.html", "PRIVACY"),
+        ("/terms.html", "TERMS"),
+        ("/trust/", "Trust & Verification"),
+        ("/tool-assurance/", "Tool Assurance"),
+        ("/gaas/", "AlfiQ GaaS"),
+        ("/tradeguard/", "TradeGuard"),
+        ("/icms-2026/", "ICMS"),
+        ("/md-ceo-performance-calculator/", "MD/CEO"),
+        ("/payscale-2026/", "PayScale 2026"),
+        ("/international-regulatory-calculators.html", "Individual calculators"),
+        ("/alfiq/", "AlfiQ"),
+    ]
+    expected_headers = {
+        "strict-transport-security": "max-age=31536000",
+        "x-frame-options": "SAMEORIGIN",
+        "x-content-type-options": "nosniff",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+    }
+    for path, heading in routes:
+        response = page.goto(f"{BASE}{path}", wait_until="domcontentloaded", timeout=60000)
+        assert response is not None and 200 <= response.status < 400, (
+            f"{path} returned {response.status if response else 'no response'}"
+        )
+        headers = {k.lower(): v.lower() for k, v in response.headers.items()}
+        for name, value in expected_headers.items():
+            assert headers.get(name) == value, f"{path}: missing/mismatched {name}: {headers.get(name)!r}"
+        expect(page.locator("body")).to_contain_text(re.compile(heading, re.I), timeout=20000)
+        # CSP remains report-only during compatibility observation; do not enforce it here.
+        if path == "/":
+            assert "content-security-policy-report-only" in headers, "Report-Only CSP header is absent"
+            assert "default-src 'self'" in headers["content-security-policy-report-only"]
