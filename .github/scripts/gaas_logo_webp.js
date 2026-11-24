@@ -8,8 +8,8 @@ const sharp = require("sharp");
 
 const SOURCE_REL = "gaas/alfiq-gaas-logo.png";
 const OUTPUT_REL = "gaas/alfiq-gaas-logo.webp";
-const SOURCE_WIDTH = 1536;
-const SOURCE_HEIGHT = 512;
+const SOURCE_WIDTH = 900;
+const SOURCE_HEIGHT = 300;
 const OUTPUT_WIDTH = 460;
 const OUTPUT_HEIGHT = 153;
 const MAX_BYTES = 120000;
