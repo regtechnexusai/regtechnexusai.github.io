@@ -493,7 +493,7 @@ def test_public_security_headers_and_route_availability(page: Page):
     ]
     expected_headers = {
         "strict-transport-security": "max-age=31536000",
-        "x-frame-options": "SAMEORIGIN",
+        "x-frame-options": "sameorigin",
         "x-content-type-options": "nosniff",
         "referrer-policy": "strict-origin-when-cross-origin",
         "permissions-policy": "camera=(), microphone=(), geolocation=()",
