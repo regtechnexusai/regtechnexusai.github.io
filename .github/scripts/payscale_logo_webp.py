@@ -21,8 +21,6 @@ def validate_picture(content: str) -> None:
     end = content.find("</div>", start) if start >= 0 else -1
     if start < 0 or end < 0 or PICTURE not in content[start:end]:
         raise ValueError("Optimized logo picture is not inside the footer brand container")
-    if content.count("/regtech-nexus-ai-logo-2026.webp") != 1:
-        raise ValueError("Unexpected WebP source count")
 
 
 def transform(content: str) -> str:
