@@ -17,9 +17,9 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Checkout repository
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3 (Node.js 24)
       - name: Set up Python
-        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0 (Node.js 24)
         with:
           python-version: "3.12"
       - name: Run static regression checks
@@ -45,7 +45,7 @@ jobs:
           PY
           for script in /tmp/alfiq-inline-*.js; do node --check "$script"; done
       - name: Checkout pinned PayScale source for shell stylesheet tests
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3 (Node.js 24)
         with:
           repository: regtechnexusai/PayScale-2026-calculator
           ref: 292f03f9f6a88e022983d969d88c8ca9965d9923
@@ -65,7 +65,7 @@ jobs:
         run: node tests/alfiq-change-analysis.test.cjs
       - name: Upload regression report
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0 (Node.js 24)
         with:
           name: regulatory-source-and-regression-report
           path: quality-assurance/regression-report.md
