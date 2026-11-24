@@ -8,10 +8,10 @@ const sharp = require("sharp");
 
 const SOURCE_REL = "gaas/alfiq-gaas-logo.png";
 const OUTPUT_REL = "gaas/alfiq-gaas-logo.webp";
-const SOURCE_WIDTH = 2170;
-const SOURCE_HEIGHT = 725;
+const SOURCE_WIDTH = 1536;
+const SOURCE_HEIGHT = 512;
 const OUTPUT_WIDTH = 460;
-const OUTPUT_HEIGHT = 154;
+const OUTPUT_HEIGHT = 153;
 const MAX_BYTES = 120000;
 
 async function generateWebp(sourcePath, outputPath) {
@@ -44,7 +44,7 @@ async function selfTest() {
     if (Buffer.compare(fs.readFileSync(firstPath), fs.readFileSync(secondPath)) !== 0) {
       throw new Error("GaaS logo WebP generator is not deterministic");
     }
-    console.log("PASS: synthetic PNG -> 460x154 WebP, size gate and deterministic output (" + first.bytes + " bytes)");
+    console.log("PASS: synthetic PNG -> 460x153 WebP, size gate and deterministic output (" + first.bytes + " bytes)");
   } finally {
     fs.rmSync(tempDir, { recursive: true, force: true });
   }
