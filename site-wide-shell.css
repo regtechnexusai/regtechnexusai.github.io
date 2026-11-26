@@ -860,3 +860,78 @@ body:not(.homepage-redesign) .hero p{color:#f4fbff}
     transform:none!important;
   }
 }
+
+
+/* 2026-11-26 Global glossy multicolour action system.
+   Presentation-only: styles actionable links and controls; does not alter destinations or behavior. */
+:root{
+  --rt-gloss-blue-a:#0876d7;--rt-gloss-blue-b:#064a9b;--rt-gloss-blue-depth:#063b78;
+  --rt-gloss-teal-a:#13b8a6;--rt-gloss-teal-b:#087d83;--rt-gloss-teal-depth:#075c62;
+  --rt-gloss-violet-a:#8b5cf6;--rt-gloss-violet-b:#5634bd;--rt-gloss-violet-depth:#3f2790;
+  --rt-gloss-amber-a:#c27a00;--rt-gloss-amber-b:#855000;--rt-gloss-amber-depth:#633800;
+  --rt-gloss-coral-a:#ff806f;--rt-gloss-coral-b:#d94362;--rt-gloss-coral-depth:#9e2d4c;
+  --rt-gloss-green-a:#42c878;--rt-gloss-green-b:#16834e;--rt-gloss-green-depth:#0e6039;
+}
+:where(body) :is(
+  a.btn,a.button,a.button-link,a.nav-cta,a.cta-button,a[role="button"],
+  button,.btn,input[type="button"],input[type="submit"],input[type="reset"]
+){
+  --rt-btn-a:var(--rt-gloss-blue-a);--rt-btn-b:var(--rt-gloss-blue-b);--rt-btn-depth:var(--rt-gloss-blue-depth);
+  display:inline-flex;align-items:center;justify-content:center;gap:.5em;
+  min-height:44px;padding:12px 19px!important;box-sizing:border-box;
+  border:1px solid rgba(255,255,255,.88)!important;border-radius:13px!important;
+  color:#fff!important;text-decoration:none!important;font-weight:800!important;
+  background-color:var(--rt-btn-b)!important;
+  background-image:linear-gradient(180deg,rgba(255,255,255,.32) 0%,rgba(255,255,255,.08) 23%,transparent 48%),linear-gradient(120deg,var(--rt-btn-a),var(--rt-btn-b))!important;
+  box-shadow:0 5px 0 var(--rt-btn-depth),0 9px 18px rgba(12,45,80,.20),inset 0 1px 0 rgba(255,255,255,.72),inset 0 -2px 4px rgba(0,0,0,.12)!important;
+  text-shadow:0 1px 1px rgba(0,0,0,.18);
+  transform:translateY(0);
+  transition:transform .18s ease,box-shadow .18s ease,filter .18s ease!important;
+  cursor:pointer;
+}
+:where(body) :is(a.btn,a.button,a.button-link,a.nav-cta,a.cta-button,a[role="button"],button,.btn,input[type="button"],input[type="submit"],input[type="reset"]):hover{
+  filter:brightness(1.08) saturate(1.08);
+  transform:translateY(-2px);
+  box-shadow:0 7px 0 var(--rt-btn-depth),0 13px 23px rgba(12,45,80,.24),inset 0 1px 0 rgba(255,255,255,.82)!important;
+}
+:where(body) :is(a.btn,a.button,a.button-link,a.nav-cta,a.cta-button,a[role="button"],button,.btn,input[type="button"],input[type="submit"],input[type="reset"]):active{
+  transform:translateY(3px);
+  box-shadow:0 1px 0 var(--rt-btn-depth),0 3px 7px rgba(12,45,80,.16),inset 0 2px 5px rgba(0,0,0,.16)!important;
+}
+:where(body) :is(a.btn,a.button,a.button-link,a.nav-cta,a.cta-button,a[role="button"],button,.btn,input[type="button"],input[type="submit"],input[type="reset"]):focus-visible{
+  outline:3px solid #f3bd43!important;outline-offset:4px!important;
+}
+/* Distinct colour families for adjacent navigation and action links. */
+:where(body) :is(.hero-actions,.hero-buttons,.cta-actions,.button-group,.actions,.hub-nav nav,.rt-shell-nav,.nav nav,.nav-links) > :is(a,button):nth-child(6n+1){
+  --rt-btn-a:var(--rt-gloss-blue-a);--rt-btn-b:var(--rt-gloss-blue-b);--rt-btn-depth:var(--rt-gloss-blue-depth);
+}
+:where(body) :is(.hero-actions,.hero-buttons,.cta-actions,.button-group,.actions,.hub-nav nav,.rt-shell-nav,.nav nav,.nav-links) > :is(a,button):nth-child(6n+2){
+  --rt-btn-a:var(--rt-gloss-teal-a);--rt-btn-b:var(--rt-gloss-teal-b);--rt-btn-depth:var(--rt-gloss-teal-depth);
+}
+:where(body) :is(.hero-actions,.hero-buttons,.cta-actions,.button-group,.actions,.hub-nav nav,.rt-shell-nav,.nav nav,.nav-links) > :is(a,button):nth-child(6n+3){
+  --rt-btn-a:var(--rt-gloss-violet-a);--rt-btn-b:var(--rt-gloss-violet-b);--rt-btn-depth:var(--rt-gloss-violet-depth);
+}
+:where(body) :is(.hero-actions,.hero-buttons,.cta-actions,.button-group,.actions,.hub-nav nav,.rt-shell-nav,.nav nav,.nav-links) > :is(a,button):nth-child(6n+4){
+  --rt-btn-a:var(--rt-gloss-amber-a);--rt-btn-b:var(--rt-gloss-amber-b);--rt-btn-depth:var(--rt-gloss-amber-depth);
+}
+:where(body) :is(.hero-actions,.hero-buttons,.cta-actions,.button-group,.actions,.hub-nav nav,.rt-shell-nav,.nav nav,.nav-links) > :is(a,button):nth-child(6n+5){
+  --rt-btn-a:var(--rt-gloss-coral-a);--rt-btn-b:var(--rt-gloss-coral-b);--rt-btn-depth:var(--rt-gloss-coral-depth);
+}
+:where(body) :is(.hero-actions,.hero-buttons,.cta-actions,.button-group,.actions,.hub-nav nav,.rt-shell-nav,.nav nav,.nav-links) > :is(a,button):nth-child(6n){
+  --rt-btn-a:var(--rt-gloss-green-a);--rt-btn-b:var(--rt-gloss-green-b);--rt-btn-depth:var(--rt-gloss-green-depth);
+}
+/* Navigation buttons stay compact and readable on mobile and desktop. */
+:where(body) :is(.hub-nav nav,.rt-shell-nav,.nav nav,.nav-links) > a{
+  min-height:40px;padding:9px 13px!important;border-radius:10px!important;font-size:12px!important;
+}
+/* Contrast corrections observed in the Global AI Hub mobile screenshots. */
+:where(body) .disclosure{color:#334b61!important;background:#fff!important;opacity:1!important}
+:where(body) .cta h2,:where(body) .cta h3{color:#fff!important;text-shadow:0 1px 1px rgba(0,0,0,.16)}
+:where(body) .cta p{color:#f1f7ff!important}
+:where(body) .hub-nav nav a{color:#fff!important}
+@media(max-width:600px){
+  :where(body) :is(.hero-actions,.hero-buttons,.cta-actions) > :is(a,button){width:100%;min-height:48px}
+}
+@media(prefers-reduced-motion:reduce){
+  :where(body) :is(a.btn,a.button,a.button-link,a.nav-cta,a.cta-button,a[role="button"],button,.btn,input[type="button"],input[type="submit"],input[type="reset"]){transition:none!important}
+}
