@@ -1150,3 +1150,76 @@ body.homepage-redesign iframe{
     object-fit:contain!important;
   }
 }
+
+
+/* 2026-11-26 final shared-shell override: plain-text navigation and plain menu icon. */
+html body header :is(a,button,input[type="button"],input[type="submit"],input[type="reset"]),
+html body footer :is(a,button,input[type="button"],input[type="submit"],input[type="reset"]){
+  border:0!important;border-radius:0!important;
+  background:transparent!important;background-image:none!important;
+  box-shadow:none!important;text-shadow:none!important;
+  transform:none!important;filter:none!important;
+}
+html body header nav a,
+html body header a.nav-cta,
+html body footer a{
+  display:inline-block!important;width:auto!important;min-width:0!important;
+  min-height:0!important;height:auto!important;margin:0!important;padding:0!important;
+  color:inherit!important;font-weight:600!important;line-height:1.6!important;
+  text-decoration:none!important;
+}
+html body header nav a:hover,
+html body header nav a:focus-visible,
+html body header a.nav-cta:hover,
+html body footer a:hover,
+html body footer a:focus-visible{
+  background:transparent!important;box-shadow:none!important;transform:none!important;
+  text-decoration:underline!important;text-underline-offset:3px;
+}
+html body header :is(button.menu,button.rt-shell-menu,button[aria-controls]){
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  flex:0 0 44px!important;width:44px!important;min-width:44px!important;
+  height:44px!important;min-height:44px!important;margin-left:auto!important;padding:0!important;
+  border:0!important;border-radius:0!important;color:inherit!important;
+  background:transparent!important;background-image:none!important;box-shadow:none!important;
+  text-shadow:none!important;transform:none!important;filter:none!important;
+  font-size:28px!important;font-weight:500!important;line-height:1!important;cursor:pointer!important;
+}
+html body header :is(button.menu,button.rt-shell-menu,button[aria-controls]):hover,
+html body header :is(button.menu,button.rt-shell-menu,button[aria-controls]):active{
+  background:transparent!important;box-shadow:none!important;transform:none!important;filter:none!important;
+}
+
+
+/* Ensure component-specific dropdown styles cannot turn navigation rows back into cards. */
+html body header nav a{
+  padding:8px 0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+html body header nav a:hover,
+html body header nav a:focus-visible{
+  padding-left:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+html body.homepage-redesign header.nav.open nav a{
+  padding:8px 0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+html body.homepage-redesign header.nav.open nav a:hover,
+html body.homepage-redesign header.nav.open nav a:focus-visible{
+  border:0!important;border-radius:0!important;
+  background:transparent!important;background-image:none!important;box-shadow:none!important;
+  text-decoration:underline!important;text-underline-offset:3px;
+}
