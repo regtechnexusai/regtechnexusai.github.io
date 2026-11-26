@@ -1150,3 +1150,60 @@ body.homepage-redesign iframe{
     object-fit:contain!important;
   }
 }
+
+
+/* 2026-11-26 correction: footer navigation remains plain text links.
+   Keep the shared glossy treatment limited to actual actions and header navigation. */
+:where(body) footer a,
+:where(body) footer a:link,
+:where(body) footer a:visited,
+:where(body) .rt-shell-footer a,
+:where(body) footer .footer-inner a,
+:where(body) footer nav a,
+:where(body) footer .legal a {
+  display:inline!important;
+  min-height:0!important;
+  height:auto!important;
+  max-width:100%!important;
+  padding:0!important;
+  margin:0 12px 8px 0!important;
+  border:0!important;
+  border-radius:0!important;
+  color:#e0edf8!important;
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  font:inherit!important;
+  font-weight:600!important;
+  line-height:1.7!important;
+  text-decoration:none!important;
+  transform:none!important;
+  filter:none!important;
+  vertical-align:baseline!important;
+}
+:where(body) footer a:hover,
+:where(body) .rt-shell-footer a:hover,
+:where(body) footer .footer-inner a:hover,
+:where(body) footer nav a:hover,
+:where(body) footer .legal a:hover {
+  color:#70d5df!important;
+  text-decoration:underline!important;
+  text-underline-offset:3px!important;
+  box-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+}
+:where(body) footer a:focus-visible {
+  outline:2px solid #70d5df!important;
+  outline-offset:3px!important;
+}
+:where(body) footer a:has(img),
+:where(body) .rt-shell-footer a:has(img) {
+  display:inline-block!important;
+  margin:0 0 10px!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
