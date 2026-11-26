@@ -1,0 +1,97 @@
+/* RegTech Nexus AI — optional analytics consent controls */
+.rtn-consent-panel,
+.rtn-consent-settings {
+  font-family: inherit;
+  box-sizing: border-box;
+}
+.rtn-consent-panel {
+  position: fixed;
+  z-index: 10000;
+  inset: auto 16px 16px 16px;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  color: #172b46;
+  background: #fff;
+  border: 1px solid #cbd7e4;
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(12, 35, 63, .2);
+}
+.rtn-consent-panel[hidden],
+.rtn-consent-settings[hidden] {
+  display: none !important;
+}
+.rtn-consent-copy {
+  min-width: 0;
+}
+.rtn-consent-copy strong {
+  display: block;
+  margin: 0 0 5px;
+  color: #102b49;
+  font-size: 15px;
+}
+.rtn-consent-copy p {
+  margin: 0;
+  color: #46566b;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.rtn-consent-actions {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+.rtn-consent-actions button,
+.rtn-consent-settings {
+  min-height: 40px;
+  padding: 9px 13px;
+  border: 1px solid #9eafc1;
+  border-radius: 8px;
+  color: #173452;
+  background: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+}
+.rtn-consent-actions .rtn-consent-accept {
+  color: #fff;
+  background: #123f69;
+  border-color: #123f69;
+}
+.rtn-consent-actions button:focus-visible,
+.rtn-consent-settings:focus-visible {
+  outline: 3px solid #0a96a3;
+  outline-offset: 3px;
+}
+.rtn-consent-settings {
+  position: fixed;
+  z-index: 9998;
+  right: 14px;
+  bottom: 14px;
+  box-shadow: 0 4px 18px rgba(12, 35, 63, .16);
+}
+@media (max-width: 680px) {
+  .rtn-consent-panel {
+    inset: auto 10px 10px 10px;
+    display: block;
+    padding: 15px;
+  }
+  .rtn-consent-actions {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .rtn-consent-actions button {
+    width: 100%;
+  }
+  .rtn-consent-settings {
+    right: 10px;
+    bottom: 10px;
+  }
+}
