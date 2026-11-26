@@ -116,12 +116,10 @@
 
     var settings = makeButton("Privacy choices", "rtn-consent-settings", function () {
       panel.hidden = !panel.hidden;
+      settings.setAttribute("aria-expanded", String(!panel.hidden));
       if (!panel.hidden) accept.focus();
     });
     settings.setAttribute("aria-expanded", "false");
-    settings.addEventListener("click", function () {
-      settings.setAttribute("aria-expanded", String(!panel.hidden));
-    });
 
     document.body.append(panel, settings);
     if (!choice) panel.hidden = false;
