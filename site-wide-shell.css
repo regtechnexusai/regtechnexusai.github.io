@@ -860,3 +860,50 @@ body:not(.homepage-redesign) .hero p{color:#f4fbff}
     transform:none!important;
   }
 }
+
+
+/* 2026-11-26: shared glossy, raised CTA button system — all non-homepage sections. */
+:root{--rt-button-blue:#075cae;--rt-button-teal:#078b91;--rt-button-violet:#6650b5;--rt-button-gold:#d88a25;--rt-button-edge:#064b78}
+body:not(.homepage-redesign) :is(a.btn,a.button,a[role="button"],a.calculator-cta,a.product-button,a.playbook-primary-link,a.platform-pathway__button,a[class*="cta"]:not(.nav-cta),.hero-actions a,.actions a,.toolkit-actions a,.readiness-hero-actions a){
+  position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:46px;padding:13px 19px;border:1px solid rgba(255,255,255,.82)!important;border-radius:12px!important;
+  background:linear-gradient(135deg,#075cae 0%,#087fbd 55%,#08a6b4 100%)!important;
+  color:#fff!important;text-decoration:none!important;font-weight:800;text-align:center;
+  text-shadow:0 1px 1px rgba(8,30,55,.22);
+  box-shadow:0 5px 0 #064b78,0 10px 20px rgba(8,55,95,.2),inset 0 2px 0 rgba(255,255,255,.62)!important;
+  transition:transform .18s ease,box-shadow .18s ease,filter .18s ease!important;
+}
+body:not(.homepage-redesign) :is(a.btn-secondary,a.button-secondary,a.btn.ghost,a.button.ghost,.btn-secondary,.button-secondary){
+  background:linear-gradient(135deg,#7564c8 0%,#5c50b0 55%,#3e73b8 100%)!important;
+  color:#fff!important;box-shadow:0 5px 0 #39377f,0 10px 20px rgba(56,49,119,.2),inset 0 2px 0 rgba(255,255,255,.62)!important;
+}
+body:not(.homepage-redesign) :is(a.btn-gold,a.button-gold,a.btn-warning,.btn-gold,.button-gold){
+  background:linear-gradient(135deg,#f6c85d 0%,#e99a31 55%,#d66b36 100%)!important;color:#38240b!important;text-shadow:0 1px 0 rgba(255,255,255,.4);
+  box-shadow:0 5px 0 #9a4d22,0 10px 20px rgba(93,54,18,.2),inset 0 2px 0 rgba(255,255,255,.72)!important;
+}
+body:not(.homepage-redesign) :is(a.btn-success,a.btn-teal,a.calculator-cta,a.platform-pathway__button,.btn-success,.btn-teal){
+  background:linear-gradient(135deg,#087f78 0%,#10a58e 55%,#47c6a4 100%)!important;
+  box-shadow:0 5px 0 #075b57,0 10px 20px rgba(8,78,72,.2),inset 0 2px 0 rgba(255,255,255,.62)!important;
+}
+body:not(.homepage-redesign) :is(a.btn-danger,a.button-danger,.btn-danger){
+  background:linear-gradient(135deg,#c43c67 0%,#e35b65 55%,#ed8b63 100%)!important;
+  box-shadow:0 5px 0 #8c294c,0 10px 20px rgba(140,41,76,.2),inset 0 2px 0 rgba(255,255,255,.62)!important;
+}
+body:not(.homepage-redesign) :is(a.btn,a.button,a[role="button"],a.calculator-cta,a.product-button,a.playbook-primary-link,a.platform-pathway__button,a[class*="cta"]:not(.nav-cta),.hero-actions a,.actions a,.toolkit-actions a,.readiness-hero-actions a):hover{
+  transform:translateY(-3px);filter:saturate(1.12) brightness(1.04);
+  box-shadow:0 8px 0 #064b78,0 15px 25px rgba(8,55,95,.25),inset 0 2px 0 rgba(255,255,255,.74)!important;
+}
+body:not(.homepage-redesign) :is(a.btn-secondary,a.button-secondary,a.btn.ghost,a.button.ghost):hover{
+  box-shadow:0 8px 0 #39377f,0 15px 25px rgba(56,49,119,.24),inset 0 2px 0 rgba(255,255,255,.76)!important;
+}
+body:not(.homepage-redesign) :is(a.btn-gold,a.button-gold,a.btn-warning):hover{
+  box-shadow:0 8px 0 #9a4d22,0 15px 25px rgba(93,54,18,.24),inset 0 2px 0 rgba(255,255,255,.82)!important;
+}
+body:not(.homepage-redesign) :is(a.btn,a.button,a[role="button"],a.calculator-cta,a.product-button,a.playbook-primary-link,a.platform-pathway__button,a[class*="cta"]:not(.nav-cta),.hero-actions a,.actions a,.toolkit-actions a,.readiness-hero-actions a):active{
+  transform:translateY(3px);box-shadow:0 1px 0 #064b78,0 4px 9px rgba(8,55,95,.17),inset 0 2px 4px rgba(4,51,82,.14)!important;
+}
+body:not(.homepage-redesign) :is(a.btn,a.button,a[role="button"],a.calculator-cta,a.product-button,a.playbook-primary-link,a.platform-pathway__button,a[class*="cta"]:not(.nav-cta),.hero-actions a,.actions a,.toolkit-actions a,.readiness-hero-actions a):focus-visible{
+  outline:3px solid #f0b94b!important;outline-offset:4px;
+}
+@media(max-width:620px){body:not(.homepage-redesign) :is(.hero-actions a,.actions a,.toolkit-actions a,.readiness-hero-actions a){max-width:100%;}}
+@media(prefers-reduced-motion:reduce){body:not(.homepage-redesign) :is(a.btn,a.button,a[role="button"],a.calculator-cta,a.product-button,a.playbook-primary-link,a.platform-pathway__button,a[class*="cta"]:not(.nav-cta),.hero-actions a,.actions a,.toolkit-actions a,.readiness-hero-actions a){transition:none!important}}
