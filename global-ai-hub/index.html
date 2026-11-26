@@ -57,6 +57,10 @@ footer{background:#102d4b;color:#eaf1f7;padding:38px clamp(22px,6vw,80px) 24px;b
 @media(max-width:600px){.grid,.grid.two,.product-grid{grid-template-columns:1fr}.hub-hero{padding-top:52px}.hub-nav .brand-logo{width:175px}.section{padding-top:54px;padding-bottom:54px}.hero-actions .btn{width:100%}.workflow{justify-content:flex-start}.workflow span{font-size:10px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 
+/* Central AI resource directory: simple text links, preserving specialist pages and behaviour. */
+.ai-resource-card>a{display:inline-block;margin-top:10px;font-size:13px;font-weight:800;text-decoration:underline;text-underline-offset:3px}
+.ai-resource-card>a:focus-visible{outline:3px solid #f0b83f;outline-offset:3px;border-radius:3px}
+
 /* Contrast and glossy CTA safeguards for this page; global action skin is loaded from shared CSS. */
 .hub-hero .disclosure{color:#334b61!important;background:#fff!important;opacity:1!important}
 .cta h2,.cta h3{color:#fff!important;text-shadow:0 1px 1px rgba(0,0,0,.16)}
@@ -369,7 +373,7 @@ footer .footer-inner .hub-footer-nav a:focus-visible{
   <a href="/" aria-label="RegTech Nexus AI home"><img class="brand-logo" src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI"></a>
   <button class="hub-menu" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="hub-navigation">☰</button>
   <nav id="hub-navigation" aria-label="Hub navigation">
-    <a href="/">Home</a><a href="#audiences">Who Benefits</a><a href="#governance">AI Governance</a><a href="#uae-edition">Market Focus</a><a href="#assessment">Assessment Service</a><a href="#solutions">Solutions</a><a href="#sources">Official Sources</a><a href="/contact.html">Contact</a>
+    <a href="/">Home</a><a href="#audiences">Who Benefits</a><a href="#resources">AI Resources</a><a href="#governance">AI Governance</a><a href="#uae-edition">Market Focus</a><a href="#assessment">Assessment Service</a><a href="#solutions">Solutions</a><a href="#sources">Official Sources</a><a href="/contact.html">Contact</a>
   </nav>
 </header>
 <main id="main-content">
@@ -385,6 +389,49 @@ footer .footer-inner .hub-footer-nav a:focus-visible{
   </div>
 </section>
 <div class="market-strip"><strong>UAE MARKET FOCUS · INTERNATIONAL APPLICABILITY</strong><span>Initial market focus: United Arab Emirates. The assessment framework is designed for adaptation to other jurisdictions, subject to local source verification and scope agreement.</span></div>
+
+<section class="section white" id="resources" aria-labelledby="ai-resources-heading">
+  <div class="hub-wrap">
+    <div class="section-heading">
+      <div class="eyebrow">AI GOVERNANCE · SPECIALIST RESOURCES</div>
+      <h2 id="ai-resources-heading">One starting point. Five specialist resources.</h2>
+      <p>Use this Hub as the central directory for RegTech Nexus AI's existing AI governance and banking resources. Each specialist page retains its own subject, content and URL; this directory helps you find the right resource without duplicating it here.</p>
+    </div>
+    <div class="grid">
+      <article class="card ai-resource-card">
+        <div class="number">01 · AUTONOMOUS SYSTEMS</div>
+        <h3>Agentic AI Governance</h3>
+        <p>Governance before autonomy: agent mandates, least-privilege permissions, evidence, human checkpoints, monitoring and stop controls.</p>
+        <a href="/agentic-ai-governance.html">Explore Agentic AI Governance →</a>
+      </article>
+      <article class="card ai-resource-card">
+        <div class="number">02 · INSTITUTIONAL READINESS</div>
+        <h3>AI-Ready Banking</h3>
+        <p>A banking-focused view of organisational readiness, governance foundations and the questions to ask before scaling AI.</p>
+        <a href="/ai-ready-banking.html">Explore AI-Ready Banking →</a>
+      </article>
+      <article class="card ai-resource-card">
+        <div class="number">03 · EXPLAINABILITY &amp; ASSURANCE</div>
+        <h3>Explainable AI</h3>
+        <p>Understand model outputs, decision drivers, human challenge, reproducible evidence and explainability assurance.</p>
+        <a href="/explainable-ai.html">Explore Explainable AI →</a>
+      </article>
+      <article class="card ai-resource-card">
+        <div class="number">04 · PRACTICAL BANKING APPLICATION</div>
+        <h3>AI Banking Playbook</h3>
+        <p>Practical learning and banking use-case guidance, including prompt engineering and AI-supported banking operations.</p>
+        <a href="/ai-banking-playbook.html">Explore the AI Banking Playbook →</a>
+      </article>
+      <article class="card ai-resource-card">
+        <div class="number">05 · CENTRAL GOVERNANCE FRAMEWORK</div>
+        <h3>Global AI Governance Hub</h3>
+        <p>The central entry point for governance themes, readiness assessment information and jurisdiction-focused AI intelligence.</p>
+        <a href="#governance">Explore the governance framework on this page →</a>
+      </article>
+    </div>
+    <p style="margin:20px 0 0;color:#536579;font-size:13px">For wider cross-jurisdictional regulatory and financial-crime readiness research, use the separate <a href="/global-financial-systems.html">International Readiness resource</a>.</p>
+  </div>
+</section>
 
 
 <section class="section white audience-section" id="audiences">
