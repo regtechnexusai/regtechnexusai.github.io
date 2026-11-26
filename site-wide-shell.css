@@ -1189,3 +1189,37 @@ html body header :is(button.menu,button.rt-shell-menu,button[aria-controls]):hov
 html body header :is(button.menu,button.rt-shell-menu,button[aria-controls]):active{
   background:transparent!important;box-shadow:none!important;transform:none!important;filter:none!important;
 }
+
+
+/* Ensure component-specific dropdown styles cannot turn navigation rows back into cards. */
+html body header nav a{
+  padding:8px 0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+html body header nav a:hover,
+html body header nav a:focus-visible{
+  padding-left:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+html body.homepage-redesign header.nav.open nav a{
+  padding:8px 0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+html body.homepage-redesign header.nav.open nav a:hover,
+html body.homepage-redesign header.nav.open nav a:focus-visible{
+  border:0!important;border-radius:0!important;
+  background:transparent!important;background-image:none!important;box-shadow:none!important;
+  text-decoration:underline!important;text-underline-offset:3px;
+}
