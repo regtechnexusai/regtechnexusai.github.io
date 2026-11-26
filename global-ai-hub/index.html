@@ -76,6 +76,54 @@ footer{background:#102d4b;color:#eaf1f7;padding:38px clamp(22px,6vw,80px) 24px;b
 }
 @media(max-width:600px){.hub-footer-logo{width:175px}.hub-footer-logo-link{margin-bottom:2px}}
 
+
+
+/* Portfolio cards: distinct, restrained colour identities for faster scanning. */
+.product-grid>.product-card{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  min-height:100%;
+  overflow:hidden;
+  border-width:1px;
+  border-radius:18px;
+  box-shadow:0 10px 26px rgba(16,36,61,.075),inset 0 1px 0 rgba(255,255,255,.9);
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.product-grid>.product-card:nth-child(1){background:linear-gradient(145deg,#f0f7ff 0%,#fff 78%);border-color:#bfd8f3;border-left:5px solid #2678c8}
+.product-grid>.product-card:nth-child(2){background:linear-gradient(145deg,#effbf8 0%,#fff 78%);border-color:#b9e5d9;border-left:5px solid #159b83}
+.product-grid>.product-card:nth-child(3){background:linear-gradient(145deg,#f3f0ff 0%,#fff 78%);border-color:#d5cafa;border-left:5px solid #7860cf}
+.product-grid>.product-card:nth-child(4){background:linear-gradient(145deg,#fff5ec 0%,#fff 78%);border-color:#f1d1b5;border-left:5px solid #dc8736}
+.product-grid>.product-card:nth-child(5){background:linear-gradient(145deg,#fff0f4 0%,#fff 78%);border-color:#efc7d4;border-left:5px solid #ce6488}
+.product-grid>.product-card:nth-child(6){background:linear-gradient(145deg,#f0f8ee 0%,#fff 78%);border-color:#cce3c4;border-left:5px solid #6b9c4b}
+.product-grid>.product-card:hover{transform:translateY(-3px);box-shadow:0 15px 32px rgba(16,36,61,.12),inset 0 1px 0 rgba(255,255,255,.95)}
+.product-grid>.product-card .role{margin-bottom:16px}
+.product-link-btn{
+  --btn-a:#1677d2;--btn-b:#0756a4;--btn-shadow:#063f78;
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  margin-top:auto;min-height:46px;max-width:100%;box-sizing:border-box;
+  padding:11px 17px;border:1px solid rgba(255,255,255,.92);
+  border-radius:12px;color:#fff!important;text-decoration:none!important;
+  font-size:12px;font-weight:850;letter-spacing:.01em;line-height:1.25;
+  text-align:center;text-shadow:0 1px 1px rgba(0,0,0,.2);
+  background-color:var(--btn-b);
+  background-image:linear-gradient(180deg,rgba(255,255,255,.36),rgba(255,255,255,.08) 46%,transparent),linear-gradient(120deg,var(--btn-a),var(--btn-b));
+  box-shadow:0 4px 0 var(--btn-shadow),0 7px 14px rgba(14,49,82,.18),inset 0 1px 0 rgba(255,255,255,.72);
+  transition:transform .18s ease,filter .18s ease,box-shadow .18s ease;
+}
+.product-grid>.product-card:nth-child(1) .product-link-btn{--btn-a:#328fe6;--btn-b:#0756a4;--btn-shadow:#063d75}
+.product-grid>.product-card:nth-child(2) .product-link-btn{--btn-a:#24bba8;--btn-b:#087b83;--btn-shadow:#075c65}
+.product-grid>.product-card:nth-child(3) .product-link-btn{--btn-a:#9b7af0;--btn-b:#5b42b6;--btn-shadow:#3f2d86}
+.product-grid>.product-card:nth-child(4) .product-link-btn{--btn-a:#f0ad52;--btn-b:#b95c16;--btn-shadow:#85400e}
+.product-grid>.product-card:nth-child(5) .product-link-btn{--btn-a:#ec82a4;--btn-b:#ad3f70;--btn-shadow:#7d2d51}
+.product-grid>.product-card:nth-child(6) .product-link-btn{--btn-a:#9bcf70;--btn-b:#477d38;--btn-shadow:#315828}
+.product-link-btn:hover{filter:brightness(1.08) saturate(1.08);transform:translateY(-2px);box-shadow:0 6px 0 var(--btn-shadow),0 11px 18px rgba(14,49,82,.22),inset 0 1px 0 rgba(255,255,255,.86)}
+.product-link-btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--btn-shadow),0 3px 7px rgba(14,49,82,.16)}
+.product-link-btn:focus-visible{outline:3px solid #f0b83f;outline-offset:3px}
+@media(max-width:600px){.product-grid>.product-card{padding:21px}.product-link-btn{width:100%;min-height:48px}}
+@media(prefers-reduced-motion:reduce){.product-grid>.product-card,.product-link-btn{transition:none!important}}
+
 </style>
 </head>
 <body>
@@ -152,12 +200,12 @@ footer{background:#102d4b;color:#eaf1f7;padding:38px clamp(22px,6vw,80px) 24px;b
   <div class="hub-wrap">
     <div class="section-heading"><div class="eyebrow">03 · REGTECH NEXUS AI PORTFOLIO</div><h2>Connected intelligence. Distinct product boundaries.</h2><p>The products below form the proposed solution architecture for this Hub. Capabilities described as planned or proposed are development priorities, not claims that a production service is already live.</p></div>
     <div class="product-grid">
-      <article class="product-card"><span class="pill">FLAGSHIP · DEVELOPMENT PRIORITY</span><h3>AlfiQ — Regulatory Change Impact Agent</h3><p>Proposed workflow: identify a regulatory change, extract source-grounded obligations, map potentially affected policies and controls, prepare an evidence-backed impact report and route it for human review.</p><div class="role">Role: regulatory change intelligence and impact analysis</div></article>
-      <article class="product-card"><span class="pill">SUPPORTING TOOLKIT</span><h3>AI Governance &amp; Responsible AI</h3><p>Governance assessment themes covering AI inventory, risk classification, accountability, human oversight, explainability, monitoring and lifecycle controls.</p><div class="role">Role: AI governance and assurance framework</div></article>
-      <article class="product-card"><span class="pill">EXISTING PRODUCT · SCOPE DISCLOSED</span><h3>ICMS Toolkit</h3><p>Internal control and compliance assessment resources. Potential extension: map AI-related obligations to control objectives, evidence, testing and remediation.</p><div class="role">Role: control assessment and assurance support</div></article>
-      <article class="product-card"><span class="pill">EXISTING PRODUCT · SCOPE DISCLOSED</span><h3>TradeGuard</h3><p>AML/CFT and trade-based money laundering risk-support resources. Potential UAE edition: jurisdiction-specific risk scenarios and trade-finance control mapping, subject to source validation.</p><div class="role">Role: financial-crime and trade-finance risk support</div></article>
-      <article class="product-card"><span class="pill">SUPPORTING CAPABILITY</span><h3>Policy Gap Analyzer</h3><p>Proposed UAE obligation-to-policy comparison, with source traceability, applicability notes, gap rationale and reviewer sign-off.</p><div class="role">Role: policy and obligation gap analysis</div></article>
-      <article class="product-card"><span class="pill">PROPOSED ASSESSMENT</span><h3>Third-Party AI Due Diligence</h3><p>Structured assessment of AI providers, cloud services, data use, security, model updates, audit rights, resilience, concentration and exit arrangements.</p><div class="role">Role: vendor and outsourcing risk assessment</div></article>
+      <article class="product-card"><span class="pill">FLAGSHIP · DEVELOPMENT PRIORITY</span><h3>AlfiQ — Regulatory Change Impact Agent</h3><p>Proposed workflow: identify a regulatory change, extract source-grounded obligations, map potentially affected policies and controls, prepare an evidence-backed impact report and route it for human review.</p><div class="role">Role: regulatory change intelligence and impact analysis</div><a class="product-link-btn" href="/alfiq/">Explore AlfiQ <span aria-hidden="true">↗</span></a></article>
+      <article class="product-card"><span class="pill">SUPPORTING TOOLKIT</span><h3>AI Governance &amp; Responsible AI</h3><p>Governance assessment themes covering AI inventory, risk classification, accountability, human oversight, explainability, monitoring and lifecycle controls.</p><div class="role">Role: AI governance and assurance framework</div><a class="product-link-btn" href="/agentic-ai-governance.html">Explore AI Governance <span aria-hidden="true">↗</span></a></article>
+      <article class="product-card"><span class="pill">EXISTING PRODUCT · SCOPE DISCLOSED</span><h3>ICMS Toolkit</h3><p>Internal control and compliance assessment resources. Potential extension: map AI-related obligations to control objectives, evidence, testing and remediation.</p><div class="role">Role: control assessment and assurance support</div><a class="product-link-btn" href="/icms-2026/">Open ICMS Toolkit <span aria-hidden="true">↗</span></a></article>
+      <article class="product-card"><span class="pill">EXISTING PRODUCT · SCOPE DISCLOSED</span><h3>TradeGuard</h3><p>AML/CFT and trade-based money laundering risk-support resources. Potential UAE edition: jurisdiction-specific risk scenarios and trade-finance control mapping, subject to source validation.</p><div class="role">Role: financial-crime and trade-finance risk support</div><a class="product-link-btn" href="/tradeguard/">Explore TradeGuard <span aria-hidden="true">↗</span></a></article>
+      <article class="product-card"><span class="pill">SUPPORTING CAPABILITY</span><h3>Policy Gap Analyzer</h3><p>Proposed UAE obligation-to-policy comparison, with source traceability, applicability notes, gap rationale and reviewer sign-off.</p><div class="role">Role: policy and obligation gap analysis</div><a class="product-link-btn" href="/regulatory-gap-analyzer/">Open Policy Gap Analyzer <span aria-hidden="true">↗</span></a></article>
+      <article class="product-card"><span class="pill">PROPOSED ASSESSMENT</span><h3>Third-Party AI Due Diligence</h3><p>Structured assessment of AI providers, cloud services, data use, security, model updates, audit rights, resilience, concentration and exit arrangements.</p><div class="role">Role: vendor and outsourcing risk assessment</div><a class="product-link-btn" href="/contact.html">Discuss this assessment <span aria-hidden="true">↗</span></a></article>
     </div>
   </div>
 </section>
