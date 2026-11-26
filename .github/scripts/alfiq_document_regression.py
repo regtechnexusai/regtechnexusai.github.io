@@ -59,7 +59,8 @@ def test_local_pdf_docx_intake_and_synchronized_panes(page: Page, tmp_path: Path
     errors = []
     external_requests = []
     page.on("pageerror", lambda error: errors.append(str(error)))
-    # Check only the AlfiQ parent frame: RegIntel is an intentional isolated iframe with its own assets.\n    page.on("request", lambda req: external_requests.append(req.url) if req.frame == page.main_frame and not req.url.startswith("http://127.0.0.1:8765/") and urlparse(req.url).hostname not in {"www.googletagmanager.com", "www.google-analytics.com"} else None)
+    # Check only the AlfiQ parent frame: RegIntel is an intentional isolated iframe with its own assets.
+    page.on("request", lambda req: external_requests.append(req.url) if req.frame == page.main_frame and not req.url.startswith("http://127.0.0.1:8765/") and urlparse(req.url).hostname not in {"www.googletagmanager.com", "www.google-analytics.com"} else None)
     response = page.goto("http://127.0.0.1:8765/alfiq/", wait_until="domcontentloaded")
     assert response and response.status == 200
     expect(page.locator("#earlierFile")).to_be_visible()
