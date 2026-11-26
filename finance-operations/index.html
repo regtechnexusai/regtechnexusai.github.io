@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Finance Operations Toolkit — a standalone, sample-only workspace for receivables, billing and collections workflow demonstration.">
+<link rel="canonical" href="https://regtechnexusai.com/finance-operations/">
+<meta name="robots" content="index,follow">
+<title>Finance Operations Toolkit</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar"><a class="brand" href="https://regtechnexusai.com/" aria-label="Return to RegTech Nexus AI"><span class="brandmark">FO</span><div><strong>Finance Operations Toolkit</strong><small>Accounts receivable · billing · collections</small></div></a><span class="pill">MVP • Demo mode</span></header>
+<main class="shell">
+<section class="hero"><div class="eyebrow">FINANCE WORKSPACE</div><h1>Know what’s due.<br><span>Act on what matters.</span></h1><p>Track invoice balances, ageing, collection priorities and follow-up actions in one simple workspace.</p><div class="actions"><button class="primary" id="addInvoiceBtn">＋ Add invoice</button><button class="secondary" id="exportBtn">Export CSV</button><button class="quiet" id="resetBtn">Reset sample data</button></div><div class="mode-note"><span class="dot"></span> Free Demo is sample-only and resets when this page reloads. Do not enter real or confidential data.</div></section>
+<section class="stats" id="stats"></section>
+<section class="panel"><div class="panel-head"><div><h2>Receivables</h2><p>Sample invoice ledger · session-only data</p></div><div class="filters"><input id="searchInput" type="search" placeholder="Search customer or invoice" aria-label="Search invoices"><select id="statusFilter" aria-label="Filter by status"><option value="all">All invoices</option><option value="overdue">Overdue</option><option value="due">Due soon</option><option value="paid">Paid</option></select></div></div><div class="table-wrap"><table><thead><tr><th>Invoice</th><th>Customer</th><th>Due date</th><th>Age</th><th>Amount</th><th>Outstanding</th><th>Status</th><th>Follow-up</th><th></th></tr></thead><tbody id="invoiceRows"></tbody></table><div id="emptyState" class="empty" hidden>No invoices match your search.</div></div></section>
+<section class="workspace-card"><div><div class="eyebrow">NEXT PHASE</div><h2>Authenticated workspace</h2><p>Secure server-side persistence, Google sign-in, CSV import, and account-separated invoice records will be enabled after infrastructure and security validation.</p></div><span class="pill neutral">Not activated</span></section>
+<footer><span>Finance Operations Toolkit · Prototype</span><span>Use fictional data only · <a href="https://regtechnexusai.com/" style="color:inherit">RegTech Nexus AI</a></span></footer>
+</main>
+<dialog id="invoiceDialog"><form id="invoiceForm" method="dialog"><div class="dialog-head"><h2>Add demo invoice</h2><button type="button" class="iconbtn" id="closeDialog" aria-label="Close">×</button></div><label>Invoice number<input name="number" required maxlength="30" placeholder="INV-1008"></label><label>Customer name<input name="customer" required maxlength="80" placeholder="Sample customer"></label><div class="formgrid"><label>Issue date<input name="issue" type="date" required></label><label>Due date<input name="due" type="date" required></label></div><label>Invoice amount (USD)<input name="amount" type="number" min="0.01" step="0.01" required></label><label>Paid amount (USD)<input name="paid" type="number" min="0" step="0.01" value="0"></label><label>Follow-up<select name="follow"><option>Not contacted</option><option>Email sent</option><option>Call scheduled</option><option>Promise to pay</option><option>Disputed</option></select></label><div class="dialog-actions"><button type="button" class="secondary" id="cancelDialog">Cancel</button><button type="submit" class="primary">Save invoice</button></div></form></dialog>
+<script src="app.js"></script>
+</body></html>
