@@ -7,14 +7,14 @@
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#f5f8f4">
 <title>Finance Operations Toolkit | RegTech Nexus AI</title>
-<link rel="stylesheet" href="styles.css?v=20261126-5">
+<link rel="stylesheet" href="styles.css?v=20261126-6">
 <style id="finance-ops-light-theme-guard">
 /* Critical brand colours: keep the approved light Eucalyptus theme even if an older CSS file is cached. */
 .topbar{background:#fbfefc!important;border-bottom:2px solid #c9dfd2!important}
 .hero{background:linear-gradient(118deg,#f0f6f0 0%,#e8f1e9 55%,#edf5f0 100%)!important;border-color:#d8e7dc!important}
 .hero .eyebrow{color:#547d65!important}
-.hero h1,.hero h1 span{color:#385746!important}
-.hero h1 span{color:#668f7a!important}
+.hero h1,.hero h1 *{color:#385746!important;-webkit-text-fill-color:#385746!important;background:none!important;-webkit-background-clip:border-box!important;text-shadow:none!important}
+.hero h1 span{color:#668f7a!important;-webkit-text-fill-color:#668f7a!important}
 .hero p{color:#536b5c!important}
 .mode-note{color:#536b5c!important}
 .primary{background:linear-gradient(180deg,#d9eadf 0%,#b8d3c2 100%)!important;border-color:#a6c4b1!important;color:#294a39!important}
@@ -62,10 +62,10 @@
  .topbar .pill{font-size:8px!important;padding:5px 6px!important}
 }
 
-/* Footer logo contrast: give the supplied dark wordmark a clean light backing. */
-.site-footer .footer-brand{display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:0 0 auto!important;min-width:176px!important;min-height:76px!important;padding:12px 15px!important;background:#fff!important;border:1px solid #e2ebe4!important;border-radius:12px!important;box-shadow:0 4px 12px rgba(22,48,40,.12),inset 0 1px 0 #fff!important}
-.site-footer .footer-brand img{display:block!important;width:145px!important;max-width:100%!important;height:auto!important;max-height:54px!important;object-fit:contain!important;opacity:1!important;filter:none!important}
-@media(max-width:760px){.site-footer .footer-brand{min-width:160px!important;min-height:70px!important;padding:10px 13px!important}.site-footer .footer-brand img{width:132px!important;max-height:48px!important}}
+/* Compact footer logo backing: keep the white area close to the mark. */
+.site-footer .footer-brand{display:flex!important;align-items:center!important;justify-content:center!important;flex:0 0 190px!important;width:190px!important;min-width:0!important;max-width:190px!important;height:78px!important;min-height:0!important;padding:7px 9px!important;margin:0!important;overflow:hidden!important;background:#fff!important;border:1px solid #e2ebe4!important;border-radius:10px!important;box-shadow:0 2px 7px rgba(22,48,40,.09),inset 0 1px 0 #fff!important}
+.site-footer .footer-brand img{display:block!important;width:100%!important;max-width:155px!important;height:auto!important;max-height:60px!important;object-fit:contain!important;object-position:center!important;margin:0!important;padding:0!important;opacity:1!important;filter:none!important}
+@media(max-width:760px){.site-footer .footer-brand{flex:0 0 166px!important;width:166px!important;max-width:166px!important;height:68px!important;padding:6px 8px!important}.site-footer .footer-brand img{max-width:138px!important;max-height:52px!important}}
 </style>
 </head>
 <body>
