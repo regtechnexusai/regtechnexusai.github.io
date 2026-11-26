@@ -3683,3 +3683,101 @@ body.gaas-page footer.gaas-footer .gaas-footer-brand>a{
   background:transparent!important;
   box-shadow:none!important;
 }
+
+
+/* 2026-11-26 SITE-WIDE HEADER/FOOTER NAVIGATION STANDARD
+   Navigation is text-led. Remove the global glossy action skin from all
+   header/footer links and controls, while retaining a usable plain hamburger.
+   In-page action buttons and all application controls remain unchanged. */
+html body header :is(a,button,input[type="button"],input[type="submit"],input[type="reset"]),
+html body footer :is(a,button,input[type="button"],input[type="submit"],input[type="reset"]){
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+  text-decoration:none;
+}
+html body header nav a,
+html body header a.nav-cta,
+html body header a.site-3d-btn,
+html body header a.btn,
+html body header a.button,
+html body header a.button-link,
+html body header a.cta-button,
+html body header a[role="button"],
+html body footer a,
+html body footer a.site-3d-btn,
+html body footer a.btn,
+html body footer a.button,
+html body footer a.button-link,
+html body footer a.cta-button,
+html body footer a[role="button"]{
+  display:inline-block!important;
+  width:auto!important;
+  min-width:0!important;
+  min-height:0!important;
+  height:auto!important;
+  margin:0!important;
+  padding:0!important;
+  color:inherit!important;
+  font:inherit;
+  font-weight:600;
+  line-height:1.6;
+  white-space:normal;
+  cursor:pointer;
+}
+html body header nav a:hover,
+html body header nav a:focus-visible,
+html body header a.nav-cta:hover,
+html body header a.nav-cta:focus-visible,
+html body footer a:hover,
+html body footer a:focus-visible{
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  transform:none!important;
+  text-decoration:underline!important;
+  text-underline-offset:3px;
+}
+html body header :is(button.menu,button.rt-shell-menu,button[aria-controls]){
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 44px;
+  width:44px!important;
+  min-width:44px!important;
+  height:44px!important;
+  min-height:44px!important;
+  margin-left:auto!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  color:inherit!important;
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+  font-size:28px!important;
+  font-weight:500!important;
+  line-height:1!important;
+  cursor:pointer!important;
+}
+html body header :is(button.menu,button.rt-shell-menu,button[aria-controls]):hover,
+html body header :is(button.menu,button.rt-shell-menu,button[aria-controls]):active{
+  background:transparent!important;
+  box-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+}
+html body header :is(button.menu,button.rt-shell-menu,button[aria-controls]):focus-visible,
+html body footer :is(a,button):focus-visible{
+  outline:2px solid currentColor!important;
+  outline-offset:4px!important;
+}
