@@ -2,6 +2,14 @@
    Additive presentation/navigation repair only: preserve page content and tools. */
 (function () {
   "use strict";
+  /* Load the current shared action-button skin on every page using this shell. */
+  if (!document.querySelector('link[data-rt-glossy-actions]')) {
+    var glossyActions = document.createElement("link");
+    glossyActions.rel = "stylesheet";
+    glossyActions.href = "/site-wide-shell.css?v=20261126-glossy-actions1";
+    glossyActions.setAttribute("data-rt-glossy-actions", "true");
+    document.head.appendChild(glossyActions);
+  }
   var path = window.location.pathname.replace(/\/+$/, "") || "/";
   // Load shared GA4 event instrumentation on every page, including the homepage.
   if (!document.querySelector("script[data-rt-ga4-events]")) {
