@@ -3575,6 +3575,12 @@ body:not(.homepage-redesign) .hero p{color:#f4fbff}
    Keep glossy/raised CTA treatment for in-page actions only; navigation remains quiet and readable. */
 :where(body) header nav a,
 :where(body) header a.nav-cta,
+:where(body) header a.site-3d-btn,
+:where(body) header a.btn,
+:where(body) header a.button,
+:where(body) header a.button-link,
+:where(body) header a.cta-button,
+:where(body) header a[role="button"],
 :where(body) footer a,
 :where(body) footer a.site-3d-btn,
 :where(body) footer a.btn,
