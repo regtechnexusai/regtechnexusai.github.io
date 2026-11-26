@@ -1142,3 +1142,8 @@ body.gaas-page footer.gaas-footer .gaas-footer-email-address{
     white-space:normal!important;
   }
 }
+
+
+/* CSP-compatible presentation utilities; replaces inline styles in gaas/index.html. */
+.gaas-partnership-cta{margin-top:24px}
+.gaas-footer-brand .gaas-footer-logo{display:block;width:210px;max-width:100%;height:auto}
