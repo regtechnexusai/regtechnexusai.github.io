@@ -1006,3 +1006,64 @@ body.gaas-page .gaas-workflow .workflow-steps p{
     width: 170px !important;
   }
 }
+
+
+/* 2026-11-26 follow-up: final cascade override for GaaS header/footer navigation.
+   gaas.css loads after styles.css, so navigation reset must live here as well.
+   Keep hero, plan, demo and case-workspace action buttons unchanged. */
+body.gaas-page header.gaas-nav nav a,
+body.gaas-page header.gaas-nav > a.nav-cta,
+body.gaas-page footer.gaas-footer > div:not(.gaas-footer-brand) a,
+body.gaas-page footer.gaas-footer .footer-bottom a{
+  display:inline-block!important;
+  width:auto!important;
+  min-width:0!important;
+  min-height:0!important;
+  height:auto!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  color:#263f59!important;
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+  font:inherit!important;
+  font-size:14px!important;
+  font-weight:600!important;
+  line-height:1.6!important;
+  text-decoration:none!important;
+}
+body.gaas-page header.gaas-nav nav a:hover,
+body.gaas-page header.gaas-nav nav a:focus-visible,
+body.gaas-page header.gaas-nav > a.nav-cta:hover,
+body.gaas-page footer.gaas-footer > div:not(.gaas-footer-brand) a:hover,
+body.gaas-page footer.gaas-footer .footer-bottom a:hover{
+  color:#087f9b!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  transform:none!important;
+  text-decoration:underline!important;
+  text-underline-offset:3px;
+}
+@media(max-width:560px){
+  body.gaas-page header.gaas-nav.open nav{
+    align-items:flex-start!important;
+    gap:14px!important;
+  }
+  body.gaas-page header.gaas-nav.open nav a{
+    display:block!important;
+    width:auto!important;
+    padding:0!important;
+    margin:0!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    background-image:none!important;
+    box-shadow:none!important;
+    transform:none!important;
+  }
+}
