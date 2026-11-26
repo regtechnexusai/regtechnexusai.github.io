@@ -124,6 +124,73 @@ footer{background:#102d4b;color:#eaf1f7;padding:38px clamp(22px,6vw,80px) 24px;b
 @media(max-width:600px){.product-grid>.product-card{padding:21px}.product-link-btn{width:100%;min-height:48px}}
 @media(prefers-reduced-motion:reduce){.product-grid>.product-card,.product-link-btn{transition:none!important}}
 
+
+
+/* Footer brand panel: pastel lavender/rose rather than a navigation-button blue.
+   The higher-specificity selector prevents shared footer-link button rules
+   from turning the logo container into a large blue action button. */
+footer .footer-inner .hub-footer-logo-link{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:auto!important;
+  max-width:min(100%,280px)!important;
+  min-height:0!important;
+  margin:0 0 5px!important;
+  padding:10px 12px!important;
+  box-sizing:border-box!important;
+  border:1px solid #e8c8f0!important;
+  border-radius:17px!important;
+  color:#443052!important;
+  background-color:#f9eafa!important;
+  background-image:linear-gradient(135deg,#fff0f7 0%,#f1e7ff 52%,#e8f0ff 100%)!important;
+  box-shadow:0 5px 0 #d8c0e6,0 9px 20px rgba(18,31,61,.18),inset 0 1px 0 rgba(255,255,255,.95)!important;
+  text-decoration:none!important;
+  text-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+}
+footer .footer-inner .hub-footer-logo-link:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:0 7px 0 #d8c0e6,0 13px 24px rgba(18,31,61,.22),inset 0 1px 0 rgba(255,255,255,.98)!important;
+}
+footer .footer-inner .hub-footer-logo{
+  display:block!important;
+  width:min(250px,100%)!important;
+  max-width:100%!important;
+  height:auto!important;
+  max-height:none!important;
+  padding:3px!important;
+  box-sizing:border-box!important;
+  object-fit:contain!important;
+  background:#fff!important;
+  border-radius:6px!important;
+}
+footer .footer-inner .hub-footer-logo-link:focus-visible{
+  outline:3px solid #f0a6d4!important;
+  outline-offset:4px!important;
+}
+/* Harmonised, high-contrast violet/rose glossy CTA. */
+.cta .hub-wrap > a.btn{
+  color:#fff!important;
+  border:1px solid rgba(255,255,255,.94)!important;
+  background-color:#8b3d91!important;
+  background-image:linear-gradient(180deg,rgba(255,255,255,.32),rgba(255,255,255,.07) 44%,transparent),linear-gradient(120deg,#8750c7 0%,#9c3f88 100%)!important;
+  box-shadow:0 5px 0 #642b70,0 10px 20px rgba(0,24,50,.24),inset 0 1px 0 rgba(255,255,255,.82)!important;
+  border-radius:14px!important;
+  min-height:52px!important;
+  padding:14px 22px!important;
+}
+.cta .hub-wrap > a.btn:hover{
+  filter:brightness(1.07) saturate(1.05)!important;
+  transform:translateY(-2px)!important;
+  box-shadow:0 7px 0 #642b70,0 13px 23px rgba(0,24,50,.27),inset 0 1px 0 rgba(255,255,255,.9)!important;
+}
+@media(max-width:600px){
+  footer .footer-inner .hub-footer-logo-link{max-width:min(100%,260px)!important;padding:8px 10px!important}
+  footer .footer-inner .hub-footer-logo{width:min(230px,100%)!important}
+}
+
 </style>
 </head>
 <body>
