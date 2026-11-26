@@ -263,18 +263,18 @@
   function ensureShellStyles() {
     var latest = document.querySelector('link[data-rt-shell-latest="true"]');
     if (latest) {
-      latest.setAttribute("href", "/site-wide-shell.css?v=20261126-home-mobile-overflow-footer-brand-v1");
+      latest.setAttribute("href", "/site-wide-shell.css?v=20261126-plain-footer-links-v2");
       return;
     }
     var links = document.querySelectorAll('link[rel="stylesheet"]');
     for (var i = 0; i < links.length; i++) {
       if (/\/site-wide-shell\.css(?:\?|$)/.test(links[i].getAttribute("href") || "")) {
-        links[i].setAttribute("href", "/site-wide-shell.css?v=20261126-home-mobile-overflow-footer-brand-v1");
+        links[i].setAttribute("href", "/site-wide-shell.css?v=20261126-plain-footer-links-v2");
         links[i].setAttribute("data-rt-shell-latest", "true");
         return;
       }
     }
-    document.head.appendChild(make("link", { "rel": "stylesheet", "href": "/site-wide-shell.css?v=20261126-home-mobile-overflow-footer-brand-v1", "data-rt-shell-latest": "true" }));
+    document.head.appendChild(make("link", { "rel": "stylesheet", "href": "/site-wide-shell.css?v=20261126-plain-footer-links-v2", "data-rt-shell-latest": "true" }));
   }
 
   function init() {
