@@ -7,7 +7,7 @@
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#f5f8f4">
 <title>Finance Operations Toolkit | RegTech Nexus AI</title>
-<link rel="stylesheet" href="styles.css?v=20261126-4">
+<link rel="stylesheet" href="styles.css?v=20261126-5">
 <style id="finance-ops-light-theme-guard">
 /* Critical brand colours: keep the approved light Eucalyptus theme even if an older CSS file is cached. */
 .topbar{background:#fbfefc!important;border-bottom:2px solid #c9dfd2!important}
@@ -35,6 +35,32 @@
 .hero .actions .quiet{background:linear-gradient(180deg,#f8f5fb 0%,#e9e1f2 100%)!important;border-color:#d9cde7!important;color:#625477!important;box-shadow:0 2px 0 #d3c6e2,0 4px 9px rgba(90,76,112,.10),inset 0 1px 0 #fff!important}
 @media(max-width:760px){.hero .actions{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important;width:100%!important;margin:15px 0 12px!important}.hero .actions button{width:100%!important;min-width:0!important;max-width:100%!important;padding:8px 3px!important;min-height:34px!important;font-size:clamp(8px,2.35vw,10px)!important;letter-spacing:-.2px!important;line-height:1.15!important;border-radius:9px!important;white-space:nowrap!important}}
 @media(max-width:360px){.hero .actions{gap:4px!important}.hero .actions button{font-size:8px!important;padding:7px 2px!important}}
+
+/* Header refinement: compact, single-line brand and controls on mobile. */
+.topbar{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;min-height:74px!important;padding:9px max(20px,calc((100vw - 1180px)/2))!important;background:linear-gradient(105deg,#fbfefc 0%,#f0f8f4 58%,#eaf6f5 100%)!important;border-bottom:2px solid #c9e2d8!important;box-shadow:0 4px 16px rgba(76,112,91,.07)!important}
+.topbar .brand{flex:0 1 auto!important;min-width:0!important}
+.topbar .brand-logo{width:min(205px,30vw)!important;max-height:52px!important}
+.topbar .header-tools{display:flex!important;flex:0 0 auto!important;align-items:center!important;justify-content:flex-end!important;flex-wrap:nowrap!important;gap:8px!important;max-width:none!important;min-width:0!important}
+.topbar .language-control{flex:0 0 auto!important;padding:6px 9px!important;border-radius:11px!important;background:linear-gradient(180deg,#fff 0%,#edf5ef 100%)!important;box-shadow:0 2px 0 rgba(74,105,86,.10),0 4px 10px rgba(74,105,86,.07),inset 0 1px 0 #fff!important}
+.topbar .language-control select{max-width:116px!important;font-size:11px!important}
+.topbar .pill{flex:0 0 auto!important;font-size:10px!important;padding:7px 10px!important;background:linear-gradient(180deg,#f3f8f1 0%,#e5f0e7 100%)!important;border-color:#d1e2d4!important;color:#527461!important}
+@media(max-width:760px){
+ .topbar{min-height:68px!important;padding:8px 12px!important;gap:8px!important}
+ .topbar .brand-logo{width:clamp(94px,30vw,128px)!important;max-height:44px!important}
+ .topbar .header-tools{gap:6px!important}
+ .topbar .language-control{padding:5px 7px!important;gap:4px!important}
+ .topbar .language-icon{font-size:13px!important}
+ .topbar .language-control select{max-width:94px!important;font-size:10px!important;min-height:22px!important}
+ .topbar .pill{font-size:9px!important;padding:6px 7px!important}
+}
+@media(max-width:360px){
+ .topbar{padding:7px 9px!important;gap:5px!important;min-height:62px!important}
+ .topbar .brand-logo{width:clamp(78px,26vw,94px)!important;max-height:38px!important}
+ .topbar .header-tools{gap:4px!important}
+ .topbar .language-control{padding:4px 5px!important}
+ .topbar .language-control select{max-width:76px!important;font-size:9px!important}
+ .topbar .pill{font-size:8px!important;padding:5px 6px!important}
+}
 </style>
 </head>
 <body>
