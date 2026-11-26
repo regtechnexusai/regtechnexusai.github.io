@@ -3569,3 +3569,117 @@ body:not(.homepage-redesign) .hero p{color:#f4fbff}
 @media(prefers-reduced-motion:reduce){
   :where(body) :is(a.btn,a.button,a.button-link,a.nav-cta,a.cta-button,a[role="button"],button,.btn,input[type="button"],input[type="submit"],input[type="reset"]){transition:none!important}
 }
+
+
+/* 2026-11-26: Header and footer navigation uses plain text links site-wide.
+   Keep glossy/raised CTA treatment for in-page actions only; navigation remains quiet and readable. */
+:where(body) header nav a,
+:where(body) header a.nav-cta,
+:where(body) header a.site-3d-btn,
+:where(body) header a.btn,
+:where(body) header a.button,
+:where(body) header a.button-link,
+:where(body) header a.cta-button,
+:where(body) header a[role="button"],
+:where(body) footer a,
+:where(body) footer a.site-3d-btn,
+:where(body) footer a.btn,
+:where(body) footer a.button,
+:where(body) footer a.button-link,
+:where(body) footer a.cta-button,
+:where(body) footer a[role="button"]{
+  display:inline-block!important;
+  min-height:0!important;
+  width:auto!important;
+  max-width:100%;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  color:inherit!important;
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+  font-weight:600;
+  text-decoration:none!important;
+  cursor:pointer;
+}
+:where(body) header nav a:hover,
+:where(body) header nav a:focus-visible,
+:where(body) header a.nav-cta:hover,
+:where(body) header a.nav-cta:focus-visible,
+:where(body) footer a:hover,
+:where(body) footer a:focus-visible{
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+  text-decoration:underline!important;
+  text-underline-offset:3px;
+}
+:where(body) header nav a:focus-visible,
+:where(body) header a.nav-cta:focus-visible,
+:where(body) footer a:focus-visible{
+  outline:2px solid currentColor!important;
+  outline-offset:4px!important;
+}
+/* GaaS mobile menu: simple, left-aligned text links with no card/button chrome. */
+body.gaas-page header.gaas-nav.open nav a{
+  display:block!important;
+  width:max-content!important;
+  max-width:100%!important;
+  min-height:0!important;
+  padding:0!important;
+  margin:0!important;
+  border:0!important;
+  border-radius:0!important;
+  color:#263f59!important;
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+  font-size:15px!important;
+  font-weight:600!important;
+  line-height:1.5!important;
+}
+body.gaas-page header.gaas-nav.open nav a:hover,
+body.gaas-page header.gaas-nav.open nav a:focus-visible{
+  color:#087f9b!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  transform:none!important;
+  text-decoration:underline!important;
+}
+body.gaas-page header.gaas-nav .nav-cta{
+  display:inline-block!important;
+  min-height:0!important;
+  margin-left:24px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  color:#173c59!important;
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  transform:none!important;
+  font-size:13px!important;
+  font-weight:650!important;
+}
+body.gaas-page footer.gaas-footer .gaas-footer-brand>a{
+  display:inline-block!important;
+  width:auto!important;
+  padding:0!important;
+  margin:0 0 4px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
