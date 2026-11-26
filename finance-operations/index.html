@@ -7,7 +7,7 @@
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#f5f8f4">
 <title>Finance Operations Toolkit | RegTech Nexus AI</title>
-<link rel="stylesheet" href="styles.css?v=20261126-3">
+<link rel="stylesheet" href="styles.css?v=20261126-4">
 <style id="finance-ops-light-theme-guard">
 /* Critical brand colours: keep the approved light Eucalyptus theme even if an older CSS file is cached. */
 .topbar{background:#fbfefc!important;border-bottom:2px solid #c9dfd2!important}
@@ -26,6 +26,15 @@
 .brand-logo{width:min(230px,38vw)!important;max-height:58px!important}
 @media(max-width:760px){.brand-logo{width:min(175px,40vw)!important;max-height:50px!important}.hero{background:linear-gradient(118deg,#f0f6f0 0%,#e8f1e9 55%,#edf5f0 100%)!important}}
 @media(max-width:390px){.brand-logo{width:150px!important;max-height:46px!important}}
+
+/* Compact, balanced action row: three controls stay on one line on phones. */
+.hero .actions{display:flex;align-items:stretch;gap:8px}
+.hero .actions button{flex:0 1 auto;min-width:0;white-space:nowrap}
+.hero .actions .primary{background:linear-gradient(180deg,#e4f1e8 0%,#c4ddcc 100%)!important;border-color:#b1ceb9!important;color:#365844!important;box-shadow:0 2px 0 #a8c4b0,0 4px 9px rgba(76,112,91,.12),inset 0 1px 0 #fff!important}
+.hero .actions .secondary{background:linear-gradient(180deg,#f2faf8 0%,#d8eee8 100%)!important;border-color:#c2e0d6!important;color:#416b60!important;box-shadow:0 2px 0 #bdd8ce,0 4px 9px rgba(76,112,91,.10),inset 0 1px 0 #fff!important}
+.hero .actions .quiet{background:linear-gradient(180deg,#f8f5fb 0%,#e9e1f2 100%)!important;border-color:#d9cde7!important;color:#625477!important;box-shadow:0 2px 0 #d3c6e2,0 4px 9px rgba(90,76,112,.10),inset 0 1px 0 #fff!important}
+@media(max-width:760px){.hero .actions{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important;width:100%!important;margin:15px 0 12px!important}.hero .actions button{width:100%!important;min-width:0!important;max-width:100%!important;padding:8px 3px!important;min-height:34px!important;font-size:clamp(8px,2.35vw,10px)!important;letter-spacing:-.2px!important;line-height:1.15!important;border-radius:9px!important;white-space:nowrap!important}}
+@media(max-width:360px){.hero .actions{gap:4px!important}.hero .actions button{font-size:8px!important;padding:7px 2px!important}}
 </style>
 </head>
 <body>
@@ -34,7 +43,7 @@
   <div class="header-tools"><label class="language-control"><span class="language-icon" aria-hidden="true">文</span><span class="sr-only">Select language</span><select id="languageSelect" aria-label="Select language" disabled><option value="">English (original)</option><option value="bn">বাংলা</option><option value="ar">العربية</option><option value="zh-CN">中文</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="hi">हिन्दी</option><option value="id">Bahasa Indonesia</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="ms">Bahasa Melayu</option><option value="pt">Português</option><option value="ru">Русский</option><option value="es">Español</option><option value="th">ไทย</option><option value="tr">Türkçe</option><option value="ur">اردو</option><option value="vi">Tiếng Việt</option></select></label><span class="pill">MVP · Demo mode</span><div id="google_translate_element" aria-hidden="true"></div></div>
 </header>
 <main class="shell">
-<section class="hero"><div class="hero-copy"><div class="eyebrow">FINANCE WORKSPACE</div><h1>Know what’s due.<br><span>Act on what matters.</span></h1><p>Track invoice balances, ageing, collection priorities and follow-up actions in one simple workspace.</p><div class="actions"><button class="primary" id="addInvoiceBtn">＋ Add invoice</button><button class="secondary" id="exportBtn">Export CSV</button><button class="quiet" id="resetBtn">Reset sample data</button></div><div class="mode-note"><span class="dot"></span> Free Demo is sample-only and resets when this page reloads. Do not enter real or confidential data.</div></div><div class="hero-art" aria-hidden="true"><div class="art-orbit"></div><div class="art-card"><span>RECEIVABLES</span><strong>On track</strong><i></i><i></i><i></i></div></div></section>
+<section class="hero"><div class="hero-copy"><div class="eyebrow">FINANCE WORKSPACE</div><h1>Know what’s due.<br><span>Act on what matters.</span></h1><p>Track invoice balances, ageing, collection priorities and follow-up actions in one simple workspace.</p><div class="actions"><button class="primary" id="addInvoiceBtn">＋ Add invoice</button><button class="secondary" id="exportBtn">Export CSV</button><button class="quiet" id="resetBtn">Reset demo</button></div><div class="mode-note"><span class="dot"></span> Free Demo is sample-only and resets when this page reloads. Do not enter real or confidential data.</div></div><div class="hero-art" aria-hidden="true"><div class="art-orbit"></div><div class="art-card"><span>RECEIVABLES</span><strong>On track</strong><i></i><i></i><i></i></div></div></section>
 <section class="stats" id="stats"></section>
 <section class="panel"><div class="panel-head"><div><h2>Receivables</h2><p>Sample invoice ledger · session-only data</p></div><div class="filters"><input id="searchInput" type="search" placeholder="Search customer or invoice" aria-label="Search invoices"><select id="statusFilter" aria-label="Filter by status"><option value="all">All invoices</option><option value="overdue">Overdue</option><option value="due">Due soon</option><option value="paid">Paid</option></select></div></div><div class="table-wrap"><table><thead><tr><th>Invoice</th><th>Customer</th><th>Due date</th><th>Age</th><th>Amount</th><th>Outstanding</th><th>Status</th><th>Follow-up</th><th></th></tr></thead><tbody id="invoiceRows"></tbody></table><div id="emptyState" class="empty" hidden>No invoices match your search.</div></div></section>
 <section class="workspace-card"><div><div class="eyebrow">NEXT PHASE</div><h2>Authenticated workspace</h2><p>Secure server-side persistence, Google sign-in, CSV import, and account-separated invoice records will be enabled after infrastructure and security validation.</p></div><span class="pill neutral">Not activated</span></section>
