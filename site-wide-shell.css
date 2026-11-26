@@ -935,3 +935,122 @@ body:not(.homepage-redesign) .hero p{color:#f4fbff}
 @media(prefers-reduced-motion:reduce){
   :where(body) :is(a.btn,a.button,a.button-link,a.nav-cta,a.cta-button,a[role="button"],button,.btn,input[type="button"],input[type="submit"],input[type="reset"]){transition:none!important}
 }
+
+
+/* Extend the glossy treatment to plain-text navigation anchors site-wide.
+   This includes shared header navigation and footer navigation, not inline citations. */
+:where(body) :is(
+  .rt-shell-nav > a,
+  .hub-nav nav > a,
+  .nav nav > a,
+  .nav-links > a,
+  footer .footer-inner a,
+  footer nav a,
+  .rt-shell-footer a
+){
+  --rt-btn-a:var(--rt-gloss-blue-a);
+  --rt-btn-b:var(--rt-gloss-blue-b);
+  --rt-btn-depth:var(--rt-gloss-blue-depth);
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:42px!important;
+  max-width:100%;
+  box-sizing:border-box!important;
+  padding:10px 14px!important;
+  margin:5px 5px 5px 0!important;
+  border:1px solid rgba(255,255,255,.88)!important;
+  border-radius:12px!important;
+  color:#fff!important;
+  background-color:var(--rt-btn-b)!important;
+  background-image:linear-gradient(180deg,rgba(255,255,255,.30),rgba(255,255,255,.05) 48%,transparent),linear-gradient(120deg,var(--rt-btn-a),var(--rt-btn-b))!important;
+  box-shadow:0 4px 0 var(--rt-btn-depth),0 7px 14px rgba(12,45,80,.18),inset 0 1px 0 rgba(255,255,255,.7)!important;
+  text-decoration:none!important;
+  font-weight:750!important;
+  line-height:1.3!important;
+  text-shadow:0 1px 1px rgba(0,0,0,.18);
+  vertical-align:middle;
+  transition:transform .18s ease,box-shadow .18s ease,filter .18s ease!important;
+}
+:where(body) :is(
+  .rt-shell-nav > a,
+  .hub-nav nav > a,
+  .nav nav > a,
+  .nav-links > a,
+  footer .footer-inner a,
+  footer nav a,
+  .rt-shell-footer a
+):nth-of-type(6n+2){
+  --rt-btn-a:var(--rt-gloss-teal-a);--rt-btn-b:var(--rt-gloss-teal-b);--rt-btn-depth:var(--rt-gloss-teal-depth);
+}
+:where(body) :is(
+  .rt-shell-nav > a,
+  .hub-nav nav > a,
+  .nav nav > a,
+  .nav-links > a,
+  footer .footer-inner a,
+  footer nav a,
+  .rt-shell-footer a
+):nth-of-type(6n+3){
+  --rt-btn-a:var(--rt-gloss-violet-a);--rt-btn-b:var(--rt-gloss-violet-b);--rt-btn-depth:var(--rt-gloss-violet-depth);
+}
+:where(body) :is(
+  .rt-shell-nav > a,
+  .hub-nav nav > a,
+  .nav nav > a,
+  .nav-links > a,
+  footer .footer-inner a,
+  footer nav a,
+  .rt-shell-footer a
+):nth-of-type(6n+4){
+  --rt-btn-a:var(--rt-gloss-amber-a);--rt-btn-b:var(--rt-gloss-amber-b);--rt-btn-depth:var(--rt-gloss-amber-depth);
+}
+:where(body) :is(
+  .rt-shell-nav > a,
+  .hub-nav nav > a,
+  .nav nav > a,
+  .nav-links > a,
+  footer .footer-inner a,
+  footer nav a,
+  .rt-shell-footer a
+):nth-of-type(6n+5){
+  --rt-btn-a:var(--rt-gloss-coral-a);--rt-btn-b:var(--rt-gloss-coral-b);--rt-btn-depth:var(--rt-gloss-coral-depth);
+}
+:where(body) :is(
+  .rt-shell-nav > a,
+  .hub-nav nav > a,
+  .nav nav > a,
+  .nav-links > a,
+  footer .footer-inner a,
+  footer nav a,
+  .rt-shell-footer a
+):nth-of-type(6n){
+  --rt-btn-a:var(--rt-gloss-green-a);--rt-btn-b:var(--rt-gloss-green-b);--rt-btn-depth:var(--rt-gloss-green-depth);
+}
+:where(body) :is(
+  .rt-shell-nav > a,
+  .hub-nav nav > a,
+  .nav nav > a,
+  .nav-links > a,
+  footer .footer-inner a,
+  footer nav a,
+  .rt-shell-footer a
+):hover{
+  filter:brightness(1.08) saturate(1.08);
+  transform:translateY(-2px);
+  box-shadow:0 6px 0 var(--rt-btn-depth),0 11px 19px rgba(12,45,80,.23),inset 0 1px 0 rgba(255,255,255,.82)!important;
+}
+:where(body) :is(
+  .rt-shell-nav > a,
+  .hub-nav nav > a,
+  .nav nav > a,
+  .nav-links > a,
+  footer .footer-inner a,
+  footer nav a,
+  .rt-shell-footer a
+):focus-visible{
+  outline:3px solid #f3bd43!important;outline-offset:3px!important;
+}
+@media(max-width:600px){
+  :where(body) footer .footer-inner a{margin:5px 5px 5px 0!important;min-height:44px!important}
+}
