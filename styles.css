@@ -3569,3 +3569,78 @@ body:not(.homepage-redesign) .hero p{color:#f4fbff}
 @media(prefers-reduced-motion:reduce){
   :where(body) :is(a.btn,a.button,a.button-link,a.nav-cta,a.cta-button,a[role="button"],button,.btn,input[type="button"],input[type="submit"],input[type="reset"]){transition:none!important}
 }
+
+
+/* 2026-11-26 mobile viewport containment repair.
+   Scoped to the redesigned homepage; prevents horizontal offset/overflow
+   without changing content order, destinations or application behavior. */
+@media (max-width: 760px) {
+  html, body {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+  body.homepage-redesign {
+    position: relative !important;
+    inset-inline: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin-inline: 0 !important;
+  }
+  body.homepage-redesign :is(header, .nav, main, footer, .hero, .section,
+    .thinking, .responsible, .closing, .platform-pathways, .homepage-start-here) {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  body.homepage-redesign .hero {
+    padding-left: max(20px, 5.5vw) !important;
+    padding-right: max(20px, 5.5vw) !important;
+  }
+  body.homepage-redesign .hero-grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin-inline: 0 !important;
+  }
+  body.homepage-redesign .hero-copy,
+  body.homepage-redesign .hero-visual,
+  body.homepage-redesign .hero-copy > *,
+  body.homepage-redesign .hero-visual > * {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  body.homepage-redesign .hero h1,
+  body.homepage-redesign .hero p,
+  body.homepage-redesign .hero .eyebrow {
+    max-width: 100% !important;
+    overflow-wrap: anywhere !important;
+  }
+  body.homepage-redesign .hero-visual img,
+  body.homepage-redesign img,
+  body.homepage-redesign svg,
+  body.homepage-redesign video {
+    max-width: 100% !important;
+    height: auto;
+  }
+  body.homepage-redesign .hero-actions {
+    width: 100% !important;
+    min-width: 0 !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  body.homepage-redesign .hero-actions > a {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow-wrap: anywhere !important;
+  }
+}
