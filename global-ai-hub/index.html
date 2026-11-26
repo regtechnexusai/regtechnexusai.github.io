@@ -319,6 +319,48 @@ footer .footer-inner .hub-footer-logo{
 @media(max-width:900px){.assessment-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.assessment-process{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:600px){.assessment-brand-panel,.assessment-engine{grid-template-columns:1fr}.assessment-brand-links{min-width:0}.assessment-grid,.assessment-form-grid{grid-template-columns:1fr}.assessment-process{grid-template-columns:repeat(2,minmax(0,1fr))}.assessment-enquiry{padding:19px}.assessment-form button{width:100%}}
 
+
+/* Footer navigation uses the same plain-text link treatment as the other site pages.
+   Override shared global action/button skins only within this footer navigation. */
+footer .footer-inner .hub-footer-nav{
+  display:flex!important;
+  align-items:center!important;
+  flex-wrap:wrap!important;
+  gap:8px 18px!important;
+}
+footer .footer-inner .hub-footer-nav a,
+footer .footer-inner .hub-footer-nav a:link,
+footer .footer-inner .hub-footer-nav a:visited{
+  display:inline!important;
+  width:auto!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  color:#eaf1f7!important;
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+  font-size:12px!important;
+  font-weight:400!important;
+  line-height:1.7!important;
+  text-decoration:underline!important;
+  text-underline-offset:3px!important;
+}
+footer .footer-inner .hub-footer-nav a:hover,
+footer .footer-inner .hub-footer-nav a:focus-visible{
+  color:#9ce3e3!important;
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  transform:none!important;
+  filter:none!important;
+}
+
 </style>
 </head>
 <body>
@@ -649,7 +691,7 @@ footer .footer-inner .hub-footer-logo{
 <footer>
   <div class="footer-inner">
     <div class="hub-footer-brand"><a class="hub-footer-logo-link" href="/" aria-label="RegTech Nexus AI home"><img class="hub-footer-logo" src="/regtech-nexus-ai-logo-2026.png" alt="RegTech Nexus AI" width="210" height="66" loading="lazy" decoding="async"></a><p>Independent regulatory intelligence, AI governance and financial risk assurance resources.</p></div>
-    <div><a href="/">Home</a> · <a href="/fintech-intelligence-hub/">FinTech Intelligence Hub</a> · <a href="/trust/">Trust &amp; Verification</a> · <a href="/contact.html">Contact</a></div>
+    <nav class="hub-footer-nav" aria-label="Footer navigation"><a href="/">Home</a><a href="/fintech-intelligence-hub/">FinTech Intelligence Hub</a><a href="/trust/">Trust &amp; Verification</a><a href="/contact.html">Contact</a></nav>
   </div>
   <div class="footer-note">Published by RegTech Nexus AI. Independent initiative; no government, regulator or financial-centre affiliation or endorsement is implied. © 2026 RegTech Nexus AI.</div>
 </footer>
