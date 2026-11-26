@@ -6,7 +6,7 @@
   if (!document.querySelector('link[data-rt-glossy-actions]')) {
     var glossyActions = document.createElement("link");
     glossyActions.rel = "stylesheet";
-    glossyActions.href = "/site-wide-shell.css?v=20261126-glossy-actions1";
+    glossyActions.href = "/site-wide-shell.css?v=20261126-text-navigation2";
     glossyActions.setAttribute("data-rt-glossy-actions", "true");
     document.head.appendChild(glossyActions);
   }
@@ -263,7 +263,7 @@
   function ensureShellStyles() {
     var latest = document.querySelector('link[data-rt-shell-latest="true"]');
     if (latest) {
-      latest.setAttribute("href", "/site-wide-shell.css?v=20261126-home-mobile-overflow-footer-brand-v1");
+      latest.setAttribute("href", "/site-wide-shell.css?v=20261126-text-navigation2");
       return;
     }
     var links = document.querySelectorAll('link[rel="stylesheet"]');
