@@ -434,25 +434,30 @@ footer .footer-inner .hub-footer-nav a:focus-visible{
 #sample-readiness-report td{font-size:12px}
 @media(max-width:600px){.sample-report-actions{align-items:stretch}.sample-report-action-buttons{display:grid;grid-template-columns:1fr}.sample-report-btn{width:100%;min-height:46px}}
 @media print{
-  @page{size:A4;margin:14mm}
-  body{background:#fff!important;color:#111!important;font-size:10pt!important;line-height:1.45!important}
-  body *{visibility:hidden!important}
-  #sample-readiness-report,#sample-readiness-report *{visibility:visible!important}
-  #sample-readiness-report{position:absolute!important;left:0!important;top:0!important;width:100%!important;padding:0!important;margin:0!important;background:#fff!important}
+  @page{size:A4 portrait;margin:12mm}
+  html,body{width:100%!important;min-height:0!important;margin:0!important;padding:0!important;background:#fff!important}
+  /* Remove non-report siblings from print layout, not merely visibility:
+     visibility:hidden preserves their full page height and creates blank pages. */
+  body>*{display:none!important}
+  body>main#main-content{display:block!important;width:100%!important;margin:0!important;padding:0!important}
+  body>main#main-content>*{display:none!important}
+  body>main#main-content>#sample-readiness-report{display:block!important;position:static!important;left:auto!important;top:auto!important;width:100%!important;max-width:none!important;margin:0!important;padding:0!important;background:#fff!important;color:#111!important}
   #sample-readiness-report .sample-report-actions{display:none!important}
-  #sample-readiness-report .hub-wrap{max-width:none!important}
-  #sample-readiness-report .section-heading{margin-bottom:12px!important}
-  #sample-readiness-report h2{font-size:22pt!important}
-  #sample-readiness-report h3{font-size:13pt!important}
-  #sample-readiness-report .card,#sample-readiness-report .notice,#sample-readiness-report .ra-boundary{box-shadow:none!important;break-inside:avoid;page-break-inside:avoid}
-  #sample-readiness-report .grid{grid-template-columns:1fr 1fr!important}
+  #sample-readiness-report .hub-wrap{width:100%!important;max-width:none!important;margin:0!important;padding:0!important}
+  #sample-readiness-report .section-heading{margin:0 0 10px!important;break-after:avoid-page;page-break-after:avoid}
+  #sample-readiness-report h2{font-size:20pt!important}
+  #sample-readiness-report h3{font-size:12pt!important}
+  #sample-readiness-report p,#sample-readiness-report li{orphans:3;widows:3}
+  #sample-readiness-report .card,#sample-readiness-report .notice,#sample-readiness-report .ra-boundary{box-shadow:none!important;break-inside:avoid-page;page-break-inside:avoid}
+  #sample-readiness-report .grid{grid-template-columns:1fr 1fr!important;gap:8px!important}
   #sample-readiness-report .ra-matrix{overflow:visible!important}
-  #sample-readiness-report table{width:100%!important;table-layout:fixed!important;font-size:8pt!important}
-  #sample-readiness-report th,#sample-readiness-report td{padding:5px!important;font-size:8pt!important;overflow-wrap:anywhere}
-  #sample-readiness-report tr{break-inside:avoid;page-break-inside:avoid}
+  #sample-readiness-report table{width:100%!important;table-layout:fixed!important;border-collapse:collapse!important;font-size:7.5pt!important}
+  #sample-readiness-report th,#sample-readiness-report td{padding:4px!important;font-size:7.5pt!important;overflow-wrap:anywhere!important}
+  #sample-readiness-report tr{break-inside:avoid-page;page-break-inside:avoid}
   #sample-readiness-report thead{display:table-header-group}
   #sample-readiness-report a{color:#111!important;text-decoration:none!important}
-  #sample-readiness-report .section-heading,#sample-readiness-report .card,#sample-readiness-report .notice{color:#111!important}
+  #sample-readiness-report .section-heading,#sample-readiness-report .card,#sample-readiness-report .notice,#sample-readiness-report .ra-boundary{color:#111!important}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
 }
 
 </style>
