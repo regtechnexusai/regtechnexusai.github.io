@@ -52,7 +52,28 @@ function render(){
 document.getElementById("searchInput").oninput=render;
 document.getElementById("statusFilter").onchange=render;
 const dlg=document.getElementById("invoiceDialog");
-document.getElementById("addInvoiceBtn").onclick=()=>{document.getElementById("invoiceForm").reset();dlg.showModal();};
+document.getElementById("addInvoiceBtn").onclick=()=>{
+  const form=document.getElementById("invoiceForm");
+  form.reset();
+  const nextNumber=()=>{
+    let n=1008;
+    while(invoices.some(i=>i.number.toLowerCase()===("INV-"+n).toLowerCase())) n++;
+    return "INV-"+n;
+  };
+  const localDate=d=>[d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-");
+  const issueDate=new Date();
+  issueDate.setHours(0,0,0,0);
+  const dueDate=new Date(issueDate);
+  dueDate.setDate(dueDate.getDate()+14);
+  form.elements.number.value=nextNumber();
+  form.elements.customer.value="Sample Customer Ltd.";
+  form.elements.issue.value=localDate(issueDate);
+  form.elements.due.value=localDate(dueDate);
+  form.elements.amount.value="2500.00";
+  form.elements.paid.value="500.00";
+  form.elements.follow.value="Email sent";
+  dlg.showModal();
+};
 document.getElementById("closeDialog").onclick=()=>dlg.close();
 document.getElementById("cancelDialog").onclick=()=>dlg.close();
 document.getElementById("invoiceForm").onsubmit=e=>{
