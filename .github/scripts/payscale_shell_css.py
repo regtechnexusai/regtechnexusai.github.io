@@ -5,7 +5,7 @@ from urllib.parse import urlsplit
 import argparse
 import re
 
-LATEST_HREF = "/site-wide-shell.css?v=20261119-mobile-back-home-v5"
+LATEST_HREF = "/site-wide-shell.css?v=20261126-text-navigation2"
 LINK_TAG_RE = re.compile(r"<link\b[^>]*>", re.IGNORECASE)
 ATTR_RE = re.compile(r"\b([a-z_:][-a-z0-9_:.]*)\s*=\s*([\"'])(.*?)\2", re.IGNORECASE)
 SHELL_SCRIPT_RE = re.compile(r"<script\b[^>]*\bsrc\s*=\s*([\"'])([^\"']*site-wide-shell\.js(?:\?[^\"']*)?)\1[^>]*>", re.IGNORECASE)
