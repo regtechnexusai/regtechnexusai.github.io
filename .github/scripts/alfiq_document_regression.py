@@ -209,8 +209,8 @@ def test_official_ai_act_demo_and_source_referenced_rule_packs(page: Page):
     page.locator("#loadAiActDemo").click()
     expect(page.locator("#oldText")).to_have_value(re.compile("ORIGINAL TEXT"))
     expect(page.locator("#newText")).to_have_value(re.compile("CONSOLIDATED TEXT"))
-    expect(page.locator("#meta")).to_contain_text("Regulation (EU) 2026/1744")
-    expect(page.locator("#meta")).to_contain_text("27 July 2026")
+    expect(page.locator("#meta")).to_have_value(re.compile("Regulation \\(EU\\) 2026/1744"))
+    expect(page.locator("#meta")).to_have_value(re.compile("27 July 2026"))
 
     page.locator("#builtInRulePack").select_option("eu-ai-governance.json")
     expect(page.locator("#rulePackStatus")).to_contain_text("Active: EU AI Act / AI Governance", timeout=15000)
@@ -219,7 +219,7 @@ def test_official_ai_act_demo_and_source_referenced_rule_packs(page: Page):
 
     page.locator("#analyse").click()
     expect(page.locator("#report")).to_be_visible(timeout=15000)
-    report = page.locator("#printReport").inner_text()
+    report = page.locator("#printReport").text_content() or ""
     assert "RULE PACK SOURCE REFERENCES" in report
     assert "Regulation (EU) 2024/1689" in report
     assert "2026-07-27" in report
