@@ -578,7 +578,16 @@ $("reset").addEventListener("click",function(){
  analysisFresh=false;sourceSnapshot=null;$("reviewerName").value="";$("reviewerRole").value="";
  checks.forEach(function(x){x.checked=false;});gate();
 });
-$("loadAiActDemo").addEventListener("click",function(){\n $("reset").click();$("oldText").value=aiActOld;$("newText").value=aiActNew;$("meta").value=aiActMeta;\n $("analysisStatus").textContent="Official-source EU AI Act Article 113 excerpt demo loaded. Verify both linked source versions, then select Analyse.";\n $("oldText").dispatchEvent(new Event("input",{bubbles:true}));$("newText").dispatchEvent(new Event("input",{bubbles:true}));$("meta").dispatchEvent(new Event("input",{bubbles:true}));$("oldText").focus();\n});\n$("loadSample").addEventListener("click",function(){
+$("loadAiActDemo").addEventListener("click",function(){
+ $("reset").click();
+ $("oldText").value=aiActOld;$("newText").value=aiActNew;$("meta").value=aiActMeta;
+ $("analysisStatus").textContent="Official-source EU AI Act Article 113 excerpt demo loaded. Verify both linked source versions, then select Analyse.";
+ $("oldText").dispatchEvent(new Event("input",{bubbles:true}));
+ $("newText").dispatchEvent(new Event("input",{bubbles:true}));
+ $("meta").dispatchEvent(new Event("input",{bubbles:true}));
+ $("oldText").focus();
+});
+$("loadSample").addEventListener("click",function(){
  $("reset").click();
  $("oldText").value=sampleOld;$("newText").value=sampleNew;$("meta").value=sampleMeta;
  $("analysisStatus").textContent="Synthetic AML example loaded. Select Analyse to generate the preliminary change register.";
