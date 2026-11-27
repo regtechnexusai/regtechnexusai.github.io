@@ -4,7 +4,8 @@
 const $=id=>document.getElementById(id);
 const photoInput=$("crop-photos"),keyInput=$("mukul-gemini-key"),consent=$("mukul-gemini-consent");
 const status=$("mukul-ai-status"),onnxOutput=$("mukul-onnx-result"),visionOutput=$("mukul-vision-result"),exportBtn=$("mukul-download-compare"),saveRecordBtn=$("mukul-save-test-record"),exportSetBtn=$("mukul-export-test-set"),referenceInput=$("mukul-reference-label"),bangladeshInput=$("mukul-bangladesh-field");
-const MODEL_URL="https://huggingface.co/nihal4/rice-disease-model/resolve/main/rice_disease_resnet50.onnx";
+/* Immutable upstream file revision: 68c7d57. Expected SHA-256: 0538b58675c2dd45b2bfa778d8e06aeb270bf748946b9749b43c49d761f90b2a. */
+const MODEL_URL="https://huggingface.co/nihal4/rice-disease-model/resolve/68c7d57/rice_disease_resnet50.onnx";
 const MODEL_ID="gemini-3.8-flash";
 const classes=[
  {en:"Bacterial leaf blight (classifier candidate)",bn:"ব্যাকটেরিয়াল লিফ ব্লাইট (মডেলের সম্ভাব্য শ্রেণি)"},
