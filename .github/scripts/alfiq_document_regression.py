@@ -232,6 +232,6 @@ def test_official_ai_act_demo_and_source_referenced_rule_packs(page: Page):
     page.locator("#loadSample").click()
     expect(page.locator("#oldText")).to_have_value(re.compile("five years"))
     expect(page.locator("#newText")).to_have_value(re.compile("seven years"))
-    expect(page.locator("#meta")).to_contain_text("Synthetic training material")
+    expect(page.locator("#meta")).to_have_value(re.compile("Synthetic training material"))
 
     assert not errors, "Browser errors: " + " | ".join(errors)
