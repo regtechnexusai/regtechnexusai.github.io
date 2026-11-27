@@ -196,3 +196,42 @@ Relevant employees must receive AML/CFT training at induction and refresher trai
       key => key.startsWith("regtechnexusai.alfiq.handoff.")
     ).length""")
     assert handoff_count == 1
+
+
+def test_official_ai_act_demo_and_source_referenced_rule_packs(page: Page):
+    """Verify the public-source demo and both new built-in rule packs."""
+    page.set_viewport_size({"width": 1280, "height": 900})
+    errors = []
+    page.on("pageerror", lambda error: errors.append(str(error)))
+    response = page.goto("http://127.0.0.1:8765/alfiq/", wait_until="domcontentloaded")
+    assert response and response.status == 200
+
+    page.locator("#loadAiActDemo").click()
+    expect(page.locator("#oldText")).to_have_value(re.compile("ORIGINAL TEXT"))
+    expect(page.locator("#newText")).to_have_value(re.compile("CONSOLIDATED TEXT"))
+    expect(page.locator("#meta")).to_contain_text("Regulation (EU) 2026/1744")
+    expect(page.locator("#meta")).to_contain_text("27 July 2026")
+
+    page.locator("#builtInRulePack").select_option("eu-ai-governance.json")
+    expect(page.locator("#rulePackStatus")).to_contain_text("Active: EU AI Act / AI Governance", timeout=15000)
+    expect(page.locator("#rulePackStatus")).to_contain_text("Regulation (EU) 2024/1689")
+    expect(page.locator("#rulePackStatus")).to_contain_text("Source reference checked")
+
+    page.locator("#analyse").click()
+    expect(page.locator("#report")).to_be_visible(timeout=15000)
+    report = page.locator("#printReport").inner_text()
+    assert "RULE PACK SOURCE REFERENCES" in report
+    assert "Regulation (EU) 2024/1689" in report
+    assert "2026-07-27" in report
+
+    page.locator("#builtInRulePack").select_option("dora-cybersecurity.json")
+    expect(page.locator("#rulePackStatus")).to_contain_text("Active: DORA / Cybersecurity and ICT Resilience", timeout=15000)
+    expect(page.locator("#rulePackStatus")).to_contain_text("Regulation (EU) 2022/2554")
+    expect(page.locator("#rulePackStatus")).to_contain_text("linked delegated/implementing acts")
+
+    page.locator("#loadSample").click()
+    expect(page.locator("#oldText")).to_have_value(re.compile("five years"))
+    expect(page.locator("#newText")).to_have_value(re.compile("seven years"))
+    expect(page.locator("#meta")).to_contain_text("Synthetic training material")
+
+    assert not errors, "Browser errors: " + " | ".join(errors)
