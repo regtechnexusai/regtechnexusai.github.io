@@ -1,0 +1,240 @@
+{
+  "schemaVersion": "1.0",
+  "packId": "dora-ict-cyber-resilience",
+  "packName": "DORA / Cybersecurity and ICT Resilience",
+  "packVersion": "1.0.0",
+  "jurisdiction": "European Union",
+  "sourceReferences": [
+    {
+      "instrument": "Regulation (EU) 2022/2554 — Digital Operational Resilience Act",
+      "provision": "Articles 5–15, 17–19, 24–30 and 31–44",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj",
+      "sourceVersion": "Official Journal text dated 27 December 2022",
+      "status": "In force; application from 17 January 2025",
+      "verificationStatus": "Primary source reference checked 27 November 2026; review linked delegated/implementing acts and current applicability separately"
+    }
+  ],
+  "rules": [
+    {
+      "ruleId": "DORA-001",
+      "category": "ICT governance",
+      "description": "ICT risk governance and responsibility",
+      "keywords": [
+        "ICT risk management framework",
+        "management body",
+        "digital operational resilience"
+      ],
+      "patterns": [],
+      "signal": "ICT governance review signal",
+      "reviewPrompt": "Review governance, management-body accountability, strategy and oversight arrangements. — Article 5",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Article 5",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj"
+    },
+    {
+      "ruleId": "DORA-002",
+      "category": "ICT risk management framework",
+      "description": "ICT risk management framework",
+      "keywords": [
+        "ICT risk management framework",
+        "ICT systems",
+        "risk appetite"
+      ],
+      "patterns": [],
+      "signal": "ICT risk management framework review signal",
+      "reviewPrompt": "Review framework ownership, approval, review frequency, documentation and integration with overall risk management. — Article 6",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Article 6",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj"
+    },
+    {
+      "ruleId": "DORA-003",
+      "category": "ICT asset identification",
+      "description": "ICT asset and dependency identification",
+      "keywords": [
+        "ICT assets",
+        "information assets",
+        "dependencies"
+      ],
+      "patterns": [],
+      "signal": "ICT asset identification review signal",
+      "reviewPrompt": "Review identification and classification of ICT-supported functions, assets, dependencies and criticality. — Article 8",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Article 8",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj"
+    },
+    {
+      "ruleId": "DORA-004",
+      "category": "Protection and prevention",
+      "description": "ICT protection and prevention",
+      "keywords": [
+        "access control",
+        "encryption",
+        "network security"
+      ],
+      "patterns": [],
+      "signal": "Protection and prevention review signal",
+      "reviewPrompt": "Review safeguards, access management, data protection, network controls and change management. — Article 9",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Article 9",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj"
+    },
+    {
+      "ruleId": "DORA-005",
+      "category": "Detection",
+      "description": "ICT anomaly and incident detection",
+      "keywords": [
+        "anomaly detection",
+        "incident detection",
+        "monitoring"
+      ],
+      "patterns": [],
+      "signal": "Detection review signal",
+      "reviewPrompt": "Review detection mechanisms, monitoring coverage, alerting and escalation. — Article 10",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Article 10",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj"
+    },
+    {
+      "ruleId": "DORA-006",
+      "category": "Response and recovery",
+      "description": "ICT incident response and recovery",
+      "keywords": [
+        "incident response",
+        "business continuity",
+        "recovery plan"
+      ],
+      "patterns": [],
+      "signal": "Response and recovery review signal",
+      "reviewPrompt": "Review response plans, recovery capabilities, crisis communications and restoration arrangements. — Article 11",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Article 11",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj"
+    },
+    {
+      "ruleId": "DORA-007",
+      "category": "Backup and restoration",
+      "description": "Backup and restoration",
+      "keywords": [
+        "backup",
+        "restore",
+        "recovery point"
+      ],
+      "patterns": [],
+      "signal": "Backup and restoration review signal",
+      "reviewPrompt": "Review backup policy, restoration procedures, integrity checks and recovery objectives. — Article 12",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Article 12",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj"
+    },
+    {
+      "ruleId": "DORA-008",
+      "category": "Learning and evolving",
+      "description": "Post-incident learning",
+      "keywords": [
+        "lessons learned",
+        "root cause",
+        "post-incident review"
+      ],
+      "patterns": [],
+      "signal": "Learning and evolving review signal",
+      "reviewPrompt": "Review lessons-learned processes, root-cause analysis and control improvements. — Article 13",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Article 13",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj"
+    },
+    {
+      "ruleId": "DORA-009",
+      "category": "Communication",
+      "description": "ICT-related communication",
+      "keywords": [
+        "communication plan",
+        "crisis communication",
+        "stakeholder notification"
+      ],
+      "patterns": [],
+      "signal": "Communication review signal",
+      "reviewPrompt": "Review internal and external communication arrangements and notification responsibilities. — Article 14",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Article 14",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj"
+    },
+    {
+      "ruleId": "DORA-010",
+      "category": "ICT incident classification and reporting",
+      "description": "ICT incident classification and reporting",
+      "keywords": [
+        "ICT-related incident",
+        "major ICT-related incident",
+        "incident reporting"
+      ],
+      "patterns": [],
+      "signal": "ICT incident classification and reporting review signal",
+      "reviewPrompt": "Verify classification criteria, reporting triggers, timelines, recipients and evidence; do not infer major-incident status from keywords. — Articles 17–19",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Articles 17–19",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj"
+    },
+    {
+      "ruleId": "DORA-011",
+      "category": "Digital operational resilience testing",
+      "description": "Resilience testing programme",
+      "keywords": [
+        "digital operational resilience testing",
+        "vulnerability assessment",
+        "penetration testing"
+      ],
+      "patterns": [],
+      "signal": "Digital operational resilience testing review signal",
+      "reviewPrompt": "Review risk-based testing coverage, tester independence, remediation and advanced testing applicability. — Articles 24–25",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Articles 24–25",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj"
+    },
+    {
+      "ruleId": "DORA-012",
+      "category": "ICT third-party risk",
+      "description": "ICT third-party risk management",
+      "keywords": [
+        "ICT third-party service provider",
+        "outsourcing",
+        "concentration risk"
+      ],
+      "patterns": [],
+      "signal": "ICT third-party risk review signal",
+      "reviewPrompt": "Review due diligence, risk assessment, register of information, contractual rights, exit plans and concentration risk. — Articles 28–30",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Articles 28–30",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj"
+    },
+    {
+      "ruleId": "DORA-013",
+      "category": "Critical ICT third-party providers",
+      "description": "Critical ICT third-party oversight",
+      "keywords": [
+        "critical ICT third-party provider",
+        "oversight framework",
+        "subcontracting"
+      ],
+      "patterns": [],
+      "signal": "Critical ICT third-party providers review signal",
+      "reviewPrompt": "Check critical-provider and oversight signals; verify designation, scope, supervisory context and current implementing measures. — Articles 31–44",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Articles 31–44",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj"
+    }
+  ]
+}
