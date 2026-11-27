@@ -365,6 +365,33 @@ footer .footer-inner .hub-footer-nav a:focus-visible{
   filter:none!important;
 }
 
+
+/* UAE baseline + Bangladesh FEPD-2 extension — isolated, additive section. */
+.ra-shell{display:grid;gap:18px}
+.ra-intro{max-width:900px;color:var(--hub-muted)}
+.ra-toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;padding:16px;background:#fff;border:1px solid var(--hub-line);border-radius:12px}
+.ra-toolbar label{font-size:12px;font-weight:800;color:#18324f}
+.ra-toolbar select{min-width:220px;max-width:100%;padding:10px 12px;border:1px solid #b8cbd9;border-radius:8px;background:#fff;color:#18324f;font:inherit}
+.ra-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.ra-card{background:#fff;border:1px solid var(--hub-line);border-radius:13px;padding:18px;min-width:0}
+.ra-card h3{font-size:17px;margin:7px 0}
+.ra-meta{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0}
+.ra-chip{display:inline-block;padding:4px 8px;border-radius:999px;background:#eaf3f8;color:#244d6d;font-size:10px;font-weight:800}
+.ra-chip.bd{background:#e8f5ee;color:#17633e}
+.ra-card p,.ra-card li{font-size:13px;color:#536579}
+.ra-card ul{padding-left:18px}
+.ra-card a{font-size:12px;font-weight:800}
+.ra-status{font-size:11px;font-weight:800;color:#176b73}
+.ra-matrix{overflow-x:auto;background:#fff;border:1px solid var(--hub-line);border-radius:12px}
+.ra-matrix table{width:100%;border-collapse:collapse;min-width:680px;font-size:12px}
+.ra-matrix th,.ra-matrix td{padding:11px 13px;border-bottom:1px solid var(--hub-line);text-align:left;vertical-align:top}
+.ra-matrix th{background:#f1f6fa;color:#18324f}
+.ra-boundary{padding:16px 18px;border-left:4px solid var(--hub-teal);background:#edf7f6;border-radius:8px;color:#31545b;font-size:13px}
+.ra-tags{display:flex;flex-wrap:wrap;gap:9px}
+.ra-tags a{display:inline-flex;padding:8px 11px;border:1px solid #cbdce8;border-radius:8px;background:#fff;text-decoration:none;font-size:12px;font-weight:800}
+.ra-tags a:hover{background:#eef6fb}
+@media(max-width:650px){.ra-grid{grid-template-columns:1fr}.ra-toolbar select{width:100%}}
+
 </style>
 </head>
 <body>
@@ -713,6 +740,113 @@ footer .footer-inner .hub-footer-nav a:focus-visible{
   </div>
 </section>
 
+
+<section class="section white" id="regulatory-alignment" aria-labelledby="ra-title">
+  <div class="hub-wrap ra-shell">
+    <div class="section-heading">
+      <div class="eyebrow">REGULATORY ALIGNMENT · UAE BASELINE + BANGLADESH EXTENSION</div>
+      <h2 id="ra-title">One evidence register. Separate jurisdictional rule packs.</h2>
+      <p class="ra-intro">A source-led regulatory alignment workspace for UAE federal and financial-centre supervisory frameworks, with a separately scoped Bangladesh Bank FEPD-2 operational extension. Applicability is determined by entity type, licence, activity and jurisdiction—not by geography alone.</p>
+    </div>
+    <div class="ra-boundary"><strong>Jurisdiction boundary:</strong> UAE requirements remain in the UAE pack. Bangladesh FEPD-2 requirements are held in a Bangladesh-only extension and must not be represented as UAE obligations. The register is research and implementation support, not legal advice, regulatory approval or a substitute for each institution's own applicability assessment.</div>
+    <div class="ra-toolbar">
+      <label for="ra-filter">Filter source register</label>
+      <select id="ra-filter">
+        <option value="all">All jurisdiction packs</option>
+        <option value="uae-federal">UAE — Federal baseline</option>
+        <option value="cbuae">UAE — CBUAE</option>
+        <option value="dfsa">UAE — DIFC / DFSA</option>
+        <option value="vara">UAE — Dubai / VARA</option>
+        <option value="adgm">UAE — ADGM / FSRA</option>
+        <option value="bangladesh">Bangladesh — FEPD-2 extension</option>
+      </select>
+      <span id="ra-count" class="ra-status" aria-live="polite">7 source records</span>
+    </div>
+    <div class="ra-grid" id="ra-register">
+      <article class="ra-card" data-pack="uae-federal">
+        <div class="ra-meta"><span class="ra-chip">UAE FEDERAL</span><span class="ra-chip">PRIMARY LEGISLATION</span></div>
+        <h3>Federal Decree-Law No. (10) of 2025</h3>
+        <p>Federal AML/CFT/CPF framework. Use as the federal legal baseline; verify entity coverage and applicable supervisory authority before mapping individual obligations.</p>
+        <p><strong>Related instrument:</strong> Cabinet Resolution No. (134) of 2025, Executive Regulations. The CBUAE, VARA and ADGM official registers identify the 2025 instruments as replacing the former 2018 Law / 2019 Executive Regulations.</p>
+        <div class="ra-meta"><span class="ra-chip">Federal</span><span class="ra-chip">AML / CFT / CPF</span><span class="ra-status">Official register verified</span></div>
+        <a href="https://uaefiu.gov.ae/en/policies-guidance/understanding-the-law/" target="_blank" rel="noopener noreferrer">UAE FIU — legislation register ↗</a> · <a href="https://rulebook.centralbank.ae/en/rulebook/amlcft" target="_blank" rel="noopener noreferrer">CBUAE Rulebook ↗</a>
+      </article>
+      <article class="ra-card" data-pack="cbuae">
+        <div class="ra-meta"><span class="ra-chip">UAE · CBUAE</span><span class="ra-chip">SUPERVISORY RULEBOOK</span></div>
+        <h3>CBUAE AML/CFT Rulebook and supervision materials</h3>
+        <p>Apply to entities and activities supervised by the Central Bank of the UAE, subject to the relevant licence and rulebook scope. Includes the federal law register and CBUAE-specific AML/CFT supervisory materials.</p>
+        <p><strong>Implementation tag:</strong> CBUAE-specific obligation mapping; do not generalise CBUAE-only rulebook provisions to DFSA, FSRA or VARA firms.</p>
+        <div class="ra-meta"><span class="ra-chip">Licensed financial institutions</span><span class="ra-status">Official register</span></div>
+        <a href="https://rulebook.centralbank.ae/en/rulebook/amlcft" target="_blank" rel="noopener noreferrer">CBUAE AML/CFT Rulebook ↗</a> · <a href="https://www.centralbank.ae/en/our-operations/anti-money-laundering-aml/" target="_blank" rel="noopener noreferrer">CBUAE AML supervision ↗</a>
+      </article>
+      <article class="ra-card" data-pack="dfsa">
+        <div class="ra-meta"><span class="ra-chip">UAE · DIFC</span><span class="ra-chip">DFSA</span></div>
+        <h3>DIFC federal regime + DFSA AML Module</h3>
+        <p>DIFC Relevant Persons are subject to applicable UAE federal AML legislation and the DIFC regime administered by DFSA. DFSA confirmed updated AML and Glossary Modules came into force on 2 March 2026 following Federal Decree-Law 10/2025 and Cabinet Resolution 134/2025.</p>
+        <p><strong>Applicability gate:</strong> DIFC location and DFSA Relevant Person status; confirm permissions and activity-specific requirements.</p>
+        <div class="ra-meta"><span class="ra-chip">DIFC only</span><span class="ra-status">2026 amendment notice verified</span></div>
+        <a href="https://www.dfsa.ae/what-we-do/aml-ctf-sanctions-compliance/regulatory-framework" target="_blank" rel="noopener noreferrer">DFSA regulatory framework ↗</a> · <a href="https://www.dfsa.ae/news/dfsa-aml-and-glossary-modules-amendments-come-force-faqs-published" target="_blank" rel="noopener noreferrer">DFSA 2 March 2026 notice ↗</a>
+      </article>
+      <article class="ra-card" data-pack="vara">
+        <div class="ra-meta"><span class="ra-chip">UAE · DUBAI</span><span class="ra-chip">VARA</span></div>
+        <h3>Dubai virtual-asset perimeter and VARA rulebooks</h3>
+        <p>VARA regulates virtual-asset activities across Dubai mainland and free zones, excluding the DIFC. The Compliance and Risk Management Rulebook contains AML/CFT, risk assessment, CDD, monitoring/reporting, Travel Rule, targeted financial sanctions and record-keeping requirements for its licensed VASPs.</p>
+        <p><strong>Applicability gate:</strong> virtual-asset activity and VARA licensing perimeter; DIFC is excluded from VARA's stated perimeter.</p>
+        <div class="ra-meta"><span class="ra-chip">VASP / VA activity</span><span class="ra-status">Official rulebook verified</span></div>
+        <a href="https://rulebooks.vara.ae/rulebook/rulebooks" target="_blank" rel="noopener noreferrer">VARA rulebooks ↗</a> · <a href="https://rulebooks.vara.ae/rulebook/compliance-and-risk-management-rulebook" target="_blank" rel="noopener noreferrer">Compliance &amp; Risk Management Rulebook ↗</a>
+      </article>
+      <article class="ra-card" data-pack="adgm">
+        <div class="ra-meta"><span class="ra-chip">UAE · ADGM</span><span class="ra-chip">FSRA</span></div>
+        <h3>ADGM FSRA AML Rulebook and 2026 enhancements</h3>
+        <p>ADGM AML Rules are read together with relevant UAE federal laws. FSRA announced finalised AML framework enhancements on 21 May 2026, including revisions to FSMR 2015 and the AML and Sanctions Rulebook following CP 1 of 2026.</p>
+        <p><strong>Applicability gate:</strong> ADGM establishment and the entity's FSRA authorisation / DNFBP / NPO status as applicable.</p>
+        <div class="ra-meta"><span class="ra-chip">ADGM perimeter</span><span class="ra-status">Official 2026 update verified</span></div>
+        <a href="https://www.adgm.com/operating-in-adgm/financial-and-cyber-crime-prevention/aml" target="_blank" rel="noopener noreferrer">ADGM AML framework ↗</a> · <a href="https://www.adgm.com/media/announcements/adgm-fsra-finalises-enhancements-to-its-anti-money-laundering-framework" target="_blank" rel="noopener noreferrer">FSRA 21 May 2026 notice ↗</a>
+      </article>
+      <article class="ra-card" data-pack="bangladesh">
+        <div class="ra-meta"><span class="ra-chip bd">BANGLADESH</span><span class="ra-chip bd">FEPD-2 EXTENSION</span></div>
+        <h3>Bangladesh Bank FEPD-2 Circular Letter No. 03</h3>
+        <p><strong>Date:</strong> 26 November 2026 · <strong>Effective:</strong> 1 January 2027 · <strong>Addressed to:</strong> Head Offices / Principal Offices of all Authorised Dealers in Bangladesh.</p>
+        <ul>
+          <li>Establish a dedicated cell/unit for centralized monitoring and verification of prices for trade-related transactions, including imports, exports, services and other cross-border transactions.</li>
+          <li>Take necessary measures to subscribe to at least one internationally recognised price-verification platform that is affordable and suitable for the AD's operational requirements.</li>
+          <li>Complete the arrangements within the stipulated timeframe before the effective date.</li>
+        </ul>
+        <p><strong>Cross-reference:</strong> Part-A, paragraph 7(2) of FEPD-1 Circular No. 30 dated 13 August 2026. The circular does not name a mandatory vendor or prescribe a numeric price-deviation threshold.</p>
+        <div class="ra-meta"><span class="ra-chip bd">AD banks in Bangladesh</span><span class="ra-chip bd">Upcoming effective date</span><span class="ra-status">Primary circular verified</span></div>
+        <a href="https://www.bb.org.bd/mediaroom/circulars/fepd-2/nov262026fepd-2l03e.pdf" target="_blank" rel="noopener noreferrer">Official Bangladesh Bank circular (PDF) ↗</a> · <a href="https://www.bb.org.bd/en/index.php/mediaroom/circular" target="_blank" rel="noopener noreferrer">Bangladesh Bank circular register ↗</a>
+      </article>
+    </div>
+    <div class="section-heading" style="margin:24px 0 10px">
+      <div class="eyebrow">IMPLEMENTATION CROSSWALK</div>
+      <h3>What the extension changes—and what it does not.</h3>
+      <p>Functional references below are tags only. The linked product pages, calculators, scoring engines and existing workflows are not modified by this extension.</p>
+    </div>
+    <div class="ra-matrix">
+      <table>
+        <thead><tr><th>Area</th><th>UAE baseline</th><th>Bangladesh FEPD-2 extension</th><th>Boundary / control</th></tr></thead>
+        <tbody>
+          <tr><td>Source register</td><td>Federal law plus CBUAE / DFSA / VARA / ADGM source namespaces</td><td>Separate FEPD-2 source record with issue date, effective date, addressee and cross-reference</td><td>No jurisdiction blending; retain primary-source URL and review date</td></tr>
+          <tr><td>Trade price verification</td><td>No FEPD-2 cell or platform mandate imported into UAE pack</td><td>Centralized cell/unit and suitable, affordable internationally recognized platform subscription</td><td>No invented vendor mandate, benchmark, scoring threshold or automatic adverse inference</td></tr>
+          <tr><td>Evidence workflow</td><td>Evidence linked to the applicable federal / supervisory rule</td><td>Transaction type, goods/services, currency, invoice value, benchmark source/date, reviewer rationale and evidence reference</td><td>Human verification; protect confidential bank/customer data</td></tr>
+          <tr><td>Product references</td><td>AlfiQ / TradeGuard / ICMS are optional workflow destinations</td><td>Bangladesh-specific context may be tagged for those modules</td><td>Reference links only; no changes to their pages, rules, calculations or scoring</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel">
+      <h3>Linked modules — reference tags only</h3>
+      <p class="muted">These links identify where a future, separately authorised workflow may be used. They do not indicate that the modules have been changed or that an integration is live.</p>
+      <div class="ra-tags">
+        <a href="/alfiq/">AlfiQ · source change &amp; impact review ↗</a>
+        <a href="/tradeguard/">TradeGuard · trade-price evidence reference ↗</a>
+        <a href="/icms-2026/">ICMS · control evidence / assurance reference ↗</a>
+      </div>
+    </div>
+    <div class="ra-boundary"><strong>Operating safeguards:</strong> preserve the source instrument's legal status (law, regulation, rulebook, notice or guidance); record issue / effective dates separately; require entity and activity applicability review; label analysis separately from source facts; retain reviewer sign-off. No automated legal conclusion, transaction approval/rejection, fraud finding or compliance certification is produced by this register.</div>
+    <p class="small muted">Register review date: 27 November 2026. Source status and applicability must be revalidated against the issuing authority before institutional use or a formal compliance conclusion.</p>
+  </div>
+</section>
+
 <section class="section white" id="sources">
   <div class="hub-wrap">
     <div class="section-heading"><div class="eyebrow">06 · PRIMARY SOURCES</div><h2>Start with the issuing authority.</h2><p>Selected official sources for the initial UAE edition. Regulatory coverage will expand only when source scope and currency can be verified.</p></div>
@@ -794,6 +928,28 @@ footer .footer-inner .hub-footer-nav a:focus-visible{
     if(status)status.textContent='Your email application should open with the enquiry details. Review the message and send it to complete submission. If it does not open, email info@regtechnexusai.com with the subject “AI Governance Readiness Assessment”.';
     window.location.href='mailto:info@regtechnexusai.com?'+params.toString();
   });
+})();
+</script>
+
+
+<script>
+(function(){
+  var filter=document.getElementById('ra-filter');
+  var register=document.getElementById('ra-register');
+  var count=document.getElementById('ra-count');
+  if(!filter||!register||!count)return;
+  function applyFilter(){
+    var value=filter.value;
+    var visible=0;
+    register.querySelectorAll('[data-pack]').forEach(function(card){
+      var show=value==='all'||card.getAttribute('data-pack')===value;
+      card.hidden=!show;
+      if(show)visible++;
+    });
+    count.textContent=visible+' source record'+(visible===1?'':'s');
+  }
+  filter.addEventListener('change',applyFilter);
+  applyFilter();
 })();
 </script>
 
