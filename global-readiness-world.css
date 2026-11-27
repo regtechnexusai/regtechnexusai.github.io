@@ -65,3 +65,17 @@
   .readiness-fincrime-distinction{padding:1rem}
   .readiness-fincrime-bangladesh{padding:1rem}
 }
+
+
+/* 2026-11-27: Restore readable contrast in the Global Standards & PEP panel.
+   Scoped to this page and panel; preserves the existing navy background and all behavior. */
+body.global-systems-page .global-standards-panel > div > .kicker{
+  color:#B8F3EE!important;
+  opacity:1!important;
+  -webkit-text-fill-color:#B8F3EE;
+}
+body.global-systems-page .global-standards-panel > div > h3{
+  color:#FFFFFF!important;
+  opacity:1!important;
+  -webkit-text-fill-color:#FFFFFF;
+}
