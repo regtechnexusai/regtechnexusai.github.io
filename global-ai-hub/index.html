@@ -439,9 +439,12 @@ footer .footer-inner .hub-footer-nav a:focus-visible{
   /* Remove non-report siblings from print layout, not merely visibility:
      visibility:hidden preserves their full page height and creates blank pages. */
   body>*{display:none!important}
+  /* Explicitly suppress the global header and footer in every browser print path. */
+  body>header,body>footer,body footer{display:none!important}
   body>main#main-content{display:block!important;width:100%!important;margin:0!important;padding:0!important}
+  /* The sample report is the only printable section; all other Hub sections stay excluded. */
   body>main#main-content>*{display:none!important}
-  body>main#main-content>#sample-readiness-report{display:block!important;position:static!important;left:auto!important;top:auto!important;width:100%!important;max-width:none!important;margin:0!important;padding:0!important;background:#fff!important;color:#111!important}
+  body>main#main-content>section#sample-readiness-report{display:block!important;position:static!important;left:auto!important;top:auto!important;width:100%!important;max-width:none!important;margin:0!important;padding:0!important;background:#fff!important;color:#111!important}
   #sample-readiness-report .sample-report-actions{display:none!important}
   #sample-readiness-report .hub-wrap{width:100%!important;max-width:none!important;margin:0!important;padding:0!important}
   #sample-readiness-report .section-heading{margin:0 0 10px!important;break-after:avoid-page;page-break-after:avoid}
