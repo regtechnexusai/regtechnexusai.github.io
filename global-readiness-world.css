@@ -82,3 +82,7 @@
 .adgm-consultation-footnote{margin:.8rem 0!important;padding:.8rem;border-left:3px solid #b88a39;background:#fff8e8}
 .adgm-consultation-register>a{color:#075f86;font-weight:700;text-decoration:underline;text-underline-offset:3px}
 @media(max-width:760px){.adgm-applicability-gate,.adgm-consultation-register{padding:1rem}.adgm-consultation-row{flex-direction:column;gap:.4rem}}
+
+/* ADGM evidence-reference inputs only */
+#panel-adgm .adgm-evidence-reference{display:flex;flex-direction:column;gap:.35rem;min-width:0;color:#45576a;font-size:.82rem;font-weight:600}
+#panel-adgm .adgm-evidence-reference input{width:100%;min-width:0;padding:.55rem .65rem;border:1px solid #cbd5df;border-radius:6px;background:#fff;color:#203246;font:inherit;font-weight:400}
