@@ -9,12 +9,14 @@
   const modelConfig = {
     's-trace': { id: 'RNX-SIG-SG-01', tracks: { ai: 'AI evidence', aml: 'AML/CFT evidence', cosmic: 'Information-sharing' } },
     'u-perimeter': { id: 'RNX-SIG-UAE-01', tracks: { perimeter: 'Regulatory route', aml: 'AML/CFT', va: 'Virtual-asset risk', tbml: 'TBML', token: 'Token/service controls', reporting: 'Reporting' } },
-    'a-resolve': { id: 'RNX-SIG-AU-01', tracks: { aml: 'AML/CTF lane', resilience: 'Resilience lane' } }
+    'a-resolve': { id: 'RNX-SIG-AU-01', tracks: { aml: 'AML/CTF lane', resilience: 'Resilience lane' } },
+    'adgm-fsra': { id: 'ADGM-FSRA-01', tracks: { perimeter: 'Regulatory perimeter', governance: 'Governance', aml: 'AML/CFT', prudential: 'Prudential', conduct: 'Conduct of business', 'virtual-assets': 'Virtual assets', technology: 'Technology & cyber', reporting: 'Reporting', assurance: 'Assurance' } }
   };
   const sampleCases = {
     singapore: { label: 'Synthetic RNX-SIG-SG-01 control case', statuses: ['ready', 'partial', 'partial', 'missing', 'partial', 'ready'] },
     dubai: { label: 'Synthetic RNX-SIG-UAE-01 mainland virtual-asset case', route: 'mainland', statuses: ['ready', 'partial', 'partial', 'missing', 'partial', 'ready'] },
-    australia: { label: 'Synthetic RNX-SIG-AU-01 AML and resilience case', statuses: ['ready', 'partial', 'missing', 'ready', 'partial', 'missing'] }
+    australia: { label: 'Synthetic RNX-SIG-AU-01 AML and resilience case', statuses: ['ready', 'partial', 'missing', 'ready', 'partial', 'missing'] },
+    adgm: { label: 'ADGM-SYN-001 — synthetic regulated-firm control review', statuses: ['ready', 'partial', 'partial', 'not-assessed', 'ready', 'partial', 'missing', 'not-assessed', 'partial'] }
   };
 
   const today = () => {
@@ -112,6 +114,11 @@
   };
 
   const gateFor = (rows, panel) => {
+    if (panel.dataset.model === 'adgm-fsra') {
+      const keys = ['entity-category', 'regulated-activity', 'permission-status'];
+      const verified = keys.every((key) => Boolean(panel.querySelector('[data-field="' + key + '"]')?.value.trim())) && panel.querySelector('[data-field="applicability-confirmation"]')?.value === 'confirmed';
+      if (!verified) return { code: 'APPLICABILITY UNDETERMINED', tone: 'critical', reason: 'The legal entity, regulated activity and current FSRA permission conditions are not all verified. No positive signal can be produced.' };
+    }
     if (panel.dataset.model === 'u-perimeter') {
       const route = panel.querySelector('[data-field="route"]')?.value || '';
       if (!['mainland', 'difc'].includes(route)) return { code: 'ROUTE FIRST', tone: 'route', reason: 'Select Mainland / VARA or DIFC / DFSA before relying on the UAE signal.' };
@@ -198,6 +205,7 @@
       decision: panel.querySelector('[data-result-title]')?.textContent.trim() || 'Assessment result',
       coverage: panel.querySelector('[data-score]')?.textContent.trim() || 'N/A',
       metadata,
+      consultationRecords: [...panel.querySelectorAll('[data-consultation-record]')].map((record) => ({ code: record.dataset.code, status: record.dataset.status, closes: record.dataset.closes })),
       rows
     };
   };
@@ -212,7 +220,12 @@
       snapshot.decision, snapshot.coverage, row.track, row.source, row.control,
       row.status, row.risk, row.weight, row.critical, row.evidenceReference, row.action
     ])];
-    return '\ufeff' + lines.map((line) => line.map(csvEscape).join(',')).join('\r\n');
+    const csv = lines.map((line) => line.map(csvEscape).join(',')).join('\r\n');
+    if (snapshot.consultationRecords?.length) {
+      const appendix = ['consultation_code,status,closing_date,classification', ...snapshot.consultationRecords.map((r) => [r.code,r.status,r.closes,'Non-binding; excluded from scored controls'].map(csvEscape).join(','))].join('\r\n');
+      return '\ufeff' + csv + '\r\n\r\n' + csvEscape('SEPARATE NON-BINDING CONSULTATION REGISTER') + '\r\n' + appendix;
+    }
+    return '\ufeff' + csv;
   };
 
   const reportText = (snapshot) => {
@@ -239,6 +252,11 @@
       lines.push('   Evidence reference: ' + (row.evidenceReference || 'Not recorded'));
       lines.push('   Next action: ' + row.action);
     });
+    if (snapshot.consultationRecords?.length) {
+      lines.push('', 'SEPARATE NON-BINDING CONSULTATION REGISTER');
+      snapshot.consultationRecords.forEach((record) => lines.push(record.code + ' | ' + record.status + ' | closes ' + record.closes));
+      lines.push('Consultations are excluded from scored controls. Re-verify CP5 after 30 November 2026 using the official FSRA register.');
+    }
     lines.push('', 'Independent browser-based review support only. This signal identifies evidence gaps against the selected review method; it does not determine legal compliance, regulatory breach or filing obligation, and it is not certification.');
     return lines.join('\n');
   };
@@ -440,6 +458,11 @@
       label?.focus();
       return;
     }
+    if (panel.dataset.model === 'adgm-fsra') {
+      const keys = ['entity-category', 'regulated-activity', 'permission-status'];
+      const verified = keys.every((key) => Boolean(panel.querySelector('[data-field="' + key + '"]')?.value.trim())) && panel.querySelector('[data-field="applicability-confirmation"]')?.value === 'confirmed';
+      if (!verified) { message.textContent = 'APPLICABILITY UNDETERMINED — verify the entity, regulated activity and current FSRA permission conditions against the official register before scoring.'; panel.querySelector('[data-field="applicability-confirmation"]')?.focus(); return; }
+    }
     if (panel.dataset.model === 'u-perimeter' && !['mainland', 'difc'].includes(route?.value)) {
       route?.classList.add('field-error');
       message.textContent = 'Select Mainland / VARA or DIFC / DFSA before assessing. ADGM is a separate path.';
@@ -512,7 +535,7 @@
 
   countrySelect?.addEventListener('change', (event) => {
     const selected = event.target.value;
-    if (!['singapore', 'dubai', 'australia'].includes(selected)) return;
+    if (!['singapore', 'dubai', 'australia', 'adgm'].includes(selected)) return;
     showPanel(selected);
     window.setTimeout(() => document.getElementById(`panel-${selected}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 0);
   });
@@ -535,7 +558,7 @@
   panels.forEach(initialisePanel);
   if (countrySelect && !countrySelect.value) countrySelect.value = document.querySelector('.jurisdiction-tab.is-active')?.dataset.jurisdiction || 'singapore';
   const requested = window.location.hash.slice(1);
-  if (['singapore', 'dubai', 'australia'].includes(requested)) {
+  if (['singapore', 'dubai', 'australia', 'adgm'].includes(requested)) {
     showPanel(requested, false);
     window.setTimeout(() => document.getElementById(`panel-${requested}`)?.scrollIntoView({ block: 'start' }), 0);
   }
