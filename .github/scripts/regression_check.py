@@ -96,7 +96,7 @@ if not payscale_shell_css_script.is_file():
 else:
  payscale_shell_css_source=payscale_shell_css_script.read_text(encoding="utf-8",errors="replace")
  for token in (
-  'LATEST_HREF = "/site-wide-shell.css?v=20261119-mobile-back-home-v5"',
+  'LATEST_HREF = "/site-wide-shell.css?v=20261126-text-navigation2"',
   'def transform_html(html: str)',
   'def self_test()',
   'transform_html(updated) == updated',
@@ -106,9 +106,9 @@ else:
    add("HIGH",".github/scripts/payscale_shell_css.py","Shell stylesheet normalizer missing required fail-closed or idempotency guard: "+token)
  if "payscale_shell_css.py --self-test" not in workflow_source or "payscale_shell_css.py --page-dir site/payscale-2026" not in workflow_source:
   add("HIGH",".github/workflows/deploy-pages.yml","Pages assembly must test and normalize both PayScale shell stylesheet links.")
- if 'href="/site-wide-shell.css?v=20261119-mobile-back-home-v5"' not in workflow_source or 'data-rt-shell-latest="true"' not in workflow_source:
+ if 'href="/site-wide-shell.css?v=20261126-text-navigation2"' not in workflow_source or 'data-rt-shell-latest="true"' not in workflow_source:
   add("HIGH",".github/workflows/deploy-pages.yml","Shared-shell stylesheet injection must use the latest cache URL and mark it current.")
- if "20261119-mobile-back-home-v5" not in shell_source:
+ if "20261126-text-navigation2" not in shell_source:
   add("HIGH","site-wide-shell.js","Shared-shell stylesheet cache version is out of sync with Pages assembly.")
  static_workflow=ROOT/".github/workflows/regulatory-source-regression.yml"
  static_workflow_source=static_workflow.read_text(encoding="utf-8",errors="replace") if static_workflow.is_file() else ""
@@ -163,10 +163,10 @@ if not gaas_logo_optimizer.is_file():
 else:
  gaas_logo_source=gaas_logo_optimizer.read_text(encoding="utf-8",errors="replace")
  for token in (
-  'const SOURCE_REL = "gaas/alfiq-gaas-logo.png";',
+  'const SOURCE_REL = "gaas/alfiq-gaas-logo-approved.png";',
   'const OUTPUT_REL = "gaas/alfiq-gaas-logo.webp";',
-  'const SOURCE_WIDTH = 2172;',
-  'const SOURCE_HEIGHT = 724;',
+  'const SOURCE_WIDTH = 1200;',
+  'const SOURCE_HEIGHT = 400;',
   'const OUTPUT_WIDTH = 460;',
   'const OUTPUT_HEIGHT = 153;',
   'const MAX_BYTES = 120000;',
@@ -188,11 +188,11 @@ gaas_content=gaas_page.read_text(encoding="utf-8",errors="replace") if gaas_page
 if not gaas_page.is_file():
  add("HIGH","gaas/index.html","Audited page missing; GaaS logo delivery cannot be verified.")
 else:
- if gaas_content.count('src="alfiq-gaas-logo.png?v=2"')!=2:
+ if gaas_content.count('src="alfiq-gaas-logo-approved.png?v=1"')!=2:
   add("HIGH","gaas/index.html","Header and footer must both use the current AlfiQ GaaS PNG logo with cache-busting.")
  if "alfiq-gaas-logo.webp" in gaas_content:
   add("HIGH","gaas/index.html","GaaS must not reference the missing WebP logo file.")
- footer_match=re.search(r'<footer\\b[^>]*>.*?</footer>',gaas_content,flags=re.I|re.S)
+ footer_match=re.search(r'<footer\b[^>]*>.*?</footer>',gaas_content,flags=re.I|re.S)
  if footer_match and ('loading="lazy"' not in footer_match.group(0) or 'decoding="async"' not in footer_match.group(0)):
   add("MEDIUM","gaas/index.html","Footer logo should remain lazy-loaded and asynchronously decoded.")
 optimized_logo_pages={
@@ -206,7 +206,7 @@ for rel,(source,fallback,count) in optimized_logo_pages.items():
   add("HIGH",rel,"Audited page missing; optimized logo delivery cannot be verified.")
   continue
  content=page.read_text(encoding="utf-8",errors="replace")
- pictures=re.findall(r"<picture\\b[^>]*>.*?</picture>",content,flags=re.I|re.S)
+ pictures=re.findall(r"<picture\b[^>]*>.*?</picture>",content,flags=re.I|re.S)
  if len(pictures)!=count or any(source not in picture or fallback not in picture for picture in pictures):
   add("HIGH",rel,"Expected "+str(count)+" WebP logo picture(s) with original PNG fallback.")
  if count==2:
@@ -344,7 +344,7 @@ else:
 institutional_pages={
  "engagement-policy/index.html":("Institutional Engagement &amp; Operational Governance Policy",("No physical founder access is offered","supervisory-confidential information")),
  "trust/index.html":("Trust &amp; Verification Centre",("/regulatory-source-register/","/tool-assurance/","zero-knowledge processing")),
- "vendor-due-diligence/index.html":("Vendor Due Diligence (VDD)",("mailto:regtechnexusai@gmail.com","No file upload is provided","No password-protected dashboard")),
+ "vendor-due-diligence/index.html":("Vendor Due Diligence (VDD)",("mailto:info@regtechnexusai.com","No file upload is provided","No password-protected dashboard")),
 }
 for rel,(heading,required) in institutional_pages.items():
  page=ROOT/rel
