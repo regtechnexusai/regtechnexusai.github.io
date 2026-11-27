@@ -767,7 +767,8 @@ footer .footer-inner .hub-footer-nav a:focus-visible{
         <h3>49 / 100 — Developing</h3>
         <p>Calculated as the equal-weighted mean of eight domain ratings on a 1–5 scale, multiplied by 20 and rounded to the nearest whole number.</p>
         <p><strong>Interpretation:</strong> foundational governance elements are emerging, but material gaps remain in evidence completeness, third-party assurance, model lifecycle controls and independent testing.</p>
-        <p><strong>Confidence:</strong> Low — simulated evidence only; not a verified institutional score.</p>
+        <p><strong>Illustrative maturity bands:</strong> 0–20 Initial · 21–40 Emerging · 41–60 Developing · 61–80 Managed · 81–100 Embedded. These demonstration bands are internal presentation conventions only—not regulatory thresholds, industry benchmarks or certification criteria.</p>
+        <p><strong>Confidence:</strong> Low because the example uses simulated summaries only; no original policies, system records, interviews, corroborating documents, operating-effectiveness tests or independent validation were inspected. A real report should rate evidence confidence separately from control maturity.</p>
       </article>
     </div>
     <div class="ra-matrix" style="margin-top:18px">
@@ -802,6 +803,23 @@ footer .footer-inner .hub-footer-nav a:focus-visible{
           <tr><td>SIM-MOD-06</td><td>Model validation and monitoring summary</td><td>Simulated test summary</td><td>Independent validation and drift thresholds not evidenced</td></tr>
           <tr><td>SIM-TPR-07</td><td>AI provider due-diligence and contract checklist</td><td>Simulated due-diligence file</td><td>Audit rights, subcontractors and exit provisions incomplete</td></tr>
           <tr><td>SIM-AUD-08</td><td>Control test, issue log and remediation tracker extract</td><td>Simulated audit record</td><td>Retest closure and independent challenge not evidenced</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="section-heading" style="margin:28px 0 12px">
+      <div class="eyebrow">TRACEABILITY EXAMPLE</div>
+      <h3>From evidence reference to verified closure</h3>
+      <p>This single fictional example demonstrates how a reviewer should connect a source record to a finding, control gap, corrective action and closure evidence.</p>
+    </div>
+    <div class="ra-matrix">
+      <table>
+        <thead><tr><th>Stage</th><th>Illustrative record</th><th>Reviewer / closure requirement</th></tr></thead>
+        <tbody>
+          <tr><td>Evidence reference</td><td><strong>SIM-INV-02</strong> — AI system and third-party use-case register extract; the accountable owner field is blank for one material use case.</td><td>Simulated extract only; a real review would inspect the approved inventory and reconcile it to procurement, architecture and business-owner records.</td></tr>
+          <tr><td>Finding</td><td><strong>F-02 — Incomplete accountability metadata.</strong> One material AI use case has no named accountable business owner in the sample register.</td><td>Confirm whether ownership is recorded in another controlled source before concluding that the control is absent.</td></tr>
+          <tr><td>Control gap / risk</td><td>Ownership and escalation responsibilities cannot be reliably traced from the inventory entry; review, incident response and risk acceptance may be delayed or misdirected.</td><td>Assess actual impact and inherent/residual risk against the institution's approved methodology; do not infer a regulatory breach from this sample alone.</td></tr>
+          <tr><td>Remediation</td><td>Assign an accountable business owner and deputy; record role, approval authority, escalation route and annual / material-change review trigger for each in-scope use case.</td><td><strong>Illustrative owner:</strong> Head of AI Governance. <strong>Target:</strong> 30 calendar days from agreed action-plan approval.</td></tr>
+          <tr><td>Closure evidence</td><td>Approved inventory export showing owner and deputy; governance approval record; updated responsibility matrix; evidence of reconciliation to the use-case population.</td><td>Reviewer re-performs a sample-based completeness check, records exceptions, challenges management evidence and signs off only when the agreed closure criteria are met.</td></tr>
         </tbody>
       </table>
     </div>
