@@ -1,0 +1,248 @@
+{
+  "schemaVersion": "1.0",
+  "packId": "eu-ai-act-governance",
+  "packName": "EU AI Act / AI Governance",
+  "packVersion": "1.0.0",
+  "jurisdiction": "European Union",
+  "sourceReferences": [
+    {
+      "instrument": "Regulation (EU) 2024/1689",
+      "provision": "Articles 4–16, 26, 50, 72–73 and Annex III",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng",
+      "sourceVersion": "Consolidated text dated 27 July 2026",
+      "status": "Official EUR-Lex consolidated text; documentation tool, not authentic legal text",
+      "verificationStatus": "Source reference checked 27 November 2026; individual obligations and applicability require reviewer verification"
+    },
+    {
+      "instrument": "Regulation (EU) 2026/1744",
+      "provision": "Amendment to Regulation (EU) 2024/1689",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2026/1744/oj",
+      "sourceVersion": "Official Journal publication 24 July 2026",
+      "status": "Amending instrument",
+      "verificationStatus": "Reference included in consolidated AI Act text"
+    }
+  ],
+  "rules": [
+    {
+      "ruleId": "AI-GOV-001",
+      "category": "AI literacy",
+      "description": "AI literacy measures",
+      "keywords": [
+        "AI literacy",
+        "staff training",
+        "competence"
+      ],
+      "patterns": [],
+      "signal": "AI literacy review signal",
+      "reviewPrompt": "Review whether provider/deployer measures are appropriate to staff knowledge, roles and context; verify scope and applicable date. — Article 4",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Article 4",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng"
+    },
+    {
+      "ruleId": "AI-GOV-002",
+      "category": "Prohibited AI practices",
+      "description": "Prohibited practices",
+      "keywords": [
+        "prohibited practice",
+        "social scoring",
+        "manipulative"
+      ],
+      "patterns": [],
+      "signal": "Prohibited AI practices review signal",
+      "reviewPrompt": "Escalate potential prohibited-practice indicators for legal classification; keyword matches are not determinations. — Article 5",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Article 5",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng"
+    },
+    {
+      "ruleId": "AI-GOV-003",
+      "category": "High-risk classification",
+      "description": "High-risk system classification",
+      "keywords": [
+        "high-risk AI system",
+        "Annex III",
+        "Article 6"
+      ],
+      "patterns": [],
+      "signal": "High-risk classification review signal",
+      "reviewPrompt": "Verify intended purpose, system context, exclusions, classification criteria and applicable transitional rules. — Annex III",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Annex III",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng"
+    },
+    {
+      "ruleId": "AI-GOV-004",
+      "category": "Risk management",
+      "description": "Risk management system",
+      "keywords": [
+        "risk management system",
+        "foreseeable risks",
+        "Article 9"
+      ],
+      "patterns": [],
+      "signal": "Risk management review signal",
+      "reviewPrompt": "Review risk identification, estimation, evaluation, mitigation and lifecycle updates. — Article 9",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Article 9",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng"
+    },
+    {
+      "ruleId": "AI-GOV-005",
+      "category": "Data governance",
+      "description": "Data and data governance",
+      "keywords": [
+        "training data",
+        "validation data",
+        "data governance"
+      ],
+      "patterns": [],
+      "signal": "Data governance review signal",
+      "reviewPrompt": "Review data relevance, representativeness, governance, bias examination and data management practices. — Article 10",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Article 10",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng"
+    },
+    {
+      "ruleId": "AI-GOV-006",
+      "category": "Technical documentation",
+      "description": "Technical documentation and record-keeping",
+      "keywords": [
+        "technical documentation",
+        "logs",
+        "automatic logging"
+      ],
+      "patterns": [],
+      "signal": "Technical documentation review signal",
+      "reviewPrompt": "Check documentation and logging signals; verify actor, system category, record content and retention requirements. — Articles 11–12",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Articles 11–12",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng"
+    },
+    {
+      "ruleId": "AI-GOV-007",
+      "category": "Transparency and information",
+      "description": "Transparency and instructions",
+      "keywords": [
+        "instructions for use",
+        "transparency",
+        "inform deployers"
+      ],
+      "patterns": [],
+      "signal": "Transparency and information review signal",
+      "reviewPrompt": "Review information supplied to deployers, system capabilities, limitations and intended purpose. — Article 13",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Article 13",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng"
+    },
+    {
+      "ruleId": "AI-GOV-008",
+      "category": "Human oversight",
+      "description": "Human oversight",
+      "keywords": [
+        "human oversight",
+        "human intervention",
+        "override"
+      ],
+      "patterns": [],
+      "signal": "Human oversight review signal",
+      "reviewPrompt": "Assess oversight design, assigned competence, authority, monitoring and intervention capability. — Article 14",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Article 14",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng"
+    },
+    {
+      "ruleId": "AI-GOV-009",
+      "category": "Accuracy and cybersecurity",
+      "description": "Accuracy, robustness and cybersecurity",
+      "keywords": [
+        "accuracy",
+        "robustness",
+        "cybersecurity"
+      ],
+      "patterns": [],
+      "signal": "Accuracy and cybersecurity review signal",
+      "reviewPrompt": "Review resilience, accuracy, robustness and cybersecurity requirements relevant to the system. — Article 15",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Article 15",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng"
+    },
+    {
+      "ruleId": "AI-GOV-010",
+      "category": "Provider obligations",
+      "description": "Provider obligations",
+      "keywords": [
+        "quality management system",
+        "conformity assessment",
+        "EU declaration of conformity"
+      ],
+      "patterns": [],
+      "signal": "Provider obligations review signal",
+      "reviewPrompt": "Identify provider-side governance and conformity signals; verify role allocation and system classification. — Article 16",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Article 16",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng"
+    },
+    {
+      "ruleId": "AI-GOV-011",
+      "category": "Deployer obligations",
+      "description": "Deployer obligations",
+      "keywords": [
+        "human oversight",
+        "input data",
+        "monitoring"
+      ],
+      "patterns": [],
+      "signal": "Deployer obligations review signal",
+      "reviewPrompt": "Review deployer instructions, monitoring, input-data relevance and workplace/public authority duties where applicable. — Article 26",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Article 26",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng"
+    },
+    {
+      "ruleId": "AI-GOV-012",
+      "category": "Transparency for AI interaction and synthetic content",
+      "description": "Transparency obligations",
+      "keywords": [
+        "AI-generated content",
+        "deep fake",
+        "inform natural persons"
+      ],
+      "patterns": [],
+      "signal": "Transparency for AI interaction and synthetic content review signal",
+      "reviewPrompt": "Check disclosure/marking signals and exceptions; verify system type, actor, content and applicable dates. — Article 50",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Article 50",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng"
+    },
+    {
+      "ruleId": "AI-GOV-013",
+      "category": "Post-market monitoring and incidents",
+      "description": "Post-market monitoring and serious incidents",
+      "keywords": [
+        "post-market monitoring",
+        "serious incident",
+        "corrective action"
+      ],
+      "patterns": [],
+      "signal": "Post-market monitoring and incidents review signal",
+      "reviewPrompt": "Review monitoring, incident classification, notification triggers, deadlines and corrective action. — Articles 72–73",
+      "severity": "Review",
+      "enabled": true,
+      "articleReference": "Articles 72–73",
+      "sourceUrl": "https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng"
+    }
+  ]
+}
