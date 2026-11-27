@@ -157,7 +157,8 @@
     Object.entries(config.tracks).forEach(([track, label]) => {
       const trackRows = rows.filter((row) => row.track === track);
       const coverage = weightedCoverage(trackRows);
-      const signal = laneSignal(trackRows);
+      const applicabilityUndetermined = panel.dataset.model === 'adgm-fsra' && gateFor(rows, panel).code === 'APPLICABILITY UNDETERMINED';
+      const signal = applicabilityUndetermined ? 'APPLICABILITY UNDETERMINED' : laneSignal(trackRows);
       const card = document.createElement('div');
       card.className = 'track-score-card';
       const heading = document.createElement('strong');
