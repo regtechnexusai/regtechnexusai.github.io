@@ -224,8 +224,10 @@
     ])];
     const csv = lines.map((line) => line.map(csvEscape).join(',')).join('\r\n');
     if (snapshot.consultationRecords?.length) {
+      const context = snapshot.moduleId === 'ADGM-FSRA-01' ? '\r\n\r\nADGM APPLICABILITY & SCENARIO CONTEXT\r\n' + ['entity-category','regulated-activity','permission-status','applicability-confirmation','defi-exposure','asset-type','custody-model','client-asset-status'].map((key) => csvEscape(key) + ',' + csvEscape(snapshot.metadata[key] || 'Not recorded')).join('\r\n') : '';
       const appendix = ['consultation_code,status,closing_date,classification', ...snapshot.consultationRecords.map((r) => [r.code,r.status,r.closes,'Non-binding; excluded from scored controls'].map(csvEscape).join(','))].join('\r\n');
-      return '\ufeff' + csv + '\r\n\r\n' + csvEscape('SEPARATE NON-BINDING CONSULTATION REGISTER') + '\r\n' + appendix;
+      // Append consultation records and ADGM perimeter context as unscored report sections.
+      return '\ufeff' + csv + context + '\r\n\r\n' + csvEscape('SEPARATE NON-BINDING CONSULTATION REGISTER') + '\r\n' + appendix;
     }
     return '\ufeff' + csv;
   };
@@ -248,6 +250,10 @@
       '',
       'CONTROL RESULTS'
     ];
+    if (snapshot.moduleId === 'ADGM-FSRA-01') {
+      lines.push('', 'ADGM APPLICABILITY & SCENARIO CONTEXT');
+      ['entity-category','regulated-activity','permission-status','applicability-confirmation','defi-exposure','asset-type','custody-model','client-asset-status'].forEach((key) => lines.push(key + ': ' + (snapshot.metadata[key] || 'Not recorded')));
+    }
     snapshot.rows.forEach((row, index) => {
       lines.push((index + 1) + '. ' + row.control + ' | ' + row.status + ' | ' + row.risk + ' | ' + row.track);
       lines.push('   Source: ' + row.source);
@@ -475,7 +481,7 @@
     const route = panel.querySelector('[data-field="route"]');
     const statuses = [...panel.querySelectorAll('[data-status]')];
     const message = panel.querySelector('[data-assessment-message]');
-    const incomplete = statuses.filter((select) => select.value === 'not-assessed');
+    const incomplete = panel.dataset.model === 'adgm-fsra' ? [] : statuses.filter((select) => select.value === 'not-assessed');
     label?.classList.remove('field-error');
     route?.classList.remove('field-error');
     statuses.forEach((select) => select.classList.remove('field-error'));
