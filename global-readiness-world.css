@@ -65,3 +65,24 @@
   .readiness-fincrime-distinction{padding:1rem}
   .readiness-fincrime-bangladesh{padding:1rem}
 }
+
+
+/* ADGM / FSRA panel styles — scoped; existing jurisdiction styles untouched */
+.adgm-applicability-gate,.adgm-consultation-register{margin:1rem 0;padding:1.2rem;border:1px solid #cbd8e5;border-radius:12px;background:#f5f8fc;color:#26384b}
+.adgm-applicability-gate>strong,.adgm-consultation-register h4{display:block;margin:0 0 .45rem;color:#14263d;font-size:1.05rem}
+.adgm-applicability-gate p,.adgm-consultation-register p{margin:.35rem 0 .8rem;color:#45576a;line-height:1.6;font-size:.91rem}
+.adgm-applicability-fields{margin-top:.8rem}
+.adgm-consultation-register{background:#fffdf7;border-color:#e6d9b7}
+.adgm-consultation-register .tag{color:#77551c}
+.adgm-consultation-row{display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;padding:.85rem 0;border-top:1px solid #eadfca}
+.adgm-consultation-row strong,.adgm-consultation-row span{display:block}
+.adgm-consultation-row strong{color:#27384b;font-size:.92rem}
+.adgm-consultation-row span{margin-top:.25rem;color:#596777;font-size:.86rem;line-height:1.5}
+.adgm-consultation-row>b{flex:0 0 auto;padding:.2rem .55rem;border:1px solid #b88a39;border-radius:4px;color:#76551e;background:#fff8e8;font-size:.78rem}
+.adgm-consultation-footnote{margin:.8rem 0!important;padding:.8rem;border-left:3px solid #b88a39;background:#fff8e8}
+.adgm-consultation-register>a{color:#075f86;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:760px){.adgm-applicability-gate,.adgm-consultation-register{padding:1rem}.adgm-consultation-row{flex-direction:column;gap:.4rem}}
+
+/* ADGM evidence-reference inputs only */
+#panel-adgm .adgm-evidence-reference{display:flex;flex-direction:column;gap:.35rem;min-width:0;color:#45576a;font-size:.82rem;font-weight:600}
+#panel-adgm .adgm-evidence-reference input{width:100%;min-width:0;padding:.55rem .65rem;border:1px solid #cbd5df;border-radius:6px;background:#fff;color:#203246;font:inherit;font-weight:400}
