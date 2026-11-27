@@ -16,7 +16,7 @@
     singapore: { label: 'Synthetic RNX-SIG-SG-01 control case', statuses: ['ready', 'partial', 'partial', 'missing', 'partial', 'ready'] },
     dubai: { label: 'Synthetic RNX-SIG-UAE-01 mainland virtual-asset case', route: 'mainland', statuses: ['ready', 'partial', 'partial', 'missing', 'partial', 'ready'] },
     australia: { label: 'Synthetic RNX-SIG-AU-01 AML and resilience case', statuses: ['ready', 'partial', 'missing', 'ready', 'partial', 'missing'] },
-    adgm: { label: 'ADGM-SYN-001 — synthetic regulated-firm control review', statuses: ['ready', 'partial', 'partial', 'not-assessed', 'ready', 'partial', 'missing', 'not-assessed', 'partial'] }
+    adgm: { label: 'ADGM-SYN-001 — hypothetical ADGM applicant / virtual-asset-related service', statuses: ['not-assessed', 'partial', 'partial', 'not-assessed', 'not-assessed', 'partial', 'not-assessed', 'not-assessed', 'partial'], fields: { 'entity-category': 'Other / not determined', 'regulated-activity': 'Virtual-asset-related service — exact regulated activity unverified', 'permission-status': 'Unknown / not verified', 'applicability-confirmation': '', 'defi-exposure': 'Yes — synthetic scenario', 'asset-type': 'Not yet identified', 'custody-model': 'Not verified', 'client-asset-status': 'Not verified' }, evidenceRefs: ['', 'SYN-GOV-001', 'SYN-AML-POL-001 / SYN-TM-001', '', '', 'SYN-VA-RISK-001', '', '', 'SYN-ASSUR-001'] }
   };
 
   const today = () => {
@@ -455,6 +455,8 @@
       if (!['label', 'date', 'route'].includes(field.dataset.field)) field.value = '';
     });
     panel.querySelectorAll('[data-evidence-ref]').forEach((input) => { input.value = ''; });
+    Object.entries(sample.fields || {}).forEach(([key, value]) => { const field = panel.querySelector('[data-field="' + key + '"]'); if (field) field.value = value; });
+    panel.querySelectorAll('[data-evidence-ref]').forEach((input, index) => { input.value = sample.evidenceRefs?.[index] || ''; });
     panel.querySelectorAll('[data-status]').forEach((select, index) => {
       select.value = allowedStatuses.has(sample.statuses[index]) ? sample.statuses[index] : 'not-assessed';
       select.classList.remove('field-error');
@@ -482,13 +484,6 @@
       message.textContent = 'Add a non-sensitive project label before assessing.';
       label?.focus();
       return;
-    }
-    if (panel.dataset.model === 'adgm-fsra') {
-      const keys = ['entity-category', 'regulated-activity', 'permission-status'];
-      const category = panel.querySelector('[data-field="entity-category"]')?.value || '';
-      const permission = panel.querySelector('[data-field="permission-status"]')?.value || '';
-      const verified = category && category !== 'Other / not determined' && Boolean(panel.querySelector('[data-field="regulated-activity"]')?.value.trim()) && permission === 'Permission verified — conditions reviewed' && panel.querySelector('[data-field="applicability-confirmation"]')?.value === 'confirmed';
-      if (!verified) { message.textContent = 'APPLICABILITY UNDETERMINED — verify the entity, regulated activity and current FSRA permission conditions against the official register before scoring.'; panel.querySelector('[data-field="applicability-confirmation"]')?.focus(); return; }
     }
     if (panel.dataset.model === 'u-perimeter' && !['mainland', 'difc'].includes(route?.value)) {
       route?.classList.add('field-error');
