@@ -116,7 +116,9 @@
   const gateFor = (rows, panel) => {
     if (panel.dataset.model === 'adgm-fsra') {
       const keys = ['entity-category', 'regulated-activity', 'permission-status'];
-      const verified = keys.every((key) => Boolean(panel.querySelector('[data-field="' + key + '"]')?.value.trim())) && panel.querySelector('[data-field="applicability-confirmation"]')?.value === 'confirmed';
+      const category = panel.querySelector('[data-field="entity-category"]')?.value || '';
+      const permission = panel.querySelector('[data-field="permission-status"]')?.value || '';
+      const verified = category && category !== 'Other / not determined' && Boolean(panel.querySelector('[data-field="regulated-activity"]')?.value.trim()) && permission === 'Permission verified — conditions reviewed' && panel.querySelector('[data-field="applicability-confirmation"]')?.value === 'confirmed';
       if (!verified) return { code: 'APPLICABILITY UNDETERMINED', tone: 'critical', reason: 'The legal entity, regulated activity and current FSRA permission conditions are not all verified. No positive signal can be produced.' };
     }
     if (panel.dataset.model === 'u-perimeter') {
@@ -287,6 +289,29 @@
   const buildPdf = (snapshot) => {
     const lines = [];
     reportText(snapshot).split('\n').forEach((line) => wrapPdfLine(line).forEach((wrapped) => lines.push(wrapped)));
+    if (snapshot.moduleId === 'ADGM-FSRA-01') {
+      const pageLines = [];
+      for (let i = 0; i < lines.length; i += 48) pageLines.push(lines.slice(i, i + 48));
+      const fontId = 3 + pageLines.length * 2;
+      const objects = ['<< /Type /Catalog /Pages 2 0 R >>', ''];
+      const pageRefs = [];
+      pageLines.forEach((pageLinesForPdf, index) => {
+        const pageId = 3 + index * 2, contentId = pageId + 1;
+        pageRefs.push(pageId + ' 0 R');
+        const pageStream = 'BT\\n/F1 10 Tf\\n50 760 Td\\n14 TL\\n' + pageLinesForPdf.map((line) => '(' + pdfEscape(line) + ') Tj\\nT*\\n').join('') + 'ET';
+        objects.push('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 ' + fontId + ' 0 R >> >> /Contents ' + contentId + ' 0 R >>');
+        objects.push('<< /Length ' + pageStream.length + ' >>\\nstream\\n' + pageStream + '\\nendstream');
+      });
+      objects[1] = '<< /Type /Pages /Kids [' + pageRefs.join(' ') + '] /Count ' + pageRefs.length + ' >>';
+      objects.push('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>');
+      let pagedPdf = '%PDF-1.4\\n'; const pageOffsets = [0];
+      objects.forEach((object, index) => { pageOffsets.push(pagedPdf.length); pagedPdf += (index + 1) + ' 0 obj\\n' + object + '\\nendobj\\n'; });
+      const pageXref = pagedPdf.length;
+      pagedPdf += 'xref\\n0 ' + (objects.length + 1) + '\\n0000000000 65535 f \\n';
+      pageOffsets.slice(1).forEach((offset) => { pagedPdf += String(offset).padStart(10, '0') + ' 00000 n \\n'; });
+      pagedPdf += 'trailer\\n<< /Size ' + (objects.length + 1) + ' /Root 1 0 R >>\\nstartxref\\n' + pageXref + '\\n%%EOF';
+      return pagedPdf;
+    }
     const stream = 'BT\n/F1 10 Tf\n50 760 Td\n14 TL\n' + lines.map((line) => '(' + pdfEscape(line) + ') Tj\nT*\n').join('') + 'ET';
     const objects = [
       '<< /Type /Catalog /Pages 2 0 R >>',
@@ -460,7 +485,9 @@
     }
     if (panel.dataset.model === 'adgm-fsra') {
       const keys = ['entity-category', 'regulated-activity', 'permission-status'];
-      const verified = keys.every((key) => Boolean(panel.querySelector('[data-field="' + key + '"]')?.value.trim())) && panel.querySelector('[data-field="applicability-confirmation"]')?.value === 'confirmed';
+      const category = panel.querySelector('[data-field="entity-category"]')?.value || '';
+      const permission = panel.querySelector('[data-field="permission-status"]')?.value || '';
+      const verified = category && category !== 'Other / not determined' && Boolean(panel.querySelector('[data-field="regulated-activity"]')?.value.trim()) && permission === 'Permission verified — conditions reviewed' && panel.querySelector('[data-field="applicability-confirmation"]')?.value === 'confirmed';
       if (!verified) { message.textContent = 'APPLICABILITY UNDETERMINED — verify the entity, regulated activity and current FSRA permission conditions against the official register before scoring.'; panel.querySelector('[data-field="applicability-confirmation"]')?.focus(); return; }
     }
     if (panel.dataset.model === 'u-perimeter' && !['mainland', 'difc'].includes(route?.value)) {
