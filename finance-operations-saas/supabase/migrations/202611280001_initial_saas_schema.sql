@@ -119,7 +119,12 @@ $;
 
 create or replace function public.set_invoice_updated_at()
 returns trigger language plpgsql set search_path = '' as $
-begin new.updated_at:=now(); new.updated_by:=auth.uid(); return new; end;
+begin
+  if new.organisation_id <> old.organisation_id or new.created_by <> old.created_by then
+    raise exception 'Invoice tenant and creator are immutable';
+  end if;
+  new.updated_at:=now(); new.updated_by:=auth.uid(); return new;
+end;
 $;
 create trigger invoices_set_updated_at before update on public.invoices
 for each row execute function public.set_invoice_updated_at();
