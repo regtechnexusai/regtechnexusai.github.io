@@ -23,10 +23,26 @@ async function initialise(){
 }
 async function loadWorkspace(){
  if(!state.session||!state.supabase)return;
- const {data:org,error:orgError}=await state.supabase.rpc("get_my_organisation");
+ // Accept invitations created by the trusted server function, then resolve the tenant.
+ const {error:inviteError}=await state.supabase.rpc("accept_my_pending_invitations");
+ if(inviteError && !/function .* does not exist/i.test(inviteError.message)){message("authMessage",inviteError.message);showAuth();return;}
+ let {data:org,error:orgError}=await state.supabase.rpc("get_my_organisation");
  if(orgError){message("authMessage",orgError.message);showAuth();return;}
  state.organisation=Array.isArray(org)?org[0]:org;
- if(!state.organisation){message("authMessage","Your account has no organisation membership. Contact your workspace administrator.");showAuth();return;}
+ // The first verified sign-in completes onboarding using the organisation name
+ // supplied at registration. The database RPC assigns the authenticated user as owner.
+ if(!state.organisation){
+  const {data:{user}}=await state.supabase.auth.getUser();
+  const orgName=String(user?.user_metadata?.organisation_name||"").trim();
+  if(orgName){
+   const {error:createError}=await state.supabase.rpc("create_my_organisation",{org_name:orgName});
+   if(createError){message("authMessage",createError.message);showAuth();return;}
+   const result=await state.supabase.rpc("get_my_organisation");
+   if(result.error){message("authMessage",result.error.message);showAuth();return;}
+   state.organisation=Array.isArray(result.data)?result.data[0]:result.data;
+  }
+ }
+ if(!state.organisation){message("authMessage","No organisation membership was found. Ask your workspace administrator for an invitation.");showAuth();return;}
  showApp();await loadInvoices();
 }
 async function loadInvoices(){
