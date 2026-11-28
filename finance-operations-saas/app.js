@@ -89,4 +89,12 @@ $("invoiceForm").addEventListener("submit",async e=>{
 });
 $("searchInput").oninput=render;$("statusFilter").onchange=render;
 $("exportBtn").onclick=()=>{const data=[["Invoice","Customer","Issue date","Due date","Amount","Paid","Balance","Follow-up"],...state.invoices.map(x=>[x.invoice_number,x.customer_name,x.issue_date,x.due_date,x.amount,x.amount_paid,Number(x.amount)-Number(x.amount_paid),x.follow_up_status])];const csv=data.map(r=>r.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(",")).join("\r\n");const url=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"}));const a=document.createElement("a");a.href=url;a.download="finance-invoices.csv";a.click();URL.revokeObjectURL(url);};
+$("inviteForm").addEventListener("submit",async e=>{
+ e.preventDefault();if(!state.supabase||!state.organisation){message("inviteMessage","Workspace is not ready.");return;}
+ const form=new FormData(e.currentTarget),email=String(form.get("email")).trim().toLowerCase(),role=String(form.get("role"));
+ message("inviteMessage","Sending invitation…",false);
+ const {data,error}=await state.supabase.functions.invoke("invite-member",{body:{email,role,organisation_id:state.organisation.id}});
+ if(error){message("inviteMessage",error.message);return;}
+ message("inviteMessage",data?.message||"Invitation sent.",false);e.currentTarget.reset();
+});
 void initialise();
