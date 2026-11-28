@@ -115,7 +115,14 @@ begin
     values(org_id,auth.uid(),'invoice',inv_id,action_name);
   if TG_OP='DELETE' then return old; else return new; end if;
 end;
-$$;
+$;
+
+create or replace function public.set_invoice_updated_at()
+returns trigger language plpgsql set search_path = '' as $
+begin new.updated_at:=now(); new.updated_by:=auth.uid(); return new; end;
+$;
+create trigger invoices_set_updated_at before update on public.invoices
+for each row execute function public.set_invoice_updated_at();
 create trigger invoices_audit_trigger after insert or update or delete on public.invoices
 for each row execute function public.audit_invoice_change();
 
@@ -129,6 +136,8 @@ create table public.pending_organisation_invitations (
   created_at timestamptz not null default now(),
   unique (organisation_id,email)
 );
+alter table public.pending_organisation_invitations enable row level security;
+revoke all on public.pending_organisation_invitations from anon, authenticated;
 
 create or replace function public.accept_my_pending_invitations()
 returns integer language plpgsql security definer set search_path = ''
