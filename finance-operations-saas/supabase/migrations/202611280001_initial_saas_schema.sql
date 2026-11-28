@@ -170,16 +170,16 @@ alter table public.invoices enable row level security;
 alter table public.audit_events enable row level security;
 
 create policy org_read_member on public.organisations for select to authenticated using (public.is_org_member(id));
-create policy org_update_admin on public.organisations for update to authenticated using (public.has_org_role(id,array['owner','admin']::public.member_role[])) with check (public.has_org_role(id,array['owner','admin']::public.member_role[]));
+
 create policy members_read_same_org on public.organisation_members for select to authenticated using (public.is_org_member(organisation_id));
 create policy invoices_read_member on public.invoices for select to authenticated using (public.is_org_member(organisation_id));
-create policy invoices_insert_finance on public.invoices for insert to authenticated with check (public.has_org_role(organisation_id,array['owner','admin','finance_manager']::public.member_role[]));
-create policy invoices_update_finance on public.invoices for update to authenticated using (public.has_org_role(organisation_id,array['owner','admin','finance_manager']::public.member_role[])) with check (public.has_org_role(organisation_id,array['owner','admin','finance_manager']::public.member_role[]));
+create policy invoices_insert_finance on public.invoices for insert to authenticated with check (created_by=(select auth.uid()) and public.has_org_role(organisation_id,array['owner','admin','finance_manager']::public.member_role[]));
+create policy invoices_update_finance on public.invoices for update to authenticated using (public.has_org_role(organisation_id,array['owner','admin','finance_manager']::public.member_role[])) with check (created_by=(select auth.uid()) and public.has_org_role(organisation_id,array['owner','admin','finance_manager']::public.member_role[]));
 create policy invoices_delete_admin on public.invoices for delete to authenticated using (public.has_org_role(organisation_id,array['owner','admin']::public.member_role[]));
 create policy audit_read_admin on public.audit_events for select to authenticated using (public.has_org_role(organisation_id,array['owner','admin']::public.member_role[]));
 
 grant usage on schema public to authenticated;
-grant select,update on public.organisations to authenticated;
+grant select on public.organisations to authenticated;
 grant select on public.organisation_members to authenticated;
 grant select,insert,update,delete on public.invoices to authenticated;
 grant select on public.audit_events to authenticated;
