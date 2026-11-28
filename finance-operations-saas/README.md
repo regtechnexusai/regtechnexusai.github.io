@@ -16,7 +16,7 @@ Implemented in this branch:
 Not yet enabled:
 - Supabase project provisioning and migration execution.
 - Email provider/SMTP configuration and production redirect allow-list.
-- Invitation/acceptance workflow for additional team members.
+- SMTP delivery tuning, email template branding, invitation expiry/resend/revoke lifecycle.
 - Payment reconciliation, recurring invoices, attachments, accounting integrations, and advanced reporting.
 - Independent penetration test, backup-restore drill, and production sign-off.
 
@@ -30,13 +30,15 @@ Not yet enabled:
    - `SUPABASE_URL` — project URL
    - `SUPABASE_ANON_KEY` — publishable anon key (public by design; still restrict with RLS)
 6. Do not add `service_role`, database passwords, SMTP credentials, or other secrets to frontend variables or this repository.
-7. Run the Preview deployment and verify registration, email confirmation, login, organisation creation, cross-tenant isolation, invoice CRUD, and audit events before any production consideration.
+7. Deploy the Supabase Edge Function with `supabase functions deploy invite-member` after linking the sandbox project. The function uses Supabase-managed `SUPABASE_URL`, `SUPABASE_ANON_KEY`, and `SUPABASE_SERVICE_ROLE_KEY` in the server runtime; never copy the service-role key into Cloudflare or browser code.
+8. Create a Cloudflare Pages Preview deployment and set Preview-only `SUPABASE_URL` and `SUPABASE_ANON_KEY` variables. No custom domain or DNS change is required for the first preview.
+9. Run the Preview deployment and verify registration, email confirmation, login, organisation creation, invitation acceptance, cross-tenant isolation, role restrictions, invoice CRUD, and audit events before any production consideration.
 
 Cloudflare Pages Functions are served from `functions/` relative to the configured project root. The `/api/config` endpoint returns only the Supabase URL and public anon key; it never returns server secrets.
 
-## First-use onboarding
+## First-use onboarding and invitations
 
-After email confirmation, the user signs in. The UI expects a one-time organisation creation step through the `create_my_organisation(org_name)` RPC. This initial scaffold exposes the database function; a guided onboarding screen is the next implementation increment before pilot use.
+The sign-up form captures an organisation name. After email confirmation and first sign-in, the app calls `create_my_organisation(org_name)` and the database assigns the first user the `owner` role. Owners and admins can invite colleagues from Team Access. The Edge Function verifies the caller's JWT and organisation role, sends an Auth invitation, and stages a pending membership. The invited user receives the role after signing in and accepting the invitation through the database RPC. Admins may invite finance managers, collectors, and viewers; only owners may invite another admin. Invitation expiry, resend, revocation, and richer team-management controls remain future increments.
 
 ## Security notes
 
