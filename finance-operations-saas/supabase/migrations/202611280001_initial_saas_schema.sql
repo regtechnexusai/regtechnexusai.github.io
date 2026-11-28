@@ -119,6 +119,42 @@ $$;
 create trigger invoices_audit_trigger after insert or update or delete on public.invoices
 for each row execute function public.audit_invoice_change();
 
+-- Invitations are written only by the trusted Edge Function using service-role credentials.
+create table public.pending_organisation_invitations (
+  id uuid primary key default gen_random_uuid(),
+  organisation_id uuid not null references public.organisations(id) on delete cascade,
+  email text not null check (email = lower(trim(email))),
+  role public.member_role not null check (role in ('admin','finance_manager','collector','viewer')),
+  invited_by uuid not null references auth.users(id) on delete restrict,
+  created_at timestamptz not null default now(),
+  unique (organisation_id,email)
+);
+
+create or replace function public.accept_my_pending_invitations()
+returns integer language plpgsql security definer set search_path = ''
+as $
+declare current_email text; accepted_count integer := 0; invitation record;
+begin
+  if auth.uid() is null then raise exception 'Authentication required'; end if;
+  current_email := lower(coalesce(auth.jwt()->>'email',''));
+  if current_email = '' then raise exception 'Verified email is required'; end if;
+  for invitation in
+    select * from public.pending_organisation_invitations
+    where email=current_email order by created_at
+  loop
+    insert into public.organisation_members(organisation_id,user_id,role,invited_by)
+      values(invitation.organisation_id,auth.uid(),invitation.role,invitation.invited_by)
+      on conflict (organisation_id,user_id) do nothing;
+    insert into public.audit_events(organisation_id,actor_id,entity_type,entity_id,action,metadata)
+      values(invitation.organisation_id,auth.uid(),'membership',invitation.organisation_id,'membership.invitation_accepted',
+        jsonb_build_object('role',invitation.role));
+    delete from public.pending_organisation_invitations where id=invitation.id;
+    accepted_count := accepted_count + 1;
+  end loop;
+  return accepted_count;
+end;
+$;
+
 alter table public.organisations enable row level security;
 alter table public.organisation_members enable row level security;
 alter table public.invoices enable row level security;
@@ -147,3 +183,6 @@ revoke all on function public.create_my_organisation(text) from anon;
 revoke all on function public.get_my_organisation() from anon;
 
 commit;
+
+revoke all on function public.accept_my_pending_invitations() from anon;
+grant execute on function public.accept_my_pending_invitations() to authenticated;
