@@ -1,0 +1,35 @@
+name: Finance Operations SaaS Validation
+
+on:
+  pull_request:
+    paths:
+      - "finance-operations-saas/**"
+      - ".github/workflows/finance-operations-saas-validation.yml"
+  push:
+    branches: [main]
+    paths:
+      - "finance-operations-saas/**"
+      - ".github/workflows/finance-operations-saas-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-sandbox:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: finance-operations-saas
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate JavaScript and tenant-safety invariants
+        run: npm run check
+      - name: Ensure no local secrets are tracked
+        run: |
+          if git ls-files | grep -E '(^|/)(\.env|\.dev\.vars)$'; then
+            echo "Local secret/config file is tracked"
+            exit 1
+          fi
