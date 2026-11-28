@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Finance Operations SaaS workspace by RegTech Nexus AI.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#f5f8f4">
+<title>Finance Operations | RegTech Nexus AI</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar"><a class="brand" href="https://regtechnexusai.com/"><span class="brand-mark">RN</span><span><b>RegTech Nexus AI</b><small>Finance Operations</small></span></a><div class="top-actions"><span id="workspaceName" class="workspace-name">Secure workspace</span><button id="signOutBtn" class="button secondary" hidden>Sign out</button></div></header>
+<main class="container">
+<section id="setupNotice" class="notice" hidden><b>Sandbox configuration required</b><p>Connect a Supabase project and configure the Cloudflare Pages environment variables before enabling sign-in. No demo or local-only data will be presented as saved records.</p></section>
+<section id="authView" class="auth-layout">
+<div class="intro"><p class="eyebrow">FINANCE WORKSPACE</p><h1>Know what’s due.<br><span>Act on what matters.</span></h1><p>Secure, organisation-separated receivables and collections workspace.</p><ul><li>Persistent invoice records</li><li>Role-based organisation access</li><li>Auditable finance activity</li></ul></div>
+<div class="card auth-card"><div class="tabs"><button id="loginTab" class="tab active">Sign in</button><button id="signupTab" class="tab">Create account</button></div>
+<form id="authForm"><label>Email address<input name="email" type="email" autocomplete="email" required maxlength="254"></label><label>Password<input name="password" type="password" autocomplete="current-password" required minlength="10" maxlength="128"></label><div id="signupFields" hidden><label>Organisation name<input name="orgName" maxlength="120" placeholder="Your organisation"></label></div><button class="button primary" id="authSubmit" type="submit">Sign in securely</button><button class="text-button" id="resetPassword" type="button">Forgot password?</button></form><p id="authMessage" class="message" role="status" aria-live="polite"></p><p class="fineprint">Use a unique password. Access is restricted by database-enforced organisation membership.</p></div>
+</section>
+<section id="appView" hidden>
+<div class="page-heading"><div><p class="eyebrow">ACCOUNTS RECEIVABLE</p><h1 id="welcomeTitle">Receivables</h1><p>Persistent organisation workspace</p></div><button id="addInvoiceBtn" class="button primary">＋ Add invoice</button></div>
+<div id="stats" class="stats"></div>
+<section class="card"><div class="section-heading"><div><h2>Invoice ledger</h2><p>Records are stored in the organisation database.</p></div><div class="filters"><input id="searchInput" type="search" placeholder="Search invoices" aria-label="Search invoices"><select id="statusFilter" aria-label="Filter invoices"><option value="all">All statuses</option><option value="overdue">Overdue</option><option value="due">Due soon</option><option value="open">Open</option><option value="paid">Paid</option></select><button id="exportBtn" class="button secondary">Export CSV</button></div></div>
+<div class="table-wrap"><table><thead><tr><th>Invoice</th><th>Customer</th><th>Due date</th><th>Amount</th><th>Paid</th><th>Balance</th><th>Status</th><th></th></tr></thead><tbody id="invoiceRows"></tbody></table><p id="emptyState" class="empty" hidden>No invoices found.</p></div></section>
+<p class="security-note">Organisation isolation is enforced by PostgreSQL Row Level Security. Do not upload payment-card data, passwords, or information not required for receivables management.</p>
+</section>
+</main>
+<dialog id="invoiceDialog" class="card"><form id="invoiceForm"><div class="dialog-head"><h2>Add invoice</h2><button type="button" id="closeDialog" class="icon-button" aria-label="Close">×</button></div><label>Invoice number<input name="number" required maxlength="40"></label><label>Customer<input name="customer" required maxlength="120"></label><div class="two-col"><label>Issue date<input name="issue" type="date" required></label><label>Due date<input name="due" type="date" required></label></div><div class="two-col"><label>Amount (USD)<input name="amount" type="number" min="0.01" step="0.01" required></label><label>Paid (USD)<input name="paid" type="number" min="0" step="0.01" value="0" required></label></div><label>Follow-up<select name="follow"><option>Not contacted</option><option>Email sent</option><option>Call scheduled</option><option>Promise to pay</option><option>Disputed</option></select></label><p id="invoiceMessage" class="message" role="status"></p><div class="dialog-actions"><button type="button" id="cancelDialog" class="button secondary">Cancel</button><button type="submit" class="button primary">Save invoice</button></div></form></dialog>
+<footer><span>© RegTech Nexus AI</span><span>Finance Operations · Sandbox release</span><a href="https://regtechnexusai.com/">Main website</a></footer>
+<script type="module" src="app.js"></script>
+</body></html>
