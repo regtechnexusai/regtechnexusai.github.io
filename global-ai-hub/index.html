@@ -1317,14 +1317,16 @@ footer .footer-inner .hub-footer-nav a:focus-visible{
     printWindow.document.open();
     printWindow.document.write(isolated);
     printWindow.document.close();
-    printWindow.addEventListener('load',function(){
+    var didPrint=false;
+    function startPrint(){
+      if(didPrint||printWindow.closed)return;
+      didPrint=true;
       printWindow.focus();
       printWindow.print();
-    },{once:true});
+    }
+    printWindow.addEventListener('load',startPrint,{once:true});
     /* Some mobile browsers complete document.write before registering load. */
-    printWindow.setTimeout(function(){
-      if(!printWindow.closed){printWindow.focus();printWindow.print();}
-    },700);
+    printWindow.setTimeout(startPrint,700);
   });
   downloadButton.addEventListener('click',function(){
     var clone=report.cloneNode(true);
