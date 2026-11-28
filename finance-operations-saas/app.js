@@ -5,7 +5,7 @@ const state = { supabase:null, session:null, organisation:null, invoices:[], mod
 const money = (n) => new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(Number(n||0));
 const safe = (v) => String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const message = (id,text,isError=true) => { $(id).textContent=text||""; $(id).style.color=isError?"#9b4b42":"#397552"; };
-const today = () => new Date().toISOString().slice(0,10);
+const today = () => { const d=new Date(); return [d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-"); };
 function status(row){if(Number(row.amount_paid)>=Number(row.amount))return "paid";if(row.due_date<today())return "overdue";const days=(new Date(row.due_date+"T00:00:00")-new Date(today()+"T00:00:00"))/86400000;return days<=7?"due":"open";}
 function showAuth(){ $("authView").hidden=false;$("appView").hidden=true;$("signOutBtn").hidden=true;$("workspaceName").textContent="Secure workspace"; }
 function showApp(){ $("authView").hidden=true;$("appView").hidden=false;$("signOutBtn").hidden=false;$("workspaceName").textContent=state.organisation?.name||"Organisation";$("welcomeTitle").textContent=state.organisation?.name||"Receivables"; }
@@ -17,7 +17,7 @@ async function initialise(){
   if(!cfg.supabaseUrl||!cfg.supabaseAnonKey)throw new Error("Supabase sandbox is not configured yet. Authentication is disabled until the project URL and public anon key are configured.");
   state.supabase=createClient(cfg.supabaseUrl,cfg.supabaseAnonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
   const {data:{session}}=await state.supabase.auth.getSession();state.session=session;
-  state.supabase.auth.onAuthStateChange((_event,session)=>{state.session=session;if(session){void loadWorkspace();}else{state.organisation=null;state.invoices=[];showAuth();}});
+  state.supabase.auth.onAuthStateChange((_event,session)=>{state.session=session;if(!session){state.organisation=null;state.invoices=[];showAuth();}});
   if(session)await loadWorkspace();else showAuth();
  }catch(error){$("setupNotice").hidden=false;message("authMessage",error.message);showAuth();}
 }
@@ -76,7 +76,7 @@ $("authForm").addEventListener("submit",async e=>{
 $("resetPassword").onclick=async()=>{if(!state.supabase){message("authMessage","Sandbox is not configured.");return;}const email=$("authForm").elements.email.value.trim();if(!email){message("authMessage","Enter your email address first.");return;}const {error}=await state.supabase.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});message("authMessage",error?.message||"Password reset email requested. Check your inbox.",!!error);};
 $("signOutBtn").onclick=async()=>{if(state.supabase)await state.supabase.auth.signOut();};
 const dialog=$("invoiceDialog");
-$("addInvoiceBtn").onclick=()=>{const f=$("invoiceForm");f.reset();f.dataset.id="";f.elements.issue.value=today();const d=new Date();d.setDate(d.getDate()+14);f.elements.due.value=d.toISOString().slice(0,10);f.elements.paid.value="0";$("invoiceMessage").textContent="";dialog.showModal();};
+$("addInvoiceBtn").onclick=()=>{const f=$("invoiceForm");f.reset();f.dataset.id="";f.elements.issue.value=today();const d=new Date();d.setDate(d.getDate()+14);f.elements.due.value=[d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-");f.elements.paid.value="0";$("invoiceMessage").textContent="";dialog.showModal();};
 $("closeDialog").onclick=$("cancelDialog").onclick=()=>dialog.close();
 async function editInvoice(id){const row=state.invoices.find(x=>x.id===id);if(!row)return;const f=$("invoiceForm");f.dataset.id=row.id;f.elements.number.value=row.invoice_number;f.elements.customer.value=row.customer_name;f.elements.issue.value=row.issue_date;f.elements.due.value=row.due_date;f.elements.amount.value=row.amount;f.elements.paid.value=row.amount_paid;f.elements.follow.value=row.follow_up_status;dialog.showModal();}
 $("invoiceForm").addEventListener("submit",async e=>{
