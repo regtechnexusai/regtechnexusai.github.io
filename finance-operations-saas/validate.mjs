@@ -24,7 +24,7 @@ assert.ok(sql.includes("Invoice tenant and creator are immutable"), "Tenant owne
 assert.ok(sql.includes("revoke all on function public.create_my_organisation(text) from public, anon"), "Public organisation-creation RPC execution must be revoked");
 assert.ok(sql.includes("revoke all on function public.accept_my_pending_invitations() from public, anon"), "Invitation acceptance RPC must be authenticated-only");
 assert.ok(!sql.includes("with check (created_by=(select auth.uid()) and public.has_org_role"), "Team members must be able to update invoices created by colleagues");
-assert.ok((sql.match(/as \\$\\$[\\s\\S]*?\\$\\$;/g) || []).length >= 7, "PL/pgSQL dollar-quoted function bodies may be malformed");
+assert.ok(sql.split("as $").length - 1 >= 7 && sql.split("$;").length - 1 >= 7, "PL/pgSQL dollar-quoted function bodies may be malformed");
 assert.ok(sql.includes("invoice_number)"), "Organisation-scoped invoice uniqueness missing");
 assert.ok(edge.includes("auth.getUser(token)") && edge.includes("SUPABASE_SERVICE_ROLE_KEY"), "Invitation endpoint must verify JWT and use server-only admin key");
 assert.ok(config.includes("SUPABASE_ANON_KEY") && !config.includes("SERVICE_ROLE"), "Runtime config must expose only the public anon key");
