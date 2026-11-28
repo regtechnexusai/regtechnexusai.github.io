@@ -115,17 +115,17 @@ begin
     values(org_id,auth.uid(),'invoice',inv_id,action_name);
   if TG_OP='DELETE' then return old; else return new; end if;
 end;
-$;
+$$;
 
 create or replace function public.set_invoice_updated_at()
-returns trigger language plpgsql set search_path = '' as $
+returns trigger language plpgsql set search_path = '' as $$
 begin
   if new.organisation_id <> old.organisation_id or new.created_by <> old.created_by then
     raise exception 'Invoice tenant and creator are immutable';
   end if;
   new.updated_at:=now(); new.updated_by:=auth.uid(); return new;
 end;
-$;
+$$;
 create trigger invoices_set_updated_at before update on public.invoices
 for each row execute function public.set_invoice_updated_at();
 create trigger invoices_audit_trigger after insert or update or delete on public.invoices
@@ -146,7 +146,7 @@ revoke all on public.pending_organisation_invitations from anon, authenticated;
 
 create or replace function public.accept_my_pending_invitations()
 returns integer language plpgsql security definer set search_path = ''
-as $
+as $$
 declare current_email text; accepted_count integer := 0; invitation record;
 begin
   if auth.uid() is null then raise exception 'Authentication required'; end if;
@@ -167,7 +167,7 @@ begin
   end loop;
   return accepted_count;
 end;
-$;
+$$;
 
 alter table public.organisations enable row level security;
 alter table public.organisation_members enable row level security;
@@ -178,7 +178,7 @@ create policy org_read_member on public.organisations for select to authenticate
 
 create policy members_read_same_org on public.organisation_members for select to authenticated using (public.is_org_member(organisation_id));
 create policy invoices_read_member on public.invoices for select to authenticated using (public.is_org_member(organisation_id));
-create policy invoices_insert_finance on public.invoices for insert to authenticated with check (created_by=(select auth.uid()) and public.has_org_role(organisation_id,array['owner','admin','finance_manager']::public.member_role[]));
+create policy invoices_insert_finance on public.invoices for insert to authenticated with check (public.has_org_role(organisation_id,array['owner','admin','finance_manager']::public.member_role[]));
 create policy invoices_update_finance on public.invoices for update to authenticated using (public.has_org_role(organisation_id,array['owner','admin','finance_manager']::public.member_role[])) with check (created_by=(select auth.uid()) and public.has_org_role(organisation_id,array['owner','admin','finance_manager']::public.member_role[]));
 create policy invoices_delete_admin on public.invoices for delete to authenticated using (public.has_org_role(organisation_id,array['owner','admin']::public.member_role[]));
 create policy audit_read_admin on public.audit_events for select to authenticated using (public.has_org_role(organisation_id,array['owner','admin']::public.member_role[]));
