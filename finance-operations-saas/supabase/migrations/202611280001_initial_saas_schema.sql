@@ -109,7 +109,7 @@ declare org_id uuid; inv_id uuid; action_name text;
 begin
   if TG_OP='DELETE' then org_id:=old.organisation_id; inv_id:=old.id; action_name:='invoice.deleted';
   elsif TG_OP='INSERT' then org_id:=new.organisation_id; inv_id:=new.id; action_name:='invoice.created';
-  else org_id:=new.organisation_id; inv_id:=new.id; action_name:='invoice.updated'; new.updated_at:=now(); new.updated_by:=auth.uid();
+  else org_id:=new.organisation_id; inv_id:=new.id; action_name:='invoice.updated';
   end if;
   insert into public.audit_events(organisation_id,actor_id,entity_type,entity_id,action)
     values(org_id,auth.uid(),'invoice',inv_id,action_name);
@@ -198,5 +198,5 @@ revoke all on function public.get_my_organisation() from anon;
 
 commit;
 
-revoke all on function public.accept_my_pending_invitations() from anon;
+revoke all on function public.accept_my_pending_invitations() from public, anon;
 grant execute on function public.accept_my_pending_invitations() to authenticated;
