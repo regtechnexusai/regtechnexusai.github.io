@@ -1299,7 +1299,35 @@ footer .footer-inner .hub-footer-nav a:focus-visible{
   var printButton=document.getElementById('sample-report-print');
   var downloadButton=document.getElementById('sample-report-download');
   if(!report||!printButton||!downloadButton)return;
-  printButton.addEventListener('click',function(){window.print();});
+  printButton.addEventListener('click',function(){
+    /* Print an isolated report document so the shared site shell cannot enter the PDF. */
+    var printWindow=window.open('','_blank');
+    if(!printWindow){
+      window.alert('Please allow pop-ups for this site, then select Print / Save as PDF again.');
+      return;
+    }
+    var clone=report.cloneNode(true);
+    var actions=clone.querySelector('.sample-report-actions');
+    if(actions)actions.remove();
+    var headAssets=Array.from(document.querySelectorAll('link[rel="stylesheet"],style')).map(function(node){
+      if(node.tagName.toLowerCase()==='link')return '<link rel="stylesheet" href="'+node.href.replace(/&/g,'&amp;').replace(/"/g,'&quot;')+'">';
+      return node.outerHTML;
+    }).join('');
+    var isolated='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sample AI Governance Readiness Report — RegTech Nexus AI</title>'+headAssets+'</head><body><main id="main-content">'+clone.outerHTML+'</main></body></html>';
+    printWindow.document.open();
+    printWindow.document.write(isolated);
+    printWindow.document.close();
+    var didPrint=false;
+    function startPrint(){
+      if(didPrint||printWindow.closed)return;
+      didPrint=true;
+      printWindow.focus();
+      printWindow.print();
+    }
+    printWindow.addEventListener('load',startPrint,{once:true});
+    /* Some mobile browsers complete document.write before registering load. */
+    printWindow.setTimeout(startPrint,700);
+  });
   downloadButton.addEventListener('click',function(){
     var clone=report.cloneNode(true);
     var actions=clone.querySelector('.sample-report-actions');
