@@ -179,9 +179,17 @@ create policy org_read_member on public.organisations for select to authenticate
 create policy members_read_same_org on public.organisation_members for select to authenticated using (public.is_org_member(organisation_id));
 create policy invoices_read_member on public.invoices for select to authenticated using (public.is_org_member(organisation_id));
 create policy invoices_insert_finance on public.invoices for insert to authenticated with check (public.has_org_role(organisation_id,array['owner','admin','finance_manager']::public.member_role[]));
-create policy invoices_update_finance on public.invoices for update to authenticated using (public.has_org_role(organisation_id,array['owner','admin','finance_manager']::public.member_role[])) with check (created_by=(select auth.uid()) and public.has_org_role(organisation_id,array['owner','admin','finance_manager']::public.member_role[]));
+create policy invoices_update_finance on public.invoices for update to authenticated using (public.has_org_role(organisation_id,array['owner','admin','finance_manager']::public.member_role[])) with check (public.has_org_role(organisation_id,array['owner','admin','finance_manager']::public.member_role[]));
 create policy invoices_delete_admin on public.invoices for delete to authenticated using (public.has_org_role(organisation_id,array['owner','admin']::public.member_role[]));
 create policy audit_read_admin on public.audit_events for select to authenticated using (public.has_org_role(organisation_id,array['owner','admin']::public.member_role[]));
+
+revoke all on function public.is_org_member(uuid) from public, anon;
+revoke all on function public.has_org_role(uuid,public.member_role[]) from public, anon;
+revoke all on function public.create_my_organisation(text) from public, anon;
+revoke all on function public.get_my_organisation() from public, anon;
+revoke all on function public.accept_my_pending_invitations() from public, anon;
+revoke all on function public.audit_invoice_change() from public, anon;
+revoke all on function public.set_invoice_updated_at() from public, anon;
 
 grant usage on schema public to authenticated;
 grant select on public.organisations to authenticated;
