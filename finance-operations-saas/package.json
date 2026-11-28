@@ -1,0 +1,8 @@
+{
+  "name": "regtech-finance-operations-saas",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node --check app.js && node --check functions/api/config.js && node validate.mjs"
+  }
+}
